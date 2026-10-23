@@ -5,69 +5,70 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#071d49">
-  <title>Camino hacia Jesús | Catequesis La Salle del Sur</title>
+  <title>Camino hacia Jesús | La Salle del Sur</title>
 
   <style>
     * {
       box-sizing: border-box;
     }
 
-    html,
-    body {
+    html, body {
       margin: 0;
       width: 100%;
       min-height: 100%;
     }
 
     body {
-      min-height: 100vh;
-      min-height: 100dvh;
-      overflow-x: hidden;
-      background-color: #071d49;
-      background-image: url("./assets/PORTAL%20CATEQUESIS.png");
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: cover;
+      background: #071d49;
+      color: white;
       font-family: Arial, sans-serif;
+      overflow-x: hidden;
     }
 
-    .contenedor {
+    .pagina {
+      width: 100%;
       min-height: 100vh;
       min-height: 100dvh;
-      display: flex;
+      display: grid;
+      grid-template-columns: clamp(90px, 12vw, 155px) minmax(0, 1fr);
+      gap: clamp(10px, 1.5vw, 22px);
+      padding: clamp(8px, 1.2vw, 16px);
       align-items: center;
-      padding: 12px;
     }
 
+    /* MENÚ SEPARADO DE LA PORTADA */
     .menu {
-      width: 140px;
-      flex: 0 0 140px;
+      width: 100%;
       display: flex;
       flex-direction: column;
-      align-items: stretch;
-      gap: 9px;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(7px, 1.2vh, 13px);
+      padding: 10px 6px;
+      border: 1px solid rgba(226, 187, 91, 0.7);
+      border-radius: 18px;
+      background: linear-gradient(
+        145deg,
+        rgba(13, 40, 84, 0.94),
+        rgba(3, 15, 43, 0.96)
+      );
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.35);
     }
 
     .boton {
       display: block;
       width: 100%;
+      max-width: 135px;
       aspect-ratio: 1 / 1;
+      flex: 0 0 auto;
       padding: 2px;
       overflow: hidden;
+      border: 2px solid #d9b45c;
+      border-radius: 12px;
       background: #071d49;
-      border: 2px solid #d8b45a;
-      border-radius: 9px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-      transition: transform 0.15s ease;
-    }
-
-    .boton:hover {
-      transform: scale(1.03);
-    }
-
-    .boton:focus-visible {
-      outline: 3px solid white;
-      outline-offset: 3px;
+      box-shadow: 0 2px 7px rgba(0, 0, 0, 0.35);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .boton img {
@@ -75,48 +76,128 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
+      border-radius: 8px;
     }
 
-    @media (max-width: 600px) {
-      .contenedor {
-        padding: 7px;
+    .boton:hover {
+      transform: translateY(-2px) scale(1.025);
+      box-shadow: 0 0 13px rgba(255, 210, 105, 0.65);
+    }
+
+    .boton:active {
+      transform: scale(0.94);
+      box-shadow: 0 0 22px #ffd56a;
+    }
+
+    .boton:focus-visible {
+      outline: 3px solid white;
+      outline-offset: 3px;
+    }
+
+    /* PORTADA: IMAGEN COMPLETA, SIN DEFORMAR */
+    .zona-portada {
+      min-width: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .portada {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: calc(100dvh - 24px);
+      object-fit: contain;
+      border-radius: 5px;
+      box-shadow: 0 5px 22px rgba(0, 0, 0, 0.28);
+    }
+
+    /* BOTÓN ÚNICO DE SONIDO */
+    .mute {
+      position: fixed;
+      z-index: 10;
+      top: 12px;
+      right: 12px;
+      min-width: 76px;
+      padding: 9px 13px;
+      border: 1px solid #e5c46f;
+      border-radius: 22px;
+      color: #fff4d0;
+      background: rgba(5, 24, 59, 0.88);
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 0 2px 10px #0005;
+    }
+
+    .mute:hover {
+      background: #163b70;
+    }
+
+    /* PANTALLAS BAJAS */
+    @media (max-height: 650px) and (min-width: 601px) {
+      .pagina {
+        grid-template-columns: 100px minmax(0, 1fr);
+        gap: 10px;
+        padding: 6px;
       }
 
       .menu {
-        width: 82px;
-        flex-basis: 82px;
-        gap: 6px;
+        gap: 5px;
+        padding: 5px 4px;
       }
 
       .boton {
+        width: min(88px, calc((100dvh - 45px) / 5.8));
+        border-radius: 7px;
+      }
+    }
+
+    /* CELULARES */
+    @media (max-width: 600px) {
+      .pagina {
+        grid-template-columns: 76px minmax(0, 1fr);
+        gap: 7px;
+        padding: 6px;
+      }
+
+      .menu {
+        gap: clamp(5px, 1vh, 9px);
+        padding: 7px 4px;
+        border-radius: 12px;
+      }
+
+      .boton {
+        width: 100%;
         padding: 1px;
         border-width: 1px;
-        border-radius: 6px;
-      }
-    }
-
-    @media (max-width: 380px) {
-      .menu {
-        width: 72px;
-        flex-basis: 72px;
-        gap: 5px;
-      }
-    }
-
-    @media (min-width: 601px) and (max-height: 600px) {
-      .contenedor {
-        padding: 5px;
+        border-radius: 7px;
       }
 
-      .menu {
-        width: 95px;
-        flex-basis: 95px;
-        gap: 4px;
-      }
-
-      .boton {
+      .boton img {
         border-radius: 5px;
-        padding: 1px;
+      }
+
+      .portada {
+        max-height: calc(100dvh - 12px);
+      }
+
+      .mute {
+        top: 6px;
+        right: 6px;
+        min-width: 60px;
+        padding: 7px 9px;
+        font-size: 10px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .pagina {
+        grid-template-columns: 65px minmax(0, 1fr);
+        gap: 5px;
+        padding: 4px;
       }
     }
 
@@ -129,8 +210,28 @@
 </head>
 
 <body>
-  <main class="contenedor">
-    <nav class="menu" aria-label="Menú de catequesis">
+
+  <button
+    id="mute"
+    class="mute"
+    type="button"
+    aria-label="Silenciar música"
+    aria-pressed="false">
+    ♪ MUTE
+  </button>
+
+  <audio id="musica" autoplay loop preload="auto">
+    <source
+      src="./assets/Alma%20Misionera%20Athenas%20-%20M%C3%BAsica%20Cat%C3%B3lica.mp3"
+      type="audio/mpeg">
+    <source
+      src="./Alma%20Misionera%20Athenas%20-%20M%C3%BAsica%20Cat%C3%B3lica.mp3"
+      type="audio/mpeg">
+  </audio>
+
+  <main class="pagina">
+
+    <nav class="menu" aria-label="Secciones de catequesis">
 
       <a class="boton" href="./catequizandos.html"
          aria-label="Catequizandos">
@@ -163,6 +264,49 @@
       </a>
 
     </nav>
+
+    <section class="zona-portada" aria-label="Portada principal">
+      <img
+        class="portada"
+        src="./assets/PORTAL%20CATEQUESIS.png"
+        alt="Camino hacia Jesús, Catequesis del Colegio La Salle del Sur">
+    </section>
+
   </main>
+
+  <script>
+    const musica = document.getElementById("musica");
+    const mute = document.getElementById("mute");
+
+    function actualizarBoton() {
+      mute.textContent = musica.muted ? "♪ UNMUTE" : "♪ MUTE";
+      mute.setAttribute("aria-pressed", String(musica.muted));
+      mute.setAttribute(
+        "aria-label",
+        musica.muted ? "Activar sonido" : "Silenciar música"
+      );
+    }
+
+    mute.addEventListener("click", () => {
+      musica.muted = !musica.muted;
+
+      if (!musica.muted && musica.paused) {
+        musica.play().catch(() => {});
+      }
+
+      actualizarBoton();
+    });
+
+    window.addEventListener("load", () => {
+      musica.muted = false;
+      musica.volume = 0.45;
+      actualizarBoton();
+
+      musica.play().catch(() => {
+        /* Algunos navegadores bloquean el autoplay con sonido. */
+      });
+    });
+  </script>
+
 </body>
 </html>
