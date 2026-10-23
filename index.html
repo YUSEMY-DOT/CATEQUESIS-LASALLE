@@ -1,101 +1,177 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Camino hacia Jesús 2026</title>
-<style>
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;min-height:100%;background:#071d49}
-body{min-height:100vh;min-height:100dvh;overflow:hidden}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071d49">
+  <title>Camino hacia Jesús 2026 | Colegio La Salle del Sur</title>
 
-/* FONDO: PORTADA ORIGINAL */
-.fondo{
-position:fixed;
-inset:0;
-z-index:0;
-background:#071d49 url("./assets/PORTAL_CATEQUESIS.png") center center/contain no-repeat;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-/* BOTONES A LA IZQUIERDA, SIN TITULO NI PANEL */
-.botones{
-position:fixed;
-z-index:2;
-left:12px;
-top:50%;
-transform:translateY(-50%);
-width:clamp(76px,9vw,125px);
-display:flex;
-flex-direction:column;
-gap:8px;
-}
+    :root {
+      --azul: #071d49;
+      --dorado: #e8b947;
+    }
 
-.boton{
-display:block;
-width:100%;
-padding:0;
-margin:0;
-border:2px solid #e8b947;
-border-radius:9px;
-overflow:hidden;
-background:#071d49;
-box-shadow:0 2px 8px #0008;
-transition:transform .2s;
-}
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+    }
 
-.boton img{
-display:block;
-width:100%;
-height:auto;
-}
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--azul);
+    }
 
-.boton:hover{transform:scale(1.03)}
-.boton:focus-visible{outline:3px solid white;outline-offset:2px}
+    /* IMAGEN DE FONDO */
+    .fondo {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-color: var(--azul);
+      background-image: url("./assets/PORTAL%20CATEQUESIS.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
 
-@media(max-width:600px){
-.fondo{
-background-size:auto 100%;
-background-position:center center;
-}
-.botones{
-left:5px;
-width:clamp(62px,19vw,85px);
-gap:6px;
-}
-.boton{border-width:1px;border-radius:6px}
-}
+    /* BOTONES A LA IZQUIERDA */
+    .botones {
+      position: fixed;
+      z-index: 2;
+      top: 50%;
+      left: clamp(8px, 1.5vw, 24px);
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(8px, 1.2vh, 14px);
+      width: clamp(105px, 12vw, 175px);
+      max-height: 94dvh;
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
 
-@media(max-height:600px) and (min-width:601px){
-.botones{width:75px;gap:4px}
-}
-</style>
+    .botones::-webkit-scrollbar {
+      display: none;
+    }
+
+    .boton {
+      display: block;
+      width: 100%;
+      flex: 0 0 auto;
+      overflow: hidden;
+      border: 2px solid var(--dorado);
+      border-radius: 12px;
+      background: #071d49;
+      box-shadow: 0 3px 12px #0008;
+      transition: transform .2s, box-shadow .2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .boton img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .boton:hover {
+      transform: scale(1.035);
+      box-shadow: 0 0 16px #ffe08a;
+    }
+
+    .boton:focus-visible {
+      outline: 3px solid white;
+      outline-offset: 3px;
+    }
+
+    /* NO HAY CUADRO DE TÍTULO:
+       LA IMAGEN DE FONDO ES LA PORTADA */
+
+    @media (max-width: 700px) {
+      .fondo {
+        background-position: center;
+        background-size: cover;
+      }
+
+      .botones {
+        left: 7px;
+        width: clamp(82px, 25vw, 125px);
+        gap: 9px;
+      }
+
+      .boton {
+        border-width: 1.5px;
+        border-radius: 9px;
+      }
+    }
+
+    @media (max-height: 500px) and (min-width: 701px) {
+      .botones {
+        width: 100px;
+        gap: 5px;
+      }
+
+      .boton {
+        width: 85px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .boton {
+        transition: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
+  <div class="fondo" aria-hidden="true"></div>
 
-<div class="fondo" aria-hidden="true"></div>
+  <nav class="botones" aria-label="Portales de catequesis">
 
-<nav class="botones" aria-label="Portales de catequesis">
-<a class="boton" href="./catequizandos.html">
-<img src="./assets/BTN-CATEQUIS.png" alt="Catequizandos">
-</a>
+    <a class="boton"
+       href="./catequizandos.html"
+       aria-label="Catequizandos">
+      <img src="./assets/BTN-CATEQUIS.png"
+           alt="Catequizandos">
+    </a>
 
-<a class="boton" href="./misses.html">
-<img src="./assets/BTN_CATEQUISTAS.png" alt="Catequistas">
-</a>
+    <a class="boton"
+       href="./misses.html"
+       aria-label="Catequistas">
+      <img src="./assets/BTN_CATEQUISTAS.png"
+           alt="Catequistas">
+    </a>
 
-<a class="boton" href="./supervisores.html">
-<img src="./assets/BTN_COORDINADOR.png" alt="Coordinador Parroquial">
-</a>
+    <a class="boton"
+       href="./supervisores.html"
+       aria-label="Coordinador Parroquial">
+      <img src="./assets/BTN_COORDINADOR.png"
+           alt="Coordinador Parroquial">
+    </a>
 
-<a class="boton" href="./padres.html">
-<img src="./assets/BTN-PADRES.png" alt="Padres">
-</a>
+    <a class="boton"
+       href="./padres.html"
+       aria-label="Padres">
+      <img src="./assets/BTN-PADRES.png"
+           alt="Padres">
+    </a>
 
-<a class="boton" href="./programacion.html">
-<img src="./assets/BTN-PROGRAMACION.png" alt="Nuestra Programación">
-</a>
-</nav>
+    <a class="boton"
+       href="./programacion.html"
+       aria-label="Nuestra Programación">
+      <img src="./assets/BTN-PROGRAMACION.png"
+           alt="Nuestra Programación">
+    </a>
 
+  </nav>
 </body>
 </html>
