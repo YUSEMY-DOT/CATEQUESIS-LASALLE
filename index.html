@@ -7,49 +7,106 @@
   <title>Camino hacia Jesús 2026</title>
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
-    html, body {
-      margin: 0;
+    :root {
+      --azul: #071d49;
+      --dorado: #e8b947;
+      --crema: #fff7e5;
+    }
+
+    html {
       min-height: 100%;
-      background: #071d49;
     }
 
     body {
+      margin: 0;
+      min-height: 100vh;
       font-family: Georgia, "Times New Roman", serif;
+      color: var(--crema);
+      background-color: var(--azul);
+      background-image:
+        linear-gradient(
+          rgba(4, 19, 48, 0.12),
+          rgba(4, 19, 48, 0.28)
+        ),
+        url("./assets/PORTAL-CATEQUESIS.png");
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    .contenedor {
+      width: min(1500px, 100%);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 24px;
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      flex-direction: column;
     }
 
-    .portal {
-      width: 100%;
-      max-width: 1650px;
-      padding: 0;
+    .encabezado {
       text-align: center;
+      padding: 25px 15px;
+      border: 2px solid var(--dorado);
+      border-radius: 20px;
+      background: rgba(6, 21, 52, 0.82);
+      box-shadow: 0 0 24px #d9a82d55;
+      backdrop-filter: blur(3px);
     }
 
-    .portada {
-      display: block;
-      width: 100%;
-      height: auto;
-      border: 0;
+    .cruz {
+      color: #ffe29a;
+      font-size: clamp(42px, 6vw, 68px);
+      line-height: 1;
+      text-shadow: 0 0 18px #ffcf55;
+    }
+
+    h1 {
+      margin: 12px 0 8px;
+      color: #ffe3a0;
+      font-size: clamp(25px, 4vw, 48px);
+      text-shadow: 0 3px 5px #000;
+    }
+
+    .subtitulo {
+      margin: 4px 0;
+      font-size: clamp(14px, 2vw, 20px);
+      line-height: 1.5;
+    }
+
+    .separador {
+      width: 70%;
+      max-width: 500px;
+      height: 2px;
+      margin: 20px auto 0;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        var(--dorado),
+        transparent
+      );
     }
 
     .botones {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 18px;
-      padding: 24px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+      margin-top: 28px;
     }
 
     .boton {
       display: block;
-      border: 2px solid #e8b947;
-      border-radius: 16px;
       overflow: hidden;
-      background: #fff7e5;
-      transition: transform .2s, box-shadow .2s;
+      border: 3px solid var(--dorado);
+      border-radius: 18px;
+      background: rgba(7, 26, 60, 0.92);
+      box-shadow: 0 8px 20px #0008;
+      transition: transform 0.2s, box-shadow 0.2s;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .boton img {
@@ -59,55 +116,101 @@
     }
 
     .boton:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 0 20px #e8b94788;
+      transform: translateY(-5px);
+      box-shadow: 0 0 24px #f6d779aa;
+    }
+
+    .boton:focus-visible {
+      outline: 4px solid white;
+      outline-offset: 4px;
     }
 
     footer {
-      padding: 15px;
-      color: #ffe3a0;
+      margin-top: auto;
+      padding: 28px 10px 10px;
+      text-align: center;
+      color: #fff0c5;
+      font-size: 14px;
       line-height: 1.6;
+      text-shadow: 0 2px 5px #000;
     }
 
     @media (max-width: 800px) {
+      body {
+        background-attachment: scroll;
+      }
+
+      .contenedor {
+        padding: 14px;
+      }
+
       .botones {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-        padding: 12px;
+        gap: 15px;
+      }
+    }
+
+    @media (max-width: 440px) {
+      .contenedor {
+        padding: 10px;
+      }
+
+      .encabezado {
+        padding: 22px 10px;
+        border-radius: 15px;
+      }
+
+      .botones {
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .boton {
+        border-width: 2px;
+        border-radius: 12px;
       }
     }
   </style>
 </head>
 
 <body>
-  <main class="portal">
+  <main class="contenedor">
 
-    <img
-      class="portada"
-      src="assets/PORTAL%20CATEQUESIS.png"
-      alt="Camino hacia Jesús 2026 - Catequesis del Colegio La Salle del Sur"
-    >
+    <header class="encabezado">
+      <div class="cruz" aria-hidden="true">✝</div>
+      <h1>CAMINO HACIA JESÚS 2026</h1>
+      <p class="subtitulo">Programa de Catequesis – Primera Comunión</p>
+      <p class="subtitulo">Colegio La Salle del Sur</p>
+      <div class="separador"></div>
+    </header>
 
     <nav class="botones" aria-label="Portales principales">
 
-      <a class="boton" href="catequizandos.html" aria-label="Catequizandos">
-        <img src="assets/BTN-CATEQUIS.png" alt="Catequizandos">
+      <a class="boton" href="./catequizandos.html"
+         aria-label="Entrar a Catequizandos">
+        <img src="./assets/BTN-CATEQUIS.png" alt="Catequizandos">
       </a>
 
-      <a class="boton" href="misses.html" aria-label="Catequistas">
-        <img src="assets/BTN_CATEQUISTAS.png" alt="Catequistas">
+      <a class="boton" href="./misses.html"
+         aria-label="Entrar a Catequistas">
+        <img src="./assets/BTN_CATEQUISTAS.png" alt="Catequistas">
       </a>
 
-      <a class="boton" href="supervisores.html" aria-label="Coordinador parroquial">
-        <img src="assets/BTN_COORDINADOR.png" alt="Coordinador parroquial">
+      <a class="boton" href="./supervisores.html"
+         aria-label="Entrar a Coordinador Parroquial">
+        <img src="./assets/BTN_COORDINADOR.png"
+             alt="Coordinador Parroquial">
       </a>
 
-      <a class="boton" href="padres.html" aria-label="Padres">
-        <img src="assets/BTN-PADRES.png" alt="Padres">
+      <a class="boton" href="./padres.html"
+         aria-label="Entrar a Padres">
+        <img src="./assets/BTN-PADRES.png" alt="Padres">
       </a>
 
-      <a class="boton" href="#programacion" aria-label="Nuestra programación">
-        <img src="assets/BTN-PROGRAMACION.png" alt="Nuestra programación">
+      <a class="boton" href="./programacion.html"
+         aria-label="Ver Nuestra Programación">
+        <img src="./assets/BTN-PROGRAMACION.png"
+             alt="Nuestra Programación">
       </a>
 
     </nav>
