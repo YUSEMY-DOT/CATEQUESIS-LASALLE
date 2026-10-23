@@ -41,7 +41,7 @@
       align-items: center;
     }
 
-    /* MENÚ LATERAL */
+    /* MENÚ ORIGINAL */
     .menu {
       width: 100%;
       display: flex;
@@ -60,7 +60,6 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
     }
 
-    /* BOTONES ORIGINALES, TAMAÑO REDUCIDO */
     .boton {
       display: block;
       width: 96px;
@@ -73,9 +72,7 @@
       border-radius: 10px;
       background: #071d49;
       box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
-      transition:
-        transform 180ms ease,
-        box-shadow 180ms ease;
+      transition: transform 180ms ease, box-shadow 180ms ease;
       -webkit-tap-highlight-color: transparent;
     }
 
@@ -102,8 +99,9 @@
       outline-offset: 3px;
     }
 
-    /* PORTADA ORIGINAL */
+    /* PORTADA */
     .zona-portada {
+      position: relative;
       width: 100%;
       min-width: 0;
       display: flex;
@@ -121,7 +119,45 @@
       box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
     }
 
-    /* CONTROL ÚNICO DE MÚSICA */
+    /* FRASE ANIMADA SOBRE LA PORTADA */
+    .frase-mision {
+      position: absolute;
+      z-index: 4;
+      top: 5%;
+      left: 4%;
+      width: min(43%, 440px);
+      color: #ffe8a0;
+      font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      font-size: clamp(12px, 1.35vw, 19px);
+      font-style: italic;
+      font-weight: normal;
+      line-height: 1.65;
+      letter-spacing: 0.15px;
+      text-align: left;
+      text-shadow:
+        0 0 3px #fff4cf,
+        0 0 8px rgba(255, 213, 106, 0.95),
+        0 0 17px rgba(255, 190, 60, 0.7),
+        1px 2px 3px rgba(0, 0, 20, 0.9);
+      overflow-wrap: break-word;
+      pointer-events: none;
+    }
+
+    .cursor-escritura {
+      display: inline-block;
+      margin-left: 2px;
+      color: #fff4cf;
+      text-shadow: 0 0 8px #ffd56a;
+      animation: parpadeo 0.75s steps(1) infinite;
+    }
+
+    @keyframes parpadeo {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* BOTÓN MUTE */
     .mute {
       position: fixed;
       z-index: 20;
@@ -142,11 +178,6 @@
 
     .mute:hover {
       background: #163b70;
-    }
-
-    .mute:focus-visible {
-      outline: 2px solid white;
-      outline-offset: 3px;
     }
 
     /* PANTALLAS DE POCA ALTURA */
@@ -170,9 +201,14 @@
       .portada {
         max-height: calc(100dvh - 10px);
       }
+
+      .frase-mision {
+        font-size: clamp(11px, 1.2vw, 16px);
+        line-height: 1.5;
+      }
     }
 
-    /* CELULARES Y TABLETAS PEQUEÑAS */
+    /* CELULARES */
     @media (max-width: 600px) {
       .pagina {
         grid-template-columns: 74px minmax(0, 1fr);
@@ -201,6 +237,15 @@
         max-height: calc(100dvh - 10px);
       }
 
+      .frase-mision {
+        top: 5%;
+        left: 4%;
+        width: 54%;
+        font-size: clamp(9px, 2.5vw, 13px);
+        line-height: 1.45;
+        letter-spacing: 0;
+      }
+
       .mute {
         top: 6px;
         right: 6px;
@@ -210,7 +255,6 @@
       }
     }
 
-    /* CELULARES MUY ESTRECHOS */
     @media (max-width: 360px) {
       .pagina {
         grid-template-columns: 60px minmax(0, 1fr);
@@ -226,11 +270,20 @@
       .boton {
         width: 52px;
       }
+
+      .frase-mision {
+        font-size: 9px;
+        line-height: 1.4;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
       .boton {
         transition: none;
+      }
+
+      .cursor-escritura {
+        animation: none;
       }
     }
   </style>
@@ -263,59 +316,59 @@
       <a class="boton"
          href="./catequizandos.html"
          aria-label="Catequizandos">
-        <img
-          src="./assets/BTN-CATEQUIS.png"
-          alt="Catequizandos">
+        <img src="./assets/BTN-CATEQUIS.png"
+             alt="Catequizandos">
       </a>
 
       <a class="boton"
          href="./misses.html"
          aria-label="Catequistas">
-        <img
-          src="./assets/BTN_CATEQUISTAS.png"
-          alt="Catequistas">
+        <img src="./assets/BTN_CATEQUISTAS.png"
+             alt="Catequistas">
       </a>
 
       <a class="boton"
          href="./supervisores.html"
          aria-label="Coordinador parroquial">
-        <img
-          src="./assets/BTN_COORDINADOR.png"
-          alt="Coordinador parroquial">
+        <img src="./assets/BTN_COORDINADOR.png"
+             alt="Coordinador parroquial">
       </a>
 
       <a class="boton"
          href="./padres.html"
          aria-label="Padres">
-        <img
-          src="./assets/BTN-PADRES.png"
-          alt="Padres">
+        <img src="./assets/BTN-PADRES.png"
+             alt="Padres">
       </a>
 
       <a class="boton"
          href="./programacion.html"
          aria-label="Nuestra programación">
-        <img
-          src="./assets/BTN-PROGRAMACION.png"
-          alt="Nuestra programación">
+        <img src="./assets/BTN-PROGRAMACION.png"
+             alt="Nuestra programación">
       </a>
 
     </nav>
 
-    <section
-      class="zona-portada"
-      aria-label="Portada principal de catequesis">
+    <section class="zona-portada" aria-label="Portada principal">
 
       <img
         class="portada"
         src="./assets/PORTAL%20CATEQUESIS.png"
         alt="Camino hacia Jesús — Catequesis del Colegio La Salle del Sur">
 
+      <div class="frase-mision" aria-label="Misión de catequesis">
+        <span id="fraseAnimada"></span><span
+          id="cursorEscritura"
+          class="cursor-escritura">|</span>
+      </div>
+
     </section>
 
   </main>
 
   <script>
+    /* MÚSICA */
     const musica = document.getElementById("musica");
     const botonMute = document.getElementById("mute");
 
@@ -353,8 +406,38 @@
       actualizarControl();
 
       musica.play().catch(() => {
-        /* El navegador puede bloquear la reproducción automática. */
+        /* El navegador puede bloquear el autoplay con sonido. */
       });
+    });
+
+    /* EFECTO DE ESCRITURA DE LA FRASE */
+    const frase =
+      "Guiamos sus primeros pasos en la fe, acompañamos sus corazones hacia Jesús y sembramos en sus vidas el amor de Dios, para que cada sacramento sea el comienzo de una historia de fe que los acompañe por siempre.";
+
+    const textoAnimado = document.getElementById("fraseAnimada");
+    const cursor = document.getElementById("cursorEscritura");
+
+    let posicion = 0;
+    let temporizadorEscritura;
+
+    function escribirFrase() {
+      if (posicion < frase.length) {
+        textoAnimado.textContent += frase.charAt(posicion);
+        posicion++;
+
+        temporizadorEscritura = window.setTimeout(
+          escribirFrase,
+          38
+        );
+      } else {
+        cursor.style.display = "none";
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      textoAnimado.textContent = "";
+      posicion = 0;
+      escribirFrase();
     });
   </script>
 
