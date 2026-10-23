@@ -1,8 +1,7 @@
-
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <base target="_top">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Camino hacia Jesús 2026</title>
@@ -10,80 +9,47 @@
   <style>
     * { box-sizing: border-box; }
 
-    :root {
-      --azul: #071d49;
-      --dorado: #e8b947;
-      --crema: #fff7e5;
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: #071d49;
     }
 
     body {
-      margin: 0;
-      min-height: 100vh;
       font-family: Georgia, "Times New Roman", serif;
-      color: var(--crema);
-      background:
-        radial-gradient(ellipse at top, #174a83 0%, var(--azul) 65%);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
     }
 
-    .contenedor {
-      width: min(1500px, 100%);
-      margin: auto;
-      padding: 24px;
-    }
-
-    .encabezado {
+    .portal {
+      width: 100%;
+      max-width: 1650px;
+      padding: 0;
       text-align: center;
-      padding: 30px 15px;
-      border: 2px solid var(--dorado);
-      border-radius: 20px;
-      background: linear-gradient(135deg, #102e61, #061534);
-      box-shadow: 0 0 24px #d9a82d55;
     }
 
-    .cruz {
-      color: #ffe29a;
-      font-size: clamp(42px, 7vw, 76px);
-      line-height: 1;
-      text-shadow: 0 0 18px #ffcf55;
-    }
-
-    h1 {
-      margin: 12px 0 8px;
-      color: #ffe3a0;
-      font-size: clamp(25px, 4vw, 48px);
-      text-shadow: 0 3px 5px #000;
-    }
-
-    .subtitulo {
-      margin: 0;
-      font-size: clamp(14px, 2vw, 20px);
-      line-height: 1.5;
-    }
-
-    .separador {
-      width: 70%;
-      max-width: 500px;
-      height: 2px;
-      margin: 22px auto 0;
-      background: linear-gradient(90deg, transparent, var(--dorado), transparent);
+    .portada {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 0;
     }
 
     .botones {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 24px;
-      margin-top: 28px;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 18px;
+      padding: 24px;
     }
 
     .boton {
       display: block;
+      border: 2px solid #e8b947;
+      border-radius: 16px;
       overflow: hidden;
-      border: 3px solid var(--dorado);
-      border-radius: 18px;
-      background: #071a3c;
-      box-shadow: 0 8px 18px #0005;
+      background: #fff7e5;
       transition: transform .2s, box-shadow .2s;
-      -webkit-tap-highlight-color: transparent;
     }
 
     .boton img {
@@ -93,73 +59,55 @@
     }
 
     .boton:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 24px #f6d77988;
-    }
-
-    .boton:focus-visible {
-      outline: 4px solid white;
-      outline-offset: 4px;
+      transform: translateY(-4px);
+      box-shadow: 0 0 20px #e8b94788;
     }
 
     footer {
-      padding: 28px 10px 10px;
-      text-align: center;
-      color: #f3dca2;
-      font-size: 14px;
+      padding: 15px;
+      color: #ffe3a0;
       line-height: 1.6;
     }
 
     @media (max-width: 800px) {
-      .contenedor { padding: 14px; }
-      .botones { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px; }
-    }
-
-    @media (max-width: 440px) {
-      .contenedor { padding: 10px; }
-      .encabezado { padding: 22px 10px; }
-      .botones { gap: 10px; }
-      .boton { border-width: 2px; border-radius: 12px; }
+      .botones {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        padding: 12px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <main class="contenedor">
+  <main class="portal">
 
-    <header class="encabezado">
-      <div class="cruz" aria-hidden="true">✝</div>
-      <h1>CAMINO HACIA JESÚS 2026</h1>
-      <p class="subtitulo">Programa de Catequesis – Primera Comunión</p>
-      <p class="subtitulo">Colegio La Salle del Sur</p>
-      <div class="separador"></div>
-    </header>
+    <img
+      class="portada"
+      src="assets/PORTAL%20CATEQUESIS.png"
+      alt="Camino hacia Jesús 2026 - Catequesis del Colegio La Salle del Sur"
+    >
 
     <nav class="botones" aria-label="Portales principales">
 
-      <a class="boton" href="?p=catequizandos" aria-label="Entrar a Catequizandos">
-        <img src="https://yusemy-dot.github.io/CATEQUESIS-LASALLE/assets/BTN-CATEQUIS.png"
-             alt="Catequizandos">
+      <a class="boton" href="catequizandos.html" aria-label="Catequizandos">
+        <img src="assets/BTN-CATEQUIS.png" alt="Catequizandos">
       </a>
 
-      <a class="boton" href="?p=misses" aria-label="Entrar a Catequistas">
-        <img src="https://yusemy-dot.github.io/CATEQUESIS-LASALLE/assets/BTN_CATEQUISTAS.png"
-             alt="Catequistas">
+      <a class="boton" href="misses.html" aria-label="Catequistas">
+        <img src="assets/BTN_CATEQUISTAS.png" alt="Catequistas">
       </a>
 
-      <a class="boton" href="?p=supervisores" aria-label="Entrar a Coordinador Parroquial">
-        <img src="https://yusemy-dot.github.io/CATEQUESIS-LASALLE/assets/BTN_COORDINADOR.png"
-             alt="Coordinador Parroquial">
+      <a class="boton" href="supervisores.html" aria-label="Coordinador parroquial">
+        <img src="assets/BTN_COORDINADOR.png" alt="Coordinador parroquial">
       </a>
 
-      <a class="boton" href="?p=padres" aria-label="Entrar a Padres">
-        <img src="https://yusemy-dot.github.io/CATEQUESIS-LASALLE/assets/BTN-PADRES.png"
-             alt="Padres">
+      <a class="boton" href="padres.html" aria-label="Padres">
+        <img src="assets/BTN-PADRES.png" alt="Padres">
       </a>
 
-      <a class="boton" href="?p=programacion" aria-label="Ver Nuestra Programación">
-        <img src="https://yusemy-dot.github.io/CATEQUESIS-LASALLE/assets/BTN-PROGRAMACION.png"
-             alt="Nuestra Programación">
+      <a class="boton" href="#programacion" aria-label="Nuestra programación">
+        <img src="assets/BTN-PROGRAMACION.png" alt="Nuestra programación">
       </a>
 
     </nav>
@@ -172,4 +120,4 @@
   </main>
 </body>
 </html>
-
+```
