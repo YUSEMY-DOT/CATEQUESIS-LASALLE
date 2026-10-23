@@ -1,1 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Supervisión Pastoral - Camino hacia Jesús 2026</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, sans-serif; }
+    .header-supervision { background: linear-gradient(135deg, #8b0000 0%, #d9534f 100%); color: white; padding: 25px 20px; border-radius: 0 0 20px 20px; }
+    .card-metric { border: none; border-radius: 12px; }
+  </style>
+</head>
+<body>
 
+  <!-- Encabezado de Supervisión -->
+  <header class="header-supervision shadow-sm mb-4">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div>
+        <span class="badge bg-warning text-dark mb-1">PARROQUIA SAN PEDRO DE LURÍN</span>
+        <h2 class="fw-bold m-0">✝️ Panel de Supervisión Pastoral</h2>
+        <small class="opacity-75">Asesor Espiritual: P. Carlos Retamoso · Colegio La Salle del Sur</small>
+      </div>
+      <a href="<?= ScriptApp.getService().getUrl() ?>" class="btn btn-outline-light btn-sm rounded-pill px-3">⬅️ Salir a Portada</a>
+    </div>
+  </header>
+
+  <main class="container mb-5">
+
+    <!-- Indicadores Rápidos -->
+    <div class="row g-3 mb-4">
+      <div class="col-md-3">
+        <div class="card card-metric bg-white p-3 shadow-sm border-start border-4 border-primary">
+          <small class="text-muted fw-bold">TOTAL SESIONES</small>
+          <h3 class="fw-bold m-0 text-primary" id="lblSesiones">19</h3>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card card-metric bg-white p-3 shadow-sm border-start border-4 border-warning">
+          <small class="text-muted fw-bold">PENDIENTES DE REVISIÓN</small>
+          <h3 class="fw-bold m-0 text-warning" id="lblPendientes">0</h3>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card card-metric bg-white p-3 shadow-sm border-start border-4 border-success">
+          <small class="text-muted fw-bold">CLASES APROBADAS</small>
+          <h3 class="fw-bold m-0 text-success" id="lblAprobadas">0</h3>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card card-metric bg-white p-3 shadow-sm border-start border-4 border-info">
+          <small class="text-muted fw-bold">CATEQUIZANDOS</small>
+          <h3 class="fw-bold m-0 text-info" id="lblCatequizandos">0</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección de Revisión de Clases -->
+    <div class="card border-0 shadow-sm rounded-3">
+      <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+        <h5 class="fw-bold text-dark m-0">📋 Planificación y Temas de Clase</h5>
+        <button class="btn btn-sm btn-outline-secondary" onclick="cargarDatos()">🔄 Actualizar Listado</button>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>N°</th>
+                <th>Tema / Sesión</th>
+                <th>Bloque</th>
+                <th>Catequista</th>
+                <th>Estado Supervisión</th>
+                <th class="text-end">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tablaClases">
+              <tr>
+                <td colspan="6" class="text-center py-4 text-muted">Cargando clases desde el sistema...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Modal para Observaciones o Aprobación -->
+  <div class="modal fade" id="modalRevision" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title fw-bold">✝️ Autorización Pastoral</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <input type="hidden" id="modalIdClase">
+          <div class="mb-3">
+            <label class="form-label fw-bold">Estado de Autorización:</label>
+            <select id="selectEstado" class="form-select">
+              <option value="Aprobado">✅ Aprobar Tema / Material</option>
+              <option value="Observado">⚠️ Dejar Observaciones</option>
+              <option value="Pendiente">⏳ En Revisión</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-bold">Observaciones del Párroco:</label>
+            <textarea id="txtObservaciones" class="form-control" rows="3" placeholder="Escriba aquí alguna sugerencia o comentario pastoral..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer bg-light">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger btn-sm px-3" onclick="guardarSupervision()">Guardar Decisión</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let modalRef;
+
+    document.addEventListener("DOMContentLoaded", function() {
+      modalRef = new bootstrap.Modal(document.getElementById('modalRevision'));
+      cargarDatos();
+    });
+
+    function cargarDatos() {
+      google.script.run.withSuccessHandler(function(data) {
+        document.getElementById('lblCatequizandos').innerText = data.catequizandos ? data.catequizandos.length : 0;
+        
+        const clases = data.clases || [];
+        const tbody = document.getElementById('tablaClases');
+        tbody.innerHTML = '';
+
+        if (clases.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">No hay clases registradas aún.</td></tr>';
+          return;
+        }
+
+        let aprobadas = 0;
+        let pendientes = 0;
+
+        clases.forEach(function(c, index) {
+          const estado = c.ESTADO_SUPERVISION || 'Pendiente';
+          if (estado === 'Aprobado') aprobadas++;
+          if (estado === 'Pendiente') pendientes++;
+
+          let badgeClass = 'bg-warning text-dark';
+          if (estado === 'Aprobado') badgeClass = 'bg-success';
+          if (estado === 'Observado') badgeClass = 'bg-danger';
+
+          tbody.innerHTML += `
+            <tr>
+              <td class="fw-bold">${index + 1}</td>
+              <td>
+                <div class="fw-bold">${c.TEMA_REALIZADO || 'Tema no especificado'}</div>
+                <small class="text-muted">Fecha: ${c.FECHA || 'Sin fecha'}</small>
+              </td>
+              <td><small class="text-muted">${c.BLOQUE || 'General'}</small></td>
+              <td><small>${c.CATEQUISTA_RESPONSABLE || 'Por asignar'}</small></td>
+              <td><span class="badge ${badgeClass}">${estado}</span></td>
+              <td class="text-end">
+                <button class="btn btn-sm btn-outline-danger" onclick="abrirModal('${c.ID_CLASE}', '${estado}', '${c.OBSERVACIONES || ''}')">Revisar</button>
+              </td>
+            </tr>
+          `;
+        });
+
+        document.getElementById('lblAprobadas').innerText = aprobadas;
+        document.getElementById('lblPendientes').innerText = pendientes;
+
+      }).getAppData();
+    }
+
+    function abrirModal(idClase, estadoActual, obsActual) {
+      document.getElementById('modalIdClase').value = idClase;
+      document.getElementById('selectEstado').value = estadoActual;
+      document.getElementById('txtObservaciones').value = obsActual;
+      modalRef.show();
+    }
+
+    function guardarSupervision() {
+      const idClase = document.getElementById('modalIdClase').value;
+      const nuevoEstado = document.getElementById('selectEstado').value;
+      const obs = document.getElementById('txtObservaciones').value;
+
+      google.script.run.withSuccessHandler(function(res) {
+        alert(res.mensaje);
+        modalRef.hide();
+        cargarDatos();
+      }).cambiarEstadoSupervisionClase(idClase, nuevoEstado, obs);
+    }
+  </script>
+</body>
+</html>
