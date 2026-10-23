@@ -1,38 +1,75 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#071d49">
+<title>Camino hacia Jesús 2026</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  background: #071d49;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+/* FONDO COMPLETO */
 .fondo {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   background-image: url("./assets/PORTAL_CATEQUESIS.png");
   background-position: center;
-  background-size: cover;
   background-repeat: no-repeat;
+  background-size: contain;
+  background-color: #071d49;
+  pointer-events: none;
 }
 
+/* COLUMNA DE BOTONES A LA IZQUIERDA */
 .contenedor {
+  position: relative;
+  z-index: 1;
   min-height: 100vh;
-  padding: 12px;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  padding: 10px;
+  pointer-events: none;
 }
 
 .botones {
+  width: clamp(75px, 9vw, 125px);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-  width: clamp(85px, 11vw, 145px);
-  margin-left: 0;
+  align-items: stretch;
+  gap: 9px;
+  pointer-events: auto;
 }
 
 .boton {
   display: block;
   width: 100%;
+  padding: 0;
   overflow: hidden;
   border: 2px solid #e8b947;
   border-radius: 10px;
-  background: transparent;
-  box-shadow: 0 3px 8px #0005;
+  background: #071d49;
+  box-shadow: 0 2px 7px rgba(0,0,0,.55);
+  transition: transform .18s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .boton img {
@@ -40,3 +77,94 @@
   width: 100%;
   height: auto;
 }
+
+.boton:hover {
+  transform: scale(1.03);
+}
+
+.boton:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 2px;
+}
+
+/* TABLETA */
+@media (min-width: 601px) and (max-width: 900px) {
+  .botones {
+    width: 100px;
+    gap: 8px;
+  }
+}
+
+/* CELULAR */
+@media (max-width: 600px) {
+  .fondo {
+    background-size: auto 100%;
+    background-position: center;
+  }
+
+  .contenedor {
+    padding: 6px;
+  }
+
+  .botones {
+    width: 76px;
+    gap: 6px;
+  }
+
+  .boton {
+    border-width: 1px;
+    border-radius: 7px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boton {
+    transition: none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="fondo" aria-hidden="true"></div>
+
+<main class="contenedor">
+  <nav class="botones" aria-label="Portales de catequesis">
+
+    <a class="boton" href="./catequizandos.html"
+       aria-label="Catequizandos">
+      <img src="./assets/BTN-CATEQUIS.png"
+           alt="Catequizandos">
+    </a>
+
+    <a class="boton" href="./misses.html"
+       aria-label="Catequistas">
+      <img src="./assets/BTN_CATEQUISTAS.png"
+           alt="Catequistas">
+    </a>
+
+    <a class="boton" href="./supervisores.html"
+       aria-label="Coordinador Parroquial">
+      <img src="./assets/BTN_COORDINADOR.png"
+           alt="Coordinador Parroquial">
+    </a>
+
+    <a class="boton" href="./padres.html"
+       aria-label="Padres">
+      <img src="./assets/BTN-PADRES.png"
+           alt="Padres">
+    </a>
+
+    <a class="boton" href="./programacion.html"
+       aria-label="Nuestra Programación">
+      <img src="./assets/BTN-PROGRAMACION.png"
+           alt="Nuestra Programación">
+    </a>
+
+  </nav>
+</main>
+
+</body>
+</html>
+```
