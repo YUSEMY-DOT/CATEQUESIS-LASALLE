@@ -1,1 +1,51 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Camino hacia Jesús 2026</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#061b42;font-family:Georgia,serif;color:white}
+main{max-width:1500px;margin:auto;padding:18px}
+h1{text-align:center;color:#ffe19a;text-shadow:0 2px 8px #b47700;margin:12px 0 24px}
+.portada{width:100%;display:block;border:3px solid #dcae3f;border-radius:16px;box-shadow:0 0 25px #d5a83b}
+.botones{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:25px}
+.boton{display:block;border:2px solid #d6a73a;border-radius:16px;overflow:hidden;background:#061b42;transition:transform .2s,box-shadow .2s}
+.boton:hover{transform:translateY(-5px);box-shadow:0 0 20px #e9c15a}
+.boton img{display:block;width:100%;height:auto}
+@media(max-width:750px){main{padding:10px}.botones{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}h1{font-size:22px}}
+@media(max-width:420px){.botones{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+<h1>CAMINO HACIA JESÚS 2026</h1>
+
+<img class="portada"
+src="https://YUSEMY-DOT.github.io/CATEQUESIS-LASALLE/assets/portada.png"
+alt="Portada Camino hacia Jesús 2026"
+onerror="this.style.display='none'">
+
+<section class="botones">
+<a class="boton" href="https://script.google.com/macros/s/ID_DE_TU_APLICACION/exec?p=catequizandos">
+<img src="https://YUSEMY-DOT.github.io/CATEQUESIS-LASALLE/assets/BTN-CATEQUIS.png" alt="Catequizandos">
+</a>
+<a class="boton" href="https://script.google.com/macros/s/ID_DE_TU_APLICACION/exec?p=misses">
+<img src="https://YUSEMY-DOT.github.io/CATEQUESIS-LASALLE/assets/BTN_CATEQUISTAS.png" alt="Catequistas">
+</a>
+<a class="boton" href="https://script.google.com/macros/s/ID_DE_TU_APLICACION/exec?p=supervisores">
+<img src="https://YUSEMY-DOT.github.io/CATEQUESIS-LASALLE/assets/BTN_COORDINADOR.png" alt="Coordinador Parroquial">
+</a>
+<a class="boton" href="https://script.google.com/macros/s/ID_DE_TU_APLICACION/exec?p=padres">
+<img src="https://YUSEMY-DOT.github.io/CATEQUESIS-LASALLE/assets/BTN-PADRES.png" alt="Padres">
+</a>
+<a class="boton" href="https://script.google.com/macros/s/ID_DE_TU_APLICACION/exec?p=programacion">
+<img src="https://YUSEMY-DOT.github.io/CATEQUESIS-LASALLE/assets/BTN-PROGRAMACION.png" alt="Nuestra Programación">
+</a>
+</section>
+</main>
+</body>
+</html>
+
