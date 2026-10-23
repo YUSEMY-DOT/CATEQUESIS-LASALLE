@@ -5,69 +5,77 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#071d49">
-  <title>Camino hacia Jesús | La Salle del Sur</title>
+
+  <title>Camino hacia Jesús | Catequesis La Salle del Sur</title>
 
   <style>
     * {
       box-sizing: border-box;
     }
 
-    html, body {
+    html,
+    body {
       margin: 0;
       width: 100%;
       min-height: 100%;
     }
 
     body {
+      min-height: 100vh;
+      min-height: 100dvh;
       background: #071d49;
       color: white;
       font-family: Arial, sans-serif;
       overflow-x: hidden;
     }
 
+    /* DISTRIBUCIÓN PRINCIPAL */
     .pagina {
       width: 100%;
       min-height: 100vh;
       min-height: 100dvh;
       display: grid;
-      grid-template-columns: clamp(90px, 12vw, 155px) minmax(0, 1fr);
-      gap: clamp(10px, 1.5vw, 22px);
-      padding: clamp(8px, 1.2vw, 16px);
+      grid-template-columns: 112px minmax(0, 1fr);
+      gap: 18px;
+      padding: 8px;
       align-items: center;
     }
 
-    /* MENÚ SEPARADO DE LA PORTADA */
+    /* MENÚ LATERAL */
     .menu {
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: clamp(7px, 1.2vh, 13px);
-      padding: 10px 6px;
-      border: 1px solid rgba(226, 187, 91, 0.7);
-      border-radius: 18px;
+      gap: 9px;
+      padding: 8px 5px;
+      border: 1px solid rgba(226, 187, 91, 0.65);
+      border-radius: 15px;
       background: linear-gradient(
         145deg,
         rgba(13, 40, 84, 0.94),
         rgba(3, 15, 43, 0.96)
       );
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
     }
 
+    /* BOTONES ORIGINALES, TAMAÑO REDUCIDO */
     .boton {
       display: block;
-      width: 100%;
-      max-width: 135px;
+      width: 96px;
+      max-width: 100%;
       aspect-ratio: 1 / 1;
       flex: 0 0 auto;
       padding: 2px;
       overflow: hidden;
       border: 2px solid #d9b45c;
-      border-radius: 12px;
+      border-radius: 10px;
       background: #071d49;
-      box-shadow: 0 2px 7px rgba(0, 0, 0, 0.35);
-      transition: transform 180ms ease, box-shadow 180ms ease;
+      box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
+      transition:
+        transform 180ms ease,
+        box-shadow 180ms ease;
       -webkit-tap-highlight-color: transparent;
     }
 
@@ -76,17 +84,17 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      border-radius: 8px;
+      border-radius: 6px;
     }
 
     .boton:hover {
-      transform: translateY(-2px) scale(1.025);
-      box-shadow: 0 0 13px rgba(255, 210, 105, 0.65);
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 0 12px rgba(255, 210, 105, 0.7);
     }
 
     .boton:active {
       transform: scale(0.94);
-      box-shadow: 0 0 22px #ffd56a;
+      box-shadow: 0 0 20px #ffd56a;
     }
 
     .boton:focus-visible {
@@ -94,10 +102,10 @@
       outline-offset: 3px;
     }
 
-    /* PORTADA: IMAGEN COMPLETA, SIN DEFORMAR */
+    /* PORTADA ORIGINAL */
     .zona-portada {
-      min-width: 0;
       width: 100%;
+      min-width: 0;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -107,70 +115,79 @@
       display: block;
       width: 100%;
       height: auto;
-      max-height: calc(100dvh - 24px);
+      max-height: calc(100dvh - 16px);
       object-fit: contain;
       border-radius: 5px;
-      box-shadow: 0 5px 22px rgba(0, 0, 0, 0.28);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
     }
 
-    /* BOTÓN ÚNICO DE SONIDO */
+    /* CONTROL ÚNICO DE MÚSICA */
     .mute {
       position: fixed;
-      z-index: 10;
+      z-index: 20;
       top: 12px;
       right: 12px;
       min-width: 76px;
       padding: 9px 13px;
       border: 1px solid #e5c46f;
-      border-radius: 22px;
+      border-radius: 24px;
       color: #fff4d0;
-      background: rgba(5, 24, 59, 0.88);
+      background: rgba(5, 24, 59, 0.9);
       font-size: 12px;
       font-weight: bold;
       letter-spacing: 1px;
       cursor: pointer;
-      box-shadow: 0 2px 10px #0005;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
     .mute:hover {
       background: #163b70;
     }
 
-    /* PANTALLAS BAJAS */
+    .mute:focus-visible {
+      outline: 2px solid white;
+      outline-offset: 3px;
+    }
+
+    /* PANTALLAS DE POCA ALTURA */
     @media (max-height: 650px) and (min-width: 601px) {
       .pagina {
-        grid-template-columns: 100px minmax(0, 1fr);
-        gap: 10px;
-        padding: 6px;
+        grid-template-columns: 94px minmax(0, 1fr);
+        gap: 12px;
+        padding: 5px;
       }
 
       .menu {
         gap: 5px;
-        padding: 5px 4px;
+        padding: 5px 3px;
       }
 
       .boton {
-        width: min(88px, calc((100dvh - 45px) / 5.8));
+        width: 80px;
         border-radius: 7px;
+      }
+
+      .portada {
+        max-height: calc(100dvh - 10px);
       }
     }
 
-    /* CELULARES */
+    /* CELULARES Y TABLETAS PEQUEÑAS */
     @media (max-width: 600px) {
       .pagina {
-        grid-template-columns: 76px minmax(0, 1fr);
+        grid-template-columns: 74px minmax(0, 1fr);
         gap: 7px;
-        padding: 6px;
+        padding: 5px;
       }
 
       .menu {
-        gap: clamp(5px, 1vh, 9px);
-        padding: 7px 4px;
-        border-radius: 12px;
+        gap: 6px;
+        padding: 5px 3px;
+        border-radius: 10px;
       }
 
       .boton {
-        width: 100%;
+        width: 64px;
         padding: 1px;
         border-width: 1px;
         border-radius: 7px;
@@ -181,7 +198,7 @@
       }
 
       .portada {
-        max-height: calc(100dvh - 12px);
+        max-height: calc(100dvh - 10px);
       }
 
       .mute {
@@ -193,11 +210,21 @@
       }
     }
 
+    /* CELULARES MUY ESTRECHOS */
     @media (max-width: 360px) {
       .pagina {
-        grid-template-columns: 65px minmax(0, 1fr);
+        grid-template-columns: 60px minmax(0, 1fr);
         gap: 5px;
         padding: 4px;
+      }
+
+      .menu {
+        gap: 5px;
+        padding: 4px 2px;
+      }
+
+      .boton {
+        width: 52px;
       }
     }
 
@@ -233,77 +260,100 @@
 
     <nav class="menu" aria-label="Secciones de catequesis">
 
-      <a class="boton" href="./catequizandos.html"
+      <a class="boton"
+         href="./catequizandos.html"
          aria-label="Catequizandos">
-        <img src="./assets/BTN-CATEQUIS.png"
-             alt="Catequizandos">
+        <img
+          src="./assets/BTN-CATEQUIS.png"
+          alt="Catequizandos">
       </a>
 
-      <a class="boton" href="./misses.html"
+      <a class="boton"
+         href="./misses.html"
          aria-label="Catequistas">
-        <img src="./assets/BTN_CATEQUISTAS.png"
-             alt="Catequistas">
+        <img
+          src="./assets/BTN_CATEQUISTAS.png"
+          alt="Catequistas">
       </a>
 
-      <a class="boton" href="./supervisores.html"
+      <a class="boton"
+         href="./supervisores.html"
          aria-label="Coordinador parroquial">
-        <img src="./assets/BTN_COORDINADOR.png"
-             alt="Coordinador parroquial">
+        <img
+          src="./assets/BTN_COORDINADOR.png"
+          alt="Coordinador parroquial">
       </a>
 
-      <a class="boton" href="./padres.html"
+      <a class="boton"
+         href="./padres.html"
          aria-label="Padres">
-        <img src="./assets/BTN-PADRES.png"
-             alt="Padres">
+        <img
+          src="./assets/BTN-PADRES.png"
+          alt="Padres">
       </a>
 
-      <a class="boton" href="./programacion.html"
+      <a class="boton"
+         href="./programacion.html"
          aria-label="Nuestra programación">
-        <img src="./assets/BTN-PROGRAMACION.png"
-             alt="Nuestra programación">
+        <img
+          src="./assets/BTN-PROGRAMACION.png"
+          alt="Nuestra programación">
       </a>
 
     </nav>
 
-    <section class="zona-portada" aria-label="Portada principal">
+    <section
+      class="zona-portada"
+      aria-label="Portada principal de catequesis">
+
       <img
         class="portada"
         src="./assets/PORTAL%20CATEQUESIS.png"
-        alt="Camino hacia Jesús, Catequesis del Colegio La Salle del Sur">
+        alt="Camino hacia Jesús — Catequesis del Colegio La Salle del Sur">
+
     </section>
 
   </main>
 
   <script>
     const musica = document.getElementById("musica");
-    const mute = document.getElementById("mute");
+    const botonMute = document.getElementById("mute");
 
-    function actualizarBoton() {
-      mute.textContent = musica.muted ? "♪ UNMUTE" : "♪ MUTE";
-      mute.setAttribute("aria-pressed", String(musica.muted));
-      mute.setAttribute(
+    function actualizarControl() {
+      botonMute.textContent = musica.muted
+        ? "♪ UNMUTE"
+        : "♪ MUTE";
+
+      botonMute.setAttribute(
+        "aria-pressed",
+        String(musica.muted)
+      );
+
+      botonMute.setAttribute(
         "aria-label",
-        musica.muted ? "Activar sonido" : "Silenciar música"
+        musica.muted
+          ? "Activar sonido"
+          : "Silenciar música"
       );
     }
 
-    mute.addEventListener("click", () => {
+    botonMute.addEventListener("click", () => {
       musica.muted = !musica.muted;
 
       if (!musica.muted && musica.paused) {
         musica.play().catch(() => {});
       }
 
-      actualizarBoton();
+      actualizarControl();
     });
 
     window.addEventListener("load", () => {
-      musica.muted = false;
       musica.volume = 0.45;
-      actualizarBoton();
+      musica.muted = false;
+      actualizarControl();
 
       musica.play().catch(() => {
-        /* Algunos navegadores bloquean el autoplay con sonido. */
+        /* El navegador puede bloquear la reproducción automática. */
       });
     });
   </script>
