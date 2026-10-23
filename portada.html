@@ -1,133 +1,174 @@
-/*******************************************************
- * CAMINO HACIA JESÚS 2026
- * Sistema de Catequesis – Primera Comunión
- * Colegio La Salle del Sur (Respaldado por la Parroquia San Pedro de Lurín)
- *******************************************************/
 
-const CONFIG = {
-  SHEET_CONFIG: 'CONFIG',
-  SHEET_CATEQUIZANDOS: 'CATEQUIZANDOS',
-  SHEET_PADRES: 'PADRES',
-  SHEET_COLEGIOS: 'COLEGIOS',
-  SHEET_SESIONES: 'SESIONES',
-  SHEET_CLASES: 'CLASES',
-  SHEET_ASISTENCIA: 'ASISTENCIA',
-  SHEET_TAREAS: 'TAREAS',
-  SHEET_AVISOS: 'AVISOS',
-  SHEET_REQUISITOS: 'REQUISITOS',
-  SHEET_MATERIALES: 'MATERIALES',
-  SHEET_PAGOS: 'PAGOS'
-};
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Camino hacia Jesús 2026</title>
 
-/* ENRUTADOR WEB Y NAVEGACIÓN MODULAR */
-function doGet(e) {
-  const pagina = (e && e.parameter && e.parameter.p) ? e.parameter.p.toLowerCase() : 'portada';
-  let archivoHtml = 'portada';
-  switch (pagina) {
-    case 'catequizandos': case 'ninos': archivoHtml = 'catequizandos'; break;
-    case 'padres': archivoHtml = 'padres'; break;
-    case 'misses': archivoHtml = 'misses'; break;
-    case 'supervisores': archivoHtml = 'supervisores'; break;
-    case 'login': archivoHtml = 'login'; break;
-    default: archivoHtml = 'portada';
-  }
+  <style>
+    * { box-sizing: border-box; }
 
-  return HtmlService.createTemplateFromFile(archivoHtml)
-    .evaluate()
-    .setTitle('Camino hacia Jesús 2026 - Colegio La Salle del Sur')
-    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
-    .addMetaTag('viewport', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
-}
-
-/* VALIDACIÓN DE CÓDIGOS DE ACCESO */
-function verificarCodigoAcceso(rol, codigo) {
-  const config = getConfig();
-  const codigosValidos = {
-    'misses': config.PIN_MISSES || '1234',
-    'supervisores': config.PIN_PADRE || '5678',
-    'padres': config.PIN_PADRES || '2026'
-  };
-
-  if (String(codigosValidos[rol]) === String(codigo).trim()) {
-    return { autorizado: true };
-  } else {
-    return { autorizado: false, mensaje: 'Código de acceso incorrecto.' };
-  }
-}
-
-/* LECTURA GENERAL DE DATOS (GOOGLE SHEETS) */
-function getSpreadsheet() { return SpreadsheetApp.getActiveSpreadsheet(); }
-
-function getSheetData(sheetName) {
-  const ss = getSpreadsheet();
-  const sheet = ss.getSheetByName(sheetName);
-  if (!sheet) return [];
-  const values = sheet.getDataRange().getValues();
-  if (values.length === 0) return [];
-  const headers = values[0];
-  return values.slice(1).map(function(row) {
-    const obj = {};
-    headers.forEach(function(header, index) { obj[String(header)] = row[index]; });
-    return obj;
-  });
-}
-
-function getConfig() {
-  const data = getSheetData(CONFIG.SHEET_CONFIG);
-  const config = {};
-  data.forEach(function(row) { if (row.CLAVE) config[String(row.CLAVE)] = row.VALOR; });
-  return config;
-}
-
-function getCatequizandos() { return getSheetData(CONFIG.SHEET_CATEQUIZANDOS); }
-function getPadres() { return getSheetData(CONFIG.SHEET_PADRES); }
-function getColegios() { return getSheetData(CONFIG.SHEET_COLEGIOS); }
-function getSesiones() { return getSheetData(CONFIG.SHEET_SESIONES); }
-function getClases() { return getSheetData(CONFIG.SHEET_CLASES); }
-function getAsistencia() { return getSheetData(CONFIG.SHEET_ASISTENCIA); }
-function getTareas() { return getSheetData(CONFIG.SHEET_TAREAS); }
-function getAvisos() { return getSheetData(CONFIG.SHEET_AVISOS); }
-function getRequisitos() { return getSheetData(CONFIG.SHEET_REQUISITOS); }
-function getMateriales() { return getSheetData(CONFIG.SHEET_MATERIALES); }
-function getPagos() { return getSheetData(CONFIG.SHEET_PAGOS); }
-
-function getAppData() {
-  return {
-    config: getConfig(), catequizandos: getCatequizandos(), padres: getPadres(),
-    colegios: getColegios(), sesiones: getSesiones(), clases: getClases(),
-    asistencia: getAsistencia(), tareas: getTareas(), avisos: getAvisos(),
-    requisitos: getRequisitos(), materiales: getMateriales(), pagos: getPagos()
-  };
-}
-
-/* REGISTROS Y SUPERVISIÓN */
-function registrarAsistencia(asistenciaFila) {
-  const ss = getSpreadsheet();
-  const sheet = ss.getSheetByName(CONFIG.SHEET_ASISTENCIA);
-  sheet.appendRow(asistenciaFila);
-  return { exito: true, mensaje: 'Asistencia registrada correctamente.' };
-}
-
-function cambiarEstadoSupervisionClase(idClase, nuevoEstado, observacionesPadre) {
-  const ss = getSpreadsheet();
-  const sheet = ss.getSheetByName(CONFIG.SHEET_CLASES);
-  const values = sheet.getDataRange().getValues();
-  const headers = values[0];
-  const colId = headers.indexOf('ID_CLASE');
-  const colEstado = headers.indexOf('ESTADO_SUPERVISION');
-  const colObs = headers.indexOf('OBSERVACIONES');
-
-  for (let i = 1; i < values.length; i++) {
-    if (String(values[i][colId]) === String(idClase)) {
-      if (colEstado !== -1) sheet.getRange(i + 1, colEstado + 1).setValue(nuevoEstado);
-      if (colObs !== -1 && observacionesPadre) sheet.getRange(i + 1, colObs + 1).setValue(observacionesPadre);
-      return { exito: true, mensaje: 'Supervisión actualizada correctamente.' };
+    :root {
+      --azul: #071d49;
+      --dorado: #e8b947;
+      --crema: #fff7e5;
     }
-  }
-  return { exito: false, mensaje: 'Clase no encontrada.' };
-}
 
-function pruebaConexion() {
-  const ss = getSpreadsheet();
-  return { conectado: true, archivo: ss.getName(), id: ss.getId(), mensaje: 'Conexión correcta con Camino hacia Jesús 2026.' };
-}
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--crema);
+      background:
+        radial-gradient(ellipse at top, #174a83 0%, var(--azul) 65%);
+    }
+
+    .contenedor {
+      width: min(1500px, 100%);
+      margin: auto;
+      padding: 24px;
+    }
+
+    .encabezado {
+      text-align: center;
+      padding: 30px 15px;
+      border: 2px solid var(--dorado);
+      border-radius: 20px;
+      background: linear-gradient(135deg, #102e61, #061534);
+      box-shadow: 0 0 24px #d9a82d55;
+    }
+
+    .cruz {
+      color: #ffe29a;
+      font-size: clamp(42px, 7vw, 76px);
+      line-height: 1;
+      text-shadow: 0 0 18px #ffcf55;
+    }
+
+    h1 {
+      margin: 12px 0 8px;
+      color: #ffe3a0;
+      font-size: clamp(25px, 4vw, 48px);
+      text-shadow: 0 3px 5px #000;
+    }
+
+    .subtitulo {
+      margin: 0;
+      font-size: clamp(14px, 2vw, 20px);
+      line-height: 1.5;
+    }
+
+    .separador {
+      width: 70%;
+      max-width: 500px;
+      height: 2px;
+      margin: 22px auto 0;
+      background: linear-gradient(90deg, transparent, var(--dorado), transparent);
+    }
+
+    .botones {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+      margin-top: 28px;
+    }
+
+    .boton {
+      display: block;
+      overflow: hidden;
+      border: 3px solid var(--dorado);
+      border-radius: 18px;
+      background: #071a3c;
+      box-shadow: 0 8px 18px #0005;
+      transition: transform .2s, box-shadow .2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .boton img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .boton:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 24px #f6d77988;
+    }
+
+    .boton:focus-visible {
+      outline: 4px solid white;
+      outline-offset: 4px;
+    }
+
+    footer {
+      padding: 28px 10px 10px;
+      text-align: center;
+      color: #f3dca2;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 800px) {
+      .contenedor { padding: 14px; }
+      .botones { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px; }
+    }
+
+    @media (max-width: 440px) {
+      .contenedor { padding: 10px; }
+      .encabezado { padding: 22px 10px; }
+      .botones { gap: 10px; }
+      .boton { border-width: 2px; border-radius: 12px; }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="contenedor">
+
+    <header class="encabezado">
+      <div class="cruz" aria-hidden="true">✝</div>
+      <h1>CAMINO HACIA JESÚS 2026</h1>
+      <p class="subtitulo">Programa de Catequesis – Primera Comunión</p>
+      <p class="subtitulo">Colegio La Salle del Sur</p>
+      <div class="separador"></div>
+    </header>
+
+    <nav class="botones" aria-label="Portales principales">
+
+      <a class="boton" href="?p=catequizandos" aria-label="Entrar a Catequizandos">
+        <img src="https://yusemy-dot.github.io/CATEQUESIS-LASALLE/assets/BTN-CATEQUIS.png"
+             alt="Catequizandos">
+      </a>
+
+      <a class="boton" href="?p=misses" aria-label="Entrar a Catequistas">
+        <img src="https://yusemy-dot.github.io/CATEQUESIS-LASALLE/assets/BTN_CATEQUISTAS.png"
+             alt="Catequistas">
+      </a>
+
+      <a class="boton" href="?p=supervisores" aria-label="Entrar a Coordinador Parroquial">
+        <img src="https://yusemy-dot.github.io/CATEQUESIS-LASALLE/assets/BTN_COORDINADOR.png"
+             alt="Coordinador Parroquial">
+      </a>
+
+      <a class="boton" href="?p=padres" aria-label="Entrar a Padres">
+        <img src="https://yusemy-dot.github.io/CATEQUESIS-LASALLE/assets/BTN-PADRES.png"
+             alt="Padres">
+      </a>
+
+      <a class="boton" href="?p=programacion" aria-label="Ver Nuestra Programación">
+        <img src="https://yusemy-dot.github.io/CATEQUESIS-LASALLE/assets/BTN-PROGRAMACION.png"
+             alt="Nuestra Programación">
+      </a>
+
+    </nav>
+
+    <footer>
+      CAMINO HACIA JESÚS 2026<br>
+      Colegio La Salle del Sur · Programa de Primera Comunión
+    </footer>
+
+  </main>
+</body>
+</html>
