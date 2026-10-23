@@ -27,168 +27,64 @@
     body {
       min-height: 100vh;
       min-height: 100dvh;
-      overflow-x: hidden;
       font-family: Georgia, "Times New Roman", serif;
-      background-color: var(--azul);
+      background: var(--azul);
+      overflow-x: hidden;
     }
 
-    /* FONDO PRINCIPAL */
+    /* IMAGEN DE FONDO */
     .fondo {
       position: fixed;
       inset: 0;
-      z-index: 0;
-      background-color: var(--azul);
-      background-image: url("https://yusemy-dot.github.io/CATEQUESIS-LASALLE/assets/PORTAL%20CATEQUESIS.png");
+      z-index: -1;
+      background-image: url("./assets/PORTAL_CATEQUESIS.png");
       background-position: center center;
-      background-repeat: no-repeat;
       background-size: cover;
-      pointer-events: none;
+      background-repeat: no-repeat;
     }
 
-    /* BOTONES EN EL LADO IZQUIERDO */
-    .botones {
-      position: fixed;
-      z-index: 2;
-      top: 50%;
-      left: clamp(8px, 1.5vw, 24px);
-      transform: translateY(-50%);
+    /* CONTENEDOR GENERAL */
+    .contenedor {
+      position: relative;
+      min-height: 100vh;
+      min-height: 100dvh;
+      width: 100%;
+      padding: 24px;
+    }
 
+    /* BOTONES A LA IZQUIERDA, SEPARADOS DEL CENTRO */
+    .botones {
+      position: absolute;
+      top: 50%;
+      left: clamp(12px, 2vw, 32px);
+      transform: translateY(-50%);
+      width: clamp(110px, 13vw, 190px);
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: clamp(8px, 1.2vh, 14px);
-
-      width: clamp(105px, 12vw, 175px);
-      max-height: 94vh;
-      max-height: 94dvh;
-      overflow-y: auto;
-      scrollbar-width: none;
-    }
-
-    .botones::-webkit-scrollbar {
-      display: none;
+      align-items: stretch;
+      gap: clamp(12px, 1.5vh, 20px);
+      z-index: 2;
     }
 
     .boton {
       display: block;
-      flex: 0 0 auto;
       width: 100%;
+      aspect-ratio: 3 / 3.35;
       overflow: hidden;
-
       border: 2px solid var(--dorado);
-      border-radius: 12px;
-      background: var(--azul);
-      box-shadow: 0 3px 12px #0008;
-
-      transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-
+      border-radius: 13px;
+      background: #071d49;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       -webkit-tap-highlight-color: transparent;
     }
 
     .boton img {
       display: block;
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: contain;
     }
 
     .boton:hover {
-      transform: scale(1.035);
-      box-shadow: 0 0 16px #ffe08a;
-    }
-
-    .boton:active {
-      transform: scale(0.98);
-    }
-
-    .boton:focus-visible {
-      outline: 3px solid white;
-      outline-offset: 3px;
-    }
-
-    /* TABLETAS Y CELULARES */
-    @media (max-width: 700px) {
-      .fondo {
-        background-position: center center;
-        background-size: cover;
-      }
-
-      .botones {
-        left: 7px;
-        width: clamp(82px, 25vw, 125px);
-        gap: 9px;
-      }
-
-      .boton {
-        border-width: 1.5px;
-        border-radius: 9px;
-      }
-    }
-
-    /* PANTALLAS BAJAS */
-    @media (max-height: 500px) and (min-width: 701px) {
-      .botones {
-        width: 100px;
-        gap: 5px;
-      }
-
-      .boton {
-        width: 85px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .boton {
-        transition: none;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- IMAGEN DE FONDO -->
-  <div class="fondo" aria-hidden="true"></div>
-
-  <!-- MENÚ DE PORTALES -->
-  <nav class="botones" aria-label="Portales de catequesis">
-
-    <a class="boton"
-       href="./catequizandos.html"
-       aria-label="Entrar a Catequizandos">
-      <img
-        src="./assets/BTN-CATEQUIS.png"
-        alt="Catequizandos">
-    </a>
-
-    <a class="boton"
-       href="./misses.html"
-       aria-label="Entrar a Catequistas">
-      <img
-        src="./assets/BTN_CATEQUISTAS.png"
-        alt="Catequistas">
-    </a>
-
-    <a class="boton"
-       href="./supervisores.html"
-       aria-label="Entrar a Coordinador Parroquial">
-      <img
-        src="./assets/BTN_COORDINADOR.png"
-        alt="Coordinador Parroquial">
-    </a>
-
-    <a class="boton"
-       href="./padres.html"
-       aria-label="Entrar a Padres">
-      <img
-        src="./assets/BTN-PADRES.png"
-        alt="Padres">
-    </a>
-
-    <a class="boton"
-       href="./programacion.html"
-       aria-label="Ver Nuestra Programación">
-      <img
-        src="./assets/BTN-PROGRAMACION.png"
-        alt
+      transform
