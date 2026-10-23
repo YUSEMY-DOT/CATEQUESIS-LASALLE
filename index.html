@@ -1,86 +1,339 @@
-```css
-.contenedor {
-  width: 100%;
-  max-width: 1600px;
-  min-height: 100vh;
-  margin: 0 auto;
-  padding: 20px;
-  display: grid;
-  grid-template-columns:  minmax(150px, 245px) minmax(0, 1fr);
-  grid-template-rows: auto 1fr auto;
-  gap: 20px;
-  align-items: start;
-}
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071d49">
+  <title>Camino hacia Jesús 2026 | Colegio La Salle del Sur</title>
 
-/* Encabezado proporcional, ocupando el espacio principal */
-.encabezado {
-  grid-column: 2;
-  grid-row: 1;
-  min-width: 0;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-/* Botones alineados verticalmente a la izquierda */
-.botones {
-  grid-column: 1;
-  grid-row: 1 / span 2;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  width: 100%;
-  margin-top: 0;
-}
+    :root {
+      --azul: #071d49;
+      --azul-oscuro: #061534;
+      --dorado: #e8b947;
+      --crema: #fff7e5;
+    }
 
-/* Imágenes completas, sin deformarlas */
-.boton {
-  display: block;
-  width: 100%;
-  overflow: hidden;
-  border: 2px solid var(--dorado);
-  border-radius: 14px;
-  background: #071a3c;
-  box-shadow: 0 5px 14px #0006;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
+    html {
+      min-height: 100%;
+      scroll-behavior: smooth;
+    }
 
-.boton img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--crema);
+      background-color: var(--azul);
+      background-image:
+        linear-gradient(
+          rgba(4, 19, 48, 0.12),
+          rgba(4, 19, 48, 0.20)
+        ),
+        url("./assets/PORTAL-CATEQUESIS.png");
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
 
-/* Pie de página */
-footer {
-  grid-column: 2;
-  grid-row: 3;
-  align-self: end;
-}
+    .contenedor {
+      width: 100%;
+      max-width: 1800px;
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 22px;
+      display: grid;
+      grid-template-columns: clamp(150px, 19vw, 280px) minmax(0, 1fr);
+      grid-template-rows: auto 1fr auto;
+      align-items: start;
+      gap: 22px;
+    }
 
-/* Tabletas y celulares */
-@media (max-width: 700px) {
-  .contenedor {
-    display: flex;
-    flex-direction: column;
-    padding: 12px;
-    gap: 16px;
-  }
+    /* PORTADA PRINCIPAL */
+    .encabezado {
+      grid-column: 2;
+      grid-row: 1;
+      width: 100%;
+      min-width: 0;
+      padding: clamp(20px, 3vw, 38px) 18px;
+      text-align: center;
+      border: 2px solid var(--dorado);
+      border-radius: 20px;
+      background: rgba(6, 21, 52, 0.84);
+      box-shadow: 0 0 24px #d9a82d55;
+      backdrop-filter: blur(3px);
+    }
 
-  .encabezado {
-    width: 100%;
-    order: 1;
-  }
+    .cruz {
+      color: #ffe29a;
+      font-size: clamp(42px, 5vw, 72px);
+      line-height: 1;
+      text-shadow: 0 0 18px #ffcf55;
+    }
 
-  .botones {
-    width: min(100%, 420px);
-    margin: 0 auto;
-    order: 2;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-  }
+    h1 {
+      margin: 14px 0 10px;
+      color: #ffe3a0;
+      font-size: clamp(24px, 3.5vw, 48px);
+      line-height: 1.15;
+      text-shadow: 0 3px 5px #000;
+    }
 
-  footer {
-    width: 100%;
-    order: 3;
-  }
-}
+    .subtitulo {
+      margin: 5px 0;
+      font-size: clamp(14px, 1.6vw, 21px);
+      line-height: 1.5;
+    }
+
+    .separador {
+      width: 70%;
+      max-width: 500px;
+      height: 2px;
+      margin: 22px auto 0;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        var(--dorado),
+        transparent
+      );
+    }
+
+    /* BOTONES VERTICALES A LA IZQUIERDA */
+    .botones {
+      grid-column: 1;
+      grid-row: 1 / span 2;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 14px;
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+    }
+
+    .boton {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      border: 2px solid var(--dorado);
+      border-radius: 14px;
+      background: rgba(7, 26, 60, 0.94);
+      box-shadow: 0 5px 16px #0008;
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .boton img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .boton:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 22px #f6d779aa;
+    }
+
+    .boton:active {
+      transform: scale(0.98);
+    }
+
+    .boton:focus-visible {
+      outline: 3px solid white;
+      outline-offset: 3px;
+    }
+
+    /* PIE DE PÁGINA */
+    footer {
+      grid-column: 2;
+      grid-row: 3;
+      align-self: end;
+      width: 100%;
+      padding: 22px 10px 10px;
+      text-align: center;
+      color: #fff0c5;
+      font-size: 14px;
+      line-height: 1.7;
+      text-shadow: 0 2px 5px #000;
+    }
+
+    /* TABLETAS */
+    @media (min-width: 701px) and (max-width: 1050px) {
+      .contenedor {
+        grid-template-columns: clamp(130px, 21vw, 210px) minmax(0, 1fr);
+        gap: 16px;
+        padding: 16px;
+      }
+
+      .botones {
+        gap: 12px;
+      }
+
+      .boton {
+        border-radius: 11px;
+      }
+
+      .encabezado {
+        padding: 24px 12px;
+      }
+    }
+
+    /* CELULARES: BOTONES EN DOS COLUMNAS */
+    @media (max-width: 700px) {
+      body {
+        background-attachment: scroll;
+        background-position: center top;
+      }
+
+      .contenedor {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        padding: 12px;
+        gap: 16px;
+      }
+
+      .encabezado {
+        order: 1;
+        width: 100%;
+        padding: 22px 12px;
+        border-radius: 15px;
+      }
+
+      .botones {
+        order: 2;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-self: center;
+        width: 100%;
+        max-width: 520px;
+        gap: 12px;
+      }
+
+      .boton {
+        border-radius: 12px;
+      }
+
+      footer {
+        order: 3;
+        margin-top: auto;
+        padding-top: 18px;
+      }
+    }
+
+    /* CELULARES PEQUEÑOS */
+    @media (max-width: 360px) {
+      .contenedor {
+        padding: 8px;
+        gap: 12px;
+      }
+
+      .encabezado {
+        padding: 18px 8px;
+      }
+
+      h1 {
+        font-size: 23px;
+      }
+
+      .botones {
+        gap: 8px;
+      }
+
+      .boton {
+        border-width: 2px;
+        border-radius: 9px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="contenedor">
+
+    <header class="encabezado">
+      <div class="cruz" aria-hidden="true">✝</div>
+
+      <h1>CAMINO HACIA JESÚS 2026</h1>
+
+      <p class="subtitulo">
+        Programa de Catequesis – Primera Comunión
+      </p>
+
+      <p class="subtitulo">
+        Colegio La Salle del Sur
+      </p>
+
+      <div class="separador"></div>
+    </header>
+
+    <nav class="botones" aria-label="Portales principales">
+
+      <a class="boton"
+         href="./catequizandos.html"
+         aria-label="Entrar a Catequizandos">
+        <img
+          src="./assets/BTN-CATEQUIS.png"
+          alt="Catequizandos">
+      </a>
+
+      <a class="boton"
+         href="./misses.html"
+         aria-label="Entrar a Catequistas">
+        <img
+          src="./assets/BTN_CATEQUISTAS.png"
+          alt="Catequistas">
+      </a>
+
+      <a class="boton"
+         href="./supervisores.html"
+         aria-label="Entrar a Coordinador Parroquial">
+        <img
+          src="./assets/BTN_COORDINADOR.png"
+          alt="Coordinador Parroquial">
+      </a>
+
+      <a class="boton"
+         href="./padres.html"
+         aria-label="Entrar a Padres">
+        <img
+          src="./assets/BTN-PADRES.png"
+          alt="Padres">
+      </a>
+
+      <a class="boton"
+         href="./programacion.html"
+         aria-label="Ver Nuestra Programación">
+        <img
+          src="./assets/BTN-PROGRAMACION.png"
+          alt="Nuestra Programación">
+      </a>
+
+    </nav>
+
+    <footer>
+      CAMINO HACIA JESÚS 2026<br>
+      Colegio La Salle del Sur · Programa de Primera Comunión
+    </footer>
+
+  </main>
+</body>
+</html>
 ```
