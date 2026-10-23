@@ -1,1 +1,133 @@
+/*******************************************************
+ * CAMINO HACIA JESÚS 2026
+ * Sistema de Catequesis – Primera Comunión
+ * Colegio La Salle del Sur (Respaldado por la Parroquia San Pedro de Lurín)
+ *******************************************************/
 
+const CONFIG = {
+  SHEET_CONFIG: 'CONFIG',
+  SHEET_CATEQUIZANDOS: 'CATEQUIZANDOS',
+  SHEET_PADRES: 'PADRES',
+  SHEET_COLEGIOS: 'COLEGIOS',
+  SHEET_SESIONES: 'SESIONES',
+  SHEET_CLASES: 'CLASES',
+  SHEET_ASISTENCIA: 'ASISTENCIA',
+  SHEET_TAREAS: 'TAREAS',
+  SHEET_AVISOS: 'AVISOS',
+  SHEET_REQUISITOS: 'REQUISITOS',
+  SHEET_MATERIALES: 'MATERIALES',
+  SHEET_PAGOS: 'PAGOS'
+};
+
+/* ENRUTADOR WEB Y NAVEGACIÓN MODULAR */
+function doGet(e) {
+  const pagina = (e && e.parameter && e.parameter.p) ? e.parameter.p.toLowerCase() : 'portada';
+  let archivoHtml = 'portada';
+  switch (pagina) {
+    case 'catequizandos': case 'ninos': archivoHtml = 'catequizandos'; break;
+    case 'padres': archivoHtml = 'padres'; break;
+    case 'misses': archivoHtml = 'misses'; break;
+    case 'supervisores': archivoHtml = 'supervisores'; break;
+    case 'login': archivoHtml = 'login'; break;
+    default: archivoHtml = 'portada';
+  }
+
+  return HtmlService.createTemplateFromFile(archivoHtml)
+    .evaluate()
+    .setTitle('Camino hacia Jesús 2026 - Colegio La Salle del Sur')
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
+}
+
+/* VALIDACIÓN DE CÓDIGOS DE ACCESO */
+function verificarCodigoAcceso(rol, codigo) {
+  const config = getConfig();
+  const codigosValidos = {
+    'misses': config.PIN_MISSES || '1234',
+    'supervisores': config.PIN_PADRE || '5678',
+    'padres': config.PIN_PADRES || '2026'
+  };
+
+  if (String(codigosValidos[rol]) === String(codigo).trim()) {
+    return { autorizado: true };
+  } else {
+    return { autorizado: false, mensaje: 'Código de acceso incorrecto.' };
+  }
+}
+
+/* LECTURA GENERAL DE DATOS (GOOGLE SHEETS) */
+function getSpreadsheet() { return SpreadsheetApp.getActiveSpreadsheet(); }
+
+function getSheetData(sheetName) {
+  const ss = getSpreadsheet();
+  const sheet = ss.getSheetByName(sheetName);
+  if (!sheet) return [];
+  const values = sheet.getDataRange().getValues();
+  if (values.length === 0) return [];
+  const headers = values[0];
+  return values.slice(1).map(function(row) {
+    const obj = {};
+    headers.forEach(function(header, index) { obj[String(header)] = row[index]; });
+    return obj;
+  });
+}
+
+function getConfig() {
+  const data = getSheetData(CONFIG.SHEET_CONFIG);
+  const config = {};
+  data.forEach(function(row) { if (row.CLAVE) config[String(row.CLAVE)] = row.VALOR; });
+  return config;
+}
+
+function getCatequizandos() { return getSheetData(CONFIG.SHEET_CATEQUIZANDOS); }
+function getPadres() { return getSheetData(CONFIG.SHEET_PADRES); }
+function getColegios() { return getSheetData(CONFIG.SHEET_COLEGIOS); }
+function getSesiones() { return getSheetData(CONFIG.SHEET_SESIONES); }
+function getClases() { return getSheetData(CONFIG.SHEET_CLASES); }
+function getAsistencia() { return getSheetData(CONFIG.SHEET_ASISTENCIA); }
+function getTareas() { return getSheetData(CONFIG.SHEET_TAREAS); }
+function getAvisos() { return getSheetData(CONFIG.SHEET_AVISOS); }
+function getRequisitos() { return getSheetData(CONFIG.SHEET_REQUISITOS); }
+function getMateriales() { return getSheetData(CONFIG.SHEET_MATERIALES); }
+function getPagos() { return getSheetData(CONFIG.SHEET_PAGOS); }
+
+function getAppData() {
+  return {
+    config: getConfig(), catequizandos: getCatequizandos(), padres: getPadres(),
+    colegios: getColegios(), sesiones: getSesiones(), clases: getClases(),
+    asistencia: getAsistencia(), tareas: getTareas(), avisos: getAvisos(),
+    requisitos: getRequisitos(), materiales: getMateriales(), pagos: getPagos()
+  };
+}
+
+/* REGISTROS Y SUPERVISIÓN */
+function registrarAsistencia(asistenciaFila) {
+  const ss = getSpreadsheet();
+  const sheet = ss.getSheetByName(CONFIG.SHEET_ASISTENCIA);
+  sheet.appendRow(asistenciaFila);
+  return { exito: true, mensaje: 'Asistencia registrada correctamente.' };
+}
+
+function cambiarEstadoSupervisionClase(idClase, nuevoEstado, observacionesPadre) {
+  const ss = getSpreadsheet();
+  const sheet = ss.getSheetByName(CONFIG.SHEET_CLASES);
+  const values = sheet.getDataRange().getValues();
+  const headers = values[0];
+  const colId = headers.indexOf('ID_CLASE');
+  const colEstado = headers.indexOf('ESTADO_SUPERVISION');
+  const colObs = headers.indexOf('OBSERVACIONES');
+
+  for (let i = 1; i < values.length; i++) {
+    if (String(values[i][colId]) === String(idClase)) {
+      if (colEstado !== -1) sheet.getRange(i + 1, colEstado + 1).setValue(nuevoEstado);
+      if (colObs !== -1 && observacionesPadre) sheet.getRange(i + 1, colObs + 1).setValue(observacionesPadre);
+      return { exito: true, mensaje: 'Supervisión actualizada correctamente.' };
+    }
+  }
+  return { exito: false, mensaje: 'Clase no encontrada.' };
+}
+
+function pruebaConexion() {
+  const ss = getSpreadsheet();
+  return { conectado: true, archivo: ss.getName(), id: ss.getId(), mensaje: 'Conexión correcta con Camino hacia Jesús 2026.' };
+}
