@@ -763,7 +763,7 @@ footer {
     <h2 class="card-title">📅 CUENTA REGRESIVA</h2>
     <p class="countdown-subtitle">¡Nos preparamos para la Primera Comunión!</p>
 
-    <div class="time-grid" aria-label="Tiempo restante para la Primera Comunión">
+    <div class="time-grid" aria-label="Tiempo restante para la Primera Comunión" aria-live="off">
       <div class="time-box">
         <span class="time-number" id="days">--</span>
         <span class="time-label">DÍAS</span>
@@ -892,6 +892,7 @@ footer {
 
 <script>
 (() => {
+  // Fecha prevista; actualizar solo cuando exista confirmación oficial.
   const target = new Date(2026, 11, 8, 0, 0, 0).getTime();
 
   const fields = {
@@ -901,6 +902,11 @@ footer {
     seconds: document.getElementById("seconds")
   };
 
+  // Evita errores si falta algún elemento del contador en el HTML.
+  if (Object.values(fields).some((field) => !field)) return;
+
+  let timerId;
+
   function updateCountdown() {
     const remaining = target - Date.now();
 
@@ -909,18 +915,19 @@ footer {
       fields.hours.textContent = "00";
       fields.minutes.textContent = "00";
       fields.seconds.textContent = "00";
+      if (timerId) clearInterval(timerId);
       return;
     }
 
     const totalSeconds = Math.floor(remaining / 1000);
-    fields.days.textContent = Math.floor(totalSeconds / 86400);
+    fields.days.textContent = String(Math.floor(totalSeconds / 86400));
     fields.hours.textContent = String(Math.floor((totalSeconds % 86400) / 3600)).padStart(2, "0");
     fields.minutes.textContent = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
     fields.seconds.textContent = String(totalSeconds % 60).padStart(2, "0");
   }
 
   updateCountdown();
-  setInterval(updateCountdown, 1000);
+  timerId = setInterval(updateCountdown, 1000);
 })();
 </script>
 </body>
