@@ -39,11 +39,11 @@ body {
   overflow: hidden;
 }
 
-/* CABECERA: SE CONSERVA EL ESTILO */
+/* CABECERA */
 
 .header {
   position: relative;
-  padding: 15px 76px 13px;
+  padding: 12px 70px 10px;
   text-align: center;
   color: white;
   background:
@@ -54,19 +54,19 @@ body {
 
 .brand {
   color: var(--dorado-claro);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 900;
   letter-spacing: 3px;
 }
 
 .header h1 {
   display: inline-block;
-  margin: 5px 0 2px;
-  padding: 7px 22px;
+  margin: 4px 0 2px;
+  padding: 6px 20px;
   color: var(--dorado-claro);
   background: linear-gradient(90deg, #071b40, #154c8c, #071b40);
   border: 2px solid var(--dorado);
-  border-radius: 17px;
+  border-radius: 16px;
   box-shadow: 0 0 0 2px #a77b27, 0 4px 10px #0004;
   font: 900 clamp(22px, 3.2vw, 43px) Georgia, serif;
   text-shadow: 1px 2px 2px #432800;
@@ -75,21 +75,20 @@ body {
 .ribbon {
   width: max-content;
   max-width: 90%;
-  margin: 3px auto 0;
-  padding: 5px 25px;
+  margin: 2px auto 0;
+  padding: 4px 22px;
   color: var(--azul);
   background: linear-gradient(#fff0b8, #e9bb50);
-  border: 1px solid #fff4cf;
   border-radius: 30px;
   font: 900 clamp(13px, 1.5vw, 19px) Georgia, serif;
 }
 
 .home {
   position: absolute;
-  top: 8px;
+  top: 7px;
   right: 12px;
-  width: 57px;
-  height: 57px;
+  width: 53px;
+  height: 53px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -99,28 +98,27 @@ body {
   background: linear-gradient(145deg, #194c8a, #06183b);
   border: 3px solid var(--dorado);
   border-radius: 50%;
-  box-shadow: 0 0 0 2px #fff4, 0 3px 8px #0005;
   font-size: 10px;
   font-weight: 900;
 }
 
 .home .house {
-  font-size: 27px;
+  font-size: 25px;
   line-height: 1;
 }
 
 /* PANELES */
 
 main {
-  padding: 11px;
+  padding: 9px;
 }
 
 .panel {
   min-width: 0;
-  padding: 11px;
+  padding: 9px;
   background: linear-gradient(135deg, #fffdf7, #fff7e3);
   border: 1.5px solid var(--dorado);
-  border-radius: 18px;
+  border-radius: 17px;
   box-shadow: 0 3px 8px #08265312;
 }
 
@@ -128,9 +126,9 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  margin: 0 0 11px;
-  padding: 7px 9px;
+  gap: 7px;
+  margin: 0 0 8px;
+  padding: 6px 8px;
   color: var(--dorado-claro);
   text-align: center;
   background: linear-gradient(90deg, #071a3d, #164b87, #071a3d);
@@ -139,42 +137,37 @@ main {
   font: 900 clamp(14px, 1.5vw, 20px) Georgia, serif;
 }
 
-.panel-title .emoji {
-  font-family: Arial, sans-serif;
-}
-
-/* CONTENIDO: LETRAS MÁS GRANDES */
+/* MISIÓN Y VISIÓN */
 
 .top-grid {
   display: grid;
   grid-template-columns: 1fr 1fr .98fr;
-  gap: 10px;
+  gap: 8px;
   align-items: start;
 }
 
 .mission-content {
   display: grid;
-  grid-template-columns: 54px minmax(0, 1fr);
-  gap: 9px;
+  grid-template-columns: 43px minmax(0, 1fr);
+  gap: 7px;
   align-items: center;
 }
 
 .medallion {
-  width: 53px;
-  height: 53px;
+  width: 42px;
+  height: 42px;
   display: grid;
   place-items: center;
   background: radial-gradient(circle, #fff 0, #fff0c3 76%, #e9bb50);
-  border: 2px solid #e7b748;
+  border: 1.5px solid #e7b748;
   border-radius: 50%;
-  box-shadow: inset 0 0 0 3px white;
-  font-size: 29px;
+  font-size: 24px;
 }
 
 .panel p {
   margin: 0;
-  font-size: clamp(15px, 1.2vw, 18px);
-  line-height: 1.4;
+  font-size: clamp(17px, 1.3vw, 20px);
+  line-height: 1.22;
 }
 
 /* CUENTA REGRESIVA */
@@ -184,64 +177,63 @@ main {
   text-align: center;
   background: linear-gradient(135deg, #061a40, #174a83);
   border: 2px solid var(--dorado);
-  box-shadow: inset 0 0 0 2px #ffffff20;
 }
 
 .countdown .panel-title {
-  margin-bottom: 5px;
+  margin-bottom: 4px;
   padding: 4px;
   background: transparent;
   border: 0;
 }
 
 .countdown-sub {
-  margin-bottom: 10px;
-  font-size: clamp(15px, 1.2vw, 18px);
+  margin-bottom: 7px;
+  font-size: 17px;
 }
 
 .timer {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 5px;
+  gap: 4px;
 }
 
 .unit {
   min-width: 0;
-  padding: 7px 2px 8px;
+  padding: 6px 2px;
   background: linear-gradient(145deg, #173e71, #0b2854);
   border: 1.5px solid var(--dorado);
-  border-radius: 10px;
+  border-radius: 9px;
 }
 
 .unit strong {
   display: block;
   color: #ffe49b;
-  font: 900 clamp(34px, 3.1vw, 48px) Georgia, serif;
-  line-height: 1.2;
+  font: 900 clamp(36px, 3.2vw, 49px) Georgia, serif;
+  line-height: 1.05;
   font-variant-numeric: tabular-nums;
 }
 
 .unit span {
   display: block;
-  margin-top: 5px;
-  font-size: clamp(11px, .9vw, 13px);
+  margin-top: 3px;
+  font-size: 12px;
   font-weight: 900;
 }
 
 .date {
-  margin-top: 8px;
-  padding: 8px 5px;
+  margin-top: 6px;
+  padding: 7px 4px;
   color: #10264a;
   background: linear-gradient(#ffe8a3, #edbf50);
   border: 1px solid white;
-  border-radius: 23px;
-  font-size: clamp(12px, 1vw, 15px);
+  border-radius: 22px;
+  font-size: 14px;
   font-weight: 900;
-  line-height: 1.4;
+  line-height: 1.2;
 }
 
 .note {
-  margin-top: 7px;
+  margin-top: 5px;
   color: #e8f2ff;
   font-size: 12px;
 }
@@ -251,41 +243,41 @@ main {
 .section-grid {
   display: grid;
   grid-template-columns: minmax(0, 2.1fr) minmax(270px, .95fr);
-  gap: 10px;
-  margin-top: 10px;
+  gap: 8px;
+  margin-top: 8px;
 }
 
 .path-panel {
-  padding: 10px;
+  padding: 8px;
 }
 
 .path {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 6px;
+  gap: 5px;
 }
 
 .path-item {
   position: relative;
   min-width: 0;
-  padding: 7px 4px 9px;
+  padding: 6px 3px 7px;
   text-align: center;
   background: linear-gradient(#fff, #fffaf0);
   border: 1px solid #edc45e;
-  border-radius: 14px;
+  border-radius: 12px;
 }
 
 .path-art {
-  width: clamp(64px, 6.5vw, 91px);
-  height: clamp(64px, 6.5vw, 91px);
-  margin: 0 auto 5px;
+  width: clamp(60px, 5.8vw, 78px);
+  height: clamp(60px, 5.8vw, 78px);
+  margin: 0 auto 3px;
   display: grid;
   place-items: center;
   background: radial-gradient(circle, #fff 5%, #fff1c7 72%, #e5b346);
   border: 2px solid #e8bb50;
   border-radius: 50%;
   box-shadow: inset 0 0 0 3px white, 0 3px 6px #80541425;
-  font-size: clamp(34px, 3.5vw, 49px);
+  font-size: clamp(31px, 3vw, 43px);
 }
 
 .path-num {
@@ -293,9 +285,9 @@ main {
   z-index: 1;
   display: grid;
   place-items: center;
-  width: 33px;
-  height: 33px;
-  margin: -15px auto 6px;
+  width: 31px;
+  height: 31px;
+  margin: -12px auto 4px;
   color: #ffe6a0;
   background: linear-gradient(145deg, #164e8e, #061a3d);
   border: 3px solid var(--dorado);
@@ -305,18 +297,18 @@ main {
 }
 
 .path-item p {
-  font-size: clamp(13px, 1.05vw, 16px);
+  font-size: clamp(14px, 1.1vw, 17px);
   font-weight: 800;
-  line-height: 1.3;
+  line-height: 1.12;
 }
 
 .path-arrow {
   position: absolute;
   z-index: 2;
-  top: 31%;
-  right: -14px;
+  top: 30%;
+  right: -13px;
   color: #dba02b;
-  font-size: clamp(17px, 1.8vw, 25px);
+  font-size: 23px;
   text-shadow: 1px 1px white;
 }
 
@@ -325,15 +317,16 @@ main {
 .schedule-line {
   display: flex;
   align-items: flex-start;
-  gap: 9px;
-  margin: 9px 2px;
-  font-size: clamp(16px, 1.2vw, 18px);
-  line-height: 1.4;
+  gap: 7px;
+  margin: 7px 1px;
+  font-size: clamp(17px, 1.3vw, 20px);
+  line-height: 1.2;
 }
 
 .schedule-line .ico {
-  flex: 0 0 27px;
-  font-size: 23px;
+  flex: 0 0 25px;
+  font-size: 22px;
+  line-height: 1.1;
   text-align: center;
 }
 
@@ -342,8 +335,8 @@ main {
 .bottom-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 10px;
-  margin-top: 10px;
+  gap: 8px;
+  margin-top: 8px;
 }
 
 .checklist {
@@ -355,23 +348,23 @@ main {
 .checklist li {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
-  margin: 8px 0;
-  font-size: clamp(15px, 1.12vw, 17px);
-  line-height: 1.4;
+  gap: 7px;
+  margin: 5px 0;
+  font-size: clamp(17px, 1.2vw, 19px);
+  line-height: 1.2;
 }
 
 .check {
-  flex: 0 0 24px;
-  width: 24px;
-  height: 24px;
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
   display: grid;
   place-items: center;
   color: #4b2a00;
   background: linear-gradient(#ffe79d, #e7ad36);
   border: 1px solid #c58a1f;
   border-radius: 50%;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 900;
 }
 
@@ -380,35 +373,35 @@ main {
 .value-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 7px;
+  gap: 6px;
 }
 
 .value {
-  padding: 8px 11px;
+  padding: 7px 9px;
   color: #10315f;
   background: linear-gradient(#fff5d7, #ffe9b0);
   border: 1px solid #efce79;
   border-radius: 25px;
-  font-size: clamp(14px, 1vw, 16px);
+  font-size: 15px;
   font-weight: 900;
 }
 
 .quote {
-  margin-top: 11px;
-  padding: 12px 10px;
+  margin-top: 8px;
+  padding: 9px 8px;
   color: #082653;
   text-align: center;
   background: #fff9e9;
   border: 1px solid #e9bd52;
-  border-radius: 17px;
-  font: italic clamp(18px, 1.6vw, 23px)/1.4 Georgia, serif;
+  border-radius: 15px;
+  font: italic clamp(19px, 1.6vw, 24px)/1.2 Georgia, serif;
 }
 
 .quote .cross {
   display: block;
   color: #d5a33e;
   font-style: normal;
-  font-size: 26px;
+  font-size: 24px;
   margin-bottom: 2px;
 }
 
@@ -416,14 +409,14 @@ main {
 
 footer {
   position: relative;
-  margin-top: 10px;
-  padding: 13px 12px;
+  margin-top: 8px;
+  padding: 10px 12px;
   color: white;
   text-align: center;
   background: linear-gradient(100deg, #06183b, #10417d, #06183b);
   border-top: 4px solid var(--dorado);
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.35;
 }
 
 footer strong {
@@ -442,7 +435,7 @@ footer strong {
 }
 
 .copyright {
-  margin-top: 2px;
+  margin-top: 3px;
   font-size: 13px;
 }
 
@@ -450,18 +443,7 @@ footer strong {
 
 @media (max-width: 900px) {
   .header {
-    padding: 52px 12px 13px;
-  }
-
-  .home {
-    width: 51px;
-    height: 51px;
-    top: 7px;
-    right: 8px;
-  }
-
-  .home .house {
-    font-size: 24px;
+    padding: 48px 10px 10px;
   }
 
   .top-grid {
@@ -485,36 +467,33 @@ footer strong {
   }
 
   .panel p {
-    font-size: 16px;
-  }
-
-  .schedule-line {
     font-size: 17px;
+    line-height: 1.2;
   }
 
   .checklist li {
-    font-size: 16px;
+    font-size: 17px;
   }
 
-  .path-item p {
-    font-size: 14px;
+  .schedule-line {
+    font-size: 18px;
   }
 }
 
-/* CELULARES */
+/* CELULAR */
 
 @media (max-width: 540px) {
   main {
-    padding: 7px;
+    padding: 6px;
   }
 
   .header {
-    padding: 49px 7px 12px;
+    padding: 47px 6px 9px;
   }
 
   .header h1 {
     font-size: clamp(19px, 6vw, 29px);
-    padding: 7px 10px;
+    padding: 6px 9px;
   }
 
   .brand {
@@ -524,13 +503,13 @@ footer strong {
 
   .ribbon {
     font-size: 12px;
-    padding: 5px 15px;
+    padding: 4px 13px;
   }
 
   .top-grid,
   .bottom-grid {
     grid-template-columns: 1fr;
-    gap: 8px;
+    gap: 7px;
   }
 
   .countdown,
@@ -539,66 +518,65 @@ footer strong {
   }
 
   .panel {
-    padding: 10px;
+    padding: 8px;
   }
 
   .panel-title {
     font-size: 15px;
-    margin-bottom: 9px;
+    margin-bottom: 7px;
   }
 
   .mission-content {
-    grid-template-columns: 51px minmax(0, 1fr);
-    gap: 8px;
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 7px;
   }
 
   .medallion {
-    width: 49px;
-    height: 49px;
-    font-size: 27px;
+    width: 40px;
+    height: 40px;
+    font-size: 23px;
   }
 
   .panel p {
-    font-size: 16px;
-    line-height: 1.42;
+    font-size: 17px;
+    line-height: 1.2;
   }
 
   .section-grid {
-    gap: 8px;
-    margin-top: 8px;
+    gap: 7px;
+    margin-top: 7px;
   }
 
   .path-panel {
-    padding: 8px 5px;
+    padding: 7px 4px;
   }
 
   .path {
-    gap: 4px;
+    gap: 3px;
   }
 
   .path-item {
-    padding: 6px 2px 8px;
-    border-radius: 11px;
+    padding: 5px 2px 7px;
+    border-radius: 10px;
   }
 
   .path-art {
-    width: clamp(43px, 14vw, 65px);
-    height: clamp(43px, 14vw, 65px);
-    font-size: clamp(24px, 7vw, 36px);
-    border-width: 2px;
+    width: clamp(42px, 14vw, 62px);
+    height: clamp(42px, 14vw, 62px);
+    font-size: clamp(23px, 7vw, 35px);
   }
 
   .path-num {
     width: 27px;
     height: 27px;
-    margin-top: -13px;
+    margin-top: -11px;
     font-size: 15px;
     border-width: 2px;
   }
 
   .path-item p {
-    font-size: clamp(11px, 3vw, 14px);
-    line-height: 1.28;
+    font-size: clamp(12px, 3.2vw, 15px);
+    line-height: 1.12;
   }
 
   .path-arrow {
@@ -609,11 +587,11 @@ footer strong {
 
   .schedule-line {
     font-size: 17px;
-    margin: 8px 1px;
+    margin: 6px 1px;
   }
 
   .unit {
-    padding: 8px 1px;
+    padding: 7px 1px;
   }
 
   .unit strong {
@@ -621,24 +599,27 @@ footer strong {
   }
 
   .unit span {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .date {
-    font-size: 12px;
+    font-size: 13px;
+    line-height: 1.2;
   }
 
   .checklist li {
-    font-size: 16px;
-    margin: 8px 0;
+    font-size: 17px;
+    line-height: 1.2;
+    margin: 5px 0;
   }
 
   .value {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .quote {
-    font-size: 19px;
+    font-size: 20px;
+    line-height: 1.2;
   }
 
   .footer-birds {
@@ -655,12 +636,6 @@ footer strong {
 
   .copyright {
     font-size: 12px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
   }
 }
 </style>
@@ -685,7 +660,7 @@ footer strong {
   <section class="top-grid">
 
     <article class="panel">
-      <h2 class="panel-title"><span class="emoji">💖</span> MISIÓN</h2>
+      <h2 class="panel-title"><span>💖</span> MISIÓN</h2>
 
       <div class="mission-content">
         <div class="medallion" aria-hidden="true">❤️✝️</div>
@@ -699,7 +674,7 @@ footer strong {
     </article>
 
     <article class="panel">
-      <h2 class="panel-title"><span class="emoji">🕊️</span> VISIÓN</h2>
+      <h2 class="panel-title"><span>🕊️</span> VISIÓN</h2>
 
       <div class="mission-content">
         <div class="medallion" aria-hidden="true">🕊️</div>
@@ -713,7 +688,7 @@ footer strong {
 
     <article class="panel countdown">
       <h2 class="panel-title">
-        <span class="emoji">📅</span> CUENTA REGRESIVA
+        <span>📅</span> CUENTA REGRESIVA
       </h2>
 
       <div class="countdown-sub">Para la Primera Comunión</div>
@@ -753,9 +728,9 @@ footer strong {
 
     <article class="panel path-panel">
       <h2 class="panel-title">
-        <span class="emoji">🌟</span>
+        <span>🌟</span>
         NUESTRO CAMINO DE PREPARACIÓN
-        <span class="emoji">🌟</span>
+        <span>🌟</span>
       </h2>
 
       <div class="path">
@@ -799,7 +774,7 @@ footer strong {
 
     <article class="panel">
       <h2 class="panel-title">
-        <span class="emoji">🗓️</span> PROGRAMACIÓN GENERAL
+        <span>🗓️</span> PROGRAMACIÓN GENERAL
       </h2>
 
       <div class="schedule-line">
@@ -816,8 +791,6 @@ footer strong {
         <span class="ico">📍</span>
         <span><strong>Lugar:</strong> Colegio La Salle del Sur</span>
       </div>
-
-      <div class="gold-divider"></div>
     </article>
 
   </section>
@@ -826,7 +799,7 @@ footer strong {
 
     <article class="panel">
       <h2 class="panel-title">
-        <span class="emoji">🎉</span> PRÓXIMAS ACTIVIDADES
+        <span>🎉</span> PRÓXIMAS ACTIVIDADES
       </h2>
 
       <ul class="checklist">
@@ -840,7 +813,7 @@ footer strong {
 
     <article class="panel">
       <h2 class="panel-title">
-        <span class="emoji">👨‍👩‍👧‍👦</span> PARA LAS FAMILIAS
+        <span>👨‍👩‍👧‍👦</span> PARA LAS FAMILIAS
       </h2>
 
       <ul class="checklist">
@@ -854,7 +827,7 @@ footer strong {
 
     <article class="panel">
       <h2 class="panel-title">
-        <span class="emoji">💝</span> NUESTROS VALORES
+        <span>💝</span> NUESTROS VALORES
       </h2>
 
       <div class="value-list">
