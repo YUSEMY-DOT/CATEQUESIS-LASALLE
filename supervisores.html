@@ -252,21 +252,28 @@
 
       try {
         const resultados = await Promise.all([
+          consultarAPI('getSesiones'),
           consultarAPI('getClases'),
           consultarAPI('getCatequizandos')
         ]);
 
-        const clases = resultados[0];
-        const catequizandos = resultados[1];
+        const sesiones = resultados[0];
+        const clases = resultados[1];
+        const catequizandos = resultados[2];
 
-        if (!Array.isArray(clases) || !Array.isArray(catequizandos)) {
-          throw new Error('La API no devolvió las listas esperadas.');
+        if (!Array.isArray(sesiones) ||
+            !Array.isArray(clases) ||
+            !Array.isArray(catequizandos)) {
+          throw new Error('La API no devolvió las listas esperadas. Verifica la respuesta de Google Sheets.');
         }
 
         clasesActuales = clases;
 
+        document.getElementById('lblSesiones').textContent =
+          String(sesiones.length);
+
         document.getElementById('lblCatequizandos').textContent =
-          catequizandos.length;
+          String(catequizandos.length);
 
         dibujarClases(clases);
 
@@ -305,7 +312,14 @@
         throw new Error('Error HTTP ' + respuesta.status);
       }
 
-      const datos = await respuesta.json();
+      const texto = await respuesta.text();
+      let datos;
+
+      try {
+        datos = JSON.parse(texto);
+      } catch (errorParseo) {
+        throw new Error('La respuesta de Apps Script no es JSON. Comprueba que la implementación web esté actualizada y accesible.');
+      }
 
       if (datos && datos.exito === false) {
         throw new Error(datos.mensaje || 'La consulta no fue exitosa.');
