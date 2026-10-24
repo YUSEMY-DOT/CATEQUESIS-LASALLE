@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -22,44 +21,56 @@
 
     body {
       position: relative;
+      width: 100vw;
+      height: 100dvh;
       overflow: hidden;
       font-family: Arial, Helvetica, sans-serif;
-      background-color: #10275b;
-      background-image: url("./assets/PORTAL%20CATEQUESIS.png");
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
+      background: #071a43;
     }
 
-    /* ======================================
-       COLUMNA IZQUIERDA: CINCO BOTONES
-       ====================================== */
+    /* PORTADA: SIEMPRE A LA DERECHA DE LOS BOTONES */
+    .portada {
+      position: fixed;
+      z-index: 1;
+      top: 1.5%;
+      right: 0.7%;
+      bottom: 1.5%;
+      left: 9%;
 
+      overflow: hidden;
+      background-color: #10275b;
+      background-image: url("./assets/PORTAL%20CATEQUESIS.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      border-radius: 3px;
+    }
+
+    /* CINCO BOTONES: COLUMNA IZQUIERDA INDEPENDIENTE */
     .menu {
       position: fixed;
       z-index: 5;
-      top: 2.2%;
-      bottom: 2.2%;
-      left: 0.7%;
-
-      width: 7.5%;
-      max-width: 105px;
+      top: 2%;
+      bottom: 2%;
+      left: 0.5%;
+      width: 7.8%;
+      max-width: 108px;
 
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: space-between;
-      gap: 8px;
+      align-items: center;
+      gap: 7px;
 
-      padding: 0;
       margin: 0;
+      padding: 0;
     }
 
     .boton {
       flex: 1 1 0;
+      width: 100%;
       min-width: 0;
       min-height: 0;
-      width: 100%;
 
       display: flex;
       align-items: center;
@@ -67,12 +78,9 @@
 
       padding: 0;
       margin: 0;
-
-      border: none;
-      outline: none;
+      border: 0;
       background: transparent;
       box-shadow: none;
-
       cursor: pointer;
       line-height: 0;
       -webkit-tap-highlight-color: transparent;
@@ -84,13 +92,11 @@
       height: 100%;
       min-width: 0;
       min-height: 0;
-
       object-fit: contain;
       object-position: center;
-
-      padding: 0;
+      border: 0;
       margin: 0;
-      border: none;
+      padding: 0;
     }
 
     .boton:hover {
@@ -101,90 +107,89 @@
       transform: scale(0.98);
     }
 
-    /* ======================================
-       FRASE: CIELO SUPERIOR IZQUIERDO
-       ====================================== */
-
+    /* FRASE ANIMADA: CIELO SUPERIOR IZQUIERDO DE LA PORTADA */
     .frase-mision {
-      position: fixed;
-      z-index: 2;
-
-      top: 2.5%;
-      left: 11%;
-      width: 32%;
+      position: absolute;
+      z-index: 3;
+      top: 2%;
+      left: 2.5%;
+      width: 40%;
       max-width: 440px;
+      min-height: 1.4em;
 
       margin: 0;
       padding: 0;
 
       color: #0645ad;
-      -webkit-text-fill-color: #0645ad;
-      -webkit-text-stroke: 0;
-
       font-family: Arial, Helvetica, sans-serif;
       font-size: clamp(12px, 1.35vw, 20px);
       font-weight: 800;
       font-style: italic;
       line-height: 1.3;
       text-align: left;
+      white-space: normal;
+      overflow-wrap: break-word;
 
       text-shadow:
         0 0 2px #ffffff,
         1px 1px 2px rgba(255, 255, 255, 0.95),
-        -1px -1px 1px rgba(255, 255, 255, 0.75);
+        -1px -1px 1px rgba(255, 255, 255, 0.8);
 
       pointer-events: none;
     }
 
-    /* ======================================
-       CONTROL DE MÚSICA: ESQUINA SUPERIOR DERECHA
-       ====================================== */
+    .cursor-escritura {
+      display: inline-block;
+      margin-left: 2px;
+      color: #0645ad;
+      font-style: normal;
+      animation: parpadeo 0.8s steps(1) infinite;
+    }
 
+    @keyframes parpadeo {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* MUTE: ESQUINA SUPERIOR DERECHA */
     .control-audio {
-      position: fixed;
+      position: absolute;
       z-index: 10;
       top: 12px;
-      right: 14px;
+      right: 12px;
 
       width: 40px;
       height: 40px;
+      padding: 0;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
-      padding: 0;
       color: #ffffff;
-      background: rgba(10, 35, 83, 0.55);
-
+      background: rgba(10, 35, 83, 0.58);
       border: 1px solid #d7b65d;
       border-radius: 50%;
-
       font-size: 19px;
       cursor: pointer;
     }
 
-    /* ======================================
-       DERECHOS RESERVADOS: SOLO TEXTO
-       ====================================== */
-
+    /* DERECHOS RESERVADOS: TEXTO SIN CUADRO */
     .derechos-reservados {
       position: fixed;
       z-index: 8;
-
       right: 1%;
-      bottom: 1.1%;
+      bottom: 1%;
 
-      max-width: 55%;
       margin: 0;
       padding: 0;
+      max-width: 65%;
 
       color: #ffffff;
       background: transparent;
       border: none;
-      border-radius: 0;
 
-      font-family: Arial, Helvetica, sans-serif;
       font-size: clamp(9px, 0.8vw, 12px);
       font-weight: 700;
       line-height: 1.3;
@@ -198,58 +203,60 @@
       pointer-events: none;
     }
 
-    /* ======================================
-       TABLET
-       ====================================== */
-
+    /* TABLET */
     @media (max-width: 900px) {
       .menu {
-        width: 10%;
-        max-width: 95px;
-        left: 0.5%;
+        width: 9%;
+        max-width: 85px;
         gap: 5px;
       }
 
+      .portada {
+        left: 10%;
+      }
+
       .frase-mision {
-        left: 12%;
-        width: 34%;
+        width: 43%;
         font-size: clamp(11px, 1.7vw, 16px);
       }
 
       .control-audio {
-        top: 9px;
-        right: 9px;
+        top: 8px;
+        right: 8px;
         width: 36px;
         height: 36px;
       }
     }
 
-    /* ======================================
-       CELULAR
-       ====================================== */
-
+    /* CELULAR */
     @media (max-width: 600px) {
       .menu {
         top: 1.5%;
         bottom: 1.5%;
         left: 0.5%;
-
-        width: 16%;
-        max-width: 78px;
+        width: 15%;
+        max-width: 70px;
         gap: 4px;
+      }
+
+      .portada {
+        top: 1%;
+        right: 0.5%;
+        bottom: 1%;
+        left: 16%;
       }
 
       .frase-mision {
         top: 1.5%;
-        left: 18%;
-        width: 37%;
-        font-size: clamp(9px, 2.1vw, 12px);
+        left: 2%;
+        width: 48%;
+        font-size: clamp(9px, 2vw, 12px);
         line-height: 1.2;
       }
 
       .control-audio {
-        top: 7px;
-        right: 7px;
+        top: 6px;
+        right: 6px;
         width: 32px;
         height: 32px;
         font-size: 15px;
@@ -258,26 +265,28 @@
       .derechos-reservados {
         right: 5px;
         bottom: 5px;
-        max-width: 65%;
+        max-width: 70%;
         font-size: 8px;
       }
     }
 
     @media (max-width: 380px) {
       .menu {
-        width: 17%;
-        max-width: 65px;
+        width: 16%;
+        max-width: 58px;
         gap: 3px;
       }
 
+      .portada {
+        left: 17%;
+      }
+
       .frase-mision {
-        left: 19%;
-        width: 38%;
+        width: 49%;
         font-size: 9px;
       }
 
       .derechos-reservados {
-        max-width: 68%;
         font-size: 7px;
       }
     }
@@ -286,91 +295,68 @@
 
 <body>
 
-  <!-- FRASE INSTITUCIONAL -->
-  <div class="frase-mision">
-    Guiamos sus primeros pasos en la fe,
-    acompañamos sus corazones hacia Jesús
-    y sembramos en sus vidas el amor de Dios,
-    para que cada sacramento sea el comienzo
-    de una historia de fe que los acompañe
-    por siempre.
-  </div>
-
-  <!-- MENÚ PRINCIPAL: NO CAMBIAR LOS DESTINOS -->
+  <!-- BOTONES FUERA DE LA PORTADA -->
   <nav class="menu" aria-label="Menú principal">
 
-    <button
-      class="boton"
-      type="button"
+    <button class="boton" type="button"
       data-destino="catequizandos.html"
       aria-label="Catequizandos">
-      <img
-        src="./assets/BTN-CATEQUIS.png"
-        alt="Catequizandos">
+      <img src="./assets/BTN-CATEQUIS.png" alt="Catequizandos">
     </button>
 
-    <button
-      class="boton"
-      type="button"
+    <button class="boton" type="button"
       data-destino="misses.html"
       aria-label="Catequistas">
-      <img
-        src="./assets/BTN_CATEQUISTAS.png"
-        alt="Catequistas">
+      <img src="./assets/BTN_CATEQUISTAS.png" alt="Catequistas">
     </button>
 
-    <button
-      class="boton"
-      type="button"
+    <button class="boton" type="button"
       data-destino="supervisores.html"
       aria-label="Coordinador parroquial">
-      <img
-        src="./assets/BTN_COORDINADOR.png"
-        alt="Coordinador parroquial">
+      <img src="./assets/BTN_COORDINADOR.png" alt="Coordinador parroquial">
     </button>
 
-    <button
-      class="boton"
-      type="button"
+    <button class="boton" type="button"
       data-destino="padres.html"
       aria-label="Padres de familia">
-      <img
-        src="./assets/BTN-PADRES.png"
-        alt="Padres de familia">
+      <img src="./assets/BTN-PADRES.png" alt="Padres de familia">
     </button>
 
-    <button
-      class="boton"
-      type="button"
+    <button class="boton" type="button"
       data-destino="programacion.html"
       aria-label="Programación">
-      <img
-        src="./assets/BTN-PROGRAMACION.png"
-        alt="Programación">
+      <img src="./assets/BTN-PROGRAMACION.png" alt="Programación">
     </button>
 
   </nav>
 
-  <!-- MÚSICA DE FONDO: CONSERVA LAS RUTAS EXISTENTES -->
-  <audio id="musica" loop preload="auto">
-    <source
-      src="./assets/Alma%20Misionera%20Athenas%20-%20M%C3%BAsica%20Cat%C3%B3lica.mp3"
-      type="audio/mpeg">
+  <!-- PORTADA PRINCIPAL -->
+  <main class="portada" aria-label="Portada de Camino hacia Jesús">
 
-    <source
-      src="./Alma%20Misionera%20Athenas%20-%20M%C3%BAsica%20Cat%C3%B3lica.mp3"
-      type="audio/mpeg">
-  </audio>
+    <div class="frase-mision">
+      <span id="textoMision"></span><span class="cursor-escritura">|</span>
+    </div>
 
-  <!-- ÚNICO CONTROL DE AUDIO -->
-  <button
-    id="controlAudio"
-    class="control-audio"
-    type="button"
-    aria-label="Silenciar música"
-    title="Activar o silenciar música">🔊</button>
+    <!-- AUDIO -->
+    <audio id="musica" loop preload="auto">
+      <source
+        src="./assets/Alma%20Misionera%20Athenas%20-%20M%C3%BAsica%20Cat%C3%B3lica.mp3"
+        type="audio/mpeg">
+      <source
+        src="./Alma%20Misionera%20Athenas%20-%20M%C3%BAsica%20Cat%C3%B3lica.mp3"
+        type="audio/mpeg">
+    </audio>
 
-  <!-- DERECHOS RESERVADOS, SIN RECUADRO -->
+    <button
+      id="controlAudio"
+      class="control-audio"
+      type="button"
+      aria-label="Activar música"
+      title="Activar o silenciar música">🔊</button>
+
+  </main>
+
+  <!-- DERECHOS RESERVADOS SIN RECUADRO -->
   <footer class="derechos-reservados">
     © Corporación La Salle del Sur. Derechos reservados.
   </footer>
@@ -382,11 +368,54 @@
       const musica = document.getElementById("musica");
       const controlAudio = document.getElementById("controlAudio");
       const botones = document.querySelectorAll(".boton");
+      const textoMision = document.getElementById("textoMision");
 
+      const frase =
+        "Guiamos sus primeros pasos en la fe, acompañamos sus corazones hacia Jesús y sembramos en sus vidas el amor de Dios, para que cada sacramento sea el comienzo de una historia de fe que los acompañe por siempre.";
+
+      let indice = 0;
       let silenciado = false;
       let contextoAudio = null;
 
-      /* EFECTO CORTO AL PULSAR LOS BOTONES */
+      /* ESCRITURA LETRA POR LETRA */
+      function escribirFrase() {
+        if (indice < frase.length) {
+          textoMision.textContent += frase.charAt(indice);
+          indice++;
+          window.setTimeout(escribirFrase, 48);
+        }
+      }
+
+      escribirFrase();
+
+      /* INICIO DE MÚSICA */
+      async function iniciarMusica() {
+        if (silenciado) return;
+
+        try {
+          musica.muted = false;
+          await musica.play();
+
+          controlAudio.textContent = "🔊";
+          controlAudio.setAttribute("aria-label", "Silenciar música");
+        } catch (error) {
+          controlAudio.textContent = "▶";
+          controlAudio.setAttribute(
+            "aria-label",
+            "Reproducir música"
+          );
+          console.warn(
+            "El navegador bloqueó el audio o no encontró el MP3. Pulsa el control de audio y verifica la ruta del archivo."
+          );
+        }
+      }
+
+      /* INTENTO AUTOMÁTICO: PUEDE SER BLOQUEADO POR EL NAVEGADOR */
+      window.addEventListener("load", () => {
+        iniciarMusica();
+      });
+
+      /* EFECTO BREVE AL PULSAR UN BOTÓN */
       function efectoBoton() {
         try {
           const AudioContext =
@@ -406,18 +435,13 @@
             tono.type = "sine";
             tono.frequency.setValueAtTime(880, ahora);
             tono.frequency.exponentialRampToValueAtTime(
-              660,
-              ahora + 0.12
+              660, ahora + 0.12
             );
 
             volumen.gain.setValueAtTime(0.0001, ahora);
-            volumen.gain.linearRampToValueAtTime(
-              0.08,
-              ahora + 0.015
-            );
+            volumen.gain.linearRampToValueAtTime(0.07, ahora + 0.015);
             volumen.gain.exponentialRampToValueAtTime(
-              0.0001,
-              ahora + 0.16
+              0.0001, ahora + 0.16
             );
 
             tono.connect(volumen);
@@ -428,9 +452,7 @@
           };
 
           if (contextoAudio.state === "suspended") {
-            contextoAudio.resume()
-              .then(reproducir)
-              .catch(() => {});
+            contextoAudio.resume().then(reproducir).catch(() => {});
           } else {
             reproducir();
           }
@@ -439,72 +461,40 @@
         }
       }
 
-      /* INICIAR MÚSICA */
-      async function iniciarMusica() {
-        if (silenciado) return;
-
-        try {
-          musica.muted = false;
-          await musica.play();
-
-          controlAudio.textContent = "🔊";
-          controlAudio.setAttribute(
-            "aria-label",
-            "Silenciar música"
-          );
-        } catch (error) {
-          console.warn(
-            "La reproducción automática puede estar bloqueada. Pulsa el botón de audio para iniciar la música."
-          );
-        }
-      }
-
-      /*
-       * El navegador puede impedir el autoplay.
-       * Por eso se intenta al cargar y también al interactuar.
-       */
-      window.addEventListener("load", () => {
-        iniciarMusica();
-      });
-
-      /* NAVEGACIÓN DE LOS CINCO BOTONES */
+      /* NAVEGACIÓN */
       botones.forEach((boton) => {
         boton.addEventListener("click", () => {
           efectoBoton();
 
           const destino = boton.getAttribute("data-destino");
-
           if (destino) {
             window.location.href = destino;
           }
         });
       });
 
-      /* ACTIVAR / SILENCIAR MÚSICA */
+      /* BOTÓN MUTE / ACTIVAR MÚSICA */
       controlAudio.addEventListener("click", async () => {
-        silenciado = !silenciado;
-        musica.muted = silenciado;
-
-        if (silenciado) {
+        if (!silenciado) {
+          silenciado = true;
+          musica.muted = true;
           controlAudio.textContent = "🔇";
-          controlAudio.setAttribute(
-            "aria-label",
-            "Activar música"
-          );
+          controlAudio.setAttribute("aria-label", "Activar música");
         } else {
-          controlAudio.textContent = "🔊";
-          controlAudio.setAttribute(
-            "aria-label",
-            "Silenciar música"
-          );
-
+          silenciado = false;
+          musica.muted = false;
           await iniciarMusica();
         }
       });
 
+      musica.addEventListener("playing", () => {
+        controlAudio.textContent = silenciado ? "🔇" : "🔊";
+      });
+
       musica.addEventListener("error", () => {
+        controlAudio.textContent = "▶";
         console.error(
-          "No se encuentra el archivo de música. Verifica su nombre y ubicación en GitHub."
+          "No se pudo cargar el MP3. Comprueba que el archivo exista en assets y que su nombre coincida exactamente."
         );
       });
     })();
