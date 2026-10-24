@@ -4,7 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Portal de Catequistas | Camino hacia Jesús 2026</title>
+  <meta name="theme-color" content="#173B68">
+
+  <title>Catequistas | Camino hacia Jesús 2026</title>
 
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -12,49 +14,505 @@
   >
 
   <style>
+    :root {
+      --azul: #173B68;
+      --azul-claro: #EAF0F8;
+      --dorado: #C5A45B;
+      --fondo: #F5F6F9;
+      --texto: #293548;
+    }
+
     body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: var(--fondo);
+      color: var(--texto);
+    }
+
+    .barra-superior {
+      background: white;
+      border-bottom: 3px solid var(--dorado);
     }
 
     .titulo-principal {
-      color: #0d6efd;
+      color: var(--azul);
+      font-weight: 800;
     }
 
-    .tarjeta-principal {
-      border-radius: 14px;
+    .encabezado {
+      background: linear-gradient(135deg, #173B68, #28588B);
+      color: white;
+      border-radius: 18px;
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .encabezado::after {
+      content: "✝";
+      position: absolute;
+      right: 22px;
+      bottom: -28px;
+      font-size: 145px;
+      color: rgba(255,255,255,.07);
+      pointer-events: none;
+    }
+
+    .etiqueta {
+      color: #E8D49B;
+      font-size: .76rem;
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+
+    .tarjeta {
+      background: white;
+      border: 1px solid #E4E8EF;
+      border-radius: 15px;
+      height: 100%;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .tarjeta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 22px rgba(23,59,104,.09);
+    }
+
+    .icono {
+      width: 49px;
+      height: 49px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 13px;
+      background: var(--azul-claro);
+      font-size: 25px;
+      flex-shrink: 0;
+    }
+
+    .nombre-catequista {
+      border: 1px solid #E5E9F0;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      background: #fff;
+    }
+
+    .avatar {
+      background: var(--azul);
+      color: white;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .btn-azul {
+      background: var(--azul);
+      color: white;
+      border: 1px solid var(--azul);
+    }
+
+    .btn-azul:hover {
+      background: #102B4D;
+      color: white;
+    }
+
+    .btn-dorado {
+      background: var(--dorado);
+      color: #172A43;
+      border: none;
+      font-weight: 600;
+    }
+
+    .btn-dorado:hover {
+      background: #B3944D;
+      color: #172A43;
+    }
+
+    .seccion {
+      scroll-margin-top: 20px;
+    }
+
+    .frase {
+      background: #F8F2E4;
+      border-left: 4px solid var(--dorado);
+      border-radius: 8px;
+      padding: 19px;
+    }
+
+    .pie {
+      color: #6D7786;
+      font-size: .82rem;
+    }
+
+    @media (max-width: 576px) {
+      .encabezado {
+        padding: 23px 19px;
+      }
+
+      .titulo-principal {
+        font-size: 1.15rem;
+      }
     }
   </style>
 </head>
 
-<body class="bg-light">
+<body>
 
-  <main class="container py-4">
+  <!-- BARRA SUPERIOR -->
+  <header class="barra-superior">
+    <div class="container py-3 d-flex justify-content-between
+                align-items-center gap-3 flex-wrap">
 
-    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
-      <h3 class="titulo-principal fw-bold mb-0">
-        👩‍🏫 Portal de Catequistas
-      </h3>
+      <div>
+        <div class="titulo-principal">
+          ✝ CAMINO HACIA JESÚS
+        </div>
+        <small class="text-secondary">
+          Colegio La Salle del Sur · 2026
+        </small>
+      </div>
 
-      <a
-        href="./index.html"
-        class="btn btn-outline-secondary btn-sm"
-      >
-        ⬅️ Volver a Portada
+      <a href="./index.html"
+         class="btn btn-outline-secondary btn-sm">
+        ← Volver a portada
       </a>
+
     </div>
+  </header>
 
-    <section class="card tarjeta-principal p-4 shadow-sm border-0">
-      <h5 class="fw-bold">Gestión Pedagógica y Asistencia</h5>
+  <main class="container py-4 py-md-5">
 
-      <p class="text-muted mb-0">
-        Pase de asistencia en vivo, registro de actividades realizadas
-        y envío de notificaciones.
+    <!-- ENCABEZADO PRINCIPAL -->
+    <section class="encabezado mb-4">
+      <div class="etiqueta mb-2">
+        NUESTRO EQUIPO PASTORAL
+      </div>
+
+      <h1 class="fw-bold mb-3">
+        Portal de Catequistas
+      </h1>
+
+      <p class="mb-3" style="max-width: 600px;">
+        Dos catequistas, una misión: acompañar a nuestros niños
+        en su encuentro con Jesús y en su preparación para
+        recibir los sacramentos.
       </p>
+
+      <span class="badge rounded-pill text-bg-light">
+        Grupo compartido · Niños de 6 a 12 años
+      </span>
     </section>
+
+    <!-- EQUIPO DE CATEQUISTAS -->
+    <section class="seccion mb-5" id="equipo">
+
+      <div class="mb-3">
+        <h2 class="h4 fw-bold">Nuestro equipo</h2>
+        <p class="text-secondary mb-0">
+          Catequistas responsables del acompañamiento del grupo.
+        </p>
+      </div>
+
+      <div class="row g-3">
+
+        <div class="col-md-6">
+          <div class="nombre-catequista h-100">
+            <div class="avatar">LM</div>
+            <div>
+              <h3 class="h6 fw-bold mb-1">
+                Lily Melo Azañero
+              </h3>
+              <div class="text-secondary small">
+                Catequista
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="nombre-catequista h-100">
+            <div class="avatar">KM</div>
+            <div>
+              <h3 class="h6 fw-bold mb-1">
+                Kiara Morales Elguera
+              </h3>
+              <div class="text-secondary small">
+                Catequista
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- MÓDULOS DE TRABAJO -->
+    <section class="seccion mb-5" id="modulos">
+
+      <div class="mb-3">
+        <h2 class="h4 fw-bold">Nuestro espacio de trabajo</h2>
+        <p class="text-secondary mb-0">
+          Organización, formación y seguimiento de nuestra misión.
+        </p>
+      </div>
+
+      <div class="row g-3">
+
+        <!-- CATEQUIZANDOS -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="tarjeta p-3">
+            <div class="icono mb-3">👧🏻</div>
+            <h3 class="h5 fw-bold">Nuestros catequizandos</h3>
+            <p class="text-secondary small">
+              Fichas personales, datos de los niños y seguimiento
+              individual dentro de nuestro grupo compartido.
+            </p>
+            <button class="btn btn-azul w-100"
+                    onclick="abrirModulo('catequizandos')">
+              Ingresar
+            </button>
+          </article>
+        </div>
+
+        <!-- SESIONES -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="tarjeta p-3">
+            <div class="icono mb-3">📖</div>
+            <h3 class="h5 fw-bold">Sesiones de catequesis</h3>
+            <p class="text-secondary small">
+              Temas, lecturas bíblicas, enseñanzas, dinámicas
+              y actividades de cada encuentro.
+            </p>
+            <button class="btn btn-azul w-100"
+                    onclick="abrirModulo('sesiones')">
+              Ingresar
+            </button>
+          </article>
+        </div>
+
+        <!-- ASISTENCIA -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="tarjeta p-3">
+            <div class="icono mb-3">📅</div>
+            <h3 class="h5 fw-bold">Asistencia</h3>
+            <p class="text-secondary small">
+              Control de asistencia y tardanzas por fecha,
+              con consulta del historial del grupo.
+            </p>
+            <button class="btn btn-azul w-100"
+                    onclick="abrirModulo('asistencia')">
+              Ingresar
+            </button>
+          </article>
+        </div>
+
+        <!-- SEGUIMIENTO -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="tarjeta p-3">
+            <div class="icono mb-3">🕊️</div>
+            <h3 class="h5 fw-bold">Camino espiritual</h3>
+            <p class="text-secondary small">
+              Seguimiento de aprendizajes, oraciones, participación
+              y preparación para los sacramentos.
+            </p>
+            <button class="btn btn-azul w-100"
+                    onclick="abrirModulo('seguimiento')">
+              Ingresar
+            </button>
+          </article>
+        </div>
+
+        <!-- COORDINACIÓN -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="tarjeta p-3">
+            <div class="icono mb-3">🤝</div>
+            <h3 class="h5 fw-bold">Coordinación</h3>
+            <p class="text-secondary small">
+              Acuerdos entre catequistas, tareas pendientes,
+              reuniones y organización compartida.
+            </p>
+            <button class="btn btn-azul w-100"
+                    onclick="abrirModulo('coordinacion')">
+              Ingresar
+            </button>
+          </article>
+        </div>
+
+        <!-- EVIDENCIAS -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="tarjeta p-3">
+            <div class="icono mb-3">📷</div>
+            <h3 class="h5 fw-bold">Evidencias y recuerdos</h3>
+            <p class="text-secondary small">
+              Fotografías autorizadas, trabajos, celebraciones
+              y registro de nuestras actividades.
+            </p>
+            <button class="btn btn-azul w-100"
+                    onclick="abrirModulo('evidencias')">
+              Ingresar
+            </button>
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ÁREA DE CONTENIDO DEL MÓDULO -->
+    <section class="seccion mb-5" id="contenidoModulo"
+             hidden aria-live="polite">
+
+      <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body p-4">
+
+          <div class="d-flex justify-content-between
+                      align-items-start gap-3 mb-3">
+            <div>
+              <div class="text-uppercase small text-secondary mb-2">
+                Camino hacia Jesús 2026
+              </div>
+              <h2 class="h4 fw-bold mb-0" id="tituloModulo">
+                Módulo
+              </h2>
+            </div>
+
+            <button class="btn-close"
+                    type="button"
+                    aria-label="Cerrar módulo"
+                    onclick="cerrarModulo()">
+            </button>
+          </div>
+
+          <p id="descripcionModulo" class="text-secondary"></p>
+
+          <div class="alert alert-info small mb-3">
+            Este espacio está preparado para integrar las funciones
+            y los registros reales del programa.
+          </div>
+
+          <button class="btn btn-outline-secondary btn-sm"
+                  onclick="cerrarModulo()">
+            Volver al panel
+          </button>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- REFLEXIÓN -->
+    <section class="frase mb-4">
+      <div class="small fw-bold mb-2"
+           style="color:#8A6B28; letter-spacing:1px;">
+        NUESTRA INSPIRACIÓN
+      </div>
+
+      <p class="fs-5 fst-italic mb-2">
+        «Dejen que los niños vengan a mí».
+      </p>
+
+      <div class="small text-secondary">
+        Marcos 10,14
+      </div>
+    </section>
+
+    <footer class="text-center pie py-3">
+      <div class="fw-semibold">
+        CAMINO HACIA JESÚS · 2026
+      </div>
+      <div>
+        Colegio La Salle del Sur
+      </div>
+      <div class="mt-2">
+        Una misión compartida, una fe que crece.
+      </div>
+    </footer>
 
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const modulos = {
+      catequizandos: {
+        titulo: "Nuestros catequizandos",
+        descripcion:
+          "Aquí organizaremos la ficha individual de cada niño, " +
+          "sus datos, edad, información necesaria para la catequesis " +
+          "y su seguimiento dentro del único grupo."
+      },
+
+      sesiones: {
+        titulo: "Sesiones de catequesis",
+        descripcion:
+          "Aquí organizaremos el calendario de sesiones, los temas, " +
+          "las lecturas bíblicas, las actividades y los materiales " +
+          "utilizados en cada encuentro."
+      },
+
+      asistencia: {
+        titulo: "Asistencia",
+        descripcion:
+          "Aquí prepararemos el registro por fecha, la asistencia " +
+          "individual, las tardanzas y la consulta del historial."
+      },
+
+      seguimiento: {
+        titulo: "Camino espiritual",
+        descripcion:
+          "Aquí organizaremos el seguimiento formativo de los niños, " +
+          "sus aprendizajes, oraciones y preparación sacramental."
+      },
+
+      coordinacion: {
+        titulo: "Coordinación entre catequistas",
+        descripcion:
+          "Aquí organizaremos acuerdos, responsabilidades, " +
+          "reuniones, tareas y pendientes compartidos."
+      },
+
+      evidencias: {
+        titulo: "Evidencias y recuerdos",
+        descripcion:
+          "Aquí prepararemos el espacio para registrar las sesiones, " +
+          "los trabajos y las fotografías autorizadas de las actividades."
+      }
+    };
+
+    function abrirModulo(nombre) {
+      const modulo = modulos[nombre];
+
+      if (!modulo) return;
+
+      document.getElementById("tituloModulo").textContent =
+        modulo.titulo;
+
+      document.getElementById("descripcionModulo").textContent =
+        modulo.descripcion;
+
+      const contenido =
+        document.getElementById("contenidoModulo");
+
+      contenido.hidden = false;
+
+      contenido.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+    function cerrarModulo() {
+      document.getElementById("contenidoModulo").hidden = true;
+
+      document.getElementById("modulos").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  </script>
 
 </body>
 </html>
