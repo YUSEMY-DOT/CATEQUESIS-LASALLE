@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#071d49">
-
   <title>Camino hacia Jesús | Catequesis La Salle del Sur</title>
 
   <style>
@@ -13,8 +12,7 @@
       box-sizing: border-box;
     }
 
-    html,
-    body {
+    html, body {
       margin: 0;
       width: 100%;
       min-height: 100%;
@@ -41,7 +39,7 @@
       align-items: center;
     }
 
-    /* MENÚ ORIGINAL */
+    /* BOTONES ORIGINALES */
     .menu {
       width: 100%;
       display: flex;
@@ -119,26 +117,26 @@
       box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
     }
 
-    /* FRASE ANIMADA SOBRE LA PORTADA */
+    /* FRASE: BLANCO ILUMINADO EN LA PARTE SUPERIOR */
     .frase-mision {
       position: absolute;
       z-index: 4;
-      top: 5%;
+      top: 1.5%;
       left: 4%;
-      width: min(43%, 440px);
-      color: #ffe8a0;
+      width: min(36%, 390px);
+      color: #ffffff;
       font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
-      font-size: clamp(12px, 1.35vw, 19px);
+      font-size: clamp(12px, 1.25vw, 18px);
       font-style: italic;
       font-weight: normal;
-      line-height: 1.65;
-      letter-spacing: 0.15px;
+      line-height: 1.6;
+      letter-spacing: 0.2px;
       text-align: left;
       text-shadow:
-        0 0 3px #fff4cf,
-        0 0 8px rgba(255, 213, 106, 0.95),
-        0 0 17px rgba(255, 190, 60, 0.7),
-        1px 2px 3px rgba(0, 0, 20, 0.9);
+        0 0 2px #ffffff,
+        0 0 6px rgba(173, 216, 255, 0.95),
+        0 0 12px rgba(60, 130, 220, 0.75),
+        1px 2px 3px rgba(0, 20, 60, 0.9);
       overflow-wrap: break-word;
       pointer-events: none;
     }
@@ -146,8 +144,8 @@
     .cursor-escritura {
       display: inline-block;
       margin-left: 2px;
-      color: #fff4cf;
-      text-shadow: 0 0 8px #ffd56a;
+      color: #ffffff;
+      text-shadow: 0 0 8px #b8dcff;
       animation: parpadeo 0.75s steps(1) infinite;
     }
 
@@ -157,7 +155,7 @@
       }
     }
 
-    /* BOTÓN MUTE */
+    /* MUTE */
     .mute {
       position: fixed;
       z-index: 20;
@@ -238,10 +236,10 @@
       }
 
       .frase-mision {
-        top: 5%;
+        top: 2%;
         left: 4%;
-        width: 54%;
-        font-size: clamp(9px, 2.5vw, 13px);
+        width: 48%;
+        font-size: clamp(10px, 2.4vw, 13px);
         line-height: 1.45;
         letter-spacing: 0;
       }
@@ -313,36 +311,31 @@
 
     <nav class="menu" aria-label="Secciones de catequesis">
 
-      <a class="boton"
-         href="./catequizandos.html"
+      <a class="boton" href="./catequizandos.html"
          aria-label="Catequizandos">
         <img src="./assets/BTN-CATEQUIS.png"
              alt="Catequizandos">
       </a>
 
-      <a class="boton"
-         href="./misses.html"
+      <a class="boton" href="./misses.html"
          aria-label="Catequistas">
         <img src="./assets/BTN_CATEQUISTAS.png"
              alt="Catequistas">
       </a>
 
-      <a class="boton"
-         href="./supervisores.html"
+      <a class="boton" href="./supervisores.html"
          aria-label="Coordinador parroquial">
         <img src="./assets/BTN_COORDINADOR.png"
              alt="Coordinador parroquial">
       </a>
 
-      <a class="boton"
-         href="./padres.html"
+      <a class="boton" href="./padres.html"
          aria-label="Padres">
         <img src="./assets/BTN-PADRES.png"
              alt="Padres">
       </a>
 
-      <a class="boton"
-         href="./programacion.html"
+      <a class="boton" href="./programacion.html"
          aria-label="Nuestra programación">
         <img src="./assets/BTN-PROGRAMACION.png"
              alt="Nuestra programación">
@@ -368,7 +361,7 @@
   </main>
 
   <script>
-    /* MÚSICA */
+    /* CONTROL DE MÚSICA */
     const musica = document.getElementById("musica");
     const botonMute = document.getElementById("mute");
 
@@ -384,9 +377,7 @@
 
       botonMute.setAttribute(
         "aria-label",
-        musica.muted
-          ? "Activar sonido"
-          : "Silenciar música"
+        musica.muted ? "Activar sonido" : "Silenciar música"
       );
     }
 
@@ -406,11 +397,11 @@
       actualizarControl();
 
       musica.play().catch(() => {
-        /* El navegador puede bloquear el autoplay con sonido. */
+        /* Algunos navegadores bloquean el autoplay con sonido. */
       });
     });
 
-    /* EFECTO DE ESCRITURA DE LA FRASE */
+    /* FRASE ANIMADA */
     const frase =
       "Guiamos sus primeros pasos en la fe, acompañamos sus corazones hacia Jesús y sembramos en sus vidas el amor de Dios, para que cada sacramento sea el comienzo de una historia de fe que los acompañe por siempre.";
 
@@ -418,23 +409,19 @@
     const cursor = document.getElementById("cursorEscritura");
 
     let posicion = 0;
-    let temporizadorEscritura;
 
     function escribirFrase() {
       if (posicion < frase.length) {
         textoAnimado.textContent += frase.charAt(posicion);
         posicion++;
 
-        temporizadorEscritura = window.setTimeout(
-          escribirFrase,
-          38
-        );
+        window.setTimeout(escribirFrase, 38);
       } else {
         cursor.style.display = "none";
       }
     }
 
-    window.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", () => {
       textoAnimado.textContent = "";
       posicion = 0;
       escribirFrase();
