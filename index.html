@@ -30,18 +30,18 @@
       background-size: 100% 100%;
     }
 
-    /* BOTONES DEL MENÚ */
+    /* MENÚ: COLUMNA IZQUIERDA, BOTONES MÁS PEQUEÑOS */
     .menu {
       position: fixed;
       z-index: 5;
-      top: 1.5%;
+      top: 1.2%;
       left: 1.2%;
-      width: 21%;
-      max-width: 235px;
+      width: 17%;
+      max-width: 190px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 9px;
+      gap: 7px;
     }
 
     .boton {
@@ -50,6 +50,7 @@
       padding: 0;
       margin: 0;
       border: none;
+      outline: none;
       background: transparent;
       box-shadow: none;
       cursor: pointer;
@@ -59,67 +60,71 @@
     }
 
     .boton:hover {
-      transform: scale(1.02);
+      transform: scale(1.015);
     }
 
     .boton:active {
-      transform: scale(0.98);
+      transform: scale(0.985);
     }
 
     .boton img {
       display: block;
       width: 100%;
       height: auto;
-      border: none;
+      margin: 0;
+      padding: 0;
+      border: 0;
       object-fit: contain;
     }
 
-    /* FRASE: ZONA SUPERIOR IZQUIERDA, SIN CUBRIR LA INSIGNIA */
+    /* FRASE EN EL CIELO: AZUL SÓLIDO, SIN CONTORNO GRUESO */
     .frase-mision {
       position: fixed;
       z-index: 2;
       top: 2%;
-      left: 25%;
-      width: 27%;
-      max-width: 390px;
+      left: 24.5%;
+      width: 31%;
+      max-width: 500px;
+      max-height: 115px;
+      overflow: hidden;
       margin: 0;
+      padding: 0;
 
-      color: #003dbb;
-      -webkit-text-fill-color: #003dbb;
+      color: #003da5;
+      -webkit-text-fill-color: #003da5;
       -webkit-text-stroke: 0;
 
-      font-size: clamp(14px, 1.55vw, 23px);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(13px, 1.25vw, 20px);
       font-weight: 800;
       font-style: italic;
-      line-height: 1.35;
+      line-height: 1.22;
       text-align: center;
 
       text-shadow:
-        0 0 2px #ffffff,
-        1px 1px 2px rgba(255, 255, 255, 0.9);
+        0 0 2px rgba(255, 255, 255, 0.95),
+        1px 1px 1px rgba(255, 255, 255, 0.85);
     }
 
-    /* CONTROL ÚNICO DEL AUDIO */
+    /* BOTÓN ÚNICO PARA CONTROLAR LA MÚSICA */
     .control-audio {
       position: fixed;
       z-index: 10;
       right: 14px;
       bottom: 14px;
-
-      width: 46px;
-      height: 46px;
+      width: 44px;
+      height: 44px;
       padding: 0;
 
       display: flex;
       justify-content: center;
       align-items: center;
 
-      color: #ffffff;
-      background: rgba(10, 35, 83, 0.65);
+      color: white;
+      background: rgba(10, 35, 83, 0.72);
       border: 1px solid #d7b65d;
       border-radius: 50%;
-
-      font-size: 22px;
+      font-size: 21px;
       cursor: pointer;
     }
 
@@ -127,38 +132,41 @@
       .menu {
         top: 1%;
         left: 1%;
-        width: 25%;
-        max-width: 170px;
+        width: 24%;
+        max-width: 145px;
         gap: 5px;
       }
 
       .frase-mision {
         top: 1.5%;
-        left: 26%;
-        width: 28%;
-        font-size: clamp(10px, 2.2vw, 15px);
-        line-height: 1.3;
+        left: 25%;
+        width: 34%;
+        max-width: 300px;
+        max-height: 100px;
+        font-size: clamp(10px, 2vw, 14px);
+        line-height: 1.2;
       }
 
       .control-audio {
-        width: 38px;
-        height: 38px;
         right: 8px;
         bottom: 8px;
-        font-size: 19px;
+        width: 38px;
+        height: 38px;
+        font-size: 18px;
       }
     }
 
     @media (max-width: 420px) {
       .menu {
-        width: 27%;
-        max-width: 125px;
+        width: 25%;
+        max-width: 105px;
         gap: 4px;
       }
 
       .frase-mision {
-        left: 29%;
-        width: 29%;
+        left: 27%;
+        width: 35%;
+        max-height: 85px;
         font-size: 10px;
       }
     }
@@ -219,6 +227,9 @@
     <source
       src="./assets/Alma%20Misionera%20Athenas%20-%20M%C3%BAsica%20Cat%C3%B3lica.mp3"
       type="audio/mpeg">
+    <source
+      src="./Alma%20Misionera%20Athenas%20-%20M%C3%BAsica%20Cat%C3%B3lica.mp3"
+      type="audio/mpeg">
   </audio>
 
   <button
@@ -237,10 +248,9 @@
       const botones = document.querySelectorAll(".boton");
 
       let silenciado = false;
-      let audioIniciado = false;
-      let contexto = null;
+      let contextoAudio = null;
 
-      /* Efecto corto al pulsar un botón. */
+      /* Efecto breve al pulsar los botones. */
       function efectoBoton() {
         try {
           const AudioContext =
@@ -248,14 +258,14 @@
 
           if (!AudioContext) return;
 
-          if (!contexto) {
-            contexto = new AudioContext();
+          if (!contextoAudio) {
+            contextoAudio = new AudioContext();
           }
 
           const reproducir = () => {
-            const ahora = contexto.currentTime;
-            const tono = contexto.createOscillator();
-            const volumen = contexto.createGain();
+            const ahora = contextoAudio.currentTime;
+            const tono = contextoAudio.createOscillator();
+            const volumen = contextoAudio.createGain();
 
             tono.type = "sine";
             tono.frequency.setValueAtTime(880, ahora);
@@ -272,43 +282,55 @@
             );
 
             tono.connect(volumen);
-            volumen.connect(contexto.destination);
-
+            volumen.connect(contextoAudio.destination);
             tono.start(ahora);
             tono.stop(ahora + 0.17);
           };
 
-          if (contexto.state === "suspended") {
-            contexto.resume().then(reproducir).catch(() => {});
+          if (contextoAudio.state === "suspended") {
+            contextoAudio.resume().then(reproducir).catch(() => {});
           } else {
             reproducir();
           }
         } catch (error) {
-          console.warn("No se pudo reproducir el efecto.");
+          console.warn("No se pudo reproducir el efecto de sonido.");
         }
       }
 
-      /* Iniciar música después de la primera interacción del usuario. */
+      /* Reproduce la música cuando el navegador lo permite. */
       async function iniciarMusica() {
         if (silenciado) return;
 
         try {
           await musica.play();
-          audioIniciado = true;
           controlAudio.textContent = "🔊";
+          controlAudio.setAttribute("aria-label", "Silenciar música");
         } catch (error) {
-          audioIniciado = false;
           console.warn(
-            "No se pudo iniciar la música. Comprueba la ruta del archivo."
+            "No se pudo reproducir la música. Comprueba el archivo MP3 y su ruta."
           );
         }
       }
 
+      /* Intento inicial: puede ser bloqueado por el navegador. */
+      window.addEventListener("load", () => {
+        iniciarMusica();
+      });
+
+      /* Primer clic en cualquier parte de la portada. */
+      document.addEventListener("pointerdown", () => {
+        if (musica.paused && !silenciado) {
+          iniciarMusica();
+        }
+      }, { once: true });
+
       botones.forEach((boton) => {
-        boton.addEventListener("click", async () => {
+        boton.addEventListener("click", async (evento) => {
+          evento.preventDefault();
+
           efectoBoton();
 
-          if (!audioIniciado && !silenciado) {
+          if (!silenciado && musica.paused) {
             await iniciarMusica();
           }
 
@@ -320,34 +342,25 @@
         });
       });
 
-      controlAudio.addEventListener("click", async () => {
+      controlAudio.addEventListener("click", async (evento) => {
+        evento.stopPropagation();
+
         silenciado = !silenciado;
         musica.muted = silenciado;
 
         if (silenciado) {
           controlAudio.textContent = "🔇";
-          controlAudio.setAttribute(
-            "aria-label", "Activar música"
-          );
+          controlAudio.setAttribute("aria-label", "Activar música");
         } else {
           controlAudio.textContent = "🔊";
-          controlAudio.setAttribute(
-            "aria-label", "Silenciar música"
-          );
-
+          controlAudio.setAttribute("aria-label", "Silenciar música");
           await iniciarMusica();
         }
       });
 
-      musica.addEventListener("playing", () => {
-        audioIniciado = true;
-        controlAudio.textContent = silenciado ? "🔇" : "🔊";
-      });
-
       musica.addEventListener("error", () => {
-        audioIniciado = false;
         console.error(
-          "No se encuentra el archivo de música o no se puede reproducir."
+          "Error de audio: ninguna de las rutas del MP3 se pudo reproducir."
         );
       });
     })();
