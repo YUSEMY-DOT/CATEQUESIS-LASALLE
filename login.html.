@@ -1,10 +1,44 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <base target="_top">
-  </head>
-  <body>
-    
-  </body>
-</html>
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Acceso | Camino hacia Jesús 2026</title>
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+</head>
+
+<body class="bg-light">
+
+  <main class="container py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h3 class="fw-bold text-warning mb-0">
+        ✝️ Camino hacia Jesús 2026
+      </h3>
+
+      <a
+        href="./index.html"
+        class="btn btn-outline-secondary btn-sm"
+      >
+        ⬅️ Volver a Portada
+      </a>
+    </div>
+
+    <section class="card p-4 shadow-sm border-0">
+      <h5 class="fw-bold">Acceso al sistema</h5>
+      <p class="text-muted mb-0">
+        Bienvenido al programa de Primera Comunión del Colegio La Salle del Sur.
+      </p>
+    </section>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
