@@ -4,512 +4,555 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#082653">
+<meta name="theme-color" content="#06265c">
 <title>Nuestra Programación | Camino hacia Jesús</title>
 
 <style>
-:root {
-  --azul: #082653;
-  --azul2: #123f78;
-  --dorado: #edc25e;
-  --crema: #fff9e9;
-  --texto: #142b4f;
+:root{
+  --navy:#06265c;
+  --blue:#0d4388;
+  --gold:#f5c85e;
+  --gold2:#d99b24;
+  --cream:#fffaf0;
+  --ink:#102850;
 }
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  margin: 0;
-  font-family: "Segoe UI", Arial, sans-serif;
-  color: var(--texto);
-  background: linear-gradient(#dcecff, #fff8e9 45%, #dcecff);
-}
-.top {
-  position: relative;
-  overflow: hidden;
-  padding: 18px 70px 17px;
-  text-align: center;
-  color: white;
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--ink);
+  font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif;
   background:
-    radial-gradient(ellipse at 50% 110%, #367fc0, transparent 55%),
-    linear-gradient(120deg, #061a3e, #164c87, #061a3e);
-  border-bottom: 4px solid var(--dorado);
+    radial-gradient(ellipse at 50% 0%,#b8e4ff 0,transparent 50%),
+    linear-gradient(135deg,#08285c,#1767a4 50%,#08285c);
 }
-.top:before, .top:after {
-  content: "✦ ✧ ✦";
-  position: absolute;
-  top: 22px;
-  color: var(--dorado);
-  font-size: 22px;
+button,a{-webkit-tap-highlight-color:transparent}
+.page{
+  width:100%;
+  max-width:1700px;
+  margin:auto;
+  overflow:hidden;
+  border-bottom:4px solid var(--gold);
 }
-.top:before { left: 16px; }
-.top:after { right: 16px; }
-.home {
-  position: absolute;
-  top: 12px;
-  right: 15px;
-  z-index: 2;
-  padding: 8px 12px;
-  color: white;
-  text-decoration: none;
-  border: 1px solid var(--dorado);
-  border-radius: 22px;
-  background: #061a3ecc;
-  font-size: 12px;
-  font-weight: bold;
-}
-.home:hover { background: #28568b; }
-.brand {
-  color: #ffe5a1;
-  font-size: 11px;
-  letter-spacing: 2px;
-  font-weight: bold;
-}
-h1 {
-  margin: 5px 0 0;
-  color: #ffe4a0;
-  font: bold clamp(25px, 4vw, 43px) Georgia, serif;
-  text-shadow: 0 2px 4px #0007;
-}
-.subtitle {
-  margin-top: 5px;
-  font: bold clamp(12px, 2vw, 17px) Georgia, serif;
-  color: white;
-}
-main {
-  width: min(1400px, 100%);
-  margin: auto;
-  padding: 12px;
-}
-.kids-banner {
-  position: relative;
-  min-height: 145px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(8px, 3vw, 32px);
-  padding: 12px;
-  margin-bottom: 12px;
-  overflow: hidden;
-  border: 1px solid #e6c05e;
-  border-radius: 17px;
+.header{
+  position:relative;
+  min-height:145px;
+  padding:22px 90px 17px;
+  text-align:center;
+  color:white;
+  overflow:hidden;
   background:
-    radial-gradient(ellipse at 50% 100%, #9dd8ff, transparent 65%),
-    linear-gradient(#d8edff, #fff8e9);
+    radial-gradient(ellipse at 50% 110%,#60b8f1 0,transparent 50%),
+    linear-gradient(180deg,#092451,#0d4b91 75%,#146bb0);
+  border-bottom:4px solid var(--gold);
 }
-.kids-banner:after {
-  content: "☁       ✨       ☁";
-  position: absolute;
-  top: 6px;
-  color: #fff;
-  font-size: 25px;
-  opacity: .9;
+.header:before,.header:after{
+  content:"✦  ✧  ✦";
+  position:absolute;
+  top:35%;
+  color:#ffdc83;
+  font-size:clamp(19px,3vw,36px);
+  text-shadow:0 0 12px #ffdb7d;
 }
-.kid {
-  position: relative;
-  width: clamp(49px, 7vw, 78px);
-  height: 105px;
-  flex: 0 1 78px;
-  z-index: 1;
+.header:before{left:2%}
+.header:after{right:2%}
+.header .small-title{
+  color:#ffdf88;
+  font-size:clamp(9px,1.1vw,14px);
+  font-weight:900;
+  letter-spacing:3px;
 }
-.kid .hair {
-  position: absolute;
-  top: 2px;
-  left: 50%;
-  width: 39px;
-  height: 24px;
-  transform: translateX(-50%);
-  background: #59331f;
-  border-radius: 50% 50% 30% 30%;
-  z-index: 2;
+.header h1{
+  display:inline-block;
+  max-width:900px;
+  margin:7px auto 2px;
+  padding:7px clamp(12px,3vw,35px);
+  color:#ffdf88;
+  background:linear-gradient(90deg,#09275a,#164d91,#09275a);
+  border:2px solid var(--gold);
+  border-radius:17px;
+  box-shadow:0 0 0 3px #9c6a19,0 5px 12px #0005;
+  font:900 clamp(22px,4.4vw,51px) Georgia,"Times New Roman",serif;
+  text-shadow:1px 2px 2px #472b08;
 }
-.kid .face {
-  position: absolute;
-  top: 9px;
-  left: 50%;
-  width: 34px;
-  height: 39px;
-  transform: translateX(-50%);
-  background: #f5c69e;
-  border: 1px solid #d49a6d;
-  border-radius: 45%;
-  z-index: 1;
+.header .ribbon{
+  width:max-content;
+  max-width:90%;
+  margin:5px auto 0;
+  padding:5px 28px;
+  color:#082653;
+  background:linear-gradient(#fff0b5,#e8b948);
+  border:1px solid #fff0b5;
+  clip-path:polygon(0 0,100% 0,96% 50%,100% 100%,0 100%,4% 50%);
+  font:900 clamp(12px,1.8vw,21px) Georgia,serif;
 }
-.kid .face:before {
-  content: "•  •";
-  position: absolute;
-  top: 10px;
-  left: 7px;
-  color: #30251f;
-  font-size: 11px;
-  letter-spacing: 2px;
+.home{
+  position:absolute;
+  top:12px;
+  right:13px;
+  z-index:5;
+  width:62px;
+  height:62px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:1px;
+  color:#ffe39a;
+  text-decoration:none;
+  background:linear-gradient(145deg,#194b88,#061a43);
+  border:3px solid var(--gold);
+  border-radius:50%;
+  box-shadow:0 0 0 2px #fff6,0 3px 8px #0005;
+  font-size:10px;
+  font-weight:900;
 }
-.kid .face:after {
-  content: "⌣";
-  position: absolute;
-  top: 19px;
-  left: 12px;
-  color: #a44c3b;
-  font-size: 15px;
+.home .house{font-size:26px;line-height:1}
+.home:hover{transform:scale(1.04)}
+main{padding:12px}
+.top-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr .92fr;
+  gap:12px;
+  align-items:stretch;
 }
-.kid .body {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 54px;
-  height: 51px;
-  transform: translateX(-50%);
-  border: 2px solid white;
-  border-radius: 16px 16px 5px 5px;
-  background: #b92234;
+.panel{
+  position:relative;
+  min-width:0;
+  padding:13px;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at top left,#fff 0,transparent 65%),
+    linear-gradient(135deg,#fffdf7,#fff5df);
+  border:3px solid var(--gold);
+  border-radius:21px 15px 21px 15px;
+  box-shadow:inset 0 0 0 2px white,inset 0 0 0 4px #f5dda0,0 3px 8px #00194335;
 }
-.kid .body:after {
-  content: "✝";
-  position: absolute;
-  top: 7px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #ffe4a0;
-  font-size: 19px;
+.panel:before{
+  content:"✧";
+  position:absolute;
+  top:0;
+  right:8px;
+  color:#e3b64d;
+  font-size:19px;
+  pointer-events:none;
 }
-.kid.blue .body { background: #17477f; }
-.kid.gold .body { background: #e4b94e; }
-.kid.white .body { background: #fff; }
-.kid.white .body:after { color: #b68b30; }
-.jesus {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  color: #17477f;
-  font-size: clamp(40px, 7vw, 70px);
-  line-height: 1;
+.panel-title{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  margin:-2px -2px 10px;
+  padding:6px 9px;
+  color:#ffdf87;
+  text-align:center;
+  background:linear-gradient(90deg,#061b44,#154b8c,#061b44);
+  border:2px solid #edc45e;
+  border-radius:20px;
+  box-shadow:0 2px 3px #18355b35;
+  font:900 clamp(12px,1.55vw,19px) Georgia,serif;
 }
-.jesus small {
-  display: block;
-  font: bold 9px "Segoe UI", Arial, sans-serif;
+.panel-title .emoji{font-family:Arial,sans-serif;font-size:1.2em}
+.mission-content{
+  display:grid;
+  grid-template-columns:76px 1fr;
+  align-items:center;
+  gap:10px;
 }
-.layout {
-  display: grid;
-  grid-template-columns: 1.15fr 1.15fr .95fr;
-  gap: 12px;
+.medallion{
+  width:75px;
+  height:75px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  border:3px solid #e7b849;
+  background:radial-gradient(circle,#fff 0,#fff1c9 75%,#e5b849 100%);
+  box-shadow:inset 0 0 0 3px white;
+  font-size:43px;
 }
-.panel {
-  min-width: 0;
-  padding: 13px;
-  border: 2px solid var(--dorado);
-  border-radius: 15px;
-  background: var(--crema);
-  box-shadow: 0 3px 9px #08265318;
+.panel p{
+  margin:0;
+  font-size:clamp(12px,1.12vw,16px);
+  line-height:1.5;
 }
-.panel-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 7px 9px;
-  margin: -2px -2px 10px;
-  border: 1px solid #f5d77f;
-  border-radius: 18px;
-  background: linear-gradient(100deg, #061c43, #174c87, #061c43);
-  color: #ffe4a0;
-  text-align: center;
-  font: bold clamp(13px, 1.6vw, 18px) Georgia, serif;
+.countdown{
+  color:white;
+  text-align:center;
+  background:
+    radial-gradient(ellipse at top,#174c8e,transparent 65%),
+    linear-gradient(140deg,#061943,#0a3474);
+  border-color:#edc15b;
+  box-shadow:inset 0 0 0 2px #fff3,inset 0 0 0 5px #e8bb53,0 3px 8px #00194340;
 }
-.panel-title .emoji { font-family: Arial, sans-serif; }
-.panel p {
-  margin: 0;
-  font-size: clamp(12px, 1.15vw, 14px);
-  line-height: 1.55;
+.countdown .panel-title{
+  padding:4px 2px;
+  margin-bottom:4px;
+  color:#ffdf87;
+  background:transparent;
+  border:0;
+  box-shadow:none;
 }
-.countdown {
-  color: white;
-  background: linear-gradient(145deg, #061a3e, #174b83);
-  border-color: var(--dorado);
-  text-align: center;
+.countdown-sub{
+  margin:0 0 10px;
+  font-size:clamp(11px,1.2vw,15px);
 }
-.countdown .panel-title {
-  margin-bottom: 4px;
-  background: transparent;
-  border: 0;
-  color: #ffe4a0;
+.timer{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:4px;
 }
-.countdown-sub {
-  margin: 0 0 10px;
-  font-size: 12px;
+.unit{
+  min-width:0;
+  padding:7px 2px;
+  background:linear-gradient(150deg,#123f7c,#071c48);
+  border:2px solid #f3ca5c;
+  border-radius:9px;
+  box-shadow:inset 0 0 0 1px #fff4;
 }
-.timer {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 5px;
+.unit strong{
+  display:block;
+  color:#ffe5a0;
+  font:900 clamp(17px,2.3vw,31px) Georgia,serif;
+  font-variant-numeric:tabular-nums;
 }
-.unit {
-  min-width: 0;
-  padding: 8px 2px;
-  border: 1px solid var(--dorado);
-  border-radius: 8px;
-  background: #ffffff0d;
+.unit span{font-size:clamp(8px,.8vw,11px);font-weight:bold}
+.date{
+  margin-top:9px;
+  padding:7px 4px;
+  color:#14284a;
+  background:linear-gradient(#ffedb1,#edbd4c);
+  border:1px solid white;
+  border-radius:20px;
+  font-size:clamp(10px,1vw,13px);
+  font-weight:900;
+  line-height:1.4;
 }
-.unit strong {
-  display: block;
-  color: #ffe4a0;
-  font-size: clamp(17px, 2.5vw, 26px);
+.note{margin-top:4px;color:#e7efff;font-size:10px}
+.section-grid{
+  display:grid;
+  grid-template-columns:minmax(0,2.15fr) minmax(250px,.95fr);
+  gap:12px;
+  margin-top:12px;
 }
-.unit span { font-size: 9px; }
-.date {
-  margin-top: 10px;
-  padding: 8px 5px;
-  border-radius: 20px;
-  background: linear-gradient(#ffe6a2, #e9bd53);
-  color: #17294b;
-  font-size: 11px;
-  font-weight: bold;
-  line-height: 1.5;
+.path-panel{padding:12px}
+.path{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:5px;
+  align-items:center;
 }
-.note {
-  margin-top: 5px;
-  font-size: 10px;
-  color: #e5edfb;
+.path-item{
+  min-width:0;
+  text-align:center;
+  position:relative;
 }
-.wide { grid-column: span 2; }
-.steps {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 7px;
+.path-icon{
+  width:clamp(54px,6.4vw,88px);
+  height:clamp(54px,6.4vw,88px);
+  margin:0 auto 4px;
+  display:grid;
+  place-items:center;
+  border:3px solid #efc65d;
+  border-radius:50%;
+  background:radial-gradient(circle,#fff 0,#fff2c9 75%,#e9b94e 100%);
+  box-shadow:inset 0 0 0 3px white,0 2px 4px #8b641d30;
+  font-size:clamp(26px,3.4vw,44px);
 }
-.step {
-  min-width: 0;
-  text-align: center;
-  padding: 8px 4px;
-  border: 1px solid #e9cc79;
-  border-radius: 11px;
-  background: white;
+.path-number{
+  display:inline-grid;
+  place-items:center;
+  width:25px;
+  height:25px;
+  color:#ffe19a;
+  background:linear-gradient(#164984,#061b43);
+  border:2px solid var(--gold);
+  border-radius:50%;
+  font-size:12px;
+  font-weight:900;
+  vertical-align:middle;
 }
-.step-icon { font-size: 26px; }
-.step-num {
-  display: inline-grid;
-  place-items: center;
-  width: 23px;
-  height: 23px;
-  margin: 4px 0;
-  border-radius: 50%;
-  background: var(--azul);
-  color: #ffe4a0;
-  border: 1px solid var(--dorado);
-  font-weight: bold;
-  font-size: 12px;
+.path-item p{
+  margin-top:3px;
+  font-size:clamp(10px,.95vw,13px);
+  line-height:1.25;
+  font-weight:800;
 }
-.step p {
-  font-size: 11px;
-  font-weight: bold;
-  line-height: 1.35;
+.path-arrow{
+  position:absolute;
+  top:24%;
+  right:-10px;
+  z-index:2;
+  color:#e6ad30;
+  text-shadow:1px 1px white;
+  font-size:clamp(15px,2vw,26px);
 }
-.info-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  margin: 9px 0;
-  font-size: 12px;
-  line-height: 1.5;
+.schedule .panel-title{margin-bottom:13px}
+.schedule-line{
+  display:flex;
+  align-items:flex-start;
+  gap:9px;
+  margin:11px 2px;
+  font-size:clamp(12px,1.15vw,15px);
+  line-height:1.45;
 }
-.info-row span:first-child { font-size: 17px; }
-.bottom-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 12px;
+.schedule-line .ico{font-size:20px;line-height:1}
+.gold-divider{
+  width:70%;
+  height:2px;
+  margin:13px auto 0;
+  background:linear-gradient(90deg,transparent,#dca638,transparent);
 }
-.checks {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.bottom-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:12px;
+  margin-top:12px;
 }
-.checks li {
-  position: relative;
-  padding: 4px 0 4px 22px;
-  font-size: 12px;
-  line-height: 1.4;
+.checklist{list-style:none;margin:0;padding:0}
+.checklist li{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  margin:5px 0;
+  font-size:clamp(11px,1.05vw,14px);
+  line-height:1.35;
 }
-.checks li:before {
-  content: "✓";
-  position: absolute;
-  left: 0;
-  top: 3px;
-  display: grid;
-  place-items: center;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  color: #17294b;
-  background: #edc25e;
-  font-size: 11px;
-  font-weight: bold;
+.check{
+  flex:0 0 19px;
+  width:19px;
+  height:19px;
+  display:grid;
+  place-items:center;
+  color:#4e2b00;
+  background:linear-gradient(#ffe69b,#e6a82e);
+  border:1px solid #bd7e16;
+  border-radius:50%;
+  font-size:12px;
+  font-weight:900;
+  box-shadow:inset 0 0 0 1px #fff8;
 }
-.values {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
+.value-quote{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  align-items:center;
 }
-.value {
-  padding: 5px 8px;
-  border: 1px solid #ead18f;
-  border-radius: 15px;
-  background: #fff0c7;
-  color: #15345f;
-  font-size: 11px;
-  font-weight: bold;
+.value-list{
+  list-style:none;
+  margin:0;
+  padding:0;
 }
-.quote {
-  margin-top: 12px;
-  padding: 13px;
-  border: 1px solid var(--dorado);
-  border-radius: 14px;
-  background: #fff8e6;
-  text-align: center;
-  color: var(--azul);
-  font: italic clamp(15px, 2vw, 20px) Georgia, serif;
+.value-list li{
+  margin:5px 0;
+  font-size:clamp(11px,1.1vw,14px);
 }
-footer {
-  margin-top: 14px;
-  padding: 13px;
-  color: white;
-  text-align: center;
-  background: linear-gradient(100deg, #061a3e, #174b83, #061a3e);
-  border-top: 3px solid var(--dorado);
-  font-size: 11px;
-  line-height: 1.7;
+.value-list li:before{content:"♥";color:#e83c47;margin-right:8px}
+.quote{
+  padding-left:10px;
+  border-left:2px solid #e8bc55;
+  color:#09295e;
+  text-align:center;
+  font:italic bold clamp(13px,1.5vw,20px)/1.4 Georgia,serif;
 }
-footer strong { color: #ffe4a0; }
+.quote .cross{display:block;color:#d5a33e;font-size:23px}
+footer{
+  position:relative;
+  margin-top:13px;
+  padding:14px 12px 12px;
+  color:white;
+  text-align:center;
+  background:
+    radial-gradient(ellipse at 50% -50%,#2a6bb0,transparent 75%),
+    linear-gradient(90deg,#061943,#0b3476,#061943);
+  border-top:4px solid var(--gold);
+  font-size:clamp(10px,1vw,13px);
+  line-height:1.7;
+}
+footer strong{color:#ffdf87;font-size:1.2em}
+.footer-birds{
+  position:absolute;
+  top:12px;
+  left:8%;
+  right:8%;
+  display:flex;
+  justify-content:space-between;
+  color:#ffdf87;
+  font-size:24px;
+  pointer-events:none;
+}
+footer .copyright{margin-top:3px}
 
-@media (max-width: 760px) {
-  .top { padding: 48px 14px 16px; }
-  .top:before, .top:after { top: 12px; }
-  .layout { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .countdown { grid-column: span 2; }
-  .wide { grid-column: span 2; }
-  .bottom-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .bottom-grid .panel:last-child { grid-column: span 2; }
+@media(min-width:1300px){
+  main{padding:14px 18px}
+  .top-grid,.section-grid,.bottom-grid{gap:14px}
+  .panel{padding:15px}
 }
-@media (max-width: 480px) {
-  main { padding: 8px; }
-  .layout, .bottom-grid { grid-template-columns: 1fr; gap: 9px; }
-  .wide, .countdown, .bottom-grid .panel:last-child { grid-column: auto; }
-  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .step:last-child { grid-column: span 2; }
-  .panel { padding: 12px; }
-  .panel p { font-size: 13px; }
-  .kids-banner { min-height: 115px; gap: 5px; }
-  .kid { height: 80px; }
-  .kid .body { width: 45px; height: 39px; }
-  .kid .face { width: 29px; height: 33px; }
-  .kid .hair { width: 33px; height: 21px; }
-  .jesus { font-size: 36px; }
+@media(max-width:850px){
+  .header{padding:54px 12px 15px}
+  .header:before,.header:after{top:18px}
+  .home{width:51px;height:51px;top:8px;right:9px}
+  .home .house{font-size:22px}
+  .top-grid{grid-template-columns:1fr 1fr}
+  .countdown{grid-column:1/-1}
+  .section-grid{grid-template-columns:1fr}
+  .bottom-grid{grid-template-columns:1fr 1fr}
+  .bottom-grid .panel:last-child{grid-column:1/-1}
+  .mission-content{grid-template-columns:60px 1fr}
+  .medallion{width:59px;height:59px;font-size:34px}
+  .path-icon{width:62px;height:62px}
+  .path-arrow{right:-7px}
 }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+@media(max-width:520px){
+  main{padding:7px}
+  .header{min-height:130px;padding:49px 8px 13px}
+  .header h1{font-size:clamp(19px,6vw,29px);padding:7px 9px}
+  .header .ribbon{padding:5px 17px;font-size:12px}
+  .header:before,.header:after{font-size:15px}
+  .top-grid,.bottom-grid{grid-template-columns:1fr;gap:9px}
+  .countdown,.bottom-grid .panel:last-child{grid-column:auto}
+  .panel{padding:12px}
+  .panel p{font-size:13px}
+  .mission-content{grid-template-columns:64px 1fr}
+  .medallion{width:62px;height:62px;font-size:35px}
+  .section-grid{gap:9px;margin-top:9px}
+  .path-panel{padding:9px 5px}
+  .path{gap:2px}
+  .path-icon{width:clamp(43px,13vw,61px);height:clamp(43px,13vw,61px);font-size:clamp(22px,7vw,33px);border-width:2px}
+  .path-item p{font-size:clamp(9px,2.5vw,11px)}
+  .path-number{width:22px;height:22px;font-size:10px}
+  .path-arrow{right:-6px;top:22%;font-size:15px}
+  .panel-title{font-size:14px}
+  .checklist li,.value-list li{font-size:13px}
+  .quote{font-size:15px}
+  .footer-birds{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
 }
 </style>
 </head>
 
 <body>
+<div class="page">
 
-<header class="top">
-  <a class="home" href="./index.html">⌂ INICIO</a>
-  <div class="brand">COLEGIO LA SALLE DEL SUR</div>
-  <h1>✦ NUESTRA PROGRAMACIÓN ✦</h1>
-  <div class="subtitle">CAMINO HACIA JESÚS</div>
+<header class="header">
+  <a class="home" href="./index.html" aria-label="Regresar al inicio">
+    <span class="house">⌂</span>
+    <span>INICIO</span>
+  </a>
+  <div class="small-title">COLEGIO LA SALLE DEL SUR</div>
+  <h1>NUESTRA PROGRAMACIÓN</h1>
+  <div class="ribbon">CAMINO HACIA JESÚS</div>
 </header>
 
 <main>
 
-  <section class="kids-banner" aria-label="Ilustración decorativa de catequesis">
-    <div class="kid">
-      <div class="hair"></div><div class="face"></div><div class="body"></div>
-    </div>
-    <div class="kid blue">
-      <div class="hair"></div><div class="face"></div><div class="body"></div>
-    </div>
-    <div class="jesus">✝
-      <small>JESÚS NOS AMA</small>
-    </div>
-    <div class="kid gold">
-      <div class="hair"></div><div class="face"></div><div class="body"></div>
-    </div>
-    <div class="kid white">
-      <div class="hair"></div><div class="face"></div><div class="body"></div>
-    </div>
-  </section>
-
-  <section class="layout">
+  <section class="top-grid">
 
     <article class="panel">
-      <div class="panel-title"><span class="emoji">❤️</span> MISIÓN</div>
-      <p>
-        Acompañar a los niños en su encuentro con Jesús,
-        fortaleciendo su fe mediante la oración, la Palabra de Dios
-        y la vivencia de los valores cristianos, para prepararlos
-        con alegría a recibir los sacramentos.
-      </p>
+      <h2 class="panel-title"><span class="emoji">❤️</span> MISIÓN</h2>
+      <div class="mission-content">
+        <div class="medallion">✝️</div>
+        <p>
+          Acompañar a los niños en su encuentro con Jesús,
+          fortaleciendo su fe mediante la oración, la Palabra de Dios
+          y la vivencia de los valores cristianos, para prepararlos
+          con alegría a recibir los sacramentos.
+        </p>
+      </div>
     </article>
 
     <article class="panel">
-      <div class="panel-title"><span class="emoji">🕊️</span> VISIÓN</div>
-      <p>
-        Formar niños que vivan su fe con amor, alegría y compromiso,
-        siendo testimonio de los valores del Evangelio en su familia,
-        colegio y comunidad.
-      </p>
+      <h2 class="panel-title"><span class="emoji">🕊️</span> VISIÓN</h2>
+      <div class="mission-content">
+        <div class="medallion">🕊️</div>
+        <p>
+          Formar niños que vivan su fe con amor, alegría y compromiso,
+          siendo testimonio de los valores del Evangelio en su familia,
+          colegio y comunidad.
+        </p>
+      </div>
     </article>
 
     <article class="panel countdown">
-      <div class="panel-title">📅 CUENTA REGRESIVA</div>
-      <div class="countdown-sub">Para la Primera Comunión</div>
+      <h2 class="panel-title"><span class="emoji">📅</span> CUENTA REGRESIVA</h2>
+      <div class="countdown-sub">para la Primera Comunión</div>
+
       <div class="timer" aria-live="polite">
         <div class="unit"><strong id="days">--</strong><span>DÍAS</span></div>
         <div class="unit"><strong id="hours">--</strong><span>HORAS</span></div>
         <div class="unit"><strong id="minutes">--</strong><span>MINUTOS</span></div>
         <div class="unit"><strong id="seconds">--</strong><span>SEGUNDOS</span></div>
       </div>
+
       <div class="date">
         Fecha prevista: 8 de diciembre de 2026<br>
         (Pendiente de confirmación oficial)
       </div>
+      <div class="note">Un día muy especial para encontrarnos con Jesús.</div>
     </article>
 
-    <article class="panel wide">
-      <div class="panel-title">🌟 NUESTRO CAMINO DE PREPARACIÓN 🌟</div>
-      <div class="steps">
-        <div class="step">
-          <div class="step-icon">📖</div>
-          <div class="step-num">1</div>
-          <p>Conocemos a Jesús</p>
+  </section>
+
+  <section class="section-grid">
+
+    <article class="panel path-panel">
+      <h2 class="panel-title">🌟 NUESTRO CAMINO DE PREPARACIÓN 🌟</h2>
+      <div class="path">
+
+        <div class="path-item">
+          <div class="path-icon">📖</div>
+          <span class="path-number">1</span>
+          <p>Conocemos<br>a Jesús</p>
+          <span class="path-arrow">➜</span>
         </div>
-        <div class="step">
-          <div class="step-icon">🙏</div>
-          <div class="step-num">2</div>
-          <p>Aprendemos a orar</p>
+
+        <div class="path-item">
+          <div class="path-icon">🙏</div>
+          <span class="path-number">2</span>
+          <p>Aprendemos<br>a orar</p>
+          <span class="path-arrow">➜</span>
         </div>
-        <div class="step">
-          <div class="step-icon">⛪</div>
-          <div class="step-num">3</div>
-          <p>Descubrimos los sacramentos</p>
+
+        <div class="path-item">
+          <div class="path-icon">👨‍👩‍👧</div>
+          <span class="path-number">3</span>
+          <p>Descubrimos<br>los sacramentos</p>
+          <span class="path-arrow">➜</span>
         </div>
-        <div class="step">
-          <div class="step-icon">🍞</div>
-          <div class="step-num">4</div>
-          <p>Vivimos la Eucaristía</p>
+
+        <div class="path-item">
+          <div class="path-icon">🍷</div>
+          <span class="path-number">4</span>
+          <p>Vivimos la<br>Eucaristía</p>
+          <span class="path-arrow">➜</span>
         </div>
-        <div class="step">
-          <div class="step-icon">💛</div>
-          <div class="step-num">5</div>
-          <p>Practicamos los valores cristianos</p>
+
+        <div class="path-item">
+          <div class="path-icon">❤️</div>
+          <span class="path-number">5</span>
+          <p>Practicamos<br>los valores cristianos</p>
         </div>
+
       </div>
     </article>
 
-    <article class="panel">
-      <div class="panel-title">📅 PROGRAMACIÓN GENERAL</div>
-      <div class="info-row"><span>🗓️</span><span><b>Días:</b> Martes y jueves</span></div>
-      <div class="info-row"><span>🕑</span><span><b>Horario:</b> 2:00 p. m. a 4:00 p. m.</span></div>
-      <div class="info-row"><span>📍</span><span><b>Lugar:</b> Colegio La Salle del Sur</span></div>
+    <article class="panel schedule">
+      <h2 class="panel-title">📅 PROGRAMACIÓN GENERAL</h2>
+      <div class="schedule-line">
+        <span class="ico">🗓️</span>
+        <span><strong>Días:</strong> Martes y jueves</span>
+      </div>
+      <div class="schedule-line">
+        <span class="ico">🕑</span>
+        <span><strong>Horario:</strong> 2:00 p. m. a 4:00 p. m.</span>
+      </div>
+      <div class="schedule-line">
+        <span class="ico">📍</span>
+        <span><strong>Lugar:</strong> Colegio La Salle del Sur</span>
+      </div>
+      <div class="gold-divider"></div>
     </article>
 
   </section>
@@ -517,80 +560,92 @@ footer strong { color: #ffe4a0; }
   <section class="bottom-grid">
 
     <article class="panel">
-      <div class="panel-title">🎉 PRÓXIMAS ACTIVIDADES</div>
-      <ul class="checks">
-        <li>Encuentros de catequesis</li>
-        <li>Reuniones con padres de familia</li>
-        <li>Celebraciones y retiros</li>
-        <li>Ensayos para la Primera Comunión</li>
-        <li>Otras actividades especiales</li>
+      <h2 class="panel-title">🎉 PRÓXIMAS ACTIVIDADES</h2>
+      <ul class="checklist">
+        <li><span class="check">✓</span><span>Encuentros de catequesis</span></li>
+        <li><span class="check">✓</span><span>Reuniones con padres de familia</span></li>
+        <li><span class="check">✓</span><span>Celebraciones y retiros</span></li>
+        <li><span class="check">✓</span><span>Ensayos para la Primera Comunión</span></li>
+        <li><span class="check">✓</span><span>Otras actividades especiales</span></li>
       </ul>
     </article>
 
     <article class="panel">
-      <div class="panel-title">👨‍👩‍👧 PARA LAS FAMILIAS</div>
-      <ul class="checks">
-        <li>Acompañar la formación de sus hijos</li>
-        <li>Participar en las reuniones programadas</li>
-        <li>Apoyar en las tareas y actividades</li>
-        <li>Fomentar la oración en casa</li>
-        <li>Mantenerse informados por este portal</li>
+      <h2 class="panel-title">👨‍👩‍👧‍👦 PARA LAS FAMILIAS</h2>
+      <ul class="checklist">
+        <li><span class="check">✓</span><span>Acompañar la formación de sus hijos</span></li>
+        <li><span class="check">✓</span><span>Participar en las reuniones programadas</span></li>
+        <li><span class="check">✓</span><span>Apoyar en las tareas y actividades</span></li>
+        <li><span class="check">✓</span><span>Fomentar la oración en casa</span></li>
+        <li><span class="check">✓</span><span>Mantenerse informados por este portal</span></li>
       </ul>
     </article>
 
     <article class="panel">
-      <div class="panel-title">💖 NUESTROS VALORES</div>
-      <div class="values">
-        <span class="value">❤️ Amor</span>
-        <span class="value">🤝 Respeto</span>
-        <span class="value">🌻 Solidaridad</span>
-        <span class="value">🕊️ Perdón</span>
-        <span class="value">😊 Alegría</span>
-        <span class="value">🙏 Servicio</span>
-      </div>
-      <div class="quote">
-        “Que cada paso de este camino nos acerque más a Jesús.”
+      <h2 class="panel-title">💖 NUESTROS VALORES</h2>
+      <div class="value-quote">
+        <ul class="value-list">
+          <li>Amor</li>
+          <li>Respeto</li>
+          <li>Solidaridad</li>
+          <li>Perdón</li>
+          <li>Alegría</li>
+          <li>Servicio</li>
+        </ul>
+        <div class="quote">
+          <span class="cross">✝</span>
+          “Que cada paso de este camino nos acerque más a Jesús”
+        </div>
       </div>
     </article>
 
   </section>
-
 </main>
 
 <footer>
-  <strong>✦ CAMINO HACIA JESÚS ✦</strong><br>
-  Colegio La Salle del Sur<br>
-  © Corporación La Salle del Sur. Derechos reservados.
+  <div class="footer-birds"><span>🕊️</span><span>🕊️</span></div>
+  <strong>Camino hacia Jesús</strong><br>
+  Colegio La Salle del Sur
+  <div class="copyright">© Corporación La Salle del Sur. Derechos reservados.</div>
 </footer>
 
+</div>
+
 <script>
-(function () {
-  const fecha = new Date("2026-12-08T00:00:00-05:00").getTime();
+(function(){
+  const fechaPrimeraComunion =
+    new Date("2026-12-08T00:00:00-05:00").getTime();
 
-  function actualizarCuenta() {
-    let diferencia = fecha - Date.now();
+  const elementos = {
+    days: document.getElementById("days"),
+    hours: document.getElementById("hours"),
+    minutes: document.getElementById("minutes"),
+    seconds: document.getElementById("seconds")
+  };
 
-    if (diferencia <= 0) {
-      ["days", "hours", "minutes", "seconds"].forEach(id => {
-        document.getElementById(id).textContent = "0";
-      });
+  function actualizarCuentaRegresiva(){
+    const restante = fechaPrimeraComunion - Date.now();
+
+    if(restante <= 0){
+      Object.values(elementos).forEach(el => el.textContent = "0");
       return;
     }
 
-    const valores = {
-      days: Math.floor(diferencia / 86400000),
-      hours: Math.floor((diferencia % 86400000) / 3600000),
-      minutes: Math.floor((diferencia % 3600000) / 60000),
-      seconds: Math.floor((diferencia % 60000) / 1000)
-    };
+    elementos.days.textContent =
+      Math.floor(restante / 86400000);
 
-    Object.entries(valores).forEach(([id, valor]) => {
-      document.getElementById(id).textContent = valor;
-    });
+    elementos.hours.textContent =
+      Math.floor((restante % 86400000) / 3600000);
+
+    elementos.minutes.textContent =
+      Math.floor((restante % 3600000) / 60000);
+
+    elementos.seconds.textContent =
+      Math.floor((restante % 60000) / 1000);
   }
 
-  actualizarCuenta();
-  setInterval(actualizarCuenta, 1000);
+  actualizarCuentaRegresiva();
+  setInterval(actualizarCuentaRegresiva,1000);
 })();
 </script>
 
