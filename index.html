@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#10275b">
-  <title>Camino hacia Jesús | La Salle del Sur</title>
+  <title>Camino hacia Jesús - Colegio La Salle del Sur</title>
 
   <style>
     * {
@@ -16,30 +17,31 @@
       width: 100%;
       height: 100%;
       margin: 0;
-      overflow: hidden;
+      padding: 0;
     }
 
     body {
+      overflow: hidden;
       font-family: Arial, Helvetica, sans-serif;
       background-color: #10275b;
       background-image: url("./assets/PORTAL%20CATEQUESIS.png");
-      background-repeat: no-repeat;
       background-position: center center;
-      background-size: cover;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
     }
 
+    /* BOTONES DEL MENÚ */
     .menu {
-      position: absolute;
+      position: fixed;
       z-index: 5;
-      top: 50%;
-      left: 1.5%;
-      transform: translateY(-50%);
+      top: 1.5%;
+      left: 1.2%;
+      width: 21%;
+      max-width: 235px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 12px;
-      width: 23%;
-      max-width: 280px;
+      gap: 9px;
     }
 
     .boton {
@@ -48,93 +50,116 @@
       padding: 0;
       margin: 0;
       border: none;
-      outline: none;
       background: transparent;
+      box-shadow: none;
       cursor: pointer;
+      line-height: 0;
       -webkit-tap-highlight-color: transparent;
-      transition: transform 0.18s ease;
+      transition: transform 0.15s ease;
     }
 
     .boton:hover {
-      transform: scale(1.035);
+      transform: scale(1.02);
     }
 
     .boton:active {
-      transform: scale(0.97);
+      transform: scale(0.98);
     }
 
     .boton img {
       display: block;
       width: 100%;
       height: auto;
+      border: none;
       object-fit: contain;
-      border: 0;
     }
 
-    .zona-portada {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
-
+    /* FRASE: ZONA SUPERIOR IZQUIERDA, SIN CUBRIR LA INSIGNIA */
     .frase-mision {
-      position: absolute;
-      top: 1%;
-      left: 27%;
-      width: min(35%, 500px);
-      color: #1746b8;
-      font-size: clamp(15px, 1.8vw, 25px);
-      line-height: 1.35;
+      position: fixed;
+      z-index: 2;
+      top: 2%;
+      left: 25%;
+      width: 27%;
+      max-width: 390px;
+      margin: 0;
+
+      color: #003dbb;
+      -webkit-text-fill-color: #003dbb;
+      -webkit-text-stroke: 0;
+
+      font-size: clamp(14px, 1.55vw, 23px);
       font-weight: 800;
       font-style: italic;
+      line-height: 1.35;
       text-align: center;
-      -webkit-text-stroke: 0.35px white;
+
       text-shadow:
-        1px 1px 2px white,
-        -1px -1px 2px white,
-        0 0 5px white;
-      white-space: normal;
+        0 0 2px #ffffff,
+        1px 1px 2px rgba(255, 255, 255, 0.9);
     }
 
+    /* CONTROL ÚNICO DEL AUDIO */
     .control-audio {
       position: fixed;
       z-index: 10;
       right: 14px;
       bottom: 14px;
-      width: 44px;
-      height: 44px;
+
+      width: 46px;
+      height: 46px;
+      padding: 0;
+
       display: flex;
       justify-content: center;
       align-items: center;
-      border: 1px solid rgba(255, 215, 120, 0.9);
+
+      color: #ffffff;
+      background: rgba(10, 35, 83, 0.65);
+      border: 1px solid #d7b65d;
       border-radius: 50%;
-      background: rgba(16, 39, 91, 0.82);
-      color: white;
-      font-size: 21px;
+
+      font-size: 22px;
       cursor: pointer;
     }
 
     @media (max-width: 700px) {
       .menu {
+        top: 1%;
         left: 1%;
-        width: 30%;
-        max-width: none;
-        gap: 7px;
+        width: 25%;
+        max-width: 170px;
+        gap: 5px;
       }
 
       .frase-mision {
-        top: 1%;
-        left: 32%;
-        width: 54%;
-        font-size: clamp(12px, 3.2vw, 19px);
-        line-height: 1.25;
+        top: 1.5%;
+        left: 26%;
+        width: 28%;
+        font-size: clamp(10px, 2.2vw, 15px);
+        line-height: 1.3;
       }
 
       .control-audio {
-        right: 8px;
-        bottom: 8px;
         width: 38px;
         height: 38px;
+        right: 8px;
+        bottom: 8px;
+        font-size: 19px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .menu {
+        width: 27%;
+        max-width: 125px;
+        gap: 4px;
+      }
+
+      .frase-mision {
+        left: 29%;
+        width: 29%;
+        font-size: 10px;
       }
     }
   </style>
@@ -142,47 +167,47 @@
 
 <body>
 
-  <main class="zona-portada">
-    <div class="frase-mision" id="fraseMision">
-      Guiamos sus primeros pasos en la fe, acompañamos sus corazones
-      hacia Jesús y sembramos en sus vidas el amor de Dios, para que
-      cada sacramento sea el comienzo de una historia de fe que los
-      acompañe por siempre.
-    </div>
-  </main>
+  <div class="frase-mision">
+    Guiamos sus primeros pasos en la fe,
+    acompañamos sus corazones hacia Jesús
+    y sembramos en sus vidas el amor de Dios,
+    para que cada sacramento sea el comienzo
+    de una historia de fe que los acompañe
+    por siempre.
+  </div>
 
   <nav class="menu" aria-label="Menú principal">
 
     <button class="boton" type="button"
-      data-destino="?p=catequizandos"
+      data-destino="catequizandos.html"
       aria-label="Catequizandos">
       <img src="./assets/BTN-CATEQUIS.png"
         alt="Catequizandos">
     </button>
 
     <button class="boton" type="button"
-      data-destino="?p=misses"
+      data-destino="misses.html"
       aria-label="Catequistas">
       <img src="./assets/BTN_CATEQUISTAS.png"
         alt="Catequistas">
     </button>
 
     <button class="boton" type="button"
-      data-destino="?p=supervisores"
+      data-destino="supervisores.html"
       aria-label="Coordinador parroquial">
       <img src="./assets/BTN_COORDINADOR.png"
         alt="Coordinador parroquial">
     </button>
 
     <button class="boton" type="button"
-      data-destino="?p=padres"
+      data-destino="padres.html"
       aria-label="Padres de familia">
       <img src="./assets/BTN-PADRES.png"
         alt="Padres de familia">
     </button>
 
     <button class="boton" type="button"
-      data-destino="?p=programacion"
+      data-destino="programacion.html"
       aria-label="Programación">
       <img src="./assets/BTN-PROGRAMACION.png"
         alt="Programación">
@@ -197,11 +222,11 @@
   </audio>
 
   <button
-    class="control-audio"
     id="controlAudio"
+    class="control-audio"
     type="button"
-    aria-label="Silenciar o activar música"
-    title="Silenciar o activar música">🔊</button>
+    aria-label="Silenciar música"
+    title="Activar o silenciar música">🔊</button>
 
   <script>
     (() => {
@@ -212,79 +237,82 @@
       const botones = document.querySelectorAll(".boton");
 
       let silenciado = false;
-      let contextoAudio = null;
+      let audioIniciado = false;
+      let contexto = null;
 
-      /*
-       * Efecto breve de sonido generado por el navegador.
-       * No requiere descargar otro archivo de audio.
-       */
-      function reproducirEfecto() {
+      /* Efecto corto al pulsar un botón. */
+      function efectoBoton() {
         try {
           const AudioContext =
             window.AudioContext || window.webkitAudioContext;
 
           if (!AudioContext) return;
 
-          if (!contextoAudio) {
-            contextoAudio = new AudioContext();
+          if (!contexto) {
+            contexto = new AudioContext();
           }
 
-          if (contextoAudio.state === "suspended") {
-            contextoAudio.resume();
+          const reproducir = () => {
+            const ahora = contexto.currentTime;
+            const tono = contexto.createOscillator();
+            const volumen = contexto.createGain();
+
+            tono.type = "sine";
+            tono.frequency.setValueAtTime(880, ahora);
+            tono.frequency.exponentialRampToValueAtTime(
+              660, ahora + 0.12
+            );
+
+            volumen.gain.setValueAtTime(0.0001, ahora);
+            volumen.gain.linearRampToValueAtTime(
+              0.10, ahora + 0.015
+            );
+            volumen.gain.exponentialRampToValueAtTime(
+              0.0001, ahora + 0.16
+            );
+
+            tono.connect(volumen);
+            volumen.connect(contexto.destination);
+
+            tono.start(ahora);
+            tono.stop(ahora + 0.17);
+          };
+
+          if (contexto.state === "suspended") {
+            contexto.resume().then(reproducir).catch(() => {});
+          } else {
+            reproducir();
           }
-
-          const oscilador = contextoAudio.createOscillator();
-          const volumen = contextoAudio.createGain();
-          const ahora = contextoAudio.currentTime;
-
-          oscilador.type = "sine";
-          oscilador.frequency.setValueAtTime(880, ahora);
-          oscilador.frequency.exponentialRampToValueAtTime(
-            660,
-            ahora + 0.12
-          );
-
-          volumen.gain.setValueAtTime(0.0001, ahora);
-          volumen.gain.exponentialRampToValueAtTime(
-            0.12,
-            ahora + 0.015
-          );
-          volumen.gain.exponentialRampToValueAtTime(
-            0.0001,
-            ahora + 0.16
-          );
-
-          oscilador.connect(volumen);
-          volumen.connect(contextoAudio.destination);
-
-          oscilador.start(ahora);
-          oscilador.stop(ahora + 0.17);
         } catch (error) {
-          console.warn("No se pudo reproducir el efecto de sonido.");
+          console.warn("No se pudo reproducir el efecto.");
         }
       }
 
-      /*
-       * La música intenta iniciarse al pulsar un botón,
-       * porque los navegadores pueden bloquear el autoplay.
-       */
+      /* Iniciar música después de la primera interacción del usuario. */
       async function iniciarMusica() {
         if (silenciado) return;
 
         try {
           await musica.play();
+          audioIniciado = true;
           controlAudio.textContent = "🔊";
         } catch (error) {
-          controlAudio.textContent = "🔊";
+          audioIniciado = false;
+          console.warn(
+            "No se pudo iniciar la música. Comprueba la ruta del archivo."
+          );
         }
       }
 
       botones.forEach((boton) => {
-        boton.addEventListener("click", () => {
-          reproducirEfecto();
-          iniciarMusica();
+        boton.addEventListener("click", async () => {
+          efectoBoton();
 
-          const destino = boton.dataset.destino;
+          if (!audioIniciado && !silenciado) {
+            await iniciarMusica();
+          }
+
+          const destino = boton.getAttribute("data-destino");
 
           if (destino) {
             window.location.href = destino;
@@ -298,20 +326,28 @@
 
         if (silenciado) {
           controlAudio.textContent = "🔇";
+          controlAudio.setAttribute(
+            "aria-label", "Activar música"
+          );
         } else {
           controlAudio.textContent = "🔊";
+          controlAudio.setAttribute(
+            "aria-label", "Silenciar música"
+          );
 
-          try {
-            await musica.play();
-          } catch (error) {
-            // El navegador puede requerir otra interacción.
-          }
+          await iniciarMusica();
         }
       });
 
+      musica.addEventListener("playing", () => {
+        audioIniciado = true;
+        controlAudio.textContent = silenciado ? "🔇" : "🔊";
+      });
+
       musica.addEventListener("error", () => {
-        console.warn(
-          "No se encontró la música. Revisa el nombre y la carpeta del archivo."
+        audioIniciado = false;
+        console.error(
+          "No se encuentra el archivo de música o no se puede reproducir."
         );
       });
     })();
