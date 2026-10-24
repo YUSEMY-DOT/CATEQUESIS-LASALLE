@@ -1,16 +1,18 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#071d49">
+  <meta name="theme-color" content="#03102f">
   <title>Camino hacia Jesús 2026</title>
 
   <style>
     * { box-sizing: border-box; }
 
     :root {
-      --azul: #071d49;
+      --azul: #020b24;
+      --azul-profundo: #030d2b;
       --dorado: #e8b947;
       --crema: #fff7e5;
     }
@@ -20,7 +22,33 @@
       min-height: 100vh;
       font-family: Georgia, "Times New Roman", serif;
       color: var(--crema);
-      background: radial-gradient(ellipse at top, #174a83 0%, var(--azul) 65%);
+      background: radial-gradient(
+        ellipse at top,
+        #0a2450 0%,
+        #030d2b 55%,
+        #010719 100%
+      );
+    }
+
+    /* Indicación pequeña en la esquina superior izquierda */
+    .indicacion-ingreso {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 1000;
+      color: #f5d477;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 13px;
+      font-weight: bold;
+      text-shadow: 0 1px 3px #000;
+      letter-spacing: 0.2px;
+      animation: brilloSuave 2.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes brilloSuave {
+      0%, 100% { opacity: 0.78; }
+      50% { opacity: 1; }
     }
 
     .contenedor {
@@ -34,8 +62,8 @@
       padding: 30px 15px;
       border: 2px solid var(--dorado);
       border-radius: 20px;
-      background: linear-gradient(135deg, #102e61, #061534);
-      box-shadow: 0 0 24px #d9a82d55;
+      background: linear-gradient(135deg, #071735, #02091c);
+      box-shadow: 0 0 24px #d9a82d33;
     }
 
     .cruz {
@@ -63,7 +91,12 @@
       max-width: 500px;
       height: 2px;
       margin: 22px auto 0;
-      background: linear-gradient(90deg, transparent, var(--dorado), transparent);
+      background: linear-gradient(
+        90deg,
+        transparent,
+        var(--dorado),
+        transparent
+      );
     }
 
     .botones {
@@ -78,7 +111,7 @@
       overflow: hidden;
       border: 3px solid var(--dorado);
       border-radius: 18px;
-      background: #071a3c;
+      background: #030b20;
       box-shadow: 0 8px 18px #0005;
       transition: transform .2s, box-shadow .2s;
       -webkit-tap-highlight-color: transparent;
@@ -92,12 +125,12 @@
 
     .boton:hover {
       transform: translateY(-5px);
-      box-shadow: 0 0 24px #f6d77988;
+      box-shadow: 0 0 24px #f6d77966;
     }
 
     .boton:focus-visible {
-      outline: 4px solid white;
-      outline-offset: 4px;
+      outline: 2px solid white;
+      outline-offset: 3px;
     }
 
     footer {
@@ -110,23 +143,43 @@
 
     @media (max-width: 800px) {
       .contenedor { padding: 14px; }
-      .botones { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px; }
+      .botones {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px;
+      }
     }
 
     @media (max-width: 440px) {
       .contenedor { padding: 10px; }
       .encabezado { padding: 22px 10px; }
       .botones { gap: 10px; }
-      .boton { border-width: 2px; border-radius: 12px; }
+      .boton {
+        border-width: 2px;
+        border-radius: 12px;
+      }
+
+      .indicacion-ingreso {
+        top: 8px;
+        left: 8px;
+        font-size: 11px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { transition: none !important; }
+      *, *::before, *::after {
+        transition: none !important;
+      }
+
+      .indicacion-ingreso {
+        animation: none;
+      }
     }
   </style>
 </head>
 
 <body>
+  <div class="indicacion-ingreso">☝ Haz clic para ingresar</div>
+
   <main class="contenedor">
     <header class="encabezado">
       <div class="cruz" aria-hidden="true">✝</div>
@@ -137,24 +190,31 @@
     </header>
 
     <nav class="botones" aria-label="Portales principales">
-      <a class="boton" href="./catequizandos.html" aria-label="Entrar a Catequizandos">
+      <a class="boton" href="./catequizandos.html"
+         aria-label="Entrar a Catequizandos">
         <img src="./assets/BTN-CATEQUIS.png" alt="Catequizandos">
       </a>
 
-      <a class="boton" href="./misses.html" aria-label="Entrar a Catequistas">
+      <a class="boton" href="./misses.html"
+         aria-label="Entrar a Catequistas">
         <img src="./assets/BTN_CATEQUISTAS.png" alt="Catequistas">
       </a>
 
-      <a class="boton" href="./supervisores.html" aria-label="Entrar a Coordinador Parroquial">
-        <img src="./assets/BTN_COORDINADOR.png" alt="Coordinador Parroquial">
+      <a class="boton" href="./supervisores.html"
+         aria-label="Entrar a Coordinador Parroquial">
+        <img src="./assets/BTN_COORDINADOR.png"
+             alt="Coordinador Parroquial">
       </a>
 
-      <a class="boton" href="./padres.html" aria-label="Entrar a Padres">
+      <a class="boton" href="./padres.html"
+         aria-label="Entrar a Padres">
         <img src="./assets/BTN-PADRES.png" alt="Padres">
       </a>
 
-      <a class="boton" href="./programacion.html" aria-label="Ver Nuestra Programación">
-        <img src="./assets/BTN-PROGRAMACION.png" alt="Nuestra Programación">
+      <a class="boton" href="./programacion.html"
+         aria-label="Ver Nuestra Programación">
+        <img src="./assets/BTN-PROGRAMACION.png"
+             alt="Nuestra Programación">
       </a>
     </nav>
 
