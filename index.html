@@ -29,7 +29,7 @@
       background: #071a43;
     }
 
-    /* PORTADA: SIEMPRE A LA DERECHA, SEPARADA DE LOS BOTONES */
+    /* PORTADA: SEPARADA DE LOS BOTONES */
     .portada {
       position: fixed;
       z-index: 1;
@@ -37,8 +37,8 @@
       right: 0.5%;
       bottom: 0.7%;
       left: 8.7%;
-
       overflow: hidden;
+
       background-color: #10275b;
       background-image: url("./assets/PORTAL%20CATEQUESIS.png");
       background-position: center center;
@@ -46,13 +46,13 @@
       background-size: 100% 100%;
     }
 
-    /* CINCO BOTONES PEQUEÑOS, CENTRADOS Y SEPARADOS */
+    /* MENÚ IZQUIERDO: CINCO BOTONES */
     .menu {
       position: fixed;
       z-index: 5;
       top: 2%;
       bottom: 2%;
-      left: 0.35%;
+      left: 0.4%;
       width: 7.8%;
       max-width: 110px;
 
@@ -60,31 +60,30 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: clamp(5px, 1.1vh, 11px);
+      gap: clamp(4px, 0.65vh, 8px);
 
       margin: 0;
       padding: 0;
     }
 
     .boton {
-      display: flex;
-      flex: 0 1 auto;
-      align-items: center;
-      justify-content: center;
-
+      flex: 0 1 17%;
       width: 100%;
-      height: 17.5%;
       max-height: 145px;
       min-height: 0;
 
-      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
       margin: 0;
+      padding: 0;
       border: none;
-      outline-offset: 2px;
       background: transparent;
       box-shadow: none;
       cursor: pointer;
       line-height: 0;
+      overflow: hidden;
 
       -webkit-tap-highlight-color: transparent;
       transition: transform 0.15s ease;
@@ -96,20 +95,20 @@
       height: 100%;
       object-fit: contain;
       object-position: center;
+      border: none;
       margin: 0;
       padding: 0;
-      border: none;
     }
 
     .boton:hover {
-      transform: scale(1.025);
+      transform: scale(1.02);
     }
 
     .boton:active {
       transform: scale(0.98);
     }
 
-    /* FRASE ANIMADA SOBRE EL CIELO */
+    /* FRASE ANIMADA EN EL CIELO */
     .frase-mision {
       position: absolute;
       z-index: 3;
@@ -152,7 +151,7 @@
       }
     }
 
-    /* CONTROL DE AUDIO: ESQUINA SUPERIOR DERECHA */
+    /* BOTÓN DE AUDIO: PARTE SUPERIOR DERECHA */
     .control-audio {
       position: absolute;
       z-index: 10;
@@ -175,17 +174,16 @@
       cursor: pointer;
     }
 
-    /* DERECHOS RESERVADOS SIN RECUADRO */
+    /* DERECHOS RESERVADOS SOBRE LA FRANJA AZUL */
     .derechos-reservados {
       position: fixed;
       z-index: 8;
       left: 25%;
       width: 55%;
-      bottom: 5.2%;
+      bottom: 1.2%;
 
       margin: 0;
       padding: 0;
-
       color: #ffffff;
       background: transparent;
       border: none;
@@ -205,15 +203,15 @@
       pointer-events: none;
     }
 
-    /* PANTALLAS MEDIANAS */
+    /* TABLET */
     @media (max-width: 900px) {
       .menu {
         width: 8.5%;
-        gap: clamp(4px, 0.8vh, 8px);
+        gap: 5px;
       }
 
       .boton {
-        height: 17%;
+        flex-basis: 17%;
       }
 
       .portada {
@@ -234,12 +232,12 @@
       }
 
       .derechos-reservados {
-        bottom: 5%;
+        bottom: 1.2%;
         font-size: clamp(10px, 1.3vw, 14px);
       }
     }
 
-    /* CELULARES */
+    /* CELULAR */
     @media (max-width: 600px) {
       .menu {
         top: 2%;
@@ -247,11 +245,11 @@
         left: 0.5%;
         width: 14%;
         max-width: 75px;
-        gap: 5px;
+        gap: 4px;
       }
 
       .boton {
-        height: 17%;
+        flex-basis: 17%;
       }
 
       .portada {
@@ -280,7 +278,7 @@
       .derechos-reservados {
         left: 19%;
         width: 72%;
-        bottom: 5%;
+        bottom: 1.2%;
         font-size: clamp(8px, 2vw, 11px);
       }
     }
@@ -288,7 +286,7 @@
     @media (max-width: 380px) {
       .menu {
         width: 15%;
-        gap: 4px;
+        gap: 3px;
       }
 
       .portada {
@@ -309,49 +307,59 @@
 
 <body>
 
-  <!-- MENÚ IZQUIERDO: CINCO BOTONES ORIGINALES -->
+  <!-- BOTONES EN EL ORDEN SOLICITADO -->
   <nav class="menu" aria-label="Menú principal">
 
+    <!-- 1. NUESTRA PROGRAMACIÓN -->
+    <button class="boton" type="button"
+      data-destino="programacion.html"
+      aria-label="Nuestra Programación">
+      <img src="./assets/BTN-PROGRAMACION.png"
+        alt="Nuestra Programación">
+    </button>
+
+    <!-- 2. CATEQUIZANDOS -->
     <button class="boton" type="button"
       data-destino="catequizandos.html"
       aria-label="Catequizandos">
-      <img src="./assets/BTN-CATEQUIS.png" alt="Catequizandos">
+      <img src="./assets/BTN-CATEQUIS.png"
+        alt="Catequizandos">
     </button>
 
+    <!-- 3. CATEQUISTAS -->
     <button class="boton" type="button"
       data-destino="misses.html"
       aria-label="Catequistas">
-      <img src="./assets/BTN_CATEQUISTAS.png" alt="Catequistas">
+      <img src="./assets/BTN_CATEQUISTAS.png"
+        alt="Catequistas">
     </button>
 
-    <button class="boton" type="button"
-      data-destino="supervisores.html"
-      aria-label="Coordinador parroquial">
-      <img src="./assets/BTN_COORDINADOR.png" alt="Coordinador parroquial">
-    </button>
-
+    <!-- 4. PADRES DE FAMILIA -->
     <button class="boton" type="button"
       data-destino="padres.html"
       aria-label="Padres de familia">
-      <img src="./assets/BTN-PADRES.png" alt="Padres de familia">
+      <img src="./assets/BTN-PADRES.png"
+        alt="Padres de familia">
     </button>
 
+    <!-- 5. COORDINADOR PARROQUIAL -->
     <button class="boton" type="button"
-      data-destino="programacion.html"
-      aria-label="Programación">
-      <img src="./assets/BTN-PROGRAMACION.png" alt="Programación">
+      data-destino="supervisores.html"
+      aria-label="Coordinador Parroquial">
+      <img src="./assets/BTN_COORDINADOR.png"
+        alt="Coordinador Parroquial">
     </button>
 
   </nav>
 
-  <!-- PORTADA PRINCIPAL -->
+  <!-- PORTADA -->
   <main class="portada" aria-label="Camino hacia Jesús">
 
     <div class="frase-mision">
       <span id="textoMision"></span><span class="cursor-escritura">|</span>
     </div>
 
-    <!-- EL MP3 ESTÁ EN LA RAÍZ DEL REPOSITORIO, NO EN ASSETS -->
+    <!-- ARCHIVO MP3 UBICADO EN LA RAÍZ DEL REPOSITORIO -->
     <audio id="musica" loop preload="auto">
       <source
         src="./alma-misionera-athenas-musica-catolica.mp3"
@@ -367,7 +375,7 @@
 
   </main>
 
-  <!-- DERECHOS RESERVADOS CENTRADOS, SIN CUADRO -->
+  <!-- DERECHOS RESERVADOS -->
   <footer class="derechos-reservados">
     © Corporación La Salle del Sur. Derechos reservados.
   </footer>
@@ -388,14 +396,13 @@
       let silenciado = false;
       let contextoAudio = null;
 
-      /* ESCRIBIR LA FRASE LETRA POR LETRA */
+      /* ESCRITURA ANIMADA DE LA FRASE */
       function escribirFrase() {
         if (indice < frase.length) {
           textoMision.textContent += frase.charAt(indice);
           indice++;
           window.setTimeout(escribirFrase, 45);
         } else {
-          /* Pausa breve y vuelve a escribir la frase */
           window.setTimeout(() => {
             textoMision.textContent = "";
             indice = 0;
@@ -406,7 +413,7 @@
 
       escribirFrase();
 
-      /* REPRODUCIR LA MÚSICA */
+      /* REPRODUCCIÓN DE MÚSICA */
       async function iniciarMusica() {
         if (silenciado) return;
 
@@ -423,17 +430,15 @@
           controlAudio.setAttribute("aria-label", "Reproducir música");
           controlAudio.title = "Pulsa para reproducir la música";
           console.warn(
-            "No se pudo reproducir el MP3. Comprueba que el archivo esté en la raíz del repositorio y que el nombre coincida exactamente."
+            "No se pudo iniciar la música. Comprueba el nombre y la ubicación del MP3."
           );
         }
       }
 
-      /* INTENTO AUTOMÁTICO: EL NAVEGADOR PUEDE EXIGIR UN CLIC */
-      window.addEventListener("load", () => {
-        iniciarMusica();
-      });
+      /* INTENTO DE REPRODUCCIÓN AUTOMÁTICA */
+      window.addEventListener("load", iniciarMusica);
 
-      /* EFECTO SONORO CORTO AL PULSAR LOS BOTONES */
+      /* EFECTO SONORO AL PULSAR UN BOTÓN */
       function efectoBoton() {
         try {
           const AudioContext =
@@ -457,7 +462,9 @@
             );
 
             volumen.gain.setValueAtTime(0.0001, ahora);
-            volumen.gain.linearRampToValueAtTime(0.07, ahora + 0.015);
+            volumen.gain.linearRampToValueAtTime(
+              0.07, ahora + 0.015
+            );
             volumen.gain.exponentialRampToValueAtTime(
               0.0001, ahora + 0.16
             );
@@ -479,7 +486,7 @@
         }
       }
 
-      /* NAVEGACIÓN: SE CONSERVAN LOS DESTINOS ORIGINALES */
+      /* NAVEGACIÓN DE LOS CINCO BOTONES */
       botones.forEach((boton) => {
         boton.addEventListener("click", () => {
           efectoBoton();
@@ -491,7 +498,7 @@
         });
       });
 
-      /* CONTROL PARA ACTIVAR O SILENCIAR */
+      /* ACTIVAR O SILENCIAR LA MÚSICA */
       controlAudio.addEventListener("click", async () => {
         if (!silenciado) {
           silenciado = true;
@@ -517,7 +524,7 @@
         controlAudio.textContent = "▶";
         controlAudio.setAttribute("aria-label", "Reproducir música");
         console.error(
-          "No se pudo cargar alma-misionera-athenas-musica-catolica.mp3. Verifica que el archivo esté en la raíz del repositorio."
+          "No se pudo cargar alma-misionera-athenas-musica-catolica.mp3. Verifica que esté en la raíz del repositorio."
         );
       });
     })();
