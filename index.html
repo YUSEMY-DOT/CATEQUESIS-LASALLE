@@ -1,287 +1,140 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#071d49">
-  <title>Camino hacia Jesús | Catequesis La Salle del Sur</title>
+  <meta name="theme-color" content="#10275b">
+  <title>Camino hacia Jesús | La Salle del Sur</title>
 
   <style>
     * {
       box-sizing: border-box;
     }
 
-    html, body {
-      margin: 0;
+    html,
+    body {
       width: 100%;
-      min-height: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
     }
 
     body {
-      min-height: 100vh;
-      min-height: 100dvh;
-      background: #071d49;
-      color: white;
-      font-family: Arial, sans-serif;
-      overflow-x: hidden;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #10275b;
+      background-image: url("./assets/PORTAL%20CATEQUESIS.png");
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
     }
 
-    /* DISTRIBUCIÓN PRINCIPAL */
-    .pagina {
-      width: 100%;
-      min-height: 100vh;
-      min-height: 100dvh;
-      display: grid;
-      grid-template-columns: 112px minmax(0, 1fr);
-      gap: 18px;
-      padding: 8px;
-      align-items: center;
-    }
-
-    /* BOTONES ORIGINALES */
     .menu {
-      width: 100%;
+      position: absolute;
+      z-index: 5;
+      top: 50%;
+      left: 1.5%;
+      transform: translateY(-50%);
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      padding: 8px 5px;
-      border: 1px solid rgba(226, 187, 91, 0.65);
-      border-radius: 15px;
-      background: linear-gradient(
-        145deg,
-        rgba(13, 40, 84, 0.94),
-        rgba(3, 15, 43, 0.96)
-      );
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+      align-items: flex-start;
+      gap: 12px;
+      width: 23%;
+      max-width: 280px;
     }
 
     .boton {
       display: block;
-      width: 96px;
-      max-width: 100%;
-      aspect-ratio: 1 / 1;
-      flex: 0 0 auto;
-      padding: 2px;
-      overflow: hidden;
-      border: 2px solid #d9b45c;
-      border-radius: 10px;
-      background: #071d49;
-      box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
-      transition: transform 180ms ease, box-shadow 180ms ease;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      border: none;
+      outline: none;
+      background: transparent;
+      cursor: pointer;
       -webkit-tap-highlight-color: transparent;
+      transition: transform 0.18s ease;
+    }
+
+    .boton:hover {
+      transform: scale(1.035);
+    }
+
+    .boton:active {
+      transform: scale(0.97);
     }
 
     .boton img {
       display: block;
       width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 6px;
-    }
-
-    .boton:hover {
-      transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 0 12px rgba(255, 210, 105, 0.7);
-    }
-
-    .boton:active {
-      transform: scale(0.94);
-      box-shadow: 0 0 20px #ffd56a;
-    }
-
-    .boton:focus-visible {
-      outline: 3px solid white;
-      outline-offset: 3px;
-    }
-
-    /* PORTADA */
-    .zona-portada {
-      position: relative;
-      width: 100%;
-      min-width: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .portada {
-      display: block;
-      width: 100%;
       height: auto;
-      max-height: calc(100dvh - 16px);
       object-fit: contain;
-      border-radius: 5px;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+      border: 0;
     }
 
-    /* FRASE: BLANCO ILUMINADO EN LA PARTE SUPERIOR */
-    .frase-mision {
+    .zona-portada {
       position: absolute;
-      z-index: 4;
-      top: 1.5%;
-      left: 4%;
-      width: min(36%, 390px);
-      color: #ffffff;
-      font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
-      font-size: clamp(12px, 1.25vw, 18px);
-      font-style: italic;
-      font-weight: normal;
-      line-height: 1.6;
-      letter-spacing: 0.2px;
-      text-align: left;
-      text-shadow:
-        0 0 2px #ffffff,
-        0 0 6px rgba(173, 216, 255, 0.95),
-        0 0 12px rgba(60, 130, 220, 0.75),
-        1px 2px 3px rgba(0, 20, 60, 0.9);
-      overflow-wrap: break-word;
+      inset: 0;
       pointer-events: none;
     }
 
-    .cursor-escritura {
-      display: inline-block;
-      margin-left: 2px;
-      color: #ffffff;
-      text-shadow: 0 0 8px #b8dcff;
-      animation: parpadeo 0.75s steps(1) infinite;
+    .frase-mision {
+      position: absolute;
+      top: 1%;
+      left: 27%;
+      width: min(35%, 500px);
+      color: #1746b8;
+      font-size: clamp(15px, 1.8vw, 25px);
+      line-height: 1.35;
+      font-weight: 800;
+      font-style: italic;
+      text-align: center;
+      -webkit-text-stroke: 0.35px white;
+      text-shadow:
+        1px 1px 2px white,
+        -1px -1px 2px white,
+        0 0 5px white;
+      white-space: normal;
     }
 
-    @keyframes parpadeo {
-      50% {
-        opacity: 0;
-      }
-    }
-
-    /* MUTE */
-    .mute {
+    .control-audio {
       position: fixed;
-      z-index: 20;
-      top: 12px;
-      right: 12px;
-      min-width: 76px;
-      padding: 9px 13px;
-      border: 1px solid #e5c46f;
-      border-radius: 24px;
-      color: #fff4d0;
-      background: rgba(5, 24, 59, 0.9);
-      font-size: 12px;
-      font-weight: bold;
-      letter-spacing: 1px;
+      z-index: 10;
+      right: 14px;
+      bottom: 14px;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid rgba(255, 215, 120, 0.9);
+      border-radius: 50%;
+      background: rgba(16, 39, 91, 0.82);
+      color: white;
+      font-size: 21px;
       cursor: pointer;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
-    .mute:hover {
-      background: #163b70;
-    }
-
-    /* PANTALLAS DE POCA ALTURA */
-    @media (max-height: 650px) and (min-width: 601px) {
-      .pagina {
-        grid-template-columns: 94px minmax(0, 1fr);
-        gap: 12px;
-        padding: 5px;
-      }
-
+    @media (max-width: 700px) {
       .menu {
-        gap: 5px;
-        padding: 5px 3px;
-      }
-
-      .boton {
-        width: 80px;
-        border-radius: 7px;
-      }
-
-      .portada {
-        max-height: calc(100dvh - 10px);
-      }
-
-      .frase-mision {
-        font-size: clamp(11px, 1.2vw, 16px);
-        line-height: 1.5;
-      }
-    }
-
-    /* CELULARES */
-    @media (max-width: 600px) {
-      .pagina {
-        grid-template-columns: 74px minmax(0, 1fr);
+        left: 1%;
+        width: 30%;
+        max-width: none;
         gap: 7px;
-        padding: 5px;
-      }
-
-      .menu {
-        gap: 6px;
-        padding: 5px 3px;
-        border-radius: 10px;
-      }
-
-      .boton {
-        width: 64px;
-        padding: 1px;
-        border-width: 1px;
-        border-radius: 7px;
-      }
-
-      .boton img {
-        border-radius: 5px;
-      }
-
-      .portada {
-        max-height: calc(100dvh - 10px);
       }
 
       .frase-mision {
-        top: 2%;
-        left: 4%;
-        width: 48%;
-        font-size: clamp(10px, 2.4vw, 13px);
-        line-height: 1.45;
-        letter-spacing: 0;
+        top: 1%;
+        left: 32%;
+        width: 54%;
+        font-size: clamp(12px, 3.2vw, 19px);
+        line-height: 1.25;
       }
 
-      .mute {
-        top: 6px;
-        right: 6px;
-        min-width: 60px;
-        padding: 7px 9px;
-        font-size: 10px;
-      }
-    }
-
-    @media (max-width: 360px) {
-      .pagina {
-        grid-template-columns: 60px minmax(0, 1fr);
-        gap: 5px;
-        padding: 4px;
-      }
-
-      .menu {
-        gap: 5px;
-        padding: 4px 2px;
-      }
-
-      .boton {
-        width: 52px;
-      }
-
-      .frase-mision {
-        font-size: 9px;
-        line-height: 1.4;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .boton {
-        transition: none;
-      }
-
-      .cursor-escritura {
-        animation: none;
+      .control-audio {
+        right: 8px;
+        bottom: 8px;
+        width: 38px;
+        height: 38px;
       }
     }
   </style>
@@ -289,143 +142,179 @@
 
 <body>
 
-  <button
-    id="mute"
-    class="mute"
-    type="button"
-    aria-label="Silenciar música"
-    aria-pressed="false">
-    ♪ MUTE
-  </button>
+  <main class="zona-portada">
+    <div class="frase-mision" id="fraseMision">
+      Guiamos sus primeros pasos en la fe, acompañamos sus corazones
+      hacia Jesús y sembramos en sus vidas el amor de Dios, para que
+      cada sacramento sea el comienzo de una historia de fe que los
+      acompañe por siempre.
+    </div>
+  </main>
 
-  <audio id="musica" autoplay loop preload="auto">
+  <nav class="menu" aria-label="Menú principal">
+
+    <button class="boton" type="button"
+      data-destino="?p=catequizandos"
+      aria-label="Catequizandos">
+      <img src="./assets/BTN-CATEQUIS.png"
+        alt="Catequizandos">
+    </button>
+
+    <button class="boton" type="button"
+      data-destino="?p=misses"
+      aria-label="Catequistas">
+      <img src="./assets/BTN_CATEQUISTAS.png"
+        alt="Catequistas">
+    </button>
+
+    <button class="boton" type="button"
+      data-destino="?p=supervisores"
+      aria-label="Coordinador parroquial">
+      <img src="./assets/BTN_COORDINADOR.png"
+        alt="Coordinador parroquial">
+    </button>
+
+    <button class="boton" type="button"
+      data-destino="?p=padres"
+      aria-label="Padres de familia">
+      <img src="./assets/BTN-PADRES.png"
+        alt="Padres de familia">
+    </button>
+
+    <button class="boton" type="button"
+      data-destino="?p=programacion"
+      aria-label="Programación">
+      <img src="./assets/BTN-PROGRAMACION.png"
+        alt="Programación">
+    </button>
+
+  </nav>
+
+  <audio id="musica" loop preload="auto">
     <source
       src="./assets/Alma%20Misionera%20Athenas%20-%20M%C3%BAsica%20Cat%C3%B3lica.mp3"
       type="audio/mpeg">
-    <source
-      src="./Alma%20Misionera%20Athenas%20-%20M%C3%BAsica%20Cat%C3%B3lica.mp3"
-      type="audio/mpeg">
   </audio>
 
-  <main class="pagina">
-
-    <nav class="menu" aria-label="Secciones de catequesis">
-
-      <a class="boton" href="./catequizandos.html"
-         aria-label="Catequizandos">
-        <img src="./assets/BTN-CATEQUIS.png"
-             alt="Catequizandos">
-      </a>
-
-      <a class="boton" href="./misses.html"
-         aria-label="Catequistas">
-        <img src="./assets/BTN_CATEQUISTAS.png"
-             alt="Catequistas">
-      </a>
-
-      <a class="boton" href="./supervisores.html"
-         aria-label="Coordinador parroquial">
-        <img src="./assets/BTN_COORDINADOR.png"
-             alt="Coordinador parroquial">
-      </a>
-
-      <a class="boton" href="./padres.html"
-         aria-label="Padres">
-        <img src="./assets/BTN-PADRES.png"
-             alt="Padres">
-      </a>
-
-      <a class="boton" href="./programacion.html"
-         aria-label="Nuestra programación">
-        <img src="./assets/BTN-PROGRAMACION.png"
-             alt="Nuestra programación">
-      </a>
-
-    </nav>
-
-    <section class="zona-portada" aria-label="Portada principal">
-
-      <img
-        class="portada"
-        src="./assets/PORTAL%20CATEQUESIS.png"
-        alt="Camino hacia Jesús — Catequesis del Colegio La Salle del Sur">
-
-      <div class="frase-mision" aria-label="Misión de catequesis">
-        <span id="fraseAnimada"></span><span
-          id="cursorEscritura"
-          class="cursor-escritura">|</span>
-      </div>
-
-    </section>
-
-  </main>
+  <button
+    class="control-audio"
+    id="controlAudio"
+    type="button"
+    aria-label="Silenciar o activar música"
+    title="Silenciar o activar música">🔊</button>
 
   <script>
-    /* CONTROL DE MÚSICA */
-    const musica = document.getElementById("musica");
-    const botonMute = document.getElementById("mute");
+    (() => {
+      "use strict";
 
-    function actualizarControl() {
-      botonMute.textContent = musica.muted
-        ? "♪ UNMUTE"
-        : "♪ MUTE";
+      const musica = document.getElementById("musica");
+      const controlAudio = document.getElementById("controlAudio");
+      const botones = document.querySelectorAll(".boton");
 
-      botonMute.setAttribute(
-        "aria-pressed",
-        String(musica.muted)
-      );
+      let silenciado = false;
+      let contextoAudio = null;
 
-      botonMute.setAttribute(
-        "aria-label",
-        musica.muted ? "Activar sonido" : "Silenciar música"
-      );
-    }
+      /*
+       * Efecto breve de sonido generado por el navegador.
+       * No requiere descargar otro archivo de audio.
+       */
+      function reproducirEfecto() {
+        try {
+          const AudioContext =
+            window.AudioContext || window.webkitAudioContext;
 
-    botonMute.addEventListener("click", () => {
-      musica.muted = !musica.muted;
+          if (!AudioContext) return;
 
-      if (!musica.muted && musica.paused) {
-        musica.play().catch(() => {});
+          if (!contextoAudio) {
+            contextoAudio = new AudioContext();
+          }
+
+          if (contextoAudio.state === "suspended") {
+            contextoAudio.resume();
+          }
+
+          const oscilador = contextoAudio.createOscillator();
+          const volumen = contextoAudio.createGain();
+          const ahora = contextoAudio.currentTime;
+
+          oscilador.type = "sine";
+          oscilador.frequency.setValueAtTime(880, ahora);
+          oscilador.frequency.exponentialRampToValueAtTime(
+            660,
+            ahora + 0.12
+          );
+
+          volumen.gain.setValueAtTime(0.0001, ahora);
+          volumen.gain.exponentialRampToValueAtTime(
+            0.12,
+            ahora + 0.015
+          );
+          volumen.gain.exponentialRampToValueAtTime(
+            0.0001,
+            ahora + 0.16
+          );
+
+          oscilador.connect(volumen);
+          volumen.connect(contextoAudio.destination);
+
+          oscilador.start(ahora);
+          oscilador.stop(ahora + 0.17);
+        } catch (error) {
+          console.warn("No se pudo reproducir el efecto de sonido.");
+        }
       }
 
-      actualizarControl();
-    });
+      /*
+       * La música intenta iniciarse al pulsar un botón,
+       * porque los navegadores pueden bloquear el autoplay.
+       */
+      async function iniciarMusica() {
+        if (silenciado) return;
 
-    window.addEventListener("load", () => {
-      musica.volume = 0.45;
-      musica.muted = false;
-      actualizarControl();
+        try {
+          await musica.play();
+          controlAudio.textContent = "🔊";
+        } catch (error) {
+          controlAudio.textContent = "🔊";
+        }
+      }
 
-      musica.play().catch(() => {
-        /* Algunos navegadores bloquean el autoplay con sonido. */
+      botones.forEach((boton) => {
+        boton.addEventListener("click", () => {
+          reproducirEfecto();
+          iniciarMusica();
+
+          const destino = boton.dataset.destino;
+
+          if (destino) {
+            window.location.href = destino;
+          }
+        });
       });
-    });
 
-    /* FRASE ANIMADA */
-    const frase =
-      "Guiamos sus primeros pasos en la fe, acompañamos sus corazones hacia Jesús y sembramos en sus vidas el amor de Dios, para que cada sacramento sea el comienzo de una historia de fe que los acompañe por siempre.";
+      controlAudio.addEventListener("click", async () => {
+        silenciado = !silenciado;
+        musica.muted = silenciado;
 
-    const textoAnimado = document.getElementById("fraseAnimada");
-    const cursor = document.getElementById("cursorEscritura");
+        if (silenciado) {
+          controlAudio.textContent = "🔇";
+        } else {
+          controlAudio.textContent = "🔊";
 
-    let posicion = 0;
+          try {
+            await musica.play();
+          } catch (error) {
+            // El navegador puede requerir otra interacción.
+          }
+        }
+      });
 
-    function escribirFrase() {
-      if (posicion < frase.length) {
-        textoAnimado.textContent += frase.charAt(posicion);
-        posicion++;
-
-        window.setTimeout(escribirFrase, 38);
-      } else {
-        cursor.style.display = "none";
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      textoAnimado.textContent = "";
-      posicion = 0;
-      escribirFrase();
-    });
+      musica.addEventListener("error", () => {
+        console.warn(
+          "No se encontró la música. Revisa el nombre y la carpeta del archivo."
+        );
+      });
+    })();
   </script>
 
 </body>
