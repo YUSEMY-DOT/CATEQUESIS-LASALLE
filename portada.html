@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <base target="_top">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071d49">
   <title>Camino hacia Jesús 2026</title>
 
   <style>
@@ -21,8 +20,7 @@
       min-height: 100vh;
       font-family: Georgia, "Times New Roman", serif;
       color: var(--crema);
-      background:
-        radial-gradient(ellipse at top, #174a83 0%, var(--azul) 65%);
+      background: radial-gradient(ellipse at top, #174a83 0%, var(--azul) 65%);
     }
 
     .contenedor {
@@ -121,12 +119,15 @@
       .botones { gap: 10px; }
       .boton { border-width: 2px; border-radius: 12px; }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
   </style>
 </head>
 
 <body>
   <main class="contenedor">
-
     <header class="encabezado">
       <div class="cruz" aria-hidden="true">✝</div>
       <h1>CAMINO HACIA JESÚS 2026</h1>
@@ -136,39 +137,31 @@
     </header>
 
     <nav class="botones" aria-label="Portales principales">
-
-      <a class="boton" href="?p=catequizandos" aria-label="Entrar a Catequizandos">
-        <img src="https://yusemy-dot.github.io/CATEQUESIS-LASALLE/assets/BTN-CATEQUIS.png"
-             alt="Catequizandos">
+      <a class="boton" href="./catequizandos.html" aria-label="Entrar a Catequizandos">
+        <img src="./assets/BTN-CATEQUIS.png" alt="Catequizandos">
       </a>
 
-      <a class="boton" href="?p=misses" aria-label="Entrar a Catequistas">
-        <img src="https://yusemy-dot.github.io/CATEQUESIS-LASALLE/assets/BTN_CATEQUISTAS.png"
-             alt="Catequistas">
+      <a class="boton" href="./misses.html" aria-label="Entrar a Catequistas">
+        <img src="./assets/BTN_CATEQUISTAS.png" alt="Catequistas">
       </a>
 
-      <a class="boton" href="?p=supervisores" aria-label="Entrar a Coordinador Parroquial">
-        <img src="https://yusemy-dot.github.io/CATEQUESIS-LASALLE/assets/BTN_COORDINADOR.png"
-             alt="Coordinador Parroquial">
+      <a class="boton" href="./supervisores.html" aria-label="Entrar a Coordinador Parroquial">
+        <img src="./assets/BTN_COORDINADOR.png" alt="Coordinador Parroquial">
       </a>
 
-      <a class="boton" href="?p=padres" aria-label="Entrar a Padres">
-        <img src="https://yusemy-dot.github.io/CATEQUESIS-LASALLE/assets/BTN-PADRES.png"
-             alt="Padres">
+      <a class="boton" href="./padres.html" aria-label="Entrar a Padres">
+        <img src="./assets/BTN-PADRES.png" alt="Padres">
       </a>
 
-      <a class="boton" href="?p=programacion" aria-label="Ver Nuestra Programación">
-        <img src="https://yusemy-dot.github.io/CATEQUESIS-LASALLE/assets/BTN-PROGRAMACION.png"
-             alt="Nuestra Programación">
+      <a class="boton" href="./programacion.html" aria-label="Ver Nuestra Programación">
+        <img src="./assets/BTN-PROGRAMACION.png" alt="Nuestra Programación">
       </a>
-
     </nav>
 
     <footer>
       CAMINO HACIA JESÚS 2026<br>
       Colegio La Salle del Sur · Programa de Primera Comunión
     </footer>
-
   </main>
 </body>
 </html>
