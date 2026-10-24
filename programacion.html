@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,7 +12,6 @@
   --azul: #082653;
   --azul2: #174b87;
   --dorado: #f4c454;
-  --dorado-claro: #ffe5a0;
   --crema: #fff9e9;
   --texto: #102b54;
 }
@@ -42,17 +42,17 @@ body {
 
 .header {
   position: relative;
-  padding: 10px 65px 8px;
+  padding: 9px 60px 7px;
   text-align: center;
   color: white;
   background:
     radial-gradient(ellipse at 50% 120%, #3789ca, transparent 58%),
     linear-gradient(115deg, #06183b, #104a8b, #06183b);
-  border-bottom: 4px solid var(--dorado);
+  border-bottom: 3px solid var(--dorado);
 }
 
 .brand {
-  color: var(--dorado-claro);
+  color: #ffe5a0;
   font-size: 10px;
   font-weight: 900;
   letter-spacing: 3px;
@@ -61,13 +61,13 @@ body {
 .header h1 {
   display: inline-block;
   margin: 4px 0 2px;
-  padding: 5px 18px;
-  color: var(--dorado-claro);
+  padding: 4px 17px;
+  color: #ffe5a0;
   background: linear-gradient(90deg, #071b40, #154c8c, #071b40);
   border: 2px solid var(--dorado);
-  border-radius: 16px;
-  box-shadow: 0 0 0 2px #a77b27, 0 4px 10px #0004;
-  font: 900 clamp(22px, 3.2vw, 43px) Georgia, serif;
+  border-radius: 15px;
+  box-shadow: 0 0 0 1px #a77b27, 0 3px 8px #0003;
+  font: 900 clamp(22px, 3.2vw, 42px) Georgia, serif;
   text-shadow: 1px 2px 2px #432800;
 }
 
@@ -75,7 +75,7 @@ body {
   width: max-content;
   max-width: 90%;
   margin: 2px auto 0;
-  padding: 3px 20px;
+  padding: 3px 18px;
   color: var(--azul);
   background: linear-gradient(#fff0b8, #e9bb50);
   border-radius: 30px;
@@ -84,10 +84,10 @@ body {
 
 .home {
   position: absolute;
-  top: 7px;
+  top: 6px;
   right: 12px;
-  width: 49px;
-  height: 49px;
+  width: 46px;
+  height: 46px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -97,28 +97,53 @@ body {
   background: linear-gradient(145deg, #194c8a, #06183b);
   border: 3px solid var(--dorado);
   border-radius: 50%;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 900;
 }
 
 .home .house {
-  font-size: 23px;
+  font-size: 22px;
   line-height: 1;
 }
 
-/* DISTRIBUCIÓN GENERAL */
+/* DISTRIBUCIÓN: SIN ESPACIOS SOBRANTES */
 
 main {
-  padding: 5px;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.top-grid,
+.section-grid,
+.bottom-grid {
+  display: grid;
+  gap: 5px;
+  align-items: start;
+}
+
+.top-grid {
+  grid-template-columns: 1fr 1fr .98fr;
+}
+
+.section-grid {
+  grid-template-columns: minmax(0, 2.1fr) minmax(270px, .95fr);
+}
+
+.bottom-grid {
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .panel {
   min-width: 0;
-  padding: 7px;
+  height: auto;
+  min-height: 0;
+  padding: 6px;
   background: linear-gradient(135deg, #fffdf7, #fff7e3);
   border: 1.5px solid var(--dorado);
-  border-radius: 15px;
-  box-shadow: 0 2px 6px #08265310;
+  border-radius: 14px;
+  box-shadow: 0 2px 5px #08265310;
 }
 
 .panel-title {
@@ -127,8 +152,8 @@ main {
   justify-content: center;
   gap: 6px;
   margin: 0 0 5px;
-  padding: 5px 7px;
-  color: var(--dorado-claro);
+  padding: 5px 6px;
+  color: #ffe5a0;
   text-align: center;
   background: linear-gradient(90deg, #071a3d, #164b87, #071a3d);
   border: 1px solid #f6d16d;
@@ -138,35 +163,28 @@ main {
 
 .panel p {
   margin: 0;
-  font-size: clamp(17px, 1.3vw, 20px);
+  font-size: clamp(16px, 1.25vw, 20px);
   line-height: 1.15;
 }
 
-/* MISIÓN, VISIÓN Y CUENTA REGRESIVA */
-
-.top-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr .98fr;
-  gap: 5px;
-  align-items: start;
-}
+/* MISIÓN Y VISIÓN */
 
 .mission-content {
   display: grid;
-  grid-template-columns: 40px minmax(0, 1fr);
+  grid-template-columns: 38px minmax(0, 1fr);
   gap: 5px;
   align-items: center;
 }
 
 .medallion {
-  width: 39px;
-  height: 39px;
+  width: 37px;
+  height: 37px;
   display: grid;
   place-items: center;
   background: radial-gradient(circle, #fff 0, #fff0c3 76%, #e9bb50);
   border: 1.5px solid #e7b748;
   border-radius: 50%;
-  font-size: 23px;
+  font-size: 22px;
 }
 
 /* CUENTA REGRESIVA */
@@ -186,8 +204,8 @@ main {
 }
 
 .countdown-sub {
-  margin-bottom: 5px;
-  font-size: 17px;
+  margin: 0 0 5px;
+  font-size: 16px;
 }
 
 .timer {
@@ -207,15 +225,15 @@ main {
 .unit strong {
   display: block;
   color: #ffe49b;
-  font: 900 clamp(35px, 3.2vw, 49px) Georgia, serif;
-  line-height: 1.05;
+  font: 900 clamp(32px, 3vw, 48px) Georgia, serif;
+  line-height: 1;
   font-variant-numeric: tabular-nums;
 }
 
 .unit span {
   display: block;
-  margin-top: 2px;
-  font-size: 12px;
+  margin-top: 3px;
+  font-size: 11px;
   font-weight: 900;
 }
 
@@ -226,7 +244,7 @@ main {
   background: linear-gradient(#ffe8a3, #edbf50);
   border: 1px solid white;
   border-radius: 22px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 900;
   line-height: 1.15;
 }
@@ -234,21 +252,13 @@ main {
 .note {
   margin-top: 4px;
   color: #e8f2ff;
-  font-size: 12px;
+  font-size: 11px;
 }
 
-/* CAMINO DE PREPARACIÓN Y PROGRAMACIÓN */
-
-.section-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 2.1fr) minmax(270px, .95fr);
-  gap: 5px;
-  margin-top: 5px;
-  align-items: stretch;
-}
+/* CAMINO DE PREPARACIÓN */
 
 .path-panel {
-  padding: 6px;
+  padding: 5px;
 }
 
 .path {
@@ -268,8 +278,8 @@ main {
 }
 
 .path-art {
-  width: clamp(60px, 5.8vw, 76px);
-  height: clamp(60px, 5.8vw, 76px);
+  width: clamp(56px, 5.5vw, 74px);
+  height: clamp(56px, 5.5vw, 74px);
   margin: 0 auto 2px;
   display: grid;
   place-items: center;
@@ -277,7 +287,7 @@ main {
   border: 2px solid #e8bb50;
   border-radius: 50%;
   box-shadow: inset 0 0 0 3px white, 0 3px 6px #80541425;
-  font-size: clamp(30px, 3vw, 42px);
+  font-size: clamp(27px, 2.8vw, 40px);
 }
 
 .path-num {
@@ -285,19 +295,19 @@ main {
   z-index: 1;
   display: grid;
   place-items: center;
-  width: 30px;
-  height: 30px;
-  margin: -11px auto 3px;
+  width: 29px;
+  height: 29px;
+  margin: -10px auto 3px;
   color: #ffe6a0;
   background: linear-gradient(145deg, #164e8e, #061a3d);
   border: 3px solid var(--dorado);
   border-radius: 50%;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 900;
 }
 
 .path-item p {
-  font-size: clamp(14px, 1.1vw, 17px);
+  font-size: clamp(13px, 1.1vw, 17px);
   font-weight: 800;
   line-height: 1.08;
 }
@@ -305,10 +315,10 @@ main {
 .path-arrow {
   position: absolute;
   z-index: 2;
-  top: 30%;
+  top: 29%;
   right: -12px;
   color: #dba02b;
-  font-size: 22px;
+  font-size: 21px;
   text-shadow: 1px 1px white;
 }
 
@@ -319,26 +329,18 @@ main {
   align-items: flex-start;
   gap: 6px;
   margin: 5px 1px;
-  font-size: clamp(17px, 1.3vw, 20px);
+  font-size: clamp(16px, 1.25vw, 20px);
   line-height: 1.15;
 }
 
 .schedule-line .ico {
-  flex: 0 0 24px;
-  font-size: 21px;
+  flex: 0 0 23px;
+  font-size: 20px;
   line-height: 1.1;
   text-align: center;
 }
 
-/* ACTIVIDADES, FAMILIAS Y VALORES */
-
-.bottom-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 5px;
-  margin-top: 5px;
-  align-items: stretch;
-}
+/* ACTIVIDADES Y FAMILIAS */
 
 .checklist {
   list-style: none;
@@ -350,8 +352,8 @@ main {
   display: flex;
   align-items: flex-start;
   gap: 6px;
-  margin: 4px 0;
-  font-size: clamp(17px, 1.2vw, 19px);
+  margin: 3px 0;
+  font-size: clamp(16px, 1.2vw, 19px);
   line-height: 1.15;
 }
 
@@ -378,51 +380,51 @@ main {
 }
 
 .value {
-  padding: 6px 8px;
+  padding: 5px 8px;
   color: #10315f;
   background: linear-gradient(#fff5d7, #ffe9b0);
   border: 1px solid #efce79;
   border-radius: 25px;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 900;
 }
 
 .quote {
   margin-top: 5px;
-  padding: 7px;
+  padding: 6px;
   color: #082653;
   text-align: center;
   background: #fff9e9;
   border: 1px solid #e9bd52;
-  border-radius: 14px;
-  font: italic clamp(19px, 1.6vw, 24px)/1.15 Georgia, serif;
+  border-radius: 13px;
+  font: italic clamp(18px, 1.6vw, 23px)/1.15 Georgia, serif;
 }
 
 .quote .cross {
   display: block;
   color: #d5a33e;
   font-style: normal;
-  font-size: 22px;
+  font-size: 21px;
   margin-bottom: 2px;
 }
 
-/* PIE DE PÁGINA */
+/* PIE */
 
 footer {
   position: relative;
-  margin-top: 5px;
+  margin-top: 4px;
   padding: 7px 10px;
   color: white;
   text-align: center;
   background: linear-gradient(100deg, #06183b, #10417d, #06183b);
-  border-top: 4px solid var(--dorado);
-  font-size: 14px;
-  line-height: 1.25;
+  border-top: 3px solid var(--dorado);
+  font-size: 13px;
+  line-height: 1.2;
 }
 
 footer strong {
   color: #ffe39a;
-  font-size: 19px;
+  font-size: 18px;
 }
 
 .footer-birds {
@@ -432,19 +434,19 @@ footer strong {
   right: 9%;
   display: flex;
   justify-content: space-between;
-  font-size: 25px;
+  font-size: 24px;
 }
 
 .copyright {
   margin-top: 3px;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 /* TABLET */
 
 @media (max-width: 900px) {
   .header {
-    padding: 46px 10px 8px;
+    padding: 45px 10px 8px;
   }
 
   .top-grid {
@@ -472,12 +474,9 @@ footer strong {
     line-height: 1.15;
   }
 
-  .checklist li {
-    font-size: 17px;
-  }
-
+  .checklist li,
   .schedule-line {
-    font-size: 18px;
+    font-size: 17px;
   }
 }
 
@@ -485,11 +484,12 @@ footer strong {
 
 @media (max-width: 540px) {
   main {
-    padding: 5px;
+    padding: 4px;
+    gap: 5px;
   }
 
   .header {
-    padding: 46px 6px 8px;
+    padding: 45px 6px 8px;
   }
 
   .header h1 {
@@ -508,8 +508,9 @@ footer strong {
   }
 
   .top-grid,
+  .section-grid,
   .bottom-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 5px;
   }
 
@@ -519,7 +520,7 @@ footer strong {
   }
 
   .panel {
-    padding: 7px;
+    padding: 6px;
   }
 
   .panel-title {
@@ -528,14 +529,8 @@ footer strong {
   }
 
   .mission-content {
-    grid-template-columns: 40px minmax(0, 1fr);
+    grid-template-columns: 38px minmax(0, 1fr);
     gap: 5px;
-  }
-
-  .medallion {
-    width: 38px;
-    height: 38px;
-    font-size: 22px;
   }
 
   .panel p {
@@ -543,13 +538,8 @@ footer strong {
     line-height: 1.15;
   }
 
-  .section-grid {
-    gap: 5px;
-    margin-top: 5px;
-  }
-
   .path-panel {
-    padding: 6px 4px;
+    padding: 5px 3px;
   }
 
   .path {
@@ -557,26 +547,25 @@ footer strong {
   }
 
   .path-item {
-    padding: 4px 2px 5px;
-    border-radius: 10px;
+    padding: 4px 1px 5px;
   }
 
   .path-art {
-    width: clamp(42px, 14vw, 62px);
-    height: clamp(42px, 14vw, 62px);
-    font-size: clamp(23px, 7vw, 35px);
+    width: clamp(42px, 13vw, 60px);
+    height: clamp(42px, 13vw, 60px);
+    font-size: clamp(22px, 7vw, 34px);
   }
 
   .path-num {
-    width: 27px;
-    height: 27px;
-    margin-top: -10px;
+    width: 26px;
+    height: 26px;
+    margin-top: -9px;
     font-size: 15px;
     border-width: 2px;
   }
 
   .path-item p {
-    font-size: clamp(12px, 3.2vw, 15px);
+    font-size: clamp(11px, 3.2vw, 14px);
     line-height: 1.08;
   }
 
@@ -596,31 +585,29 @@ footer strong {
   }
 
   .unit strong {
-    font-size: clamp(34px, 9vw, 45px);
+    font-size: clamp(32px, 9vw, 44px);
   }
 
   .unit span {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .date {
-    font-size: 13px;
-    line-height: 1.15;
+    font-size: 12px;
   }
 
   .checklist li {
     font-size: 17px;
     line-height: 1.15;
-    margin: 4px 0;
+    margin: 3px 0;
   }
 
   .value {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .quote {
-    font-size: 20px;
-    line-height: 1.15;
+    font-size: 19px;
   }
 
   .footer-birds {
@@ -632,11 +619,7 @@ footer strong {
   }
 
   footer strong {
-    font-size: 18px;
-  }
-
-  .copyright {
-    font-size: 12px;
+    font-size: 17px;
   }
 }
 </style>
@@ -661,7 +644,7 @@ footer strong {
   <section class="top-grid">
 
     <article class="panel">
-      <h2 class="panel-title"><span>💖</span> MISIÓN</h2>
+      <h2 class="panel-title">💖 MISIÓN</h2>
       <div class="mission-content">
         <div class="medallion" aria-hidden="true">❤️✝️</div>
         <p>
@@ -674,7 +657,7 @@ footer strong {
     </article>
 
     <article class="panel">
-      <h2 class="panel-title"><span>🕊️</span> VISIÓN</h2>
+      <h2 class="panel-title">🕊️ VISIÓN</h2>
       <div class="mission-content">
         <div class="medallion" aria-hidden="true">🕊️</div>
         <p>
@@ -686,26 +669,14 @@ footer strong {
     </article>
 
     <article class="panel countdown">
-      <h2 class="panel-title"><span>📅</span> CUENTA REGRESIVA</h2>
+      <h2 class="panel-title">📅 CUENTA REGRESIVA</h2>
       <div class="countdown-sub">Para la Primera Comunión</div>
 
       <div class="timer" aria-live="polite">
-        <div class="unit">
-          <strong id="days">--</strong>
-          <span>DÍAS</span>
-        </div>
-        <div class="unit">
-          <strong id="hours">--</strong>
-          <span>HORAS</span>
-        </div>
-        <div class="unit">
-          <strong id="minutes">--</strong>
-          <span>MINUTOS</span>
-        </div>
-        <div class="unit">
-          <strong id="seconds">--</strong>
-          <span>SEGUNDOS</span>
-        </div>
+        <div class="unit"><strong id="days">--</strong><span>DÍAS</span></div>
+        <div class="unit"><strong id="hours">--</strong><span>HORAS</span></div>
+        <div class="unit"><strong id="minutes">--</strong><span>MINUTOS</span></div>
+        <div class="unit"><strong id="seconds">--</strong><span>SEGUNDOS</span></div>
       </div>
 
       <div class="date">
@@ -713,9 +684,7 @@ footer strong {
         (Pendiente de confirmación oficial)
       </div>
 
-      <div class="note">
-        ¡Nos preparamos con alegría para recibir a Jesús!
-      </div>
+      <div class="note">¡Nos preparamos con alegría para recibir a Jesús!</div>
     </article>
 
   </section>
@@ -723,12 +692,9 @@ footer strong {
   <section class="section-grid">
 
     <article class="panel path-panel">
-      <h2 class="panel-title">
-        <span>🌟</span> NUESTRO CAMINO DE PREPARACIÓN <span>🌟</span>
-      </h2>
+      <h2 class="panel-title">🌟 NUESTRO CAMINO DE PREPARACIÓN 🌟</h2>
 
       <div class="path">
-
         <div class="path-item">
           <div class="path-art" role="img" aria-label="Niños">🧒🏻👧🏻</div>
           <div class="path-num">1</div>
@@ -762,12 +728,11 @@ footer strong {
           <div class="path-num">5</div>
           <p>Practicamos los<br>valores cristianos</p>
         </div>
-
       </div>
     </article>
 
     <article class="panel">
-      <h2 class="panel-title"><span>🗓️</span> PROGRAMACIÓN GENERAL</h2>
+      <h2 class="panel-title">🗓️ PROGRAMACIÓN GENERAL</h2>
 
       <div class="schedule-line">
         <span class="ico">📅</span>
@@ -790,7 +755,7 @@ footer strong {
   <section class="bottom-grid">
 
     <article class="panel">
-      <h2 class="panel-title"><span>🎉</span> PRÓXIMAS ACTIVIDADES</h2>
+      <h2 class="panel-title">🎉 PRÓXIMAS ACTIVIDADES</h2>
       <ul class="checklist">
         <li><span class="check">✓</span><span>Encuentros de catequesis</span></li>
         <li><span class="check">✓</span><span>Reuniones con padres de familia</span></li>
@@ -801,7 +766,7 @@ footer strong {
     </article>
 
     <article class="panel">
-      <h2 class="panel-title"><span>👨‍👩‍👧‍👦</span> PARA LAS FAMILIAS</h2>
+      <h2 class="panel-title">👨‍👩‍👧‍👦 PARA LAS FAMILIAS</h2>
       <ul class="checklist">
         <li><span class="check">✓</span><span>Acompañar la formación de sus hijos</span></li>
         <li><span class="check">✓</span><span>Participar en las reuniones programadas</span></li>
@@ -812,7 +777,7 @@ footer strong {
     </article>
 
     <article class="panel">
-      <h2 class="panel-title"><span>💝</span> NUESTROS VALORES</h2>
+      <h2 class="panel-title">💝 NUESTROS VALORES</h2>
 
       <div class="value-list">
         <span class="value">💗 Amor</span>
@@ -835,16 +800,11 @@ footer strong {
 
 <footer>
   <div class="footer-birds" aria-hidden="true">
-    <span>🕊️</span>
-    <span>🕊️</span>
+    <span>🕊️</span><span>🕊️</span>
   </div>
-
   <strong>Camino hacia Jesús</strong><br>
   Colegio La Salle del Sur
-
-  <div class="copyright">
-    © Corporación La Salle del Sur. Derechos reservados.
-  </div>
+  <div class="copyright">© Corporación La Salle del Sur. Derechos reservados.</div>
 </footer>
 
 </div>
@@ -871,15 +831,11 @@ footer strong {
       return;
     }
 
-    elementos.days.textContent =
-      Math.floor(restante / 86400000);
-
+    elementos.days.textContent = Math.floor(restante / 86400000);
     elementos.hours.textContent =
       Math.floor((restante % 86400000) / 3600000);
-
     elementos.minutes.textContent =
       Math.floor((restante % 3600000) / 60000);
-
     elementos.seconds.textContent =
       Math.floor((restante % 60000) / 1000);
   }
