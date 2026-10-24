@@ -62,11 +62,17 @@ main{max-width:1080px;margin:auto;padding:25px 18px 42px}
 footer{text-align:center;padding:0 18px 26px;color:var(--muted);font-size:.88rem;line-height:1.5}
 @media(max-width:760px){.people{grid-template-columns:1fr}.person{display:grid;grid-template-columns:100px 1fr;column-gap:15px;text-align:left;align-items:center}.photo-button{grid-row:1/5;width:96px;height:96px;margin:0}.person .role,.person h3,.person .desc{grid-column:2}.person .desc{min-height:0;margin-bottom:10px}.person .primary{grid-column:2;width:auto}.modules{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){.modules{grid-template-columns:1fr}.person{padding:13px;grid-template-columns:82px 1fr}.photo-button{width:78px;height:78px;font-size:1.8rem}.person h3{font-size:1rem}.person .desc{font-size:.85rem}}
+.hero-top{display:flex;justify-content:flex-end;align-items:center;margin-bottom:12px}
+.back-portal{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;border:2px solid #ffe58b;border-radius:14px;background:var(--gold);color:var(--navy);text-decoration:none;font-weight:800;box-shadow:0 4px 0 #c79622;transition:transform .15s,background .15s}
+.back-portal:hover{background:#ffda70;transform:translateY(-1px)}
+.back-portal:focus-visible{outline:3px solid white;outline-offset:3px}
+@media(max-width:480px){.hero-top{margin-bottom:8px}.back-portal{padding:9px 12px;font-size:.9rem}}
 </style>
 </head>
 <body>
 <header class="hero">
   <div class="wrap">
+    <div class="hero-top"><a class="back-portal" href="./index.html">← Volver al portal principal</a></div>
     <div class="brand"><div class="brand-mark">✝</div><span>CAMINO HACIA JESÚS <span style="color:#ffe58b">2026</span></span></div>
     <div class="sub" style="margin-top:23px">Portal de supervisión y acompañamiento</div>
     <h1>Supervisar con fe, acompañar con amor</h1>
@@ -81,7 +87,7 @@ footer{text-align:center;padding:0 18px 26px;color:var(--muted);font-size:.88rem
   <section class="people" aria-label="Accesos de supervisores">
     <article class="person">
       <button class="photo-button" onclick="abrirLogin('vicario')" aria-label="Ingresar como Vicario Amadeo Raymi">
-        <img src="./assets/vicario-amadeo-raymi.jpg" alt="Fotografía del Vicario Amadeo Raymi" onerror="this.hidden=true">
+        <img src="./assets/vicario-amadeo-raymi.png" alt="Fotografía del Vicario Amadeo Raymi" onerror="this.hidden=true">
         <span>AR</span>
       </button>
       <p class="role">01 · Supervisión general</p>
@@ -92,7 +98,7 @@ footer{text-align:center;padding:0 18px 26px;color:var(--muted);font-size:.88rem
 
     <article class="person">
       <button class="photo-button" onclick="abrirLogin('padre')" aria-label="Ingresar como Padre Carlos Retamoso">
-        <img src="./assets/padre-carlos-retamoso.jpg" alt="Fotografía del Padre Carlos Retamoso" onerror="this.hidden=true">
+        <img src="./assets/padre-carlos-retamoso.png" alt="Fotografía del Padre Carlos Retamoso" onerror="this.hidden=true">
         <span>CR</span>
       </button>
       <p class="role">02 · Guía espiritual</p>
@@ -103,7 +109,7 @@ footer{text-align:center;padding:0 18px 26px;color:var(--muted);font-size:.88rem
 
     <article class="person">
       <button class="photo-button" onclick="abrirLogin('coordinadora')" aria-label="Ingresar como Coordinadora Milagros Ramos Landa">
-        <img src="./assets/milagros-ramos-landa.jpg" alt="Fotografía de Milagros Ramos Landa" onerror="this.hidden=true">
+        <img src="./assets/milagros-ramos-landa.png" alt="Fotografía de Milagros Ramos Landa" onerror="this.hidden=true">
         <span>MR</span>
       </button>
       <p class="role">03 · Coordinación</p>
