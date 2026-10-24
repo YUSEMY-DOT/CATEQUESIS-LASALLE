@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -21,119 +22,119 @@
 
     body {
       position: relative;
-      width: 100vw;
+      width: 100%;
       height: 100dvh;
       overflow: hidden;
       font-family: Arial, Helvetica, sans-serif;
       background: #071a43;
     }
 
-    /* PORTADA: SIEMPRE A LA DERECHA DE LOS BOTONES */
+    /* PORTADA: SIEMPRE A LA DERECHA, SEPARADA DE LOS BOTONES */
     .portada {
       position: fixed;
       z-index: 1;
-      top: 1.5%;
-      right: 0.7%;
-      bottom: 1.5%;
-      left: 9%;
+      top: 0.7%;
+      right: 0.5%;
+      bottom: 0.7%;
+      left: 8.7%;
 
       overflow: hidden;
       background-color: #10275b;
       background-image: url("./assets/PORTAL%20CATEQUESIS.png");
-      background-position: center;
+      background-position: center center;
       background-repeat: no-repeat;
       background-size: 100% 100%;
-      border-radius: 3px;
     }
 
-    /* CINCO BOTONES: COLUMNA IZQUIERDA INDEPENDIENTE */
+    /* CINCO BOTONES PEQUEÑOS, CENTRADOS Y SEPARADOS */
     .menu {
       position: fixed;
       z-index: 5;
       top: 2%;
       bottom: 2%;
-      left: 0.5%;
+      left: 0.35%;
       width: 7.8%;
-      max-width: 108px;
+      max-width: 110px;
 
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      gap: 7px;
+      gap: clamp(5px, 1.1vh, 11px);
 
       margin: 0;
       padding: 0;
     }
 
     .boton {
-      flex: 1 1 0;
-      width: 100%;
-      min-width: 0;
-      min-height: 0;
-
       display: flex;
+      flex: 0 1 auto;
       align-items: center;
       justify-content: center;
 
+      width: 100%;
+      height: 17.5%;
+      max-height: 145px;
+      min-height: 0;
+
       padding: 0;
       margin: 0;
-      border: 0;
+      border: none;
+      outline-offset: 2px;
       background: transparent;
       box-shadow: none;
       cursor: pointer;
       line-height: 0;
+
       -webkit-tap-highlight-color: transparent;
+      transition: transform 0.15s ease;
     }
 
     .boton img {
       display: block;
       width: 100%;
       height: 100%;
-      min-width: 0;
-      min-height: 0;
       object-fit: contain;
       object-position: center;
-      border: 0;
       margin: 0;
       padding: 0;
+      border: none;
     }
 
     .boton:hover {
-      filter: brightness(1.05);
+      transform: scale(1.025);
     }
 
     .boton:active {
       transform: scale(0.98);
     }
 
-    /* FRASE ANIMADA: CIELO SUPERIOR IZQUIERDO DE LA PORTADA */
+    /* FRASE ANIMADA SOBRE EL CIELO */
     .frase-mision {
       position: absolute;
       z-index: 3;
-      top: 2%;
-      left: 2.5%;
+      top: 1.8%;
+      left: 2.4%;
       width: 40%;
-      max-width: 440px;
-      min-height: 1.4em;
-
+      max-width: 500px;
       margin: 0;
       padding: 0;
 
-      color: #0645ad;
+      color: #002d83;
       font-family: Arial, Helvetica, sans-serif;
-      font-size: clamp(12px, 1.35vw, 20px);
+      font-size: clamp(13px, 1.45vw, 23px);
       font-weight: 800;
       font-style: italic;
       line-height: 1.3;
       text-align: left;
-      white-space: normal;
       overflow-wrap: break-word;
 
       text-shadow:
-        0 0 2px #ffffff,
-        1px 1px 2px rgba(255, 255, 255, 0.95),
-        -1px -1px 1px rgba(255, 255, 255, 0.8);
+        -1px -1px 0 #ffffff,
+         1px -1px 0 #ffffff,
+        -1px  1px 0 #ffffff,
+         1px  1px 0 #ffffff,
+         0 0 4px rgba(255, 255, 255, 0.95);
 
       pointer-events: none;
     }
@@ -141,8 +142,7 @@
     .cursor-escritura {
       display: inline-block;
       margin-left: 2px;
-      color: #0645ad;
-      font-style: normal;
+      color: #002d83;
       animation: parpadeo 0.8s steps(1) infinite;
     }
 
@@ -152,15 +152,15 @@
       }
     }
 
-    /* MUTE: ESQUINA SUPERIOR DERECHA */
+    /* CONTROL DE AUDIO: ESQUINA SUPERIOR DERECHA */
     .control-audio {
       position: absolute;
       z-index: 10;
-      top: 12px;
-      right: 12px;
+      top: 14px;
+      right: 14px;
 
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       padding: 0;
 
       display: flex;
@@ -168,89 +168,104 @@
       justify-content: center;
 
       color: #ffffff;
-      background: rgba(10, 35, 83, 0.58);
+      background: rgba(10, 35, 83, 0.62);
       border: 1px solid #d7b65d;
       border-radius: 50%;
-      font-size: 19px;
+      font-size: 20px;
       cursor: pointer;
     }
 
-    /* DERECHOS RESERVADOS: TEXTO SIN CUADRO */
+    /* DERECHOS RESERVADOS SIN RECUADRO */
     .derechos-reservados {
       position: fixed;
       z-index: 8;
-      right: 1%;
-      bottom: 1%;
+      left: 25%;
+      width: 55%;
+      bottom: 5.2%;
 
       margin: 0;
       padding: 0;
-      max-width: 65%;
 
       color: #ffffff;
       background: transparent;
       border: none;
 
-      font-size: clamp(9px, 0.8vw, 12px);
-      font-weight: 700;
+      font-size: clamp(12px, 1.05vw, 18px);
+      font-weight: 800;
       line-height: 1.3;
-      text-align: right;
+      text-align: center;
 
       text-shadow:
-        1px 1px 2px #10275b,
-        -1px -1px 2px #10275b,
-        0 0 4px #10275b;
+        -1px -1px 2px #002d83,
+         1px -1px 2px #002d83,
+        -1px  1px 2px #002d83,
+         1px  1px 2px #002d83,
+         0 0 5px #002d83;
 
       pointer-events: none;
     }
 
-    /* TABLET */
+    /* PANTALLAS MEDIANAS */
     @media (max-width: 900px) {
       .menu {
-        width: 9%;
-        max-width: 85px;
-        gap: 5px;
+        width: 8.5%;
+        gap: clamp(4px, 0.8vh, 8px);
+      }
+
+      .boton {
+        height: 17%;
       }
 
       .portada {
-        left: 10%;
+        left: 9.5%;
       }
 
       .frase-mision {
-        width: 43%;
-        font-size: clamp(11px, 1.7vw, 16px);
+        width: 42%;
+        font-size: clamp(11px, 1.8vw, 16px);
       }
 
       .control-audio {
-        top: 8px;
-        right: 8px;
+        top: 9px;
+        right: 9px;
         width: 36px;
         height: 36px;
+        font-size: 17px;
+      }
+
+      .derechos-reservados {
+        bottom: 5%;
+        font-size: clamp(10px, 1.3vw, 14px);
       }
     }
 
-    /* CELULAR */
+    /* CELULARES */
     @media (max-width: 600px) {
       .menu {
-        top: 1.5%;
-        bottom: 1.5%;
+        top: 2%;
+        bottom: 2%;
         left: 0.5%;
-        width: 15%;
-        max-width: 70px;
-        gap: 4px;
+        width: 14%;
+        max-width: 75px;
+        gap: 5px;
+      }
+
+      .boton {
+        height: 17%;
       }
 
       .portada {
-        top: 1%;
+        top: 0.7%;
         right: 0.5%;
-        bottom: 1%;
-        left: 16%;
+        bottom: 0.7%;
+        left: 15.2%;
       }
 
       .frase-mision {
         top: 1.5%;
         left: 2%;
-        width: 48%;
-        font-size: clamp(9px, 2vw, 12px);
+        width: 47%;
+        font-size: clamp(9px, 2.1vw, 12px);
         line-height: 1.2;
       }
 
@@ -263,31 +278,30 @@
       }
 
       .derechos-reservados {
-        right: 5px;
-        bottom: 5px;
-        max-width: 70%;
-        font-size: 8px;
+        left: 19%;
+        width: 72%;
+        bottom: 5%;
+        font-size: clamp(8px, 2vw, 11px);
       }
     }
 
     @media (max-width: 380px) {
       .menu {
-        width: 16%;
-        max-width: 58px;
-        gap: 3px;
+        width: 15%;
+        gap: 4px;
       }
 
       .portada {
-        left: 17%;
+        left: 16.2%;
       }
 
       .frase-mision {
-        width: 49%;
+        width: 48%;
         font-size: 9px;
       }
 
       .derechos-reservados {
-        font-size: 7px;
+        font-size: 8px;
       }
     }
   </style>
@@ -295,7 +309,7 @@
 
 <body>
 
-  <!-- BOTONES FUERA DE LA PORTADA -->
+  <!-- MENÚ IZQUIERDO: CINCO BOTONES ORIGINALES -->
   <nav class="menu" aria-label="Menú principal">
 
     <button class="boton" type="button"
@@ -331,19 +345,16 @@
   </nav>
 
   <!-- PORTADA PRINCIPAL -->
-  <main class="portada" aria-label="Portada de Camino hacia Jesús">
+  <main class="portada" aria-label="Camino hacia Jesús">
 
     <div class="frase-mision">
       <span id="textoMision"></span><span class="cursor-escritura">|</span>
     </div>
 
-    <!-- AUDIO -->
+    <!-- EL MP3 ESTÁ EN LA RAÍZ DEL REPOSITORIO, NO EN ASSETS -->
     <audio id="musica" loop preload="auto">
       <source
-        src="./assets/Alma%20Misionera%20Athenas%20-%20M%C3%BAsica%20Cat%C3%B3lica.mp3"
-        type="audio/mpeg">
-      <source
-        src="./Alma%20Misionera%20Athenas%20-%20M%C3%BAsica%20Cat%C3%B3lica.mp3"
+        src="./alma-misionera-athenas-musica-catolica.mp3"
         type="audio/mpeg">
     </audio>
 
@@ -351,12 +362,12 @@
       id="controlAudio"
       class="control-audio"
       type="button"
-      aria-label="Activar música"
+      aria-label="Reproducir música"
       title="Activar o silenciar música">🔊</button>
 
   </main>
 
-  <!-- DERECHOS RESERVADOS SIN RECUADRO -->
+  <!-- DERECHOS RESERVADOS CENTRADOS, SIN CUADRO -->
   <footer class="derechos-reservados">
     © Corporación La Salle del Sur. Derechos reservados.
   </footer>
@@ -377,45 +388,52 @@
       let silenciado = false;
       let contextoAudio = null;
 
-      /* ESCRITURA LETRA POR LETRA */
+      /* ESCRIBIR LA FRASE LETRA POR LETRA */
       function escribirFrase() {
         if (indice < frase.length) {
           textoMision.textContent += frase.charAt(indice);
           indice++;
-          window.setTimeout(escribirFrase, 48);
+          window.setTimeout(escribirFrase, 45);
+        } else {
+          /* Pausa breve y vuelve a escribir la frase */
+          window.setTimeout(() => {
+            textoMision.textContent = "";
+            indice = 0;
+            escribirFrase();
+          }, 5000);
         }
       }
 
       escribirFrase();
 
-      /* INICIO DE MÚSICA */
+      /* REPRODUCIR LA MÚSICA */
       async function iniciarMusica() {
         if (silenciado) return;
 
         try {
           musica.muted = false;
+          musica.volume = 1;
           await musica.play();
 
           controlAudio.textContent = "🔊";
           controlAudio.setAttribute("aria-label", "Silenciar música");
+          controlAudio.title = "Silenciar música";
         } catch (error) {
           controlAudio.textContent = "▶";
-          controlAudio.setAttribute(
-            "aria-label",
-            "Reproducir música"
-          );
+          controlAudio.setAttribute("aria-label", "Reproducir música");
+          controlAudio.title = "Pulsa para reproducir la música";
           console.warn(
-            "El navegador bloqueó el audio o no encontró el MP3. Pulsa el control de audio y verifica la ruta del archivo."
+            "No se pudo reproducir el MP3. Comprueba que el archivo esté en la raíz del repositorio y que el nombre coincida exactamente."
           );
         }
       }
 
-      /* INTENTO AUTOMÁTICO: PUEDE SER BLOQUEADO POR EL NAVEGADOR */
+      /* INTENTO AUTOMÁTICO: EL NAVEGADOR PUEDE EXIGIR UN CLIC */
       window.addEventListener("load", () => {
         iniciarMusica();
       });
 
-      /* EFECTO BREVE AL PULSAR UN BOTÓN */
+      /* EFECTO SONORO CORTO AL PULSAR LOS BOTONES */
       function efectoBoton() {
         try {
           const AudioContext =
@@ -457,11 +475,11 @@
             reproducir();
           }
         } catch (error) {
-          console.warn("No se pudo reproducir el efecto de sonido.");
+          console.warn("No se pudo reproducir el efecto sonoro.");
         }
       }
 
-      /* NAVEGACIÓN */
+      /* NAVEGACIÓN: SE CONSERVAN LOS DESTINOS ORIGINALES */
       botones.forEach((boton) => {
         boton.addEventListener("click", () => {
           efectoBoton();
@@ -473,13 +491,14 @@
         });
       });
 
-      /* BOTÓN MUTE / ACTIVAR MÚSICA */
+      /* CONTROL PARA ACTIVAR O SILENCIAR */
       controlAudio.addEventListener("click", async () => {
         if (!silenciado) {
           silenciado = true;
           musica.muted = true;
           controlAudio.textContent = "🔇";
           controlAudio.setAttribute("aria-label", "Activar música");
+          controlAudio.title = "Activar música";
         } else {
           silenciado = false;
           musica.muted = false;
@@ -488,13 +507,17 @@
       });
 
       musica.addEventListener("playing", () => {
-        controlAudio.textContent = silenciado ? "🔇" : "🔊";
+        if (!silenciado) {
+          controlAudio.textContent = "🔊";
+          controlAudio.setAttribute("aria-label", "Silenciar música");
+        }
       });
 
       musica.addEventListener("error", () => {
         controlAudio.textContent = "▶";
+        controlAudio.setAttribute("aria-label", "Reproducir música");
         console.error(
-          "No se pudo cargar el MP3. Comprueba que el archivo exista en assets y que su nombre coincida exactamente."
+          "No se pudo cargar alma-misionera-athenas-musica-catolica.mp3. Verifica que el archivo esté en la raíz del repositorio."
         );
       });
     })();
