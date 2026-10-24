@@ -1,654 +1,642 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#08245b">
-  <meta name="description" content="Programación del programa de catequesis Camino hacia Jesús del Colegio La Salle del Sur.">
-  <title>Nuestra Programación | Camino hacia Jesús</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#071b42">
+<title>Nuestra Programación | Camino hacia Jesús</title>
 
-  <style>
-    :root {
-      --azul: #08245b;
-      --azul-profundo: #06183d;
-      --azul-claro: #1746b8;
-      --dorado: #e8c56b;
-      --blanco: #ffffff;
-      --fondo-tarjeta: rgba(255, 255, 255, 0.97);
-      --texto: #18315f;
-    }
+<style>
+:root {
+  --azul: #071b42;
+  --azul2: #123b70;
+  --dorado: #e6bd61;
+  --crema: #fff9eb;
+  --blanco: #ffffff;
+  --texto: #243653;
+}
 
-    * {
-      box-sizing: border-box;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    html {
-      scroll-behavior: smooth;
-    }
+html {
+  scroll-behavior: smooth;
+}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--blanco);
-      background:
-        radial-gradient(ellipse at top, #1746a0 0%, var(--azul) 48%, var(--azul-profundo) 100%);
-    }
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--texto);
+  background:
+    radial-gradient(circle at 10% 10%, #fff1c9 0, transparent 27%),
+    linear-gradient(145deg, #fffaf0, #eaf1fb);
+  min-height: 100vh;
+}
 
-    button,
-    a {
-      -webkit-tap-highlight-color: transparent;
-    }
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
 
-    .pagina {
-      width: min(1120px, 94%);
-      margin: 0 auto;
-      padding: 22px 0 30px;
-    }
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(25px, 5vw, 55px) 18px 40px;
+  color: white;
+  text-align: center;
+  background: linear-gradient(135deg, #061735, #123b70 65%, #071b42);
+  border-bottom: 5px solid var(--dorado);
+}
 
-    .barra-superior {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 22px;
-    }
+.hero::before,
+.hero::after {
+  content: "✦";
+  position: absolute;
+  color: var(--dorado);
+  opacity: .55;
+  font-size: clamp(45px, 8vw, 90px);
+}
 
-    .marca {
-      color: var(--dorado);
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-    }
+.hero::before {
+  top: 12px;
+  left: 5%;
+}
 
-    .volver {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 16px;
-      border: 1px solid var(--dorado);
-      border-radius: 22px;
-      color: var(--blanco);
-      background: rgba(4, 18, 52, 0.55);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 700;
-      transition: background 0.2s ease, transform 0.2s ease;
-    }
+.hero::after {
+  right: 5%;
+  bottom: 8px;
+}
 
-    .volver:hover {
-      background: var(--azul-claro);
-      transform: translateY(-1px);
-    }
+.cruz {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 66px;
+  height: 66px;
+  margin-bottom: 12px;
+  border: 2px solid var(--dorado);
+  border-radius: 50%;
+  color: var(--dorado);
+  font-size: 39px;
+  box-shadow: 0 0 24px #e6bd6130;
+}
 
-    .cabecera {
-      text-align: center;
-      padding: 28px 18px 30px;
-      border: 1px solid rgba(232, 197, 107, 0.75);
-      border-radius: 20px;
-      background: linear-gradient(
-        135deg,
-        rgba(5, 22, 61, 0.92),
-        rgba(18, 62, 145, 0.86)
-      );
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    }
+.etiqueta {
+  display: inline-block;
+  padding: 7px 15px;
+  margin-bottom: 12px;
+  border: 1px solid #e6bd6180;
+  border-radius: 30px;
+  color: #ffe5a0;
+  font-size: .82rem;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+}
 
-    .simbolo {
-      color: var(--dorado);
-      font-size: 36px;
-      line-height: 1;
-      margin-bottom: 12px;
-    }
+.hero h1 {
+  margin: 0 auto 12px;
+  max-width: 900px;
+  color: #ffe3a0;
+  font-size: clamp(1.8rem, 5vw, 3.3rem);
+  line-height: 1.12;
+}
 
-    h1 {
-      margin: 0;
-      color: var(--dorado);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(30px, 5vw, 48px);
-      letter-spacing: 1px;
-      text-shadow: 0 2px 3px rgba(0, 0, 0, 0.35);
-    }
+.hero p {
+  max-width: 680px;
+  margin: 0 auto;
+  font-size: clamp(.98rem, 2.2vw, 1.18rem);
+  line-height: 1.7;
+}
 
-    .subtitulo {
-      max-width: 720px;
-      margin: 12px auto 0;
-      font-size: clamp(15px, 2vw, 18px);
-      line-height: 1.65;
-    }
+.contenedor {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  padding: 25px clamp(12px, 3vw, 28px) 35px;
+}
 
-    .etiqueta {
-      display: inline-block;
-      margin-top: 16px;
-      padding: 7px 13px;
-      border: 1px solid var(--dorado);
-      border-radius: 20px;
-      color: var(--dorado);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.7px;
-    }
+.regreso {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 22px;
+  padding: 11px 17px;
+  border-radius: 25px;
+  background: var(--azul);
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 4px 12px #071b4225;
+}
 
-    .seccion {
-      margin-top: 26px;
-    }
+.regreso:hover {
+  background: var(--azul2);
+}
 
-    .titulo-seccion {
-      margin: 0 0 14px;
-      color: var(--dorado);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(23px, 3vw, 30px);
-      text-align: center;
-    }
+.titulo-seccion {
+  margin: 35px 0 18px;
+  text-align: center;
+  color: var(--azul);
+  font-size: clamp(1.45rem, 3.5vw, 2rem);
+}
 
-    .rejilla {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
+.titulo-seccion span {
+  display: block;
+  margin-top: 7px;
+  color: #8a6723;
+  font-size: .9rem;
+  font-weight: 500;
+}
 
-    .tarjeta {
-      padding: 22px;
-      color: var(--texto);
-      background: var(--fondo-tarjeta);
-      border: 1px solid rgba(232, 197, 107, 0.9);
-      border-radius: 15px;
-      box-shadow: 0 7px 20px rgba(0, 0, 0, 0.16);
-    }
+.tarjetas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
 
-    .tarjeta h3 {
-      margin: 0 0 12px;
-      color: var(--azul-claro);
-      font-size: 20px;
-    }
+.tarjeta {
+  position: relative;
+  min-width: 0;
+  padding: clamp(18px, 3vw, 27px);
+  overflow: hidden;
+  border: 1px solid #e5d5a9;
+  border-radius: 22px;
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 7px 22px #102b5010;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
 
-    .tarjeta p {
-      margin: 0;
-      font-size: 15px;
-      line-height: 1.75;
-    }
+.tarjeta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px #102b501a;
+}
 
-    .icono-tarjeta {
-      margin-bottom: 9px;
-      font-size: 27px;
-    }
+.icono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  margin-bottom: 13px;
+  border-radius: 18px;
+  background: #fff3d3;
+  font-size: 31px;
+}
 
-    .cuenta {
-      padding: 24px 18px;
-      text-align: center;
-      border: 1px solid var(--dorado);
-      border-radius: 18px;
-      background: linear-gradient(
-        135deg,
-        rgba(4, 18, 52, 0.94),
-        rgba(18, 62, 145, 0.9)
-      );
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
-    }
+.tarjeta h3 {
+  margin: 0 0 10px;
+  color: var(--azul);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+}
 
-    .fecha {
-      margin: 8px 0 5px;
-      color: var(--blanco);
-      font-size: 16px;
-      font-weight: 700;
-    }
+.tarjeta p {
+  margin: 0;
+  line-height: 1.75;
+  font-size: .98rem;
+}
 
-    .aviso-fecha {
-      margin: 0 auto 20px;
-      color: #ffedb6;
-      font-size: 13px;
-      line-height: 1.6;
-    }
+.cuenta {
+  padding: clamp(23px, 5vw, 42px) 16px;
+  margin: 27px 0;
+  border: 2px solid var(--dorado);
+  border-radius: 25px;
+  color: white;
+  text-align: center;
+  background: linear-gradient(135deg, #071b42, #16477d);
+  box-shadow: 0 10px 25px #071b421c;
+}
 
-    .reloj {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-      max-width: 650px;
-      margin: 0 auto;
-    }
+.cuenta .simbolo {
+  font-size: 35px;
+}
 
-    .unidad {
-      padding: 16px 8px;
-      border: 1px solid rgba(232, 197, 107, 0.8);
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.08);
-    }
+.cuenta h2 {
+  margin: 8px 0;
+  color: #ffe3a0;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+}
 
-    .numero {
-      display: block;
-      color: var(--dorado);
-      font-size: clamp(28px, 5vw, 42px);
-      font-weight: 800;
-      font-variant-numeric: tabular-nums;
-    }
+.cuenta .fecha {
+  margin: 13px 0;
+  color: white;
+  font-size: clamp(1.1rem, 3vw, 1.45rem);
+  font-weight: 800;
+}
 
-    .nombre-unidad {
-      display: block;
-      margin-top: 5px;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
+.cuenta .nota {
+  margin: 12px auto 0;
+  max-width: 600px;
+  color: #e9eff9;
+  font-size: .85rem;
+  line-height: 1.6;
+}
 
-    .lista-actividades {
-      display: grid;
-      gap: 12px;
-    }
+.contador {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 590px;
+  margin: 22px auto 0;
+}
 
-    .actividad {
-      display: grid;
-      grid-template-columns: 44px 1fr;
-      gap: 13px;
-      align-items: start;
-      padding: 17px;
-      border-radius: 13px;
-      background: var(--fondo-tarjeta);
-      color: var(--texto);
-      border-left: 4px solid var(--dorado);
-    }
+.unidad {
+  padding: 15px 5px;
+  border: 1px solid #e6bd6170;
+  border-radius: 15px;
+  background: #ffffff12;
+}
 
-    .actividad-icono {
-      display: grid;
-      place-items: center;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      color: var(--blanco);
-      background: var(--azul-claro);
-      font-size: 21px;
-    }
+.unidad strong {
+  display: block;
+  color: #ffe3a0;
+  font-size: clamp(1.45rem, 5vw, 2.3rem);
+}
 
-    .actividad h3 {
-      margin: 0 0 5px;
-      color: var(--azul-claro);
-      font-size: 16px;
-    }
+.unidad span {
+  display: block;
+  margin-top: 5px;
+  font-size: .8rem;
+}
 
-    .actividad p {
-      margin: 0;
-      font-size: 14px;
-      line-height: 1.65;
-    }
+.pasos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
 
-    .nota {
-      margin-top: 14px;
-      color: #e5ecff;
-      font-size: 12px;
-      line-height: 1.6;
-      text-align: center;
-    }
+.paso {
+  padding: 20px 15px;
+  text-align: center;
+  border-radius: 20px;
+  background: white;
+  border-bottom: 4px solid var(--dorado);
+  box-shadow: 0 5px 18px #102b5010;
+}
 
-    .mensaje-final {
-      padding: 24px 18px;
-      text-align: center;
-      color: var(--texto);
-      background: var(--fondo-tarjeta);
-      border: 1px solid var(--dorado);
-      border-radius: 16px;
-    }
+.paso .numero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 43px;
+  height: 43px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  color: white;
+  background: var(--azul);
+  font-weight: 800;
+  font-size: 1.1rem;
+}
 
-    .mensaje-final blockquote {
-      margin: 0;
-      color: var(--azul-claro);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(19px, 3vw, 26px);
-      font-style: italic;
-      line-height: 1.6;
-    }
+.paso h3 {
+  margin: 0 0 9px;
+  color: var(--azul);
+  font-size: 1.05rem;
+}
 
-    .mensaje-final p {
-      margin: 12px 0 0;
-      font-size: 14px;
-    }
+.paso p {
+  margin: 0;
+  line-height: 1.65;
+  font-size: .92rem;
+}
 
-    footer {
-      padding: 25px 10px 5px;
-      color: #e6edff;
-      font-size: 12px;
-      line-height: 1.8;
-      text-align: center;
-    }
+.aviso {
+  padding: 21px;
+  margin-top: 24px;
+  border-radius: 18px;
+  background: #fff4d8;
+  border: 1px dashed #c89b3c;
+  text-align: center;
+}
 
-    footer strong {
-      color: var(--dorado);
-    }
+.aviso h3 {
+  margin: 0 0 8px;
+  color: var(--azul);
+}
 
-    @media (max-width: 650px) {
-      .pagina {
-        width: 92%;
-        padding-top: 14px;
-      }
+.aviso p {
+  margin: 0;
+  line-height: 1.7;
+}
 
-      .barra-superior {
-        align-items: flex-start;
-      }
+.frase {
+  padding: clamp(25px, 5vw, 42px) 20px;
+  margin-top: 30px;
+  text-align: center;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #fff, #fff3d2);
+  border: 1px solid #e6bd61;
+}
 
-      .marca {
-        max-width: 55%;
-        line-height: 1.6;
-      }
+.frase .comillas {
+  color: #b38a32;
+  font-size: 42px;
+  line-height: 1;
+}
 
-      .volver {
-        padding: 9px 12px;
-        font-size: 12px;
-      }
+.frase p {
+  max-width: 800px;
+  margin: 8px auto;
+  color: var(--azul);
+  font-family: Georgia, serif;
+  font-size: clamp(1.25rem, 3.4vw, 1.9rem);
+  font-weight: bold;
+  line-height: 1.55;
+}
 
-      .cabecera {
-        padding: 24px 13px;
-      }
+.frase small {
+  color: #7b622e;
+}
 
-      .rejilla {
-        grid-template-columns: 1fr;
-      }
+footer {
+  padding: 23px 15px;
+  text-align: center;
+  color: white;
+  background: var(--azul);
+  border-top: 4px solid var(--dorado);
+  font-size: .85rem;
+  line-height: 1.7;
+}
 
-      .tarjeta {
-        padding: 19px;
-      }
+@media (max-width: 650px) {
+  .tarjetas {
+    grid-template-columns: 1fr;
+    gap: 13px;
+  }
 
-      .reloj {
-        gap: 6px;
-      }
+  .tarjeta {
+    padding: 20px;
+  }
 
-      .unidad {
-        padding: 13px 4px;
-      }
+  .pasos {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
 
-      .nombre-unidad {
-        font-size: 10px;
-        letter-spacing: 0;
-      }
+  .paso {
+    display: grid;
+    grid-template-columns: 45px 1fr;
+    column-gap: 13px;
+    text-align: left;
+    align-items: start;
+  }
 
-      .actividad {
-        padding: 14px;
-      }
-    }
+  .paso .numero {
+    grid-row: 1 / span 2;
+    margin: 0;
+  }
 
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
+  .paso h3 {
+    margin-top: 2px;
+  }
 
-      *,
-      *::before,
-      *::after {
-        transition: none !important;
-      }
-    }
-  </style>
+  .paso p {
+    margin-top: 4px;
+  }
+
+  .hero::before {
+    left: 3%;
+  }
+
+  .hero::after {
+    right: 3%;
+  }
+
+  .contador {
+    gap: 6px;
+  }
+
+  .unidad {
+    padding: 12px 2px;
+  }
+
+  .unidad span {
+    font-size: .72rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .contador {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .tarjeta {
+    transition: none;
+  }
+}
+</style>
 </head>
 
 <body>
-  <main class="pagina">
 
-    <div class="barra-superior">
-      <div class="marca">Colegio La Salle del Sur</div>
-      <a class="volver" href="./index.html">← Volver a la portada</a>
+<header class="hero">
+  <div class="cruz" aria-hidden="true">✝</div>
+  <div class="etiqueta">COLEGIO LA SALLE DEL SUR</div>
+  <h1>Camino hacia Jesús</h1>
+  <p>
+    Nuestra programación de catequesis: un camino de fe,
+    amor y preparación para recibir a Jesús por primera vez.
+  </p>
+</header>
+
+<main class="contenedor">
+
+  <a class="regreso" href="./index.html">← Volver al portal</a>
+
+  <h2 class="titulo-seccion">
+    ✨ Nuestra misión
+    <span>Creciendo juntos en la fe</span>
+  </h2>
+
+  <section class="tarjetas">
+    <article class="tarjeta">
+      <div class="icono">❤️</div>
+      <h3>¿Qué nos mueve?</h3>
+      <p>
+        Acompañar a nuestros niños en su encuentro con Jesús,
+        ayudándolos a conocer su amor, fortalecer su fe y vivir
+        los valores cristianos en el colegio, el hogar y la comunidad.
+      </p>
+    </article>
+
+    <article class="tarjeta">
+      <div class="icono">🕊️</div>
+      <h3>Nuestra visión</h3>
+      <p>
+        Formar niños que vivan su fe con alegría, respeto,
+        solidaridad y amor al prójimo, preparados para recibir
+        a Jesús en el sacramento de la Primera Comunión.
+      </p>
+    </article>
+
+    <article class="tarjeta">
+      <div class="icono">🙏</div>
+      <h3>Aprendemos a orar</h3>
+      <p>
+        Descubrimos que la oración nos acerca a Dios,
+        nos ayuda a agradecer, pedir perdón y poner nuestras
+        necesidades y las de los demás en sus manos.
+      </p>
+    </article>
+
+    <article class="tarjeta">
+      <div class="icono">👨‍👩‍👧‍👦</div>
+      <h3>La familia es importante</h3>
+      <p>
+        La familia acompaña a cada niño con su ejemplo,
+        sus oraciones y su participación en este camino
+        de preparación cristiana.
+      </p>
+    </article>
+  </section>
+
+  <section class="cuenta" aria-live="polite">
+    <div class="simbolo">✝️ ✨</div>
+    <h2>¡Nos preparamos para recibir a Jesús!</h2>
+    <p class="fecha">8 de diciembre de 2026</p>
+    <p>Cuenta regresiva para nuestra fecha prevista</p>
+
+    <div class="contador">
+      <div class="unidad">
+        <strong id="dias">--</strong>
+        <span>Días</span>
+      </div>
+      <div class="unidad">
+        <strong id="horas">--</strong>
+        <span>Horas</span>
+      </div>
+      <div class="unidad">
+        <strong id="minutos">--</strong>
+        <span>Minutos</span>
+      </div>
+      <div class="unidad">
+        <strong id="segundos">--</strong>
+        <span>Segundos</span>
+      </div>
     </div>
 
-    <header class="cabecera">
-      <div class="simbolo" aria-hidden="true">✝</div>
-      <h1>Nuestra Programación</h1>
-      <p class="subtitulo">
-        <strong>Camino hacia Jesús</strong><br>
-        Un camino de fe, amor y preparación para recibir a Jesús en la Eucaristía.
-      </p>
-      <span class="etiqueta">PREPARACIÓN PARA LA PRIMERA COMUNIÓN</span>
-    </header>
+    <p class="nota">
+      La fecha se muestra como prevista y deberá confirmarse
+      oficialmente con la institución y la parroquia.
+    </p>
+  </section>
 
-    <section class="seccion" aria-labelledby="mision-vision">
-      <h2 class="titulo-seccion" id="mision-vision">Nuestra identidad</h2>
+  <h2 class="titulo-seccion">
+    🌟 Nuestro camino de preparación
+    <span>Cada paso nos acerca más a Jesús</span>
+  </h2>
 
-      <div class="rejilla">
-        <article class="tarjeta">
-          <div class="icono-tarjeta" aria-hidden="true">🕊️</div>
-          <h3>Nuestra misión</h3>
-          <p>
-            Acompañar a los niños en su encuentro con Jesús, fortaleciendo
-            su fe mediante la oración, la Palabra de Dios, la formación
-            cristiana y la vivencia del amor, la fraternidad y el servicio,
-            para prepararlos con alegría y responsabilidad a recibir
-            los sacramentos.
-          </p>
-        </article>
+  <section class="pasos">
+    <article class="paso">
+      <div class="numero">1</div>
+      <h3>Conocemos a Jesús</h3>
+      <p>Aprendemos sus enseñanzas y descubrimos cuánto nos ama.</p>
+    </article>
 
-        <article class="tarjeta">
-          <div class="icono-tarjeta" aria-hidden="true">✨</div>
-          <h3>Nuestra visión</h3>
-          <p>
-            Formar niños que vivan su fe con alegría, conozcan a Jesús,
-            encuentren en la Eucaristía una fuente de amor y aprendan a
-            reflejar los valores del Evangelio en su familia, su colegio
-            y su comunidad.
-          </p>
-        </article>
+    <article class="paso">
+      <div class="numero">2</div>
+      <h3>Celebramos nuestra fe</h3>
+      <p>Nos preparamos para comprender la Eucaristía y su significado.</p>
+    </article>
 
-        <article class="tarjeta">
-          <div class="icono-tarjeta" aria-hidden="true">❤️</div>
-          <h3>Nuestro propósito</h3>
-          <p>
-            Que cada niño comprenda que la Primera Comunión no es solamente
-            una celebración, sino un paso importante en su amistad con Jesús
-            y en su crecimiento espiritual.
-          </p>
-        </article>
+    <article class="paso">
+      <div class="numero">3</div>
+      <h3>Vivimos el amor</h3>
+      <p>Compartimos, ayudamos, perdonamos y respetamos a los demás.</p>
+    </article>
+  </section>
 
-        <article class="tarjeta">
-          <div class="icono-tarjeta" aria-hidden="true">🤝</div>
-          <h3>Nuestro compromiso</h3>
-          <p>
-            Caminar junto a las familias, los catequistas y la comunidad
-            parroquial, promoviendo la participación, la oración y el
-            acompañamiento de cada niño durante su preparación.
-          </p>
-        </article>
-      </div>
-    </section>
+  <h2 class="titulo-seccion">
+    📅 Programación y avisos
+    <span>Información para las familias</span>
+  </h2>
 
-    <section class="seccion" aria-labelledby="cuenta-titulo">
-      <div class="cuenta">
-        <h2 class="titulo-seccion" id="cuenta-titulo">
-          Nuestro camino hacia la Primera Comunión
-        </h2>
-
-        <p class="fecha">Fecha estimada: 8 de diciembre de 2026</p>
-        <p class="aviso-fecha">
-          Fecha provisional, pendiente de confirmación oficial.
-        </p>
-
-        <div class="reloj" role="timer" aria-live="off"
-             aria-label="Cuenta regresiva para la fecha estimada de la Primera Comunión">
-          <div class="unidad">
-            <span class="numero" id="dias">---</span>
-            <span class="nombre-unidad">Días</span>
-          </div>
-          <div class="unidad">
-            <span class="numero" id="horas">--</span>
-            <span class="nombre-unidad">Horas</span>
-          </div>
-          <div class="unidad">
-            <span class="numero" id="minutos">--</span>
-            <span class="nombre-unidad">Minutos</span>
-          </div>
-          <div class="unidad">
-            <span class="numero" id="segundos">--</span>
-            <span class="nombre-unidad">Segundos</span>
-          </div>
-        </div>
-
-        <p class="nota" id="estadoCuenta">
-          Cuenta regresiva referencial. Se actualizará cuando se confirme la fecha.
-        </p>
-      </div>
-    </section>
-
-    <section class="seccion" aria-labelledby="actividades-titulo">
-      <h2 class="titulo-seccion" id="actividades-titulo">
-        Nuestro camino de preparación
-      </h2>
-
-      <div class="lista-actividades">
-        <article class="actividad">
-          <div class="actividad-icono" aria-hidden="true">📖</div>
-          <div>
-            <h3>Formación en la fe</h3>
-            <p>
-              Aprender sobre Jesús, el Evangelio, la Iglesia y el significado
-              de los sacramentos mediante encuentros de catequesis.
-            </p>
-          </div>
-        </article>
-
-        <article class="actividad">
-          <div class="actividad-icono" aria-hidden="true">🙏</div>
-          <div>
-            <h3>Oración y encuentro con Jesús</h3>
-            <p>
-              Cultivar la oración personal y comunitaria, agradecer,
-              pedir perdón y aprender a escuchar la Palabra de Dios.
-            </p>
-          </div>
-        </article>
-
-        <article class="actividad">
-          <div class="actividad-icono" aria-hidden="true">⛪</div>
-          <div>
-            <h3>Vida sacramental y comunidad</h3>
-            <p>
-              Comprender el valor de la Eucaristía y prepararse para vivir
-              la celebración con respeto, conciencia y alegría.
-            </p>
-          </div>
-        </article>
-
-        <article class="actividad">
-          <div class="actividad-icono" aria-hidden="true">👨‍👩‍👧‍👦</div>
-          <div>
-            <h3>Familia y acompañamiento</h3>
-            <p>
-              Fortalecer la participación de las familias para que el
-              aprendizaje y la vida de fe continúen también en el hogar.
-            </p>
-          </div>
-        </article>
-
-        <article class="actividad">
-          <div class="actividad-icono" aria-hidden="true">🌟</div>
-          <div>
-            <h3>Fraternidad y servicio</h3>
-            <p>
-              Practicar el respeto, la solidaridad, el perdón y la ayuda
-              a los demás como expresión concreta del amor cristiano.
-            </p>
-          </div>
-        </article>
-      </div>
-
-      <p class="nota">
-        Las fechas, los horarios y las actividades específicas se publicarán
-        cuando sean confirmados por la coordinación correspondiente.
-      </p>
-    </section>
-
-    <section class="seccion" aria-labelledby="avisos-titulo">
-      <h2 class="titulo-seccion" id="avisos-titulo">
-        Avisos y próximos acontecimientos
-      </h2>
-
-      <div class="rejilla">
-        <article class="tarjeta">
-          <div class="icono-tarjeta" aria-hidden="true">📅</div>
-          <h3>Programación oficial</h3>
-          <p>
-            En este espacio se incorporarán los horarios de los encuentros,
-            celebraciones, reuniones con padres y demás actividades una vez
-            que sean confirmados.
-          </p>
-        </article>
-
-        <article class="tarjeta">
-          <div class="icono-tarjeta" aria-hidden="true">📸</div>
-          <h3>Recuerdos de nuestro camino</h3>
-          <p>
-            Aquí podremos compartir fotografías y recuerdos de las actividades
-            de catequesis, respetando siempre la autorización correspondiente
-            para publicar imágenes de los niños.
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <section class="seccion mensaje-final">
-      <blockquote>
-        “Guiamos sus primeros pasos en la fe, acompañamos sus corazones
-        hacia Jesús y sembramos en sus vidas el amor de Dios”.
-      </blockquote>
+  <section class="tarjetas">
+    <article class="tarjeta">
+      <div class="icono">📖</div>
+      <h3>Encuentros de catequesis</h3>
       <p>
-        Que este camino nos prepare para recibir a Jesús con un corazón
-        lleno de fe, esperanza y amor.
+        Martes y jueves, de 2:00 p. m. a 4:00 p. m.
+        Las actividades se desarrollan según la programación
+        y las indicaciones de los catequistas.
       </p>
-    </section>
+    </article>
 
-    <footer>
-      <strong>Camino hacia Jesús</strong><br>
-      Programa de Catequesis · Colegio La Salle del Sur<br>
-      <span>© Corporación La Salle del Sur. Derechos reservados.</span>
-    </footer>
+    <article class="tarjeta">
+      <div class="icono">📣</div>
+      <h3>Comunicados importantes</h3>
+      <p>
+        En este espacio se publicarán las fechas confirmadas,
+        reuniones para padres, actividades especiales y demás
+        indicaciones relacionadas con la Primera Comunión.
+      </p>
+    </article>
+  </section>
 
-  </main>
+  <div class="aviso">
+    <h3>💛 Familias: caminemos juntos</h3>
+    <p>
+      La participación de los niños, el acompañamiento familiar
+      y el cumplimiento de las indicaciones son importantes
+      durante toda la preparación.
+    </p>
+  </div>
 
-  <script>
-    (() => {
-      "use strict";
+  <section class="frase">
+    <div class="comillas">“</div>
+    <p>
+      Que cada niño encuentre en Jesús un amigo para toda la vida
+      y que este camino de fe transforme su corazón en amor,
+      esperanza y bondad.
+    </p>
+    <small>Camino hacia Jesús · Colegio La Salle del Sur</small>
+  </section>
 
-      /*
-       * FECHA PROVISIONAL:
-       * 8 de diciembre de 2026, a las 00:00, hora de Perú.
-       * Cambiar esta fecha cuando se comunique la fecha oficial.
-       */
-      const fechaPrimeraComunion = new Date("2026-12-08T00:00:00-05:00");
+</main>
 
-      const elementos = {
-        dias: document.getElementById("dias"),
-        horas: document.getElementById("horas"),
-        minutos: document.getElementById("minutos"),
-        segundos: document.getElementById("segundos"),
-        estado: document.getElementById("estadoCuenta")
-      };
+<footer>
+  <strong>CAMINO HACIA JESÚS</strong><br>
+  Colegio La Salle del Sur<br>
+  © 2026 · Derechos reservados
+</footer>
 
-      const dosDigitos = (valor) => String(valor).padStart(2, "0");
+<script>
+(function () {
+  // Fecha prevista: 8 de diciembre de 2026, hora local de Perú.
+  const fechaPrimeraComunion = new Date("2026-12-08T00:00:00-05:00").getTime();
 
-      function actualizarCuenta() {
-        const ahora = Date.now();
-        const diferencia = fechaPrimeraComunion.getTime() - ahora;
+  function actualizarCuenta() {
+    const diferencia = fechaPrimeraComunion - Date.now();
 
-        if (diferencia <= 0) {
-          elementos.dias.textContent = "0";
-          elementos.horas.textContent = "00";
-          elementos.minutos.textContent = "00";
-          elementos.segundos.textContent = "00";
-          elementos.estado.textContent =
-            "La fecha estimada ha llegado. Consulta la programación oficial para conocer los detalles de la celebración.";
-          return;
-        }
+    if (diferencia <= 0) {
+      document.getElementById("dias").textContent = "0";
+      document.getElementById("horas").textContent = "0";
+      document.getElementById("minutos").textContent = "0";
+      document.getElementById("segundos").textContent = "0";
+      return;
+    }
 
-        const totalSegundos = Math.floor(diferencia / 1000);
-        const dias = Math.floor(totalSegundos / 86400);
-        const horas = Math.floor((totalSegundos % 86400) / 3600);
-        const minutos = Math.floor((totalSegundos % 3600) / 60);
-        const segundos = totalSegundos % 60;
+    document.getElementById("dias").textContent =
+      Math.floor(diferencia / 86400000);
 
-        elementos.dias.textContent = String(dias);
-        elementos.horas.textContent = dosDigitos(horas);
-        elementos.minutos.textContent = dosDigitos(minutos);
-        elementos.segundos.textContent = dosDigitos(segundos);
-      }
+    document.getElementById("horas").textContent =
+      Math.floor((diferencia % 86400000) / 3600000);
 
-      actualizarCuenta();
-      window.setInterval(actualizarCuenta, 1000);
-    })();
-  </script>
+    document.getElementById("minutos").textContent =
+      Math.floor((diferencia % 3600000) / 60000);
+
+    document.getElementById("segundos").textContent =
+      Math.floor((diferencia % 60000) / 1000);
+  }
+
+  actualizarCuenta();
+  setInterval(actualizarCuenta, 1000);
+})();
+</script>
+
 </body>
 </html>
