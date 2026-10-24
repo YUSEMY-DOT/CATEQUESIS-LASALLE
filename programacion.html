@@ -16,6 +16,7 @@
   --texto: #09254f;
 }
 
+/* Corregido: uso de * para selector universal */
 * {
   box-sizing: border-box;
 }
@@ -167,13 +168,16 @@ header {
     "activities families values";
   gap: 7px;
   padding-top: 7px;
-  align-items: start;
+  align-items: stretch; /* Se cambió de start a stretch para igualar la altura */
 }
 
 .card {
   min-width: 0;
   padding: 8px;
-  height: fit-content;
+  height: 100%; /* Permite ocupar todo el alto disponible */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   background: rgba(255, 250, 236, .97);
   border: 1.5px solid var(--dorado);
   border-radius: 17px;
@@ -223,6 +227,7 @@ header {
   display: flex;
   align-items: center;
   gap: 9px;
+  flex: 1;
 }
 
 .round-icon {
@@ -352,6 +357,7 @@ header {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 4px;
+  flex: 1;
 }
 
 .step {
@@ -422,6 +428,8 @@ header {
 .schedule-list {
   display: grid;
   gap: 5px;
+  flex: 1;
+  align-content: center;
 }
 
 .schedule-item {
@@ -505,11 +513,7 @@ header {
   border-radius: 13px;
   background: #fffdf6;
   text-align: center;
-}
-
-.quote-cross {
-  font-size: 22px;
-  line-height: 1.1;
+  margin-top: auto;
 }
 
 .quote p {
@@ -536,6 +540,8 @@ footer {
 @media (max-width: 1000px) {
   header {
     padding: 12px 70px;
+    flex-direction: column;
+    gap: 5px;
   }
 
   .school {
@@ -544,11 +550,6 @@ footer {
     max-width: none;
     justify-content: center;
     margin-bottom: 8px;
-  }
-
-  header {
-    flex-direction: column;
-    gap: 5px;
   }
 
   .dashboard {
@@ -568,14 +569,8 @@ footer {
   }
 
   .values {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 10px;
-    align-items: start;
-  }
-
-  .values .card-title {
-    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -647,7 +642,6 @@ footer {
 
   .card {
     padding: 8px;
-    height: fit-content;
     border-radius: 14px;
   }
 
@@ -703,10 +697,6 @@ footer {
 
   .time-label {
     font-size: 9px;
-  }
-
-  .values {
-    display: block;
   }
 
   .pill {
@@ -902,7 +892,6 @@ footer {
 
 <script>
 (() => {
-  // Fecha prevista: 8 de diciembre de 2026, hora local de Perú.
   const target = new Date(2026, 11, 8, 0, 0, 0).getTime();
 
   const fields = {
