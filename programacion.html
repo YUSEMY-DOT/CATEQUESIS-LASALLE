@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -43,7 +42,7 @@ body {
 
 .header {
   position: relative;
-  padding: 12px 70px 10px;
+  padding: 10px 65px 8px;
   text-align: center;
   color: white;
   background:
@@ -62,7 +61,7 @@ body {
 .header h1 {
   display: inline-block;
   margin: 4px 0 2px;
-  padding: 6px 20px;
+  padding: 5px 18px;
   color: var(--dorado-claro);
   background: linear-gradient(90deg, #071b40, #154c8c, #071b40);
   border: 2px solid var(--dorado);
@@ -76,7 +75,7 @@ body {
   width: max-content;
   max-width: 90%;
   margin: 2px auto 0;
-  padding: 4px 22px;
+  padding: 3px 20px;
   color: var(--azul);
   background: linear-gradient(#fff0b8, #e9bb50);
   border-radius: 30px;
@@ -87,8 +86,8 @@ body {
   position: absolute;
   top: 7px;
   right: 12px;
-  width: 53px;
-  height: 53px;
+  width: 49px;
+  height: 49px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -103,32 +102,32 @@ body {
 }
 
 .home .house {
-  font-size: 25px;
+  font-size: 23px;
   line-height: 1;
 }
 
-/* PANELES */
+/* DISTRIBUCIÓN GENERAL */
 
 main {
-  padding: 9px;
+  padding: 5px;
 }
 
 .panel {
   min-width: 0;
-  padding: 9px;
+  padding: 7px;
   background: linear-gradient(135deg, #fffdf7, #fff7e3);
   border: 1.5px solid var(--dorado);
-  border-radius: 17px;
-  box-shadow: 0 3px 8px #08265312;
+  border-radius: 15px;
+  box-shadow: 0 2px 6px #08265310;
 }
 
 .panel-title {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
-  margin: 0 0 8px;
-  padding: 6px 8px;
+  gap: 6px;
+  margin: 0 0 5px;
+  padding: 5px 7px;
   color: var(--dorado-claro);
   text-align: center;
   background: linear-gradient(90deg, #071a3d, #164b87, #071a3d);
@@ -137,37 +136,37 @@ main {
   font: 900 clamp(14px, 1.5vw, 20px) Georgia, serif;
 }
 
-/* MISIÓN Y VISIÓN */
+.panel p {
+  margin: 0;
+  font-size: clamp(17px, 1.3vw, 20px);
+  line-height: 1.15;
+}
+
+/* MISIÓN, VISIÓN Y CUENTA REGRESIVA */
 
 .top-grid {
   display: grid;
   grid-template-columns: 1fr 1fr .98fr;
-  gap: 8px;
+  gap: 5px;
   align-items: start;
 }
 
 .mission-content {
   display: grid;
-  grid-template-columns: 43px minmax(0, 1fr);
-  gap: 7px;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 5px;
   align-items: center;
 }
 
 .medallion {
-  width: 42px;
-  height: 42px;
+  width: 39px;
+  height: 39px;
   display: grid;
   place-items: center;
   background: radial-gradient(circle, #fff 0, #fff0c3 76%, #e9bb50);
   border: 1.5px solid #e7b748;
   border-radius: 50%;
-  font-size: 24px;
-}
-
-.panel p {
-  margin: 0;
-  font-size: clamp(17px, 1.3vw, 20px);
-  line-height: 1.22;
+  font-size: 23px;
 }
 
 /* CUENTA REGRESIVA */
@@ -180,26 +179,26 @@ main {
 }
 
 .countdown .panel-title {
-  margin-bottom: 4px;
+  margin-bottom: 3px;
   padding: 4px;
   background: transparent;
   border: 0;
 }
 
 .countdown-sub {
-  margin-bottom: 7px;
+  margin-bottom: 5px;
   font-size: 17px;
 }
 
 .timer {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 4px;
+  gap: 3px;
 }
 
 .unit {
   min-width: 0;
-  padding: 6px 2px;
+  padding: 5px 2px;
   background: linear-gradient(145deg, #173e71, #0b2854);
   border: 1.5px solid var(--dorado);
   border-radius: 9px;
@@ -208,76 +207,77 @@ main {
 .unit strong {
   display: block;
   color: #ffe49b;
-  font: 900 clamp(36px, 3.2vw, 49px) Georgia, serif;
+  font: 900 clamp(35px, 3.2vw, 49px) Georgia, serif;
   line-height: 1.05;
   font-variant-numeric: tabular-nums;
 }
 
 .unit span {
   display: block;
-  margin-top: 3px;
+  margin-top: 2px;
   font-size: 12px;
   font-weight: 900;
 }
 
 .date {
-  margin-top: 6px;
-  padding: 7px 4px;
+  margin-top: 5px;
+  padding: 6px 4px;
   color: #10264a;
   background: linear-gradient(#ffe8a3, #edbf50);
   border: 1px solid white;
   border-radius: 22px;
   font-size: 14px;
   font-weight: 900;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
 .note {
-  margin-top: 5px;
+  margin-top: 4px;
   color: #e8f2ff;
   font-size: 12px;
 }
 
-/* CAMINO DE PREPARACIÓN */
+/* CAMINO DE PREPARACIÓN Y PROGRAMACIÓN */
 
 .section-grid {
   display: grid;
   grid-template-columns: minmax(0, 2.1fr) minmax(270px, .95fr);
-  gap: 8px;
-  margin-top: 8px;
+  gap: 5px;
+  margin-top: 5px;
+  align-items: stretch;
 }
 
 .path-panel {
-  padding: 8px;
+  padding: 6px;
 }
 
 .path {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 5px;
+  gap: 4px;
 }
 
 .path-item {
   position: relative;
   min-width: 0;
-  padding: 6px 3px 7px;
+  padding: 4px 2px 5px;
   text-align: center;
   background: linear-gradient(#fff, #fffaf0);
   border: 1px solid #edc45e;
-  border-radius: 12px;
+  border-radius: 11px;
 }
 
 .path-art {
-  width: clamp(60px, 5.8vw, 78px);
-  height: clamp(60px, 5.8vw, 78px);
-  margin: 0 auto 3px;
+  width: clamp(60px, 5.8vw, 76px);
+  height: clamp(60px, 5.8vw, 76px);
+  margin: 0 auto 2px;
   display: grid;
   place-items: center;
   background: radial-gradient(circle, #fff 5%, #fff1c7 72%, #e5b346);
   border: 2px solid #e8bb50;
   border-radius: 50%;
   box-shadow: inset 0 0 0 3px white, 0 3px 6px #80541425;
-  font-size: clamp(31px, 3vw, 43px);
+  font-size: clamp(30px, 3vw, 42px);
 }
 
 .path-num {
@@ -285,9 +285,9 @@ main {
   z-index: 1;
   display: grid;
   place-items: center;
-  width: 31px;
-  height: 31px;
-  margin: -12px auto 4px;
+  width: 30px;
+  height: 30px;
+  margin: -11px auto 3px;
   color: #ffe6a0;
   background: linear-gradient(145deg, #164e8e, #061a3d);
   border: 3px solid var(--dorado);
@@ -299,16 +299,16 @@ main {
 .path-item p {
   font-size: clamp(14px, 1.1vw, 17px);
   font-weight: 800;
-  line-height: 1.12;
+  line-height: 1.08;
 }
 
 .path-arrow {
   position: absolute;
   z-index: 2;
   top: 30%;
-  right: -13px;
+  right: -12px;
   color: #dba02b;
-  font-size: 23px;
+  font-size: 22px;
   text-shadow: 1px 1px white;
 }
 
@@ -317,26 +317,27 @@ main {
 .schedule-line {
   display: flex;
   align-items: flex-start;
-  gap: 7px;
-  margin: 7px 1px;
+  gap: 6px;
+  margin: 5px 1px;
   font-size: clamp(17px, 1.3vw, 20px);
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
 .schedule-line .ico {
-  flex: 0 0 25px;
-  font-size: 22px;
+  flex: 0 0 24px;
+  font-size: 21px;
   line-height: 1.1;
   text-align: center;
 }
 
-/* ACTIVIDADES Y FAMILIAS */
+/* ACTIVIDADES, FAMILIAS Y VALORES */
 
 .bottom-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 8px;
-  margin-top: 8px;
+  gap: 5px;
+  margin-top: 5px;
+  align-items: stretch;
 }
 
 .checklist {
@@ -348,16 +349,16 @@ main {
 .checklist li {
   display: flex;
   align-items: flex-start;
-  gap: 7px;
-  margin: 5px 0;
+  gap: 6px;
+  margin: 4px 0;
   font-size: clamp(17px, 1.2vw, 19px);
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
 .check {
-  flex: 0 0 22px;
-  width: 22px;
-  height: 22px;
+  flex: 0 0 21px;
+  width: 21px;
+  height: 21px;
   display: grid;
   place-items: center;
   color: #4b2a00;
@@ -373,11 +374,11 @@ main {
 .value-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 5px;
 }
 
 .value {
-  padding: 7px 9px;
+  padding: 6px 8px;
   color: #10315f;
   background: linear-gradient(#fff5d7, #ffe9b0);
   border: 1px solid #efce79;
@@ -387,21 +388,21 @@ main {
 }
 
 .quote {
-  margin-top: 8px;
-  padding: 9px 8px;
+  margin-top: 5px;
+  padding: 7px;
   color: #082653;
   text-align: center;
   background: #fff9e9;
   border: 1px solid #e9bd52;
-  border-radius: 15px;
-  font: italic clamp(19px, 1.6vw, 24px)/1.2 Georgia, serif;
+  border-radius: 14px;
+  font: italic clamp(19px, 1.6vw, 24px)/1.15 Georgia, serif;
 }
 
 .quote .cross {
   display: block;
   color: #d5a33e;
   font-style: normal;
-  font-size: 24px;
+  font-size: 22px;
   margin-bottom: 2px;
 }
 
@@ -409,14 +410,14 @@ main {
 
 footer {
   position: relative;
-  margin-top: 8px;
-  padding: 10px 12px;
+  margin-top: 5px;
+  padding: 7px 10px;
   color: white;
   text-align: center;
   background: linear-gradient(100deg, #06183b, #10417d, #06183b);
   border-top: 4px solid var(--dorado);
   font-size: 14px;
-  line-height: 1.35;
+  line-height: 1.25;
 }
 
 footer strong {
@@ -426,7 +427,7 @@ footer strong {
 
 .footer-birds {
   position: absolute;
-  top: 8px;
+  top: 6px;
   left: 9%;
   right: 9%;
   display: flex;
@@ -443,7 +444,7 @@ footer strong {
 
 @media (max-width: 900px) {
   .header {
-    padding: 48px 10px 10px;
+    padding: 46px 10px 8px;
   }
 
   .top-grid {
@@ -468,7 +469,7 @@ footer strong {
 
   .panel p {
     font-size: 17px;
-    line-height: 1.2;
+    line-height: 1.15;
   }
 
   .checklist li {
@@ -484,16 +485,16 @@ footer strong {
 
 @media (max-width: 540px) {
   main {
-    padding: 6px;
+    padding: 5px;
   }
 
   .header {
-    padding: 47px 6px 9px;
+    padding: 46px 6px 8px;
   }
 
   .header h1 {
     font-size: clamp(19px, 6vw, 29px);
-    padding: 6px 9px;
+    padding: 5px 8px;
   }
 
   .brand {
@@ -509,7 +510,7 @@ footer strong {
   .top-grid,
   .bottom-grid {
     grid-template-columns: 1fr;
-    gap: 7px;
+    gap: 5px;
   }
 
   .countdown,
@@ -518,37 +519,37 @@ footer strong {
   }
 
   .panel {
-    padding: 8px;
+    padding: 7px;
   }
 
   .panel-title {
     font-size: 15px;
-    margin-bottom: 7px;
+    margin-bottom: 5px;
   }
 
   .mission-content {
-    grid-template-columns: 42px minmax(0, 1fr);
-    gap: 7px;
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 5px;
   }
 
   .medallion {
-    width: 40px;
-    height: 40px;
-    font-size: 23px;
+    width: 38px;
+    height: 38px;
+    font-size: 22px;
   }
 
   .panel p {
     font-size: 17px;
-    line-height: 1.2;
+    line-height: 1.15;
   }
 
   .section-grid {
-    gap: 7px;
-    margin-top: 7px;
+    gap: 5px;
+    margin-top: 5px;
   }
 
   .path-panel {
-    padding: 7px 4px;
+    padding: 6px 4px;
   }
 
   .path {
@@ -556,7 +557,7 @@ footer strong {
   }
 
   .path-item {
-    padding: 5px 2px 7px;
+    padding: 4px 2px 5px;
     border-radius: 10px;
   }
 
@@ -569,14 +570,14 @@ footer strong {
   .path-num {
     width: 27px;
     height: 27px;
-    margin-top: -11px;
+    margin-top: -10px;
     font-size: 15px;
     border-width: 2px;
   }
 
   .path-item p {
     font-size: clamp(12px, 3.2vw, 15px);
-    line-height: 1.12;
+    line-height: 1.08;
   }
 
   .path-arrow {
@@ -587,11 +588,11 @@ footer strong {
 
   .schedule-line {
     font-size: 17px;
-    margin: 6px 1px;
+    margin: 5px 1px;
   }
 
   .unit {
-    padding: 7px 1px;
+    padding: 6px 1px;
   }
 
   .unit strong {
@@ -604,13 +605,13 @@ footer strong {
 
   .date {
     font-size: 13px;
-    line-height: 1.2;
+    line-height: 1.15;
   }
 
   .checklist li {
     font-size: 17px;
-    line-height: 1.2;
-    margin: 5px 0;
+    line-height: 1.15;
+    margin: 4px 0;
   }
 
   .value {
@@ -619,7 +620,7 @@ footer strong {
 
   .quote {
     font-size: 20px;
-    line-height: 1.2;
+    line-height: 1.15;
   }
 
   .footer-birds {
@@ -661,7 +662,6 @@ footer strong {
 
     <article class="panel">
       <h2 class="panel-title"><span>💖</span> MISIÓN</h2>
-
       <div class="mission-content">
         <div class="medallion" aria-hidden="true">❤️✝️</div>
         <p>
@@ -675,7 +675,6 @@ footer strong {
 
     <article class="panel">
       <h2 class="panel-title"><span>🕊️</span> VISIÓN</h2>
-
       <div class="mission-content">
         <div class="medallion" aria-hidden="true">🕊️</div>
         <p>
@@ -687,10 +686,7 @@ footer strong {
     </article>
 
     <article class="panel countdown">
-      <h2 class="panel-title">
-        <span>📅</span> CUENTA REGRESIVA
-      </h2>
-
+      <h2 class="panel-title"><span>📅</span> CUENTA REGRESIVA</h2>
       <div class="countdown-sub">Para la Primera Comunión</div>
 
       <div class="timer" aria-live="polite">
@@ -728,9 +724,7 @@ footer strong {
 
     <article class="panel path-panel">
       <h2 class="panel-title">
-        <span>🌟</span>
-        NUESTRO CAMINO DE PREPARACIÓN
-        <span>🌟</span>
+        <span>🌟</span> NUESTRO CAMINO DE PREPARACIÓN <span>🌟</span>
       </h2>
 
       <div class="path">
@@ -773,9 +767,7 @@ footer strong {
     </article>
 
     <article class="panel">
-      <h2 class="panel-title">
-        <span>🗓️</span> PROGRAMACIÓN GENERAL
-      </h2>
+      <h2 class="panel-title"><span>🗓️</span> PROGRAMACIÓN GENERAL</h2>
 
       <div class="schedule-line">
         <span class="ico">📅</span>
@@ -798,10 +790,7 @@ footer strong {
   <section class="bottom-grid">
 
     <article class="panel">
-      <h2 class="panel-title">
-        <span>🎉</span> PRÓXIMAS ACTIVIDADES
-      </h2>
-
+      <h2 class="panel-title"><span>🎉</span> PRÓXIMAS ACTIVIDADES</h2>
       <ul class="checklist">
         <li><span class="check">✓</span><span>Encuentros de catequesis</span></li>
         <li><span class="check">✓</span><span>Reuniones con padres de familia</span></li>
@@ -812,10 +801,7 @@ footer strong {
     </article>
 
     <article class="panel">
-      <h2 class="panel-title">
-        <span>👨‍👩‍👧‍👦</span> PARA LAS FAMILIAS
-      </h2>
-
+      <h2 class="panel-title"><span>👨‍👩‍👧‍👦</span> PARA LAS FAMILIAS</h2>
       <ul class="checklist">
         <li><span class="check">✓</span><span>Acompañar la formación de sus hijos</span></li>
         <li><span class="check">✓</span><span>Participar en las reuniones programadas</span></li>
@@ -826,9 +812,7 @@ footer strong {
     </article>
 
     <article class="panel">
-      <h2 class="panel-title">
-        <span>💝</span> NUESTROS VALORES
-      </h2>
+      <h2 class="panel-title"><span>💝</span> NUESTROS VALORES</h2>
 
       <div class="value-list">
         <span class="value">💗 Amor</span>
