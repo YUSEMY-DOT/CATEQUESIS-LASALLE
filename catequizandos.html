@@ -31,7 +31,7 @@ main{padding:0 clamp(14px,2.8vw,36px) 42px}.quicklinks{display:grid;grid-templat
 /* Área privada de trabajo de catequizandos */
 .catequizandos-entry{display:inline-flex;align-items:center;gap:8px;margin:7px 0 0 7px;padding:10px 15px;border:2px solid #fff0ba;border-radius:24px;background:linear-gradient(135deg,#fff1bd,#ffc83b);color:#081c3b;font-weight:900;box-shadow:0 6px 15px #0002;transition:.18s}
 .catequizandos-entry:hover{transform:translateY(-2px);box-shadow:0 9px 20px #0003}
-#home-content{display:block}#cate-dashboard{display:none;margin-top:25px}#cate-dashboard.open{display:block!important}
+#home-content{display:block}#cate-dashboard{display:block;margin-top:25px}#cate-dashboard.open{display:block!important}
 .dashboard-topline{display:flex;justify-content:flex-end;align-items:center;margin:0 0 12px;padding-top:4px}.dashboard-back,.student-action,.save-record,.print-worksheet,.student-form button{border:0;border-radius:24px;padding:8px 13px;background:linear-gradient(135deg,#ffdf83,#ffbd2f);color:#081c3b;font-weight:900;box-shadow:0 4px 10px #09234415}.student-toolbar{display:flex;align-items:end;gap:12px;flex-wrap:wrap;padding:16px;background:#fff;border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow)}.student-field{display:flex;flex-direction:column;gap:5px;min-width:220px;flex:1}.student-field label,.record-field label{font-size:12px;font-weight:900;color:#42556e}.student-field select,.student-field input,.record-field input,.record-field select,.record-field textarea{width:100%;border:1px solid #d5deea;border-radius:11px;background:#fbfdff;color:var(--ink);padding:10px 11px;font:700 14px Nunito,Arial,sans-serif;min-height:42px}.student-form{display:flex;align-items:end;flex-wrap:wrap;gap:10px;margin-top:10px;padding:15px;background:#fff9e9;border:1px solid #efd89e;border-radius:15px}.student-form[hidden]{display:none}.student-form .student-field{min-width:180px}.student-form .cancel-student{background:#edf2f7;color:#19304f;box-shadow:none}.progress-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:15px 0}.progress-stat{padding:15px 16px;background:#fff;border:1px solid var(--line);border-radius:15px;box-shadow:0 6px 18px #0923440a;min-width:0}.progress-stat span{display:block;color:var(--muted);font-size:12px;font-weight:900}.progress-stat strong{display:block;color:var(--navy);font:700 clamp(23px,2.6vw,31px) Fredoka,sans-serif;margin:3px 0}.progress-stat small{color:#748198;font-weight:700}.meter{height:8px;background:#e8edf4;border-radius:99px;overflow:hidden;margin-top:8px}.meter span{display:block;height:100%;width:0;background:linear-gradient(90deg,#2b8a67,#8fd7a6);border-radius:99px;transition:width .25s}.dashboard-note{margin:10px 0 18px;color:#617188;font-size:12px;font-weight:700;background:#edf5ff;border:1px solid #d2e5fb;border-radius:12px;padding:11px 13px}.record-panel{margin-top:15px;padding:16px;background:#f4f8ff;border:1px solid #d7e4f3;border-radius:15px}.record-panel[hidden]{display:none}.record-panel h4{margin:0 0 5px;color:var(--navy);font:700 20px Fredoka,sans-serif}.record-panel>p{margin:0 0 12px;color:#64758b;font-size:12px;font-weight:700}.record-fields{display:grid;grid-template-columns:minmax(130px,.6fr) minmax(180px,1fr);gap:10px}.record-field{display:flex;flex-direction:column;gap:5px;min-width:0}.record-field.full{grid-column:1/-1}.record-field textarea{min-height:76px;resize:vertical}.record-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.print-worksheet{background:#fff;border:1px solid #e0c989;box-shadow:none}.record-message{margin-top:10px;font-size:12px;font-weight:900;color:#18734c;min-height:17px}.progress-board{margin-top:22px;padding:clamp(14px,2vw,22px);background:#fff;border:1px solid var(--line);border-radius:19px;box-shadow:var(--shadow)}.progress-board h3{margin:0 0 5px;color:var(--navy);font:700 24px Fredoka,sans-serif}.progress-board>p{margin:0 0 14px;color:var(--muted);font-size:12px;font-weight:700}.table-scroll{overflow-x:auto}table.progress-table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;min-width:620px}table.progress-table th{padding:11px 10px;text-align:left;color:#fff;background:#123d70;font-weight:900}table.progress-table th:first-child{border-radius:10px 0 0 0}table.progress-table th:last-child{border-radius:0 10px 0 0}table.progress-table td{padding:11px 10px;border-bottom:1px solid #e8edf3;vertical-align:middle;font-weight:800}table.progress-table tr:last-child td{border-bottom:0}.mini-meter{height:7px;min-width:90px;background:#e8edf4;border-radius:99px;overflow:hidden;margin-top:4px}.mini-meter span{display:block;height:100%;background:linear-gradient(90deg,#f3b72e,#45a879);border-radius:99px}.select-student-row{border:1px solid #cbdced;background:#f4f8ff;color:#173e6a;border-radius:9px;padding:6px 10px;font-weight:900}.empty-board{padding:20px;text-align:center;color:#697990;font-weight:800;background:#f7f9fc;border-radius:12px}.dashboard-footer{margin-top:25px}
 @media(max-width:760px){.progress-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.student-toolbar{align-items:stretch}.student-field{min-width:100%}.student-toolbar>.student-action{width:100%}.record-fields{grid-template-columns:1fr}.record-field.full{grid-column:auto}.catequizandos-entry{margin-left:0}.dashboard-topline{margin-bottom:9px}.dashboard-back{width:auto}}
 
@@ -108,8 +108,6 @@ main{padding:0 clamp(14px,2.8vw,36px) 42px}.quicklinks{display:grid;grid-templat
 
 /* Ajustes coordinados solicitados: acceso discreto, cuenta regresiva compacta a la derecha */
 .top-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap;position:relative;z-index:2}
-.portal-entry{border:1px solid #ffdf94;border-radius:22px;padding:8px 13px;background:#ffffff12;color:#ffdf94;font-size:12px;font-weight:900;white-space:nowrap;transition:background .18s,color .18s}
-.portal-entry:hover{background:#ffdf94;color:#081c3b}
 .hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(270px,.8fr);gap:clamp(16px,3vw,38px);align-items:center;padding-top:14px}
 .hero-copy{min-width:0;max-width:800px}
 .countdown{width:100%;max-width:365px;margin:0 0 0 auto;padding:8px 10px;border-radius:13px}
@@ -125,7 +123,7 @@ main{padding:0 clamp(14px,2.8vw,36px) 42px}.quicklinks{display:grid;grid-templat
 @media(max-width:760px){
   .topbar{align-items:flex-start}
   .top-actions{gap:6px}
-  .portal-entry,.home{font-size:10px;padding:7px 9px}
+  .home{font-size:10px;padding:7px 9px}
   .hero{grid-template-columns:1fr;gap:10px}
   .countdown{margin:0;max-width:100%;padding:8px 9px}
   .countdown-title{font-size:13px}
@@ -145,7 +143,6 @@ main{padding:0 clamp(14px,2.8vw,36px) 42px}.quicklinks{display:grid;grid-templat
       </div>
     </div>
     <div class="top-actions">
-      <button class="portal-entry" id="open-catequizandos" type="button" aria-label="Entrar al área de catequizandos">📘 Catequizandos</button>
       <a class="home" href="./index.html">🏠 Volver al inicio</a>
     </div>
   </div>
@@ -181,22 +178,9 @@ main{padding:0 clamp(14px,2.8vw,36px) 42px}.quicklinks{display:grid;grid-templat
 
 
 </section>
-
-<div class="footer"><strong>Camino hacia Jesús · La Salle del Sur</strong><br>Con fe, alegría y amor, nos preparamos para recibir a Jesús. ✨<div class="copyright">© 2026 Colegio La Salle del Sur · Programa Camino hacia Jesús. Todos los derechos reservados.</div></div>
 </div>
-<section class="section cate-dashboard" id="cate-dashboard" aria-label="Área de catequizandos" hidden>
-
-  <div class="dashboard-topline">
-    <button class="dashboard-back" id="close-catequizandos" type="button">← Volver a la portada</button>
-  </div>
-
-  <nav class="dashboard-shortcuts" aria-label="Accesos principales de Catequizandos">
-    <button class="dashboard-shortcut calendar-shortcut" id="jump-calendar" type="button"><span>📅</span><strong>Calendario de clases</strong><small>Fechas y temas de cada encuentro</small></button>
-    <button class="dashboard-shortcut progress-shortcut" id="jump-individual-progress" type="button"><span>📈</span><strong>Mi porcentaje</strong><small>Notas, fichas y avance individual</small></button>
-    <button class="dashboard-shortcut board-shortcut" id="jump-group-progress" type="button"><span>🏆</span><strong>Tablero del grupo</strong><small>Progreso de todos los niños</small></button>
-    <button class="dashboard-shortcut materials-shortcut" id="jump-materials" type="button"><span>🎨</span><strong>Mis materiales</strong><small>Prácticas, canciones y videos</small></button>
-  </nav>
-  <div class="student-toolbar" id="student-area">
+<section class="section cate-dashboard" id="cate-dashboard" aria-label="Área de catequizandos">
+<div class="student-toolbar" id="student-area">
     <div class="student-field"><label for="student-select">Catequizando</label><select id="student-select"><option value="">Añade un catequizando para comenzar</option></select></div>
     <button class="student-action" id="show-add-student" type="button">➕ Añadir catequizando</button>
     <button class="student-action" id="download-student-backup" type="button">⬇️ Descargar respaldo</button>
@@ -219,6 +203,14 @@ main{padding:0 clamp(14px,2.8vw,36px) 42px}.quicklinks{display:grid;grid-templat
   </div>
   <div class="record-actions"><button class="save-record" id="save-session-record" type="button">💾 Guardar nota y progreso</button><button class="print-worksheet" id="print-daily-worksheet" type="button">🖨️ Generar ficha imprimible</button></div><div class="record-message" id="record-message" role="status"></div>
 </div></div></div></section>
+
+<nav class="dashboard-shortcuts" aria-label="Accesos principales de Catequizandos">
+    <button class="dashboard-shortcut calendar-shortcut" id="jump-calendar" type="button"><span>📅</span><strong>Calendario de clases</strong><small>Fechas y temas de cada encuentro</small></button>
+    <button class="dashboard-shortcut progress-shortcut" id="jump-individual-progress" type="button"><span>📈</span><strong>Mi porcentaje</strong><small>Notas, fichas y avance individual</small></button>
+    <button class="dashboard-shortcut board-shortcut" id="jump-group-progress" type="button"><span>🏆</span><strong>Tablero del grupo</strong><small>Progreso de todos los niños</small></button>
+    <button class="dashboard-shortcut materials-shortcut" id="jump-materials" type="button"><span>🎨</span><strong>Mis materiales</strong><small>Prácticas, canciones y videos</small></button>
+  </nav>
+
   <section class="individual-directory" id="individual-directory" aria-labelledby="directory-title">
     <div class="directory-head"><div><h3 id="directory-title">👧🏻👦🏻 Fichas individuales de catequizandos</h3><p>Busca cada ficha, consulta su porcentaje de avance y abre su pasaporte de fe.</p></div><span class="directory-count" id="directory-count">0 catequizandos</span></div>
     <div class="directory-filters"><div class="student-field"><label for="student-search">Buscar por nombre</label><input id="student-search" type="search" placeholder="Escribe un nombre o apellido…"></div><div class="student-field age-field"><label for="student-age-filter">Filtrar por edad</label><select id="student-age-filter"><option value="">Todas las edades</option><option value="6">6 años</option><option value="7">7 años</option><option value="8">8 años</option><option value="9">9 años</option><option value="10">10 años</option><option value="11">11 años</option><option value="12">12 años</option></select></div></div>
@@ -348,7 +340,7 @@ let activeStage=0, activeTopic=null, currentMonth=new Date(2026,5,1,12), selecte
 const $=id=>document.getElementById(id);
 function updateCountdown(){const target=new Date(2026,11,3,0,0,0).getTime(),now=Date.now(),diff=target-now;if(diff<=0){['days','hours','minutes','seconds'].forEach(id=>$(id).textContent='0');$('countdown-note').textContent='¡Llegó el día esperado! Que Jesús llene sus corazones de alegría. 💛';return}const vals=[Math.floor(diff/86400000),Math.floor(diff%86400000/3600000),Math.floor(diff%3600000/60000),Math.floor(diff%60000/1000)];['days','hours','minutes','seconds'].forEach((id,i)=>$(id).textContent=String(vals[i]).padStart(2,'0'))}
 updateCountdown();setInterval(updateCountdown,1000);
-// El mensaje de bienvenida se reproduce al pulsar el botón de entrada a Catequizandos.
+// La bienvenida de voz está disponible desde las interacciones de catequesis y el acceso al calendario.
 function renderStages(){document.querySelectorAll('.stage').forEach(b=>b.setAttribute('aria-pressed','false'))}
 function openStage(idx){
   const s=stages[idx];if(!s)return;
@@ -548,8 +540,6 @@ $('challenge-next').addEventListener('click',loadFaithChallenge);
 document.querySelectorAll('.avatar-choice').forEach(b=>b.addEventListener('click',()=>chooseAvatar(b)));
 restoreAvatar();
 
-$('open-catequizandos').addEventListener('click',()=>{ $('home-content').style.display='none';$('cate-dashboard').hidden=false;$('cate-dashboard').classList.add('open');$('open-catequizandos').style.display='none';window.scrollTo({top:0,behavior:'smooth'});renderStudentOptions();renderSelectedStudentMetrics();renderStudentProgressBoard();updateSessionRecordForm();restoreAvatar();updateChallengeStars();playCatechesisVoice('¡Bienvenidos al Colegio La Salle del Sur! Les damos la bienvenida al área de Catequesis, Camino hacia Jesús. Aquí encontrarás tu calendario, los temas de cada clase, tus fichas, tus puntos y tu porcentaje de progreso. Vamos a aprender con alegría, fe y amor mientras nos preparamos para recibir a Jesús en la Primera Comunión. ¡Comencemos!')});
-$('close-catequizandos').addEventListener('click',()=>{ if('speechSynthesis' in window)window.speechSynthesis.cancel();$('cate-dashboard').classList.remove('open');$('cate-dashboard').hidden=true;$('home-content').style.display='block';$('open-catequizandos').style.display='inline-flex';window.scrollTo({top:0,behavior:'smooth'})});
 $('show-add-student').addEventListener('click',()=>{$('student-form').hidden=false;$('new-student-code').value=nextStudentCode();$('new-student-name').focus()});
 $('cancel-add-student').addEventListener('click',()=>{$('student-form').reset();$('student-form').hidden=true});
 $('student-form').addEventListener('submit',e=>{e.preventDefault();if(addStudent($('new-student-name').value,$('new-student-code').value,$('new-student-age').value,$('new-student-start').value,$('new-student-notes').value)){$('student-form').reset();$('student-form').hidden=true}});
@@ -574,4 +564,6 @@ renderCalendar();
 // El calendario inicia en junio y selecciona la primera clase oficial: martes 16 de junio de 2026.
 const initialDate=new Date(2026,5,16,12);
 selectDate(initialDate);
+// Bienvenida automática al cargar el portal, ahora que el calendario ya está visible sin botón de entrada.
+setTimeout(()=>playCatechesisVoice('¡Bienvenidos al Colegio La Salle del Sur! Les damos la bienvenida a Camino hacia Jesús. Aquí encontrarás el calendario, los temas de cada clase, tus fichas, tus puntos y tu porcentaje de progreso. Vamos a aprender con alegría, fe y amor mientras nos preparamos para recibir a Jesús en la Primera Comunión. ¡Comencemos!'),700);
 </script></body></html>
