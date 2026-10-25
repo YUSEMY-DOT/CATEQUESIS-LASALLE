@@ -102,28 +102,40 @@
       transform: scale(0.98);
     }
 
-    /* INDICACIÓN BLANCA SOBRE LOS BOTONES */
+    /* INDICACIÓN BLANCA DESTELLANTE */
     .indicacion-ingreso {
       position: fixed;
       z-index: 6;
-      top: 0.25%;
+      top: 3.2%;
       left: 0.4%;
       width: min(7.8%, 110px);
       color: #ffffff;
       font-family: Arial, Helvetica, sans-serif;
       font-size: clamp(9px, 0.85vw, 12px);
-      font-weight: 700;
+      font-weight: 800;
       line-height: 1.1;
       text-align: center;
-      text-shadow: none;
+      text-shadow: 0 0 4px #ffffff, 0 0 8px #ffffff;
+      animation: destello 1.4s ease-in-out infinite;
       pointer-events: none;
     }
 
-    /* FRASE ANIMADA: AZUL OSCURO SIN BORDE */
+    @keyframes destello {
+      0%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 3px #ffffff;
+      }
+      50% {
+        opacity: 0.45;
+        text-shadow: 0 0 7px #ffffff, 0 0 12px #ffffff;
+      }
+    }
+
+    /* FRASE DE MISIÓN: AZUL OSCURO E ILUMINACIÓN SUTIL */
     .frase-mision {
       position: absolute;
       z-index: 3;
-      top: 4.1%;
+      top: 1.8%;
       left: 2.4%;
       width: 40%;
       max-width: 500px;
@@ -138,7 +150,7 @@
       text-align: left;
       overflow-wrap: break-word;
       -webkit-text-stroke: 0;
-      text-shadow: none;
+      text-shadow: 0 0 2px rgba(255, 255, 255, 0.95);
       pointer-events: none;
     }
 
@@ -146,8 +158,7 @@
       display: inline-block;
       margin-left: 2px;
       color: #001f5b;
-      -webkit-text-stroke: 0;
-      text-shadow: none;
+      text-shadow: 0 0 2px rgba(255, 255, 255, 0.95);
       animation: parpadeo 0.8s steps(1) infinite;
     }
 
@@ -263,6 +274,7 @@
       }
 
       .indicacion-ingreso {
+        top: 3.2%;
         left: 0.4%;
         width: 14%;
         font-size: 8px;
@@ -303,7 +315,6 @@
       }
 
       .indicacion-ingreso {
-        left: 0.4%;
         width: 15%;
         font-size: 7px;
       }
@@ -322,9 +333,10 @@
 
 <body>
 
-  <!-- CINCO BOTONES PRINCIPALES -->
+  <!-- BOTONES EN EL ORDEN ORIGINAL -->
   <nav class="menu" aria-label="Menú principal">
 
+    <!-- 1. NUESTRA PROGRAMACIÓN -->
     <button class="boton" type="button"
       data-destino="programacion.html"
       aria-label="Nuestra Programación">
@@ -332,6 +344,7 @@
         alt="Nuestra Programación">
     </button>
 
+    <!-- 2. CATEQUIZANDOS -->
     <button class="boton" type="button"
       data-destino="catequizandos.html"
       aria-label="Catequizandos">
@@ -339,6 +352,7 @@
         alt="Catequizandos">
     </button>
 
+    <!-- 3. CATEQUISTAS -->
     <button class="boton" type="button"
       data-destino="misses.html"
       aria-label="Catequistas">
@@ -346,6 +360,7 @@
         alt="Catequistas">
     </button>
 
+    <!-- 4. PADRES DE FAMILIA -->
     <button class="boton" type="button"
       data-destino="padres.html"
       aria-label="Padres de familia">
@@ -353,6 +368,7 @@
         alt="Padres de familia">
     </button>
 
+    <!-- 5. COORDINADOR PARROQUIAL -->
     <button class="boton" type="button"
       data-destino="supervisores.html"
       aria-label="Coordinador Parroquial">
@@ -362,8 +378,8 @@
 
   </nav>
 
-  <!-- DEDO HACIA ABAJO E INDICACIÓN BREVE -->
-  <div class="indicacion-ingreso">☟ Ingresa</div>
+  <!-- INDICACIÓN BLANCA CON DEDO HACIA ABAJO -->
+  <div class="indicacion-ingreso">☟ INGRESE</div>
 
   <!-- PORTADA -->
   <main class="portada" aria-label="Camino hacia Jesús">
@@ -372,7 +388,8 @@
       <span id="textoMision"></span><span class="cursor-escritura">|</span>
     </div>
 
-    <audio id="musica" loop preload="none">
+    <!-- ARCHIVO MP3 UBICADO EN LA RAÍZ DEL REPOSITORIO -->
+    <audio id="musica" loop preload="auto">
       <source
         src="./alma-misionera-athenas-musica-catolica.mp3"
         type="audio/mpeg">
@@ -387,6 +404,7 @@
 
   </main>
 
+  <!-- DERECHOS RESERVADOS -->
   <footer class="derechos-reservados">
     © Corporación La Salle del Sur. Derechos reservados.
   </footer>
@@ -400,14 +418,15 @@
       const botones = document.querySelectorAll(".boton");
       const textoMision = document.getElementById("textoMision");
 
+      /* FRASE HASTA «DIOS» */
       const frase =
-        "Guiamos sus primeros pasos en la fe, acompañamos sus corazones hacia Jesús y sembramos en sus vidas el amor de Dios, para que cada sacramento sea el comienzo de una historia de fe que los acompañe por siempre.";
+        "Guiamos sus primeros pasos en la fe, acompañamos sus corazones hacia Jesús y sembramos en sus vidas el amor de Dios.";
 
       let indice = 0;
       let silenciado = false;
       let contextoAudio = null;
 
-      /* ESCRITURA ANIMADA DE LA FRASE */
+      /* ESCRITURA ANIMADA */
       function escribirFrase() {
         if (indice < frase.length) {
           textoMision.textContent += frase.charAt(indice);
@@ -424,13 +443,13 @@
 
       escribirFrase();
 
-      /* MÚSICA AL 50 % */
+      /* MÚSICA AL 25 % */
       async function iniciarMusica() {
         if (silenciado) return;
 
         try {
           musica.muted = false;
-          musica.volume = 0.5;
+          musica.volume = 0.25;
           await musica.play();
 
           controlAudio.textContent = "🔊";
@@ -497,16 +516,14 @@
         }
       }
 
-      /* NAVEGACIÓN DE LOS CINCO BOTONES */
+      /* NAVEGACIÓN ORIGINAL DE LOS CINCO BOTONES */
       botones.forEach((boton) => {
         boton.addEventListener("click", () => {
           efectoBoton();
 
           const destino = boton.getAttribute("data-destino");
           if (destino) {
-            window.setTimeout(() => {
-              window.location.href = destino;
-            }, 120);
+            window.location.href = destino;
           }
         });
       });
