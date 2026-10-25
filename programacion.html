@@ -47,12 +47,12 @@ a { text-decoration: none; color: inherit; }
   background: linear-gradient(90deg, #d9a036, #ffe285, #d9a036);
 }
 
-/* HEADER COMPACTO Y ORDENADO */
+/* HEADER COMPACTO - SIN ESPACIOS VACÍOS */
 header {
   position: relative;
   background: linear-gradient(135deg, #05142b 0%, #081c3b 50%, #0d2f5e 100%);
   color: white;
-  padding: 16px 24px 0px;
+  padding: 16px 28px 0px;
   border-bottom-left-radius: 24px;
   border-bottom-right-radius: 24px;
   overflow: hidden;
@@ -64,7 +64,7 @@ header {
   justify-content: space-between;
   position: relative;
   z-index: 5;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .brand {
@@ -140,10 +140,10 @@ header {
   transform: translateY(-2px);
 }
 
-/* HERO COMPACTO */
+/* HERO AJUSTADO SIN ESPACIOS VACÍOS EN EL CENTRO */
 .hero-grid {
   display: grid;
-  grid-template-columns: 1fr 260px;
+  grid-template-columns: 1fr auto;
   gap: 20px;
   align-items: end;
   position: relative;
@@ -151,15 +151,15 @@ header {
 }
 
 .hero-text {
-  padding-bottom: 20px;
+  padding-bottom: 16px;
 }
 
 .hero-text h1 {
   font-family: 'Fredoka', sans-serif;
-  font-size: clamp(28px, 3.5vw, 42px);
+  font-size: clamp(28px, 3.2vw, 40px);
   line-height: 1.05;
   color: #ffffff;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .hero-text h1 span {
@@ -169,8 +169,8 @@ header {
 .hero-text p {
   font-size: 14px;
   color: #e0ecf8;
-  max-width: 540px;
-  margin-bottom: 14px;
+  max-width: 620px;
+  margin-bottom: 12px;
   font-weight: 600;
 }
 
@@ -184,8 +184,8 @@ header {
   background: rgba(8, 28, 59, 0.65);
   border: 1.5px solid rgba(255, 226, 133, 0.5);
   border-radius: 20px;
-  padding: 8px 16px;
-  font-size: 14px;
+  padding: 6px 14px;
+  font-size: 13.5px;
   color: #ffffff;
   display: inline-flex;
   align-items: center;
@@ -195,7 +195,7 @@ header {
 }
 
 .hero-girl-frame {
-  height: 250px;
+  height: 220px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -258,7 +258,7 @@ main {
 }
 
 .section {
-  margin-top: 28px;
+  margin-top: 26px;
 }
 
 .section-head {
@@ -286,7 +286,7 @@ main {
   font-weight: 600;
 }
 
-/* 6 ETAPAS INTERACTIVAS CON ILUSTRACIONES DINÁMICAS */
+/* 6 ETAPAS CON ILUSTRACIONES SIMBÓLICAS EN LUGAR DE MUÑECOS */
 .stages-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -304,20 +304,19 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: all 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.25s ease;
 }
 
 .stage-card:hover {
-  transform: translateY(-6px) scale(1.02);
+  transform: translateY(-5px) scale(1.02);
   border-color: #ffc83b;
-  box-shadow: 0 10px 22px rgba(232, 189, 96, 0.35);
+  box-shadow: 0 10px 20px rgba(232, 189, 96, 0.3);
 }
 
 .stage-card[aria-pressed="true"] {
   border-color: #081c3b;
   background: #fffdf2;
-  box-shadow: 0 8px 20px rgba(8, 28, 59, 0.2);
-  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(8, 28, 59, 0.18);
 }
 
 .stage-badge {
@@ -327,8 +326,8 @@ main {
   transform: translateX(-50%);
   background: linear-gradient(135deg, #ffc83b, #f39c12);
   color: #081c3b;
-  width: 26px;
-  height: 26px;
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
   border: 2px solid #fff;
   font-family: 'Fredoka', sans-serif;
@@ -336,50 +335,39 @@ main {
   font-size: 12px;
   display: grid;
   place-items: center;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
 }
 
-.stage-img-box {
+.stage-symbol-box {
   width: 100%;
-  height: 90px;
+  height: 85px;
   margin-top: 6px;
   margin-bottom: 8px;
   border-radius: 12px;
-  background: linear-gradient(180deg, #fffcf5 0%, #f6ebd5 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden;
-  border: 1px solid #f0e2ca;
+  border: 1px solid #efe3cc;
 }
 
-.stage-img-box img {
-  height: 75px;
-  width: auto;
-  object-fit: contain;
+.stage-symbol-box svg {
+  width: 48px;
+  height: 48px;
   transition: transform 0.3s ease;
 }
 
-.stage-card:hover .stage-img-box img {
-  transform: scale(1.12) rotate(-2deg);
+.stage-card:hover .stage-symbol-box svg {
+  transform: scale(1.15) rotate(-3deg);
 }
 
-/* ÍCONO TEMÁTICO DE REFUERZO */
-.stage-icon-badge {
-  position: absolute;
-  bottom: 4px;
-  right: 4px;
-  background: #ffffff;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  font-size: 13px;
-  display: grid;
-  place-items: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  border: 1px solid #ffe285;
-}
+/* COLORES Y FONDOS VARIADOS PARA CADA ETAPA */
+.stage-card[data-stage="0"] .stage-symbol-box { background: linear-gradient(180deg, #fff9e6 0%, #ffeed1 100%); }
+.stage-card[data-stage="1"] .stage-symbol-box { background: linear-gradient(180deg, #f2f7ff 0%, #dbe8fd 100%); }
+.stage-card[data-stage="2"] .stage-symbol-box { background: linear-gradient(180deg, #f0faf5 0%, #d1f2e2 100%); }
+.stage-card[data-stage="3"] .stage-symbol-box { background: linear-gradient(180deg, #fff5f5 0%, #fde2e2 100%); }
+.stage-card[data-stage="4"] .stage-symbol-box { background: linear-gradient(180deg, #fdf5ff 0%, #f4d8fe 100%); }
+.stage-card[data-stage="5"] .stage-symbol-box { background: linear-gradient(180deg, #fffbf0 0%, #feebbe 100%); }
 
 .stage-card strong {
   font-family: 'Fredoka', sans-serif;
@@ -656,7 +644,7 @@ main {
 
 @media (max-width: 900px) {
   .hero-grid { grid-template-columns: 1fr; }
-  .hero-girl-frame { height: 200px; }
+  .hero-girl-frame { height: 180px; }
   .stages-grid { grid-template-columns: repeat(3, 1fr); }
   .overlap-cards { grid-template-columns: 1fr; }
   .sessions-grid { grid-template-columns: 1fr; }
@@ -693,6 +681,7 @@ main {
       </a>
     </div>
 
+    <!-- CABECERA SIN VACÍO DE ESPACIO -->
     <div class="hero-grid">
       <div class="hero-text">
         <h1>Nuestra <span>programación</span></h1>
@@ -741,7 +730,7 @@ main {
       </div>
     </div>
 
-    <!-- 6 ETAPAS INTERACTIVAS Y DIVERSIFICADAS -->
+    <!-- 6 ETAPAS CON ILUSTRACIONES TEMÁTICAS EN LUGAR DE DIBUJOS REPETIDOS -->
     <section class="section">
       <div class="section-head">
         <div class="kicker">Nuestro Itinerario</div>
@@ -750,67 +739,90 @@ main {
       </div>
 
       <div class="stages-grid">
-        <!-- ETAPA 1 -->
+        <!-- ETAPA 1: BIBLIA Y CRUZ -->
         <div class="stage-card" data-stage="0">
           <div class="stage-badge">1</div>
-          <div class="stage-img-box">
-            <img src="./assets/niñoarrodillado.png" alt="Etapa 1" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/ca99716dd73d12fda0325e6e1f031a2ed0693680/assets/ni%C3%B1oarrodillado.png'">
-            <div class="stage-icon-badge">✝️</div>
+          <div class="stage-symbol-box">
+            <svg viewBox="0 0 64 64" fill="none">
+              <path d="M12 16C12 11.5 15.5 8 20 8H48V52H20C15.5 52 12 48.5 12 44V16Z" fill="#D97706"/>
+              <path d="M16 12H44V48H16C13.8 48 12 46.2 12 44V16C12 13.8 13.8 12 16 12Z" fill="#F59E0B"/>
+              <path d="M28 20H36V36H28V20Z" fill="#FFF"/>
+              <path d="M22 24H42V30H22V24Z" fill="#FFF"/>
+            </svg>
           </div>
           <strong>Conociendo a Jesús</strong>
           <p>Su vida, su mensaje y su amor.</p>
         </div>
 
-        <!-- ETAPA 2 -->
+        <!-- ETAPA 2: MANOS ORANDO -->
         <div class="stage-card" data-stage="1">
           <div class="stage-badge">2</div>
-          <div class="stage-img-box">
-            <img src="./assets/niña arodillada.png" alt="Etapa 2" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/ca99716dd73d12fda0325e6e1f031a2ed0693680/assets/ni%C3%B1a%20arodillada.png'">
-            <div class="stage-icon-badge">🙏</div>
+          <div class="stage-symbol-box">
+            <svg viewBox="0 0 64 64" fill="none">
+              <path d="M24 12C24 8.7 26.7 6 30 6C33.3 6 36 8.7 36 12V32H24V12Z" fill="#2563EB"/>
+              <path d="M18 20C18 16.7 20.7 14 24 14V34H18V20Z" fill="#3B82F6"/>
+              <path d="M36 14C39.3 14 42 16.7 42 20V34H36V14Z" fill="#3B82F6"/>
+              <path d="M20 32C20 42 26 50 32 54C38 50 44 42 44 32H20Z" fill="#60A5FA"/>
+            </svg>
           </div>
           <strong>Aprendemos a orar</strong>
           <p>Hablar con Dios con confianza.</p>
         </div>
 
-        <!-- ETAPA 3 -->
+        <!-- ETAPA 3: CÁLIZ Y SACRAMENTOS -->
         <div class="stage-card" data-stage="2">
           <div class="stage-badge">3</div>
-          <div class="stage-img-box">
-            <img src="./assets/niñoparado.png" alt="Etapa 3" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/ca99716dd73d12fda0325e6e1f031a2ed0693680/assets/ni%C3%B1oparado.png'">
-            <div class="stage-icon-badge">⛪</div>
+          <div class="stage-symbol-box">
+            <svg viewBox="0 0 64 64" fill="none">
+              <circle cx="32" cy="18" r="10" fill="#FBBF24"/>
+              <path d="M22 30C22 30 20 44 32 44C44 44 42 30 42 30H22Z" fill="#D97706"/>
+              <path d="M28 44H36V54H28V44Z" fill="#B45309"/>
+              <path d="M22 54H42V58H22V54Z" fill="#B45309"/>
+            </svg>
           </div>
           <strong>Los sacramentos</strong>
           <p>Signos de la gracia de Dios.</p>
         </div>
 
-        <!-- ETAPA 4 -->
+        <!-- ETAPA 4: PALOMA Y EUCARISTÍA -->
         <div class="stage-card" data-stage="3">
           <div class="stage-badge">4</div>
-          <div class="stage-img-box">
-            <img src="./assets/niñaparada.png" alt="Etapa 4" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/ca99716dd73d12fda0325e6e1f031a2ed0693680/assets/ni%C3%B1aparada.png'">
-            <div class="stage-icon-badge">🍇</div>
+          <div class="stage-symbol-box">
+            <svg viewBox="0 0 64 64" fill="none">
+              <path d="M16 28C16 18 28 10 38 12C48 14 52 24 48 34C44 44 30 50 20 44C16 40 16 34 16 28Z" fill="#EF4444"/>
+              <path d="M24 24C24 18 30 14 36 16C42 18 44 24 40 30C36 36 28 38 24 32V24Z" fill="#F87171"/>
+              <circle cx="32" cy="28" r="6" fill="#FFF"/>
+            </svg>
           </div>
           <strong>La Eucaristía</strong>
           <p>Prepararnos para recibir a Jesús.</p>
         </div>
 
-        <!-- ETAPA 5 -->
+        <!-- ETAPA 5: CORAZÓN Y VALORES -->
         <div class="stage-card" data-stage="4">
           <div class="stage-badge">5</div>
-          <div class="stage-img-box">
-            <img src="./assets/niñoarrodillado.png" alt="Etapa 5" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/ca99716dd73d12fda0325e6e1f031a2ed0693680/assets/ni%C3%B1oarrodillado.png'">
-            <div class="stage-icon-badge">💛</div>
+          <div class="stage-symbol-box">
+            <svg viewBox="0 0 64 64" fill="none">
+              <path d="M32 52L12 32C6 26 8 16 16 12C24 8 30 12 32 16C34 12 40 8 48 12C56 16 58 26 52 32L32 52Z" fill="#A855F7"/>
+              <path d="M32 44L18 30C14 26 15 18 21 15C27 12 30 15 32 18C34 15 37 12 43 15C49 18 50 26 46 30L32 44Z" fill="#C084FC"/>
+            </svg>
           </div>
           <strong>Valores cristianos</strong>
           <p>Amor, respeto y perdón.</p>
         </div>
 
-        <!-- ETAPA 6 -->
+        <!-- ETAPA 6: FAMILIA Y COMUNIDAD -->
         <div class="stage-card" data-stage="5">
           <div class="stage-badge">6</div>
-          <div class="stage-img-box">
-            <img src="./assets/niñaparada.png" alt="Etapa 6" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/ca99716dd73d12fda0325e6e1f031a2ed0693680/assets/ni%C3%B1aparada.png'">
-            <div class="stage-icon-badge">👨‍👩‍👧‍👦</div>
+          <div class="stage-symbol-box">
+            <svg viewBox="0 0 64 64" fill="none">
+              <circle cx="22" cy="22" r="8" fill="#F59E0B"/>
+              <circle cx="42" cy="22" r="8" fill="#F59E0B"/>
+              <circle cx="32" cy="28" r="6" fill="#10B981"/>
+              <path d="M12 48C12 38 20 34 22 34H26C28 34 32 38 32 48H12Z" fill="#3B82F6"/>
+              <path d="M32 48C32 38 36 34 38 34H42C44 34 52 38 52 48H32Z" fill="#EC4899"/>
+              <path d="M24 50C24 42 28 40 32 40C36 40 40 42 40 50H24Z" fill="#34D399"/>
+            </svg>
           </div>
           <strong>Compartimos la fe</strong>
           <p>Vivir en comunidad y familia.</p>
