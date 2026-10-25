@@ -12,19 +12,13 @@
 :root {
   --navy: #081c3b;
   --navy-light: #0d2f5e;
-  --blue-bright: #1d528d;
   --gold: #e8bd60;
   --gold-bright: #ffc83b;
-  --gold-light: #fff3cb;
-  --cream: #fffaf0;
   --bg-main: #f5eedf;
-  --card-bg: #ffffff;
+  --radius-lg: 18px;
+  --radius-md: 14px;
   --text-dark: #0f233f;
   --text-muted: #5e7087;
-  --green: #2d8a64;
-  --radius-lg: 24px;
-  --radius-md: 16px;
-  --shadow-soft: 0 10px 25px rgba(8, 28, 59, 0.08);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,76 +28,59 @@ body {
   color: var(--text-dark);
   font-family: 'Nunito', sans-serif;
   min-height: 100vh;
-  line-height: 1.5;
+  line-height: 1.35;
 }
 
-button, a { font-family: 'Nunito', sans-serif; -webkit-tap-highlight-color: transparent; }
+button, a, input { font-family: 'Nunito', sans-serif; -webkit-tap-highlight-color: transparent; }
 a { text-decoration: none; color: inherit; }
 
 .site-container {
-  max-width: 1350px;
+  max-width: 1300px;
   margin: 0 auto;
   background: #fbf8f2;
   min-height: 100vh;
-  box-shadow: 0 0 40px rgba(0,0,0,0.08);
+  box-shadow: 0 0 25px rgba(0,0,0,0.06);
 }
 
 .topline {
-  height: 6px;
+  height: 5px;
   background: linear-gradient(90deg, #d9a036, #ffe285, #d9a036);
 }
 
-/* HEADER AZUL INSTITUCIONAL */
+/* HEADER COMPACTO */
 header {
   position: relative;
-  background: linear-gradient(135deg, #05142b 0%, #081c3b 45%, #0d2f5e 100%);
+  background: linear-gradient(135deg, #05142b 0%, #081c3b 50%, #0d2f5e 100%);
   color: white;
-  padding: 24px 32px 50px;
-  border-bottom-left-radius: 36px;
-  border-bottom-right-radius: 36px;
+  padding: 16px 24px 0px; /* Reducido espacio interno */
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
   overflow: hidden;
-}
-
-header::before {
-  content: "✦ ✧ ✦ ✧ ✦ ✧";
-  position: absolute;
-  top: 15px;
-  right: 5%;
-  font-size: 24px;
-  color: rgba(255, 226, 133, 0.2);
-  letter-spacing: 12px;
-  pointer-events: none;
 }
 
 .headerbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
   position: relative;
   z-index: 5;
+  margin-bottom: 12px;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 12px;
 }
 
-/* INSIGNIA LIBRE Y MÁS GRANDE (SIN RECUADRO) */
 .crest-free {
-  width: 90px;
-  height: 90px;
+  width: 70px;
+  height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
-  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4));
   flex-shrink: 0;
-  transition: transform 0.3s ease;
-}
-
-.crest-free:hover {
-  transform: scale(1.06) rotate(-3deg);
 }
 
 .crest-free img {
@@ -114,95 +91,81 @@ header::before {
 
 .brand-info h2 {
   font-family: 'Fredoka', sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: #ffdf94;
-  letter-spacing: 0.5px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  line-height: 1.1;
 }
 
 .brand-info small {
   display: block;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 800;
   color: #d1e3f8;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  margin-top: 2px;
 }
 
-/* BOTÓN VOLVER ALEGRE Y LLAMATIVO */
+.subbrand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 226, 133, 0.6);
+  color: #ffe8a3;
+  border-radius: 14px;
+  padding: 2px 10px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 11px;
+}
+
 .btn-home {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   background: linear-gradient(135deg, #ffc83b, #f39c12);
   color: #081c3b;
-  border: 2px solid #fff;
-  border-radius: 30px;
-  padding: 10px 22px;
+  border: 1.5px solid #fff;
+  border-radius: 20px;
+  padding: 6px 14px;
   font-family: 'Fredoka', sans-serif;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
-  box-shadow: 0 6px 16px rgba(243, 156, 18, 0.4);
-  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 12px rgba(243, 156, 18, 0.3);
 }
 
-.btn-home:hover {
-  transform: translateY(-3px) scale(1.04);
-  box-shadow: 0 10px 22px rgba(243, 156, 18, 0.6);
-  background: linear-gradient(135deg, #ffd463, #ffaa2b);
-}
-
-/* PORTADA CON NIÑA ARODILLADA PROPORCIONAL AL MARCO AZUL */
-.hero-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 30px;
-  margin-top: 20px;
+/* HERO COMPACTO */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 20px;
+  align-items: end;
   position: relative;
   z-index: 2;
-  min-height: 280px;
 }
 
 .hero-text {
-  max-width: 650px;
-}
-
-.badge-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1.5px solid rgba(255, 226, 133, 0.6);
-  color: #ffe8a3;
-  border-radius: 30px;
-  padding: 6px 16px;
-  font-family: 'Fredoka', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  margin-bottom: 14px;
+  padding-bottom: 20px;
 }
 
 .hero-text h1 {
   font-family: 'Fredoka', sans-serif;
-  font-size: clamp(34px, 4vw, 52px);
-  line-height: 1.1;
+  font-size: clamp(28px, 3.5vw, 42px);
+  line-height: 1.05;
   color: #ffffff;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .hero-text h1 span {
   color: #ffdf94;
-  text-decoration: underline cubic-bezier(0.1, 1, 0.1, 1) #e8bd60;
 }
 
 .hero-text p {
-  font-size: 16px;
+  font-size: 14px;
   color: #e0ecf8;
-  max-width: 580px;
-  margin-bottom: 22px;
+  max-width: 540px;
+  margin-bottom: 14px;
   font-weight: 600;
 }
 
@@ -212,116 +175,97 @@ header::before {
   gap: 10px;
 }
 
-.chip {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+.chip-large {
+  background: rgba(8, 28, 59, 0.65);
+  border: 1.5px solid rgba(255, 226, 133, 0.5);
   border-radius: 20px;
   padding: 8px 16px;
-  font-size: 13px;
-  color: #fff;
-  display: flex;
+  font-size: 14px;
+  color: #ffffff;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-weight: 700;
+  font-family: 'Fredoka', sans-serif;
 }
 
-.chip strong {
-  color: #ffdf94;
-}
-
-/* CONTENEDOR PROPORCIONAL PARA LA NIÑA */
 .hero-girl-frame {
-  flex-shrink: 0;
-  height: 290px;
+  height: 250px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  position: relative;
 }
 
 .hero-girl-frame img {
   height: 100%;
   width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.5));
-  transition: transform 0.4s ease;
+  transform: scaleX(-1);
+  filter: drop-shadow(-6px 8px 14px rgba(0, 0, 0, 0.4));
 }
 
-.hero-girl-frame img:hover {
-  transform: scale(1.03);
-}
-
-/* MAIN CONTENT */
+/* MAIN CONTENT SIN ESPACIOS EXCESIVOS */
 main {
-  padding: 0 clamp(16px, 3.5vw, 40px) 50px;
+  padding: 0 clamp(12px, 2.5vw, 28px) 30px;
 }
 
-/* CARDS DE VISTAZO RÁPIDO */
 .overlap-cards {
   position: relative;
-  margin-top: -30px;
+  margin-top: -18px;
   z-index: 10;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 12px;
 }
 
 .card-quick {
   background: #ffffff;
-  border: 2px solid #ebe1ce;
+  border: 1.5px solid #ebe1ce;
   border-radius: var(--radius-md);
-  padding: 16px 20px;
+  padding: 12px 14px;
   display: flex;
   align-items: center;
-  gap: 16px;
-  box-shadow: 0 10px 25px rgba(8, 28, 59, 0.08);
-  transition: transform 0.25s ease, border-color 0.25s ease;
-}
-
-.card-quick:hover {
-  transform: translateY(-4px);
-  border-color: #d9a036;
+  gap: 12px;
+  box-shadow: 0 6px 18px rgba(8, 28, 59, 0.06);
 }
 
 .icon-bubble {
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
   background: #fff6de;
-  border: 2px solid #f3d58a;
+  border: 1.5px solid #f3d58a;
   display: grid;
   place-items: center;
-  font-size: 26px;
+  font-size: 22px;
   flex-shrink: 0;
 }
 
 .card-quick h4 {
   font-family: 'Fredoka', sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   color: var(--navy);
-  margin-bottom: 2px;
 }
 
 .card-quick p {
-  font-size: 12px;
+  font-size: 11.5px;
   color: var(--text-muted);
   font-weight: 600;
-  line-height: 1.3;
 }
 
-/* SECCIÓN NUESTROS ITINERARIOS - 6 ETAPAS */
+/* SECCIONES AJUSTADAS */
 .section {
-  margin-top: 48px;
+  margin-top: 28px;
 }
 
 .section-head {
-  margin-bottom: 22px;
+  margin-bottom: 12px;
 }
 
 .kicker {
   font-family: 'Fredoka', sans-serif;
-  font-size: 12px;
-  letter-spacing: 1.5px;
+  font-size: 11px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   color: #b88322;
   font-weight: 600;
@@ -329,68 +273,65 @@ main {
 
 .section-head h2 {
   font-family: 'Fredoka', sans-serif;
-  font-size: clamp(26px, 3vw, 34px);
+  font-size: clamp(22px, 2.5vw, 28px);
   color: var(--navy);
 }
 
 .section-head p {
   color: var(--text-muted);
-  font-size: 15px;
+  font-size: 13.5px;
   font-weight: 600;
 }
 
-/* 6 ETAPAS CON PERSONAJES */
+/* 6 ETAPAS COMPACTAS */
 .stages-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 14px;
+  gap: 10px;
 }
 
 .stage-card {
   background: #ffffff;
-  border: 2.5px solid #e2d5bd;
+  border: 2px solid #e2d5bd;
   border-radius: var(--radius-md);
-  padding: 12px 10px 16px;
+  padding: 10px 6px 12px;
   text-align: center;
   position: relative;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.stage-card:hover {
-  transform: translateY(-6px);
+.stage-card:hover, .stage-card[aria-pressed="true"] {
   border-color: #ffc83b;
-  box-shadow: 0 12px 24px rgba(232, 189, 96, 0.3);
+  background: #fffdf5;
 }
 
 .stage-badge {
   position: absolute;
-  top: -12px;
+  top: -10px;
   left: 50%;
   transform: translateX(-50%);
   background: linear-gradient(135deg, #ffc83b, #f39c12);
   color: #081c3b;
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   border: 2px solid #fff;
   font-family: 'Fredoka', sans-serif;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 12px;
   display: grid;
   place-items: center;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 .stage-img-box {
   width: 100%;
-  height: 115px;
-  margin-top: 6px;
-  margin-bottom: 8px;
-  border-radius: 12px;
+  height: 85px;
+  margin-top: 4px;
+  margin-bottom: 6px;
+  border-radius: 10px;
   background: #fbf5e8;
   display: flex;
   align-items: center;
@@ -399,163 +340,289 @@ main {
 }
 
 .stage-img-box img {
-  height: 100px;
+  height: 75px;
   width: auto;
   object-fit: contain;
-  transition: transform 0.3s ease;
-}
-
-.stage-card:hover .stage-img-box img {
-  transform: scale(1.08);
 }
 
 .stage-card strong {
   font-family: 'Fredoka', sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--navy);
-  line-height: 1.2;
-  margin-bottom: 4px;
+  line-height: 1.15;
+  margin-bottom: 2px;
 }
 
 .stage-card p {
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--text-muted);
-  line-height: 1.3;
+  line-height: 1.2;
   font-weight: 600;
 }
 
-/* PLAN DE TRABAJO & FILTROS LÚDICOS PARA NIÑOS */
-.planning-wrapper {
+/* CALENDARIO Y PLAN COMPACTOS */
+.calendar-card, .planning-wrapper {
   background: #ffffff;
-  border: 2px solid #e3d7be;
+  border: 1.5px solid #e3d7be;
   border-radius: var(--radius-lg);
-  padding: 24px;
-  box-shadow: 0 8px 30px rgba(8, 28, 59, 0.05);
+  padding: 18px;
+  margin-top: 22px;
+  box-shadow: 0 4px 18px rgba(8, 28, 59, 0.04);
 }
 
-.planning-header {
+.calendar-top, .planning-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 18px;
+  margin-bottom: 12px;
+  gap: 10px;
 }
 
-.planning-header h3 {
+.calendar-top h3, .planning-header h3 {
   font-family: 'Fredoka', sans-serif;
-  font-size: 22px;
+  font-size: 19px;
   color: var(--navy);
 }
 
-.pill-tag {
-  background: #fff3cb;
-  color: #8f6208;
-  font-family: 'Fredoka', sans-serif;
-  font-size: 12px;
-  padding: 4px 12px;
-  border-radius: 20px;
-  border: 1px solid #ffe285;
+.calendar-ctrls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-/* BOTONES FILTRO ALEGRES Y DIVERTIMENTO INFANTIL */
+.calendar-ctrls button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid #e2d5bd;
+  background: #fffdf8;
+  color: var(--navy);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.calendar-ctrls strong {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 15px;
+  color: var(--navy);
+  min-width: 120px;
+  text-align: center;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.weekday-header {
+  text-align: center;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 11px;
+  color: #b88322;
+}
+
+.cal-day {
+  min-height: 40px;
+  border: 1.5px solid #efe6d5;
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  position: relative;
+}
+
+.cal-day.has-class::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #d9a036;
+  position: absolute;
+  bottom: 4px;
+}
+
+.cal-day[aria-pressed="true"] {
+  background: var(--navy);
+  color: #ffdf94;
+  border-color: var(--navy);
+}
+
+.calendar-detail-box {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f5f8fc;
+  border: 1.5px solid #d8e4f2;
+  border-left: 4px solid #e8bd60;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.calendar-detail-box h5 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 15px;
+  color: var(--navy);
+}
+
+.calendar-detail-box p {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.search-input {
+  padding: 6px 14px;
+  border-radius: 16px;
+  border: 1.5px solid #e2d5bd;
+  font-size: 12px;
+  outline: none;
+}
+
 .filters-kids {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 8px;
+  margin-bottom: 14px;
 }
 
 .btn-filter-child {
-  border: 2px solid #e2d5bd;
+  border: 1.5px solid #e2d5bd;
   background: #fbf8f2;
   color: var(--navy);
-  padding: 8px 18px;
-  border-radius: 25px;
+  padding: 6px 14px;
+  border-radius: 20px;
   font-family: 'Fredoka', sans-serif;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.btn-filter-child:hover {
-  transform: translateY(-2px);
-  border-color: #ffc83b;
-  background: #fffae8;
 }
 
 .btn-filter-child[aria-pressed="true"] {
-  background: linear-gradient(135deg, #081c3b, #1d528d);
+  background: var(--navy);
   color: #ffdf94;
-  border-color: #081c3b;
-  box-shadow: 0 6px 14px rgba(8, 28, 59, 0.25);
+  border-color: var(--navy);
 }
 
 .sessions-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
+  gap: 10px;
 }
 
 .session-item {
-  border: 2px solid #eae0cd;
+  border: 1.5px solid #eae0cd;
   border-radius: var(--radius-md);
-  padding: 16px;
+  padding: 12px;
   background: #fffdf9;
   cursor: pointer;
-  transition: all 0.25s ease;
-  position: relative;
-}
-
-.session-item:hover {
-  border-color: #ffc83b;
-  background: #ffffff;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
 }
 
 .session-date {
   font-family: 'Fredoka', sans-serif;
-  font-size: 11px;
+  font-size: 10.5px;
   color: #b88322;
   text-transform: uppercase;
-  margin-bottom: 6px;
-  display: block;
 }
 
 .session-item h5 {
   font-family: 'Fredoka', sans-serif;
-  font-size: 17px;
+  font-size: 15px;
   color: var(--navy);
-  margin-bottom: 6px;
 }
 
 .session-item p {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-muted);
   font-weight: 600;
-  line-height: 1.4;
 }
 
-/* RESPONSIVO */
-@media (max-width: 1024px) {
+/* MODAL */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(8, 28, 59, 0.6);
+  backdrop-filter: blur(3px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 16px;
+}
+
+.modal-overlay.active { display: flex; }
+
+.modal-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  max-width: 580px;
+  width: 100%;
+  padding: 22px;
+  position: relative;
+  border: 2px solid #ffc83b;
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: #f2e9d8;
+  color: var(--navy);
+  cursor: pointer;
+}
+
+.modal-card h4 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 20px;
+  color: var(--navy);
+}
+
+.modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.modal-box {
+  background: #fbf8f2;
+  border: 1px solid #ebe1ce;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.modal-box.wide { grid-column: 1 / -1; }
+
+.modal-box label {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  color: #1d528d;
+}
+
+.modal-box p {
+  font-size: 12px;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-girl-frame { height: 200px; }
   .stages-grid { grid-template-columns: repeat(3, 1fr); }
-  .hero-container { flex-direction: column; text-align: center; }
-  .hero-text { max-width: 100%; }
-  .chips-wrapper { justify-content: center; }
-  .hero-girl-frame { height: 230px; }
   .overlap-cards { grid-template-columns: 1fr; }
+  .sessions-grid { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 600px) {
   .stages-grid { grid-template-columns: repeat(2, 1fr); }
-  .sessions-grid { grid-template-columns: 1fr; }
-  header { padding: 18px 16px 40px; }
-  .brand-info h2 { font-size: 16px; }
-  .crest-free { width: 70px; height: 70px; }
-  .btn-home { padding: 8px 14px; font-size: 13px; }
+  .modal-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -564,41 +631,44 @@ main {
 <div class="site-container">
   <div class="topline"></div>
 
-  <!-- ENCABEZADO AZUL CON INSIGNIA LIBRE Y NIÑA PROPORCIONAL -->
+  <!-- HEADER COMPACTO Y ORDENADO -->
   <header>
     <div class="headerbar">
       <div class="brand">
-        <!-- INSIGNIA MÁS GRANDE Y SIN RECUADRO -->
         <div class="crest-free">
-          <img src="./assets/insignia.png" alt="Insignia Colegio La Salle del Sur" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/ca99716dd73d12fda0325e6e1f031a2ed0693680/assets/insignia.png'">
+          <img src="./assets/insignia.png" alt="Insignia La Salle del Sur" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/ca99716dd73d12fda0325e6e1f031a2ed0693680/assets/insignia.png'">
         </div>
         <div class="brand-info">
           <h2>COLEGIO LA SALLE DEL SUR</h2>
           <small>Programa de Catequesis · 2026</small>
+          <div>
+            <span class="subbrand-badge">✨ Fe · Formación · Encuentro con Jesús ✨</span>
+          </div>
         </div>
       </div>
 
-      <!-- BOTÓN VOLVER ALEGRE -->
       <a href="./index.html" class="btn-home">
         <span>🏠</span> Volver al inicio
       </a>
     </div>
 
-    <!-- PORTADA CON TEXTO Y SOLAMENTE LA NIÑA EN TAMAÑO PROPORCIONAL -->
-    <div class="hero-container">
+    <div class="hero-grid">
       <div class="hero-text">
-        <span class="badge-tag">✨ Fe · Formación · Encuentro con Jesús ✨</span>
         <h1>Nuestra <span>programación</span></h1>
-        <p>Cada encuentro es una oportunidad alegre para conocer a Jesús, hacer nuevos amigos, crecer en la fe y preparar el corazón con amor.</p>
+        <p>Cada encuentro es una oportunidad alegre para conocer a Jesús, hacer nuevos amigos y crecer en la fe con amor.</p>
         
         <div class="chips-wrapper">
-          <div class="chip">📅 <strong>Martes y Jueves</strong></div>
-          <div class="chip">⏰ <strong>2:00 p.m. – 4:00 p.m.</strong></div>
-          <div class="chip">🏫 <strong>Colegio La Salle del Sur</strong></div>
+          <div class="chip-large">
+            <span>📅</span>
+            <span><strong>Martes y Jueves</strong></span>
+          </div>
+          <div class="chip-large">
+            <span>⏰</span>
+            <span><strong>2:00 p.m. – 4:00 p.m.</strong></span>
+          </div>
         </div>
       </div>
 
-      <!-- MARCO PROPORCIONAL EXCLUSIVO PARA LA NIÑA EN EL AZUL -->
       <div class="hero-girl-frame">
         <img src="./assets/niña arodillada.png" alt="Niña en oración" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/ca99716dd73d12fda0325e6e1f031a2ed0693680/assets/ni%C3%B1a%20arodillada.png'">
       </div>
@@ -606,150 +676,321 @@ main {
   </header>
 
   <main>
-    <!-- CARDS SUPERPUESTAS DE VISTAZO RÁPIDO -->
     <div class="overlap-cards">
       <div class="card-quick">
         <div class="icon-bubble">📖</div>
         <div>
           <h4>Formación en la fe</h4>
-          <p>La Palabra de Dios como guía para cada encuentro.</p>
+          <p>La Palabra de Dios como guía principal.</p>
         </div>
       </div>
       <div class="card-quick">
         <div class="icon-bubble">🤝</div>
         <div>
           <h4>Aprender haciendo</h4>
-          <p>Dinámicas, canciones, diálogo, oración y actividades.</p>
+          <p>Dinámicas, canciones, diálogo y oración.</p>
         </div>
       </div>
       <div class="card-quick">
         <div class="icon-bubble">🏡</div>
         <div>
           <h4>La familia acompaña</h4>
-          <p>Pequeños retos para compartir la fe en casa.</p>
+          <p>Retos para compartir la fe en casa.</p>
         </div>
       </div>
     </div>
 
-    <!-- SECCIÓN DE LAS 6 ETAPAS FIJAS CON DIBUJOS DE LA CARPETA ASSETS -->
+    <!-- 6 ETAPAS CON ESPACIO OPTIMIZADO -->
     <section class="section">
       <div class="section-head">
         <div class="kicker">Nuestro Itinerario</div>
         <h2>Un camino que se vive paso a paso</h2>
-        <p>Las 6 grandes etapas que orientan nuestra preparación catequética:</p>
+        <p>Las 6 etapas de nuestra preparación catequética:</p>
       </div>
 
       <div class="stages-grid">
-        <!-- ETAPA 1 -->
-        <div class="stage-card">
+        <div class="stage-card" data-stage="0">
           <div class="stage-badge">1</div>
           <div class="stage-img-box">
             <img src="./assets/niñoarrodillado.png" alt="Etapa 1" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/ca99716dd73d12fda0325e6e1f031a2ed0693680/assets/ni%C3%B1oarrodillado.png'">
           </div>
           <strong>Conociendo a Jesús</strong>
-          <p>Su vida, sus enseñanzas y su amor.</p>
+          <p>Su vida y su amor.</p>
         </div>
 
-        <!-- ETAPA 2 -->
-        <div class="stage-card">
+        <div class="stage-card" data-stage="1">
           <div class="stage-badge">2</div>
           <div class="stage-img-box">
             <img src="./assets/niña arodillada.png" alt="Etapa 2" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/ca99716dd73d12fda0325e6e1f031a2ed0693680/assets/ni%C3%B1a%20arodillada.png'">
           </div>
           <strong>Aprendemos a orar</strong>
-          <p>Conversar con Dios como a un amigo.</p>
+          <p>Hablar con Dios.</p>
         </div>
 
-        <!-- ETAPA 3 -->
-        <div class="stage-card">
+        <div class="stage-card" data-stage="2">
           <div class="stage-badge">3</div>
           <div class="stage-img-box">
             <img src="./assets/niñoparado.png" alt="Etapa 3" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/ca99716dd73d12fda0325e6e1f031a2ed0693680/assets/ni%C3%B1oparado.png'">
           </div>
           <strong>Los sacramentos</strong>
-          <p>Signos de la gracia de Dios.</p>
+          <p>Regalos de Dios.</p>
         </div>
 
-        <!-- ETAPA 4 -->
-        <div class="stage-card">
+        <div class="stage-card" data-stage="3">
           <div class="stage-badge">4</div>
           <div class="stage-img-box">
             <img src="./assets/niñaparada.png" alt="Etapa 4" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/ca99716dd73d12fda0325e6e1f031a2ed0693680/assets/ni%C3%B1aparada.png'">
           </div>
           <strong>La Eucaristía</strong>
-          <p>Prepararnos para recibir a Jesús.</p>
+          <p>Recibir a Jesús.</p>
         </div>
 
-        <!-- ETAPA 5 -->
-        <div class="stage-card">
+        <div class="stage-card" data-stage="4">
           <div class="stage-badge">5</div>
           <div class="stage-img-box">
             <img src="./assets/niñoarrodillado.png" alt="Etapa 5" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/ca99716dd73d12fda0325e6e1f031a2ed0693680/assets/ni%C3%B1oarrodillado.png'">
           </div>
           <strong>Valores cristianos</strong>
-          <p>Amor, respeto, perdón y servicio.</p>
+          <p>Amor y respeto.</p>
         </div>
 
-        <!-- ETAPA 6 -->
-        <div class="stage-card">
+        <div class="stage-card" data-stage="5">
           <div class="stage-badge">6</div>
           <div class="stage-img-box">
             <img src="./assets/niñaparada.png" alt="Etapa 6" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/ca99716dd73d12fda0325e6e1f031a2ed0693680/assets/ni%C3%B1aparada.png'">
           </div>
           <strong>Compartimos la fe</strong>
-          <p>Vivir en comunidad y familia.</p>
+          <p>En familia.</p>
         </div>
       </div>
     </section>
 
-    <!-- PLAN DE TRABAJO CON BOTONES ALEGRES DE FILTRADO -->
-    <section class="section">
-      <div class="planning-wrapper">
-        <div class="planning-header">
-          <h3>Explora los temas de clase</h3>
-          <span class="pill-tag">Plan Formativo</span>
-        </div>
-
-        <!-- BOTONES INTERACTIVOS ALEGRES Y DIVERTIMENTO INFANTIL -->
-        <div class="filters-kids">
-          <button class="btn-filter-child" aria-pressed="true">🌟 Todos</button>
-          <button class="btn-filter-child" aria-pressed="false">✝️ Jesús</button>
-          <button class="btn-filter-child" aria-pressed="false">🙏 Oración</button>
-          <button class="btn-filter-child" aria-pressed="false">⛪ Sacramentos</button>
-          <button class="btn-filter-child" aria-pressed="false">🍞 Eucaristía</button>
-          <button class="btn-filter-child" aria-pressed="false">💛 Valores y Familia</button>
-        </div>
-
-        <!-- MUESTRA DE SESIONES -->
-        <div class="sessions-grid">
-          <div class="session-item">
-            <span class="session-date">Clase 01 · 16 de Junio de 2026</span>
-            <h5>Mi camino de fe comienza</h5>
-            <p>Reconocer la catequesis como un camino para conocer y seguir a Jesús con alegría.</p>
-          </div>
-
-          <div class="session-item">
-            <span class="session-date">Clase 02 · 18 de Junio de 2026</span>
-            <h5>Dios es nuestro Padre y nos ama</h5>
-            <p>Descubrir el gran amor de Dios Padre y nuestra dignidad como hijos suyos.</p>
-          </div>
-
-          <div class="session-item">
-            <span class="session-date">Clase 03 · 23 de Junio de 2026</span>
-            <h5>Somos creados por amor</h5>
-            <p>Valorar la propia vida y respetar la dignidad de cada persona que nos rodea.</p>
-          </div>
-
-          <div class="session-item">
-            <span class="session-date">Clase 04 · 25 de Junio de 2026</span>
-            <h5>La creación, regalo de Dios</h5>
-            <p>Asumir compromisos sencillos para cuidar la naturaleza y nuestra casa común.</p>
-          </div>
+    <!-- CALENDARIO INTERACTIVO DE CLASES -->
+    <section class="calendar-card">
+      <div class="calendar-top">
+        <h3>Calendario de programación</h3>
+        <div class="calendar-ctrls">
+          <button id="prev-m" type="button">‹</button>
+          <strong id="month-label">Junio 2026</strong>
+          <button id="next-m" type="button">›</button>
         </div>
       </div>
+
+      <div class="calendar-grid" id="calendar-grid"></div>
+
+      <div class="calendar-detail-box" id="cal-detail-box">
+        <div>
+          <h5 id="cal-detail-title">Selecciona un día en el calendario</h5>
+          <p id="cal-detail-desc">Haz clic en una fecha marcada para ver la clase correspondiente.</p>
+        </div>
+        <button class="btn-filter-child" id="btn-open-modal" style="display:none;">Ver ficha completa</button>
+      </div>
+    </section>
+
+    <!-- PLAN DE TRABAJO -->
+    <section class="planning-wrapper">
+      <div class="planning-header">
+        <h3>Temas de clase</h3>
+        <input type="text" id="search-input" class="search-input" placeholder="🔍 Buscar tema...">
+      </div>
+
+      <div class="filters-kids" id="category-filters">
+        <button class="btn-filter-child" data-cat="todos" aria-pressed="true">🌟 Todos</button>
+        <button class="btn-filter-child" data-cat="jesus" aria-pressed="false">✝️ Jesús</button>
+        <button class="btn-filter-child" data-cat="oracion" aria-pressed="false">🙏 Oración</button>
+        <button class="btn-filter-child" data-cat="sacramentos" aria-pressed="false">⛪ Sacramentos</button>
+        <button class="btn-filter-child" data-cat="eucaristia" aria-pressed="false">🍞 Eucaristía</button>
+        <button class="btn-filter-child" data-cat="valores" aria-pressed="false">💛 Valores y Familia</button>
+      </div>
+
+      <div class="sessions-grid" id="sessions-grid"></div>
     </section>
   </main>
 </div>
 
+<!-- MODAL FICHA PEDAGÓGICA -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-card">
+    <button class="modal-close" id="modal-close">✕</button>
+    <span style="font-size:11px; font-weight:800; color:#b88322;" id="m-stage">Etapa 1 · Clase 01</span>
+    <h4 id="m-title" style="margin-bottom:8px;">Título de la clase</h4>
+    
+    <div class="modal-grid">
+      <div class="modal-box">
+        <label>Objetivo</label>
+        <p id="m-obj">-</p>
+      </div>
+      <div class="modal-box">
+        <label>Cita Bíblica</label>
+        <p id="m-word">-</p>
+      </div>
+      <div class="modal-box wide">
+        <label>Actividad sugerida</label>
+        <p id="m-act">-</p>
+      </div>
+      <div class="modal-box wide">
+        <label>Reto en Familia</label>
+        <p id="m-fam">-</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  const stageNames = ["Conociendo a Jesús", "Aprendemos a orar", "Descubrimos los sacramentos", "Vivimos la Eucaristía", "Practicamos los valores", "Compartimos la fe"];
+  const stageCategories = ["jesus", "oracion", "sacramentos", "eucaristia", "valores", "compartir"];
+
+  const topics = [
+    ["Mi camino de fe comienza", 0, "Reconocer la catequesis como camino para conocer y seguir a Jesús.", "Marcos 10,14", "Crear un mural de bienvenida: Caminamos con Jesús.", "Compartir en casa qué esperan aprender."],
+    ["Dios es nuestro Padre y nos ama", 0, "Descubrir el amor de Dios y nuestra dignidad como hijos suyos.", "1 Juan 3,1", "Identificar señales del amor de Dios en la vida diaria.", "Agradecer en familia por una señal de amor."],
+    ["Somos creados por amor", 4, "Valorar la propia vida y respetar la dignidad de cada persona.", "Génesis 1,27", "Reconocer cualidades propias y de los compañeros.", "Decir a un familiar algo que valoran de él."],
+    ["La creación, regalo de Dios", 4, "Asumir acciones concretas de cuidado de la naturaleza.", "Génesis 2,15", "Diseñar un compromiso de cuidado de la casa común.", "Realizar una acción de cuidado ambiental."],
+    ["Dios acompaña a su pueblo", 0, "Comprender cómo Dios acompaña a su pueblo en la historia.", "Deuteronomio 7,9", "Ordenar momentos de una historia bíblica.", "Conversar sobre una ocasión en que alguien los acompañó."],
+    ["La fe: confiar en Dios", 0, "Expresar qué significa creer y confiar en Dios.", "Hebreos 11,1", "Dialogar sobre una situación donde se necesita confianza.", "Escribir una intención para poner en manos de Dios."]
+  ];
+
+  const allDates = [];
+  for (let d = new Date(2026, 5, 16, 12); d <= new Date(2026, 11, 15, 12); d.setDate(d.getDate() + 1)) {
+    if (d.getDay() === 2 || d.getDay() === 4) allDates.push(new Date(d));
+  }
+
+  const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+  const weekdays = ["L", "M", "X", "J", "V", "S", "D"];
+
+  const key = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+  const dateIndex = new Map(allDates.map((d, i) => [key(d), i]));
+
+  let currentMonth = new Date(2026, 5, 1, 12);
+  let selectedIndex = 0;
+  let activeCategory = "todos";
+  let activeStage = null;
+
+  const gridCal = document.getElementById("calendar-grid");
+  const monthLbl = document.getElementById("month-label");
+  const sessionsGrid = document.getElementById("sessions-grid");
+  const modal = document.getElementById("modal-overlay");
+
+  function getSessionData(i) {
+    const d = allDates[i] || allDates[0];
+    if (i < topics.length) {
+      const t = topics[i];
+      return { index: i, date: d, title: t[0], stage: t[1], obj: t[2], word: t[3], act: t[4], fam: t[5], cat: stageCategories[t[1]] };
+    }
+    return { index: i, date: d, title: `Encuentro de catequesis N° ${i+1}`, stage: i % 6, obj: "Profundizar en la fe y vida cristiana.", word: "Lucas 10,27", act: "Dinámica y reflexión grupal.", fam: "Conversar en casa sobre lo aprendido.", cat: stageCategories[i % 6] };
+  }
+
+  function renderCalendar() {
+    const y = currentMonth.getFullYear();
+    const m = currentMonth.getMonth();
+    monthLbl.textContent = `${monthNames[m]} ${y}`;
+    gridCal.innerHTML = "";
+
+    weekdays.forEach(w => {
+      const el = document.createElement("div");
+      el.className = "weekday-header";
+      el.textContent = w;
+      gridCal.appendChild(el);
+    });
+
+    const firstDay = (new Date(y, m, 1, 12).getDay() + 6) % 7;
+    const daysInMonth = new Date(y, m + 1, 0, 12).getDate();
+
+    for (let i = 0; i < firstDay; i++) gridCal.appendChild(document.createElement("div"));
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const d = new Date(y, m, day, 12);
+      const idx = dateIndex.get(key(d));
+      const btn = document.createElement("button");
+      btn.className = "cal-day";
+      btn.textContent = day;
+
+      if (idx !== undefined) {
+        btn.classList.add("has-class");
+        btn.setAttribute("aria-pressed", String(idx === selectedIndex));
+        btn.onclick = () => selectSession(idx);
+      } else {
+        btn.disabled = true;
+      }
+      gridCal.appendChild(btn);
+    }
+  }
+
+  function selectSession(idx) {
+    selectedIndex = idx;
+    const s = getSessionData(idx);
+    document.getElementById("cal-detail-title").textContent = `Clase ${String(idx+1).padStart(2,"0")} · ${s.title}`;
+    document.getElementById("cal-detail-desc").textContent = `${s.date.getDate()} de ${monthNames[s.date.getMonth()]} - ${s.obj}`;
+    const btnModal = document.getElementById("btn-open-modal");
+    btnModal.style.display = "inline-flex";
+    btnModal.onclick = () => openModal(s);
+    renderCalendar();
+  }
+
+  function openModal(s) {
+    document.getElementById("m-stage").textContent = `Etapa ${s.stage + 1}: ${stageNames[s.stage]} · Clase ${String(s.index + 1).padStart(2,"0")}`;
+    document.getElementById("m-title").textContent = s.title;
+    document.getElementById("m-obj").textContent = s.obj;
+    document.getElementById("m-word").textContent = s.word;
+    document.getElementById("m-act").textContent = s.act;
+    document.getElementById("m-fam").textContent = s.fam;
+    modal.classList.add("active");
+  }
+
+  function renderSessions() {
+    sessionsGrid.innerHTML = "";
+    const searchVal = document.getElementById("search-input").value.toLowerCase();
+
+    allDates.slice(0, 18).forEach((_, i) => {
+      const s = getSessionData(i);
+      const matchCat = activeCategory === "todos" || s.cat === activeCategory;
+      const matchStage = activeStage === null || s.stage === activeStage;
+      const matchSearch = s.title.toLowerCase().includes(searchVal) || s.obj.toLowerCase().includes(searchVal);
+
+      if (matchCat && matchStage && matchSearch) {
+        const item = document.createElement("div");
+        item.className = "session-item";
+        item.innerHTML = `
+          <span class="session-date">Clase ${String(i+1).padStart(2,"0")} · ${s.date.getDate()} de ${monthNames[s.date.getMonth()]}</span>
+          <h5>${s.title}</h5>
+          <p>${s.obj}</p>
+        `;
+        item.onclick = () => openModal(s);
+        sessionsGrid.appendChild(item);
+      }
+    });
+  }
+
+  document.getElementById("prev-m").onclick = () => { currentMonth.setMonth(currentMonth.getMonth() - 1); renderCalendar(); };
+  document.getElementById("next-m").onclick = () => { currentMonth.setMonth(currentMonth.getMonth() + 1); renderCalendar(); };
+  document.getElementById("modal-close").onclick = () => modal.classList.remove("active");
+  document.getElementById("search-input").oninput = renderSessions;
+
+  document.querySelectorAll("#category-filters button").forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll("#category-filters button").forEach(b => b.setAttribute("aria-pressed", "false"));
+      btn.setAttribute("aria-pressed", "true");
+      activeCategory = btn.dataset.cat;
+      activeStage = null;
+      renderSessions();
+    };
+  });
+
+  document.querySelectorAll(".stage-card").forEach(card => {
+    card.onclick = () => {
+      const st = parseInt(card.dataset.stage);
+      activeStage = activeStage === st ? null : st;
+      document.querySelectorAll(".stage-card").forEach(c => c.setAttribute("aria-pressed", String(parseInt(c.dataset.stage) === activeStage)));
+      renderSessions();
+    };
+  });
+
+  renderCalendar();
+  selectSession(0);
+  renderSessions();
+})();
+</script>
 </body>
 </html>
