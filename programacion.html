@@ -47,12 +47,12 @@ a { text-decoration: none; color: inherit; }
   background: linear-gradient(90deg, #d9a036, #ffe285, #d9a036);
 }
 
-/* HEADER COMPACTO */
+/* HEADER COMPACTO Y ORDENADO */
 header {
   position: relative;
   background: linear-gradient(135deg, #05142b 0%, #081c3b 50%, #0d2f5e 100%);
   color: white;
-  padding: 16px 24px 0px; /* Reducido espacio interno */
+  padding: 16px 24px 0px;
   border-bottom-left-radius: 24px;
   border-bottom-right-radius: 24px;
   overflow: hidden;
@@ -133,6 +133,11 @@ header {
   font-size: 13px;
   font-weight: 600;
   box-shadow: 0 4px 12px rgba(243, 156, 18, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.btn-home:hover {
+  transform: translateY(-2px);
 }
 
 /* HERO COMPACTO */
@@ -204,7 +209,6 @@ header {
   filter: drop-shadow(-6px 8px 14px rgba(0, 0, 0, 0.4));
 }
 
-/* MAIN CONTENT SIN ESPACIOS EXCESIVOS */
 main {
   padding: 0 clamp(12px, 2.5vw, 28px) 30px;
 }
@@ -253,7 +257,6 @@ main {
   font-weight: 600;
 }
 
-/* SECCIONES AJUSTADAS */
 .section {
   margin-top: 28px;
 }
@@ -283,7 +286,7 @@ main {
   font-weight: 600;
 }
 
-/* 6 ETAPAS COMPACTAS */
+/* 6 ETAPAS INTERACTIVAS CON ILUSTRACIONES DINÁMICAS */
 .stages-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -292,20 +295,29 @@ main {
 
 .stage-card {
   background: #ffffff;
-  border: 2px solid #e2d5bd;
+  border: 2.5px solid #e2d5bd;
   border-radius: var(--radius-md);
-  padding: 10px 6px 12px;
+  padding: 12px 8px 14px;
   text-align: center;
   position: relative;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: all 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.stage-card:hover, .stage-card[aria-pressed="true"] {
+.stage-card:hover {
+  transform: translateY(-6px) scale(1.02);
   border-color: #ffc83b;
-  background: #fffdf5;
+  box-shadow: 0 10px 22px rgba(232, 189, 96, 0.35);
+}
+
+.stage-card[aria-pressed="true"] {
+  border-color: #081c3b;
+  background: #fffdf2;
+  box-shadow: 0 8px 20px rgba(8, 28, 59, 0.2);
+  transform: translateY(-4px);
 }
 
 .stage-badge {
@@ -315,8 +327,8 @@ main {
   transform: translateX(-50%);
   background: linear-gradient(135deg, #ffc83b, #f39c12);
   color: #081c3b;
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   border: 2px solid #fff;
   font-family: 'Fredoka', sans-serif;
@@ -324,43 +336,67 @@ main {
   font-size: 12px;
   display: grid;
   place-items: center;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 }
 
 .stage-img-box {
   width: 100%;
-  height: 85px;
-  margin-top: 4px;
-  margin-bottom: 6px;
-  border-radius: 10px;
-  background: #fbf5e8;
+  height: 90px;
+  margin-top: 6px;
+  margin-bottom: 8px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #fffcf5 0%, #f6ebd5 100%);
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   overflow: hidden;
+  border: 1px solid #f0e2ca;
 }
 
 .stage-img-box img {
   height: 75px;
   width: auto;
   object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.stage-card:hover .stage-img-box img {
+  transform: scale(1.12) rotate(-2deg);
+}
+
+/* ÍCONO TEMÁTICO DE REFUERZO */
+.stage-icon-badge {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  background: #ffffff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 13px;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  border: 1px solid #ffe285;
 }
 
 .stage-card strong {
   font-family: 'Fredoka', sans-serif;
-  font-size: 13px;
+  font-size: 13.5px;
   color: var(--navy);
   line-height: 1.15;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 }
 
 .stage-card p {
-  font-size: 10.5px;
+  font-size: 11px;
   color: var(--text-muted);
-  line-height: 1.2;
+  line-height: 1.25;
   font-weight: 600;
 }
 
-/* CALENDARIO Y PLAN COMPACTOS */
+/* CALENDARIO Y PLAN */
 .calendar-card, .planning-wrapper {
   background: #ffffff;
   border: 1.5px solid #e3d7be;
@@ -520,6 +556,12 @@ main {
   padding: 12px;
   background: #fffdf9;
   cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.session-item:hover {
+  transform: translateY(-2px);
+  border-color: #ffc83b;
 }
 
 .session-date {
@@ -631,7 +673,6 @@ main {
 <div class="site-container">
   <div class="topline"></div>
 
-  <!-- HEADER COMPACTO Y ORDENADO -->
   <header>
     <div class="headerbar">
       <div class="brand">
@@ -700,67 +741,79 @@ main {
       </div>
     </div>
 
-    <!-- 6 ETAPAS CON ESPACIO OPTIMIZADO -->
+    <!-- 6 ETAPAS INTERACTIVAS Y DIVERSIFICADAS -->
     <section class="section">
       <div class="section-head">
         <div class="kicker">Nuestro Itinerario</div>
         <h2>Un camino que se vive paso a paso</h2>
-        <p>Las 6 etapas de nuestra preparación catequética:</p>
+        <p>Haz clic en cualquiera de las 6 etapas para filtrar sus encuentros:</p>
       </div>
 
       <div class="stages-grid">
+        <!-- ETAPA 1 -->
         <div class="stage-card" data-stage="0">
           <div class="stage-badge">1</div>
           <div class="stage-img-box">
             <img src="./assets/niñoarrodillado.png" alt="Etapa 1" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/ca99716dd73d12fda0325e6e1f031a2ed0693680/assets/ni%C3%B1oarrodillado.png'">
+            <div class="stage-icon-badge">✝️</div>
           </div>
           <strong>Conociendo a Jesús</strong>
-          <p>Su vida y su amor.</p>
+          <p>Su vida, su mensaje y su amor.</p>
         </div>
 
+        <!-- ETAPA 2 -->
         <div class="stage-card" data-stage="1">
           <div class="stage-badge">2</div>
           <div class="stage-img-box">
             <img src="./assets/niña arodillada.png" alt="Etapa 2" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/ca99716dd73d12fda0325e6e1f031a2ed0693680/assets/ni%C3%B1a%20arodillada.png'">
+            <div class="stage-icon-badge">🙏</div>
           </div>
           <strong>Aprendemos a orar</strong>
-          <p>Hablar con Dios.</p>
+          <p>Hablar con Dios con confianza.</p>
         </div>
 
+        <!-- ETAPA 3 -->
         <div class="stage-card" data-stage="2">
           <div class="stage-badge">3</div>
           <div class="stage-img-box">
             <img src="./assets/niñoparado.png" alt="Etapa 3" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/ca99716dd73d12fda0325e6e1f031a2ed0693680/assets/ni%C3%B1oparado.png'">
+            <div class="stage-icon-badge">⛪</div>
           </div>
           <strong>Los sacramentos</strong>
-          <p>Regalos de Dios.</p>
+          <p>Signos de la gracia de Dios.</p>
         </div>
 
+        <!-- ETAPA 4 -->
         <div class="stage-card" data-stage="3">
           <div class="stage-badge">4</div>
           <div class="stage-img-box">
             <img src="./assets/niñaparada.png" alt="Etapa 4" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/ca99716dd73d12fda0325e6e1f031a2ed0693680/assets/ni%C3%B1aparada.png'">
+            <div class="stage-icon-badge">🍇</div>
           </div>
           <strong>La Eucaristía</strong>
-          <p>Recibir a Jesús.</p>
+          <p>Prepararnos para recibir a Jesús.</p>
         </div>
 
+        <!-- ETAPA 5 -->
         <div class="stage-card" data-stage="4">
           <div class="stage-badge">5</div>
           <div class="stage-img-box">
             <img src="./assets/niñoarrodillado.png" alt="Etapa 5" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/ca99716dd73d12fda0325e6e1f031a2ed0693680/assets/ni%C3%B1oarrodillado.png'">
+            <div class="stage-icon-badge">💛</div>
           </div>
           <strong>Valores cristianos</strong>
-          <p>Amor y respeto.</p>
+          <p>Amor, respeto y perdón.</p>
         </div>
 
+        <!-- ETAPA 6 -->
         <div class="stage-card" data-stage="5">
           <div class="stage-badge">6</div>
           <div class="stage-img-box">
             <img src="./assets/niñaparada.png" alt="Etapa 6" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/ca99716dd73d12fda0325e6e1f031a2ed0693680/assets/ni%C3%B1aparada.png'">
+            <div class="stage-icon-badge">👨‍👩‍👧‍👦</div>
           </div>
           <strong>Compartimos la fe</strong>
-          <p>En familia.</p>
+          <p>Vivir en comunidad y familia.</p>
         </div>
       </div>
     </section>
@@ -974,6 +1027,7 @@ main {
       btn.setAttribute("aria-pressed", "true");
       activeCategory = btn.dataset.cat;
       activeStage = null;
+      document.querySelectorAll(".stage-card").forEach(c => c.setAttribute("aria-pressed", "false"));
       renderSessions();
     };
   });
