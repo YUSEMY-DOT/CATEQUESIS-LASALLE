@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,9 +8,12 @@
   <link rel="preload" as="image" href="./assets/PORTAL%20CATEQUESIS.png">
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
-    html, body {
+    html,
+    body {
       width: 100%;
       height: 100%;
       margin: 0;
@@ -27,7 +29,6 @@
       background: #02091f;
     }
 
-    /* PORTADA */
     .portada {
       position: fixed;
       z-index: 1;
@@ -43,7 +44,6 @@
       background-size: 100% 100%;
     }
 
-    /* CINCO BOTONES */
     .menu {
       position: fixed;
       z-index: 5;
@@ -92,45 +92,30 @@
       padding: 0;
     }
 
-    .boton:hover { transform: scale(1.02); }
-    .boton:active { transform: scale(0.98); }
+    .boton:hover {
+      transform: scale(1.02);
+    }
 
-    /* INDICADOR BLANCO ILUMINADO */
+    .boton:active {
+      transform: scale(0.98);
+    }
+
+    /* INDICACIÓN CON DESTELLO FINO */
     .indicacion-ingreso {
       position: fixed;
       z-index: 6;
-      top: 3.2%;
+      top: 0.25%;
       left: 0.4%;
       width: min(7.8%, 110px);
-      color: #ffffff;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: clamp(9px, 0.85vw, 12px);
-      font-weight: 800;
-      line-height: 1.1;
+      color: #f5d477;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(8px, 0.75vw, 11px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: 0.1px;
       text-align: center;
-      text-shadow:
-        0 0 3px #ffffff,
-        0 0 7px #ffffff,
-        0 0 12px rgba(255, 255, 255, 0.95);
-      animation: destello 1.4s ease-in-out infinite;
+      text-shadow: 0 0 1px #ffffff, 0 0 1.5px #f5d477, 0 1px 1px #000;
       pointer-events: none;
-    }
-
-    @keyframes destello {
-      0%, 100% {
-        opacity: 1;
-        text-shadow:
-          0 0 3px #ffffff,
-          0 0 7px #ffffff,
-          0 0 12px rgba(255, 255, 255, 0.95);
-      }
-      50% {
-        opacity: 0.7;
-        text-shadow:
-          0 0 5px #ffffff,
-          0 0 11px #ffffff,
-          0 0 17px #ffffff;
-      }
     }
 
     /* FRASE DE MISIÓN */
@@ -143,7 +128,9 @@
       max-width: 500px;
       margin: 0;
       padding: 0;
-      color: #002d83;
+      color: #0047d9;
+      -webkit-text-stroke: 0.25px #ffffff;
+      paint-order: stroke fill;
       font-family: Arial, Helvetica, sans-serif;
       font-size: clamp(13px, 1.45vw, 23px);
       font-weight: 800;
@@ -151,25 +138,11 @@
       line-height: 1.3;
       text-align: left;
       overflow-wrap: break-word;
-      text-shadow:
-        0 0 2px #ffffff,
-        0 0 5px rgba(255, 255, 255, 0.95),
-        0 0 9px rgba(255, 255, 255, 0.8);
+      text-shadow: none;
       pointer-events: none;
     }
 
-    .cursor-escritura {
-      display: inline-block;
-      margin-left: 2px;
-      color: #002d83;
-      animation: parpadeo 0.8s steps(1) infinite;
-    }
-
-    @keyframes parpadeo {
-      50% { opacity: 0; }
-    }
-
-    /* CONTROL DE MÚSICA */
+    /* BOTÓN DE AUDIO */
     .control-audio {
       position: absolute;
       z-index: 10;
@@ -213,17 +186,20 @@
          0 0 5px #002d83;
       pointer-events: none;
     }
-
-    /* TABLET */
+        /* TABLET */
     @media (max-width: 900px) {
       .menu {
         width: 8.5%;
         gap: 5px;
       }
 
-      .boton { flex-basis: 17%; }
-      .portada { left: 9.5%; }
-      .indicacion-ingreso { width: 8.5%; }
+      .boton {
+        flex-basis: 17%;
+      }
+
+      .portada {
+        left: 9.5%;
+      }
 
       .frase-mision {
         width: 42%;
@@ -255,7 +231,9 @@
         gap: 4px;
       }
 
-      .boton { flex-basis: 17%; }
+      .boton {
+        flex-basis: 17%;
+      }
 
       .portada {
         top: 0.7%;
@@ -268,6 +246,7 @@
         left: 0.4%;
         width: 14%;
         font-size: 8px;
+        text-shadow: 0 0 1px #ffffff, 0 0 1.5px #f5d477;
       }
 
       .frase-mision {
@@ -300,7 +279,9 @@
         gap: 3px;
       }
 
-      .portada { left: 16.2%; }
+      .portada {
+        left: 16.2%;
+      }
 
       .indicacion-ingreso {
         left: 0.4%;
@@ -313,15 +294,19 @@
         font-size: 9px;
       }
 
-      .derechos-reservados { font-size: 8px; }
+      .derechos-reservados {
+        font-size: 8px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- 1. NUESTRA PROGRAMACIÓN -->
+  <!-- BOTONES DEL MENÚ -->
   <nav class="menu" aria-label="Menú principal">
+
+    <!-- 1. NUESTRA PROGRAMACIÓN -->
     <button class="boton" type="button"
       data-destino="programacion.html"
       aria-label="Nuestra Programación">
@@ -360,35 +345,41 @@
       <img src="./assets/BTN_COORDINADOR.png"
         alt="Coordinador Parroquial">
     </button>
+
   </nav>
 
-  <div class="indicacion-ingreso">☟ INGRESE</div>
+  <!-- INDICACIÓN SOBRE LOS BOTONES -->
+  <div class="indicacion-ingreso">☝ Haz clic<br>para ingresar</div>
 
-  <!-- PORTADA -->
+  <!-- PORTADA PRINCIPAL -->
   <main class="portada" aria-label="Camino hacia Jesús">
+
     <div class="frase-mision">
       <span id="textoMision"></span><span class="cursor-escritura">|</span>
     </div>
 
+    <!-- MÚSICA -->
     <audio id="musica" loop preload="none">
       <source
         src="./alma-misionera-athenas-musica-catolica.mp3"
         type="audio/mpeg">
     </audio>
 
+    <!-- ÚNICO CONTROL DE AUDIO -->
     <button
       id="controlAudio"
       class="control-audio"
       type="button"
       aria-label="Reproducir música"
       title="Activar o silenciar música">🔊</button>
+
   </main>
 
+  <!-- DERECHOS RESERVADOS -->
   <footer class="derechos-reservados">
     © Corporación La Salle del Sur. Derechos reservados.
   </footer>
-
-  <script>
+    <script>
     (() => {
       "use strict";
 
@@ -397,32 +388,31 @@
       const botones = document.querySelectorAll(".boton");
       const textoMision = document.getElementById("textoMision");
 
-      /* LA FRASE TERMINA EN DIOS */
       const frase =
-        "Guiamos sus primeros pasos en la fe, acompañamos sus corazones hacia Jesús y sembramos en sus vidas el amor de Dios.";
+        "Guiamos sus primeros pasos en la fe, acompañamos sus corazones hacia Jesús y sembramos en sus vidas el amor de Dios, para que cada sacramento sea el comienzo de una historia de fe que los acompañe por siempre.";
 
-      let indice = 0;
       let silenciado = false;
       let contextoAudio = null;
 
-      /* ESCRITURA ANIMADA */
+      /* ESCRITURA AUTOMÁTICA: COMIENZA UNA SOLA VEZ */
       function escribirFrase() {
-        if (indice < frase.length) {
-          textoMision.textContent += frase.charAt(indice);
-          indice++;
-          window.setTimeout(escribirFrase, 45);
-        } else {
-          window.setTimeout(() => {
-            textoMision.textContent = "";
-            indice = 0;
-            escribirFrase();
-          }, 5000);
+        if (!textoMision || textoMision.dataset.iniciada === "si") {
+          return;
         }
+
+        textoMision.dataset.iniciada = "si";
+        textoMision.textContent = frase;
       }
 
-      escribirFrase();
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", escribirFrase, {
+          once: true
+        });
+      } else {
+        escribirFrase();
+      }
 
-      /* MÚSICA AL 15 % */
+      /* MÚSICA */
       async function iniciarMusica() {
         if (silenciado) return;
 
@@ -438,18 +428,10 @@
           controlAudio.textContent = "▶";
           controlAudio.setAttribute("aria-label", "Reproducir música");
           controlAudio.title = "Pulsa para reproducir la música";
-          console.warn("No se pudo iniciar la música. Comprueba el archivo MP3.");
         }
       }
 
-      /* INTENTO DE REPRODUCCIÓN AUTOMÁTICA */
-      window.addEventListener("load", iniciarMusica);
-
-      /*
-       * EFECTO CELESTIAL:
-       * campanilla suave con varias notas armoniosas y una
-       * resonancia corta. No requiere archivos de sonido externos.
-       */
+      /* EFECTO SONORO AL PULSAR LOS BOTONES */
       function efectoBoton() {
         try {
           const AudioContext =
@@ -463,46 +445,31 @@
 
           const reproducir = () => {
             const ahora = contextoAudio.currentTime;
+            const tono = contextoAudio.createOscillator();
+            const volumen = contextoAudio.createGain();
 
-            /* Notas armoniosas tipo campanilla */
-            const notas = [
-              { frecuencia: 659.25, inicio: 0, duracion: 0.65, volumen: 0.12 },
-              { frecuencia: 783.99, inicio: 0.09, duracion: 0.75, volumen: 0.09 },
-              { frecuencia: 987.77, inicio: 0.18, duracion: 0.95, volumen: 0.07 }
-            ];
+            tono.type = "sine";
+            tono.frequency.setValueAtTime(880, ahora);
+            tono.frequency.exponentialRampToValueAtTime(
+              660,
+              ahora + 0.12
+            );
 
-            notas.forEach((nota) => {
-              const tono = contextoAudio.createOscillator();
-              const envolvente = contextoAudio.createGain();
+            volumen.gain.setValueAtTime(0.0001, ahora);
+            volumen.gain.linearRampToValueAtTime(
+              0.07,
+              ahora + 0.015
+            );
+            volumen.gain.exponentialRampToValueAtTime(
+              0.0001,
+              ahora + 0.16
+            );
 
-              tono.type = "sine";
-              tono.frequency.setValueAtTime(
-                nota.frecuencia,
-                ahora + nota.inicio
-              );
+            tono.connect(volumen);
+            volumen.connect(contextoAudio.destination);
 
-              /* Ataque suave y caída natural */
-              envolvente.gain.setValueAtTime(
-                0.0001,
-                ahora + nota.inicio
-              );
-
-              envolvente.gain.exponentialRampToValueAtTime(
-                nota.volumen,
-                ahora + nota.inicio + 0.025
-              );
-
-              envolvente.gain.exponentialRampToValueAtTime(
-                0.0001,
-                ahora + nota.inicio + nota.duracion
-              );
-
-              tono.connect(envolvente);
-              envolvente.connect(contextoAudio.destination);
-
-              tono.start(ahora + nota.inicio);
-              tono.stop(ahora + nota.inicio + nota.duracion + 0.03);
-            });
+            tono.start(ahora);
+            tono.stop(ahora + 0.17);
           };
 
           if (contextoAudio.state === "suspended") {
@@ -511,11 +478,11 @@
             reproducir();
           }
         } catch (error) {
-          console.warn("No se pudo reproducir el efecto de campanilla.");
+          /* El sonido no debe impedir la navegación. */
         }
       }
 
-      /* NAVEGACIÓN DE LOS CINCO BOTONES */
+      /* NAVEGACIÓN: UN SOLO TOQUE */
       botones.forEach((boton) => {
         boton.addEventListener("click", () => {
           efectoBoton();
@@ -523,9 +490,7 @@
           const destino = boton.getAttribute("data-destino");
 
           if (destino) {
-            window.setTimeout(() => {
-              window.location.href = destino;
-            }, 180);
+            window.location.href = destino;
           }
         });
       });
@@ -549,17 +514,16 @@
         if (!silenciado) {
           controlAudio.textContent = "🔊";
           controlAudio.setAttribute("aria-label", "Silenciar música");
-          controlAudio.title = "Silenciar música";
         }
       });
 
       musica.addEventListener("error", () => {
         controlAudio.textContent = "▶";
         controlAudio.setAttribute("aria-label", "Reproducir música");
-        console.error(
-          "No se pudo cargar el archivo MP3. Verifica que esté en la raíz del repositorio."
-        );
       });
+
+      /* INTENTAR REPRODUCIR LA MÚSICA */
+      window.addEventListener("load", iniciarMusica, { once: true });
     })();
   </script>
 
