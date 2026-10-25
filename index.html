@@ -1,11 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#10275b">
+  <meta name="theme-color" content="#02091f">
   <title>Camino hacia Jesús - Colegio La Salle del Sur</title>
+  <link rel="preload" as="image" href="./assets/PORTAL%20CATEQUESIS.png">
 
   <style>
     * {
@@ -26,7 +26,7 @@
       height: 100dvh;
       overflow: hidden;
       font-family: Arial, Helvetica, sans-serif;
-      background: #071a43;
+      background: #02091f;
     }
 
     /* PORTADA */
@@ -38,7 +38,8 @@
       bottom: 0.7%;
       left: 8.7%;
       overflow: hidden;
-      background-color: #10275b;
+
+      background-color: #02091f;
       background-image: url("./assets/PORTAL%20CATEQUESIS.png");
       background-position: center center;
       background-repeat: no-repeat;
@@ -54,11 +55,13 @@
       left: 0.4%;
       width: 7.8%;
       max-width: 110px;
+
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       gap: clamp(4px, 0.65vh, 8px);
+
       margin: 0;
       padding: 0;
     }
@@ -68,9 +71,11 @@
       width: 100%;
       max-height: 145px;
       min-height: 0;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
       margin: 0;
       padding: 0;
       border: none;
@@ -79,6 +84,7 @@
       cursor: pointer;
       line-height: 0;
       overflow: hidden;
+
       -webkit-tap-highlight-color: transparent;
       transition: transform 0.15s ease;
     }
@@ -102,20 +108,26 @@
       transform: scale(0.98);
     }
 
-    /* INDICACIÓN BLANCA DESTELLANTE */
+    /* INDICADOR BLANCO, ILUMINADO Y DESTELLANTE */
     .indicacion-ingreso {
       position: fixed;
       z-index: 6;
       top: 3.2%;
       left: 0.4%;
       width: min(7.8%, 110px);
+
       color: #ffffff;
       font-family: Arial, Helvetica, sans-serif;
       font-size: clamp(9px, 0.85vw, 12px);
       font-weight: 800;
       line-height: 1.1;
       text-align: center;
-      text-shadow: 0 0 4px #ffffff, 0 0 8px #ffffff;
+
+      text-shadow:
+        0 0 3px #ffffff,
+        0 0 7px #ffffff,
+        0 0 12px rgba(255, 255, 255, 0.95);
+
       animation: destello 1.4s ease-in-out infinite;
       pointer-events: none;
     }
@@ -123,25 +135,33 @@
     @keyframes destello {
       0%, 100% {
         opacity: 1;
-        text-shadow: 0 0 3px #ffffff;
+        text-shadow:
+          0 0 3px #ffffff,
+          0 0 7px #ffffff,
+          0 0 12px rgba(255, 255, 255, 0.95);
       }
+
       50% {
-        opacity: 0.45;
-        text-shadow: 0 0 7px #ffffff, 0 0 12px #ffffff;
+        opacity: 0.65;
+        text-shadow:
+          0 0 5px #ffffff,
+          0 0 11px #ffffff,
+          0 0 17px #ffffff;
       }
     }
 
-    /* FRASE DE MISIÓN: AZUL OSCURO E ILUMINACIÓN SUTIL */
+    /* FRASE DE MISIÓN */
     .frase-mision {
       position: absolute;
       z-index: 3;
-      top: 1.8%;
+      top: 4.1%;
       left: 2.4%;
       width: 40%;
       max-width: 500px;
       margin: 0;
       padding: 0;
-      color: #001f5b;
+
+      color: #002d83;
       font-family: Arial, Helvetica, sans-serif;
       font-size: clamp(13px, 1.45vw, 23px);
       font-weight: 800;
@@ -149,16 +169,19 @@
       line-height: 1.3;
       text-align: left;
       overflow-wrap: break-word;
-      -webkit-text-stroke: 0;
-      text-shadow: 0 0 2px rgba(255, 255, 255, 0.95);
+
+      text-shadow:
+        0 0 2px #ffffff,
+        0 0 5px rgba(255, 255, 255, 0.95),
+        0 0 9px rgba(255, 255, 255, 0.8);
+
       pointer-events: none;
     }
 
     .cursor-escritura {
       display: inline-block;
       margin-left: 2px;
-      color: #001f5b;
-      text-shadow: 0 0 2px rgba(255, 255, 255, 0.95);
+      color: #002d83;
       animation: parpadeo 0.8s steps(1) infinite;
     }
 
@@ -174,12 +197,15 @@
       z-index: 10;
       top: 14px;
       right: 14px;
+
       width: 42px;
       height: 42px;
       padding: 0;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
       color: #ffffff;
       background: rgba(10, 35, 83, 0.62);
       border: 1px solid #d7b65d;
@@ -195,21 +221,25 @@
       left: 25%;
       width: 55%;
       bottom: 1.2%;
+
       margin: 0;
       padding: 0;
       color: #ffffff;
       background: transparent;
       border: none;
+
       font-size: clamp(12px, 1.05vw, 18px);
       font-weight: 800;
       line-height: 1.3;
       text-align: center;
+
       text-shadow:
         -1px -1px 2px #002d83,
          1px -1px 2px #002d83,
         -1px  1px 2px #002d83,
          1px  1px 2px #002d83,
          0 0 5px #002d83;
+
       pointer-events: none;
     }
 
@@ -274,7 +304,6 @@
       }
 
       .indicacion-ingreso {
-        top: 3.2%;
         left: 0.4%;
         width: 14%;
         font-size: 8px;
@@ -315,6 +344,7 @@
       }
 
       .indicacion-ingreso {
+        left: 0.4%;
         width: 15%;
         font-size: 7px;
       }
@@ -378,7 +408,7 @@
 
   </nav>
 
-  <!-- INDICACIÓN BLANCA CON DEDO HACIA ABAJO -->
+  <!-- INDICADOR DE INGRESO -->
   <div class="indicacion-ingreso">☟ INGRESE</div>
 
   <!-- PORTADA -->
@@ -388,8 +418,8 @@
       <span id="textoMision"></span><span class="cursor-escritura">|</span>
     </div>
 
-    <!-- ARCHIVO MP3 UBICADO EN LA RAÍZ DEL REPOSITORIO -->
-    <audio id="musica" loop preload="auto">
+    <!-- ARCHIVO MP3 EN LA RAÍZ DEL REPOSITORIO -->
+    <audio id="musica" loop preload="none">
       <source
         src="./alma-misionera-athenas-musica-catolica.mp3"
         type="audio/mpeg">
@@ -418,7 +448,7 @@
       const botones = document.querySelectorAll(".boton");
       const textoMision = document.getElementById("textoMision");
 
-      /* FRASE HASTA «DIOS» */
+      /* LA FRASE TERMINA EXACTAMENTE EN "DIOS." */
       const frase =
         "Guiamos sus primeros pasos en la fe, acompañamos sus corazones hacia Jesús y sembramos en sus vidas el amor de Dios.";
 
@@ -426,7 +456,7 @@
       let silenciado = false;
       let contextoAudio = null;
 
-      /* ESCRITURA ANIMADA */
+      /* ESCRITURA ANIMADA DE LA FRASE */
       function escribirFrase() {
         if (indice < frase.length) {
           textoMision.textContent += frase.charAt(indice);
@@ -443,13 +473,13 @@
 
       escribirFrase();
 
-      /* MÚSICA AL 25 % */
+      /* REPRODUCCIÓN DE MÚSICA AL 15 % */
       async function iniciarMusica() {
         if (silenciado) return;
 
         try {
           musica.muted = false;
-          musica.volume = 0.25;
+          musica.volume = 0.15;
           await musica.play();
 
           controlAudio.textContent = "🔊";
@@ -516,14 +546,16 @@
         }
       }
 
-      /* NAVEGACIÓN ORIGINAL DE LOS CINCO BOTONES */
+      /* NAVEGACIÓN DE LOS CINCO BOTONES */
       botones.forEach((boton) => {
         boton.addEventListener("click", () => {
           efectoBoton();
 
           const destino = boton.getAttribute("data-destino");
           if (destino) {
-            window.location.href = destino;
+            window.setTimeout(() => {
+              window.location.href = destino;
+            }, 120);
           }
         });
       });
