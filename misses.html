@@ -1,518 +1,154 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#173B68">
-
-  <title>Catequistas | Camino hacia Jesús 2026</title>
-
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
-
-  <style>
-    :root {
-      --azul: #173B68;
-      --azul-claro: #EAF0F8;
-      --dorado: #C5A45B;
-      --fondo: #F5F6F9;
-      --texto: #293548;
-    }
-
-    body {
-      font-family: "Segoe UI", Tahoma, sans-serif;
-      background: var(--fondo);
-      color: var(--texto);
-    }
-
-    .barra-superior {
-      background: white;
-      border-bottom: 3px solid var(--dorado);
-    }
-
-    .titulo-principal {
-      color: var(--azul);
-      font-weight: 800;
-    }
-
-    .encabezado {
-      background: linear-gradient(135deg, #173B68, #28588B);
-      color: white;
-      border-radius: 18px;
-      padding: 30px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .encabezado::after {
-      content: "✝";
-      position: absolute;
-      right: 22px;
-      bottom: -28px;
-      font-size: 145px;
-      color: rgba(255,255,255,.07);
-      pointer-events: none;
-    }
-
-    .etiqueta {
-      color: #E8D49B;
-      font-size: .76rem;
-      letter-spacing: 2px;
-      font-weight: 700;
-    }
-
-    .tarjeta {
-      background: white;
-      border: 1px solid #E4E8EF;
-      border-radius: 15px;
-      height: 100%;
-      transition: transform .2s, box-shadow .2s;
-    }
-
-    .tarjeta:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 22px rgba(23,59,104,.09);
-    }
-
-    .icono {
-      width: 49px;
-      height: 49px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 13px;
-      background: var(--azul-claro);
-      font-size: 25px;
-      flex-shrink: 0;
-    }
-
-    .nombre-catequista {
-      border: 1px solid #E5E9F0;
-      border-radius: 12px;
-      padding: 16px;
-      display: flex;
-      align-items: center;
-      gap: 13px;
-      background: #fff;
-    }
-
-    .avatar {
-      background: var(--azul);
-      color: white;
-      border-radius: 50%;
-      width: 45px;
-      height: 45px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-
-    .btn-azul {
-      background: var(--azul);
-      color: white;
-      border: 1px solid var(--azul);
-    }
-
-    .btn-azul:hover {
-      background: #102B4D;
-      color: white;
-    }
-
-    .btn-dorado {
-      background: var(--dorado);
-      color: #172A43;
-      border: none;
-      font-weight: 600;
-    }
-
-    .btn-dorado:hover {
-      background: #B3944D;
-      color: #172A43;
-    }
-
-    .seccion {
-      scroll-margin-top: 20px;
-    }
-
-    .frase {
-      background: #F8F2E4;
-      border-left: 4px solid var(--dorado);
-      border-radius: 8px;
-      padding: 19px;
-    }
-
-    .pie {
-      color: #6D7786;
-      font-size: .82rem;
-    }
-
-    @media (max-width: 576px) {
-      .encabezado {
-        padding: 23px 19px;
-      }
-
-      .titulo-principal {
-        font-size: 1.15rem;
-      }
-    }
-  </style>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#173B68">
+<title>Portal de Catequistas | Camino hacia Jesús 2026</title>
+<style>
+:root{--navy:#12345b;--blue:#1b4a79;--blue-soft:#edf4fc;--gold:#f3c755;--gold-deep:#b17b10;--cream:#fff8e8;--red:#b83d43;--red-soft:#fff0f0;--ink:#172b48;--muted:#62748c;--line:#dce5ef;--green:#23764c;--green-soft:#e8f6ed;--white:#fff;--shadow:0 8px 28px #173b6810}
+*{box-sizing:border-box}body{margin:0;background:#f5f7fa;color:var(--ink);font-family:Inter,"Segoe UI",Tahoma,sans-serif;line-height:1.45}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #f3c75588;outline-offset:2px}a{color:inherit}.topbar{background:white;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:15;box-shadow:0 2px 12px #142b4810}.topbar-inner{max-width:1400px;margin:auto;padding:12px 22px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}.brand{font-weight:900;color:var(--navy);letter-spacing:.04em}.brand small{display:block;letter-spacing:0;font-weight:500;color:var(--muted);font-size:.78rem}.top-actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--line);border-radius:10px;padding:9px 13px;background:white;color:var(--navy);font-weight:750}.btn:hover{filter:brightness(.98);transform:translateY(-1px)}.btn.primary{background:var(--navy);border-color:var(--navy);color:white}.btn.gold{background:linear-gradient(135deg,#ffe68c,#f5bd37);border-color:#efc34c;color:#152c4d}.btn.red{background:var(--red-soft);border-color:#f1c2c4;color:#8f2d32}.btn.green{background:var(--green-soft);border-color:#b5dec3;color:#1e6a42}.btn.small{padding:6px 9px;font-size:.86rem}.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}.container{max-width:1400px;margin:auto;padding:22px}.hero{background:linear-gradient(115deg,#102b4f,#1e4e7f);color:white;border-radius:22px;padding:27px 30px;display:flex;justify-content:space-between;align-items:center;gap:25px;position:relative;overflow:hidden}.hero:after{content:'✝';font-size:175px;position:absolute;right:26px;bottom:-48px;color:#ffffff0b;pointer-events:none}.eyebrow{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:#ffe39a;font-weight:900}.hero h1{margin:5px 0;font-size:clamp(1.8rem,3vw,2.5rem);line-height:1.1}.hero p{margin:8px 0 0;max-width:760px;color:#f0f5fb}.hero-badge{border:1px solid #ffffff55;background:#ffffff13;border-radius:13px;padding:13px 16px;white-space:nowrap;font-weight:800;z-index:1}.notice{margin:14px 0 18px;border:1px solid #f2d58c;border-left:5px solid var(--gold-deep);border-radius:12px;padding:12px 15px;background:var(--cream);color:#655122;font-size:.91rem}.notice strong{color:#583c09}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0}.stat{background:white;border:1px solid var(--line);border-radius:15px;padding:16px;box-shadow:var(--shadow)}.stat .label{font-size:.82rem;color:var(--muted);font-weight:700}.stat strong{display:block;color:var(--navy);font-size:1.8rem;margin:5px 0;line-height:1.1}.stat small{color:var(--muted)}.tabs{display:flex;gap:7px;overflow-x:auto;padding:5px 0 12px;margin:8px 0 12px;scrollbar-width:thin}.tab{border:1px solid #d8e1ec;background:#fff;color:#2a496c;border-radius:10px;padding:10px 13px;white-space:nowrap;font-weight:800}.tab.active{background:var(--navy);color:white;border-color:var(--navy);box-shadow:0 4px 12px #173b6820}.view{display:none}.view.active{display:block}.panel{background:white;border:1px solid var(--line);border-radius:17px;padding:20px;box-shadow:var(--shadow);margin-bottom:16px;min-width:0}.panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;flex-wrap:wrap;margin-bottom:14px}.panel h2{margin:0;color:var(--navy);font-size:1.22rem}.panel h3{margin:0;color:var(--navy);font-size:1.04rem}.sub{color:var(--muted);margin:5px 0 0;font-size:.92rem}.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.tile{border:1px solid var(--line);border-radius:14px;padding:16px;background:#fff}.tile h3{margin:5px 0 7px}.tile p{color:var(--muted);margin:0;font-size:.9rem}.tile-icon{width:44px;height:44px;border-radius:12px;background:var(--cream);display:grid;place-items:center;font-size:1.4rem}.field{display:flex;flex-direction:column;gap:5px;min-width:0}.field label{font-size:.86rem;font-weight:800;color:#324b69}.field input,.field select,.field textarea{width:100%;border:1px solid #d5dfeb;border-radius:10px;padding:10px 11px;color:var(--ink);background:#fff}.field textarea{min-height:92px;resize:vertical}.field .hint{color:var(--muted);font-size:.79rem}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.formgrid .full{grid-column:1/-1}.form-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.calendar-layout{display:grid;grid-template-columns:minmax(310px,.88fr) minmax(0,1.12fr);gap:15px}.calendar-box{border:1px solid #e8cc7d;border-radius:15px;padding:14px;background:linear-gradient(180deg,#fffdf7,#fff)}.calendar-head{display:flex;align-items:center;justify-content:space-between;gap:7px;border:1px solid #ead18a;background:#fff3ce;padding:9px 10px;border-radius:11px;margin-bottom:12px}.calendar-head strong{color:var(--navy)}.month-controls{display:flex;gap:5px;align-items:center}.month-controls button{border:1px solid #dfc66e;background:white;color:var(--navy);border-radius:8px;width:32px;height:32px;font-weight:900}.month-label{min-width:118px;text-align:center;font-size:.9rem}.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}.weekday{text-align:center;color:#718096;font-size:.75rem;font-weight:900;padding:4px 0}.day{border:1px solid #e4e8ee;border-radius:8px;min-height:37px;background:#f1f3f6;color:#8a97a7;font-weight:750}.day.classday{background:#fff4ca;border-color:#f0d57c;color:#5d470e}.day.eventday{background:#ffe6e5;border-color:#edb2b5;color:#8b3037}.day.has-event{box-shadow:inset 0 -3px 0 #b83d43}.day.selected{background:var(--navy)!important;border-color:var(--navy)!important;color:white!important;box-shadow:0 0 0 2px #f2c34e}.day.today:not(.selected){outline:2px solid #6d8cb1;outline-offset:1px}.day:not(.classday):not(.eventday){background:#f1f3f6}.legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;color:var(--muted);font-size:.78rem}.legend span{display:inline-flex;align-items:center;gap:5px}.dot{width:10px;height:10px;border-radius:3px;display:inline-block}.dot.class{background:#fff0af;border:1px solid #e4be52}.dot.event{background:#ffe2e2;border:1px solid #d98d93}.dot.selected{background:var(--navy)}.selected-panel{border:1px solid var(--line);border-radius:15px;padding:18px;background:#fff;min-width:0}.date-label{color:#90620e;font-size:.78rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.selected-panel h3{font-size:1.45rem;margin:4px 0 5px;color:var(--navy)}.topic-details{margin:10px 0;border:1px solid #e6d5ad;border-left:4px solid var(--gold);border-radius:10px;background:#fffdf8;overflow:hidden}.topic-details summary{cursor:pointer;list-style:none;padding:12px 13px;font-weight:850;display:flex;gap:10px;justify-content:space-between;align-items:center}.topic-details summary::-webkit-details-marker{display:none}.topic-details summary:after{content:'＋';font-weight:900;color:#936708}.topic-details[open] summary:after{content:'−'}.topic-content{padding:0 14px 13px;color:#455a73}.topic-content ul{padding-left:20px;margin:7px 0}.topic-content li{margin:4px 0}.event-card{border:1px solid #edc2c4;border-radius:10px;background:#fff7f7;padding:11px;margin:8px 0}.empty{border:1px dashed #cbd6e3;border-radius:12px;padding:20px;text-align:center;color:var(--muted);background:#f9fbfd}.table-wrap{width:100%;overflow-x:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;border-collapse:collapse;min-width:760px;background:white}th,td{padding:10px 11px;border-bottom:1px solid #e8edf3;text-align:left;vertical-align:middle;font-size:.87rem}th{background:#f1f5fa;color:#304b69;font-size:.79rem;text-transform:uppercase;letter-spacing:.03em;white-space:nowrap}tbody tr:last-child td{border-bottom:0}tbody tr:hover{background:#fffdf6}td input,td select{width:100%;min-width:95px;padding:7px;border:1px solid #d8e1ed;border-radius:8px;background:white;color:var(--ink)}.code-pill{display:inline-block;background:#eef3fa;border:1px solid #d9e3f0;border-radius:7px;padding:3px 7px;font:800 .77rem ui-monospace,monospace;color:#23476e}.status{display:inline-block;font-size:.75rem;padding:4px 7px;border-radius:99px;font-weight:850;background:#edf1f5;color:#596b80}.status.good{background:var(--green-soft);color:#226b43}.status.warn{background:#fff2cf;color:#7a5700}.status.bad{background:var(--red-soft);color:#9c3137}.progress-track{height:9px;background:#e9eef4;border-radius:50px;overflow:hidden;min-width:85px}.progress-track span{display:block;height:100%;background:linear-gradient(90deg,#2a6da3,#e7b63f);border-radius:50px}.student-card{border:1px solid var(--line);border-radius:13px;padding:15px;display:flex;flex-direction:column;gap:10px;background:white}.student-top{display:flex;align-items:center;gap:10px}.avatar{width:43px;height:43px;border-radius:50%;background:var(--navy);color:white;font-weight:900;display:grid;place-items:center;flex-shrink:0}.student-top strong{display:block}.student-top small{color:var(--muted)}.student-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.mini-stat{background:#f8fafc;border:1px solid #e5ebf2;border-radius:10px;padding:10px}.mini-stat small{display:block;color:var(--muted);font-size:.75rem}.mini-stat strong{font-size:1.1rem;color:var(--navy)}.item-list{display:grid;gap:10px}.item-card{border:1px solid var(--line);border-radius:13px;background:white;padding:14px}.item-card-head{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}.item-card h3{margin:0 0 5px;color:var(--navy);font-size:1rem}.item-meta{display:flex;gap:7px;flex-wrap:wrap;font-size:.78rem;color:var(--muted)}.chip{display:inline-block;padding:4px 7px;border-radius:7px;background:#edf3fa;color:#355679;font-weight:800;font-size:.76rem}.msg-card{border-left:4px solid var(--gold);background:#fffdf8}.muted{color:var(--muted)}.small{font-size:.83rem}.right{margin-left:auto}.hidden{display:none!important}.footer{text-align:center;color:var(--muted);font-size:.78rem;padding:25px 10px 12px}.footer strong{color:var(--navy)}.toast{position:fixed;right:18px;bottom:18px;z-index:80;background:var(--navy);color:white;padding:13px 16px;border-radius:12px;box-shadow:0 10px 35px #0b203c3a;max-width:min(400px,calc(100vw - 36px));display:none}.toast.show{display:block}.modal-backdrop{position:fixed;inset:0;background:#071a32a6;z-index:50;display:none;align-items:center;justify-content:center;padding:18px}.modal-backdrop.show{display:flex}.modal{background:white;border-radius:18px;width:min(760px,100%);max-height:92vh;overflow:auto;padding:22px;box-shadow:0 20px 60px #0004}.modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;margin-bottom:15px}.modal-head h2{margin:0;color:var(--navy)}.xbtn{border:0;background:#f0f3f7;color:var(--navy);width:34px;height:34px;border-radius:9px;font-weight:900}.section-note{border:1px solid #d8e5f3;background:#f4f8fd;padding:12px 14px;border-radius:11px;color:#49627f;font-size:.85rem;margin:12px 0}.privacy-note{border-left:4px solid var(--red);background:#fff6f6;border-radius:10px;padding:11px 13px;font-size:.84rem;color:#7e3539}.empty-actions{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.tiny{font-size:.76rem;color:var(--muted)}
+@media(max-width:1000px){.calendar-layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.student-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.container{padding:14px}.hero{padding:22px;align-items:flex-start;flex-direction:column}.hero-badge{white-space:normal}.panel{padding:14px}.grid2,.grid3,.formgrid{grid-template-columns:1fr}.formgrid .full{grid-column:auto}.student-grid{grid-template-columns:1fr}.topbar-inner{padding:10px 14px}.top-actions{width:100%}.top-actions .btn{flex:1}.cal-grid{gap:3px}.day{min-height:34px;font-size:.82rem}.calendar-box{padding:10px}.selected-panel{padding:14px}.stats{gap:8px}.stat{padding:12px}.stat strong{font-size:1.45rem}.month-label{min-width:95px}.table-wrap table{min-width:850px}}
+@media print{.topbar,.tabs,.top-actions,.no-print,.notice,.footer{display:none!important}body{background:white}.container{max-width:none;padding:0}.panel,.stat{box-shadow:none;break-inside:avoid}}
+</style>
 </head>
-
 <body>
-
-  <!-- BARRA SUPERIOR -->
-  <header class="barra-superior">
-    <div class="container py-3 d-flex justify-content-between
-                align-items-center gap-3 flex-wrap">
-
-      <div>
-        <div class="titulo-principal">
-          ✝ CAMINO HACIA JESÚS
-        </div>
-        <small class="text-secondary">
-          Colegio La Salle del Sur · 2026
-        </small>
-      </div>
-
-      <a href="./index.html"
-         class="btn btn-outline-secondary btn-sm">
-        ← Volver a portada
-      </a>
-
-    </div>
-  </header>
-
-  <main class="container py-4 py-md-5">
-
-    <!-- ENCABEZADO PRINCIPAL -->
-    <section class="encabezado mb-4">
-      <div class="etiqueta mb-2">
-        NUESTRO EQUIPO PASTORAL
-      </div>
-
-      <h1 class="fw-bold mb-3">
-        Portal de Catequistas
-      </h1>
-
-      <p class="mb-3" style="max-width: 600px;">
-        Dos catequistas, una misión: acompañar a nuestros niños
-        en su encuentro con Jesús y en su preparación para
-        recibir los sacramentos.
-      </p>
-
-      <span class="badge rounded-pill text-bg-light">
-        Grupo compartido · Niños de 6 a 12 años
-      </span>
-    </section>
-
-    <!-- EQUIPO DE CATEQUISTAS -->
-    <section class="seccion mb-5" id="equipo">
-
-      <div class="mb-3">
-        <h2 class="h4 fw-bold">Nuestro equipo</h2>
-        <p class="text-secondary mb-0">
-          Catequistas responsables del acompañamiento del grupo.
-        </p>
-      </div>
-
-      <div class="row g-3">
-
-        <div class="col-md-6">
-          <div class="nombre-catequista h-100">
-            <div class="avatar">LM</div>
-            <div>
-              <h3 class="h6 fw-bold mb-1">
-                Lily Melo Azañero
-              </h3>
-              <div class="text-secondary small">
-                Catequista
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="nombre-catequista h-100">
-            <div class="avatar">KM</div>
-            <div>
-              <h3 class="h6 fw-bold mb-1">
-                Kiara Morales Elguera
-              </h3>
-              <div class="text-secondary small">
-                Catequista
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- MÓDULOS DE TRABAJO -->
-    <section class="seccion mb-5" id="modulos">
-
-      <div class="mb-3">
-        <h2 class="h4 fw-bold">Nuestro espacio de trabajo</h2>
-        <p class="text-secondary mb-0">
-          Organización, formación y seguimiento de nuestra misión.
-        </p>
-      </div>
-
-      <div class="row g-3">
-
-        <!-- CATEQUIZANDOS -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <article class="tarjeta p-3">
-            <div class="icono mb-3">👧🏻</div>
-            <h3 class="h5 fw-bold">Nuestros catequizandos</h3>
-            <p class="text-secondary small">
-              Fichas personales, datos de los niños y seguimiento
-              individual dentro de nuestro grupo compartido.
-            </p>
-            <button class="btn btn-azul w-100"
-                    onclick="abrirModulo('catequizandos')">
-              Ingresar
-            </button>
-          </article>
-        </div>
-
-        <!-- SESIONES -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <article class="tarjeta p-3">
-            <div class="icono mb-3">📖</div>
-            <h3 class="h5 fw-bold">Sesiones de catequesis</h3>
-            <p class="text-secondary small">
-              Temas, lecturas bíblicas, enseñanzas, dinámicas
-              y actividades de cada encuentro.
-            </p>
-            <button class="btn btn-azul w-100"
-                    onclick="abrirModulo('sesiones')">
-              Ingresar
-            </button>
-          </article>
-        </div>
-
-        <!-- ASISTENCIA -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <article class="tarjeta p-3">
-            <div class="icono mb-3">📅</div>
-            <h3 class="h5 fw-bold">Asistencia</h3>
-            <p class="text-secondary small">
-              Control de asistencia y tardanzas por fecha,
-              con consulta del historial del grupo.
-            </p>
-            <button class="btn btn-azul w-100"
-                    onclick="abrirModulo('asistencia')">
-              Ingresar
-            </button>
-          </article>
-        </div>
-
-        <!-- SEGUIMIENTO -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <article class="tarjeta p-3">
-            <div class="icono mb-3">🕊️</div>
-            <h3 class="h5 fw-bold">Camino espiritual</h3>
-            <p class="text-secondary small">
-              Seguimiento de aprendizajes, oraciones, participación
-              y preparación para los sacramentos.
-            </p>
-            <button class="btn btn-azul w-100"
-                    onclick="abrirModulo('seguimiento')">
-              Ingresar
-            </button>
-          </article>
-        </div>
-
-        <!-- COORDINACIÓN -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <article class="tarjeta p-3">
-            <div class="icono mb-3">🤝</div>
-            <h3 class="h5 fw-bold">Coordinación</h3>
-            <p class="text-secondary small">
-              Acuerdos entre catequistas, tareas pendientes,
-              reuniones y organización compartida.
-            </p>
-            <button class="btn btn-azul w-100"
-                    onclick="abrirModulo('coordinacion')">
-              Ingresar
-            </button>
-          </article>
-        </div>
-
-        <!-- EVIDENCIAS -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <article class="tarjeta p-3">
-            <div class="icono mb-3">📷</div>
-            <h3 class="h5 fw-bold">Evidencias y recuerdos</h3>
-            <p class="text-secondary small">
-              Fotografías autorizadas, trabajos, celebraciones
-              y registro de nuestras actividades.
-            </p>
-            <button class="btn btn-azul w-100"
-                    onclick="abrirModulo('evidencias')">
-              Ingresar
-            </button>
-          </article>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ÁREA DE CONTENIDO DEL MÓDULO -->
-    <section class="seccion mb-5" id="contenidoModulo"
-             hidden aria-live="polite">
-
-      <div class="card border-0 shadow-sm rounded-4">
-        <div class="card-body p-4">
-
-          <div class="d-flex justify-content-between
-                      align-items-start gap-3 mb-3">
-            <div>
-              <div class="text-uppercase small text-secondary mb-2">
-                Camino hacia Jesús 2026
-              </div>
-              <h2 class="h4 fw-bold mb-0" id="tituloModulo">
-                Módulo
-              </h2>
-            </div>
-
-            <button class="btn-close"
-                    type="button"
-                    aria-label="Cerrar módulo"
-                    onclick="cerrarModulo()">
-            </button>
-          </div>
-
-          <p id="descripcionModulo" class="text-secondary"></p>
-
-          <div class="alert alert-info small mb-3">
-            Este espacio está preparado para integrar las funciones
-            y los registros reales del programa.
-          </div>
-
-          <button class="btn btn-outline-secondary btn-sm"
-                  onclick="cerrarModulo()">
-            Volver al panel
-          </button>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- REFLEXIÓN -->
-    <section class="frase mb-4">
-      <div class="small fw-bold mb-2"
-           style="color:#8A6B28; letter-spacing:1px;">
-        NUESTRA INSPIRACIÓN
-      </div>
-
-      <p class="fs-5 fst-italic mb-2">
-        «Dejen que los niños vengan a mí».
-      </p>
-
-      <div class="small text-secondary">
-        Marcos 10,14
-      </div>
-    </section>
-
-    <footer class="text-center pie py-3">
-      <div class="fw-semibold">
-        CAMINO HACIA JESÚS · 2026
-      </div>
-      <div>
-        Colegio La Salle del Sur
-      </div>
-      <div class="mt-2">
-        Una misión compartida, una fe que crece.
-      </div>
-    </footer>
-
-  </main>
-
-  <script>
-    const modulos = {
-      catequizandos: {
-        titulo: "Nuestros catequizandos",
-        descripcion:
-          "Aquí organizaremos la ficha individual de cada niño, " +
-          "sus datos, edad, información necesaria para la catequesis " +
-          "y su seguimiento dentro del único grupo."
-      },
-
-      sesiones: {
-        titulo: "Sesiones de catequesis",
-        descripcion:
-          "Aquí organizaremos el calendario de sesiones, los temas, " +
-          "las lecturas bíblicas, las actividades y los materiales " +
-          "utilizados en cada encuentro."
-      },
-
-      asistencia: {
-        titulo: "Asistencia",
-        descripcion:
-          "Aquí prepararemos el registro por fecha, la asistencia " +
-          "individual, las tardanzas y la consulta del historial."
-      },
-
-      seguimiento: {
-        titulo: "Camino espiritual",
-        descripcion:
-          "Aquí organizaremos el seguimiento formativo de los niños, " +
-          "sus aprendizajes, oraciones y preparación sacramental."
-      },
-
-      coordinacion: {
-        titulo: "Coordinación entre catequistas",
-        descripcion:
-          "Aquí organizaremos acuerdos, responsabilidades, " +
-          "reuniones, tareas y pendientes compartidos."
-      },
-
-      evidencias: {
-        titulo: "Evidencias y recuerdos",
-        descripcion:
-          "Aquí prepararemos el espacio para registrar las sesiones, " +
-          "los trabajos y las fotografías autorizadas de las actividades."
-      }
-    };
-
-    function abrirModulo(nombre) {
-      const modulo = modulos[nombre];
-
-      if (!modulo) return;
-
-      document.getElementById("tituloModulo").textContent =
-        modulo.titulo;
-
-      document.getElementById("descripcionModulo").textContent =
-        modulo.descripcion;
-
-      const contenido =
-        document.getElementById("contenidoModulo");
-
-      contenido.hidden = false;
-
-      contenido.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }
-
-    function cerrarModulo() {
-      document.getElementById("contenidoModulo").hidden = true;
-
-      document.getElementById("modulos").scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }
-  </script>
-
-</body>
-</html>
+<header class="topbar"><div class="topbar-inner"><div class="brand">✝ CAMINO HACIA JESÚS <small>Colegio La Salle del Sur · Portal de Catequistas · 2026</small></div><div class="top-actions"><button class="btn small" id="export-backup">⬇ Descargar respaldo</button><button class="btn small" id="import-backup-btn">⬆ Importar respaldo</button><input id="import-backup-file" type="file" accept="application/json,.json" class="hidden"><a class="btn small" href="./index.html">← Volver a portada</a></div></div></header>
+<main class="container">
+<section class="hero"><div><div class="eyebrow">Nuestro equipo pastoral</div><h1>Portal de Catequistas</h1><p>Planificación, asistencia, materiales, seguimiento y comunicación en un mismo espacio.</p><p class="small" style="color:#f7e3a5;font-weight:800">Lily Melo Azañero · Kiara Morales Elguera</p></div><div class="hero-badge">✦ Camino hacia Jesús<br><span class="small">Preparación para los sacramentos</span></div></section>
+<div class="notice"><strong>Modo de trabajo local.</strong> Los cambios se guardan en este navegador y puedes exportar/importar un respaldo. Para que padres, niños y catequistas compartan datos automáticamente desde distintos dispositivos, debe conectarse una base de datos con acceso privado; esta versión no envía datos a Internet.</div>
+<section class="stats" aria-label="Resumen"><div class="stat"><span class="label">Catequizandos registrados</span><strong id="metric-students">0</strong><small>Con código individual</small></div><div class="stat"><span class="label">Próximo encuentro</span><strong id="metric-next" style="font-size:1.2rem">—</strong><small id="metric-next-detail">Calendario de catequesis</small></div><div class="stat"><span class="label">Asistencia del último encuentro</span><strong id="metric-attendance">—</strong><small id="metric-attendance-detail">Sin registro todavía</small></div><div class="stat"><span class="label">Tareas pendientes</span><strong id="metric-pending">0</strong><small>Fichas, prácticas, videos y evaluaciones</small></div></section>
+<nav class="tabs no-print" aria-label="Módulos del portal">
+<button class="tab active" data-view="home">🏠 Resumen</button><button class="tab" data-view="calendar">📅 Calendario y sesiones</button><button class="tab" data-view="students">👧🏻 Catequizandos</button><button class="tab" data-view="attendance">✅ Asistencia y notas</button><button class="tab" data-view="tasks">📚 Materiales y tareas</button><button class="tab" data-view="progress">📊 Progreso por porcentaje</button><button class="tab" data-view="messages">💬 Mensajes</button><button class="tab" data-view="coordination">🤝 Coordinación</button>
+</nav>
+<!-- RESUMEN -->
+<section class="view active" id="view-home">
+<div class="grid2"><article class="panel"><div class="panel-head"><div><h2>Próximo encuentro</h2><p class="sub">La fecha más próxima de la programación.</p></div><button class="btn gold" data-go="calendar">Abrir calendario</button></div><div id="home-next-session" class="empty">Preparando el calendario…</div></article><article class="panel"><div class="panel-head"><div><h2>Pendientes de organización</h2><p class="sub">Tareas y acuerdos por completar.</p></div><button class="btn" data-go="tasks">Ver tareas</button></div><div id="home-pending-list" class="item-list"></div></article></div>
+<div class="panel"><div class="panel-head"><div><h2>Accesos de trabajo</h2><p class="sub">Selecciona lo que necesitas registrar.</p></div></div><div class="grid3"><button class="tile" data-go="students" style="text-align:left"><div class="tile-icon">👧🏻</div><h3>Catequizandos</h3><p>Fichas, códigos y datos de contacto autorizados.</p></button><button class="tile" data-go="attendance" style="text-align:left"><div class="tile-icon">✅</div><h3>Asistencia</h3><p>Presentes, ausencias, tardanzas y puntos por fecha.</p></button><button class="tile" data-go="tasks" style="text-align:left"><div class="tile-icon">📝</div><h3>Materiales y tareas</h3><p>Fichas, prácticas, evaluaciones, videos y cuadernos.</p></button><button class="tile" data-go="progress" style="text-align:left"><div class="tile-icon">📈</div><h3>Seguimiento individual</h3><p>Porcentaje de progreso, registro y promedio.</p></button><button class="tile" data-go="messages" style="text-align:left"><div class="tile-icon">💬</div><h3>Mensajes personalizados</h3><p>Preparar comunicaciones para familias o niños.</p></button><button class="tile" data-go="coordination" style="text-align:left"><div class="tile-icon">🤝</div><h3>Coordinación</h3><p>Acuerdos, responsables, reuniones y pendientes.</p></button></div></div>
+<div class="panel"><div class="panel-head"><div><h2>Últimos mensajes guardados</h2><p class="sub">Los mensajes quedan como borradores hasta que los envíes por el canal elegido.</p></div><button class="btn" data-go="messages">Ir a mensajes</button></div><div id="home-messages" class="item-list"></div></div>
+</section>
+<!-- CALENDARIO -->
+<section class="view" id="view-calendar"><div class="panel"><div class="panel-head"><div><h2>Calendario y planificación de sesiones</h2><p class="sub">Las clases están programadas martes y jueves desde el 16 de junio. También puedes registrar misas, reuniones y actividades especiales.</p></div><div class="form-actions"><button class="btn gold" id="add-event-btn">＋ Añadir evento</button><button class="btn" id="print-day-btn">🖨 Imprimir ficha del día</button></div></div>
+<div class="calendar-layout"><div class="calendar-box"><div class="calendar-head"><strong>Calendario de catequesis</strong><div class="month-controls"><button id="prev-month" aria-label="Mes anterior">‹</button><strong class="month-label" id="month-label">Octubre 2026</strong><button id="next-month" aria-label="Mes siguiente">›</button></div></div><div class="cal-grid" id="calendar-grid"></div><div class="legend"><span><i class="dot class"></i>Clase</span><span><i class="dot event"></i>Misa / evento</span><span><i class="dot selected"></i>Fecha seleccionada</span></div></div><div class="selected-panel"><div class="panel-head"><div><div class="date-label" id="selected-kind">ENCUENTRO</div><h3 id="selected-date-title">Selecciona una fecha</h3><p class="sub" id="selected-date-sub">Temas, tareas y planificación de la sesión.</p></div></div><div id="selected-topics"></div><div id="selected-events"></div><div class="field" style="margin-top:13px"><label for="session-notes">Planificación / observaciones de las catequistas</label><textarea id="session-notes" placeholder="Objetivo de la sesión, materiales que preparar, acuerdos o notas de seguimiento..."></textarea></div><div class="form-actions"><button class="btn primary" id="save-session-notes">Guardar planificación</button><button class="btn" id="calendar-attendance-btn">Registrar asistencia</button><button class="btn" id="calendar-add-task-btn">Asignar material o tarea</button></div><div class="section-note" id="session-summary">Selecciona una fecha para ver su información.</div></div></div></div>
+<div class="panel"><div class="panel-head"><div><h2>Eventos personalizados</h2><p class="sub">Misas, celebraciones, reuniones y otras actividades agregadas por las catequistas.</p></div></div><div id="events-list" class="item-list"></div></div></section>
+<!-- CATEQUIZANDOS -->
+<section class="view" id="view-students"><div class="panel"><div class="panel-head"><div><h2>Fichas individuales de catequizandos</h2><p class="sub">Cada niño recibe un código único. El código identifica su ficha; no es una contraseña ni sustituye un sistema de acceso privado.</p></div><button class="btn gold" id="new-student-btn">＋ Añadir catequizando</button></div><div class="privacy-note">Registra solo la información necesaria para la catequesis. No almacenes DNI, información médica ni otros datos sensibles en este prototipo local.</div><div class="formgrid" style="margin:14px 0"><div class="field"><label for="student-filter">Buscar catequizando</label><input id="student-filter" type="search" placeholder="Nombre o código"></div><div class="field"><label for="student-age-filter">Filtrar por edad</label><select id="student-age-filter"><option value="">Todas las edades</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select></div></div><div id="students-list" class="student-grid"></div><div id="students-empty" class="empty">Todavía no hay catequizandos registrados. Usa «Añadir catequizando» para crear la primera ficha.</div></div></section>
+<!-- ASISTENCIA -->
+<section class="view" id="view-attendance"><div class="panel"><div class="panel-head"><div><h2>Control de asistencia y puntos</h2><p class="sub">Selecciona la fecha y registra asistencia, nota sobre 20, ficha y revisión del cuaderno.</p></div><button class="btn" id="attendance-to-calendar">Ver calendario</button></div><div class="formgrid" style="margin-bottom:14px"><div class="field"><label for="attendance-date">Fecha del encuentro</label><input type="date" id="attendance-date"></div><div class="field"><label for="attendance-find">Buscar niño</label><input type="search" id="attendance-find" placeholder="Nombre o código"></div></div><div class="section-note" id="attendance-date-info"></div><div class="table-wrap"><table><thead><tr><th>Código / catequizando</th><th>Asistencia</th><th>Puntos / 20</th><th>Ficha</th><th>Práctica</th><th>Evaluación</th><th>Cuaderno</th><th>Observación</th></tr></thead><tbody id="attendance-body"></tbody></table></div><div id="attendance-empty" class="empty" style="margin-top:12px">Registra primero a los catequizandos para llevar la asistencia.</div><p class="tiny" style="margin-top:9px">Los cambios se guardan automáticamente en el navegador cuando modificas cada campo.</p></div></section>
+<!-- TAREAS / MATERIALES -->
+<section class="view" id="view-tasks"><div class="panel"><div class="panel-head"><div><h2>Materiales, fichas, prácticas y tareas</h2><p class="sub">Asigna recursos a todo el grupo o a un niño. Puedes añadir enlaces de videos y marcar la revisión.</p></div><button class="btn gold" id="new-task-btn">＋ Nueva actividad</button></div><div id="tasks-list" class="item-list"></div><div id="tasks-empty" class="empty">No hay tareas registradas. Pulsa «Nueva actividad» para asignar una ficha, práctica, evaluación, video o revisión de cuaderno.</div></div><div class="panel"><div class="panel-head"><div><h2>Biblioteca de materiales</h2><p class="sub">Cada actividad puede incluir un enlace a una ficha, documento, canción o video.</p></div></div><div id="materials-summary" class="grid3"></div></div></section>
+<!-- PROGRESO -->
+<section class="view" id="view-progress"><div class="panel"><div class="panel-head"><div><h2>Seguimiento por porcentajes</h2><p class="sub">El porcentaje refleja el seguimiento educativo: asistencia, actividades asignadas y resultados registrados; no mide la fe ni la espiritualidad del niño.</p></div><button class="btn" id="download-progress-csv">Descargar reporte CSV</button></div><div class="section-note">Cálculo orientativo: promedio de asistencia, cumplimiento de las tareas asignadas que ya vencieron y resultados registrados sobre 20. Las columnas se muestran separadas para interpretar el avance de cada niño.</div><div class="table-wrap"><table><thead><tr><th>Catequizando</th><th>Asistencia</th><th>Tareas completadas</th><th>Promedio / 20</th><th>Progreso general</th><th>Revisión de cuaderno</th><th>Acciones</th></tr></thead><tbody id="progress-body"></tbody></table></div><div id="progress-empty" class="empty" style="margin-top:12px">Añade catequizandos y registra sus primeras sesiones para ver el progreso.</div></div></section>
+<!-- MENSAJES -->
+<section class="view" id="view-messages"><div class="panel"><div class="panel-head"><div><h2>Mensajes personalizados</h2><p class="sub">Prepara mensajes para familias, catequizandos o coordinación pastoral.</p></div></div><form id="message-form"><div class="formgrid"><div class="field"><label for="message-target">Destinatario</label><select id="message-target"><option value="parent">Padre / madre de un catequizando</option><option value="child">Catequizando</option><option value="coordinator">Coordinador / coordinación</option></select></div><div class="field" id="message-student-field"><label for="message-student">Catequizando</label><select id="message-student"></select></div><div class="field"><label for="message-subject">Asunto</label><input id="message-subject" maxlength="140" required placeholder="Ej.: Ficha pendiente del encuentro"></div><div class="field" id="message-phone-field"><label for="message-phone">Teléfono de destino (WhatsApp, opcional)</label><input id="message-phone" inputmode="tel" maxlength="25" placeholder="Ej.: +51 999 999 999"></div><div class="field full"><label for="message-body">Mensaje</label><textarea id="message-body" required maxlength="2500" placeholder="Escribe un mensaje respetuoso, claro y personalizado..."></textarea></div></div><div class="form-actions"><button class="btn primary" type="submit">Guardar borrador</button><button class="btn" id="suggest-family-message" type="button">Insertar recordatorio de tarea</button></div><p class="tiny">Guardar un mensaje no lo envía. Puedes copiarlo o abrir WhatsApp; el envío final lo confirmas tú.</p></form></div><div class="panel"><div class="panel-head"><div><h2>Historial de mensajes</h2><p class="sub">Los borradores se guardan localmente.</p></div></div><div id="messages-list" class="item-list"></div><div id="messages-empty" class="empty">Todavía no se han guardado mensajes.</div></div></section>
+<!-- COORDINACIÓN -->
+<section class="view" id="view-coordination"><div class="grid2"><div class="panel"><div class="panel-head"><div><h2>Acuerdos y tareas del equipo</h2><p class="sub">Organiza responsabilidades entre las catequistas y coordinación.</p></div></div><form id="coord-form"><div class="formgrid"><div class="field full"><label for="coord-title">Acuerdo o tarea</label><input id="coord-title" required maxlength="180" placeholder="Ej.: Preparar fichas para el próximo encuentro"></div><div class="field"><label for="coord-owner">Responsable</label><select id="coord-owner"><option>Lily Melo Azañero</option><option>Kiara Morales Elguera</option><option>Coordinación parroquial</option><option>Ambas catequistas</option></select></div><div class="field"><label for="coord-due">Fecha límite</label><input id="coord-due" type="date"></div><div class="field full"><label for="coord-notes">Detalles</label><textarea id="coord-notes" placeholder="Materiales, acuerdos o información que debe conocer el equipo..."></textarea></div></div><div class="form-actions"><button class="btn primary" type="submit">Guardar acuerdo</button></div></form></div><div class="panel"><div class="panel-head"><div><h2>Acuerdos registrados</h2><p class="sub">Marca cada compromiso cuando esté completado.</p></div></div><div id="coord-list" class="item-list"></div><div id="coord-empty" class="empty">No hay acuerdos registrados todavía.</div></div></div><div class="panel"><h2>Información del equipo</h2><p class="sub">Lily Melo Azañero y Kiara Morales Elguera comparten la planificación y el seguimiento pastoral. Para compartir datos entre dispositivos, deben intercambiar el respaldo o conectar el portal a una base de datos común.</p></div></section>
+<footer class="footer"><strong>CAMINO HACIA JESÚS · 2026</strong><br>Colegio La Salle del Sur · Una misión compartida, una fe que crece.<br><span>© 2026 Colegio La Salle del Sur · Programa Camino hacia Jesús. Todos los derechos reservados.</span></footer>
+</main>
+<!-- STUDENT MODAL -->
+<div class="modal-backdrop" id="student-modal"><section class="modal" role="dialog" aria-modal="true" aria-labelledby="student-modal-title"><div class="modal-head"><div><h2 id="student-modal-title">Nueva ficha de catequizando</h2><p class="sub">El código único se genera automáticamente.</p></div><button class="xbtn" data-close="student-modal" aria-label="Cerrar">✕</button></div><form id="student-form"><input id="edit-student-id" type="hidden"><div class="formgrid"><div class="field"><label for="st-name">Nombres y apellidos *</label><input id="st-name" required maxlength="100" autocomplete="off"></div><div class="field"><label for="st-age">Edad</label><select id="st-age"><option value="">Seleccionar</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select></div><div class="field"><label for="st-code">Código único</label><input id="st-code" readonly></div><div class="field"><label for="st-guardian">Nombre del padre, madre o tutor</label><input id="st-guardian" maxlength="100"></div><div class="field"><label for="st-phone">Teléfono familiar (opcional)</label><input id="st-phone" inputmode="tel" maxlength="25" placeholder="Solo si es necesario para mensajes"></div><div class="field"><label for="st-start">Fecha de incorporación</label><input id="st-start" type="date"></div><div class="field full"><label for="st-notes">Nota formativa no sensible</label><textarea id="st-notes" maxlength="700" placeholder="Observación breve relacionada con el acompañamiento catequético"></textarea></div></div><div class="form-actions"><button class="btn primary" type="submit">Guardar ficha</button><button class="btn" type="button" data-close="student-modal">Cancelar</button></div></form></section></div>
+<!-- EVENT MODAL -->
+<div class="modal-backdrop" id="event-modal"><section class="modal" role="dialog" aria-modal="true" aria-labelledby="event-modal-title"><div class="modal-head"><div><h2 id="event-modal-title">Añadir evento al calendario</h2><p class="sub">Misas, reuniones, celebraciones o actividades especiales.</p></div><button class="xbtn" data-close="event-modal" aria-label="Cerrar">✕</button></div><form id="event-form"><div class="formgrid"><div class="field"><label for="ev-date">Fecha *</label><input id="ev-date" type="date" required></div><div class="field"><label for="ev-type">Tipo de evento</label><select id="ev-type"><option value="Misa / celebración">Misa / celebración</option><option value="Reunión">Reunión</option><option value="Entrega de tarea">Entrega de tarea</option><option value="Actividad especial">Actividad especial</option><option value="Otro">Otro</option></select></div><div class="field full"><label for="ev-title">Título *</label><input id="ev-title" required maxlength="180" placeholder="Ej.: Misa de preparación para la Primera Comunión"></div><div class="field full"><label for="ev-details">Detalles</label><textarea id="ev-details" maxlength="1500" placeholder="Lugar, hora, indicaciones, materiales..."></textarea></div></div><div class="form-actions"><button class="btn primary" type="submit">Guardar evento</button><button class="btn" type="button" data-close="event-modal">Cancelar</button></div></form></section></div>
+<!-- TASK MODAL -->
+<div class="modal-backdrop" id="task-modal"><section class="modal" role="dialog" aria-modal="true" aria-labelledby="task-modal-title"><div class="modal-head"><div><h2 id="task-modal-title">Nueva actividad o tarea</h2><p class="sub">Asigna fichas, prácticas, evaluaciones, videos o revisión de cuaderno.</p></div><button class="xbtn" data-close="task-modal" aria-label="Cerrar">✕</button></div><form id="task-form"><div class="formgrid"><div class="field"><label for="task-type">Tipo</label><select id="task-type"><option value="Ficha">Ficha</option><option value="Práctica">Práctica</option><option value="Evaluación">Evaluación</option><option value="Video">Video</option><option value="Revisión de cuaderno">Revisión de cuaderno</option><option value="Otro material">Otro material</option></select></div><div class="field"><label for="task-date">Fecha de asignación *</label><input id="task-date" type="date" required></div><div class="field"><label for="task-due">Fecha límite</label><input id="task-due" type="date"></div><div class="field"><label for="task-assignee">Asignar a</label><select id="task-assignee"><option value="all">Todo el grupo</option></select></div><div class="field full"><label for="task-title">Nombre de la actividad *</label><input id="task-title" required maxlength="180" placeholder="Ej.: Ficha sobre la Liturgia de la Palabra"></div><div class="field full"><label for="task-details">Indicaciones</label><textarea id="task-details" maxlength="1500" placeholder="Qué debe realizar el niño, qué debe traer, etc."></textarea></div><div class="field full"><label for="task-url">Enlace de recurso (opcional)</label><input id="task-url" type="url" maxlength="1200" placeholder="https://..."></div></div><div class="form-actions"><button class="btn primary" type="submit">Guardar actividad</button><button class="btn" type="button" data-close="task-modal">Cancelar</button></div></form></section></div>
+<input id="import-file-hidden" type="file" accept="application/json,.json" class="hidden"><div class="toast" id="toast" role="status"></div>
+<script>
+const CURRICULUM = [{"title":"Conociendo a Jesús","subtitle":"Su vida, su mensaje y su amor.","topics":[[1,"¿Quién es Dios?",["Introducción breve","Quién es Dios","Dios único","Dios creador","Dios eterno","Dios Padre","Cómo conocemos a Dios"]],[2,"¿Quién es Jesús?",["Jesús es el Hijo de Dios","Verdadero Dios y verdadero hombre","Nacimiento y misión","Por qué Jesús es fundamental para los cristianos"]],[3,"¿Quién es el Espíritu Santo?",["Quién es","Su misión","Cómo actúa","Pentecostés","Símbolos principales"]],[4,"La Santísima Trinidad",["Un solo Dios","Padre, Hijo y Espíritu Santo","Tres Personas","No son tres dioses","¿Quién es primero?","Relación entre las tres Personas","Señal de la Cruz"]],[5,"La Creación",["Dios creador","Creación del mundo","Creación del ser humano","El ser humano y la creación","Responsabilidad de cuidar lo creado"]],[7,"Dios se Revela al Ser Humano",["¿Cómo conocemos a Dios?","Revelación","Sagrada Escritura","Tradición","Jesucristo como plenitud de la Revelación"]],[8,"La Biblia",["Qué es","Antiguo Testamento","Nuevo Testamento","Evangelios","Evangelistas","Cómo se divide","Cómo buscar una cita","Cómo leerla"]],[9,"La Vida de Jesús",["Nacimiento","María y José","Infancia","Bautismo","Vida pública","Discípulos","Predicación","Reino de Dios"]],[10,"Las Enseñanzas de Jesús",["Qué es una parábola y por qué Jesús las utilizaba","Parábola del Buen Samaritano","Parábola del Hijo Pródigo","Parábola del Sembrador","Parábola de la Oveja perdida","Parábola de los Talentos","Aplicación a nuestra vida"]],[11,"Los Milagros de Jesús",["Qué es un milagro","Para qué los realizaba Jesús","Milagros de sanación","Milagros sobre la naturaleza","Qué revelan sobre Jesús"]],[12,"Pasión, Muerte y Resurrección",["Última Cena","Pasión","Crucifixión","Muerte","Resurrección","Ascensión","Qué significa para nuestra fe"]]]},{"title":"Aprendemos a orar","subtitle":"Hablar con Dios con confianza.","topics":[[19,"¿Qué significa tener Fe?",["Qué es creer","Fe y confianza","Qué significa “Creo”","Profesión de fe"]],[20,"El Credo",["Qué es","Para qué lo rezamos","Credo explicado parte por parte"]],[21,"¿Qué es Orar?",["Qué significa orar","Qué significa rezar","Diferencia entre ambos","Cómo hablamos con Dios","Oración personal","Oración comunitaria","Petición, Alabanza, Acción de gracias, Perdón e Intercesión"]],[22,"Oraciones Fundamentales",["Señal de la Cruz","Padre Nuestro","Ave María","Gloria","Credo","Acto de Contrición","Yo confieso","Ángel de la Guarda","Salve Regina","Alma de Cristo"]],[23,"El Padre Nuestro",["Explicación de cada petición","Qué estamos diciendo cuando lo rezamos"]],[15,"El Santo Rosario",["Qué es","Para qué sirve","Cómo se reza","Misterios gozosos, luminosos, dolorosos y gloriosos","Cómo meditar"]]]},{"title":"Los sacramentos","subtitle":"Signos de la gracia de Dios.","topics":[[29,"¿Qué es un Sacramento?",["Qué significa","Quién los instituyó","Signo visible","Gracia","Para qué sirven"]],[30,"Los Siete Sacramentos",["Clasificación: Iniciación, Curación y Servicio"]],[31,"La Gracia",["Qué es","Gracia santificante","Relación entre gracia y sacramentos","Vivir en gracia"]],[32,"El Bautismo",["Qué es y qué sucede","Agua, óleo, vela y vestidura blanca","Padrinos","Incorporación a la Iglesia","Ser hijo de Dios","Compromiso del bautizado"]],[33,"La Confirmación",["Qué es y relación con el Bautismo","Espíritu Santo y sus Dones","Qué significa ser confirmado"]],[34,"Los Demás Sacramentos",["Reconciliación, Unción de los enfermos, Matrimonio y Orden sacerdotal","Para qué sirve cada uno"]]]},{"title":"La Eucaristía","subtitle":"Prepararnos para recibir a Jesús.","topics":[[35,"El Sacramento de la Reconciliación",["Qué es y por qué confesarnos","Contrición, confesión, propósito de enmienda, penitencia y absolución","Sigilo sacramental"]],[36,"Mi Primera Confesión",["Examen de conciencia y cómo prepararme","Qué decir y cómo acercarme al sacerdote","Qué hacer después"]],[37,"El Año Litúrgico",["Adviento, Navidad, Cuaresma, Semana Santa, Triduo Pascual, Pascua, Pentecostés y Tiempo Ordinario","Solemnidades, fiestas y memorias"]],[38,"Signos y Símbolos Litúrgicos",["Cruz, agua, aceite, fuego, cirios, incienso, imágenes y colores litúrgicos"]],[39,"¿Qué es la Santa Misa?",["Qué es y por qué vamos","Qué celebramos","Relación con la Última Cena y la Eucaristía","La Misa como celebración de la Iglesia"]],[40,"Antes de la Misa",["Vestimenta, higiene y presentación","Puntualidad, entrada, agua bendita, señal de la Cruz, silencio, genuflexión, reverencia, Sagrario y preparación interior"]],[41,"Conocemos el Templo",["Altar, Ambón, Sede, Sagrario, Cruz, Cirios, Confesionario, Pila bautismal e Imágenes"]],[42,"Vestiduras del Sacerdote",["Alba, cíngulo, estola, casulla, colores litúrgicos y significado básico"]],[44,"Gestos y Posturas",["De pie, sentados, arrodillados, inclinación, genuflexión, señal de la Cruz, golpearse el pecho, darse la paz, silencio y Amén","Cuándo se hace cada uno y por qué"]],[45,"Ritos Iniciales",["Procesión, saludo, acto penitencial, Yo confieso, Kyrie, Gloria y oración colecta"]],[46,"Liturgia de la Palabra",["Primera lectura, salmo, segunda lectura, Aleluya, Evangelio, homilía, Credo y oración de los fieles"]],[47,"Liturgia Eucarística",["Preparación de los dones, ofertorio, prefacio, Santo, Plegaria Eucarística, epíclesis, consagración, anamnesis, intercesiones, doxología y Amén"]],[48,"Rito de la Comunión",["Padre Nuestro, paz, fracción del Pan, Cordero de Dios, respuestas, procesión, recepción de la Comunión y acción de gracias"]],[49,"Ritos Finales",["Oración después de la Comunión, bendición, despedida, envío y cómo debemos salir de la iglesia"]],[50,"¿Qué es la Eucaristía?",["Última Cena, institución, Cuerpo y Sangre de Cristo, presencia real, sacrificio, banquete, acción de gracias y memorial"]],[51,"¿Qué Sucede en la Consagración?",["Pan y vino, Espíritu Santo, palabras de Jesús, Cuerpo y Sangre, presencia real y Transubstanciación explicada para niños"]],[52,"Jesús en el Sagrario",["Qué es el Sagrario, lámpara, presencia de Jesús, genuflexión, adoración, visita al Santísimo y cómo orar ante Jesús"]],[53,"¿Cómo Recibimos la Comunión?",["Preparación, estado de gracia, ayuno eucarístico, procesión, reverencia, respuesta “Amén”, recepción, regreso al lugar y acción de gracias"]],[55,"Mi Primera Comunión",["Qué voy a recibir, por qué me preparé, qué debo saber, cómo participar, cómo comulgar, vestimenta, actitud, respuestas y acción de gracias"]]]},{"title":"Valores cristianos","subtitle":"Amor, respeto y perdón.","topics":[[6,"El Ser Humano y el Pecado",["Libertad, bien y mal, pecado, consecuencias y conversión"]],[24,"Los Diez Mandamientos",["Qué son, por qué existen, los diez y aplicación a la vida de los niños"]],[25,"Los Mandamientos de la Iglesia",["Qué son, Misa, confesión, comunión, ayuno/abstinencia y otras obligaciones"]],[26,"Las Bienaventuranzas",["Qué son, enseñanzas de Jesús y cómo vivirlas"]],[27,"Obras de Misericordia",["Corporales, espirituales y ejemplos concretos"]],[28,"El Pecado y el Examen de Conciencia",["Qué es pecado, venial y mortal, libertad y responsabilidad, examen de conciencia y conversión"]]]},{"title":"Compartimos la fe","subtitle":"Vivir en comunidad y familia.","topics":[[13,"¿Quién es la Virgen María?",["María en el plan de Dios, Anunciación, Nacimiento, Madre de Jesús, al pie de la Cruz, María y la Iglesia"]],[14,"¿Por qué hay tantas Vírgenes?",["Una sola Virgen María, qué es una advocación, nombres e imágenes: Carmen, Guadalupe, Fátima y Lourdes, veneración y adoración"]],[16,"¿Qué es la Iglesia?",["Quién fundó la Iglesia, qué significa, comunidad, Pueblo de Dios, Cuerpo de Cristo, templo y comunidad"]],[17,"¿Quiénes Forman la Iglesia?",["Papa, Obispos, Sacerdotes, Diáconos, Religiosos, Laicos, Ministros y Monaguillos; función básica de cada uno"]],[18,"Los Santos",["Qué es un santo, por qué existen, adoración/veneración, intercesión, comunión de los santos y modelos de vida"]],[43,"Servidores y Monaguillos",["Qué es un monaguillo, función, vestimenta, cruz, cirios, incienso, participación y actitud"]],[54,"Padrinos y Madrinas",["Qué significa ser padrino/madrina, requisitos, funciones, responsabilidad espiritual y acompañamiento"]],[56,"Después de la Primera Comunión",["¿Terminó la catequesis?, continuar en Misa, orar, confesión, Biblia, comunidad, servicio y seguir creciendo en la fe"]]]}];
+const DB_KEY='caminoJesusCatequistasPortal_v1';
+const LEGACY_STUDENT_KEY='caminoJesusCatequizandos2026_v1';
+const $=id=>document.getElementById(id);
+const z=n=>String(n).padStart(2,'0');
+const keyDate=d=>`${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}`;
+const parseDate=k=>{const [y,m,d]=String(k||'').split('-').map(Number);return y&&m&&d?new Date(y,m-1,d,12):new Date()};
+const MONTHS=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const DAYS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+const topicList=CURRICULUM.flatMap((stage,si)=>stage.topics.map(t=>({num:Number(t[0]),title:t[1],content:t[2],stage:stage.title,stageIndex:si}))).sort((a,b)=>a.num-b.num);
+const byTopicNum=new Map(topicList.map(t=>[t.num,t]));
+const lessonMap=new Map();
+const plannedDates=[];
+for(let d=new Date(2026,5,16,12);d<=new Date(2026,11,1,12);d.setDate(d.getDate()+1)){if(d.getDay()===2||d.getDay()===4)plannedDates.push(new Date(d));}
+let cursor=0;
+const preCommunionTopics=topicList.filter(t=>t.num<56);
+plannedDates.forEach((d,i)=>{if(cursor>=preCommunionTopics.length)return;const count=i<7?2:1;const selected=preCommunionTopics.slice(cursor,cursor+count);if(selected.length)lessonMap.set(keyDate(d),{type:'lesson',session:i+1,topics:selected});cursor+=selected.length;});
+lessonMap.set('2026-12-03',{type:'event',title:'Primera Comunión',description:'Celebración del sacramento de la Eucaristía.'});
+if(byTopicNum.has(56))lessonMap.set('2026-12-08',{type:'lesson',session:plannedDates.length+1,topics:[byTopicNum.get(56)]});
+function id(){return (crypto?.randomUUID?crypto.randomUUID():'id-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10));}
+function initialDb(){return {students:[],events:[],tasks:[],records:{},sessionNotes:{},messages:[],coordination:[]};}
+function readDb(){let state;try{state=JSON.parse(localStorage.getItem(DB_KEY)||'null')}catch(_){state=null}if(state&&typeof state==='object')return {...initialDb(),...state};let db=initialDb();try{const old=JSON.parse(localStorage.getItem(LEGACY_STUDENT_KEY)||'[]');if(Array.isArray(old)){old.forEach(s=>{if(!s||!s.name)return;const sid=String(s.id||id());db.students.push({id:sid,name:String(s.name),code:String(s.code||''),age:String(s.age||''),guardian:String(s.guardian||s.parentName||''),phone:String(s.parentPhone||s.phone||''),start:String(s.start||''),notes:String(s.notes||'')});Object.entries(s.records||{}).forEach(([date,r])=>{db.records[date]??={};db.records[date][sid]={attendance:r.attendance||'unmarked',score:r.score??'',ficha:r.worksheet==='done'?'done':'pending',practica:'na',evaluacion:'na',cuaderno:'na',video:'na',notes:String(r.notes||'')};});});}}catch(_){}return db;}
+let db=readDb();
+function saveDb(){try{localStorage.setItem(DB_KEY,JSON.stringify(db));renderMetrics();return true}catch(e){toast('No se pudo guardar. Descarga un respaldo y libera espacio del navegador.');return false}}
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove('show'),3500)}
+function safe(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function nextCode(){const used=new Set(db.students.map(s=>String(s.code||'').toUpperCase()));let n=1,c;do{c='LDS-CJ-'+String(n++).padStart(3,'0')}while(used.has(c));return c}
+function dateLabel(k,includeYear=true){const d=parseDate(k);return `${DAYS[d.getDay()]}, ${d.getDate()} de ${MONTHS[d.getMonth()]}${includeYear?' de '+d.getFullYear():''}`}
+function nearestLessonKey(){const today=keyDate(new Date());const keys=[...lessonMap.keys()].sort();return keys.find(k=>k>=today)||keys[keys.length-1]||'2026-06-16'}
+let selectedDate=nearestLessonKey();let monthCursor=parseDate(selectedDate);let activeView='home';
+function goView(name){activeView=name;document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.view===name));document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id==='view-'+name));if(name==='calendar')renderCalendar();if(name==='students')renderStudents();if(name==='attendance')renderAttendance();if(name==='tasks')renderTasks();if(name==='progress')renderProgress();if(name==='messages')renderMessages();if(name==='coordination')renderCoordination();window.scrollTo({top:0,behavior:'smooth'});}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>goView(b.dataset.view)));
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>goView(b.dataset.go)));
+function addMonths(amount){monthCursor=new Date(monthCursor.getFullYear(),monthCursor.getMonth()+amount,1,12);renderCalendar()}
+$('prev-month').addEventListener('click',()=>addMonths(-1));$('next-month').addEventListener('click',()=>addMonths(1));
+function combinedEvents(k){return db.events.filter(e=>e.date===k)}
+function renderCalendar(){const y=monthCursor.getFullYear(),m=monthCursor.getMonth();$('month-label').textContent=MONTHS[m].charAt(0).toUpperCase()+MONTHS[m].slice(1)+' '+y;const grid=$('calendar-grid');grid.innerHTML='';['L','M','X','J','V','S','D'].forEach(w=>{const el=document.createElement('div');el.className='weekday';el.textContent=w;grid.appendChild(el)});const offset=(new Date(y,m,1,12).getDay()+6)%7;for(let i=0;i<offset;i++)grid.appendChild(document.createElement('div'));const days=new Date(y,m+1,0,12).getDate();for(let day=1;day<=days;day++){const d=new Date(y,m,day,12),k=keyDate(d),base=lessonMap.get(k),events=combinedEvents(k);const b=document.createElement('button');b.className='day';b.textContent=day;if(base?.type==='lesson')b.classList.add('classday');if(base?.type==='event'||events.length)b.classList.add('eventday');if(events.length)b.classList.add('has-event');if(k===keyDate(new Date()))b.classList.add('today');if(k===selectedDate)b.classList.add('selected');b.title=base?.type==='lesson'?'Clase de catequesis':base?.title||events.map(e=>e.title).join(', ')||'Sin actividad programada. Puedes seleccionar para añadir un evento.';b.setAttribute('aria-pressed',String(k===selectedDate));b.addEventListener('click',()=>selectDate(k));grid.appendChild(b);}renderSelectedDate();}
+function selectDate(k){selectedDate=k;monthCursor=new Date(parseDate(k).getFullYear(),parseDate(k).getMonth(),1,12);renderCalendar();$('attendance-date').value=k;}
+function renderSelectedDate(){const base=lessonMap.get(selectedDate),events=combinedEvents(selectedDate);$('selected-date-title').textContent=dateLabel(selectedDate);$('selected-kind').textContent=base?.type==='lesson'?'ENCUENTRO DE CATEQUESIS':base?.type==='event'?'CELEBRACIÓN':'FECHA SELECCIONADA';$('selected-date-sub').textContent=base?.type==='lesson'?`Encuentro ${String(base.session).padStart(2,'0')} · ${base.topics.length} tema${base.topics.length===1?'':'s'}`:base?.description||'Puedes registrar una misa, reunión, tarea o actividad para esta fecha.';const topics=$('selected-topics');topics.innerHTML='';if(base?.type==='lesson'){base.topics.forEach(t=>{const det=document.createElement('details');det.className='topic-details';const sum=document.createElement('summary');sum.textContent=`Tema ${t.num}: ${t.title}`;const content=document.createElement('div');content.className='topic-content';content.innerHTML=`<div class="chip">Etapa: ${safe(t.stage)}</div><ul>${t.content.map(x=>`<li>${safe(x)}</li>`).join('')}</ul>`;det.append(sum,content);topics.appendChild(det)});}else if(base?.type==='event'){topics.innerHTML=`<div class="event-card"><strong>${safe(base.title)}</strong><p class="small">${safe(base.description||'')}</p></div>`;}else{topics.innerHTML='<div class="empty">No hay tema de clase asignado en esta fecha. Puedes añadir una misa, reunión, tarea o actividad especial.</div>';}const ev=$('selected-events');ev.innerHTML='';events.forEach(e=>{const card=document.createElement('div');card.className='event-card';card.innerHTML=`<div class="item-card-head"><div><span class="chip">${safe(e.type)}</span><h3 style="margin-top:5px">${safe(e.title)}</h3><div class="small">${safe(e.details||'Sin detalles añadidos')}</div></div><button class="btn small red" data-delete-event="${safe(e.id)}">Eliminar</button></div>`;ev.appendChild(card)});$('session-notes').value=db.sessionNotes[selectedDate]||'';$('session-summary').textContent=`Materiales asignados para esta fecha: ${db.tasks.filter(t=>t.date===selectedDate).length}. Eventos adicionales: ${events.length}.`;
+}
+$('save-session-notes').addEventListener('click',()=>{db.sessionNotes[selectedDate]=$('session-notes').value;saveDb();toast('Planificación guardada para '+dateLabel(selectedDate,false)+'.')});
+$('calendar-attendance-btn').addEventListener('click',()=>{goView('attendance');$('attendance-date').value=selectedDate;renderAttendance()});
+$('calendar-add-task-btn').addEventListener('click',()=>openTaskModal(selectedDate));
+$('add-event-btn').addEventListener('click',()=>{$('ev-date').value=selectedDate;openModal('event-modal')});
+$('print-day-btn').addEventListener('click',printDay);
+$('event-form').addEventListener('submit',e=>{e.preventDefault();db.events.push({id:id(),date:$('ev-date').value,type:$('ev-type').value,title:$('ev-title').value.trim(),details:$('ev-details').value.trim()});saveDb();hideModal('event-modal');e.target.reset();renderCalendar();renderEvents();toast('Evento añadido al calendario.');});
+function renderEvents(){const wrap=$('events-list');wrap.innerHTML='';const list=[...db.events].sort((a,b)=>a.date.localeCompare(b.date));if(!list.length){wrap.innerHTML='<div class="empty">Todavía no hay eventos adicionales en el calendario.</div>';return}list.forEach(e=>{const c=document.createElement('article');c.className='item-card';c.innerHTML=`<div class="item-card-head"><div><span class="chip">${safe(e.type)}</span><h3>${safe(e.title)}</h3><div class="item-meta"><span>${safe(dateLabel(e.date))}</span></div><p class="sub">${safe(e.details||'')}</p></div><button class="btn red small" data-delete-event="${safe(e.id)}">Eliminar</button></div>`;wrap.appendChild(c)});}
+document.addEventListener('click',e=>{const del=e.target.closest('[data-delete-event]');if(del){db.events=db.events.filter(x=>x.id!==del.dataset.deleteEvent);saveDb();renderCalendar();renderEvents();toast('Evento eliminado.');}});
+function openModal(id){$(id).classList.add('show')}function hideModal(id){$(id).classList.remove('show')}
+$('new-student-btn').addEventListener('click',()=>openStudentModal());function openStudentModal(student=null){$('student-form').reset();$('edit-student-id').value=student?.id||'';$('student-modal-title').textContent=student?'Editar ficha de catequizando':'Nueva ficha de catequizando';$('st-name').value=student?.name||'';$('st-age').value=student?.age||'';$('st-code').value=student?.code||nextCode();$('st-guardian').value=student?.guardian||'';$('st-phone').value=student?.phone||'';$('st-start').value=student?.start||keyDate(new Date());$('st-notes').value=student?.notes||'';openModal('student-modal')}
+$('student-form').addEventListener('submit',e=>{e.preventDefault();const existingId=$('edit-student-id').value;const name=$('st-name').value.trim();if(!name)return;let st;if(existingId){st=db.students.find(s=>s.id===existingId);if(!st)return;Object.assign(st,{name,age:$('st-age').value,guardian:$('st-guardian').value.trim(),phone:$('st-phone').value.trim(),start:$('st-start').value,notes:$('st-notes').value.trim()});}else{st={id:id(),name,code:nextCode(),age:$('st-age').value,guardian:$('st-guardian').value.trim(),phone:$('st-phone').value.trim(),start:$('st-start').value,notes:$('st-notes').value.trim()};db.students.push(st);}saveDb();hideModal('student-modal');renderStudents();renderAttendance();renderProgress();renderMessageStudentOptions();renderTasks();toast(`Ficha guardada. Código: ${st.code}`);});
+function renderStudents(){const wrap=$('students-list');wrap.innerHTML='';const q=$('student-filter').value.trim().toLocaleLowerCase('es'),age=$('student-age-filter').value;const list=db.students.filter(s=>(`${s.name} ${s.code}`.toLowerCase().includes(q))&&(!age||String(s.age)===age));$('students-empty').classList.toggle('hidden',!!list.length);list.forEach(s=>{const p=progressFor(s.id);const card=document.createElement('article');card.className='student-card';card.innerHTML=`<div class="student-top"><div class="avatar">${safe(initials(s.name))}</div><div style="min-width:0"><strong>${safe(s.name)}</strong><small>${safe(s.age?s.age+' años':'Edad no registrada')} · <span class="code-pill">${safe(s.code)}</span></small></div></div><div class="small muted">Familia: ${safe(s.guardian||'No registrada')}<br>Teléfono: ${safe(s.phone||'No registrado')}</div><div><div class="item-card-head"><strong>Progreso</strong><strong>${p.overall}%</strong></div><div class="progress-track"><span style="width:${p.overall}%"></span></div></div><div class="form-actions"><button class="btn small" data-edit-student="${safe(s.id)}">Editar</button><button class="btn small" data-student-progress="${safe(s.id)}">Ver progreso</button><button class="btn small red" data-delete-student="${safe(s.id)}">Eliminar</button></div>`;wrap.appendChild(card)});}
+function initials(name){return String(name||'').split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase()||'CJ'}
+$('student-filter').addEventListener('input',renderStudents);$('student-age-filter').addEventListener('change',renderStudents);
+document.addEventListener('click',e=>{const edit=e.target.closest('[data-edit-student]'),del=e.target.closest('[data-delete-student]'),p=e.target.closest('[data-student-progress]');if(edit){const s=db.students.find(x=>x.id===edit.dataset.editStudent);if(s)openStudentModal(s)}if(del){const s=db.students.find(x=>x.id===del.dataset.deleteStudent);if(s&&confirm(`¿Eliminar la ficha de ${s.name}? También se quitarán sus registros individuales en este navegador.`)){db.students=db.students.filter(x=>x.id!==s.id);Object.values(db.records).forEach(day=>delete day[s.id]);db.tasks.forEach(t=>{if(t.completions)delete t.completions[s.id]});saveDb();renderStudents();renderAttendance();renderProgress();renderMessageStudentOptions();renderTasks();toast('Ficha eliminada.')}}if(p){goView('progress');const row=$(`progress-${p.dataset.studentProgress}`);row?.scrollIntoView({behavior:'smooth',block:'center'});}});
+function statuses(){return `<option value="unmarked">Sin marcar</option><option value="present">Presente</option><option value="late">Tardanza</option><option value="absent">Ausente</option><option value="justified">Falta justificada</option>`}
+const statusLabels={unmarked:'Sin marcar',present:'Presente',late:'Tardanza',absent:'Ausente',justified:'Justificada'};
+const workOptions=(value='na')=>`<option value="na" ${value==='na'?'selected':''}>No asignada</option><option value="pending" ${value==='pending'?'selected':''}>Pendiente</option><option value="done" ${value==='done'?'selected':''}>Completada</option><option value="reviewed" ${value==='reviewed'?'selected':''}>Revisada</option><option value="improve" ${value==='improve'?'selected':''}>Revisar / mejorar</option>`;
+function getRecord(date,studentId){db.records[date]??={};const defaults={attendance:'unmarked',score:'',ficha:'na',practica:'na',evaluacion:'na',cuaderno:'na',video:'na',notes:''};db.records[date][studentId]={...defaults,...(db.records[date][studentId]||{})};return db.records[date][studentId]}
+function renderAttendance(){const k=$('attendance-date').value||selectedDate;$('attendance-date').value=k;const base=lessonMap.get(k);$('attendance-date-info').textContent=base?.type==='lesson'?`${dateLabel(k)} · Encuentro ${base.session} · ${base.topics.map(t=>'Tema '+t.num+': '+t.title).join(' / ')}`:`${dateLabel(k)} · No hay clase habitual programada; también puedes registrar asistencia para un evento.`;const tbody=$('attendance-body');tbody.innerHTML='';const q=$('attendance-find').value.toLowerCase().trim();const students=db.students.filter(s=>(s.name+' '+s.code).toLowerCase().includes(q));$('attendance-empty').classList.toggle('hidden',students.length>0);students.forEach(s=>{const r=getRecord(k,s.id);const tr=document.createElement('tr');tr.innerHTML=`<td><strong>${safe(s.name)}</strong><br><span class="code-pill">${safe(s.code)}</span></td><td><select data-record-field="attendance" data-date="${k}" data-student="${safe(s.id)}">${statuses().replace(`value="${r.attendance}"`,`value="${r.attendance}" selected`)}</select></td><td><input type="number" min="0" max="20" step="0.5" placeholder="—" value="${safe(r.score)}" data-record-field="score" data-date="${k}" data-student="${safe(s.id)}" aria-label="Puntos de ${safe(s.name)}"></td><td><select data-record-field="ficha" data-date="${k}" data-student="${safe(s.id)}">${workOptions(r.ficha)}</select></td><td><select data-record-field="practica" data-date="${k}" data-student="${safe(s.id)}">${workOptions(r.practica)}</select></td><td><select data-record-field="evaluacion" data-date="${k}" data-student="${safe(s.id)}">${workOptions(r.evaluacion)}</select></td><td><select data-record-field="cuaderno" data-date="${k}" data-student="${safe(s.id)}">${workOptions(r.cuaderno)}</select></td><td><input value="${safe(r.notes)}" maxlength="700" data-record-field="notes" data-date="${k}" data-student="${safe(s.id)}" placeholder="Observación" aria-label="Observación de ${safe(s.name)}"></td>`;tbody.appendChild(tr)});}
+$('attendance-date').addEventListener('change',()=>{selectedDate=$('attendance-date').value;monthCursor=parseDate(selectedDate);renderCalendar();renderAttendance()});$('attendance-find').addEventListener('input',renderAttendance);$('attendance-to-calendar').addEventListener('click',()=>{selectedDate=$('attendance-date').value;goView('calendar')});
+document.addEventListener('change',e=>{const el=e.target.closest('[data-record-field]');if(!el)return;const r=getRecord(el.dataset.date,el.dataset.student),field=el.dataset.recordField;if(field==='score'){if(el.value!==''&&(Number(el.value)<0||Number(el.value)>20)){toast('La puntuación debe estar entre 0 y 20.');el.value='';}r.score=el.value===''?'':Number(el.value)}else r[field]=el.value;saveDb();renderProgress();renderMetrics();});
+document.addEventListener('focusout',e=>{const el=e.target.closest('[data-record-field="notes"]');if(el){const r=getRecord(el.dataset.date,el.dataset.student);r.notes=el.value;saveDb();}});
+function tasksDue(k=keyDate(new Date())){return db.tasks.filter(t=>(t.due||t.date)<=k)}
+function assignedTo(task,student){return task.assignee==='all'||task.assignee===student.id}
+function taskDone(task,studentId){return ['done','reviewed'].includes(task.completions?.[studentId]||'pending')}
+function safeResourceUrl(value){try{const u=new URL(String(value||''));return ['http:','https:'].includes(u.protocol)?u.href:''}catch(_){return ''}}
+function renderTasks(){const list=$('tasks-list');list.innerHTML='';$('tasks-empty').classList.toggle('hidden',!!db.tasks.length);const sorted=[...db.tasks].sort((a,b)=>(a.due||a.date).localeCompare(b.due||b.date));sorted.forEach(t=>{const card=document.createElement('article');card.className='item-card';const assignee=t.assignee==='all'?'Todo el grupo':(db.students.find(s=>s.id===t.assignee)?.name||'Catequizando');const related=db.students.filter(s=>assignedTo(t,s));const completed=related.filter(s=>taskDone(t,s.id)).length;const controls=related.map(s=>`<div class="formgrid" style="grid-template-columns:minmax(0,1fr) minmax(160px,.5fr);align-items:center;margin-top:6px"><div class="small"><strong>${safe(s.name)}</strong> <span class="code-pill">${safe(s.code)}</span></div><div class="field"><select data-task-status data-task="${safe(t.id)}" data-student="${safe(s.id)}"><option value="pending" ${(t.completions?.[s.id]||'pending')==='pending'?'selected':''}>Pendiente</option><option value="doing" ${t.completions?.[s.id]==='doing'?'selected':''}>En proceso</option><option value="done" ${t.completions?.[s.id]==='done'?'selected':''}>Completada</option><option value="reviewed" ${t.completions?.[s.id]==='reviewed'?'selected':''}>Revisada</option><option value="improve" ${t.completions?.[s.id]==='improve'?'selected':''}>Necesita mejorar</option></select></div></div>`).join('');card.innerHTML=`<div class="item-card-head"><div><div class="item-meta"><span class="chip">${safe(t.type)}</span><span>Asignado: ${safe(assignee)}</span><span>Fecha: ${safe(dateLabel(t.date,false))}</span><span>Vence: ${safe(t.due?dateLabel(t.due,false):'Sin fecha límite')}</span></div><h3 style="margin-top:8px">${safe(t.title)}</h3><p class="sub">${safe(t.details||'Sin indicaciones adicionales.')}</p>${safeResourceUrl(t.url)?`<a href="${safe(safeResourceUrl(t.url))}" target="_blank" rel="noopener noreferrer" class="small">Abrir recurso ↗</a>`:''}</div><button class="btn red small" data-delete-task="${safe(t.id)}">Eliminar</button></div><details style="margin-top:12px"><summary class="small" style="font-weight:850;cursor:pointer">Seguimiento de entregas (${completed}/${related.length})</summary><div style="margin-top:10px">${controls||'<p class="small muted">Añade catequizandos para registrar entregas individuales.</p>'}</div></details>`;list.appendChild(card)});const types=['Ficha','Práctica','Evaluación','Video','Revisión de cuaderno'];$('materials-summary').innerHTML=types.map(t=>`<div class="tile"><div class="tile-icon">${({'Ficha':'📄','Práctica':'✏️','Evaluación':'📝','Video':'▶️','Revisión de cuaderno':'📒'})[t]}</div><h3>${t}</h3><p>${db.tasks.filter(x=>x.type===t).length} actividad(es) registrada(s).</p></div>`).join('');renderMetrics()}
+function openTaskModal(date=selectedDate){$('task-form').reset();$('task-date').value=date||keyDate(new Date());$('task-due').value=date||keyDate(new Date());const sel=$('task-assignee');sel.innerHTML='<option value="all">Todo el grupo</option>'+db.students.map(s=>`<option value="${safe(s.id)}">${safe(s.name)} · ${safe(s.code)}</option>`).join('');openModal('task-modal')}
+$('new-task-btn').addEventListener('click',()=>openTaskModal(selectedDate));$('task-form').addEventListener('submit',e=>{e.preventDefault();db.tasks.push({id:id(),type:$('task-type').value,date:$('task-date').value,due:$('task-due').value,title:$('task-title').value.trim(),details:$('task-details').value.trim(),url:$('task-url').value.trim(),assignee:$('task-assignee').value,completions:{}});saveDb();hideModal('task-modal');renderTasks();renderProgress();e.target.reset();toast('Actividad asignada.');});document.addEventListener('change',e=>{const el=e.target.closest('[data-task-status]');if(!el)return;const t=db.tasks.find(x=>x.id===el.dataset.task);if(!t)return;t.completions??={};t.completions[el.dataset.student]=el.value;saveDb();renderTasks();renderProgress();});document.addEventListener('click',e=>{const del=e.target.closest('[data-delete-task]');if(del&&confirm('¿Eliminar esta actividad?')){db.tasks=db.tasks.filter(t=>t.id!==del.dataset.deleteTask);saveDb();renderTasks();renderProgress();toast('Actividad eliminada.')}});
+function percent(n,d){return d?Math.round(n/d*100):0}
+function progressFor(studentId){const s=db.students.find(x=>x.id===studentId);if(!s)return {attendance:0,tasks:0,average:null,notebook:0,overall:0};const today=keyDate(new Date());const elapsed=[...lessonMap.entries()].filter(([k,v])=>v.type==='lesson'&&k<=today);let attended=0,marked=0,scores=[];let notebookDone=0,notebookTotal=0;elapsed.forEach(([k])=>{const r=db.records[k]?.[studentId];if(r&&['present','late'].includes(r.attendance))attended++;if(r&&r.attendance&&r.attendance!=='unmarked')marked++;if(r&&r.score!==''&&r.score!==undefined&&r.score!==null&&Number.isFinite(Number(r.score)))scores.push(Number(r.score));if(r&&r.cuaderno&&r.cuaderno!=='na'){notebookTotal++;if(r.cuaderno==='reviewed'||r.cuaderno==='done')notebookDone++;}});const attendance=percent(attended,elapsed.length);const dueTasks=db.tasks.filter(t=>assignedTo(t,s)&&(t.due||t.date)<=today);const taskDoneCount=dueTasks.filter(t=>taskDone(t,s.id)).length;const tasks=percent(taskDoneCount,dueTasks.length);const average=scores.length?scores.reduce((a,b)=>a+b,0)/scores.length:null;const averagePct=average===null?null:Math.round(average/20*100);const notebook=percent(notebookDone,notebookTotal);const active=[attendance];if(dueTasks.length)active.push(tasks);if(averagePct!==null)active.push(averagePct);if(notebookTotal)active.push(notebook);const overall=Math.round(active.reduce((a,b)=>a+b,0)/active.length);return {attendance,tasks,average,notebook,overall,attended,elapsed:elapsed.length,taskDoneCount,taskTotal:dueTasks.length,notebookDone,notebookTotal,scores:scores.length};}
+function renderProgress(){const body=$('progress-body');body.innerHTML='';$('progress-empty').classList.toggle('hidden',!!db.students.length);db.students.slice().sort((a,b)=>a.name.localeCompare(b.name,'es')).forEach(s=>{const p=progressFor(s.id),tr=document.createElement('tr');tr.id='progress-'+s.id;tr.innerHTML=`<td><strong>${safe(s.name)}</strong><br><span class="code-pill">${safe(s.code)}</span></td><td>${p.attendance}%<div class="progress-track"><span style="width:${p.attendance}%"></span></div><small class="tiny">${p.attended}/${p.elapsed} encuentros</small></td><td>${p.tasks}%<div class="progress-track"><span style="width:${p.tasks}%"></span></div><small class="tiny">${p.taskDoneCount}/${p.taskTotal} actividades vencidas</small></td><td>${p.average===null?'—':p.average.toFixed(1)+' / 20'}</td><td><strong>${p.overall}%</strong><div class="progress-track"><span style="width:${p.overall}%"></span></div></td><td>${p.notebook}%<small class="tiny">${p.notebookDone}/${p.notebookTotal} revisiones</small></td><td><button class="btn small" data-view-student="${safe(s.id)}">Ver ficha</button></td>`;body.appendChild(tr)});}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-view-student]');if(b){const sid=b.dataset.viewStudent;const st=db.students.find(x=>x.id===sid);goView('students');$('student-filter').value=st?.code||'';renderStudents();setTimeout(()=>{const match=Array.from($('students-list').querySelectorAll('[data-edit-student]')).find(x=>x.dataset.editStudent===sid);match?.closest('.student-card')?.scrollIntoView({behavior:'smooth',block:'center'});},50)}});
+function renderMessageStudentOptions(){const select=$('message-student');if(!select)return;const old=select.value;select.innerHTML='<option value="">Seleccionar catequizando</option>'+db.students.map(s=>`<option value="${safe(s.id)}">${safe(s.name)} · ${safe(s.code)}</option>`).join('');if([...select.options].some(o=>o.value===old))select.value=old;updateMessageFields()}
+function updateMessageFields(){const target=$('message-target').value,show=target!=='coordinator';$('message-student-field').classList.toggle('hidden',!show);const st=db.students.find(s=>s.id===$('message-student').value);$('message-phone-field').classList.toggle('hidden',target==='child');if(target==='parent')$('message-phone').value=st?.phone||'';else if(target==='coordinator'){$('message-phone').value='';$('message-phone').placeholder='Teléfono del coordinador (opcional)';}else $('message-phone').value='';}
+$('message-target').addEventListener('change',updateMessageFields);$('message-student').addEventListener('change',updateMessageFields);$('suggest-family-message').addEventListener('click',()=>{$('message-subject').value='Recordatorio de actividad de catequesis';$('message-body').value='Buenas tardes. Les recordamos que el/la catequizando debe completar la actividad asignada para el próximo encuentro de Camino hacia Jesús. Muchas gracias por acompañar su formación.';});$('message-form').addEventListener('submit',e=>{e.preventDefault();const target=$('message-target').value,studentId=target==='coordinator'?'':$('message-student').value;if(target!=='coordinator'&&!studentId){toast('Selecciona el catequizando destinatario.');return}db.messages.unshift({id:id(),target,studentId,subject:$('message-subject').value.trim(),body:$('message-body').value.trim(),phone:$('message-phone').value.trim(),date:new Date().toISOString(),status:'borrador'});saveDb();e.target.reset();updateMessageFields();renderMessages();renderMetrics();toast('Borrador de mensaje guardado. Todavía no se ha enviado.');});
+function targetLabel(m){if(m.target==='coordinator')return 'Coordinación';const s=db.students.find(x=>x.id===m.studentId);return (m.target==='parent'?'Familia de ':'Catequizando: ')+(s?.name||'Ficha no disponible')}
+function renderMessages(){const list=$('messages-list');list.innerHTML='';$('messages-empty').classList.toggle('hidden',!!db.messages.length);db.messages.forEach(m=>{const card=document.createElement('article');card.className='item-card msg-card';card.innerHTML=`<div class="item-card-head"><div><div class="item-meta"><span class="chip">${safe(targetLabel(m))}</span><span>${safe(new Date(m.date).toLocaleString('es-PE'))}</span><span class="status warn">Borrador</span></div><h3 style="margin-top:6px">${safe(m.subject)}</h3><p class="sub" style="white-space:pre-wrap">${safe(m.body)}</p></div><button class="btn small red" data-delete-message="${safe(m.id)}">Eliminar</button></div><div class="form-actions"><button class="btn small" data-copy-message="${safe(m.id)}">Copiar texto</button>${m.phone?`<button class="btn small green" data-whatsapp-message="${safe(m.id)}">Abrir WhatsApp</button>`:''}</div>`;list.appendChild(card)});$('home-messages').innerHTML=db.messages.slice(0,3).map(m=>`<article class="item-card"><span class="chip">${safe(targetLabel(m))}</span><strong>${safe(m.subject)}</strong><p class="sub">${safe(m.body.slice(0,130))}${m.body.length>130?'…':''}</p></article>`).join('')||'<div class="empty">No hay mensajes recientes.</div>';}
+document.addEventListener('click',async e=>{const cp=e.target.closest('[data-copy-message]'),wa=e.target.closest('[data-whatsapp-message]'),del=e.target.closest('[data-delete-message]');if(cp){const m=db.messages.find(x=>x.id===cp.dataset.copyMessage);if(m){const s=db.students.find(x=>x.id===m.studentId);const text=`${m.subject}\n\n${m.body}`;try{await navigator.clipboard.writeText(text);toast('Mensaje copiado.')}catch(_){prompt('Copia el mensaje:',text)}}}if(wa){const m=db.messages.find(x=>x.id===wa.dataset.whatsappMessage);if(m&&m.phone){const phone=m.phone.replace(/\D/g,'');const text=encodeURIComponent(m.subject+'\n\n'+m.body);window.open('https://wa.me/'+phone+'?text='+text,'_blank','noopener');}}if(del&&confirm('¿Eliminar este borrador?')){db.messages=db.messages.filter(m=>m.id!==del.dataset.deleteMessage);saveDb();renderMessages();}});
+$('coord-form').addEventListener('submit',e=>{e.preventDefault();db.coordination.unshift({id:id(),title:$('coord-title').value.trim(),owner:$('coord-owner').value,due:$('coord-due').value,notes:$('coord-notes').value.trim(),done:false,created:new Date().toISOString()});saveDb();e.target.reset();renderCoordination();toast('Acuerdo guardado.');});function renderCoordination(){const list=$('coord-list');list.innerHTML='';$('coord-empty').classList.toggle('hidden',!!db.coordination.length);db.coordination.forEach(c=>{const card=document.createElement('article');card.className='item-card';card.innerHTML=`<div class="item-card-head"><div><span class="chip">${safe(c.owner)}</span><span class="status ${c.done?'good':'warn'}">${c.done?'Completado':'Pendiente'}</span><h3 style="margin-top:6px">${safe(c.title)}</h3><p class="sub">${safe(c.notes||'Sin detalles')}</p><small class="muted">Fecha límite: ${safe(c.due?dateLabel(c.due,false):'No indicada')}</small></div><button class="btn small red" data-delete-coord="${safe(c.id)}">Eliminar</button></div><div class="form-actions"><button class="btn small ${c.done?'':'green'}" data-toggle-coord="${safe(c.id)}">${c.done?'Reabrir tarea':'Marcar completada'}</button></div>`;list.appendChild(card)});}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-toggle-coord]'),d=e.target.closest('[data-delete-coord]');if(t){const c=db.coordination.find(x=>x.id===t.dataset.toggleCoord);if(c)c.done=!c.done;saveDb();renderCoordination()}if(d&&confirm('¿Eliminar el acuerdo?')){db.coordination=db.coordination.filter(x=>x.id!==d.dataset.deleteCoord);saveDb();renderCoordination()}});
+function renderMetrics(){if(!$('metric-students'))return;$('metric-students').textContent=db.students.length;const k=nearestLessonKey(),entry=lessonMap.get(k);$('metric-next').textContent=k?`${parseDate(k).getDate()} ${MONTHS[parseDate(k).getMonth()].slice(0,3)}.`:'—';$('metric-next-detail').textContent=entry?.topics?.length?entry.topics.map(t=>`Tema ${t.num}`).join(' · '):'Próximo encuentro';const past=[...lessonMap.entries()].filter(([date,v])=>v.type==='lesson'&&date<=keyDate(new Date())).map(([date])=>date).reverse();const last=past.find(date=>db.records[date]&&Object.values(db.records[date]).some(r=>r.attendance&&r.attendance!=='unmarked'));if(last){const recs=Object.values(db.records[last]);const attended=recs.filter(r=>['present','late'].includes(r.attendance)).length;const total=db.students.length;$('metric-attendance').textContent=percent(attended,total)+'%';$('metric-attendance-detail').textContent=`${dateLabel(last,false)} · ${attended}/${total} asistentes`}else{$('metric-attendance').textContent='—';$('metric-attendance-detail').textContent='Sin registro todavía'}const due=tasksDue().filter(t=>db.students.filter(s=>assignedTo(t,s)).some(s=>!taskDone(t,s.id))).length;$('metric-pending').textContent=due;renderHomeNext();renderHomePending();}
+function renderHomeNext(){const k=nearestLessonKey(),entry=lessonMap.get(k),wrap=$('home-next-session');if(!entry){wrap.innerHTML='<div class="empty">No se encontró un encuentro en el calendario.</div>';return}wrap.innerHTML=`<div class="date-label">${safe(dateLabel(k))}</div><h3 style="margin:6px 0 8px;color:var(--navy)">${entry.type==='lesson'?'Encuentro '+String(entry.session).padStart(2,'0'):'Celebración'}</h3>${entry.topics?entry.topics.map(t=>`<div class="topic-details"><div style="padding:10px 12px;font-weight:850">Tema ${t.num}: ${safe(t.title)}</div></div>`).join(''):`<p>${safe(entry.description||'')}</p>`}<div class="form-actions"><button class="btn primary" data-go="calendar" onclick="goView('calendar')">Ver planificación</button><button class="btn" onclick="selectedDate='${k}';goView('attendance');$('attendance-date').value='${k}';renderAttendance()">Registrar asistencia</button></div>`;}
+function renderHomePending(){const el=$('home-pending-list');const pending=db.coordination.filter(c=>!c.done).slice(0,3);const due=tasksDue().filter(t=>db.students.some(s=>assignedTo(t,s)&&!taskDone(t,s.id))).slice(0,3);el.innerHTML=[...pending.map(c=>`<div class="item-card"><span class="chip">Acuerdo · ${safe(c.owner)}</span><strong>${safe(c.title)}</strong><div class="tiny">${safe(c.due?dateLabel(c.due,false):'Sin fecha límite')}</div></div>`),...due.map(t=>`<div class="item-card"><span class="chip">${safe(t.type)}</span><strong>${safe(t.title)}</strong><div class="tiny">Vence: ${safe(t.due?dateLabel(t.due,false):dateLabel(t.date,false))}</div></div>`)].join('')||'<div class="empty">No hay pendientes guardados.</div>';}
+function printDay(){const entry=lessonMap.get(selectedDate),topics=entry?.topics||[];const body=topics.map(t=>`<h2>Tema ${t.num}: ${safe(t.title)}</h2><ul>${t.content.map(x=>`<li>${safe(x)}</li>`).join('')}</ul>`).join('');const win=window.open('','_blank','width=850,height=950');if(!win){toast('El navegador bloqueó la ventana de impresión. Permite ventanas emergentes.');return}win.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Ficha catequesis</title><style>body{font:15px Arial,sans-serif;max-width:800px;margin:30px auto;padding:0 22px;color:#172b48}header{border-bottom:3px solid #e9bd43;padding-bottom:10px;color:#173b68}h2{font-size:18px;margin-top:20px}li{line-height:1.5}.line{height:30px;border-bottom:1px solid #acb7c5}.copyright{margin-top:28px;font-size:11px;color:#687689;border-top:1px solid #ddd;padding-top:10px}@media print{button{display:none}}</style></head><body><header><h1>Colegio La Salle del Sur</h1><strong>Camino hacia Jesús · Ficha de catequesis</strong><p>${safe(dateLabel(selectedDate))}</p></header>${body||'<p>Actividad / celebración: '+safe(lessonMap.get(selectedDate)?.title||'')+'</p>'}<h2>Lo que aprendí hoy</h2><div class="line"></div><div class="line"></div><div class="line"></div><h2>Mi compromiso</h2><div class="line"></div><div class="line"></div><p class="copyright">© 2026 Colegio La Salle del Sur · Programa Camino hacia Jesús. Todos los derechos reservados.</p><button onclick="window.print()">Imprimir / Guardar como PDF</button></body></html>`);win.document.close();win.focus()}
+function exportBackup(){const blob=new Blob([JSON.stringify({format:'camino-hacia-jesus-catequistas-v1',exportedAt:new Date().toISOString(),data:db},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='respaldo-catequistas-'+keyDate(new Date())+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1500);}
+$('export-backup').addEventListener('click',exportBackup);$('import-backup-btn').addEventListener('click',()=>$('import-backup-file').click());$('import-backup-file').addEventListener('change',e=>{const file=e.target.files?.[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const parsed=JSON.parse(reader.result);const imported=parsed.data||parsed;if(!Array.isArray(imported.students)||!imported.records||!Array.isArray(imported.tasks))throw new Error('Formato no reconocido');if(!confirm('Importar el respaldo reemplazará los datos actuales guardados en este navegador. ¿Continuar?'))return;db={...initialDb(),...imported};db.students.forEach(s=>{if(!s.code)s.code=nextCode()});saveDb();refreshAll();toast('Respaldo importado.');}catch(err){alert('No se pudo importar este archivo. Verifica que sea un respaldo de Catequistas del portal Camino hacia Jesús.')}};reader.readAsText(file);e.target.value='';});
+$('download-progress-csv').addEventListener('click',()=>{const rows=[['Código','Catequizando','Edad','Asistencia %','Tareas completadas %','Promedio /20','Revisión de cuaderno %','Progreso general %']];db.students.forEach(s=>{const p=progressFor(s.id);rows.push([s.code,s.name,s.age,p.attendance,p.tasks,p.average===null?'':p.average.toFixed(1),p.notebook,p.overall])});const csv=rows.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\r\n');const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='progreso-catequizandos-'+keyDate(new Date())+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)});
+function refreshAll(){renderCalendar();renderEvents();renderStudents();renderAttendance();renderTasks();renderProgress();renderMessages();renderCoordination();renderMessageStudentOptions();renderMetrics()}
+document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>hideModal(b.dataset.close)));document.querySelectorAll('.modal-backdrop').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)hideModal(m.id)}));document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal-backdrop.show').forEach(m=>hideModal(m.id))});
+$('message-target').value='parent';$('attendance-date').value=selectedDate;$('task-date').value=selectedDate;$('task-due').value=selectedDate;$('ev-date').value=selectedDate;$('coord-due').value=selectedDate;
+// Select the nearest future catechesis date; if all programmed dates have passed, show the last one.
+selectedDate=nearestLessonKey();monthCursor=parseDate(selectedDate);$('attendance-date').value=selectedDate;
+function checkLessonClassTopics(){const k='2026-10-27';const test=lessonMap.get(k);return !!test&&test.topics.length===1&&test.topics[0].num===46&&test.topics[0].title==='Liturgia de la Palabra';}
+refreshAll();
+// Ensure existing unique codes are filled without changing already valid ones.
+let used=new Set();db.students.forEach(s=>{const c=String(s.code||'').trim().toUpperCase();if(!c||used.has(c)){s.code=nextCode();}used.add(String(s.code).toUpperCase())});saveDb();renderStudents();renderMetrics();
+</script>
+</body></html>
