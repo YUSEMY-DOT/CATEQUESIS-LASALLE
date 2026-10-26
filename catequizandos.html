@@ -205,7 +205,26 @@ main{padding:0 clamp(14px,2.8vw,36px) 42px}.quicklinks{display:grid;grid-templat
   .kid-welcome .quicklinks{grid-template-columns:repeat(2,minmax(0,1fr))}
   .kid-welcome .quick{gap:6px;font-size:12px}
 }
-</style></head>
+</style>
+<style id="collapsible-calendar-topic-styles">
+/* Los temas se muestran como tarjetas compactas y comienzan cerrados. */
+.calendar-topic-item.topic-collapsible{padding:0;overflow:hidden;border-left:4px solid #e8bd60;background:#fff}
+.calendar-topic-item.topic-collapsible>.topic-summary{display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;list-style:none;padding:12px 13px;min-height:48px}
+.calendar-topic-item.topic-collapsible>.topic-summary::-webkit-details-marker{display:none}
+.calendar-topic-item.topic-collapsible>.topic-summary::after{content:"＋";flex:0 0 auto;display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:#fff2cc;color:#8c5c00;font-size:18px;font-weight:900}
+.calendar-topic-item.topic-collapsible[open]>.topic-summary::after{content:"−"}
+.calendar-topic-item.topic-collapsible .topic-summary-title{margin:0;font:700 15px Fredoka,sans-serif;line-height:1.3;color:#081c3b}
+.topic-toggle-label{flex:0 0 auto;color:#9a711d;font-size:10px;font-weight:900;white-space:nowrap}
+.topic-content{padding:0 13px 12px}
+.topic-content .topic-stage{display:block;font-size:11px;color:#9a711d;font-weight:900;margin:0 0 5px}
+.topic-content ul{padding-left:19px;margin:5px 0 10px}
+.topic-content li{font-size:12px;color:#4b5d73;font-weight:700;margin:3px 0;line-height:1.45}
+.topic-close-button{border:1px solid #e4c77e;border-radius:18px;background:#fff8e7;color:#76521a;padding:5px 12px;font-size:11px;font-weight:900;cursor:pointer}
+.topic-close-button:hover{background:#ffedbd}
+@media(max-width:650px){.calendar-topic-item.topic-collapsible>.topic-summary{padding:10px;gap:7px}.calendar-topic-item.topic-collapsible .topic-summary-title{font-size:14px}.topic-toggle-label{font-size:9px}.topic-content li{font-size:12px}}
+</style>
+
+</head>
 <body><div class="wrap"><div class="goldline"></div>
 <header>
   <div class="topbar">
@@ -507,14 +526,29 @@ function renderCalendar(){
 function renderTopicCards(topics){
   const container=$('calendar-topic-list');container.innerHTML='';
   topics.forEach(topic=>{
-    const card=document.createElement('div');card.className='calendar-topic-item';
-    const title=document.createElement('strong');title.textContent=`Tema ${topic.num}: ${topic.title}`;card.appendChild(title);
-    const stage=document.createElement('span');stage.className='topic-stage';stage.textContent=`Etapa: ${topic.stage}`;card.appendChild(stage);
+    // Cada tema empieza cerrado para que el detalle de la fecha no alargue toda la página.
+    const card=document.createElement('details');card.className='calendar-topic-item topic-collapsible';
+    const summary=document.createElement('summary');summary.className='topic-summary';
+    const title=document.createElement('strong');title.className='topic-summary-title';title.textContent=`Tema ${topic.num}: ${topic.title}`;
+    const toggleLabel=document.createElement('span');toggleLabel.className='topic-toggle-label';toggleLabel.textContent='Toca para leer';
+    summary.append(title,toggleLabel);card.appendChild(summary);
+    const content=document.createElement('div');content.className='topic-content';
+    const stage=document.createElement('span');stage.className='topic-stage';stage.textContent=`Etapa: ${topic.stage}`;content.appendChild(stage);
     if(topic.content&&topic.content.length){
       const ul=document.createElement('ul');
       topic.content.forEach(item=>{const li=document.createElement('li');li.textContent=item;ul.appendChild(li)});
-      card.appendChild(ul);
+      content.appendChild(ul);
     }
+    const close=document.createElement('button');close.type='button';close.className='topic-close-button';close.textContent='Cerrar tema';
+    close.addEventListener('click',()=>{card.open=false;summary.focus()});
+    content.appendChild(close);card.appendChild(content);
+    // Solo se permite un tema extendido a la vez. Al cambiar de fecha, los temas vuelven a cerrarse.
+    card.addEventListener('toggle',()=>{
+      if(card.open){
+        container.querySelectorAll('details.topic-collapsible[open]').forEach(other=>{if(other!==card)other.open=false});
+        toggleLabel.textContent='Toca para cerrar';
+      }else{toggleLabel.textContent='Toca para leer';}
+    });
     container.appendChild(card);
   });
 }
