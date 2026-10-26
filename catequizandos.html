@@ -224,6 +224,94 @@ main{padding:0 clamp(14px,2.8vw,36px) 42px}.quicklinks{display:grid;grid-templat
 @media(max-width:650px){.calendar-topic-item.topic-collapsible>.topic-summary{padding:10px;gap:7px}.calendar-topic-item.topic-collapsible .topic-summary-title{font-size:14px}.topic-toggle-label{font-size:9px}.topic-content li{font-size:12px}}
 </style>
 
+
+<style id="final-visual-polish">
+:root{--navy:#12345a;--gold:#ffc94d;--line:#eadbb8;--paper:#fffdf7;--ink:#193453;--muted:#61738a}
+body{background:#f7f5ef;color:var(--ink)}
+.top-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap}
+.mute-toggle{border:1px solid #f0c75a;border-radius:24px;padding:9px 13px;background:#fff8e5;color:#17385f;font-size:12px;font-weight:900;cursor:pointer;white-space:nowrap;box-shadow:0 3px 9px #081c3b0c;transition:background .15s,border-color .15s}
+.mute-toggle:hover{background:#ffe8a0;border-color:#d9a528}
+.home{background:#ffc94d;color:#102b4e;border:1px solid #fff2c9}
+.hero{grid-template-columns:minmax(0,1.2fr) minmax(290px,.8fr)!important;gap:clamp(14px,2vw,25px)!important;align-items:center!important}
+.countdown{max-width:360px!important;width:100%;justify-self:end;padding:10px 12px!important;border-radius:15px!important;background:linear-gradient(140deg,#173e69,#214c79)!important;border:1px solid #e5c76d!important;box-shadow:0 7px 17px #091c351f!important}
+.countdown-title{font:700 clamp(15px,1.35vw,18px)/1.2 Fredoka,sans-serif!important;color:#ffe5a0!important;letter-spacing:0!important}
+.countdown-sub{display:none!important}
+.timer{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;margin-top:8px!important;width:100%;max-width:320px!important}
+.timebox{min-height:58px!important;padding:7px 6px!important;background:#fffdf7!important;color:#102b4e!important;border:1px solid #f4e6c2!important;border-bottom:3px solid #ffc43d!important;border-radius:10px!important;box-shadow:0 2px 5px #071b3412!important;gap:2px!important}
+.timebox b{font:700 clamp(24px,2vw,29px)/1.05 Fredoka,sans-serif!important;color:#102b4e!important}
+.timebox span{font-size:10px!important;letter-spacing:.45px!important;color:#234569!important}
+.countdown-note{font-size:11px!important;line-height:1.3!important;margin-top:7px!important;color:#fff1ca!important}
+/* Paleta unificada: azul, blanco, amarillo y un acento rojo reservado a la fecha especial. */
+.eyebrow{color:#9b6b10!important}
+.section h2,.cal-top h3,.calendar-info h3{color:#12345a!important}
+.section .sub{color:#61738a}
+.kid-welcome{background:linear-gradient(135deg,#fff0bd 0%,#fff8e6 100%)!important;border:2px solid #ffd77b!important;box-shadow:0 7px 20px #9b70120c!important}
+.kid-welcome .adventure-kicker{background:#fffdf7!important;border-color:#ecc45e!important;color:#8b5a05!important}
+.kid-welcome .quick{background:#fffdf8!important;border-color:#ead49b!important;color:#12345a!important;box-shadow:0 3px 8px #16375a0b!important}
+.kid-welcome .quick:hover{background:#fff0be!important;border-color:#d9aa35!important}
+.stage{background:#fff!important;border-color:#e7d8b5!important;color:#12345a!important}
+.stage[aria-pressed=true]{background:#fff4cc!important;border-color:#e5b734!important}
+.stage .num{background:#ffc94d!important;color:#12345a!important;border-color:#fff!important}
+/* Calendario limpio y de lectura rápida. */
+#calendar-section{margin-top:24px!important}
+#calendar-section>.sub,.resource-hint,.calendar-management-actions{display:none!important}
+.calendar-layout{gap:12px!important;align-items:stretch}
+.calendar-card{background:#fffdf7!important;border:1px solid #e9ca71!important;border-radius:16px!important;box-shadow:0 4px 14px #12345a0a!important;padding:13px!important}
+.cal-top{border:1px solid #e5bd50!important;background:#fff2c7!important;border-radius:12px!important;padding:8px 9px!important;margin-bottom:11px!important;box-shadow:inset 0 1px 0 #fff8dc!important}
+.cal-top h3{font-size:17px!important;color:#12345a!important}
+.cal-controls{gap:7px!important}
+.cal-controls strong{min-width:105px!important;color:#12345a!important;font-size:13px!important}
+.cal-controls button{width:30px!important;height:30px!important;flex:0 0 30px!important;border:1px solid #dcb33e!important;border-radius:9px!important;background:#fffdf7!important;color:#12345a!important;font-size:20px!important;box-shadow:0 2px 4px #1734530c!important}
+.cal-controls button:hover{background:#ffe79b!important;border-color:#c79820!important}
+.cal-grid{gap:5px!important}
+.weekday{color:#17385f!important;font-size:11px!important;font-weight:900!important}
+#calendar-grid .day{min-height:38px!important;background:#fffaf0!important;border:1px solid #ece2ca!important;border-radius:9px!important;color:#304761!important;box-shadow:none!important;font-weight:900!important}
+#calendar-grid .day:disabled{opacity:1!important;background:#f6f5f1!important;color:#a3a8ae!important;border-color:#e9e8e2!important;cursor:default!important}
+#calendar-grid .day.classday:not(.selected),#calendar-grid .day.classday.c1:not(.selected),#calendar-grid .day.classday.c2:not(.selected),#calendar-grid .day.classday.c3:not(.selected),#calendar-grid .day.classday.c4:not(.selected),#calendar-grid .day.classday.c5:not(.selected),#calendar-grid .day.classday.c6:not(.selected){background:#ffedb6!important;border:1px solid #e8bb38!important;color:#19385d!important}
+#calendar-grid .day.classday:not(.selected):hover{background:#ffe18a!important;border-color:#d3a022!important;transform:translateY(-1px)}
+#calendar-grid .day.classday:after{width:5px;height:5px;background:#c7900e!important;bottom:4px;left:calc(50% - 2px)}
+#calendar-grid .day.classday.double-session:before{content:'2';position:absolute;top:2px;right:3px;width:12px;height:12px;display:grid;place-items:center;border-radius:4px;background:#fffaf0;color:#a65b06;border:1px solid #e5a74b;font:900 8px Nunito,sans-serif}
+#calendar-grid .day.selected{background:#12345a!important;color:#fff!important;border:2px solid #e8bd3d!important;box-shadow:0 0 0 2px #fff7dc,0 3px 8px #102b4e25!important;transform:translateY(-1px)}
+#calendar-grid .day.selected:after{background:#ffdc70!important}
+#calendar-grid .day.communion-day,#calendar-grid .day.communion-day:not(.selected){background:#fff0ef!important;border:1px solid #dc7474!important;color:#992d2d!important}
+.calendar-info{background:#fffdf8!important;border:1px solid #e5c76d!important;border-radius:16px!important;padding:15px!important;box-shadow:0 4px 14px #12345a0a!important}
+.calendar-info>.pill{background:#fff0be!important;color:#7f560b!important}
+.calendar-info .date-big{color:#17385f!important;font-size:clamp(20px,2vw,26px)!important;line-height:1.15!important;margin:8px 0 10px!important}
+.calendar-info p{font-size:13px!important;color:#61738a!important;margin:6px 0!important}
+.calendar-topic-list{gap:8px!important;margin-top:8px!important}
+.calendar-topic-item.topic-collapsible{border:1px solid #e5d7b7!important;border-left:4px solid #e5b536!important;border-radius:11px!important;background:#fff!important}
+.topic-summary{padding:10px 11px!important;gap:9px!important}
+.topic-summary-title{font:700 14px Fredoka,sans-serif!important;color:#12345a!important}
+.topic-toggle-label{font-size:10px!important;color:#94650e!important;font-weight:900!important;white-space:nowrap}
+.topic-content{padding:0 12px 12px!important}
+.topic-content .topic-stage{color:#986c13!important}
+.calendar-legend{color:#61738a!important;gap:9px!important;margin-top:10px!important}
+.legend-dot{background:#d4a21f!important}
+.legend-double{background:#fff1c6!important;border-color:#e5b43c!important;color:#895d07!important}
+.legend-special{background:#ffe9e9!important;border-color:#d76b6b!important}
+/* Derechos y estilo consistente en ventanas emergentes. */
+@media(max-width:760px){
+  .topbar{gap:8px!important}
+  .top-actions{justify-content:flex-start!important;width:100%;margin-top:8px}
+  .mute-toggle,.home{font-size:11px!important;padding:8px 11px!important}
+  .hero{grid-template-columns:minmax(0,1fr)!important}
+  .hero .hero-copy{grid-column:1!important;grid-row:1!important}
+  .countdown{grid-column:1!important;grid-row:2!important;justify-self:stretch!important;max-width:100%!important}
+  .timer{max-width:100%!important}
+  .timebox{min-height:56px!important}
+  .calendar-layout{grid-template-columns:1fr!important}
+}
+@media(max-width:430px){
+  .countdown-title{font-size:15px!important}
+  .countdown-note{font-size:10px!important}
+  #calendar-grid .day{min-height:34px!important;border-radius:7px!important}
+  .cal-top{align-items:center!important;gap:6px!important;padding:7px!important}
+  .cal-top h3{font-size:15px!important}
+  .cal-controls{gap:4px!important}
+  .cal-controls strong{min-width:80px!important;font-size:11px!important}
+}
+</style>
+
 </head>
 <body><div class="wrap"><div class="goldline"></div>
 <header>
@@ -237,6 +325,7 @@ main{padding:0 clamp(14px,2.8vw,36px) 42px}.quicklinks{display:grid;grid-templat
       </div>
     </div>
     <div class="top-actions">
+      <button class="mute-toggle" id="mute-toggle" type="button" aria-pressed="false" title="Silenciar voz">🔊 Silenciar</button>
       <a class="home" href="./index.html">🏠 Volver al inicio</a>
     </div>
   </div>
@@ -284,8 +373,8 @@ main{padding:0 clamp(14px,2.8vw,36px) 42px}.quicklinks{display:grid;grid-templat
     <div class="student-field note-field"><label for="new-student-notes">Nota inicial (opcional)</label><input id="new-student-notes" name="new-student-notes" type="text" maxlength="250" placeholder="Observación formativa breve"></div>
     <button type="submit">Guardar ficha</button><button class="cancel-student" id="cancel-add-student" type="button">Cancelar</button>
   </form>
-  <section class="section" id="calendar-section"><div class="eyebrow">Organiza tus encuentros</div><h2>📅 Calendario de catequesis</h2><p class="sub">La catequesis comienza el martes 16 de junio. Las primeras siete clases llevan dos temas: 16, 18, 23, 25 y 30 de junio; 2 y 7 de julio. Desde el 9 de julio se trabaja un tema por encuentro.</p><div class="calendar-layout"><div class="calendar-card"><div class="cal-top"><h3>Calendario</h3><div class="cal-controls"><button id="prev-month" aria-label="Mes anterior">‹</button><strong id="month-label">Junio 2026</strong><button id="next-month" aria-label="Mes siguiente">›</button></div></div><div class="cal-grid" id="calendar-grid"></div></div><div class="calendar-info"><span class="pill">TU ENCUENTRO</span><div class="date-big" id="selected-date">Elige un día</div><h3 id="calendar-topic">¿Qué aprenderemos?</h3><p id="calendar-description">Selecciona una fecha marcada para consultar los temas del encuentro.</p><div id="calendar-topic-list" class="calendar-topic-list"></div><div class="calendar-legend"><span><i class="legend-dot"></i>Clase programada</span><span><i class="legend-double"></i>2 temas en una clase</span><span><i class="legend-special"></i>Primera Comunión</span></div><div class="resource-hint">📅 Las primeras siete sesiones incluyen dos temas. Desde el 9 de julio se presenta un tema por clase. El 3 de diciembre está reservado para la Primera Comunión.</div>
-<div class="calendar-management-actions"><button class="teacher-access-trigger" id="open-catechist-tools" type="button">👩‍🏫 Área de catequistas</button><button class="record-launch" id="open-record-modal" type="button" hidden>📝 Registrar puntos y ficha</button></div>
+  <section class="section" id="calendar-section"><div class="eyebrow">Organiza tus encuentros</div><h2>📅 Calendario de catequesis</h2><div class="calendar-layout"><div class="calendar-card"><div class="cal-top"><h3>Calendario</h3><div class="cal-controls"><button id="prev-month" aria-label="Mes anterior">‹</button><strong id="month-label">Junio 2026</strong><button id="next-month" aria-label="Mes siguiente">›</button></div></div><div class="cal-grid" id="calendar-grid"></div></div><div class="calendar-info"><span class="pill">TU ENCUENTRO</span><div class="date-big" id="selected-date">Elige un día</div><h3 id="calendar-topic">¿Qué aprenderemos?</h3><p id="calendar-description">Selecciona una fecha marcada para consultar los temas del encuentro.</p><div id="calendar-topic-list" class="calendar-topic-list"></div><div class="calendar-legend"><span><i class="legend-dot"></i>Clase programada</span><span><i class="legend-double"></i>2 temas en una clase</span><span><i class="legend-special"></i>Primera Comunión</span></div>
+
 <div id="session-record-panel" class="record-panel" hidden>
   <h4>📝 Seguimiento de esta clase</h4><p id="record-student-hint">Selecciona un catequizando para registrar sus puntos y ficha.</p>
   <div class="record-fields">
@@ -565,7 +654,7 @@ function selectDate(d){
     $('calendar-description').textContent=entry.description;
   }else{
     $('calendar-topic').textContent=entry.topics.length>1?'Temas del encuentro':`Tema ${entry.topics[0].num}: ${entry.topics[0].title}`;
-    $('calendar-description').textContent=entry.topics.length>1?`Encuentro ${String(entry.session).padStart(2,'0')}. Esta sesión incluye dos temas, según la programación de catequesis.`:`Encuentro ${String(entry.session).padStart(2,'0')}. Revisa el contenido previsto para esta sesión.`;
+    $('calendar-description').textContent=`Encuentro ${String(entry.session).padStart(2,'0')}.`;
     renderTopicCards(entry.topics);
   }
   renderCalendar();
@@ -639,7 +728,13 @@ const faithQuestions=[
  {q:'¿Cuál es un lugar donde escuchamos la Palabra de Dios y celebramos la Eucaristía?',a:['La iglesia','El supermercado','El cine','El parque de diversiones'],correct:0,why:'¡Correcto! En la iglesia nos reunimos como comunidad cristiana.'},
  {q:'¿Qué oración nos enseñó Jesús?',a:['Padre Nuestro','Una canción de cuna','Una adivinanza','Una receta'],correct:0,why:'¡Muy bien! Jesús nos enseñó a rezar el Padre Nuestro.'}
 ];
-function playCatechesisVoice(message){try{if(!('speechSynthesis' in window))return;window.speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(message);utterance.lang='es-PE';utterance.rate=.92;utterance.pitch=1.08;window.speechSynthesis.speak(utterance)}catch(e){}}
+let catechesisVoiceMuted=false;
+try{catechesisVoiceMuted=localStorage.getItem('camino_jesus_voice_muted')==='true'}catch(e){}
+function syncMuteButton(){const button=$('mute-toggle');if(!button)return;button.textContent=catechesisVoiceMuted?'🔇 Activar sonido':'🔊 Silenciar';button.setAttribute('aria-pressed',String(catechesisVoiceMuted));button.title=catechesisVoiceMuted?'Activar la voz':'Silenciar la voz'}
+function playCatechesisVoice(message){try{if(catechesisVoiceMuted||!('speechSynthesis' in window))return;window.speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(message);utterance.lang='es-PE';utterance.rate=.92;utterance.pitch=1.08;window.speechSynthesis.speak(utterance)}catch(e){}}
+const muteToggle=$('mute-toggle');
+if(muteToggle){muteToggle.addEventListener('click',()=>{catechesisVoiceMuted=!catechesisVoiceMuted;try{localStorage.setItem('camino_jesus_voice_muted',String(catechesisVoiceMuted))}catch(e){}if(catechesisVoiceMuted){try{window.speechSynthesis?.cancel()}catch(e){}}syncMuteButton();if(!catechesisVoiceMuted)playCatechesisVoice('¡Bienvenidos al Colegio La Salle del Sur! Estamos en Camino hacia Jesús. ¡Vamos a aprender con alegría y fe!')})}
+syncMuteButton();
 function getChallengeStars(){const student=activeStudent();return student?Number(student.challengeStars||0):generalChallengeStars}
 function updateChallengeStars(){const el=$('challenge-stars');if(el)el.textContent=`⭐ Estrellas ganadas: ${getChallengeStars()}`;renderAchievements()}
 function chooseAvatar(button){document.querySelectorAll('.avatar-choice').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));localStorage.setItem(AVATAR_STORE_KEY,button.dataset.avatar);$('avatar-tip').textContent=`¡Genial! ${button.dataset.avatarName} será tu compañero de aventura. ¡Vamos a descubrir cosas bonitas de Jesús!`;playCatechesisVoice(`¡Qué bien! Elegiste a ${button.dataset.avatarName}. ¡Vamos a aprender con Jesús!`)}
