@@ -130,6 +130,42 @@ main{padding:0 clamp(14px,2.8vw,36px) 42px}.quicklinks{display:grid;grid-templat
   .timebox b{font-size:clamp(18px,5vw,22px)}
 }
 
+
+
+/* Ajustes finales coordinados con las observaciones del portal */
+.catequizandos-entry{display:none!important}
+.hero{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(340px,.95fr);align-items:center;gap:clamp(18px,3vw,38px)}
+.hero .hero-copy{grid-column:1;max-width:none!important;min-width:0}
+.countdown{grid-column:2;grid-row:1;justify-self:end;width:100%;max-width:500px;margin:0;padding:clamp(12px,1.3vw,16px);border-radius:19px}
+.countdown-title{font-size:clamp(21px,2vw,29px)!important;line-height:1.15}
+.countdown-sub{display:none!important}
+.timer{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:none;width:100%}
+.timebox{padding:clamp(8px,.9vw,12px) 8px;border-radius:12px}
+.timebox b{font-size:clamp(30px,3vw,38px)!important;line-height:1.05}
+.timebox span{font-size:clamp(12px,1.05vw,15px)!important;letter-spacing:.7px}
+.countdown-note{font-size:clamp(14px,1.25vw,18px)!important;line-height:1.4;margin-top:12px}
+/* Se retiran de la vista los paneles indicados, sin borrar sus identificadores ni romper el código existente. */
+#student-area,#student-form,#session-record-panel,#individual-directory,.team-card{display:none!important}
+/* Las tres tarjetas solicitadas van inmediatamente después del calendario. */
+.dashboard-shortcut.calendar-shortcut{display:none!important}
+.dashboard-shortcuts{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px!important;margin:18px 0 28px!important}
+.dashboard-shortcut{min-width:0}
+.achievement-board{margin:0 0 19px!important}
+#resource-links{margin:0 0 28px!important}
+#home-content{margin-top:0}
+#calendar-section{margin-top:26px;scroll-margin-top:18px}
+.progress-title{margin-top:25px}
+#individual-progress,#progress-board{scroll-margin-top:20px}
+@media(max-width:760px){
+  .hero{grid-template-columns:minmax(0,1fr)!important;gap:15px!important}
+  .hero .hero-copy{grid-column:1;grid-row:1}
+  .countdown{grid-column:1;grid-row:2;justify-self:stretch;width:100%;max-width:none;padding:15px}
+  .countdown-title{font-size:clamp(20px,5.5vw,25px)!important}
+  .timebox b{font-size:clamp(30px,8vw,40px)!important}
+  .countdown-note{font-size:14px!important}
+  .dashboard-shortcuts{grid-template-columns:1fr!important}
+}
+
 </style></head>
 <body><div class="wrap"><div class="goldline"></div>
 <header>
@@ -151,14 +187,11 @@ main{padding:0 clamp(14px,2.8vw,36px) 42px}.quicklinks{display:grid;grid-templat
       <h1>¡Nuestro camino<br>hacia <span>Jesús!</span> 💛</h1>
       <p>Aprendemos, oramos y crecemos juntos para recibir a Jesús en la Primera Comunión.</p>
     </div>
-    <aside class="countdown" aria-label="Cuenta regresiva para la Primera Comunión">
+    <aside class="countdown" aria-label="Cuenta regresiva del programa">
       <div class="countdown-title">🎉 ¡Falta poquito para nuestro gran día!</div>
-      <div class="countdown-sub">Primera Comunión · 3 de diciembre de 2026</div>
       <div class="timer" aria-live="polite">
-        <div class="timebox"><b id="days">--</b><span>Días</span></div>
         <div class="timebox"><b id="hours">--</b><span>Horas</span></div>
         <div class="timebox"><b id="minutes">--</b><span>Minutos</span></div>
-        <div class="timebox"><b id="seconds">--</b><span>Segundos</span></div>
       </div>
       <div class="countdown-note" id="countdown-note">Cada día estamos más cerca de encontrarnos con Jesús. 🙏</div>
     </aside>
@@ -214,12 +247,12 @@ main{padding:0 clamp(14px,2.8vw,36px) 42px}.quicklinks{display:grid;grid-templat
   <section class="individual-directory" id="individual-directory" aria-labelledby="directory-title">
     <div class="directory-head"><div><h3 id="directory-title">👧🏻👦🏻 Fichas individuales de catequizandos</h3><p>Busca cada ficha, consulta su porcentaje de avance y abre su pasaporte de fe.</p></div><span class="directory-count" id="directory-count">0 catequizandos</span></div>
     <div class="directory-filters"><div class="student-field"><label for="student-search">Buscar por nombre</label><input id="student-search" type="search" placeholder="Escribe un nombre o apellido…"></div><div class="student-field age-field"><label for="student-age-filter">Filtrar por edad</label><select id="student-age-filter"><option value="">Todas las edades</option><option value="6">6 años</option><option value="7">7 años</option><option value="8">8 años</option><option value="9">9 años</option><option value="10">10 años</option><option value="11">11 años</option><option value="12">12 años</option></select></div></div>
-    <div id="childrenList" class="directory-grid"></div><div id="emptyState" class="directory-empty">Todavía no hay fichas registradas. Pulsa «Añadir catequizando» para comenzar.</div>
+    <div id="childrenList" class="directory-grid"></div><div id="emptyState" class="directory-empty">Las fichas y avances aparecerán aquí cuando se carguen los códigos de los catequizandos.</div>
   </section>
   <div class="profile-overlay" id="student-profile-modal" hidden role="dialog" aria-modal="true" aria-labelledby="student-profile-title">
     <section class="profile-dialog"><div class="profile-dialog-head"><div><span class="pill">PASAPORTE DE FE</span><h3 id="student-profile-title">Ficha del catequizando</h3><p id="student-profile-meta"></p></div><button class="profile-close" id="close-student-profile" type="button" aria-label="Cerrar ficha">✕</button></div><div id="student-profile-body"></div><div class="profile-dialog-foot"><button class="student-action" id="profile-select-student" type="button">📊 Ver su progreso y notas</button><button class="profile-close-text" id="close-student-profile-bottom" type="button">Cerrar</button></div><div class="profile-copyright">© 2026 Colegio La Salle del Sur · Programa Camino hacia Jesús. Todos los derechos reservados.</div></section>
   </div>
-  <div class="progress-title"><h3>📊 Mi progreso en porcentajes</h3><p>Selecciona un catequizando para registrar la nota, la ficha del día y las etapas completadas.</p></div>
+  <div class="progress-title"><h3>📊 Mi progreso en porcentajes</h3><p>Aquí podrás consultar el porcentaje de clases, las fichas entregadas y las notas registradas de cada catequizando.</p></div>
   <div class="progress-stats" id="individual-progress" aria-live="polite">
     <div class="progress-stat"><span>Clases registradas</span><strong id="stat-classes">0</strong><small id="stat-classes-detail">de las clases programadas</small><div class="meter"><span id="stat-classes-meter"></span></div></div>
     <div class="progress-stat"><span>Progreso de clases</span><strong id="stat-progress">0%</strong><small>Encuentros con registro guardado</small><div class="meter"><span id="stat-progress-meter"></span></div></div>
@@ -227,7 +260,7 @@ main{padding:0 clamp(14px,2.8vw,36px) 42px}.quicklinks{display:grid;grid-templat
     <div class="progress-stat"><span>Fichas entregadas</span><strong id="stat-worksheets">0</strong><small>Fichas marcadas como entregadas</small><div class="meter"><span id="stat-worksheets-meter"></span></div></div>
   </div>
   <p class="dashboard-note">El progreso de clases se calcula según los encuentros que tengan una nota, una ficha entregada o una observación guardada. El promedio es la media de las notas registradas sobre 20. Los registros se guardan en este navegador; para compartirlos entre dispositivos habrá que conectar una hoja de cálculo o una base de datos.</p>
-  <div class="progress-board" id="progress-board"><h3>📊 Tablero de progreso por catequizando</h3><p>Compara el avance de las clases registradas y el promedio de puntos de cada niño o niña.</p><div class="table-scroll"><table class="progress-table"><thead><tr><th>Catequizando</th><th>Clases registradas</th><th>Progreso de clases</th><th>Etapas</th><th>Promedio /20</th><th>Fichas</th><th>Acción</th></tr></thead><tbody id="students-progress-body"></tbody></table></div><div id="students-progress-empty" class="empty-board">Todavía no hay catequizandos registrados. Pulsa «Añadir catequizando» para comenzar.</div></div>
+  <div class="progress-board" id="progress-board"><h3>📊 Tablero de progreso por catequizando</h3><p>Compara el avance de las clases registradas y el promedio de puntos de cada niño o niña.</p><div class="table-scroll"><table class="progress-table"><thead><tr><th>Catequizando</th><th>Clases registradas</th><th>Progreso de clases</th><th>Etapas</th><th>Promedio /20</th><th>Fichas</th><th>Acción</th></tr></thead><tbody id="students-progress-body"></tbody></table></div><div id="students-progress-empty" class="empty-board">Los porcentajes aparecerán aquí cuando se carguen los códigos y avances de los catequizandos.</div></div>
   <section class="team-card" aria-label="Equipo de catequesis"><div class="team-copy"><div class="eyebrow">NUESTRA MISIÓN COMPARTIDA</div><h3>Lily y Kiara trabajan en equipo 💛</h3><p>El seguimiento de cada catequizando acompaña su aprendizaje, sus fichas, sus notas y su crecimiento en la fe.</p></div><div class="team-names"><div><strong>Lily Melo Azañero</strong><small>Catequista</small></div><div><strong>Kiara Morales Elguera</strong><small>Catequista</small></div></div></section>
   
   <section class="kid-welcome" aria-label="Bienvenida interactiva">
@@ -338,7 +371,13 @@ const stages=[
 ];
 let activeStage=0, activeTopic=null, currentMonth=new Date(2026,5,1,12), selectedDate=null;
 const $=id=>document.getElementById(id);
-function updateCountdown(){const target=new Date(2026,11,3,0,0,0).getTime(),now=Date.now(),diff=target-now;if(diff<=0){['days','hours','minutes','seconds'].forEach(id=>$(id).textContent='0');$('countdown-note').textContent='¡Llegó el día esperado! Que Jesús llene sus corazones de alegría. 💛';return}const vals=[Math.floor(diff/86400000),Math.floor(diff%86400000/3600000),Math.floor(diff%3600000/60000),Math.floor(diff%60000/1000)];['days','hours','minutes','seconds'].forEach((id,i)=>$(id).textContent=String(vals[i]).padStart(2,'0'))}
+function updateCountdown(){
+  const target=new Date(2026,11,3,0,0,0).getTime(),now=Date.now(),diff=target-now;
+  if(diff<=0){$('hours').textContent='0';$('minutes').textContent='0';$('countdown-note').textContent='¡Llegó el día esperado! Que Jesús llene sus corazones de alegría. 💛';return}
+  const totalHours=Math.floor(diff/3600000),remainingMinutes=Math.floor((diff%3600000)/60000);
+  $('hours').textContent=String(totalHours).padStart(2,'0');
+  $('minutes').textContent=String(remainingMinutes).padStart(2,'0');
+}
 updateCountdown();setInterval(updateCountdown,1000);
 // La bienvenida de voz está disponible desde las interacciones de catequesis y el acceso al calendario.
 function renderStages(){document.querySelectorAll('.stage').forEach(b=>b.setAttribute('aria-pressed','false'))}
@@ -499,7 +538,7 @@ function renderStudentProgressBoard(){const tbody=$('students-progress-body'),em
 function updateSessionRecordForm(){const panel=$('session-record-panel');if(!panel)return;const entry=selectedDate?calendarEntries.get(dateKey(selectedDate)):null;if(!entry||entry.type!=='lesson'){panel.hidden=true;return}panel.hidden=false;const student=activeStudent();$('class-score').disabled=!student;$('worksheet-status').disabled=!student;$('class-notes').disabled=!student;$('save-session-record').disabled=!student;const rec=student&&student.records?student.records[dateKey(selectedDate)]:null;$('class-score').value=rec&&rec.score!==null&&rec.score!==undefined?rec.score:'';$('worksheet-status').value=rec&&rec.worksheet==='done'?'done':'pending';$('class-notes').value=rec&&rec.notes?rec.notes:'';$('record-message').textContent='';$('print-daily-worksheet').disabled=false}
 function addStudent(name,code,age,start,notes){const normalized=String(name||'').trim();if(!normalized)return false;const duplicate=students.some(s=>s.name.toLocaleLowerCase('es')===normalized.toLocaleLowerCase('es'));if(duplicate){alert('Ya existe un catequizando con ese nombre.');return false}const assignedCode=nextStudentCode();const student={id:'c'+Date.now().toString(36)+Math.random().toString(36).slice(2,7),name:normalized,code:assignedCode,age:String(age||''),start:String(start||''),notes:String(notes||'').trim(),records:{},stageProgress:Array(stages.length).fill(false),challengeStars:0};students.push(student);selectedStudentId=student.id;persistStudents();renderStudentOptions();renderSelectedStudentMetrics();updateSessionRecordForm();renderStudentProgressBoard();return true}
 function studentInitials(name){return String(name||'').trim().split(/\s+/).slice(0,2).map(p=>p[0]||'').join('').toUpperCase()||'✝'}
-function renderStudentDirectory(){const list=$('childrenList');if(!list)return;const query=($('student-search')?.value||'').trim().toLocaleLowerCase('es');const age=$('student-age-filter')?.value||'';const filtered=students.filter(s=>s.name.toLocaleLowerCase('es').includes(query)&&(!age||String(s.age)===age));$('directory-count').textContent=`${students.length} ${students.length===1?'catequizando':'catequizandos'}`;list.innerHTML='';$('emptyState').hidden=filtered.length>0;if(!filtered.length){$('emptyState').textContent=students.length?'No hay resultados para esa búsqueda. Prueba otro nombre o edad.':'Todavía no hay fichas registradas. Pulsa «Añadir catequizando» para comenzar.';return}filtered.forEach(student=>{const c=recordCounts(student);const stageDone=(student.stageProgress||[]).filter(Boolean).length;const stagePct=Math.round(stageDone/stages.length*100);const card=document.createElement('article');card.className='directory-card';const head=document.createElement('div');head.className='directory-card-head';const avatar=document.createElement('div');avatar.className='directory-avatar';avatar.textContent=studentInitials(student.name);const text=document.createElement('div');text.style.minWidth='0';const h=document.createElement('h4');h.textContent=student.name;const meta=document.createElement('div');meta.className='directory-meta';meta.textContent=`${student.age?student.age+' años':'Edad sin registrar'}${student.code?' · Código '+student.code:''}`;text.append(h,meta);head.append(avatar,text);card.append(head);const classRow=document.createElement('div');classRow.className='directory-stat-row';classRow.innerHTML='<span>Progreso de clases</span><strong>'+c.progress+'%</strong>';const classMeter=document.createElement('div');classMeter.className='directory-meter';const cf=document.createElement('span');cf.style.width=c.progress+'%';classMeter.append(cf);const stageRow=document.createElement('div');stageRow.className='directory-stat-row';stageRow.innerHTML='<span>Etapas de formación</span><strong>'+stagePct+'%</strong>';const stageMeter=document.createElement('div');stageMeter.className='directory-meter';const sf=document.createElement('span');sf.style.width=stagePct+'%';stageMeter.append(sf);const foot=document.createElement('div');foot.className='directory-meta';foot.style.marginTop='10px';foot.textContent=`Promedio: ${c.avg===null?'—':c.avg.toFixed(1)+' / 20'} · Fichas: ${c.done}`;card.append(classRow,classMeter,stageRow,stageMeter,foot);const actions=document.createElement('div');actions.className='directory-actions';const view=document.createElement('button');view.type='button';view.textContent='📘 Ver ficha';view.addEventListener('click',()=>openStudentProfile(student.id));const select=document.createElement('button');select.type='button';select.textContent=student.id===selectedStudentId?'✓ Seleccionado':'📊 Seguimiento';select.addEventListener('click',()=>{selectedStudentId=student.id;renderStudentOptions();renderSelectedStudentMetrics();updateSessionRecordForm();renderStudentProgressBoard();$('student-select').value=student.id;jumpToCatequizandosSection('individual-progress')});actions.append(view,select);card.append(actions);list.append(card)})}
+function renderStudentDirectory(){const list=$('childrenList');if(!list)return;const query=($('student-search')?.value||'').trim().toLocaleLowerCase('es');const age=$('student-age-filter')?.value||'';const filtered=students.filter(s=>s.name.toLocaleLowerCase('es').includes(query)&&(!age||String(s.age)===age));$('directory-count').textContent=`${students.length} ${students.length===1?'catequizando':'catequizandos'}`;list.innerHTML='';$('emptyState').hidden=filtered.length>0;if(!filtered.length){$('emptyState').textContent=students.length?'No hay resultados para esa búsqueda. Prueba otro nombre o edad.':'Las fichas y avances aparecerán aquí cuando se carguen los códigos de los catequizandos.';return}filtered.forEach(student=>{const c=recordCounts(student);const stageDone=(student.stageProgress||[]).filter(Boolean).length;const stagePct=Math.round(stageDone/stages.length*100);const card=document.createElement('article');card.className='directory-card';const head=document.createElement('div');head.className='directory-card-head';const avatar=document.createElement('div');avatar.className='directory-avatar';avatar.textContent=studentInitials(student.name);const text=document.createElement('div');text.style.minWidth='0';const h=document.createElement('h4');h.textContent=student.name;const meta=document.createElement('div');meta.className='directory-meta';meta.textContent=`${student.age?student.age+' años':'Edad sin registrar'}${student.code?' · Código '+student.code:''}`;text.append(h,meta);head.append(avatar,text);card.append(head);const classRow=document.createElement('div');classRow.className='directory-stat-row';classRow.innerHTML='<span>Progreso de clases</span><strong>'+c.progress+'%</strong>';const classMeter=document.createElement('div');classMeter.className='directory-meter';const cf=document.createElement('span');cf.style.width=c.progress+'%';classMeter.append(cf);const stageRow=document.createElement('div');stageRow.className='directory-stat-row';stageRow.innerHTML='<span>Etapas de formación</span><strong>'+stagePct+'%</strong>';const stageMeter=document.createElement('div');stageMeter.className='directory-meter';const sf=document.createElement('span');sf.style.width=stagePct+'%';stageMeter.append(sf);const foot=document.createElement('div');foot.className='directory-meta';foot.style.marginTop='10px';foot.textContent=`Promedio: ${c.avg===null?'—':c.avg.toFixed(1)+' / 20'} · Fichas: ${c.done}`;card.append(classRow,classMeter,stageRow,stageMeter,foot);const actions=document.createElement('div');actions.className='directory-actions';const view=document.createElement('button');view.type='button';view.textContent='📘 Ver ficha';view.addEventListener('click',()=>openStudentProfile(student.id));const select=document.createElement('button');select.type='button';select.textContent=student.id===selectedStudentId?'✓ Seleccionado':'📊 Seguimiento';select.addEventListener('click',()=>{selectedStudentId=student.id;renderStudentOptions();renderSelectedStudentMetrics();updateSessionRecordForm();renderStudentProgressBoard();$('student-select').value=student.id;jumpToCatequizandosSection('individual-progress')});actions.append(view,select);card.append(actions);list.append(card)})}
 function openStudentProfile(id){const student=students.find(s=>s.id===id);if(!student)return;const body=$('student-profile-body');$('student-profile-title').textContent=student.name;$('student-profile-meta').textContent=`${student.age?student.age+' años':'Edad sin registrar'} · ${student.code?'Código: '+student.code:'Sin código'} · ${student.start?'Incorporación: '+student.start:'Fecha de incorporación no registrada'}`;body.innerHTML='';const c=recordCounts(student);const stageDone=(student.stageProgress||[]).filter(Boolean).length;const prog=document.createElement('section');prog.className='profile-progress';prog.innerHTML=`<div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-weight:900"><span>📅 Progreso de clases</span><strong>${c.progress}%</strong><span>🏅 Etapas completadas</span><strong>${Math.round(stageDone/stages.length*100)}%</strong></div><div class="directory-meter"><span style="width:${c.progress}%"></span></div><p style="margin:9px 0 0;font-size:12px;color:#53647b;font-weight:800">Promedio de notas: ${c.avg===null?'Sin notas':c.avg.toFixed(1)+' / 20'} · Fichas entregadas: ${c.done}</p></section>`;body.append(prog);if(student.notes){const note=document.createElement('p');note.className='profile-record-item';note.textContent='Nota inicial: '+student.notes;body.append(note)}const h=document.createElement('h4');h.style.cssText='font:700 19px Fredoka,sans-serif;color:#081c3b;margin:16px 0 10px';h.textContent='Mi camino espiritual';body.append(h);const stageList=document.createElement('div');stageList.className='profile-stage-list';stages.forEach((stage,i)=>{const label=document.createElement('label');label.className='profile-stage';const check=document.createElement('input');check.type='checkbox';check.checked=Boolean(student.stageProgress?.[i]);const span=document.createElement('span');span.textContent=stage.title;check.addEventListener('change',()=>{student.stageProgress=Array.isArray(student.stageProgress)?student.stageProgress:Array(stages.length).fill(false);student.stageProgress[i]=check.checked;persistStudents();renderStudentProgressBoard();renderStudentDirectory();openStudentProfile(student.id)});label.append(check,span);stageList.append(label)});body.append(stageList);const rh=document.createElement('h4');rh.style.cssText='font:700 19px Fredoka,sans-serif;color:#081c3b;margin:20px 0 8px';rh.textContent='Registro de clases y fichas';body.append(rh);const recs=Object.entries(student.records||{}).filter(([key])=>calendarEntries.get(key)?.type==='lesson').sort(([a],[b])=>a.localeCompare(b));if(!recs.length){const no=document.createElement('p');no.className='profile-record-item';no.textContent='Todavía no hay notas, fichas u observaciones guardadas.';body.append(no)}else recs.forEach(([key,rec])=>{const entry=calendarEntries.get(key);const dt=new Date(key+'T12:00:00');const item=document.createElement('div');item.className='profile-record-item';const dateLabel=`${dt.getDate()} de ${monthNames[dt.getMonth()]} de ${dt.getFullYear()}`;item.innerHTML=`<strong>${escapeHtml(dateLabel)} · Encuentro ${entry.session}</strong><br>${entry.topics.map(t=>'Tema '+t.num+': '+escapeHtml(t.title)).join('<br>')}<br><b>Nota:</b> ${rec.score===null||rec.score===undefined||rec.score===''?'Sin registrar':escapeHtml(String(rec.score))+' / 20'} · <b>Ficha:</b> ${rec.worksheet==='done'?'Entregada':'Pendiente'}${rec.notes?'<br><b>Observación:</b> '+escapeHtml(rec.notes):''}`;body.append(item)});$('student-profile-modal').hidden=false;$('close-student-profile').focus()}
 function closeStudentProfile(){$('student-profile-modal').hidden=true}
 function saveSessionRecord(){const student=activeStudent();if(!student){$('record-message').textContent='Primero añade y selecciona un catequizando.';return}if(!selectedDate){$('record-message').textContent='Selecciona una fecha de clase en el calendario.';return}const key=dateKey(selectedDate),entry=calendarEntries.get(key);if(!entry||entry.type!=='lesson'){ $('record-message').textContent='Selecciona una fecha de clase para guardar el registro.';return}const raw=$('class-score').value;const score=raw===''?null:Number(raw);if(score!==null&&(!Number.isFinite(score)||score<0||score>20)){$('record-message').textContent='La nota debe estar entre 0 y 20.';return}const worksheet=$('worksheet-status').value,notes=$('class-notes').value.trim();if(score===null&&worksheet!=='done'&&!notes){$('record-message').textContent='Ingresa una nota, marca la ficha como entregada o agrega una observación.';return}student.records=student.records||{};student.records[key]={score,worksheet,notes,updatedAt:new Date().toISOString()};const ok=persistStudents();renderSelectedStudentMetrics();renderStudentProgressBoard();$('record-message').textContent=ok?'Registro guardado correctamente.':'No se pudo guardar localmente. Descarga un respaldo o revisa el almacenamiento del navegador.'}
@@ -566,4 +605,26 @@ const initialDate=new Date(2026,5,16,12);
 selectDate(initialDate);
 // Bienvenida automática al cargar el portal, ahora que el calendario ya está visible sin botón de entrada.
 setTimeout(()=>playCatechesisVoice('¡Bienvenidos al Colegio La Salle del Sur! Les damos la bienvenida a Camino hacia Jesús. Aquí encontrarás el calendario, los temas de cada clase, tus fichas, tus puntos y tu porcentaje de progreso. Vamos a aprender con alegría, fe y amor mientras nos preparamos para recibir a Jesús en la Primera Comunión. ¡Comencemos!'),700);
-</script></body></html>
+</script>
+
+<script>
+/* Reordenación final del portal según las indicaciones coordinadas. */
+(function applyFinalPortalLayout(){
+  const main=document.querySelector('main');
+  const home=document.getElementById('home-content');
+  const achievements=document.querySelector('.achievement-board');
+  const resources=document.getElementById('resource-links');
+  const calendar=document.getElementById('calendar-section');
+  const shortcuts=document.querySelector('.dashboard-shortcuts');
+  if(main&&home&&achievements) main.insertBefore(achievements,home);
+  if(main&&home&&resources) main.insertBefore(resources,home);
+  if(calendar&&shortcuts) calendar.insertAdjacentElement('afterend',shortcuts);
+  const calendarButton=document.getElementById('jump-calendar');
+  if(calendarButton) calendarButton.hidden=true;
+  const emptyBoard=document.getElementById('students-progress-empty');
+  if(emptyBoard) emptyBoard.textContent='Los porcentajes aparecerán aquí cuando se carguen los códigos y avances de los catequizandos.';
+  const emptyState=document.getElementById('emptyState');
+  if(emptyState) emptyState.textContent='Las fichas y avances aparecerán aquí cuando se carguen los códigos de los catequizandos.';
+})();
+</script>
+</body></html>
