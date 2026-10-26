@@ -132,40 +132,79 @@ main{padding:0 clamp(14px,2.8vw,36px) 42px}.quicklinks{display:grid;grid-templat
 
 
 
-/* Ajustes finales coordinados con las observaciones del portal */
-.catequizandos-entry{display:none!important}
-.hero{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(340px,.95fr);align-items:center;gap:clamp(18px,3vw,38px)}
+/* Diseño final coordinado con todas las observaciones */
+.hero{display:grid!important;grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr);align-items:center;gap:clamp(18px,3vw,36px);padding-top:14px}
 .hero .hero-copy{grid-column:1;max-width:none!important;min-width:0}
-.countdown{grid-column:2;grid-row:1;justify-self:end;width:100%;max-width:500px;margin:0;padding:clamp(12px,1.3vw,16px);border-radius:19px}
-.countdown-title{font-size:clamp(21px,2vw,29px)!important;line-height:1.15}
+.hero h1{font-size:clamp(30px,3.1vw,44px);line-height:1.05}
+.hero p{font-size:clamp(14px,1.15vw,16px)}
+.countdown{grid-column:2;grid-row:1;justify-self:end;width:100%;max-width:445px;margin:0;padding:13px 15px;border-radius:17px;background:linear-gradient(120deg,#ffffff20,#ffffff0d);border:1px solid #ffe59aaf;box-shadow:inset 0 1px 0 #ffffff20,0 6px 16px #00000010}
+.countdown-title{font:700 clamp(17px,1.55vw,21px)/1.2 Fredoka,sans-serif!important;color:#ffe49a;white-space:normal}
 .countdown-sub{display:none!important}
-.timer{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:none;width:100%}
-.timebox{padding:clamp(8px,.9vw,12px) 8px;border-radius:12px}
-.timebox b{font-size:clamp(30px,3vw,38px)!important;line-height:1.05}
-.timebox span{font-size:clamp(12px,1.05vw,15px)!important;letter-spacing:.7px}
-.countdown-note{font-size:clamp(14px,1.25vw,18px)!important;line-height:1.4;margin-top:12px}
-/* Se retiran de la vista los paneles indicados, sin borrar sus identificadores ni romper el código existente. */
-#student-area,#student-form,#session-record-panel,#individual-directory,.team-card{display:none!important}
-/* Las tres tarjetas solicitadas van inmediatamente después del calendario. */
-.dashboard-shortcut.calendar-shortcut{display:none!important}
-.dashboard-shortcuts{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px!important;margin:18px 0 28px!important}
-.dashboard-shortcut{min-width:0}
-.achievement-board{margin:0 0 19px!important}
-#resource-links{margin:0 0 28px!important}
+.timer{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:none;width:100%;margin-top:10px}
+.timebox{padding:9px 7px;border-radius:12px;border-bottom:3px solid var(--gold);min-height:76px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px}
+.timebox b{font:700 clamp(27px,2.6vw,34px)/1.05 Fredoka,sans-serif!important}
+.timebox span{font-size:clamp(10px,.9vw,12px)!important;letter-spacing:.6px}
+.countdown-note{font-size:clamp(12px,1vw,14px)!important;line-height:1.35;margin-top:9px;color:#ffedc1}
+/* Los elementos que la usuaria pidió retirar dejan de ocupar espacio visual. */
+.catequizandos-entry,.achievement-board,.dashboard-shortcuts,.individual-directory,.team-card{display:none!important}
+/* La bienvenida infantil se coloca antes de las seis etapas y contiene los cuatro recursos. */
+.kid-welcome{margin:18px 0 24px;grid-template-columns:minmax(0,1.5fr) minmax(240px,.7fr);gap:18px}
+.kid-welcome .quicklinks{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:5px 0 0;padding:0}
+.kid-welcome .quick{background:#fffdf8;border:1px solid #efd7a2;border-radius:15px;padding:9px 12px;min-width:0;box-shadow:0 4px 12px #7650190d;font-size:14px}
+.kid-welcome .quick .emoji{width:40px;height:40px;border-radius:12px;font-size:23px}
+.kid-welcome .quick:hover{background:#fff9e6;transform:translateY(-2px)}
 #home-content{margin-top:0}
-#calendar-section{margin-top:26px;scroll-margin-top:18px}
-.progress-title{margin-top:25px}
+#home-content>.section{margin-top:0}
+#calendar-section{margin-top:25px;scroll-margin-top:18px}
+.calendar-management-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
+.teacher-access-trigger,.record-launch{border:1px solid #e4c574;background:#fff5d7;color:#18365b;border-radius:22px;padding:8px 12px;font-size:12px;font-weight:900}
+.teacher-access-trigger:hover,.record-launch:hover{background:#ffebad;border-color:#dda92d}
+.record-launch[hidden]{display:none!important}
+/* Los formularios de gestión y notas se muestran en ventanas compactas cuando se necesitan. */
+.tool-modal[hidden]{display:none!important}
+.tool-modal{position:fixed;inset:0;z-index:3000;background:#06152ebd;padding:14px;display:flex;align-items:center;justify-content:center;overflow:auto}
+.tool-dialog{width:min(880px,100%);max-height:92vh;overflow:auto;background:#fffdf8;border:2px solid #e6bf52;border-radius:21px;padding:clamp(15px,2.5vw,24px);box-shadow:0 20px 70px #0005}
+.tool-dialog-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #eadcc2}
+.tool-dialog-head h3{font:700 23px Fredoka,sans-serif;color:var(--navy);margin:0}
+.tool-dialog-head p{font-size:12px;color:var(--muted);font-weight:800;margin:4px 0 0}
+.tool-modal-close{flex:0 0 auto;width:37px;height:37px;border:0;border-radius:50%;background:#edf2f7;color:#19304f;font-weight:900}
+.tool-dialog .student-toolbar{margin-top:13px;box-shadow:none;background:#fff;border-color:#e5dccb}
+.tool-dialog .student-form{margin-top:10px}
+.tool-dialog .record-panel{margin-top:0;box-shadow:none}
+.tool-dialog .record-panel[hidden]{display:none!important}
+.tool-dialog .record-panel h4{font-size:22px}
+.tool-dialog .record-panel>p{font-size:13px}
+.tool-dialog .record-field label{font-size:13px}
+.tool-dialog .record-field input,.tool-dialog .record-field select,.tool-dialog .record-field textarea{font-size:14px}
 #individual-progress,#progress-board{scroll-margin-top:20px}
+.progress-title{margin-top:22px}
+.progress-board{margin-top:18px}
+.dashboard-note{margin-bottom:18px}
+.footer{margin-top:28px}
 @media(max-width:760px){
-  .hero{grid-template-columns:minmax(0,1fr)!important;gap:15px!important}
+  .topbar{align-items:flex-start}
+  .hero{grid-template-columns:minmax(0,1fr)!important;gap:13px!important}
   .hero .hero-copy{grid-column:1;grid-row:1}
-  .countdown{grid-column:1;grid-row:2;justify-self:stretch;width:100%;max-width:none;padding:15px}
-  .countdown-title{font-size:clamp(20px,5.5vw,25px)!important}
-  .timebox b{font-size:clamp(30px,8vw,40px)!important}
-  .countdown-note{font-size:14px!important}
-  .dashboard-shortcuts{grid-template-columns:1fr!important}
+  .countdown{grid-column:1;grid-row:2;justify-self:stretch;width:100%;max-width:none;padding:11px 12px}
+  .countdown-title{font-size:18px!important}
+  .timebox{min-height:70px;padding:8px 5px}
+  .timebox b{font-size:clamp(26px,7vw,33px)!important}
+  .countdown-note{font-size:12px!important;margin-top:7px}
+  .kid-welcome{grid-template-columns:1fr!important;gap:12px!important;padding:16px!important}
+  .kid-welcome .quicklinks{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .kid-welcome .quick{justify-content:flex-start;flex-direction:row;text-align:left;font-size:13px;padding:8px}
+  .kid-welcome .quick .emoji{width:36px;height:36px;font-size:21px}
+  .calendar-layout{grid-template-columns:1fr}
 }
-
+@media(max-width:430px){
+  .countdown-title{font-size:16px!important}
+  .timer{gap:7px}
+  .timebox{min-height:64px}
+  .timebox b{font-size:25px!important}
+  .timebox span{font-size:10px!important}
+  .kid-welcome .quicklinks{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kid-welcome .quick{gap:6px;font-size:12px}
+}
 </style></head>
 <body><div class="wrap"><div class="goldline"></div>
 <header>
@@ -227,6 +266,7 @@ main{padding:0 clamp(14px,2.8vw,36px) 42px}.quicklinks{display:grid;grid-templat
     <button type="submit">Guardar ficha</button><button class="cancel-student" id="cancel-add-student" type="button">Cancelar</button>
   </form>
   <section class="section" id="calendar-section"><div class="eyebrow">Organiza tus encuentros</div><h2>📅 Calendario de catequesis</h2><p class="sub">La catequesis comienza el martes 16 de junio. Las primeras siete clases llevan dos temas: 16, 18, 23, 25 y 30 de junio; 2 y 7 de julio. Desde el 9 de julio se trabaja un tema por encuentro.</p><div class="calendar-layout"><div class="calendar-card"><div class="cal-top"><h3>Calendario</h3><div class="cal-controls"><button id="prev-month" aria-label="Mes anterior">‹</button><strong id="month-label">Junio 2026</strong><button id="next-month" aria-label="Mes siguiente">›</button></div></div><div class="cal-grid" id="calendar-grid"></div></div><div class="calendar-info"><span class="pill">TU ENCUENTRO</span><div class="date-big" id="selected-date">Elige un día</div><h3 id="calendar-topic">¿Qué aprenderemos?</h3><p id="calendar-description">Selecciona una fecha marcada para consultar los temas del encuentro.</p><div id="calendar-topic-list" class="calendar-topic-list"></div><div class="calendar-legend"><span><i class="legend-dot"></i>Clase programada</span><span><i class="legend-double"></i>2 temas en una clase</span><span><i class="legend-special"></i>Primera Comunión</span></div><div class="resource-hint">📅 Las primeras siete sesiones incluyen dos temas. Desde el 9 de julio se presenta un tema por clase. El 3 de diciembre está reservado para la Primera Comunión.</div>
+<div class="calendar-management-actions"><button class="teacher-access-trigger" id="open-catechist-tools" type="button">👩‍🏫 Área de catequistas</button><button class="record-launch" id="open-record-modal" type="button" hidden>📝 Registrar puntos y ficha</button></div>
 <div id="session-record-panel" class="record-panel" hidden>
   <h4>📝 Seguimiento de esta clase</h4><p id="record-student-hint">Selecciona un catequizando para registrar sus puntos y ficha.</p>
   <div class="record-fields">
@@ -303,6 +343,12 @@ main{padding:0 clamp(14px,2.8vw,36px) 42px}.quicklinks{display:grid;grid-templat
 
 </section>
 </main></div>
+<div class="tool-modal" id="teacher-tools-modal" hidden role="dialog" aria-modal="true" aria-labelledby="teacher-tools-title">
+  <section class="tool-dialog"><div class="tool-dialog-head"><div><h3 id="teacher-tools-title">👩‍🏫 Área de catequistas</h3><p>Administra los códigos únicos y selecciona al catequizando que vas a acompañar.</p></div><button class="tool-modal-close" id="close-teacher-tools" type="button" aria-label="Cerrar">✕</button></div><div id="teacher-tools-content"></div><p class="dashboard-note">Los registros se guardan en este navegador. Para compartirlos entre dispositivos será necesaria una base de datos común.</p><p class="profile-copyright">© 2026 Colegio La Salle del Sur · Programa Camino hacia Jesús. Todos los derechos reservados.</p></section>
+</div>
+<div class="tool-modal" id="record-tools-modal" hidden role="dialog" aria-modal="true" aria-labelledby="record-tools-title">
+  <section class="tool-dialog"><div class="tool-dialog-head"><div><h3 id="record-tools-title">📝 Registrar el encuentro</h3><p>Selecciona un catequizando en el área de catequistas y registra su nota, ficha y observaciones.</p></div><button class="tool-modal-close" id="close-record-tools" type="button" aria-label="Cerrar">✕</button></div><div id="record-tools-content"></div><p class="profile-copyright">© 2026 Colegio La Salle del Sur · Programa Camino hacia Jesús. Todos los derechos reservados.</p></section>
+</div>
 <div class="toast" id="resource-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="toast-card"><div class="big" id="modal-emoji">📚</div><h3 id="modal-title">Material de catequesis</h3><p id="modal-text">Este espacio está preparado para el recurso.</p><button id="modal-close">Entendido</button><p class="modal-copyright">© 2026 Colegio La Salle del Sur · Programa Camino hacia Jesús. Todos los derechos reservados.</p></div></div>
 <script>
 const stages=[
@@ -476,6 +522,7 @@ function selectDate(d){
   const key=dateKey(d),entry=calendarEntries.get(key);
   if(!entry)return;
   selectedDate=new Date(d);
+  const recordLauncher=$('open-record-modal');if(recordLauncher)recordLauncher.hidden=entry.type!=='lesson';
   const weekdayName=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'][d.getDay()];
   $('selected-date').textContent=`${weekdayName}, ${d.getDate()} de ${monthNames[d.getMonth()]}`;
   const list=$('calendar-topic-list');list.innerHTML='';
@@ -608,23 +655,78 @@ setTimeout(()=>playCatechesisVoice('¡Bienvenidos al Colegio La Salle del Sur! L
 </script>
 
 <script>
-/* Reordenación final del portal según las indicaciones coordinadas. */
+/* Reorganización visual final: conservar las funciones de catequesis en accesos compactos. */
 (function applyFinalPortalLayout(){
   const main=document.querySelector('main');
   const home=document.getElementById('home-content');
-  const achievements=document.querySelector('.achievement-board');
+  const stageSection=home?.querySelector('.section');
+  const welcome=document.querySelector('.kid-welcome');
   const resources=document.getElementById('resource-links');
   const calendar=document.getElementById('calendar-section');
-  const shortcuts=document.querySelector('.dashboard-shortcuts');
-  if(main&&home&&achievements) main.insertBefore(achievements,home);
-  if(main&&home&&resources) main.insertBefore(resources,home);
-  if(calendar&&shortcuts) calendar.insertAdjacentElement('afterend',shortcuts);
-  const calendarButton=document.getElementById('jump-calendar');
-  if(calendarButton) calendarButton.hidden=true;
-  const emptyBoard=document.getElementById('students-progress-empty');
-  if(emptyBoard) emptyBoard.textContent='Los porcentajes aparecerán aquí cuando se carguen los códigos y avances de los catequizandos.';
-  const emptyState=document.getElementById('emptyState');
-  if(emptyState) emptyState.textContent='Las fichas y avances aparecerán aquí cuando se carguen los códigos de los catequizandos.';
+  const toolbar=document.getElementById('student-area');
+  const studentForm=document.getElementById('student-form');
+  const recordPanel=document.getElementById('session-record-panel');
+  const teacherContent=document.getElementById('teacher-tools-content');
+  const recordContent=document.getElementById('record-tools-content');
+  const progressTitle=document.querySelector('.progress-title');
+  const progressStats=document.getElementById('individual-progress');
+  const dashboardNote=document.querySelector('.dashboard-note');
+  const progressBoard=document.getElementById('progress-board');
+
+  // La bienvenida infantil va primero; los cuatro accesos viven dentro de su recuadro amarillo.
+  if(home&&welcome&&stageSection){home.insertBefore(welcome,stageSection);}
+  const avatars=welcome?.querySelector('.adventure-avatars');
+  if(welcome&&resources){
+    if(avatars)avatars.insertAdjacentElement('afterend',resources);else welcome.appendChild(resources);
+    resources.classList.add('welcome-resources');
+  }
+
+  // Quitamos los paneles grandes pedidos, sin dejar espacios en blanco.
+  document.querySelector('.achievement-board')?.remove();
+  document.querySelector('.dashboard-shortcuts')?.remove();
+  document.querySelector('.team-card')?.remove();
+  document.querySelector('.individual-directory')?.remove();
+
+  // Los controles administrativos ya no ocupan la portada: están disponibles en un modal compacto.
+  if(toolbar&&studentForm&&teacherContent){teacherContent.append(toolbar,studentForm);}
+  if(recordPanel&&recordContent){recordContent.append(recordPanel);}
+
+  // Las cifras y el tablero real de progreso quedan bajo el calendario; los accesos tipo tarjeta se eliminan.
+  if(calendar&&progressTitle){calendar.insertAdjacentElement('afterend',progressTitle);}
+  if(progressTitle&&progressStats){progressTitle.insertAdjacentElement('afterend',progressStats);}
+  if(progressStats&&dashboardNote){progressStats.insertAdjacentElement('afterend',dashboardNote);}
+  if(dashboardNote&&progressBoard){dashboardNote.insertAdjacentElement('afterend',progressBoard);}
+
+  // Las ventanas de gestión y registro no se muestran hasta que la catequista las solicita.
+  const teacherModal=document.getElementById('teacher-tools-modal');
+  const recordModal=document.getElementById('record-tools-modal');
+  const closeTeacher=document.getElementById('close-teacher-tools');
+  const closeRecord=document.getElementById('close-record-tools');
+  const openTeacher=document.getElementById('open-catechist-tools');
+  const openRecord=document.getElementById('open-record-modal');
+  function closeModal(modal){if(modal)modal.hidden=true;}
+  openTeacher?.addEventListener('click',()=>{
+    if(teacherModal)teacherModal.hidden=false;
+    renderStudentOptions();renderSelectedStudentMetrics();renderStudentProgressBoard();
+    setTimeout(()=>document.getElementById('student-select')?.focus(),30);
+  });
+  closeTeacher?.addEventListener('click',()=>closeModal(teacherModal));
+  closeRecord?.addEventListener('click',()=>closeModal(recordModal));
+  teacherModal?.addEventListener('click',e=>{if(e.target===teacherModal)closeModal(teacherModal)});
+  recordModal?.addEventListener('click',e=>{if(e.target===recordModal)closeModal(recordModal)});
+  openRecord?.addEventListener('click',()=>{
+    const entry=selectedDate?calendarEntries.get(dateKey(selectedDate)):null;
+    if(!entry||entry.type!=='lesson')return;
+    updateSessionRecordForm();
+    if(recordModal)recordModal.hidden=false;
+  });
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal(teacherModal);closeModal(recordModal)}});
+
+  // Si se registra una ficha desde el modal, mantener el resumen visible y actualizado.
+  const studentSelect=document.getElementById('student-select');
+  if(studentSelect)studentSelect.addEventListener('change',()=>{if(recordModal&&!recordModal.hidden)updateSessionRecordForm()});
+  const recordButton=document.getElementById('open-record-modal');
+  if(recordButton){const entry=selectedDate?calendarEntries.get(dateKey(selectedDate)):null;recordButton.hidden=!entry||entry.type!=='lesson';}
 })();
 </script>
 </body></html>
