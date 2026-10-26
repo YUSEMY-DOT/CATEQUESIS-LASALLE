@@ -680,9 +680,16 @@ renderSelectedStudentMetrics();
 renderStudentProgressBoard();
 renderAchievements();
 updateChallengeStars();
+// Al abrir el portal, seleccionar la fecha de catequesis más próxima a hoy,
+// en lugar de regresar siempre al inicio histórico del 16 de junio.
+const todayForCalendar=new Date();
+todayForCalendar.setHours(12,0,0,0);
+const todayKey=dateKey(todayForCalendar);
+const scheduledKeys=Array.from(calendarEntries.keys()).sort();
+const nearestScheduledKey=scheduledKeys.find(key=>key>=todayKey)||scheduledKeys[scheduledKeys.length-1];
+const initialDate=nearestScheduledKey?new Date(nearestScheduledKey+'T12:00:00'):new Date(2026,5,16,12);
+currentMonth=new Date(initialDate.getFullYear(),initialDate.getMonth(),1,12);
 renderCalendar();
-// El calendario inicia en junio y selecciona la primera clase oficial: martes 16 de junio de 2026.
-const initialDate=new Date(2026,5,16,12);
 selectDate(initialDate);
 // Bienvenida automática al cargar el portal, ahora que el calendario ya está visible sin botón de entrada.
 setTimeout(()=>playCatechesisVoice('¡Bienvenidos al Colegio La Salle del Sur! Les damos la bienvenida a Camino hacia Jesús. Aquí encontrarás el calendario, los temas de cada clase, tus fichas, tus puntos y tu porcentaje de progreso. Vamos a aprender con alegría, fe y amor mientras nos preparamos para recibir a Jesús en la Primera Comunión. ¡Comencemos!'),700);
