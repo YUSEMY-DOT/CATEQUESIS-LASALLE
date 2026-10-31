@@ -1,212 +1,149 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#173a72">
-<title>Camino hacia Jesús 2026 | Supervisores</title>
-<style>
-:root{--navy:#173a72;--blue:#2867b2;--gold:#f6c64a;--cream:#fffaf0;--ink:#26344b;--muted:#65748a;--line:#e2e9f2;--white:#fff}
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:linear-gradient(180deg,#fff7df,#fff 42%,#f2f8ff);min-height:100vh}
-button,input{font:inherit}
-button{cursor:pointer}
-.hero{background:linear-gradient(130deg,#173a72,#2867b2);color:white;padding:25px 18px 34px;border-radius:0 0 30px 30px;position:relative;overflow:hidden}
-.hero:after{content:"";position:absolute;width:270px;height:270px;border-radius:50%;background:#ffffff0d;right:-60px;top:-120px}
-.wrap{max-width:1080px;margin:auto;position:relative;z-index:1}
-.brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:.5px}
-.brand-mark{display:grid;place-items:center;width:45px;height:45px;border-radius:14px;background:var(--gold);color:var(--navy);font-size:25px;box-shadow:0 4px 0 #c79622}
-.hero h1{font-size:clamp(1.8rem,4vw,2.7rem);margin:24px 0 8px}
-.hero p{line-height:1.55;margin:0;max-width:700px;color:#eef5ff}
-.hero .sub{color:#ffe58b;font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:1.6px}
-main{max-width:1080px;margin:auto;padding:25px 18px 42px}
-.section-title{color:var(--navy);margin:0 0 7px;font-size:1.45rem}
-.section-intro{color:var(--muted);margin:0 0 18px;line-height:1.5}
-.people{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
-.person{background:white;border:2px solid var(--line);border-radius:23px;padding:18px;text-align:center;box-shadow:0 8px 20px #18365b0b;transition:.18s;display:flex;flex-direction:column;align-items:center}
-.person:hover{transform:translateY(-3px);border-color:#f0cf6b;box-shadow:0 12px 25px #18365b14}
-.photo-button{padding:0;border:4px solid var(--gold);background:#edf4ff;border-radius:50%;width:142px;height:142px;overflow:hidden;display:grid;place-items:center;margin-bottom:13px;color:var(--navy);font-size:2.6rem;font-weight:800}
-.photo-button img{width:100%;height:100%;object-fit:cover;display:block}
-.photo-button img[hidden]{display:none}
-.person .role{font-size:.73rem;letter-spacing:1px;text-transform:uppercase;color:#9a7110;font-weight:800;margin:0 0 7px}
-.person h3{font-size:1.15rem;line-height:1.3;color:var(--navy);margin:0 0 7px}
-.person .desc{color:var(--muted);font-size:.92rem;line-height:1.45;min-height:40px;margin:0 0 15px}
-.primary{background:var(--navy);color:white;border:0;border-radius:13px;padding:12px 16px;font-weight:800;box-shadow:0 4px 0 #0e2852}
-.primary:hover{background:#24549a}
-.person .primary{width:100%;margin-top:auto}
-.notice{margin-top:20px;padding:14px 16px;background:#fff2c8;border:1px solid #f2d778;border-radius:16px;line-height:1.5;color:#624d15}
-.panel{display:none;background:white;border:2px solid var(--line);border-radius:22px;margin-top:24px;padding:20px;box-shadow:0 10px 28px #173a7210}
-.panel.show{display:block}
-.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.panel-head h2{margin:0;color:var(--navy)}
-.close{border:0;background:#eef3fa;color:var(--navy);padding:9px 12px;border-radius:10px;font-weight:800}
-.modules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
-.module{border:1px solid var(--line);border-radius:17px;padding:16px;background:#fff;display:flex;gap:12px;align-items:flex-start;text-align:left}
-.module:hover{background:#f5f9ff;border-color:#b8cce8}
-.module .icon{font-size:1.7rem}
-.module strong{display:block;color:var(--navy);margin-bottom:5px}
-.module small{color:var(--muted);line-height:1.4;display:block}
-.module-content{display:none;margin-top:17px;padding:17px;background:#f4f8ff;border-radius:15px;line-height:1.6}
-.module-content.show{display:block}
-.login-overlay{position:fixed;inset:0;background:#071a35b8;display:none;align-items:center;justify-content:center;padding:18px;z-index:10}
-.login-overlay.show{display:flex}
-.login-box{width:min(100%,420px);background:white;border-radius:23px;padding:24px;box-shadow:0 20px 60px #0004}
-.login-box h2{color:var(--navy);margin:0 0 7px}
-.login-box p{color:var(--muted);line-height:1.5}
-.login-box label{display:block;font-weight:700;margin:15px 0 7px;color:var(--navy)}
-.login-box input{width:100%;padding:13px;border:1px solid #cbd6e4;border-radius:11px}
-.login-actions{display:flex;gap:10px;margin-top:17px}
-.login-actions button{flex:1}
-.secondary{border:1px solid var(--line);border-radius:13px;background:white;color:var(--navy);font-weight:800;padding:12px}
-.warning{font-size:.82rem;background:#fff2c8;border-radius:10px;padding:10px;color:#70571a}
-footer{text-align:center;padding:0 18px 26px;color:var(--muted);font-size:.88rem;line-height:1.5}
-@media(max-width:760px){.people{grid-template-columns:1fr}.person{display:grid;grid-template-columns:100px 1fr;column-gap:15px;text-align:left;align-items:center}.photo-button{grid-row:1/5;width:96px;height:96px;margin:0}.person .role,.person h3,.person .desc{grid-column:2}.person .desc{min-height:0;margin-bottom:10px}.person .primary{grid-column:2;width:auto}.modules{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:480px){.modules{grid-template-columns:1fr}.person{padding:13px;grid-template-columns:82px 1fr}.photo-button{width:78px;height:78px;font-size:1.8rem}.person h3{font-size:1rem}.person .desc{font-size:.85rem}}
-.hero-top{display:flex;justify-content:flex-end;align-items:center;margin-bottom:12px}
-.back-portal{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;border:2px solid #ffe58b;border-radius:14px;background:var(--gold);color:var(--navy);text-decoration:none;font-weight:800;box-shadow:0 4px 0 #c79622;transition:transform .15s,background .15s}
-.back-portal:hover{background:#ffda70;transform:translateY(-1px)}
-.back-portal:focus-visible{outline:3px solid white;outline-offset:3px}
-@media(max-width:480px){.hero-top{margin-bottom:8px}.back-portal{padding:9px 12px;font-size:.9rem}}
-</style>
-</head>
-<body>
-<header class="hero">
-  <div class="wrap">
-    <div class="hero-top"><a class="back-portal" href="./index.html">← Volver al portal principal</a></div>
-    <div class="brand"><div class="brand-mark">✝</div><span>CAMINO HACIA JESÚS <span style="color:#ffe58b">2026</span></span></div>
-    <div class="sub" style="margin-top:23px">Portal de supervisión y acompañamiento</div>
-    <h1>Supervisar con fe, acompañar con amor</h1>
-    <p>Un espacio compartido para consultar la asistencia, la programación, las evidencias y el avance de la catequesis.</p>
-  </div>
-</header>
+/*******************************************************
+ * CAMINO HACIA JESÚS 2026
+ * Sistema de Catequesis – Primera Comunión
+ * Colegio La Salle del Sur (Respaldado por la Parroquia San Pedro de Lurín)
+ *******************************************************/
 
-<main>
-  <h2 class="section-title">Seleccione su fotografía para ingresar</h2>
-  <p class="section-intro">Cada responsable tendrá su acceso personal y encontrará el mismo portal de supervisión, de acuerdo con los permisos que se le asignen.</p>
-
-  <section class="people" aria-label="Accesos de supervisores">
-    <article class="person">
-      <button class="photo-button" onclick="abrirLogin('vicario')" aria-label="Ingresar como Vicario Amadeo Raymi">
-        <img src="./assets/vicario-amadeo-raymi.png" alt="Fotografía del Vicario Amadeo Raymi" onerror="this.hidden=true">
-        <span>AR</span>
-      </button>
-      <p class="role">01 · Supervisión general</p>
-      <h3>Vicario Amadeo Raymi</h3>
-      <p class="desc">Supervisión general del programa de catequesis.</p>
-      <button class="primary" onclick="abrirLogin('vicario')">Ingresar con mi foto →</button>
-    </article>
-
-    <article class="person">
-      <button class="photo-button" onclick="abrirLogin('padre')" aria-label="Ingresar como Padre Carlos Retamoso">
-        <img src="./assets/padre-carlos-retamoso.png" alt="Fotografía del Padre Carlos Retamoso" onerror="this.hidden=true">
-        <span>CR</span>
-      </button>
-      <p class="role">02 · Guía espiritual</p>
-      <h3>Padre Carlos Retamoso</h3>
-      <p class="desc">Acompañamiento espiritual y preparación sacramental.</p>
-      <button class="primary" onclick="abrirLogin('padre')">Ingresar con mi foto →</button>
-    </article>
-
-    <article class="person">
-      <button class="photo-button" onclick="abrirLogin('coordinadora')" aria-label="Ingresar como Coordinadora Milagros Ramos Landa">
-        <img src="./assets/milagros-ramos-landa.png" alt="Fotografía de Milagros Ramos Landa" onerror="this.hidden=true">
-        <span>MR</span>
-      </button>
-      <p class="role">03 · Coordinación</p>
-      <h3>Milagros Ramos Landa</h3>
-      <p class="desc">Coordinación, seguimiento y organización del programa.</p>
-      <button class="primary" onclick="abrirLogin('coordinadora')">Ingresar con mi foto →</button>
-    </article>
-  </section>
-
-  <div class="notice"><strong>Importante:</strong> las fotografías deben colocarse en la carpeta <code>assets</code> con los nombres indicados en el código. Si todavía no están, aparecerán las iniciales. El ingreso mostrado aquí es una maqueta de interfaz; la validación segura de claves debe conectarse al sistema autorizado antes de publicar información real.</div>
-
-  <section id="portal" class="panel" aria-live="polite">
-    <div class="panel-head">
-      <div><h2 id="welcome">Portal de supervisión</h2><div id="role-description" style="color:#65748a;margin-top:5px"></div></div>
-      <button class="close" onclick="cerrarPortal()">Cerrar portal ✕</button>
-    </div>
-    <p style="line-height:1.55">Seleccione un módulo para consultar la información correspondiente.</p>
-    <div class="modules">
-      <button class="module" onclick="abrirModulo('asistencia')"><span class="icon">📋</span><span><strong>Asistencia</strong><small>Consulta por fecha, sesión y catequizando.</small></span></button>
-      <button class="module" onclick="abrirModulo('programacion')"><span class="icon">🗓️</span><span><strong>Programación</strong><small>Sesiones, temas y próximas actividades.</small></span></button>
-      <button class="module" onclick="abrirModulo('evidencias')"><span class="icon">📸</span><span><strong>Evidencias</strong><small>Fotografías y actividades documentadas.</small></span></button>
-      <button class="module" onclick="abrirModulo('avance')"><span class="icon">📖</span><span><strong>Avance de catequesis</strong><small>Sesiones realizadas y contenidos trabajados.</small></span></button>
-      <button class="module" onclick="abrirModulo('catequizandos')"><span class="icon">👧</span><span><strong>Catequizandos</strong><small>Relación de inscritos, con acceso restringido.</small></span></button>
-      <button class="module" onclick="abrirModulo('observaciones')"><span class="icon">📝</span><span><strong>Observaciones e informes</strong><small>Orientaciones pastorales y seguimiento.</small></span></button>
-    </div>
-    <div id="module-content" class="module-content"></div>
-  </section>
-</main>
-
-<div id="login-overlay" class="login-overlay" role="dialog" aria-modal="true" aria-labelledby="login-title">
-  <div class="login-box">
-    <h2 id="login-title">Acceso personal</h2>
-    <p id="login-person"></p>
-    <form onsubmit="entrar(event)">
-      <label for="clave">Clave de acceso</label>
-      <input id="clave" type="password" autocomplete="current-password" placeholder="Introduce tu clave" required>
-      <p class="warning">Demostración visual: esta página no valida contraseñas reales. No introduzcas una clave personal en esta maqueta.</p>
-      <div class="login-actions">
-        <button type="button" class="secondary" onclick="cerrarLogin()">Cancelar</button>
-        <button type="submit" class="primary">Continuar</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<footer>
-  <strong>Camino hacia Jesús 2026</strong><br>
-  Programa de catequesis del Colegio La Salle del Sur, con el acompañamiento de la Parroquia San Pedro de Lurín.
-</footer>
-
-<script>
-const responsables = {
-  vicario: {nombre:"Vicario Amadeo Raymi",rol:"Supervisión general del programa"},
-  padre: {nombre:"Padre Carlos Retamoso",rol:"Guía espiritual y acompañamiento sacramental"},
-  coordinadora: {nombre:"Milagros Ramos Landa",rol:"Coordinación y seguimiento del programa"}
+const CONFIG = {
+  SHEET_CONFIG: 'CONFIG',
+  SHEET_CATEQUIZANDOS: 'CATEQUIZANDOS',
+  SHEET_PADRES: 'PADRES',
+  SHEET_COLEGIOS: 'COLEGIOS',
+  SHEET_SESIONES: 'SESIONES',
+  SHEET_CLASES: 'CLASES',
+  SHEET_ASISTENCIA: 'ASISTENCIA',
+  SHEET_TAREAS: 'TAREAS',
+  SHEET_AVISOS: 'AVISOS',
+  SHEET_REQUISITOS: 'REQUISITOS',
+  SHEET_MATERIALES: 'MATERIALES',
+  SHEET_PAGOS: 'PAGOS'
 };
-let responsableElegido = null;
 
-function abrirLogin(id){
-  responsableElegido = id;
-  const p = responsables[id];
-  document.getElementById("login-title").textContent = "Bienvenido/a";
-  document.getElementById("login-person").textContent = p.nombre + " · " + p.rol;
-  document.getElementById("clave").value = "";
-  document.getElementById("login-overlay").classList.add("show");
-  setTimeout(()=>document.getElementById("clave").focus(),50);
+/* =====================================================
+   ENRUTADOR WEB Y NAVEGACIÓN MODULAR
+===================================================== */
+function doGet(e) {
+  const pagina = (e && e.parameter && e.parameter.p) ? e.parameter.p.toLowerCase() : 'portada';
+  let archivoHtml = 'portada';
+  switch (pagina) {
+    case 'catequizandos': case 'ninos': archivoHtml = 'catequizandos'; break;
+    case 'padres': archivoHtml = 'padres'; break;
+    case 'misses': archivoHtml = 'misses'; break;
+    case 'supervisores': archivoHtml = 'supervisores'; break;
+    case 'login': archivoHtml = 'login'; break;
+    default: archivoHtml = 'portada';
+  }
+
+  return HtmlService.createTemplateFromFile(archivoHtml)
+    .evaluate()
+    .setTitle('Camino hacia Jesús 2026 - Colegio La Salle del Sur')
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
 }
-function cerrarLogin(){document.getElementById("login-overlay").classList.remove("show")}
-function entrar(event){
-  event.preventDefault();
-  // Maqueta: abre el portal sin autenticar. Conectar con la validación segura antes de publicar.
-  cerrarLogin();
-  const p = responsables[responsableElegido];
-  document.getElementById("welcome").textContent = "Bienvenido/a, " + p.nombre;
-  document.getElementById("role-description").textContent = p.rol;
-  document.getElementById("module-content").classList.remove("show");
-  document.getElementById("portal").classList.add("show");
-  document.getElementById("portal").scrollIntoView({behavior:"smooth",block:"start"});
+
+/* =====================================================
+   VALIDACIÓN DE CÓDIGOS DE ACCESO
+===================================================== */
+function verificarCodigoAcceso(rol, codigo) {
+  const config = getConfig();
+  const codigosValidos = {
+    'misses': config.PIN_MISSES || '1234',
+    'supervisores': config.PIN_PADRE || '5678',
+    'padres': config.PIN_PADRES || '2026'
+  };
+
+  if (String(codigosValidos[rol]) === String(codigo).trim()) {
+    return { autorizado: true };
+  } else {
+    return { autorizado: false, mensaje: 'Código de acceso incorrecto.' };
+  }
 }
-function cerrarPortal(){
-  document.getElementById("portal").classList.remove("show");
-  document.getElementById("module-content").classList.remove("show");
+
+/* =====================================================
+   LECTURA GENERAL DE DATOS (GOOGLE SHEETS)
+===================================================== */
+function getSpreadsheet() { return SpreadsheetApp.getActiveSpreadsheet(); }
+
+function getSheetData(sheetName) {
+  const ss = getSpreadsheet();
+  const sheet = ss.getSheetByName(sheetName);
+  if (!sheet) return [];
+  const values = sheet.getDataRange().getValues();
+  if (values.length === 0) return [];
+  const headers = values[0];
+  return values.slice(1).map(function(row) {
+    const obj = {};
+    headers.forEach(function(header, index) { obj[String(header)] = row[index]; });
+    return obj;
+  });
 }
-const contenido = {
- asistencia:"<h3>Asistencia</h3><p>Aquí se conectará el registro oficial de asistencia para consultar fechas, sesiones, presentes, ausentes y tardanzas. Esta maqueta todavía no consulta datos reales.</p>",
- programacion:"<h3>Programación</h3><p>Aquí se mostrará el calendario de sesiones, temas de catequesis, celebraciones y actividades programadas, una vez conectado el origen oficial de información.</p>",
- evidencias:"<h3>Evidencias</h3><p>Espacio previsto para revisar fotografías y evidencias con fecha, actividad y descripción. El acceso a imágenes de menores debe limitarse a usuarios autorizados.</p>",
- avance:"<h3>Avance de catequesis</h3><p>Resumen previsto de sesiones realizadas, temas desarrollados y actividades pendientes, basado en los registros oficiales.</p>",
- catequizandos:"<h3>Catequizandos</h3><p>Consulta restringida de la relación de niños inscritos. Los datos personales no se muestran en esta maqueta.</p>",
- observaciones:"<h3>Observaciones e informes</h3><p>Espacio previsto para observaciones pastorales, recomendaciones y reportes de seguimiento. El guardado de información requiere conexión al sistema oficial.</p>"
-};
-function abrirModulo(id){
-  const panel=document.getElementById("module-content");
-  panel.innerHTML=contenido[id] || "<p>Módulo pendiente de configuración.</p>";
-  panel.classList.add("show");
-  panel.scrollIntoView({behavior:"smooth",block:"nearest"});
+
+function getConfig() {
+  const data = getSheetData(CONFIG.SHEET_CONFIG);
+  const config = {};
+  data.forEach(function(row) { if (row.CLAVE) config[String(row.CLAVE)] = row.VALOR; });
+  return config;
 }
-</script>
-</body>
-</html>
+
+function getCatequizandos() { return getSheetData(CONFIG.SHEET_CATEQUIZANDOS); }
+function getPadres() { return getSheetData(CONFIG.SHEET_PADRES); }
+function getColegios() { return getSheetData(CONFIG.SHEET_COLEGIOS); }
+function getSesiones() { return getSheetData(CONFIG.SHEET_SESIONES); }
+function getClases() { return getSheetData(CONFIG.SHEET_CLASES); }
+function getAsistencia() { return getSheetData(CONFIG.SHEET_ASISTENCIA); }
+function getTareas() { return getSheetData(CONFIG.SHEET_TAREAS); }
+function getAvisos() { return getSheetData(CONFIG.SHEET_AVISOS); }
+function getRequisitos() { return getSheetData(CONFIG.SHEET_REQUISITOS); }
+function getMateriales() { return getSheetData(CONFIG.SHEET_MATERIALES); }
+function getPagos() { return getSheetData(CONFIG.SHEET_PAGOS); }
+
+function getAppData() {
+  return {
+    config: getConfig(), 
+    catequizandos: getCatequizandos(), 
+    padres: getPadres(),
+    colegios: getColegios(), 
+    sesiones: getSesiones(), 
+    clases: getClases(),
+    asistencia: getAsistencia(), 
+    tareas: getTareas(), 
+    avisos: getAvisos(),
+    requisitos: getRequisitos(), 
+    materiales: getMateriales(), 
+    pagos: getPagos()
+  };
+}
+
+/* =====================================================
+   REGISTROS Y SUPERVISIÓN
+===================================================== */
+function registrarAsistencia(asistenciaFila) {
+  const ss = getSpreadsheet();
+  const sheet = ss.getSheetByName(CONFIG.SHEET_ASISTENCIA);
+  sheet.appendRow(asistenciaFila);
+  return { exito: true, mensaje: 'Asistencia registrada correctamente.' };
+}
+
+function cambiarEstadoSupervisionClase(idClase, nuevoEstado, observacionesPadre) {
+  const ss = getSpreadsheet();
+  const sheet = ss.getSheetByName(CONFIG.SHEET_CLASES);
+  const values = sheet.getDataRange().getValues();
+  const headers = values[0];
+  const colId = headers.indexOf('ID_CLASE');
+  const colEstado = headers.indexOf('ESTADO_SUPERVISION');
+  const colObs = headers.indexOf('OBSERVACIONES');
+
+  for (let i = 1; i < values.length; i++) {
+    if (String(values[i][colId]) === String(idClase)) {
+      if (colEstado !== -1) sheet.getRange(i + 1, colEstado + 1).setValue(nuevoEstado);
+      if (colObs !== -1 && observacionesPadre) sheet.getRange(i + 1, colObs + 1).setValue(observacionesPadre);
+      return { exito: true, mensaje: 'Supervisión actualizada correctamente.' };
+    }
+  }
+  return { exito: false, mensaje: 'Clase no encontrada.' };
+}
+
+function pruebaConexion() {
+  const ss = getSpreadsheet();
+  return { conectado: true, archivo: ss.getName(), id: ss.getId(), mensaje: 'Conexión correcta con Camino hacia Jesús 2026.' };
+}
