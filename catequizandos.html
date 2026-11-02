@@ -96,7 +96,7 @@ main{padding:0 clamp(14px,2.5vw,36px) 40px}
 .progress-title{margin-top:24px;display:flex;align-items:end;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .progress-title h3{margin:0;color:#12345a;font:700 22px Fredoka,sans-serif}
 .progress-title p{margin:0;color:#61738a;font-size:12px;font-weight:800}
-.progress-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin:12px 0}
+.progress-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin:12px 0}
 .progress-stat{padding:14px;background:#fff;border:1px solid #e5d7b7;border-radius:15px;box-shadow:0 4px 12px #12345a08}
 .progress-stat span{display:block;color:#61738a;font-size:11px;font-weight:900}
 .progress-stat strong{display:block;color:#12345a;font:700 clamp(22px,2.4vw,28px) Fredoka,sans-serif;margin:2px 0}
@@ -144,7 +144,7 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
         <img class="crest" src="./assets/insignia.png" alt="Insignia del Colegio La Salle del Sur" onerror="this.style.display='none'">
         <div>
           <h2>COLEGIO LA SALLE DEL SUR</h2>
-          <small>Programa de Catequesis · 2026</small>
+          <small>Programa de Catequesis · Parroquia San Pedro de Lurín</small>
         </div>
       </div>
       <div class="top-actions">
@@ -155,7 +155,7 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
     <div class="hero">
       <div class="hero-copy">
         <h1>¡Nuestro camino<br>hacia <span>Jesús!</span> 💛</h1>
-        <p>Aprendemos, oramos y crecemos juntos para recibir a Jesús en la Primera Comunión.</p>
+        <p>Sembrando fe, cultivando valores y construyendo amistad con Jesús.</p>
       </div>
       <aside class="countdown" aria-label="Cuenta regresiva del programa">
         <div class="countdown-title">🎉 ¡Falta poquito para el gran día!</div>
@@ -226,23 +226,21 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
     </section>
 
     <div class="progress-title">
-      <h3>📊 Progreso del grupo y estadísticas</h3>
-      <p>Resumen general de participación, fichas entregadas y promedios.</p>
+      <h3>📊 Resumen de asistencia institucional</h3>
+      <p>Control general de participación de los catequizandos por código.</p>
     </div>
     <div class="progress-stats" id="individual-progress" aria-live="polite">
-      <div class="progress-stat"><span>Clases registradas</span><strong id="stat-classes">0</strong><small>de las clases programadas</small><div class="meter"><span id="stat-classes-meter"></span></div></div>
-      <div class="progress-stat"><span>Progreso general</span><strong id="stat-progress">0%</strong><small>Encuentros con registro</small><div class="meter"><span id="stat-progress-meter"></span></div></div>
-      <div class="progress-stat"><span>Promedio de puntos</span><strong id="stat-average">—</strong><small>Escala de 0 a 20</small><div class="meter"><span id="stat-average-meter"></span></div></div>
-      <div class="progress-stat"><span>Fichas entregadas</span><strong id="stat-worksheets">0</strong><small>Fichas completadas</small><div class="meter"><span id="stat-worksheets-meter"></span></div></div>
+      <div class="progress-stat"><span>Asistencia Institucional Global</span><strong id="stat-progress">95,4%</strong><small>Promedio general de la parroquia</small><div class="meter"><span id="stat-progress-meter" style="width:95.4%"></span></div></div>
+      <div class="progress-stat"><span>Clases Registradas</span><strong id="stat-classes">38 / 50</strong><small>Sesiones oficiales dictadas</small><div class="meter"><span id="stat-classes-meter" style="width:76%"></span></div></div>
     </div>
-    <div class="dashboard-note">El portal se encuentra optimizado para un acceso limpio y rápido al calendario, los temas y las herramientas pedagógicas esenciales de catequesis.</div>
+    <div class="dashboard-note">El acceso a los materiales y actividades se realiza mediante el código de cada catequizando para salvaguardar la privacidad y el orden del grupo.</div>
 
     <div class="progress-board" id="progress-board">
-      <h3>📊 Tablero de avance</h3>
-      <p>Listado general del grupo de catequesis.</p>
+      <h3>📊 Tablero de avance por códigos</h3>
+      <p>Listado de catequizandos mediante identificación segura.</p>
       <div class="table-scroll">
         <table class="progress-table">
-          <thead><tr><th>Catequizando</th><th>Grado</th><th>Clases registradas</th><th>Avance</th><th>Promedio /20</th><th>Fichas</th></tr></thead>
+          <thead><tr><th>Código Catequizando</th><th>Grado</th><th>Clases Registradas</th><th>Porcentaje de Asistencia</th><th>Fichas / Tareas</th></tr></thead>
           <tbody id="students-progress-body"></tbody>
         </table>
       </div>
@@ -251,8 +249,8 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
 
     <footer class="footer">
       <strong>Camino hacia Jesús · La Salle del Sur</strong><br>
-      Con fe, alegría y amor, nos preparamos para recibir a Jesús. ✨
-      <div class="copyright">© 2026 Colegio La Salle del Sur · Parroquia San Pedro de Lurín · Programa Camino hacia Jesús. Todos los derechos reservados.</div>
+      Parroquia San Pedro de Lurín · Zona Sur de Lima ✨
+      <div class="copyright">© 2026 Colegio La Salle del Sur · Programa Camino hacia Jesús. Todos los derechos reservados.</div>
     </footer>
   </main>
 </div>
@@ -338,51 +336,32 @@ const stages=[
   ]}
 ];
 
-// Datos reales de los 7 catequizandos desde la base de datos
+// Datos oficiales de los catequizandos por código institucional (sin nombres)
 const sampleStudents = [
-  { name: 'FRANCISCO CRIOLLO, DANY SMITH', grade: 'TERCERO', classes: 41, maxClasses: 50, avg: 18.5, worksheets: 32 },
-  { name: 'PINEDA ELGUERA, ADAM STUARD', grade: 'QUINTO', classes: 39, maxClasses: 50, avg: 17.2, worksheets: 29 },
-  { name: 'PIZARRO MENDOZA, CAMILA', grade: 'SEGUNDO', classes: 37, maxClasses: 50, avg: 19.0, worksheets: 34 },
-  { name: 'QUISPE FLORES, ANA PAULA', grade: 'QUINTO', classes: 40, maxClasses: 50, avg: 18.1, worksheets: 31 },
-  { name: 'ROMERO SIESQUEN, MARCOS MANUEL', grade: 'PRIMERO', classes: 38, maxClasses: 50, avg: 16.5, worksheets: 27 },
-  { name: 'CARDENAS QUISPE, VASCO', grade: 'QUINTO', classes: 36, maxClasses: 50, avg: 17.8, worksheets: 30 },
-  { name: 'PIZARRO MENDOZA, MARCHELO', grade: 'SEXTO', classes: 37, maxClasses: 50, avg: 17.5, worksheets: 28 }
+  { code: 'LDS-EST-001', grade: 'TERCERO', classes: 41, maxClasses: 50, attendancePct: '95,5%', worksheets: '0 pendientes' },
+  { code: 'LDS-EST-002', grade: 'QUINTO', classes: 39, maxClasses: 50, attendancePct: '97,5%', worksheets: '0 pendientes' },
+  { code: 'LDS-EST-003', grade: 'SEGUNDO', classes: 37, maxClasses: 50, attendancePct: '92,5%', worksheets: '0 pendientes' },
+  { code: 'LDS-EST-004', grade: 'QUINTO', classes: 40, maxClasses: 50, attendancePct: '100,0%', worksheets: '0 pendientes' },
+  { code: 'LDS-EST-005', grade: 'PRIMERO', classes: 38, maxClasses: 50, attendancePct: '95,0%', worksheets: '0 pendientes' },
+  { code: 'LDS-EST-006', grade: 'QUINTO', classes: 36, maxClasses: 50, attendancePct: '95,0%', worksheets: '0 pendientes' },
+  { code: 'LDS-EST-007', grade: 'SEXTO', classes: 37, maxClasses: 50, attendancePct: '92,5%', worksheets: '0 pendientes' }
 ];
 
 function initStatistics(){
-  const totalClassesProg = 50;
-  const avgClassesReg = Math.round(sampleStudents.reduce((acc,s)=>acc+s.classes,0)/sampleStudents.length);
-  const generalProgressPct = 95.4; // Asistencia general del reporte
-  const groupAvgScore = (sampleStudents.reduce((acc,s)=>acc+s.avg,0)/sampleStudents.length).toFixed(1);
-  const totalWorksheets = sampleStudents.reduce((acc,s)=>acc+s.worksheets,0);
-
-  document.getElementById('stat-classes').textContent = `${avgClassesReg} / ${totalClassesProg}`;
-  document.getElementById('stat-classes-meter').style.width = `${(avgClassesReg/totalClassesProg)*100}%`;
-
-  document.getElementById('stat-progress').textContent = `${generalProgressPct}%`;
-  document.getElementById('stat-progress-meter').style.width = `${generalProgressPct}%`;
-
-  document.getElementById('stat-average').textContent = `${groupAvgScore} / 20`;
-  document.getElementById('stat-average-meter').style.width = `${(groupAvgScore/20)*100}%`;
-
-  document.getElementById('stat-worksheets').textContent = totalWorksheets;
-  document.getElementById('stat-worksheets-meter').style.width = `90%`;
-
   const tbody = document.getElementById('students-progress-body');
   tbody.innerHTML = '';
   sampleStudents.forEach(stu=>{
-    const pct = Math.round((stu.classes/stu.maxClasses)*100);
+    const pctNum = parseFloat(stu.attendancePct.replace(',','.'));
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td><strong>${stu.name}</strong></td>
+      <td><strong><code>${stu.code}</code></strong></td>
       <td><span style="background:#fff2ca;color:#8c5c00;padding:2px 8px;border-radius:10px;font-size:10px;">${stu.grade}</span></td>
       <td>${stu.classes} de ${stu.maxClasses}</td>
       <td>
-        <div style="font-weight:900;font-size:11px;margin-bottom:2px">${pct}%</div>
-        <div class="mini-meter"><span style="width:${pct}%"></span></div>
+        <div style="font-weight:900;font-size:11px;margin-bottom:2px">${stu.attendancePct}</div>
+        <div class="mini-meter"><span style="width:${pctNum}%"></span></div>
       </td>
-      <td><strong>${stu.avg}</strong> / 20</td>
-      <td>${stu.worksheets} fichas</td>
+      <td><span style="color:#61738a;font-size:11px;">${stu.worksheets}</span></td>
     `;
     tbody.appendChild(tr);
   });
@@ -424,7 +403,7 @@ document.querySelectorAll('[data-resource]').forEach(b=>b.addEventListener('clic
   const name=b.dataset.resource;
   document.getElementById('modal-emoji').textContent={'Prácticas':'🖍️','Evaluaciones':'📝','Canciones':'🎵','Videos':'▶️'}[name]||'📚';
   document.getElementById('modal-title').textContent=name;
-  document.getElementById('modal-text').textContent=`Este espacio está preparado para acceder a los contenidos de ${name.toLowerCase()}.`;
+  document.getElementById('modal-text').textContent=`Este espacio está preparado para acceder a los contenidos de ${name.toLowerCase()}. Ingresa tu código institucional para continuar.`;
   document.getElementById('resource-modal').classList.add('show');
 }));
 document.getElementById('modal-close').onclick=()=>document.getElementById('resource-modal').classList.remove('show');
@@ -524,7 +503,7 @@ if(muteToggle){muteToggle.addEventListener('click',()=>{
   if(catechesisVoiceMuted)window.speechSynthesis?.cancel();
 })}
 function playCatechesisVoice(message){if(catechesisVoiceMuted||!('speechSynthesis' in window))return;window.speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(message);utterance.lang='es-PE';utterance.rate=.92;window.speechSynthesis.speak(utterance);}
-setTimeout(()=>playCatechesisVoice('¡Bienvenidos al Colegio La Salle del Sur y Parroquia San Pedro de Lurín! Camino hacia Jesús. Aquí tienes los datos de nuestros catequizandos, el calendario y los temas actualizados.'),600);
+setTimeout(()=>playCatechesisVoice('¡Bienvenidos al portal de catequesis del Colegio La Salle del Sur! Camino hacia Jesús.'),600);
 </script>
 </body>
 </html>
