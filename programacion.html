@@ -147,7 +147,7 @@ main {
   display: block;
 }
 .stage-title-wrap h3 {
-  font: 700 19px Fredoka, sans-serif;
+  font: 700 18px Fredoka, sans-serif;
   color: var(--navy);
   margin: 2px 0 0;
 }
@@ -176,19 +176,15 @@ main {
   letter-spacing: .5px;
 }
 .topic-name {
-  font: 700 15px Fredoka, sans-serif;
+  font: 700 14px Fredoka, sans-serif;
   color: var(--navy);
-  margin: 2px 0 6px;
+  margin: 2px 0 4px;
 }
-.topic-bullets {
-  margin: 0;
-  padding-left: 18px;
+.topic-desc {
   font-size: 12px;
   font-weight: 700;
   color: #4b5d73;
-}
-.topic-bullets li {
-  margin: 2px 0;
+  margin: 0;
 }
 footer {
   margin-top: 40px;
@@ -234,13 +230,11 @@ footer strong {
 
   <main>
     <section class="intro-section">
-      <h2>Itinerario Completo de Formación</h2>
-      <p>Organizado de forma clara y elegante en nuestras seis etapas fundamentales para guiar a los estudiantes hacia la Primera Comunión.</p>
+      <h2>Bloques de Formación</h2>
+      <p>Nuestros seis bloques organizados metódicamente para guiar el aprendizaje de los estudiantes hacia la Primera Comunión.</p>
     </section>
 
-    <div class="stages-grid" id="stages-grid">
-      <!-- Generado dinámicamente o estructurado limpio -->
-    </div>
+    <div class="stages-grid" id="stages-grid"></div>
   </main>
 
   <footer>
@@ -252,74 +246,73 @@ footer strong {
 
 <script>
 const stages = [
-  {title:'Conociendo a Jesús',subtitle:'Su vida, su mensaje y su amor.',icon:'✝️',topics:[
-    [1,'¿Quién es Dios?','Dios único, creador, eterno y Padre amoroso.'],
-    [2,'¿Quién es Jesús?','Hijo de Dios, verdadero Dios y verdadero hombre.'],
-    [3,'¿Quién es el Espíritu Santo?','Su misión, símbolos y cómo actúa en nosotros.'],
-    [4,'La Santísima Trinidad','El misterio de un solo Dios en tres Personas divinas.'],
-    [5,'La Creación','El mundo, el ser humano y nuestra responsabilidad de cuidarla.'],
-    [7,'Dios se Revela','La Sagrada Escritura y Jesucristo como plenitud de la Revelación.'],
-    [8,'La Biblia','Antiguo y Nuevo Testamento, Evangelios y cómo leerla.'],
-    [9,'La Vida de Jesús','Nacimiento, infancia, bautismo y vida pública.'],
-    [10,'Las Enseñanzas de Jesús','Parábolas principales y su aplicación práctica.'],
-    [11,'Los Milagros de Jesús','Sanaciones y milagros sobre la naturaleza.'],
-    [12,'Pasión, Muerte y Resurrección','La Última Cena, crucifixión y el triunfo de la Resurrección.']
-  ]},
-  {title:'Aprendemos a orar',subtitle:'Hablar con Dios con confianza.',icon:'🙏',topics:[
-    [19,'¿Qué significa tener Fe?',['Creer, confianza y profesión de fe.']],
-    [20,'El Credo','Qué es, por qué lo rezamos y su explicación detallada.'],
-    [21,'¿Qué es Orar?',['Diferencia entre orar y rezar; formas de hablar con Dios.']],
-    [22,'Oraciones Fundamentales','Padre Nuestro, Ave María, Gloria, Credo y Acto de Contrición.'],
-    [23,'El Padre Nuestro','Explicación profunda de cada petición.'],
-    [15,'El Santo Rosario','Qué es, cómo se reza y meditación de los misterios.']
-  ]},
-  {title:'Los sacramentos',subtitle:'Signos de la gracia de Dios.',icon:'🕊️',topics:[
-    [29,'¿Qué es un Sacramento?','Signos visibles instituidos por Cristo para darnos gracia.'],
-    [30,'Los Siete Sacramentos','Clasificación: Iniciación, Curación y Servicio.'],
-    [31,'La Gracia','Gracia santificante y vida en comunión con Dios.'],
-    [32,'El Bautismo','Primer sacramento, símbolos y compromiso cristiano.'],
-    [33,'La Confirmación','Don del Espíritu Santo y madurez en la fe.'],
-    [34,'Los Demás Sacramentos','Reconciliación, Unción, Matrimonio y Orden Sacerdotal.']
-  ]},
-  {title:'La Eucaristía',subtitle:'Prepararnos para recibir a Jesús.',icon:'🍞',topics:[
-    [35,'El Sacramento de la Reconciliación','Por qué confesarnos y pasos para una buena confesión.'],
-    [36,'Mi Primera Confesión','Examen de conciencia y acercamiento al sacerdote.'],
-    [37,'El Año Litúrgico','Adviento, Navidad, Cuaresma, Semana Santa y Pascua.'],
-    [38,'Signos y Símbolos Litúrgicos','Cruz, agua, aceite, cirios e incienso.'],
-    [39,'¿Qué es la Santa Misa?','Celebración central de la comunidad cristiana.'],
-    [40,'Antes de la Misa','Puntualidad, silencio y preparación interior.'],
-    [41,'Conocemos el Templo','Altar, Ambón, Sagrario y Pila Bautismal.'],
-    [42,'Vestiduras del Sacerdote','Alba, estola, casulla y colores litúrgicos.'],
-    [44,'Gestos y Posturas','De pie, sentados, arrodillados y su significado.'],
-    [45,'Ritos Iniciales','Saludo, acto penitencial y Gloria.'],
-    [46,'Liturgia de la Palabra','Lecturas, Evangelio y homilía.'],
-    [47,'Liturgia Eucarística','Ofertorio, Plegaria Eucarística y Consagración.'],
-    [48,'Rito de la Comunión','Padre Nuestro, Cordero de Dios y recepción.'],
-    [49,'Ritos Finales','Bendición y envío misionero.'],
-    [50,'¿Qué es la Eucaristía?','Presencia real de Cristo, banquete y memorial.'],
-    [51,'¿Qué Sucede en la Consagración?','Transubstanciación explicada para niños.'],
-    [52,'Jesús en el Sagrario','Visita al Santísimo y adoración.'],
-    [53,'¿Cómo Recibimos la Comunión?','Ayuno eucarístico, reverencia y oración.'],
-    [55,'Mi Primera Comunión','Preparación final para el gran día.']
-  ]},
-  {title:'Valores cristianos',subtitle:'Amor, respeto y perdón.',icon:'💖',topics:[
-    [6,'El Ser Humano y el Pecado','Libertad, discernimiento entre el bien y el mal.'],
-    [24,'Los Diez Mandamientos','Ley de Dios aplicadas a la vida de los niños.'],
-    [25,'Los Mandamientos de la Iglesia','Obligaciones de los fieles católicos.'],
-    [26,'Las Bienaventuranzas','Camino de verdadera felicidad según Jesús.'],
-    [27,'Obras de Misericordia','Corporales y espirituales con el prójimo.'],
-    [28,'Examen de Conciencia','Responsabilidad moral y conversión sincera.']
-  ]},
-  {title:'Compartimos la fe',subtitle:'Vivir en comunidad y familia.',icon:'👨‍👩‍👧‍👦',topics:[
-    [13,'¿Quién es la Virgen María?',['Madre de Jesús y modelo de fe y obediencia.']],
-    [14,'Las Advocaciones Marianas','Carmen, Guadalupe, Fátima y Lourdes.'],
-    [16,'¿Qué es la Iglesia?',['Pueblo de Dios y Cuerpo místico de Cristo.']],
-    [17,'¿Quiénes Forman la Iglesia?',['Papa, Obispos, Sacerdotes, Religiosos y Laicos.']],
-    [18,'Los Santos','Modelos de vida cristiana e intercesores.'],
-    [43,'Servidores y Monaguillos','Función y actitud en el altar.'],
-    [54,'Padrinos y Madrinas','Acompañamiento espiritual y compromiso.'],
-    [56,'Después de la Primera Comunión','Continuar en la comunidad, misa y servicio.']
-  ]}
+  {
+    title: 'BLOQUE 1 — CONOCIENDO A JESÚS',
+    subtitle: 'Su vida, su mensaje y su amor.',
+    icon: '✝️',
+    topics: [
+      [1, '¿Quién es Dios?', 'Dios único, creador, eterno y Padre amoroso.'],
+      [2, '¿Quién es Jesús?', 'Hijo de Dios, verdadero Dios y verdadero hombre.'],
+      [3, '¿Quién es el Espíritu Santo?', 'Su misión, símbolos y cómo actúa en nosotros.'],
+      [4, 'La Santísima Trinidad', 'El misterio de un solo Dios en tres Personas divinas.'],
+      [5, 'La Creación', 'El mundo, el ser humano y nuestra responsabilidad de cuidarla.']
+    ]
+  },
+  {
+    title: 'BLOQUE 2 — APRENDEMOS A ORAR',
+    subtitle: 'Hablar con Dios con confianza.',
+    icon: '🙏',
+    topics: [
+      [19, '¿Qué significa tener Fe?', 'Creer, confianza y profesión de fe.'],
+      [20, 'El Credo', 'Qué es, por qué lo rezamos y su explicación detallada.'],
+      [21, '¿Qué es Orar?', 'Diferencia entre orar y rezar; formas de hablar con Dios.'],
+      [22, 'Oraciones Fundamentales', 'Padre Nuestro, Ave María, Gloria, Credo y Acto de Contrición.']
+    ]
+  },
+  {
+    title: 'BLOQUE 3 — LOS SACRAMENTOS',
+    subtitle: 'Signos de la gracia de Dios.',
+    icon: '🕊️',
+    topics: [
+      [29, '¿Qué es un Sacramento?', 'Signos visibles instituidos por Cristo para darnos gracia.'],
+      [30, 'Los Siete Sacramentos', 'Clasificación: Iniciación, Curación y Servicio.'],
+      [31, 'La Gracia', 'Gracia santificante y vida en comunión con Dios.'],
+      [32, 'El Bautismo', 'Primer sacramento, símbolos y compromiso cristiano.']
+    ]
+  },
+  {
+    title: 'BLOQUE 4 — LA EUCARISTÍA',
+    subtitle: 'Prepararnos para recibir a Jesús.',
+    icon: '🍞',
+    topics: [
+      [35, 'El Sacramento de la Reconciliación', 'Por qué confesarnos y pasos para una buena confesión.'],
+      [36, 'Mi Primera Confesión', 'Examen de conciencia y acercamiento al sacerdote.'],
+      [37, 'El Año Litúrgico', 'Adviento, Navidad, Cuaresma, Semana Santa y Pascua.'],
+      [38, 'Signos y Símbolos Litúrgicos', 'Cruz, agua, aceite, cirios e incienso.']
+    ]
+  },
+  {
+    title: 'BLOQUE 5 — VALORES CRISTIANOS',
+    subtitle: 'Amor, respeto y perdón.',
+    icon: '💖',
+    topics: [
+      [6, 'El Ser Humano y el Pecado', 'Libertad, discernimiento entre el bien y el mal.'],
+      [24, 'Los Diez Mandamientos', 'Ley de Dios aplicada a la vida de los niños.'],
+      [25, 'Los Mandamientos de la Iglesia', 'Obligaciones de los fieles católicos.'],
+      [26, 'Las Bienaventuranzas', 'Camino de verdadera felicidad según Jesús.']
+    ]
+  },
+  {
+    title: 'BLOQUE 6 — COMPARTIMOS LA FE',
+    subtitle: 'Vivir en comunidad y familia.',
+    icon: '👨‍👩‍👧‍👦',
+    topics: [
+      [13, '¿Quién es la Virgen María?', 'Madre de Jesús y modelo de fe y obediencia.'],
+      [14, 'Las Advocaciones Marianas', 'Carmen, Guadalupe, Fátima y Lourdes.'],
+      [16, '¿Qué es la Iglesia?', 'Pueblo de Dios y Cuerpo místico de Cristo.'],
+      [17, '¿Quiénes Forman la Iglesia?', 'Papa, Obispos, Sacerdotes, Religiosos y Laicos.']
+    ]
+  }
 ];
 
 const grid = document.getElementById('stages-grid');
@@ -331,7 +324,7 @@ stages.forEach((stage, idx) => {
     <div class="topic-item">
       <span class="topic-number">Tema ${t[0]}</span>
       <div class="topic-name">${t[1]}</div>
-      ${Array.isArray(t[2]) ? `<ul class="topic-bullets">${t[2].map(b => `<li>${b}</li>`).join('')}</ul>` : `<div style="font-size:12px;font-weight:700;color:#4b5d73;">${t[2]}</div>`}
+      <p class="topic-desc">${t[2]}</p>
     </div>
   `).join('');
 
@@ -339,7 +332,7 @@ stages.forEach((stage, idx) => {
     <div class="stage-header">
       <div class="stage-icon">${stage.icon}</div>
       <div class="stage-title-wrap">
-        <span>Etapa ${idx + 1}</span>
+        <span>Sección ${idx + 1}</span>
         <h3>${stage.title}</h3>
       </div>
     </div>
