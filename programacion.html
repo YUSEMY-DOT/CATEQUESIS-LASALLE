@@ -31,7 +31,7 @@ body {
   line-height: 1.5;
 }
 .page-wrap {
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 20px auto;
   background: var(--cream);
   border-radius: 28px;
@@ -81,6 +81,55 @@ header {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(243, 161, 13, 0.4);
 }
+
+/* CUENTA REGRESIVA AL 8 DE DICIEMBRE */
+.countdown-box {
+  background: linear-gradient(135deg, #061a38 0%, #102a5c 100%);
+  border: 2px solid #e8bd60;
+  border-radius: 20px;
+  padding: 24px;
+  margin: 30px clamp(20px, 4vw, 50px) 10px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+.countdown-box h3 {
+  font: 700 22px Fredoka, sans-serif;
+  color: #ffdf94;
+  margin: 0 0 5px;
+}
+.countdown-box p {
+  font-size: 14px;
+  font-weight: 700;
+  color: #d7e6f8;
+  margin: 0 0 18px;
+}
+.timer-grid {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.time-card {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+  padding: 10px 18px;
+  min-width: 80px;
+}
+.time-card b {
+  display: block;
+  font: 700 28px Fredoka, sans-serif;
+  color: #ffdf94;
+}
+.time-card span {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #b9d3f5;
+  letter-spacing: 0.5px;
+}
+
 main {
   padding: clamp(20px, 4vw, 40px);
 }
@@ -101,8 +150,8 @@ main {
 }
 .stages-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 24px;
 }
 .stage-card {
   background: var(--paper);
@@ -110,14 +159,8 @@ main {
   border-radius: 20px;
   padding: 24px;
   box-shadow: var(--shadow);
-  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
   display: flex;
   flex-direction: column;
-}
-.stage-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--gold);
-  box-shadow: 0 15px 35px rgba(183, 131, 34, 0.15);
 }
 .stage-header {
   display: flex;
@@ -130,13 +173,13 @@ main {
 .stage-icon {
   width: 52px;
   height: 52px;
+  min-width: 52px;
   border-radius: 14px;
   background: linear-gradient(145deg, #fff5df, #ffe2a3);
   border: 1px solid #efd08a;
   display: grid;
   place-items: center;
   font-size: 26px;
-  box-shadow: inset 0 1px 0 #fff;
 }
 .stage-title-wrap span {
   font-size: 11px;
@@ -147,44 +190,67 @@ main {
   display: block;
 }
 .stage-title-wrap h3 {
-  font: 700 18px Fredoka, sans-serif;
+  font: 700 17px Fredoka, sans-serif;
   color: var(--navy);
   margin: 2px 0 0;
 }
 .topics-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  flex-grow: 1;
+  gap: 12px;
+  max-height: 480px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.topics-list::-webkit-scrollbar {
+  width: 6px;
+}
+.topics-list::-webkit-scrollbar-thumb {
+  background: #dcccb2;
+  border-radius: 10px;
 }
 .topic-item {
   background: #fcf9f2;
   border: 1px solid #efe4d0;
   border-radius: 12px;
   padding: 12px 14px;
-  transition: background 0.15s;
 }
-.topic-item:hover {
-  background: #fffdf5;
-  border-color: #dfcaa2;
+.topic-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
 }
 .topic-number {
   font-size: 10px;
   font-weight: 900;
   color: #9a711d;
-  text-transform: uppercase;
-  letter-spacing: .5px;
+  background: #fff2cf;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+.topic-id {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
 }
 .topic-name {
   font: 700 14px Fredoka, sans-serif;
   color: var(--navy);
-  margin: 2px 0 4px;
+  margin: 4px 0;
 }
 .topic-desc {
   font-size: 12px;
   font-weight: 700;
   color: #4b5d73;
-  margin: 0;
+  margin: 0 0 6px;
+}
+.topic-meta {
+  font-size: 11px;
+  color: #65758b;
+  border-top: 1px dashed #e8dec9;
+  padding-top: 5px;
+  margin-top: 5px;
 }
 footer {
   margin-top: 40px;
@@ -228,10 +294,22 @@ footer strong {
     <button class="btn-home" onclick="location.href='./index.html'">🏠 Volver al inicio</button>
   </header>
 
+  <!-- CUENTA REGRESIVA AL 8 DE DICIEMBRE DE 2026 -->
+  <div class="countdown-box">
+    <h3>✨ Cuenta Regresiva para la Catequesis / Gran Cierre ✨</h3>
+    <p>8 de Diciembre de 2026</p>
+    <div class="timer-grid">
+      <div class="time-card"><b id="days">--</b><span>Días</span></div>
+      <div class="time-card"><b id="hours">--</b><span>Horas</span></div>
+      <div class="time-card"><b id="minutes">--</b><span>Minutos</span></div>
+      <div class="time-card"><b id="seconds">--</b><span>Segundos</span></div>
+    </div>
+  </div>
+
   <main>
     <section class="intro-section">
-      <h2>Bloques de Formación</h2>
-      <p>Nuestros seis bloques organizados metódicamente para guiar el aprendizaje de los estudiantes hacia la Primera Comunión.</p>
+      <h2>Bloques y Sesiones Oficiales</h2>
+      <p>Itinerario completo con las 56 sesiones detalladas para guiar el aprendizaje espiritual de los estudiantes.</p>
     </section>
 
     <div class="stages-grid" id="stages-grid"></div>
@@ -245,102 +323,167 @@ footer strong {
 </div>
 
 <script>
-const stages = [
-  {
-    title: 'BLOQUE 1 — CONOCIENDO A JESÚS',
-    subtitle: 'Su vida, su mensaje y su amor.',
-    icon: '✝️',
-    topics: [
-      [1, '¿Quién es Dios?', 'Dios único, creador, eterno y Padre amoroso.'],
-      [2, '¿Quién es Jesús?', 'Hijo de Dios, verdadero Dios y verdadero hombre.'],
-      [3, '¿Quién es el Espíritu Santo?', 'Su misión, símbolos y cómo actúa en nosotros.'],
-      [4, 'La Santísima Trinidad', 'El misterio de un solo Dios en tres Personas divinas.'],
-      [5, 'La Creación', 'El mundo, el ser humano y nuestra responsabilidad de cuidarla.']
-    ]
-  },
-  {
-    title: 'BLOQUE 2 — APRENDEMOS A ORAR',
-    subtitle: 'Hablar con Dios con confianza.',
-    icon: '🙏',
-    topics: [
-      [19, '¿Qué significa tener Fe?', 'Creer, confianza y profesión de fe.'],
-      [20, 'El Credo', 'Qué es, por qué lo rezamos y su explicación detallada.'],
-      [21, '¿Qué es Orar?', 'Diferencia entre orar y rezar; formas de hablar con Dios.'],
-      [22, 'Oraciones Fundamentales', 'Padre Nuestro, Ave María, Gloria, Credo y Acto de Contrición.']
-    ]
-  },
-  {
-    title: 'BLOQUE 3 — LOS SACRAMENTOS',
-    subtitle: 'Signos de la gracia de Dios.',
-    icon: '🕊️',
-    topics: [
-      [29, '¿Qué es un Sacramento?', 'Signos visibles instituidos por Cristo para darnos gracia.'],
-      [30, 'Los Siete Sacramentos', 'Clasificación: Iniciación, Curación y Servicio.'],
-      [31, 'La Gracia', 'Gracia santificante y vida en comunión con Dios.'],
-      [32, 'El Bautismo', 'Primer sacramento, símbolos y compromiso cristiano.']
-    ]
-  },
-  {
-    title: 'BLOQUE 4 — LA EUCARISTÍA',
-    subtitle: 'Prepararnos para recibir a Jesús.',
-    icon: '🍞',
-    topics: [
-      [35, 'El Sacramento de la Reconciliación', 'Por qué confesarnos y pasos para una buena confesión.'],
-      [36, 'Mi Primera Confesión', 'Examen de conciencia y acercamiento al sacerdote.'],
-      [37, 'El Año Litúrgico', 'Adviento, Navidad, Cuaresma, Semana Santa y Pascua.'],
-      [38, 'Signos y Símbolos Litúrgicos', 'Cruz, agua, aceite, cirios e incienso.']
-    ]
-  },
-  {
-    title: 'BLOQUE 5 — VALORES CRISTIANOS',
-    subtitle: 'Amor, respeto y perdón.',
-    icon: '💖',
-    topics: [
-      [6, 'El Ser Humano y el Pecado', 'Libertad, discernimiento entre el bien y el mal.'],
-      [24, 'Los Diez Mandamientos', 'Ley de Dios aplicada a la vida de los niños.'],
-      [25, 'Los Mandamientos de la Iglesia', 'Obligaciones de los fieles católicos.'],
-      [26, 'Las Bienaventuranzas', 'Camino de verdadera felicidad según Jesús.']
-    ]
-  },
-  {
-    title: 'BLOQUE 6 — COMPARTIMOS LA FE',
-    subtitle: 'Vivir en comunidad y familia.',
-    icon: '👨‍👩‍👧‍👦',
-    topics: [
-      [13, '¿Quién es la Virgen María?', 'Madre de Jesús y modelo de fe y obediencia.'],
-      [14, 'Las Advocaciones Marianas', 'Carmen, Guadalupe, Fátima y Lourdes.'],
-      [16, '¿Qué es la Iglesia?', 'Pueblo de Dios y Cuerpo místico de Cristo.'],
-      [17, '¿Quiénes Forman la Iglesia?', 'Papa, Obispos, Sacerdotes, Religiosos y Laicos.']
-    ]
+  /* CUENTA REGRESIVA AL 8 DE DICIEMBRE DE 2026 */
+  function updateCountdown() {
+    const target = new Date(2026, 11, 8, 0, 0, 0).getTime(); // 11 = Diciembre
+    const now = Date.now();
+    const diff = target - now;
+
+    if (diff <= 0) {
+      document.getElementById('days').textContent = '0';
+      document.getElementById('hours').textContent = '0';
+      document.getElementById('minutes').textContent = '0';
+      document.getElementById('seconds').textContent = '0';
+      return;
+    }
+
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const minutes = Math.floor((diff % 3600000) / 60000);
+    const seconds = Math.floor((diff % 60000) / 1000);
+
+    document.getElementById('days').textContent = String(days).padStart(2, '0');
+    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
   }
-];
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
 
-const grid = document.getElementById('stages-grid');
-stages.forEach((stage, idx) => {
-  const card = document.createElement('div');
-  card.className = 'stage-card';
-  
-  let topicsHtml = stage.topics.map(t => `
-    <div class="topic-item">
-      <span class="topic-number">Tema ${t[0]}</span>
-      <div class="topic-name">${t[1]}</div>
-      <p class="topic-desc">${t[2]}</p>
-    </div>
-  `).join('');
+  /* DATOS COMPLETOS DE LAS 56 SESIONES ORGANIZADAS EN 6 BLOQUES */
+  const blocks = [
+    {
+      title: 'BLOQUE 1 — CONOCIENDO A JESÚS',
+      subtitle: 'Sesiones 1 a 15',
+      icon: '✝️',
+      sessions: [
+        {n:1, id:'CJ-001', tema:'¿QUIÉN ES DIOS?', desc:'Reconocer a Dios como el único Dios, creador y Padre eterno.', val:'Fe y confianza en Dios', cita:'Dt 6,4; Ex 3,14; Gn 1,1'},
+        {n:2, id:'CJ-002', tema:'¿QUIÉN ES JESÚS?', desc:'Explicar quién es Jesús, reconocerlo como Hijo de Dios y verdadero hombre.', val:'Amor a Jesús', cita:'Jn 1,1.14; Mt 16,15-16'},
+        {n:3, id:'CJ-003', tema:'¿QUIÉN ES EL ESPÍRITU SANTO?', desc:'Identificar al Espíritu Santo, su misión y cómo actúa en la Iglesia.', val:'Docilidad al Espíritu Santo', cita:'Jn 14,16-17; Hch 2,1-4'},
+        {n:4, id:'CJ-004', tema:'LA SANTÍSIMA TRINIDAD', desc:'Explicar que el Padre, el Hijo y el Espíritu Santo son un solo Dios.', val:'Unidad y comunión', cita:'Mt 3,16-17; Mt 28,19'},
+        {n:5, id:'CJ-005', tema:'LA CREACIÓN', desc:'Reconocer a Dios como creador y cuidar la naturaleza.', val:'Responsabilidad y cuidado', cita:'Gn 1,1-31; Sal 8,4-9'},
+        {n:6, id:'CJ-006', tema:'DIOS SE REVELA AL SER HUMANO', desc:'Comprender que Dios se da a conocer a través de la historia y Jesucristo.', val:'Apertura a la Palabra', cita:'Heb 1,1-2; Jn 1,18'},
+        {n:7, id:'CJ-007', tema:'LA BIBLIA', desc:'Reconocer la Biblia como Palabra de Dios y buscar citas bíblicas.', val:'Amor a la Palabra de Dios', cita:'2 Tim 3,16-17; Lc 24,27'},
+        {n:8, id:'CJ-008', tema:'LA VIDA DE JESÚS', desc:'Identificar momentos clave de la vida de Jesús y su misión.', val:'Disponibilidad para seguir a Jesús', cita:'Lc 2,1-20; Mc 1,9-15'},
+        {n:9, id:'CJ-009', tema:'LAS ENSEÑANZAS DE JESÚS (PARÁBOLAS)', desc:'Reconocer enseñanzas de Jesús mediante parábolas y aplicarlas.', val:'Misericordia y solidaridad', cita:'Lc 10,25-37; Lc 15,11-32'},
+        {n:10, id:'CJ-010', tema:'LOS MILAGROS DE JESÚS', desc:'Identificar milagros de Jesús y qué revelan sobre su amor y poder.', val:'Confianza en Jesús', cita:'Mc 2,1-12; Jn 2,1-11'},
+        {n:11, id:'CJ-011', tema:'PASIÓN, MUERTE Y RESURRECCIÓN', desc:'Relatar los acontecimientos de la Pascua y su significado para la fe.', val:'Esperanza', cita:'Mt 26,17-29; Mt 28,1-10'},
+        {n:12, id:'CJ-012', tema:'¿QUIÉN ES LA VIRGEN MARÍA?', desc:'Reconocer a María como madre de Jesús y ejemplo de fe.', val:'Amor filial y confianza', cita:'Lc 1,26-38; Jn 19,25-27'},
+        {n:13, id:'CJ-013', tema:'¿POR QUÉ HAY TANTAS VÍRGENES?', desc:'Comprender las advocaciones marianas y su unidad en la Virgen María.', val:'Respeto y veneración', cita:'Lc 1,26-48; Jn 2,1-11'},
+        {n:14, id:'CJ-014', tema:'¿QUÉ SIGNIFICA TENER FE?', desc:'Explicar qué es la fe y cómo expresar confianza en Dios.', val:'Fe y confianza', cita:'Heb 11,1.6; Mc 9,24'},
+        {n:15, id:'CJ-015', tema:'EL CREDO', desc:'Comprender el sentido general del Credo y sus verdades de fe.', val:'Fidelidad a la fe', cita:'Mt 28,19; 1 Co 15,3-5'}
+      ]
+    },
+    {
+      title: 'BLOQUE 2 — APRENDEMOS A ORAR',
+      subtitle: 'Sesiones 16 a 19',
+      icon: '🙏',
+      sessions: [
+        {n:16, id:'CJ-016', tema:'EL SANTO ROSARIO', desc:'Conocer la estructura del Santo Rosario y participar en su oración.', val:'Perseverancia en la oración', cita:'Lc 1,26-42; Lc 2,1-20'},
+        {n:17, id:'CJ-017', tema:'¿QUÉ ES ORAR?', desc:'Reconocer la oración como comunicación con Dios en sus distintas formas.', val:'Confianza en Dios', cita:'Mt 6,5-13; 1 Ts 5,17-18'},
+        {n:18, id:'CJ-018', tema:'ORACIONES FUNDAMENTALES', desc:'Practicar oraciones de la tradición cristiana y su sentido.', val:'Piedad y devoción', cita:'Mt 6,9-13; Lc 1,28.42'},
+        {n:19, id:'CJ-019', tema:'EL PADRE NUESTRO', desc:'Comprender el significado de cada petición del Padre Nuestro.', val:'Confianza filial', cita:'Mt 6,9-13; Lc 11,2-4'}
+      ]
+    },
+    {
+      title: 'BLOQUE 3 — LOS SACRAMENTOS',
+      subtitle: 'Sesiones 20 a 27',
+      icon: '🕊️',
+      sessions: [
+        {n:20, id:'CJ-020', tema:'¿QUÉ ES UN SACRAMENTO?', desc:'Explicar el sacramento como signo eficaz de la gracia de Dios.', val:'Apertura a la gracia', cita:'Mt 28,19; Jn 3,5'},
+        {n:21, id:'CJ-021', tema:'LOS SIETE SACRAMENTOS', desc:'Clasificar los siete sacramentos según su finalidad en la Iglesia.', val:'Compromiso cristiano', cita:'Mt 28,19; Lc 22,19-20'},
+        {n:22, id:'CJ-022', tema:'LA GRACIA', desc:'Comprender la gracia santificante y su rol en la vida cristiana.', val:'Vida en gracia', cita:'Ef 2,8-10; Jn 1,16-17'},
+        {n:23, id:'CJ-023', tema:'EL BAUTISMO', desc:'Explicar el significado del Bautismo y su incorporación a la Iglesia.', val:'Gratitud y pertenencia', cita:'Mt 28,19; Rm 6,3-4'},
+        {n:24, id:'CJ-024', tema:'LA CONFIRMACIÓN', desc:'Reconocer cómo el Espíritu Santo fortalece la fe y el compromiso.', val:'Fortaleza y compromiso', cita:'Hch 8,14-17; Hch 2,1-4'},
+        {n:25, id:'CJ-025', tema:'LOS DEMÁS SACRAMENTOS', desc:'Identificar Matrimonio, Orden Sacerdotal y Unción de los enfermos.', val:'Servicio y solidaridad', cita:'Jn 20,21-23; St 5,14-15'},
+        {n:26, id:'CJ-026', tema:'EL SACRAMENTO DE LA RECONCILIACIÓN', desc:'Comprender el perdón de Dios y los pasos para celebrarlo.', val:'Arrepentimiento y humildad', cita:'Jn 20,21-23; Lc 15,11-32'},
+        {n:27, id:'CJ-027', tema:'MI PRIMERA CONFESIÓN', desc:'Prepararse mediante el examen de conciencia y el arrepentimiento.', val:'Sinceridad', cita:'Lc 15,17-24; 1 Jn 1,8-9'}
+      ]
+    },
+    {
+      title: 'BLOQUE 4 — LA EUCARISTÍA',
+      subtitle: 'Sesiones 28 a 45',
+      icon: '🍞',
+      sessions: [
+        {n:28, id:'CJ-028', tema:'EL AÑO LITÚRGICO', desc:'Reconocer los tiempos principales del año litúrgico cristiano.', val:'Participación y respeto', cita:'Lc 2,1-20; Mt 26,17-29'},
+        {n:29, id:'CJ-029', tema:'SIGNOS Y SÍMBOLOS LITÚRGICOS', desc:'Identificar signos frecuentes y su significado en las celebraciones.', val:'Reverencia', cita:'Ex 3,2-5; Jn 4,13-14'},
+        {n:30, id:'CJ-030', tema:'¿QUÉ ES LA SANTA MISA?', desc:'Explicar la Misa y valorar la participación respetuosa.', val:'Participación y fe', cita:'Lc 22,14-20; 1 Co 11,23-26'},
+        {n:31, id:'CJ-031', tema:'ANTES DE LA MISA', desc:'Identificar maneras de prepararse con puntualidad y respeto.', val:'Respeto y recogimiento', cita:'Sal 95,6; Mt 5,23-24'},
+        {n:32, id:'CJ-032', tema:'CONOCEMOS EL TEMPLO', desc:'Reconocer espacios y objetos del templo y su utilidad.', val:'Cuidado de la casa de Dios', cita:'Jn 2,13-22; 1 Co 3,16-17'},
+        {n:33, id:'CJ-033', tema:'VESTIDURAS DEL SACERDOTE', desc:'Identificar las vestiduras litúrgicas y su significado básico.', val:'Respeto', cita:'Ex 28,2-4; Hb 4,14'},
+        {n:34, id:'CJ-034', tema:'SERVIDORES Y MONAGUILLOS', desc:'Reconocer las funciones y la responsabilidad de los monaguillos.', val:'Servicio', cita:'1 Sam 3,1-10; Col 3,23-24'},
+        {n:35, id:'CJ-035', tema:'GESTOS Y POSTURAS', desc:'Identificar gestos y posturas litúrgicas y su expresión de fe.', val:'Reverencia y atención', cita:'Sal 95,6; Mt 26,39'},
+        {n:36, id:'CJ-036', tema:'RITOS INICIALES', desc:'Comprender cómo los ritos iniciales preparan para la Eucaristía.', val:'Humildad', cita:'Sal 100,4; Lc 18,13'},
+        {n:37, id:'CJ-037', tema:'LITURGIA DE LA PALABRA', desc:'Identificar momentos de la Palabra y acoger su mensaje.', val:'Escucha atenta', cita:'Neh 8,1-8; Lc 4,16-21'},
+        {n:38, id:'CJ-038', tema:'LITURGIA EUCARÍSTICA', desc:'Describir la presentación de dones y la plegaria eucarística.', val:'Adoración', cita:'Lc 22,19-20; Mt 26,26-28'},
+        {n:39, id:'CJ-039', tema:'RITO DE LA COMUNIÓN', desc:'Reconocer los momentos del rito y la disposición para comulgar.', val:'Fraternidad', cita:'Mt 6,9-13; 1 Co 10,16-17'},
+        {n:40, id:'CJ-040', tema:'RITOS FINALES', desc:'Explicar que el envío final impulsa a vivir el Evangelio en la vida.', val:'Disponibilidad para la misión', cita:'Mt 28,19-20; Mc 16,15'},
+        {n:41, id:'CJ-041', tema:'¿QUÉ ES LA EUCARISTÍA?', desc:'Reconocer la Eucaristía como memorial y presencia real de Cristo.', val:'Gratitud', cita:'Jn 6,51-58; Lc 22,19-20'},
+        {n:42, id:'CJ-042', tema:'¿QUÉ SUCEDE EN LA CONSAGRACIÓN?', desc:'Comprender la conversión del pan y vino en el Cuerpo y Sangre.', val:'Fe y reverencia', cita:'Lc 22,19-20; 1 Co 11,23-25'},
+        {n:43, id:'CJ-043', tema:'JESÚS EN EL SAGRARIO', desc:'Reconocer el sagrario como reserva eucarística y lugar de oración.', val:'Adoración y confianza', cita:'Mt 28,20; Jn 6,56'},
+        {n:44, id:'CJ-044', tema:'¿CÓMO RECIBIMOS LA COMUNIÓN?', desc:'Identificar disposiciones básicas para recibir la Comunión con respeto.', val:'Preparación interior', cita:'Jn 6,54-56; 1 Co 11,27-29'},
+        {n:45, id:'CJ-045', tema:'MI PRIMERA COMUNIÓN', desc:'Comprender el sentido espiritual de recibir a Jesús por primera vez.', val:'Amor a Jesús', cita:'Jn 6,51; 1 Co 11,26'}
+      ]
+    },
+    {
+      title: 'BLOQUE 5 — VALORES CRISTIANOS',
+      subtitle: 'Sesiones 46 a 51',
+      icon: '💖',
+      sessions: [
+        {n:46, id:'CJ-046', tema:'EL SER HUMANO Y EL PECADO', desc:'Comprender la libertad humana y distinguir el pecado del error.', val:'Responsabilidad y libertad', cita:'Gn 3,1-19; Rm 3,23'},
+        {n:47, id:'CJ-047', tema:'LOS DIEZ MANDAMIENTOS', desc:'Conocer los Diez Mandamientos y su aplicación para amar a Dios y al prójimo.', val:'Obediencia', cita:'Ex 20,1-17; Mt 22,37-40'},
+        {n:48, id:'CJ-048', tema:'LOS MANDAMIENTOS DE LA IGLESIA', desc:'Comprender cómo orientan la participación y vida de los católicos.', val:'Fidelidad a la Iglesia', cita:'Hch 2,42; Heb 10,24-25'},
+        {n:49, id:'CJ-049', tema:'LAS BIENAVENTURANZAS', desc:'Explicar el mensaje central de las Bienaventuranzas en la vida diaria.', val:'Humildad y sencillez', cita:'Mt 5,1-12; Lc 6,20-23'},
+        {n:50, id:'CJ-050', tema:'OBRAS DE MISERICORDIA', desc:'Reconocer obras corporales y espirituales para ayudar al prójimo.', val:'Misericordia y servicio', cita:'Mt 25,35-40; St 2,14-17'},
+        {n:51, id:'CJ-051', tema:'EL PECADO Y EL EXAMEN DE CONCIENCIA', desc:'Practicar un examen de conciencia sencillo que guíe a la conversión.', val:'Sinceridad y conversión', cita:'1 Jn 1,8-9; Sal 139,23-24'}
+      ]
+    },
+    {
+      title: 'BLOQUE 6 — COMPARTIMOS LA FE',
+      subtitle: 'Sesiones 52 a 56',
+      icon: '👨‍👩‍👧‍👦',
+      sessions: [
+        {n:52, id:'CJ-052', tema:'¿QUÉ ES LA IGLESIA?', desc:'Reconocer la Iglesia como comunidad y Pueblo de Dios reunido en Cristo.', val:'Unidad y pertenencia', cita:'Mt 16,18; Hch 2,42-47'},
+        {n:53, id:'CJ-053', tema:'¿QUIÉNES FORMAN LA IGLESIA?', desc:'Identificar los miembros de la Iglesia y la responsabilidad de cada uno.', val:'Servicio y colaboración', cita:'1 Co 12,12-27; Ef 4,11-13'},
+        {n:54, id:'CJ-054', tema:'LOS SANTOS', desc:'Reconocer a los santos como modelos de vida evangélica.', val:'Santidad e imitación', cita:'Heb 12,1; Ap 7,9-14'},
+        {n:55, id:'CJ-055', tema:'PADRINOS Y MADRINAS', desc:'Comprender el papel de los padrinos como acompañantes en la fe.', val:'Responsabilidad y acompañamiento', cita:'Mt 28,19-20; 2 Tim 1,5-6'},
+        {n:56, id:'CJ-056', tema:'DESPUÉS DE LA PRIMERA COMUNIÓN', desc:'Proponer acciones para continuar viviendo la fe en la comunidad.', val:'Perseverancia en la fe', cita:'Hch 2,42; Heb 10,24-25'}
+      ]
+    }
+  ];
 
-  card.innerHTML = `
-    <div class="stage-header">
-      <div class="stage-icon">${stage.icon}</div>
-      <div class="stage-title-wrap">
-        <span>Sección ${idx + 1}</span>
-        <h3>${stage.title}</h3>
+  const grid = document.getElementById('stages-grid');
+  blocks.forEach((block, idx) => {
+    const card = document.createElement('div');
+    card.className = 'stage-card';
+    
+    let sessionsHtml = block.sessions.map(s => `
+      <div class="topic-item">
+        <div class="topic-top">
+          <span class="topic-number">Sesión N.º ${s.n}</span>
+          <span class="topic-id">${s.id}</span>
+        </div>
+        <div class="topic-name">${s.tema}</div>
+        <p class="topic-desc">${s.desc}</p>
+        <div class="topic-meta">
+          <strong>Valor:</strong> ${s.val} | <strong>Cita:</strong> ${s.cita}
+        </div>
       </div>
-    </div>
-    <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:12px;">${stage.subtitle}</div>
-    <div class="topics-list">${topicsHtml}</div>
-  `;
-  grid.appendChild(card);
-});
+    `).join('');
+
+    card.innerHTML = `
+      <div class="stage-header">
+        <div class="stage-icon">${block.icon}</div>
+        <div class="stage-title-wrap">
+          <span>Sección ${idx + 1}</span>
+          <h3>${block.title}</h3>
+        </div>
+      </div>
+      <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:12px;">${block.subtitle}</div>
+      <div class="topics-list">${sessionsHtml}</div>
+    `;
+    grid.appendChild(card);
+  });
 </script>
 </body>
 </html>
