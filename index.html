@@ -34,7 +34,7 @@
       position: fixed;
       z-index: 1;
       top: 0.7%;
-      right: 8.7%;
+      right: 17.5%;
       bottom: 0.7%;
       left: 0.5%;
       overflow: hidden;
@@ -45,42 +45,68 @@
       background-size: 100% 100%;
     }
 
-    /* MENÚ UBICADO A LA DERECHA */
-    .menu {
+    /* PANEL CONTENEDOR DE LOS BOTONES A LA DERECHA */
+    .panel-menu {
       position: fixed;
       z-index: 5;
-      top: 2%;
-      bottom: 2%;
-      right: 0.4%;
-      width: 7.8%;
-      max-width: 110px;
+      top: 1.5%;
+      bottom: 1.5%;
+      right: 0.8%;
+      width: 16%;
+      max-width: 220px;
+      min-width: 140px;
+      background: linear-gradient(135deg, #f4e8c1 0%, #d8c28d 50%, #b89753 100%);
+      border: 3px solid #5c3810;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.4);
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: space-evenly;
       align-items: center;
-      gap: clamp(4px, 0.65vh, 8px);
+      padding: 12px 8px;
+    }
+
+    .menu {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      gap: 6px;
       margin: 0;
       padding: 0;
     }
 
-    .boton {
-      flex: 0 1 17%;
+    .menu-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       width: 100%;
-      max-height: 145px;
+      flex: 1;
+      max-height: 18.5%;
+      min-height: 0;
+    }
+
+    .boton {
+      width: 68%;
+      height: 72%;
+      max-width: 110px;
       min-height: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0;
+      margin: 0 auto;
       padding: 0;
-      border: none;
-      background: transparent;
-      box-shadow: none;
+      border: 2px solid #5c3810;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
       cursor: pointer;
       line-height: 0;
       overflow: hidden;
       -webkit-tap-highlight-color: transparent;
-      transition: transform 0.15s ease;
+      transition: transform 0.15s ease, background 0.15s ease;
     }
 
     .boton img {
@@ -95,29 +121,29 @@
     }
 
     .boton:hover {
-      transform: scale(1.02);
+      transform: scale(1.05);
+      background: rgba(255, 255, 255, 0.6);
     }
 
     .boton:active {
       transform: scale(0.98);
     }
 
-    /* INDICACIÓN SOBRE LOS BOTONES */
-    .indicacion-ingreso {
-      position: fixed;
-      z-index: 6;
-      top: 0.25%;
-      right: 0.4%;
-      width: min(7.8%, 110px);
-      color: #f5d477;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(8px, 0.75vw, 11px);
-      font-weight: 700;
-      line-height: 1.05;
-      letter-spacing: 0.1px;
+    /* NOMBRE DE CADA BOTÓN DEBAJO */
+    .nombre-opcion {
+      margin-top: 2px;
+      color: #382206;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(8px, 0.85vw, 12px);
+      font-weight: 800;
       text-align: center;
-      text-shadow: 0 0 1px #ffffff, 0 0 1.5px #f5d477, 0 1px 1px #000;
-      pointer-events: none;
+      line-height: 1.1;
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
+      width: 100%;
+      padding: 0 2px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     /* BOTÓN DE AUDIO */
@@ -144,8 +170,8 @@
     .derechos-reservados {
       position: fixed;
       z-index: 8;
-      left: 15%;
-      width: 55%;
+      left: 10%;
+      width: 60%;
       bottom: 1.2%;
       margin: 0;
       padding: 0;
@@ -167,20 +193,12 @@
 
     /* TABLET */
     @media (max-width: 900px) {
-      .menu {
-        width: 8.5%;
-        gap: 5px;
+      .panel-menu {
+        width: 19%;
       }
-
-      .boton {
-        flex-basis: 17%;
-      }
-
       .portada {
-        right: 9.5%;
-        left: 0.5%;
+        right: 20.5%;
       }
-
       .control-audio {
         top: 9px;
         left: 9px;
@@ -188,42 +206,23 @@
         height: 36px;
         font-size: 17px;
       }
-
       .derechos-reservados {
-        bottom: 1.2%;
         font-size: clamp(10px, 1.3vw, 14px);
       }
     }
 
     /* CELULAR */
     @media (max-width: 600px) {
-      .menu {
-        top: 2%;
-        bottom: 2%;
-        right: 0.5%;
-        width: 14%;
-        max-width: 75px;
-        gap: 4px;
+      .panel-menu {
+        width: 24%;
+        padding: 6px 3px;
       }
-
-      .boton {
-        flex-basis: 17%;
-      }
-
       .portada {
-        top: 0.7%;
-        right: 15.2%;
-        bottom: 0.7%;
-        left: 0.5%;
+        right: 25.5%;
       }
-
-      .indicacion-ingreso {
-        right: 0.4%;
-        width: 14%;
-        font-size: 8px;
-        text-shadow: 0 0 1px #ffffff, 0 0 1.5px #f5d477;
+      .nombre-opcion {
+        font-size: clamp(7px, 2vw, 9px);
       }
-
       .control-audio {
         top: 6px;
         left: 6px;
@@ -231,33 +230,10 @@
         height: 32px;
         font-size: 15px;
       }
-
       .derechos-reservados {
-        left: 10%;
-        width: 72%;
-        bottom: 1.2%;
+        left: 5%;
+        width: 68%;
         font-size: clamp(8px, 2vw, 11px);
-      }
-    }
-
-    @media (max-width: 380px) {
-      .menu {
-        width: 15%;
-        gap: 3px;
-      }
-
-      .portada {
-        right: 16.2%;
-      }
-
-      .indicacion-ingreso {
-        right: 0.4%;
-        width: 15%;
-        font-size: 7px;
-      }
-
-      .derechos-reservados {
-        font-size: 8px;
       }
     }
   </style>
@@ -265,53 +241,62 @@
 
 <body>
 
-  <!-- BOTONES DEL MENÚ (UBICADOS A LA DERECHA) -->
-  <nav class="menu" aria-label="Menú principal">
+  <!-- PANEL CONTENEDOR DE BOTONES A LA DERECHA -->
+  <aside class="panel-menu" aria-label="Menú principal">
+    <nav class="menu">
 
-    <!-- 1. NUESTRA PROGRAMACIÓN -->
-    <button class="boton" type="button"
-      data-destino="programacion.html"
-      aria-label="Nuestra Programación">
-      <img src="./assets/BTN-PROGRAMACION.png"
-        alt="Nuestra Programación">
-    </button>
+      <!-- 1. NUESTRA PROGRAMACIÓN -->
+      <div class="menu-item">
+        <button class="boton" type="button"
+          data-destino="programacion.html"
+          aria-label="Nuestra Programación">
+          <img src="./assets/BTN-PROGRAMACION.png" alt="Nuestra Programación">
+        </button>
+        <span class="nombre-opcion">Programación</span>
+      </div>
 
-    <!-- 2. CATEQUIZANDOS -->
-    <button class="boton" type="button"
-      data-destino="catequizandos.html"
-      aria-label="Catequizandos">
-      <img src="./assets/BTN-CATEQUIS.png"
-        alt="Catequizandos">
-    </button>
+      <!-- 2. CATEQUIZANDOS -->
+      <div class="menu-item">
+        <button class="boton" type="button"
+          data-destino="catequizandos.html"
+          aria-label="Catequizandos">
+          <img src="./assets/BTN-CATEQUIS.png" alt="Catequizandos">
+        </button>
+        <span class="nombre-opcion">Catequizandos</span>
+      </div>
 
-    <!-- 3. CATEQUISTAS -->
-    <button class="boton" type="button"
-      data-destino="misses.html"
-      aria-label="Catequistas">
-      <img src="./assets/BTN_CATEQUISTAS.png"
-        alt="Catequistas">
-    </button>
+      <!-- 3. CATEQUISTAS -->
+      <div class="menu-item">
+        <button class="boton" type="button"
+          data-destino="misses.html"
+          aria-label="Catequistas">
+          <img src="./assets/BTN_CATEQUISTAS.png" alt="Catequistas">
+        </button>
+        <span class="nombre-opcion">Catequistas</span>
+      </div>
 
-    <!-- 4. PADRES DE FAMILIA -->
-    <button class="boton" type="button"
-      data-destino="padres.html"
-      aria-label="Padres de familia">
-      <img src="./assets/BTN-PADRES.png"
-        alt="Padres de familia">
-    </button>
+      <!-- 4. PADRES DE FAMILIA -->
+      <div class="menu-item">
+        <button class="boton" type="button"
+          data-destino="padres.html"
+          aria-label="Padres de familia">
+          <img src="./assets/BTN-PADRES.png" alt="Padres de familia">
+        </button>
+        <span class="nombre-opcion">Padres</span>
+      </div>
 
-    <!-- 5. COORDINADOR PARROQUIAL -->
-    <button class="boton" type="button"
-      data-destino="supervisores.html"
-      aria-label="Coordinador Parroquial">
-      <img src="./assets/BTN_COORDINADOR.png"
-        alt="Coordinador Parroquial">
-    </button>
+      <!-- 5. COORDINADOR PARROQUIAL -->
+      <div class="menu-item">
+        <button class="boton" type="button"
+          data-destino="supervisores.html"
+          aria-label="Coordinador Parroquial">
+          <img src="./assets/BTN_COORDINADOR.png" alt="Coordinador Parroquial">
+        </button>
+        <span class="nombre-opcion">Coordinador</span>
+      </div>
 
-  </nav>
-
-  <!-- INDICACIÓN SOBRE LOS BOTONES -->
-  <div class="indicacion-ingreso">☝ Haz clic<br>para ingresar</div>
+    </nav>
+  </aside>
 
   <!-- PORTADA PRINCIPAL -->
   <main class="portada" aria-label="Camino hacia Jesús">
@@ -433,7 +418,6 @@
       });
 
       /* ACTIVAR O SILENCIAR LA MÚSICA */
-      controlAudio.design = "click";
       controlAudio.addEventListener("click", async () => {
         if (!silenciado) {
           silenciado = true;
