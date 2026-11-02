@@ -231,9 +231,9 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
     </div>
     <div class="progress-stats" id="individual-progress" aria-live="polite">
       <div class="progress-stat"><span>Asistencia Institucional Global</span><strong id="stat-progress">95,4%</strong><small>Promedio general de la parroquia</small><div class="meter"><span id="stat-progress-meter" style="width:95.4%"></span></div></div>
-      <div class="progress-stat"><span>Clases Registradas</span><strong id="stat-classes">38 / 50</strong><small>Sesiones oficiales dictadas</small><div class="meter"><span id="stat-classes-meter" style="width:76%"></span></div></div>
+      <div class="progress-stat"><span>Clases Programadas Totales</span><strong id="stat-classes">50 sesiones</strong><small>Itinerario completo 2026</small><div class="meter"><span id="stat-classes-meter" style="width:100%"></span></div></div>
     </div>
-    <div class="dashboard-note">El acceso a los materiales y actividades se realiza mediante el código de cada catequizando para salvaguardar la privacidad y el orden del grupo.</div>
+    <div class="dashboard-note">El acceso a los materiales y actividades se realiza mediante el código único de cada catequizando para salvaguardar la privacidad y el orden del grupo.</div>
 
     <div class="progress-board" id="progress-board">
       <h3>📊 Tablero de avance por códigos</h3>
@@ -336,7 +336,7 @@ const stages=[
   ]}
 ];
 
-// Datos oficiales de los catequizandos por código institucional (sin nombres)
+// Datos oficiales exactos de los 7 catequizandos por código institucional
 const sampleStudents = [
   { code: 'LDS-EST-001', grade: 'TERCERO', classes: 41, maxClasses: 50, attendancePct: '95,5%', worksheets: '0 pendientes' },
   { code: 'LDS-EST-002', grade: 'QUINTO', classes: 39, maxClasses: 50, attendancePct: '97,5%', worksheets: '0 pendientes' },
@@ -503,7 +503,7 @@ if(muteToggle){muteToggle.addEventListener('click',()=>{
   if(catechesisVoiceMuted)window.speechSynthesis?.cancel();
 })}
 function playCatechesisVoice(message){if(catechesisVoiceMuted||!('speechSynthesis' in window))return;window.speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(message);utterance.lang='es-PE';utterance.rate=.92;window.speechSynthesis.speak(utterance);}
-setTimeout(()=>playCatechesisVoice('¡Bienvenidos al portal de catequesis del Colegio La Salle del Sur! Camino hacia Jesús.'),600);
+setTimeout(()=>playCatechesisVoice('¡Bienvenidos al portal de catequesis del Colegio La Salle del Sur y Parroquia San Pedro de Lurín! Camino hacia Jesús.'),600);
 </script>
 </body>
 </html>
