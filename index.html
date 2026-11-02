@@ -30,7 +30,7 @@
       display: flex;
     }
 
-    /* PORTADA PRINCIPAL (OCUPA TODO EL ESPACIO IZQUIERDO DISPONIBLE) */
+    /* PORTADA PRINCIPAL */
     .portada {
       position: relative;
       flex-grow: 1;
@@ -81,7 +81,7 @@
       justify-content: center;
     }
 
-    /* BOTONES LIMPIOS (SIN CUADROS, TOTALMENTE INTEGRADOS) */
+    /* BOTONES LIMPIOS Y ELEGANTE */
     .boton {
       width: 85%;
       max-width: 110px;
@@ -98,7 +98,7 @@
       line-height: 0;
       overflow: visible;
       -webkit-tap-highlight-color: transparent;
-      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease;
+      transition: transform 0.25s ease, filter 0.25s ease;
       filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
     }
 
@@ -110,25 +110,26 @@
       border: none;
       margin: 0;
       padding: 0;
+      transition: transform 0.25s ease;
     }
 
     .boton:hover {
       transform: scale(1.08);
-      filter: drop-shadow(0 6px 12px rgba(215, 182, 93, 0.6)) brightness(1.1);
+      filter: drop-shadow(0 0 12px rgba(245, 212, 119, 0.8)) brightness(1.15);
     }
 
     .boton:active {
-      transform: scale(0.96);
+      transform: scale(0.95);
     }
 
-    /* EFECTO ZOOM AL HACER CLIC */
+    /* EFECTO VISIBLE AL HACER CLIC */
     .boton.clicado {
       transform: scale(1.2);
       z-index: 99;
-      filter: drop-shadow(0 0 15px #f5d477);
+      filter: drop-shadow(0 0 20px #f5d477) brightness(1.25);
     }
 
-    /* NOMBRE DE CADA BOTÓN DEBAJO EN BLANCO ELEGANTE */
+    /* NOMBRE DE CADA BOTÓN DEBAJO */
     .nombre-opcion {
       margin-top: 3px;
       color: #ffffff;
@@ -197,7 +198,6 @@
       pointer-events: none;
     }
 
-    /* RESPONSIVO PARA MÓVILES */
     @media (max-width: 600px) {
       .panel-menu { width: 110px; min-width: 95px; padding: 5px 2px; }
       .derechos-reservados { width: calc(100% - 110px); font-size: 8px; left: 0; }
@@ -315,7 +315,7 @@
         }
       }
 
-      /* EFECTO SONORO DE CLIC (SINTETIZADOR WEB) */
+      /* EFECTO SONORO DE CLIC GARANTIZADO */
       function reproducirSonidoClic() {
         try {
           const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -333,25 +333,25 @@
           const osc = contextoAudio.createOscillator();
           const gain = contextoAudio.createGain();
 
-          osc.type = "sine";
-          osc.frequency.setValueAtTime(587.33, ahora);
-          osc.frequency.exponentialRampToValueAtTime(880, ahora + 0.1);
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(440, ahora);
+          osc.frequency.exponentialRampToValueAtTime(880, ahora + 0.12);
 
           gain.gain.setValueAtTime(0.001, ahora);
-          gain.gain.linearRampToValueAtTime(0.1, ahora + 0.02);
-          gain.gain.exponentialRampToValueAtTime(0.001, ahora + 0.18);
+          gain.gain.linearRampToValueAtTime(0.15, ahora + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, ahora + 0.2);
 
           osc.connect(gain);
           gain.connect(contextoAudio.destination);
 
           osc.start(ahora);
-          osc.stop(ahora + 0.2);
+          osc.stop(ahora + 0.22);
         } catch (e) {
-          // Ignorar errores de audio
+          // Ignorar si el navegador bloquea
         }
       }
 
-      /* NAVEGACIÓN CON EFECTO ZOOM Y SONIDO */
+      /* NAVEGACIÓN CON EFECTO VISIBLE Y TIEMPO PARA APRECIAR EL AUDIO */
       botones.forEach((boton) => {
         boton.addEventListener("click", (e) => {
           e.preventDefault();
@@ -365,7 +365,7 @@
             if (destino) {
               window.location.href = destino;
             }
-          }, 250);
+          }, 350); // Tiempo suficiente para escuchar el sonido y ver el zoom brillante
         });
       });
 
@@ -383,7 +383,7 @@
         }
       });
 
-      /* ACTIVAR MÚSICA AL CARGAR O PRIMER CLIC */
+      /* ACTIVAR MÚSICA AL CARGAR O PRIMER CLIC EN LA PÁGINA */
       window.addEventListener("load", () => {
         iniciarMusica();
       }, { once: true });
