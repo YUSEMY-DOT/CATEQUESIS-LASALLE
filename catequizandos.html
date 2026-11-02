@@ -114,7 +114,7 @@ table.progress-table th:first-child{border-radius:9px 0 0 0}table.progress-table
 table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-align:middle;font-weight:800}
 .mini-meter{height:6px;min-width:80px;background:#e8edf4;border-radius:99px;overflow:hidden;margin-top:3px}
 .mini-meter span{display:block;height:100%;background:linear-gradient(90deg,#f3b72e,#45a879);border-radius:99px}
-.empty-board{padding:18px;text-align:center;color:#697990;font-weight:800;background:#f7f9fc;border-radius:10px}
+.empty-board{padding:18px;text-align:center;color:#697990;font-weight:800;background:#f7f9fc;border-radius:10px;display:none}
 
 .footer{margin-top:28px;background:linear-gradient(135deg,#0b2850,#174878);color:#e4edfa;text-align:center;padding:20px;border-radius:18px;font-weight:700;font-size:12px}
 .footer strong{color:#ffdf94;font-family:Fredoka,sans-serif;font-size:15px}
@@ -337,6 +337,54 @@ const stages=[
     [56,'Después de la Primera Comunión',['Continuar viviendo la fe']]
   ]}
 ];
+
+// Datos de ejemplo para activar estadísticas y tablero de avance
+const sampleStudents = [
+  { name: 'Lucía Fernanda Quispe', classes: 24, maxClasses: 35, avg: 18.5, worksheets: 32 },
+  { name: 'Mateo Alejandro Torres', classes: 22, maxClasses: 35, avg: 17.2, worksheets: 29 },
+  { name: 'Valeria Sofía Mendoza', classes: 26, maxClasses: 35, avg: 19.0, worksheets: 34 },
+  { name: 'Joaquín Alonso Benavides', classes: 20, maxClasses: 35, avg: 16.5, worksheets: 27 },
+  { name: 'Camila Andrea Huamán', classes: 25, maxClasses: 35, avg: 18.1, worksheets: 31 }
+];
+
+function initStatistics(){
+  const totalClassesProg = 35;
+  const avgClassesReg = Math.round(sampleStudents.reduce((acc,s)=>acc+s.classes,0)/sampleStudents.length);
+  const generalProgressPct = Math.round((avgClassesReg/totalClassesProg)*100);
+  const groupAvgScore = (sampleStudents.reduce((acc,s)=>acc+s.avg,0)/sampleStudents.length).toFixed(1);
+  const totalWorksheets = sampleStudents.reduce((acc,s)=>acc+s.worksheets,0);
+
+  document.getElementById('stat-classes').textContent = `${avgClassesReg} / ${totalClassesProg}`;
+  document.getElementById('stat-classes-meter').style.width = `${(avgClassesReg/totalClassesProg)*100}%`;
+
+  document.getElementById('stat-progress').textContent = `${generalProgressPct}%`;
+  document.getElementById('stat-progress-meter').style.width = `${generalProgressPct}%`;
+
+  document.getElementById('stat-average').textContent = `${groupAvgScore} / 20`;
+  document.getElementById('stat-average-meter').style.width = `${(groupAvgScore/20)*100}%`;
+
+  document.getElementById('stat-worksheets').textContent = totalWorksheets;
+  document.getElementById('stat-worksheets-meter').style.width = `85%`;
+
+  const tbody = document.getElementById('students-progress-body');
+  tbody.innerHTML = '';
+  sampleStudents.forEach(stu=>{
+    const pct = Math.round((stu.classes/stu.maxClasses)*100);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><strong>${stu.name}</strong></td>
+      <td>${stu.classes} de ${stu.maxClasses}</td>
+      <td>
+        <div style="font-weight:900;font-size:11px;margin-bottom:2px">${pct}%</div>
+        <div class="mini-meter"><span style="width:${pct}%"></span></div>
+      </td>
+      <td><strong>${stu.avg}</strong> / 20</td>
+      <td>${stu.worksheets} fichas</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+initStatistics();
 
 function updateCountdown(){
   const target=new Date(2026,11,3,0,0,0).getTime(),now=Date.now(),diff=target-now;
