@@ -31,7 +31,7 @@ header{background:radial-gradient(circle at 80% 20%,#174878 0,#0b2850 35%,#06152
 .countdown-note{font-size:10px;line-height:1.3;margin-top:6px;color:#fff1ca;text-align:center}
 
 main{padding:0 clamp(14px,2.5vw,36px) 40px}
-.kid-welcome{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(210px,.6fr);gap:18px;align-items:center;margin:24px 0 20px;padding:clamp(18px,2.5vw,26px);border:2px solid #ffd77b;border-radius:22px;background:linear-gradient(135deg,#fff0bd 0%,#fff8e6 100%);box-shadow:0 7px 20px #9b70120c}
+.kid-welcome{margin:24px 0 20px;padding:clamp(18px,2.5vw,26px);border:2px solid #ffd77b;border-radius:22px;background:linear-gradient(135deg,#fff0bd 0%,#fff8e6 100%);box-shadow:0 7px 20px #9b70120c}
 .adventure-kicker{display:inline-block;border-radius:20px;background:#fffdf7;border:1px solid #ecc45e;color:#8b5a05;padding:4px 10px;font:700 11px Fredoka,sans-serif;letter-spacing:.6px;text-transform:uppercase}
 .kid-welcome h3{font:700 clamp(24px,2.8vw,32px)/1.12 Fredoka,sans-serif;margin:7px 0;color:#12345a}
 .kid-welcome p{font-weight:800;color:#52637a;margin:0}
@@ -39,10 +39,6 @@ main{padding:0 clamp(14px,2.5vw,36px) 40px}
 .quick{background:#fffdf8;border:1px solid #ead49b;border-radius:14px;padding:10px 11px;display:flex;align-items:center;gap:9px;box-shadow:0 3px 8px #16375a0b;font-weight:900;color:#12345a;cursor:pointer;transition:.18s}
 .quick .emoji{width:38px;height:38px;display:grid;place-items:center;background:#fff2ca;border:1px solid #e8cb82;border-radius:11px;font-size:21px;flex-shrink:0}
 .quick:hover{background:#fff0be;border-color:#d9aa35;transform:translateY(-1px)}
-.adventure-avatars{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap}
-.avatar-choice{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:64px;height:72px;border:2px solid #fff;background:#ffffffd9;border-radius:16px;padding:6px;color:#163354;font-weight:900;box-shadow:0 4px 10px #7b5a1910;cursor:pointer;transition:.18s}
-.avatar-choice span{font-size:26px}.avatar-choice small{font-size:9px;white-space:nowrap}.avatar-choice:hover{transform:translateY(-2px)}
-.avatar-choice[aria-pressed="true"]{border-color:#e5a821;background:#fff2bb;box-shadow:0 0 0 2px #f8d97655,0 5px 12px #7b5a1918}
 
 .section{margin-top:26px}.eyebrow{color:#9b6b10;font:600 12px Fredoka,sans-serif;letter-spacing:1.3px;text-transform:uppercase}
 .section h2{font:700 clamp(23px,2.8vw,32px) Fredoka,sans-serif;color:#12345a;margin:2px 0 14px}
@@ -135,7 +131,6 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
   .countdown{max-width:100%;justify-self:stretch}
   .stages{grid-template-columns:repeat(2,minmax(0,1fr))}
   .calendar-layout{grid-template-columns:1fr}
-  .kid-welcome{grid-template-columns:1fr;gap:12px}
   .quicklinks{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 </style>
@@ -176,21 +171,14 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
 
   <main>
     <section class="kid-welcome" aria-label="Bienvenida interactiva">
-      <div>
-        <span class="adventure-kicker">✨ TU AVENTURA DE FE COMIENZA AQUÍ</span>
-        <h3 id="adventure-greeting">¡Hola, pequeño amigo de Jesús! 💛</h3>
-        <p>Explora tus clases, descubre los temas del día, completa fichas y crece junto a tus compañeros mientras avanzas hacia tu Primera Comunión.</p>
-        <div class="quicklinks" id="resource-links" aria-label="Recursos de catequesis">
-          <button class="quick" data-resource="Prácticas"><span class="emoji">🖍️</span><span>Prácticas</span></button>
-          <button class="quick" data-resource="Evaluaciones"><span class="emoji">📝</span><span>Evaluaciones</span></button>
-          <button class="quick" data-resource="Canciones"><span class="emoji">🎶</span><span>Canciones</span></button>
-          <button class="quick" data-resource="Videos"><span class="emoji">▶️</span><span>Videos</span></button>
-        </div>
-      </div>
-      <div class="adventure-avatars" aria-label="Compañero de aventura">
-        <button type="button" class="avatar-choice" data-avatar="🕊️" data-avatar-name="Palomita de la paz" aria-pressed="true"><span>🕊️</span><small>Palomita</small></button>
-        <button type="button" class="avatar-choice" data-avatar="🐑" data-avatar-name="Ovejita amiga" aria-pressed="false"><span>🐑</span><small>Ovejita</small></button>
-        <button type="button" class="avatar-choice" data-avatar="⭐" data-avatar-name="Estrellita de Jesús" aria-pressed="false"><span>⭐</span><small>Estrellita</small></button>
+      <span class="adventure-kicker">✨ TU AVENTURA DE FE COMIENZA AQUÍ</span>
+      <h3 id="adventure-greeting">¡Hola, pequeño amigo de Jesús! 💛</h3>
+      <p>Explora tus clases, descubre los temas del día, completa fichas y crece junto a tus compañeros mientras avanzas hacia tu Primera Comunión.</p>
+      <div class="quicklinks" id="resource-links" aria-label="Recursos de catequesis">
+        <button class="quick" data-resource="Prácticas"><span class="emoji">🖍️</span><span>Prácticas</span></button>
+        <button class="quick" data-resource="Evaluaciones"><span class="emoji">📝</span><span>Evaluaciones</span></button>
+        <button class="quick" data-resource="Canciones"><span class="emoji">🎶</span><span>Canciones</span></button>
+        <button class="quick" data-resource="Videos"><span class="emoji">▶️</span><span>Videos</span></button>
       </div>
     </section>
 
@@ -378,7 +366,7 @@ function openStage(idx){
   win.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><title>${esc(s.title)}</title><style>body{font:14px Arial,sans-serif;background:#f7f5ef;color:#193453;max-width:800px;margin:20px auto;padding:0 15px}header{background:#12345a;color:white;padding:20px;border-radius:12px;margin-bottom:15px}h1{margin:0;font-size:24px}button{background:#ffc94d;border:0;border-radius:20px;padding:8px 16px;font-weight:900;cursor:pointer;margin-top:10px}</style></head><body><header><h1>${esc(s.title)}</h1><p style="margin:5px 0 0;color:#ffdf94">${esc(s.subtitle)}</p></header><main>${topicCards}</main><button onclick="window.close()">Cerrar ventana</button></body></html>`);
   win.document.close();win.focus();
 }
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;n'}[c]))}
 document.querySelectorAll('.stage').forEach((b,idx)=>b.addEventListener('click',()=>openStage(idx)));
 
 document.querySelectorAll('[data-resource]').forEach(b=>b.addEventListener('click',()=>{
@@ -424,76 +412,4 @@ function renderCalendar(){
     const d=new Date(y,m,day,12),key=dateKey(d),entry=calendarEntries.get(key),b=document.createElement('button');
     b.className='day';b.textContent=day;
     if(entry){
-      b.classList.add(entry.type==='event'?'communion-day':'classday');
-      if(entry.type==='lesson'&&entry.topics.length>1)b.classList.add('double-session');
-      if(selectedDate&&key===dateKey(selectedDate))b.classList.add('selected');
-      b.onclick=()=>selectDate(d);
-    }else{b.disabled=true;}
-    g.appendChild(b);
-  }
-}
-function selectDate(d){
-  const key=dateKey(d),entry=calendarEntries.get(key);
-  if(!entry)return;
-  selectedDate=new Date(d);
-  const weekdayName=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'][d.getDay()];
-  document.getElementById('selected-date').textContent=`${weekdayName}, ${d.getDate()} de ${monthNames[d.getMonth()]}`;
-  const list=document.getElementById('calendar-topic-list');list.innerHTML='';
-  if(entry.type==='event'){
-    document.getElementById('calendar-topic').textContent=entry.title;
-    document.getElementById('calendar-description').textContent=entry.description;
-  }else{
-    document.getElementById('calendar-topic').textContent=entry.topics.length>1?'Temas del encuentro':`Tema ${entry.topics[0].num}: ${entry.topics[0].title}`;
-    document.getElementById('calendar-description').textContent=`Encuentro ${String(entry.session).padStart(2,'0')}.`;
-    entry.topics.forEach(topic=>{
-      const card=document.createElement('details');card.className='calendar-topic-item topic-collapsible';
-      const summary=document.createElement('summary');summary.className='topic-summary';
-      const title=document.createElement('strong');title.className='topic-summary-title';title.textContent=`Tema ${topic.num}: ${topic.title}`;
-      const toggleLabel=document.createElement('span');toggleLabel.className='topic-toggle-label';toggleLabel.textContent='Ver';
-      summary.append(title,toggleLabel);card.appendChild(summary);
-      const content=document.createElement('div');content.className='topic-content';
-      const stage=document.createElement('span');stage.className='topic-stage';stage.textContent=`Etapa: ${topic.stage}`;content.appendChild(stage);
-      if(topic.content&&topic.content.length){
-        const ul=document.createElement('ul');
-        topic.content.forEach(item=>{const li=document.createElement('li');li.textContent=item;ul.appendChild(li)});
-        content.appendChild(ul);
-      }
-      card.appendChild(content);
-      list.appendChild(card);
-    });
-  }
-  renderCalendar();
-}
-document.getElementById('prev-month').onclick=()=>{currentMonth=new Date(currentMonth.getFullYear(),currentMonth.getMonth()-1,1,12);renderCalendar()};
-document.getElementById('next-month').onclick=()=>{currentMonth=new Date(currentMonth.getFullYear(),currentMonth.getMonth()+1,1,12);renderCalendar()};
-
-const todayForCalendar=new Date();todayForCalendar.setHours(12,0,0,0);
-const todayKey=dateKey(todayForCalendar);
-const scheduledKeys=Array.from(calendarEntries.keys()).sort();
-const nearestScheduledKey=scheduledKeys.find(key=>key>=todayKey)||scheduledKeys[scheduledKeys.length-1];
-const initialDate=nearestScheduledKey?new Date(nearestScheduledKey+'T12:00:00'):new Date(2026,5,16,12);
-currentMonth=new Date(initialDate.getFullYear(),initialDate.getMonth(),1,12);
-renderCalendar();
-selectDate(initialDate);
-
-// Selector de avatares interactivo
-document.querySelectorAll('.avatar-choice').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.avatar-choice').forEach(b=>b.setAttribute('aria-pressed','false'));
-    btn.setAttribute('aria-pressed','true');
-  });
-});
-
-// Asistente de voz
-let catechesisVoiceMuted=false;
-const muteToggle=document.getElementById('mute-toggle');
-if(muteToggle){muteToggle.addEventListener('click',()=>{
-  catechesisVoiceMuted=!catechesisVoiceMuted;
-  muteToggle.textContent=catechesisVoiceMuted?'🔇 Activar sonido':'🔊 Silenciar';
-  if(catechesisVoiceMuted)window.speechSynthesis?.cancel();
-})}
-function playCatechesisVoice(message){if(catechesisVoiceMuted||!('speechSynthesis' in window))return;window.speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(message);utterance.lang='es-PE';utterance.rate=.92;window.speechSynthesis.speak(utterance);}
-setTimeout(()=>playCatechesisVoice('¡Bienvenidos al Colegio La Salle del Sur! Camino hacia Jesús. Aquí tienes el calendario y los temas para prepararnos con alegría.'),600);
-</script>
-</body>
-</html>
+      b.classList.add
