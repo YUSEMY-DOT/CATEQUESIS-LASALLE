@@ -27,43 +27,37 @@
       overflow: hidden;
       font-family: Arial, Helvetica, sans-serif;
       background: #02091f;
+      display: flex;
     }
 
-    /* PORTADA UBICADA A LA IZQUIERDA */
+    /* PORTADA PRINCIPAL (OCUPA TODO EL ESPACIO IZQUIERDO DISPONIBLE) */
     .portada {
-      position: fixed;
-      z-index: 1;
-      top: 0.7%;
-      right: 17.5%;
-      bottom: 0.7%;
-      left: 0.5%;
+      position: relative;
+      flex-grow: 1;
+      height: 100%;
       overflow: hidden;
       background-color: #02091f;
       background-image: url("./assets/PORTAL%20CATEQUESIS.png");
       background-position: center center;
       background-repeat: no-repeat;
-      background-size: 100% 100%;
+      background-size: cover;
     }
 
-    /* PANEL CONTENEDOR DE LOS BOTONES A LA DERECHA */
+    /* PANEL LATERAL DERECHO LIMPIO Y ELEGANTE */
     .panel-menu {
-      position: fixed;
+      position: relative;
       z-index: 5;
-      top: 1.5%;
-      bottom: 1.5%;
-      right: 0.8%;
-      width: 15%;
-      max-width: 190px;
-      min-width: 125px;
-      background: linear-gradient(145deg, #102a5c 0%, #061a38 60%, #020d22 100%);
-      border: 3px solid #d7b65d;
-      border-radius: 14px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(255, 255, 255, 0.2);
+      width: 160px;
+      min-width: 140px;
+      height: 100%;
+      background: linear-gradient(135deg, #061a38 0%, #020d22 100%);
+      border-left: 2px solid rgba(215, 182, 93, 0.4);
+      box-shadow: -5px 0 20px rgba(0, 0, 0, 0.8);
       display: flex;
       flex-direction: column;
       justify-content: space-around;
       align-items: center;
-      padding: 6px 4px;
+      padding: 10px 8px;
     }
 
     .menu {
@@ -73,7 +67,7 @@
       flex-direction: column;
       justify-content: space-around;
       align-items: center;
-      gap: 2px;
+      gap: 5px;
       margin: 0;
       padding: 0;
     }
@@ -84,31 +78,28 @@
       align-items: center;
       width: 100%;
       flex: 1;
-      max-height: 19%;
-      min-height: 0;
       justify-content: center;
     }
 
-    /* BOTONES EXACTOS Y PROPORCIONADOS (SIN CORTAR CABEZAS) */
+    /* BOTONES LIMPIOS (SIN CUADROS, TOTALMENTE INTEGRADOS) */
     .boton {
-      width: 82%;
-      height: 74%;
-      max-width: 100px;
-      max-height: 80px;
+      width: 85%;
+      max-width: 110px;
+      height: 70%;
+      max-height: 90px;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto;
       padding: 0;
-      border: 2px solid #ffffff;
-      border-radius: 10px;
-      background: rgba(0, 0, 0, 0.35);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.7);
+      border: none;
+      background: transparent;
       cursor: pointer;
       line-height: 0;
       overflow: visible;
       -webkit-tap-highlight-color: transparent;
-      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, filter 0.2s ease;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
     }
 
     .boton img {
@@ -116,41 +107,37 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      border-radius: 8px;
       border: none;
       margin: 0;
       padding: 0;
     }
 
     .boton:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 6px 16px rgba(255, 255, 255, 0.4), inset 0 1px 4px rgba(255, 255, 255, 0.9);
-      filter: brightness(1.1);
+      transform: scale(1.08);
+      filter: drop-shadow(0 6px 12px rgba(215, 182, 93, 0.6)) brightness(1.1);
     }
 
     .boton:active {
-      transform: translateY(1px) scale(0.98);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+      transform: scale(0.96);
     }
 
-    /* EFECTO ZOOM AL HACER CLIC (IMAGEN COMPLETA FLOTANTE) */
+    /* EFECTO ZOOM AL HACER CLIC */
     .boton.clicado {
-      transform: scale(1.25);
+      transform: scale(1.2);
       z-index: 99;
-      filter: drop-shadow(0 0 20px #f5d477);
-      transition: transform 0.25s ease;
+      filter: drop-shadow(0 0 15px #f5d477);
     }
 
-    /* NOMBRE DE CADA BOTÓN DEBAJO EN BLANCO */
+    /* NOMBRE DE CADA BOTÓN DEBAJO EN BLANCO ELEGANTE */
     .nombre-opcion {
-      margin-top: 2px;
+      margin-top: 3px;
       color: #ffffff;
       font-family: Arial, Helvetica, sans-serif;
-      font-size: clamp(7px, 0.75vw, 10px);
+      font-size: clamp(8px, 0.85vw, 11px);
       font-weight: 800;
       text-align: center;
-      line-height: 1;
-      text-shadow: 0 1px 2px #000, 0 0 5px rgba(255, 255, 255, 0.6);
+      line-height: 1.1;
+      text-shadow: 0 1px 2px #000, 0 0 5px rgba(255, 255, 255, 0.5);
       width: 100%;
       padding: 0 2px;
       overflow: hidden;
@@ -189,15 +176,15 @@
     .derechos-reservados {
       position: fixed;
       z-index: 8;
-      left: 10%;
-      width: 60%;
+      left: 5%;
+      width: calc(100% - 160px);
       bottom: 1.2%;
       margin: 0;
       padding: 0;
       color: #ffffff;
       background: transparent;
       border: none;
-      font-size: clamp(12px, 1.05vw, 18px);
+      font-size: clamp(11px, 1vw, 15px);
       font-weight: 800;
       line-height: 1.3;
       text-align: center;
@@ -210,23 +197,38 @@
       pointer-events: none;
     }
 
-    /* TABLET Y CELULAR */
-    @media (max-width: 900px) {
-      .panel-menu { width: 17%; }
-      .portada { right: 18.5%; }
-    }
-
+    /* RESPONSIVO PARA MÓVILES */
     @media (max-width: 600px) {
-      .panel-menu { width: 22%; padding: 4px 2px; }
-      .portada { right: 23.5%; }
-      .nombre-opcion { font-size: clamp(6px, 1.8vw, 8px); }
+      .panel-menu { width: 110px; min-width: 95px; padding: 5px 2px; }
+      .derechos-reservados { width: calc(100% - 110px); font-size: 8px; left: 0; }
+      .nombre-opcion { font-size: 7px; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- PANEL CONTENEDOR DE BOTONES A LA DERECHA -->
+  <!-- PORTADA PRINCIPAL -->
+  <main class="portada" aria-label="Camino hacia Jesús">
+
+    <!-- MÚSICA -->
+    <audio id="musica" loop preload="auto">
+      <source
+        src="./alma-misionera-athenas-musica-catolica.mp3"
+        type="audio/mpeg">
+    </audio>
+
+    <!-- ÚNICO CONTROL DE AUDIO -->
+    <button
+      id="controlAudio"
+      class="control-audio"
+      type="button"
+      aria-label="Reproducir música"
+      title="Activar o silenciar música">🔊</button>
+
+  </main>
+
+  <!-- PANEL LATERAL DERECHO DE BOTONES -->
   <aside class="panel-menu" aria-label="Menú principal">
     <nav class="menu">
 
@@ -283,26 +285,6 @@
     </nav>
   </aside>
 
-  <!-- PORTADA PRINCIPAL -->
-  <main class="portada" aria-label="Camino hacia Jesús">
-
-    <!-- MÚSICA -->
-    <audio id="musica" loop preload="auto">
-      <source
-        src="./alma-misionera-athenas-musica-catolica.mp3"
-        type="audio/mpeg">
-    </audio>
-
-    <!-- ÚNICO CONTROL DE AUDIO -->
-    <button
-      id="controlAudio"
-      class="control-audio"
-      type="button"
-      aria-label="Reproducir música"
-      title="Activar o silenciar música">🔊</button>
-
-  </main>
-
   <!-- DERECHOS RESERVADOS -->
   <footer class="derechos-reservados">
     © Corporación La Salle del Sur. Derechos reservados.
@@ -352,7 +334,7 @@
           const gain = contextoAudio.createGain();
 
           osc.type = "sine";
-          osc.frequency.setValueAtTime(587.33, ahora); // Nota D5
+          osc.frequency.setValueAtTime(587.33, ahora);
           osc.frequency.exponentialRampToValueAtTime(880, ahora + 0.1);
 
           gain.gain.setValueAtTime(0.001, ahora);
@@ -365,7 +347,7 @@
           osc.start(ahora);
           osc.stop(ahora + 0.2);
         } catch (e) {
-          // Ignorar errores de audio si el navegador es restrictivo
+          // Ignorar errores de audio
         }
       }
 
@@ -383,7 +365,7 @@
             if (destino) {
               window.location.href = destino;
             }
-          }, 250); // Pequeña pausa para apreciar el efecto de zoom y sonido
+          }, 250);
         });
       });
 
@@ -401,7 +383,7 @@
         }
       });
 
-      /* ACTIVAR MÚSICA AL CARGAR O PRIMER CLIC EN LA PÁGINA */
+      /* ACTIVAR MÚSICA AL CARGAR O PRIMER CLIC */
       window.addEventListener("load", () => {
         iniciarMusica();
       }, { once: true });
