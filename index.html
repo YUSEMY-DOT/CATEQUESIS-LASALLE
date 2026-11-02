@@ -61,9 +61,9 @@
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(255, 255, 255, 0.2);
       display: flex;
       flex-direction: column;
-      justify-content: space-evenly;
+      justify-content: space-around;
       align-items: center;
-      padding: 10px 6px;
+      padding: 8px 6px;
     }
 
     .menu {
@@ -71,9 +71,9 @@
       height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: space-evenly;
+      justify-content: space-around;
       align-items: center;
-      gap: 4px;
+      gap: 2px;
       margin: 0;
       padding: 0;
     }
@@ -89,12 +89,12 @@
       justify-content: center;
     }
 
-    /* BOTONES 3D INTERACTIVOS (CON CONTAIN PARA QUE NO SE CORTE LA IMAGEN) */
+    /* BOTONES 3D PROPORCIONADOS E INTERACTIVOS (SIN DESBORDAMIENTO) */
     .boton {
-      width: 86%;
-      height: 74%;
-      max-width: 110px;
-      max-height: 110px;
+      width: 78%;
+      height: 72%;
+      max-width: 95px;
+      max-height: 95px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -102,8 +102,8 @@
       padding: 0;
       border: 2px solid #ffffff;
       border-radius: 12px;
-      background: rgba(0, 0, 0, 0.25);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5), inset 0 1px 3px rgba(255, 255, 255, 0.7);
+      background: rgba(0, 0, 0, 0.3);
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.5), inset 0 1px 3px rgba(255, 255, 255, 0.7);
       cursor: pointer;
       line-height: 0;
       overflow: hidden;
@@ -119,29 +119,29 @@
       object-position: center;
       border: none;
       margin: 0;
-      padding: 0;
+      padding: 2px;
     }
 
     .boton:hover {
-      transform: translateY(-4px) scale(1.06);
-      box-shadow: 0 10px 22px rgba(255, 255, 255, 0.4), inset 0 1px 5px rgba(255, 255, 255, 0.9);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 18px rgba(255, 255, 255, 0.4), inset 0 1px 4px rgba(255, 255, 255, 0.9);
       filter: brightness(1.1);
     }
 
     .boton:active {
-      transform: translateY(2px) scale(0.97);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+      transform: translateY(1px) scale(0.98);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
     }
 
     /* NOMBRE DE CADA BOTÓN DEBAJO EN BLANCO REFLEJADO */
     .nombre-opcion {
-      margin-top: 3px;
+      margin-top: 2px;
       color: #ffffff;
       font-family: Arial, Helvetica, sans-serif;
-      font-size: clamp(8px, 0.85vw, 12px);
+      font-size: clamp(7px, 0.8vw, 11px);
       font-weight: 800;
       text-align: center;
-      line-height: 1.1;
+      line-height: 1;
       text-shadow: 0 1px 2px #000, 0 0 6px rgba(255, 255, 255, 0.6);
       width: 100%;
       padding: 0 2px;
@@ -226,13 +226,13 @@
     @media (max-width: 600px) {
       .panel-menu {
         width: 24%;
-        padding: 5px 2px;
+        padding: 4px 2px;
       }
       .portada {
         right: 25.5%;
       }
       .nombre-opcion {
-        font-size: clamp(7px, 2vw, 9px);
+        font-size: clamp(6px, 1.8vw, 8px);
       }
       .control-audio {
         top: 6px;
