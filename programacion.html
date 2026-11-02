@@ -1,284 +1,353 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#081c3b">
-<title>Camino hacia Jesús 2026 | Colegio La Salle del Sur</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>Programación de Catequesis 2026 | Colegio La Salle del Sur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#081c3b;--blue:#123d70;--gold:#ffc83b;--cream:#fff9ed;--paper:#fffdf8;--ink:#132746;--muted:#65758b;--line:#eadcc2;--shadow:0 12px 32px #09234412}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f5efe4;color:var(--ink);font-family:Nunito,Arial,sans-serif;line-height:1.45}button,a{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}.wrap{max-width:1350px;margin:auto;background:#fbf8f2;min-height:100vh;box-shadow:0 0 35px #061a3310}.goldline{height:6px;background:linear-gradient(90deg,#bd8421,#ffe89a,#dba12d)}
-header{background:radial-gradient(circle at 80% 20%,#174878 0,#0b2850 35%,#06152e 100%);color:white;padding:18px clamp(16px,3vw,42px) 30px;border-radius:0 0 30px 30px;position:relative;overflow:hidden}header:after{content:'✦';position:absolute;font-size:220px;color:#ffffff08;right:8%;top:80px;pointer-events:none}.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;position:relative;z-index:1}.brand{display:flex;align-items:center;gap:13px}.crest{width:112px;height:112px;min-width:112px;object-fit:contain;filter:drop-shadow(0 5px 10px #0006);transform:scale(1.04)}.brand h2{font:700 clamp(16px,2vw,23px) Fredoka,sans-serif;color:#ffdf94;margin:0}.brand small{display:block;color:#d7e6f8;font-weight:800;letter-spacing:1px;text-transform:uppercase;font-size:11px}.badge{display:inline-block;margin-top:5px;border:1px solid #e8bd6090;background:#ffffff12;border-radius:20px;padding:3px 11px;color:#ffe8a3;font:500 12px Fredoka,sans-serif}.home{background:linear-gradient(135deg,#ffdb69,#f6a514);color:var(--navy);border:2px solid white;border-radius:30px;padding:9px 16px;font-weight:900;box-shadow:0 5px 16px #f3a10d30;white-space:nowrap}.hero{display:grid;grid-template-columns:minmax(0,1.68fr) minmax(245px,.62fr);align-items:start;gap:18px;position:relative;z-index:1;padding-top:18px}.hero h1{font:700 clamp(32px,4vw,54px)/1.03 Fredoka,sans-serif;margin:10px 0;color:#fff}.hero h1 span{color:#ffdf94}.hero p{max-width:650px;color:#e0ebf9;font-size:16px;font-weight:700}.welcome-audio{display:inline-flex;align-items:center;gap:8px;margin:2px 0 0;padding:10px 16px;border:2px solid #ffe39a;border-radius:24px;background:linear-gradient(135deg,#ffdf83,#ffbc2f);color:#081c3b;font-weight:900;box-shadow:0 5px 14px #0002;transition:transform .15s,box-shadow .15s}.welcome-audio:hover{transform:translateY(-1px);box-shadow:0 8px 18px #0003}.welcome-audio:focus-visible{outline:3px solid #fff;outline-offset:3px}.welcome-audio.speaking{background:#fff9ed;color:#123d70}.mascot{display:flex;justify-content:center;align-items:center;gap:0;min-height:0;align-self:start;max-height:none;width:100%;margin:0 auto;padding:0 2px;transform:translateY(-10px)}.mascot img{display:block;height:clamp(245px,30vw,350px);width:53%;max-width:310px;object-fit:contain;object-position:center;filter:drop-shadow(0 9px 14px #0005);flex:0 1 310px}.mascot .boy-art,.mascot .girl-art{margin:0}.mascot .boy-art{transform:scaleX(-1) translateY(-4px)}.mascot .girl-art{transform:translateY(-15px)}
-.quicklinks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0 18px}.quick{border-radius:13px;padding:7px 10px;gap:8px;font-size:13px;box-shadow:0 4px 12px #0923440b}.quick .emoji{width:31px;height:31px;border-radius:10px;font-size:17px}.quick:hover{transform:translateY(-1px)}
-.countdown{margin-top:20px;padding:clamp(18px,2.4vw,27px);border:1px solid #ffe59aaf;border-radius:25px;background:linear-gradient(120deg,#ffffff20,#ffffff09);width:100%;max-width:none;box-shadow:inset 0 1px 0 #ffffff15,0 10px 24px #00000012}.countdown-title{font:700 clamp(19px,2.1vw,25px) Fredoka,sans-serif;color:#ffe49a}.countdown-sub{font-size:clamp(13px,1.25vw,16px);color:#e0eaf6;font-weight:800;margin:4px 0 16px}.timer{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(8px,1.1vw,14px);width:100%;max-width:none}.timebox{background:linear-gradient(180deg,#fffef8,#fff9e9);color:var(--navy);border-radius:18px;padding:clamp(14px,1.6vw,20px) 7px;text-align:center;border-bottom:6px solid var(--gold);box-shadow:0 6px 14px #0002;min-width:0}.timebox b{display:block;font:700 clamp(30px,3.8vw,48px) Fredoka,sans-serif;line-height:1.12}.timebox span{font-size:clamp(10px,1vw,13px);font-weight:900;text-transform:uppercase;letter-spacing:.6px}.countdown-note{font-size:14px;color:#ffedc1;margin-top:14px}
-main{padding:0 clamp(14px,2.8vw,36px) 42px}.quicklinks{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}.quick{background:white;border:1px solid var(--line);border-radius:17px;padding:13px 12px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow);font-weight:900;color:var(--navy);text-align:left}.quick .emoji{width:46px;height:46px;display:grid;place-items:center;background:linear-gradient(145deg,#fff8e9,#ffe6a6);border:1px solid #efd08a;border-radius:15px;font-size:25px;flex-shrink:0;box-shadow:inset 0 1px 0 #fff,0 4px 9px #9e70140c}.quick:hover,.stage:hover,.topic:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 10px 20px #b7832220}.section{margin-top:28px}.eyebrow{color:#b27b19;font:600 12px Fredoka,sans-serif;letter-spacing:1.3px;text-transform:uppercase}.section h2{font:700 clamp(24px,3vw,34px) Fredoka,sans-serif;color:var(--navy);margin:2px 0 4px}.sub{color:var(--muted);font-weight:700;margin:0 0 15px}.stages{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:11px}.stage{border:2px solid #e2d4bb;background:white;border-radius:18px;padding:12px 9px;text-align:center;min-width:0;transition:.2s;position:relative;color:var(--navy)}.stage[aria-pressed=true]{border-color:var(--gold);background:#fffaf0;box-shadow:0 8px 22px #dca32d20}.stage .num{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#ffdc64,#f5a313);border:2px solid white;display:grid;place-items:center;font:700 13px Fredoka,sans-serif;box-shadow:0 2px 6px #0002}.stage .icon{height:82px;border-radius:17px;display:grid;place-items:center;font-size:42px;margin:6px 0 10px;border:1px solid #ffffffb0;box-shadow:inset 0 1px 0 #ffffffc9,0 5px 12px #0a23400c;transition:transform .2s,filter .2s}.stage:hover .icon{transform:translateY(-2px) scale(1.035);filter:saturate(1.12)}.stage:nth-child(1) .icon{background:linear-gradient(145deg,#fff5df,#ffe2a3)}.stage:nth-child(2) .icon{background:linear-gradient(145deg,#edf5ff,#cbdfff)}.stage:nth-child(3) .icon{background:linear-gradient(145deg,#e9fff2,#bdebd1)}.stage:nth-child(4) .icon{background:linear-gradient(145deg,#fff1f1,#ffd3d8)}.stage:nth-child(5) .icon{background:linear-gradient(145deg,#fbf0ff,#e7cdff)}.stage:nth-child(6) .icon{background:linear-gradient(145deg,#fff7dc,#ffdf91)}.stage strong{display:block;font:600 14px/1.2 Fredoka,sans-serif}.stage small{display:block;color:var(--muted);font-size:11px;font-weight:700;margin-top:4px}
-.panel{display:none;margin-top:18px;background:white;border:1.5px solid var(--line);border-radius:20px;padding:clamp(14px,2vw,23px);box-shadow:var(--shadow)}.panel.open{display:block}.panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}.panel-head h3{font:700 24px Fredoka,sans-serif;color:var(--navy);margin:0}.pill{display:inline-flex;align-items:center;border-radius:20px;padding:5px 11px;background:#fff2cf;color:#815812;font-weight:900;font-size:11px}.topic-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}.topic{background:#fffdf8;border:1.5px solid #e9dfcd;border-radius:14px;padding:13px;text-align:left;color:var(--ink);transition:.2s}.topic[aria-pressed=true]{border-color:#f0b82e;background:#fff8e5}.topic .topic-num{color:#b27b19;font-size:11px;font-weight:900;text-transform:uppercase}.topic strong{display:block;font:600 16px Fredoka,sans-serif;color:var(--navy);margin:3px 0}.topic .preview{font-size:12px;color:var(--muted);font-weight:700}.topic-detail{display:none;margin-top:14px;padding:16px;border-radius:16px;background:#f4f8fc;border:1px solid #d8e4f2}.topic-detail.open{display:block}.topic-detail h4{font:700 21px Fredoka,sans-serif;color:var(--navy);margin:0 0 7px}.topic-detail ul{padding-left:20px;margin:8px 0 14px}.topic-detail li{margin:3px 0;font-weight:700;color:#455a73}.resource-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.resource{border:1px solid #e3d5bc;border-radius:12px;background:white;padding:10px;font-weight:900;color:var(--navy);text-align:left}.resource:hover{background:#fff2ce;border-color:#e8bd60}.resource span{font-size:19px;margin-right:5px}
-.calendar-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,.8fr);gap:16px;align-items:stretch}.calendar-card,.calendar-info{background:white;border:1.5px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow);min-width:0}.cal-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.cal-top h3,.calendar-info h3{font:700 20px Fredoka,sans-serif;color:var(--navy);margin:0}.cal-controls{display:flex;align-items:center;gap:8px}.cal-controls button{width:34px;height:34px;border:1px solid var(--line);border-radius:50%;background:#fff8e7;color:var(--navy);font-size:20px;font-weight:900;cursor:pointer}.cal-controls button:hover{background:#ffedbd;border-color:var(--gold)}.cal-controls strong{font:600 14px Fredoka,sans-serif;min-width:125px;text-align:center}.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}.weekday{text-align:center;color:#b27b19;font-size:11px;font-weight:900;padding:4px 0}.day{min-height:42px;border:1px solid #eee5d6;border-radius:10px;background:#fffdf9;color:var(--ink);font-weight:900;position:relative;cursor:pointer;transition:background .15s,border-color .15s,transform .15s}.day.classday{background:#fff7e2;border-color:#ecd39a}.day.classday:hover{background:#ffedbd;transform:translateY(-1px)}.day.classday:after{content:'';position:absolute;width:5px;height:5px;background:#d99b16;border-radius:50%;bottom:4px;left:calc(50% - 2px)}
-.day.classday.c1:not(.selected){background:#e1f3ff;border-color:#76bee9;color:#075985}.day.classday.c1:not(.selected):after{background:#0284c7}
-.day.classday.c2:not(.selected){background:#e2f8e9;border-color:#79d6a0;color:#166534}.day.classday.c2:not(.selected):after{background:#16a34a}
-.day.classday.c3:not(.selected){background:#fff0d9;border-color:#f4bb67;color:#92400e}.day.classday.c3:not(.selected):after{background:#ea580c}
-.day.classday.c4:not(.selected){background:#f4e8ff;border-color:#c9a3f3;color:#6b21a8}.day.classday.c4:not(.selected):after{background:#9333ea}
-.day.classday.c5:not(.selected){background:#ffe8ee;border-color:#f3a2b6;color:#9f1239}.day.classday.c5:not(.selected):after{background:#e11d48}
-.day.classday.c6:not(.selected){background:#e6edff;border-color:#9db6fc;color:#1e40af}.day.classday.c6:not(.selected):after{background:#4f46e5}
-.day.double-session:not(.selected):before{content:'2';position:absolute;top:2px;right:3px;width:14px;height:14px;display:grid;place-items:center;border-radius:5px;background:#fff;color:#7c2d12;font:900 9px Nunito,sans-serif;box-shadow:0 1px 2px #0002}
-.calendar-card{background:linear-gradient(180deg,#fff 0%,#f4faff 100%);border-color:#c8def4}.calendar-info{border-color:#edc96d;background:linear-gradient(155deg,#fffdf7 0%,#fff0c9 100%)}
-.weekday:nth-child(1){color:#db2777}.weekday:nth-child(2){color:#0284c7}.weekday:nth-child(3){color:#16a34a}.weekday:nth-child(4){color:#d97706}.weekday:nth-child(5){color:#7c3aed}.weekday:nth-child(6){color:#e11d48}.weekday:nth-child(7){color:#2563eb}
-.day.communion-day{background:#f7e6b6;border:1.5px solid #d9a036;color:#6f4b08}.day.selected{background:var(--navy);color:#ffdf94;border-color:var(--navy);box-shadow:0 3px 9px #081c3b24}.day.selected:after{background:#ffdf94}.day:disabled{opacity:.36;cursor:default}.calendar-info{background:linear-gradient(160deg,#fff,#fff8e8)}.calendar-info .date-big{font:700 27px Fredoka,sans-serif;color:#996914;margin:9px 0 12px;line-height:1.15}.calendar-info p{color:var(--muted);font-weight:700}.calendar-topic-list{display:grid;gap:10px;margin-top:12px}.calendar-topic-item{background:#fff;border:1px solid #eadfca;border-left:4px solid #e8bd60;border-radius:12px;padding:10px 12px}.calendar-topic-item strong{display:block;font:600 16px Fredoka,sans-serif;color:var(--navy);margin-bottom:3px}.calendar-topic-item .topic-stage{display:block;font-size:11px;color:#9a711d;font-weight:900;margin-bottom:5px}.calendar-topic-item ul{padding-left:19px;margin:5px 0 0}.calendar-topic-item li{font-size:12px;color:#4b5d73;font-weight:700;margin:3px 0}.calendar-legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;color:var(--muted);font-size:11px;font-weight:800}.legend-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#d99b16;margin-right:5px}.legend-special{display:inline-block;width:9px;height:9px;border-radius:3px;background:#f0d28b;border:1px solid #d9a036;margin-right:5px}.legend-double{display:inline-grid;place-items:center;width:13px;height:13px;border-radius:4px;background:#fff0d9;border:1px solid #f4bb67;color:#92400e;font:900 9px Nunito,sans-serif;margin-right:5px}.legend-double:before{content:"2"}.resource-hint{font-size:12px;color:var(--muted);margin-top:13px;padding:10px;background:#f4f8fc;border-radius:10px}.footer{margin-top:30px;background:linear-gradient(135deg,#081c3b,#123d70);color:#e4edfa;text-align:center;padding:22px;border-radius:22px;font-weight:700;font-size:12px}.footer strong{color:#ffdf94;font-family:Fredoka,sans-serif;font-size:16px}.copyright{margin-top:11px;padding-top:9px;border-top:1px solid #ffffff2b;color:#c6d4e8;font-size:11px;letter-spacing:.15px}.toast{position:fixed;inset:0;background:#07172c99;display:none;align-items:center;justify-content:center;padding:18px;z-index:50}.toast.show{display:flex}.toast-card{max-width:430px;width:100%;background:white;border:2px solid var(--gold);border-radius:22px;padding:22px;text-align:center;box-shadow:0 20px 60px #0003}.toast-card .big{font-size:40px}.toast-card h3{font:700 23px Fredoka,sans-serif;color:var(--navy);margin:6px}.toast-card p{color:var(--muted);font-weight:700}.toast-card button{background:var(--navy);color:white;border:0;border-radius:22px;padding:9px 22px;font-weight:900}.toast-card .modal-copyright{margin:14px 0 0;padding-top:10px;border-top:1px solid #e4e8ef;font-size:10px;color:#7b8798;font-weight:800}
-@media(max-width:1000px){.stages{grid-template-columns:repeat(3,minmax(0,1fr))}.quicklinks{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:minmax(0,1.55fr) minmax(190px,.65fr);gap:12px}.mascot{transform:translateY(-8px)}.mascot img{height:clamp(210px,27vw,300px);max-height:300px;width:53%}.countdown{padding:18px}.timer{gap:8px}.timebox{padding:15px 5px}}
-@media(max-width:650px){header{padding:14px 15px 24px}.crest{width:78px;height:78px;min-width:78px;transform:scale(1.02)}.brand{gap:8px}.brand h2{font-size:15px}.brand small{font-size:9px}.badge{font-size:10px}.home{font-size:12px;padding:8px 10px}.hero{grid-template-columns:1fr;gap:4px}.hero h1{font-size:35px}.mascot{min-height:150px;margin-top:-5px;max-height:none;align-items:center;gap:0;transform:translateY(-8px)}.mascot img{height:172px;max-height:none;width:50%;max-width:185px;flex-basis:50%}.mascot .boy-art{transform:scaleX(-1) translateY(-4px)}.mascot .girl-art{transform:translateY(-8px)}.countdown{margin-top:15px;padding:15px;border-radius:19px}.countdown-title{font-size:18px}.countdown-sub{font-size:12px;margin-bottom:12px}.timer{gap:6px}.timebox{padding:12px 3px;border-radius:12px;border-bottom-width:4px}.timebox b{font-size:clamp(24px,6.5vw,31px)}.timebox span{font-size:9px}.countdown-note{font-size:12px;margin-top:10px}.stages{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.stage{padding:12px 8px}.stage .icon{height:70px;font-size:36px}.topic-list{grid-template-columns:1fr}.resource-grid{grid-template-columns:repeat(2,1fr)}.calendar-layout{grid-template-columns:1fr}.quicklinks{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin:10px 0 15px}.quick{justify-content:center;flex-direction:column;gap:3px;text-align:center;font-size:10px;padding:7px 2px}.quick .emoji{width:31px;height:31px;font-size:17px}.cal-top{align-items:flex-start;flex-direction:column}.day{min-height:35px}}
-</style></head>
-<body><div class="wrap"><div class="goldline"></div>
-<header><div class="topbar"><div class="brand"><img class="crest" src="./assets/insignia.png" alt="Insignia del Colegio La Salle del Sur" onerror="this.style.display='none'"><div><h2>COLEGIO LA SALLE DEL SUR</h2><small>Programa de Catequesis · 2026</small><span class="badge">✨ Camino hacia Jesús ✨</span></div></div><a class="home" href="./index.html">🏠 Volver al inicio</a></div>
-<div class="hero"><div><h1>¡Nuestro camino<br>hacia <span>Jesús!</span> 💛</h1><p>Aprendemos, oramos y crecemos juntos para recibir a Jesús en la Primera Comunión.</p><button class="welcome-audio" id="welcome-audio" type="button" aria-label="Escuchar mensaje de bienvenida">🔊 Escuchar bienvenida</button><div class="countdown"><div class="countdown-title">🎉 ¡Falta poquito para nuestro gran día!</div><div class="countdown-sub">Cuenta regresiva para la Primera Comunión · 3 de diciembre de 2026</div><div class="timer" aria-live="polite"><div class="timebox"><b id="days">--</b><span>Días</span></div><div class="timebox"><b id="hours">--</b><span>Horas</span></div><div class="timebox"><b id="minutes">--</b><span>Minutos</span></div><div class="timebox"><b id="seconds">--</b><span>Segundos</span></div></div><div class="countdown-note" id="countdown-note">Cada día estamos más cerca de encontrarnos con Jesús. 🙏</div></div></div><div class="mascot" aria-label="Niño y niña arrodillados en oración"><img class="boy-art" id="boy-img" src="./assets/niñoarrodillado.png" alt="Niño arrodillado para la catequesis" onerror="fallbackCatequesisImage(this,'boy')"><img class="girl-art" id="girl-img" src="./assets/niña arodillada.png" alt="Niña arrodillada para la catequesis" onerror="fallbackCatequesisImage(this,'girl')"></div></div></header>
-<main>
+:root {
+  --navy: #081c3b;
+  --blue: #123d70;
+  --gold: #d99b16;
+  --gold-light: #fff5df;
+  --cream: #fbf8f2;
+  --paper: #ffffff;
+  --ink: #132746;
+  --muted: #65758b;
+  --line: #e6dcce;
+  --shadow: 0 10px 30px rgba(9, 35, 68, 0.08);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: #f4efe6;
+  color: var(--ink);
+  font-family: Nunito, Arial, sans-serif;
+  line-height: 1.5;
+}
+.page-wrap {
+  max-width: 1200px;
+  margin: 20px auto;
+  background: var(--cream);
+  border-radius: 28px;
+  box-shadow: 0 0 40px rgba(6, 26, 51, 0.12);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.gold-bar {
+  height: 6px;
+  background: linear-gradient(90deg, #bd8421, #ffe89a, #dba12d);
+}
+header {
+  background: radial-gradient(circle at 80% 20%, #174878 0, #0b2850 40%, #06152e 100%);
+  color: white;
+  padding: 30px clamp(20px, 4vw, 50px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.header-title h1 {
+  font: 700 clamp(24px, 3.5vw, 36px) Fredoka, sans-serif;
+  color: #fff;
+  margin: 0 0 5px;
+}
+.header-title h1 span { color: #ffdf94; }
+.header-title p {
+  margin: 0;
+  color: #d2e3f8;
+  font-weight: 700;
+  font-size: 15px;
+}
+.btn-home {
+  background: linear-gradient(135deg, #ffdb69, #f6a514);
+  color: var(--navy);
+  border: 2px solid white;
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-weight: 900;
+  font-family: Fredoka, sans-serif;
+  box-shadow: 0 5px 16px rgba(243, 161, 13, 0.3);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-home:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(243, 161, 13, 0.4);
+}
+main {
+  padding: clamp(20px, 4vw, 40px);
+}
+.intro-section {
+  text-align: center;
+  max-width: 750px;
+  margin: 0 auto 35px;
+}
+.intro-section h2 {
+  font: 700 28px Fredoka, sans-serif;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+.intro-section p {
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 16px;
+}
+.stages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+.stage-card {
+  background: var(--paper);
+  border: 1.5px solid var(--line);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+.stage-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--gold);
+  box-shadow: 0 15px 35px rgba(183, 131, 34, 0.15);
+}
+.stage-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+  border-bottom: 2px solid var(--gold-light);
+  padding-bottom: 12px;
+}
+.stage-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #fff5df, #ffe2a3);
+  border: 1px solid #efd08a;
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  box-shadow: inset 0 1px 0 #fff;
+}
+.stage-title-wrap span {
+  font-size: 11px;
+  font-weight: 900;
+  color: #b27b19;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: block;
+}
+.stage-title-wrap h3 {
+  font: 700 19px Fredoka, sans-serif;
+  color: var(--navy);
+  margin: 2px 0 0;
+}
+.topics-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-grow: 1;
+}
+.topic-item {
+  background: #fcf9f2;
+  border: 1px solid #efe4d0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  transition: background 0.15s;
+}
+.topic-item:hover {
+  background: #fffdf5;
+  border-color: #dfcaa2;
+}
+.topic-number {
+  font-size: 10px;
+  font-weight: 900;
+  color: #9a711d;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.topic-name {
+  font: 700 15px Fredoka, sans-serif;
+  color: var(--navy);
+  margin: 2px 0 6px;
+}
+.topic-bullets {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #4b5d73;
+}
+.topic-bullets li {
+  margin: 2px 0;
+}
+footer {
+  margin-top: 40px;
+  background: linear-gradient(135deg, #081c3b, #123d70);
+  color: #e4edfa;
+  text-align: center;
+  padding: 25px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 13px;
+}
+footer strong {
+  color: #ffdf94;
+  font-family: Fredoka, sans-serif;
+  font-size: 16px;
+}
+.copyright {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  color: #c6d4e8;
+  font-size: 11px;
+}
+@media(max-width: 768px) {
+  .page-wrap { margin: 0; border-radius: 0; border: none; }
+  header { flex-direction: column; align-items: flex-start; }
+  .stages-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
 
-<section class="section"><div class="eyebrow">Nuestro itinerario</div><h2>Seis etapas para crecer en la fe</h2><p class="sub">Elige una etapa para descubrir sus temas y materiales.</p>
-<div class="stages" id="stages">
-<button class="stage" data-stage="0" aria-pressed="false"><span class="num">1</span><span class="icon">✝️</span><strong>Conociendo a Jesús</strong><small>Su vida, su mensaje y su amor.</small></button>
-<button class="stage" data-stage="1" aria-pressed="false"><span class="num">2</span><span class="icon">🙏</span><strong>Aprendemos a orar</strong><small>Hablar con Dios con confianza.</small></button>
-<button class="stage" data-stage="2" aria-pressed="false"><span class="num">3</span><span class="icon">🕊️</span><strong>Los sacramentos</strong><small>Signos de la gracia de Dios.</small></button>
-<button class="stage" data-stage="3" aria-pressed="false"><span class="num">4</span><span class="icon">🍞🍷</span><strong>La Eucaristía</strong><small>Prepararnos para recibir a Jesús.</small></button>
-<button class="stage" data-stage="4" aria-pressed="false"><span class="num">5</span><span class="icon">💖</span><strong>Valores cristianos</strong><small>Amor, respeto y perdón.</small></button>
-<button class="stage" data-stage="5" aria-pressed="false"><span class="num">6</span><span class="icon">👨‍👩‍👧‍👦</span><strong>Compartimos la fe</strong><small>Vivir en comunidad y familia.</small></button>
+<div class="page-wrap">
+  <div class="gold-bar"></div>
+  
+  <header>
+    <div class="header-title">
+      <h1>Programa de <span>Catequesis 2026</span></h1>
+      <p>Colegio Privado La Salle del Sur · Camino hacia Jesús</p>
+    </div>
+    <button class="btn-home" onclick="location.href='./index.html'">🏠 Volver al inicio</button>
+  </header>
+
+  <main>
+    <section class="intro-section">
+      <h2>Itinerario Completo de Formación</h2>
+      <p>Organizado de forma clara y elegante en nuestras seis etapas fundamentales para guiar a los estudiantes hacia la Primera Comunión.</p>
+    </section>
+
+    <div class="stages-grid" id="stages-grid">
+      <!-- Generado dinámicamente o estructurado limpio -->
+    </div>
+  </main>
+
+  <footer>
+    <strong>Camino hacia Jesús · La Salle del Sur</strong><br>
+    Con fe, alegría y amor, nos preparamos para recibir a Jesús. ✨
+    <div class="copyright">© 2026 Colegio La Salle del Sur · Programa Camino hacia Jesús. Todos los derechos reservados.</div>
+  </footer>
 </div>
-<div class="quicklinks" aria-label="Recursos generales"><button class="quick" data-resource="Prácticas"><span class="emoji">🖍️</span><span>Prácticas</span></button><button class="quick" data-resource="Evaluaciones"><span class="emoji">📝</span><span>Evaluaciones</span></button><button class="quick" data-resource="Canciones"><span class="emoji">🎶</span><span>Canciones</span></button><button class="quick" data-resource="Videos"><span class="emoji">▶️</span><span>Videos</span></button></div>
 
-</section>
-<section class="section" id="calendar-section"><div class="eyebrow">Organiza tus encuentros</div><h2>📅 Calendario de catequesis</h2><p class="sub">La catequesis comienza el martes 16 de junio. Las primeras siete clases llevan dos temas: 16, 18, 23, 25 y 30 de junio; 2 y 7 de julio. Desde el 9 de julio se trabaja un tema por encuentro.</p><div class="calendar-layout"><div class="calendar-card"><div class="cal-top"><h3>Calendario</h3><div class="cal-controls"><button id="prev-month" aria-label="Mes anterior">‹</button><strong id="month-label">Junio 2026</strong><button id="next-month" aria-label="Mes siguiente">›</button></div></div><div class="cal-grid" id="calendar-grid"></div></div><div class="calendar-info"><span class="pill">TU ENCUENTRO</span><div class="date-big" id="selected-date">Elige un día</div><h3 id="calendar-topic">¿Qué aprenderemos?</h3><p id="calendar-description">Selecciona una fecha marcada para consultar los temas del encuentro.</p><div id="calendar-topic-list" class="calendar-topic-list"></div><div class="calendar-legend"><span><i class="legend-dot"></i>Clase programada</span><span><i class="legend-double"></i>2 temas en una clase</span><span><i class="legend-special"></i>Primera Comunión</span></div><div class="resource-hint">📅 Las primeras siete sesiones incluyen dos temas. Desde el 9 de julio se presenta un tema por clase. El 3 de diciembre está reservado para la Primera Comunión.</div></div></div></section>
-<div class="footer"><strong>Camino hacia Jesús · La Salle del Sur</strong><br>Con fe, alegría y amor, nos preparamos para recibir a Jesús. ✨<div class="copyright">© 2026 Colegio La Salle del Sur · Programa Camino hacia Jesús. Todos los derechos reservados.</div></div>
-</main></div>
-<div class="toast" id="resource-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="toast-card"><div class="big" id="modal-emoji">📚</div><h3 id="modal-title">Material de catequesis</h3><p id="modal-text">Este espacio está preparado para el recurso.</p><button id="modal-close">Entendido</button><p class="modal-copyright">© 2026 Colegio La Salle del Sur · Programa Camino hacia Jesús. Todos los derechos reservados.</p></div></div>
 <script>
-const stages=[
-{title:'Conociendo a Jesús',subtitle:'Su vida, su mensaje y su amor.',topics:[
-[1,'¿Quién es Dios?',['Introducción breve','Quién es Dios','Dios único','Dios creador','Dios eterno','Dios Padre','Cómo conocemos a Dios']],
-[2,'¿Quién es Jesús?',['Jesús es el Hijo de Dios','Verdadero Dios y verdadero hombre','Nacimiento y misión','Por qué Jesús es fundamental para los cristianos']],
-[3,'¿Quién es el Espíritu Santo?',['Quién es','Su misión','Cómo actúa','Pentecostés','Símbolos principales']],
-[4,'La Santísima Trinidad',['Un solo Dios','Padre, Hijo y Espíritu Santo','Tres Personas','No son tres dioses','¿Quién es primero?','Relación entre las tres Personas','Señal de la Cruz']],
-[5,'La Creación',['Dios creador','Creación del mundo','Creación del ser humano','El ser humano y la creación','Responsabilidad de cuidar lo creado']],
-[7,'Dios se Revela al Ser Humano',['¿Cómo conocemos a Dios?','Revelación','Sagrada Escritura','Tradición','Jesucristo como plenitud de la Revelación']],
-[8,'La Biblia',['Qué es','Antiguo Testamento','Nuevo Testamento','Evangelios','Evangelistas','Cómo se divide','Cómo buscar una cita','Cómo leerla']],
-[9,'La Vida de Jesús',['Nacimiento','María y José','Infancia','Bautismo','Vida pública','Discípulos','Predicación','Reino de Dios']],
-[10,'Las Enseñanzas de Jesús',['Qué es una parábola y por qué Jesús las utilizaba','Parábola del Buen Samaritano','Parábola del Hijo Pródigo','Parábola del Sembrador','Parábola de la Oveja perdida','Parábola de los Talentos','Aplicación a nuestra vida']],
-[11,'Los Milagros de Jesús',['Qué es un milagro','Para qué los realizaba Jesús','Milagros de sanación','Milagros sobre la naturaleza','Qué revelan sobre Jesús']],
-[12,'Pasión, Muerte y Resurrección',['Última Cena','Pasión','Crucifixión','Muerte','Resurrección','Ascensión','Qué significa para nuestra fe']]]},
-{title:'Aprendemos a orar',subtitle:'Hablar con Dios con confianza.',topics:[
-[19,'¿Qué significa tener Fe?',['Qué es creer','Fe y confianza','Qué significa “Creo”','Profesión de fe']],
-[20,'El Credo',['Qué es','Para qué lo rezamos','Credo explicado parte por parte']],
-[21,'¿Qué es Orar?',['Qué significa orar','Qué significa rezar','Diferencia entre ambos','Cómo hablamos con Dios','Oración personal','Oración comunitaria','Petición, Alabanza, Acción de gracias, Perdón e Intercesión']],
-[22,'Oraciones Fundamentales',['Señal de la Cruz','Padre Nuestro','Ave María','Gloria','Credo','Acto de Contrición','Yo confieso','Ángel de la Guarda','Salve Regina','Alma de Cristo']],
-[23,'El Padre Nuestro',['Explicación de cada petición','Qué estamos diciendo cuando lo rezamos']],
-[15,'El Santo Rosario',['Qué es','Para qué sirve','Cómo se reza','Misterios gozosos, luminosos, dolorosos y gloriosos','Cómo meditar']]]},
-{title:'Los sacramentos',subtitle:'Signos de la gracia de Dios.',topics:[
-[29,'¿Qué es un Sacramento?',['Qué significa','Quién los instituyó','Signo visible','Gracia','Para qué sirven']],
-[30,'Los Siete Sacramentos',['Clasificación: Iniciación, Curación y Servicio']],
-[31,'La Gracia',['Qué es','Gracia santificante','Relación entre gracia y sacramentos','Vivir en gracia']],
-[32,'El Bautismo',['Qué es y qué sucede','Agua, óleo, vela y vestidura blanca','Padrinos','Incorporación a la Iglesia','Ser hijo de Dios','Compromiso del bautizado']],
-[33,'La Confirmación',['Qué es y relación con el Bautismo','Espíritu Santo y sus Dones','Qué significa ser confirmado']],
-[34,'Los Demás Sacramentos',['Reconciliación, Unción de los enfermos, Matrimonio y Orden sacerdotal','Para qué sirve cada uno']]]},
-{title:'La Eucaristía',subtitle:'Prepararnos para recibir a Jesús.',topics:[
-[35,'El Sacramento de la Reconciliación',['Qué es y por qué confesarnos','Contrición, confesión, propósito de enmienda, penitencia y absolución','Sigilo sacramental']],
-[36,'Mi Primera Confesión',['Examen de conciencia y cómo prepararme','Qué decir y cómo acercarme al sacerdote','Qué hacer después']],
-[37,'El Año Litúrgico',['Adviento, Navidad, Cuaresma, Semana Santa, Triduo Pascual, Pascua, Pentecostés y Tiempo Ordinario','Solemnidades, fiestas y memorias']],
-[38,'Signos y Símbolos Litúrgicos',['Cruz, agua, aceite, fuego, cirios, incienso, imágenes y colores litúrgicos']],
-[39,'¿Qué es la Santa Misa?',['Qué es y por qué vamos','Qué celebramos','Relación con la Última Cena y la Eucaristía','La Misa como celebración de la Iglesia']],
-[40,'Antes de la Misa',['Vestimenta, higiene y presentación','Puntualidad, entrada, agua bendita, señal de la Cruz, silencio, genuflexión, reverencia, Sagrario y preparación interior']],
-[41,'Conocemos el Templo',['Altar, Ambón, Sede, Sagrario, Cruz, Cirios, Confesionario, Pila bautismal e Imágenes']],
-[42,'Vestiduras del Sacerdote',['Alba, cíngulo, estola, casulla, colores litúrgicos y significado básico']],
-[44,'Gestos y Posturas',['De pie, sentados, arrodillados, inclinación, genuflexión, señal de la Cruz, golpearse el pecho, darse la paz, silencio y Amén','Cuándo se hace cada uno y por qué']],
-[45,'Ritos Iniciales',['Procesión, saludo, acto penitencial, Yo confieso, Kyrie, Gloria y oración colecta']],
-[46,'Liturgia de la Palabra',['Primera lectura, salmo, segunda lectura, Aleluya, Evangelio, homilía, Credo y oración de los fieles']],
-[47,'Liturgia Eucarística',['Preparación de los dones, ofertorio, prefacio, Santo, Plegaria Eucarística, epíclesis, consagración, anamnesis, intercesiones, doxología y Amén']],
-[48,'Rito de la Comunión',['Padre Nuestro, paz, fracción del Pan, Cordero de Dios, respuestas, procesión, recepción de la Comunión y acción de gracias']],
-[49,'Ritos Finales',['Oración después de la Comunión, bendición, despedida, envío y cómo debemos salir de la iglesia']],
-[50,'¿Qué es la Eucaristía?',['Última Cena, institución, Cuerpo y Sangre de Cristo, presencia real, sacrificio, banquete, acción de gracias y memorial']],
-[51,'¿Qué Sucede en la Consagración?',['Pan y vino, Espíritu Santo, palabras de Jesús, Cuerpo y Sangre, presencia real y Transubstanciación explicada para niños']],
-[52,'Jesús en el Sagrario',['Qué es el Sagrario, lámpara, presencia de Jesús, genuflexión, adoración, visita al Santísimo y cómo orar ante Jesús']],
-[53,'¿Cómo Recibimos la Comunión?',['Preparación, estado de gracia, ayuno eucarístico, procesión, reverencia, respuesta “Amén”, recepción, regreso al lugar y acción de gracias']],
-[55,'Mi Primera Comunión',['Qué voy a recibir, por qué me preparé, qué debo saber, cómo participar, cómo comulgar, vestimenta, actitud, respuestas y acción de gracias']]]},
-{title:'Valores cristianos',subtitle:'Amor, respeto y perdón.',topics:[
-[6,'El Ser Humano y el Pecado',['Libertad, bien y mal, pecado, consecuencias y conversión']],
-[24,'Los Diez Mandamientos',['Qué son, por qué existen, los diez y aplicación a la vida de los niños']],
-[25,'Los Mandamientos de la Iglesia',['Qué son, Misa, confesión, comunión, ayuno/abstinencia y otras obligaciones']],
-[26,'Las Bienaventuranzas',['Qué son, enseñanzas de Jesús y cómo vivirlas']],
-[27,'Obras de Misericordia',['Corporales, espirituales y ejemplos concretos']],
-[28,'El Pecado y el Examen de Conciencia',['Qué es pecado, venial y mortal, libertad y responsabilidad, examen de conciencia y conversión']]]},
-{title:'Compartimos la fe',subtitle:'Vivir en comunidad y familia.',topics:[
-[13,'¿Quién es la Virgen María?',['María en el plan de Dios, Anunciación, Nacimiento, Madre de Jesús, al pie de la Cruz, María y la Iglesia']],
-[14,'¿Por qué hay tantas Vírgenes?',['Una sola Virgen María, qué es una advocación, nombres e imágenes: Carmen, Guadalupe, Fátima y Lourdes, veneración y adoración']],
-[16,'¿Qué es la Iglesia?',['Quién fundó la Iglesia, qué significa, comunidad, Pueblo de Dios, Cuerpo de Cristo, templo y comunidad']],
-[17,'¿Quiénes Forman la Iglesia?',['Papa, Obispos, Sacerdotes, Diáconos, Religiosos, Laicos, Ministros y Monaguillos; función básica de cada uno']],
-[18,'Los Santos',['Qué es un santo, por qué existen, adoración/veneración, intercesión, comunión de los santos y modelos de vida']],
-[43,'Servidores y Monaguillos',['Qué es un monaguillo, función, vestimenta, cruz, cirios, incienso, participación y actitud']],
-[54,'Padrinos y Madrinas',['Qué significa ser padrino/madrina, requisitos, funciones, responsabilidad espiritual y acompañamiento']],
-[56,'Después de la Primera Comunión',['¿Terminó la catequesis?, continuar en Misa, orar, confesión, Biblia, comunidad, servicio y seguir creciendo en la fe']]]}
+const stages = [
+  {title:'Conociendo a Jesús',subtitle:'Su vida, su mensaje y su amor.',icon:'✝️',topics:[
+    [1,'¿Quién es Dios?','Dios único, creador, eterno y Padre amoroso.'],
+    [2,'¿Quién es Jesús?','Hijo de Dios, verdadero Dios y verdadero hombre.'],
+    [3,'¿Quién es el Espíritu Santo?','Su misión, símbolos y cómo actúa en nosotros.'],
+    [4,'La Santísima Trinidad','El misterio de un solo Dios en tres Personas divinas.'],
+    [5,'La Creación','El mundo, el ser humano y nuestra responsabilidad de cuidarla.'],
+    [7,'Dios se Revela','La Sagrada Escritura y Jesucristo como plenitud de la Revelación.'],
+    [8,'La Biblia','Antiguo y Nuevo Testamento, Evangelios y cómo leerla.'],
+    [9,'La Vida de Jesús','Nacimiento, infancia, bautismo y vida pública.'],
+    [10,'Las Enseñanzas de Jesús','Parábolas principales y su aplicación práctica.'],
+    [11,'Los Milagros de Jesús','Sanaciones y milagros sobre la naturaleza.'],
+    [12,'Pasión, Muerte y Resurrección','La Última Cena, crucifixión y el triunfo de la Resurrección.']
+  ]},
+  {title:'Aprendemos a orar',subtitle:'Hablar con Dios con confianza.',icon:'🙏',topics:[
+    [19,'¿Qué significa tener Fe?',['Creer, confianza y profesión de fe.']],
+    [20,'El Credo','Qué es, por qué lo rezamos y su explicación detallada.'],
+    [21,'¿Qué es Orar?',['Diferencia entre orar y rezar; formas de hablar con Dios.']],
+    [22,'Oraciones Fundamentales','Padre Nuestro, Ave María, Gloria, Credo y Acto de Contrición.'],
+    [23,'El Padre Nuestro','Explicación profunda de cada petición.'],
+    [15,'El Santo Rosario','Qué es, cómo se reza y meditación de los misterios.']
+  ]},
+  {title:'Los sacramentos',subtitle:'Signos de la gracia de Dios.',icon:'🕊️',topics:[
+    [29,'¿Qué es un Sacramento?','Signos visibles instituidos por Cristo para darnos gracia.'],
+    [30,'Los Siete Sacramentos','Clasificación: Iniciación, Curación y Servicio.'],
+    [31,'La Gracia','Gracia santificante y vida en comunión con Dios.'],
+    [32,'El Bautismo','Primer sacramento, símbolos y compromiso cristiano.'],
+    [33,'La Confirmación','Don del Espíritu Santo y madurez en la fe.'],
+    [34,'Los Demás Sacramentos','Reconciliación, Unción, Matrimonio y Orden Sacerdotal.']
+  ]},
+  {title:'La Eucaristía',subtitle:'Prepararnos para recibir a Jesús.',icon:'🍞',topics:[
+    [35,'El Sacramento de la Reconciliación','Por qué confesarnos y pasos para una buena confesión.'],
+    [36,'Mi Primera Confesión','Examen de conciencia y acercamiento al sacerdote.'],
+    [37,'El Año Litúrgico','Adviento, Navidad, Cuaresma, Semana Santa y Pascua.'],
+    [38,'Signos y Símbolos Litúrgicos','Cruz, agua, aceite, cirios e incienso.'],
+    [39,'¿Qué es la Santa Misa?','Celebración central de la comunidad cristiana.'],
+    [40,'Antes de la Misa','Puntualidad, silencio y preparación interior.'],
+    [41,'Conocemos el Templo','Altar, Ambón, Sagrario y Pila Bautismal.'],
+    [42,'Vestiduras del Sacerdote','Alba, estola, casulla y colores litúrgicos.'],
+    [44,'Gestos y Posturas','De pie, sentados, arrodillados y su significado.'],
+    [45,'Ritos Iniciales','Saludo, acto penitencial y Gloria.'],
+    [46,'Liturgia de la Palabra','Lecturas, Evangelio y homilía.'],
+    [47,'Liturgia Eucarística','Ofertorio, Plegaria Eucarística y Consagración.'],
+    [48,'Rito de la Comunión','Padre Nuestro, Cordero de Dios y recepción.'],
+    [49,'Ritos Finales','Bendición y envío misionero.'],
+    [50,'¿Qué es la Eucaristía?','Presencia real de Cristo, banquete y memorial.'],
+    [51,'¿Qué Sucede en la Consagración?','Transubstanciación explicada para niños.'],
+    [52,'Jesús en el Sagrario','Visita al Santísimo y adoración.'],
+    [53,'¿Cómo Recibimos la Comunión?','Ayuno eucarístico, reverencia y oración.'],
+    [55,'Mi Primera Comunión','Preparación final para el gran día.']
+  ]},
+  {title:'Valores cristianos',subtitle:'Amor, respeto y perdón.',icon:'💖',topics:[
+    [6,'El Ser Humano y el Pecado','Libertad, discernimiento entre el bien y el mal.'],
+    [24,'Los Diez Mandamientos','Ley de Dios aplicadas a la vida de los niños.'],
+    [25,'Los Mandamientos de la Iglesia','Obligaciones de los fieles católicos.'],
+    [26,'Las Bienaventuranzas','Camino de verdadera felicidad según Jesús.'],
+    [27,'Obras de Misericordia','Corporales y espirituales con el prójimo.'],
+    [28,'Examen de Conciencia','Responsabilidad moral y conversión sincera.']
+  ]},
+  {title:'Compartimos la fe',subtitle:'Vivir en comunidad y familia.',icon:'👨‍👩‍👧‍👦',topics:[
+    [13,'¿Quién es la Virgen María?',['Madre de Jesús y modelo de fe y obediencia.']],
+    [14,'Las Advocaciones Marianas','Carmen, Guadalupe, Fátima y Lourdes.'],
+    [16,'¿Qué es la Iglesia?',['Pueblo de Dios y Cuerpo místico de Cristo.']],
+    [17,'¿Quiénes Forman la Iglesia?',['Papa, Obispos, Sacerdotes, Religiosos y Laicos.']],
+    [18,'Los Santos','Modelos de vida cristiana e intercesores.'],
+    [43,'Servidores y Monaguillos','Función y actitud en el altar.'],
+    [54,'Padrinos y Madrinas','Acompañamiento espiritual y compromiso.'],
+    [56,'Después de la Primera Comunión','Continuar en la comunidad, misa y servicio.']
+  ]}
 ];
-let activeStage=0, activeTopic=null, currentMonth=new Date(2026,5,1,12), selectedDate=null;
-const $=id=>document.getElementById(id);
-function updateCountdown(){const target=new Date(2026,11,3,0,0,0).getTime(),now=Date.now(),diff=target-now;if(diff<=0){['days','hours','minutes','seconds'].forEach(id=>$(id).textContent='0');$('countdown-note').textContent='¡Llegó el día esperado! Que Jesús llene sus corazones de alegría. 💛';return}const vals=[Math.floor(diff/86400000),Math.floor(diff%86400000/3600000),Math.floor(diff%3600000/60000),Math.floor(diff%60000/1000)];['days','hours','minutes','seconds'].forEach((id,i)=>$(id).textContent=String(vals[i]).padStart(2,'0'))}
-updateCountdown();setInterval(updateCountdown,1000);
-// La voz se activa mediante un clic, ya que los navegadores bloquean el audio automático.
-const welcomeAudio=$('welcome-audio');
-const welcomeMessage='¡Bienvenidos al Colegio La Salle del Sur! Les damos la más cordial bienvenida al área de Catequesis, Camino hacia Jesús. Con alegría, fe y amor, nos preparamos para recibir a Jesús en la Primera Comunión. Que este camino nos ayude a crecer unidos en la fe. ¡Bienvenidos!';
-function speakWelcome(){
-  if(!('speechSynthesis' in window)||!('SpeechSynthesisUtterance' in window)){
-    welcomeAudio.textContent='🔊 Audio no disponible en este navegador';
-    return;
-  }
-  window.speechSynthesis.cancel();
-  const utterance=new SpeechSynthesisUtterance(welcomeMessage);
-  utterance.lang='es-PE';utterance.rate=0.92;utterance.pitch=1.02;utterance.volume=1;
-  const voices=window.speechSynthesis.getVoices();
-  utterance.voice=voices.find(v=>/^es-PE$/i.test(v.lang))||voices.find(v=>/^es[-_]/i.test(v.lang))||null;
-  welcomeAudio.classList.add('speaking');welcomeAudio.textContent='⏹ Detener bienvenida';
-  utterance.onend=utterance.onerror=()=>{welcomeAudio.classList.remove('speaking');welcomeAudio.textContent='🔊 Escuchar bienvenida';};
-  window.speechSynthesis.speak(utterance);
-}
-welcomeAudio.addEventListener('click',()=>{
-  if(window.speechSynthesis&&window.speechSynthesis.speaking){window.speechSynthesis.cancel();welcomeAudio.classList.remove('speaking');welcomeAudio.textContent='🔊 Escuchar bienvenida';}
-  else speakWelcome();
-});
-function renderStages(){document.querySelectorAll('.stage').forEach(b=>b.setAttribute('aria-pressed','false'))}
-function fallbackCatequesisImage(img,kind){
-  const candidates={
-    boy:[
-      './assets/niño arrodillado.png','./assets/niño arodillado.png','./assets/niño arodillado.jpg','./assets/niño arrodillado.jpg',
-      './assets/ninoarrodillado.png','./assets/nino arrodillado.png','./assets/NiñoArrodillado.png','./assets/Niño arodillado.png','./assets/Niño arrodillado.png',
-      'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/ni%C3%B1oarrodillado.png',
-      'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/ni%C3%B1o%20arrodillado.png',
-      'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/ni%C3%B1o%20arodillado.png',
-      'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/ninoarrodillado.png'
-    ],
-    girl:[
-      './assets/niña arrodillada.png','./assets/niñaarrodillada.png','./assets/niñaarrodillado.png','./assets/niña arrodillada.jpg','./assets/niña arodillada.jpg',
-      './assets/Niña arodillada.png','./assets/Niña arrodillada.png','./assets/NiñaArrodillada.png','./assets/niña arodillado.png',
-      'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/ca99716dd73d12fda0325e6e1f031a2ed0693680/assets/ni%C3%B1a%20arodillada.png',
-      'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/ni%C3%B1a%20arodillada.png',
-      'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/ni%C3%B1a%20arrodillada.png',
-      'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/ni%C3%B1aarrodillada.png'
-    ]
-  };
-  const list=candidates[kind]||[];let i=Number(img.dataset.fallbackIndex||0);
-  if(i<list.length){img.dataset.fallbackIndex=String(i+1);img.src=list[i];return;}
-  // Fallback vector keeps both child illustrations visible if an asset was renamed.
-  img.onerror=null;
-  const boy=kind==='boy';
-  const svg=boy?`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 290"><ellipse cx="118" cy="269" rx="91" ry="13" fill="#000" opacity=".16"/><path d="M71 148 Q107 127 148 148 L177 223 Q151 249 112 237 L76 226Z" fill="#fffaf0" stroke="#d9ad50" stroke-width="4"/><path d="M98 145 L119 171 L138 145 L131 196 L107 196Z" fill="#d9ad50"/><path d="M80 163 L53 216 Q47 232 61 237 L87 203 M145 163 L169 209 Q177 225 162 232 L144 202" fill="#fffaf0" stroke="#d9ad50" stroke-width="4" stroke-linecap="round"/><path d="M82 221 Q69 242 44 247 Q28 255 44 264 L91 264 Q108 257 111 238 M124 236 Q140 249 164 251 Q183 258 169 267 L120 267Z" fill="#23466e"/><ellipse cx="118" cy="89" rx="48" ry="54" fill="#edbd91"/><path d="M70 88 Q63 30 112 30 Q164 26 167 76 L159 92 Q139 64 118 64 Q91 66 70 88Z" fill="#5a392b"/><ellipse cx="101" cy="91" rx="5" ry="7" fill="#26344a"/><ellipse cx="135" cy="91" rx="5" ry="7" fill="#26344a"/><path d="M106 113 Q119 123 132 112" fill="none" stroke="#a94f43" stroke-width="4" stroke-linecap="round"/><path d="M89 137 Q118 153 147 137" fill="none" stroke="#edbd91" stroke-width="9" stroke-linecap="round"/></svg>`:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 290"><ellipse cx="118" cy="269" rx="91" ry="13" fill="#000" opacity=".16"/><path d="M73 148 Q116 127 153 148 L181 223 Q149 246 112 237 L75 226Z" fill="#fffaf0" stroke="#d9ad50" stroke-width="4"/><path d="M98 145 L119 171 L139 145 L132 196 L107 196Z" fill="#d9ad50"/><path d="M80 163 L53 216 Q47 232 61 237 L87 203 M147 163 L170 209 Q177 225 162 232 L144 202" fill="#fffaf0" stroke="#d9ad50" stroke-width="4" stroke-linecap="round"/><path d="M82 221 Q69 242 44 247 Q28 255 44 264 L91 264 Q108 257 111 238 M124 236 Q140 249 164 251 Q183 258 169 267 L120 267Z" fill="#a83e68"/><path d="M67 87 Q57 32 116 27 Q174 29 169 95 L163 143 L148 128 L151 86 Q130 60 111 67 Q94 66 82 90 L83 131 L69 145Z" fill="#4b2d30"/><ellipse cx="118" cy="89" rx="43" ry="51" fill="#edbd91"/><path d="M73 88 Q65 32 116 29 Q162 28 167 81 Q145 57 121 60 Q95 63 73 88Z" fill="#4b2d30"/><ellipse cx="102" cy="91" rx="5" ry="7" fill="#26344a"/><ellipse cx="135" cy="91" rx="5" ry="7" fill="#26344a"/><path d="M107 113 Q119 123 132 112" fill="none" stroke="#a94f43" stroke-width="4" stroke-linecap="round"/><path d="M88 137 Q118 153 148 137" fill="none" stroke="#edbd91" stroke-width="9" stroke-linecap="round"/></svg>`;
-  img.src='data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
-}
-function openStage(idx){
-  const s=stages[idx];if(!s)return;
-  document.querySelectorAll('.stage').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.stage)===idx)));
-  const win=window.open('','_blank');
-  if(!win){alert('Tu navegador bloqueó la ventana nueva. Permite las ventanas emergentes para este sitio y vuelve a pulsar la etapa.');return;}
-  const esc=escapeHtml;
-  const topicCards=s.topics.map((t,i)=>`<button class="topic" data-topic="${i}"><span class="num">TEMA ${t[0]}</span><strong>${esc(t[1])}</strong><span class="preview">${esc(t[2].slice(0,3).join(' · '))}${t[2].length>3?'…':''}</span></button>`).join('');
-  win.document.open();
-  win.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(s.title)} · Camino hacia Jesús</title><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"><style>
-  *{box-sizing:border-box}body{margin:0;background:#f5efe4;color:#132746;font-family:Nunito,Arial,sans-serif;line-height:1.45}.top{background:linear-gradient(135deg,#06152e,#123d70);color:white;padding:22px clamp(16px,4vw,42px);border-radius:0 0 26px 26px}.brand{font:700 13px Nunito,sans-serif;letter-spacing:1px;color:#ffdf94;text-transform:uppercase}.top h1{font:700 clamp(27px,4vw,40px) Fredoka,sans-serif;margin:7px 0;color:#fff}.top p{margin:0;color:#e0ebf9;font-weight:700}.wrap{max-width:1100px;margin:auto;padding:22px clamp(12px,3vw,30px) 45px}.actions{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}.pill{background:#fff0c7;color:#815812;padding:6px 12px;border-radius:20px;font-weight:900;font-size:12px}.back{border:0;border-radius:24px;background:linear-gradient(135deg,#ffdb69,#f6a514);color:#081c3b;padding:10px 18px;font-weight:900;box-shadow:0 4px 12px #09234420}.intro{color:#65758b;font-weight:700;margin:0 0 14px}.topics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.topic{border:1.5px solid #eadcc2;border-radius:16px;background:#fff;padding:15px;text-align:left;color:#132746;box-shadow:0 8px 20px #0923440a;transition:.18s}.topic:hover,.topic.active{border-color:#ffc83b;background:#fffaf0;transform:translateY(-2px)}.num{font-size:11px;font-weight:900;color:#b27b19;display:block}.topic strong{display:block;font:600 17px Fredoka,sans-serif;color:#081c3b;margin:4px 0}.preview{font-size:12px;font-weight:700;color:#65758b}.detail{display:none;margin-top:18px;background:white;border:1.5px solid #eadcc2;border-radius:20px;padding:clamp(15px,3vw,26px);box-shadow:0 12px 32px #09234412}.detail.open{display:block}.detail h2{font:700 25px Fredoka,sans-serif;color:#081c3b;margin:0 0 8px}.detail ul{padding-left:22px}.detail li{margin:5px 0;font-weight:700;color:#455a73}.resources{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:16px}.resource{border:1px solid #e3d5bc;border-radius:12px;background:#fffdf8;padding:11px;font-weight:900;color:#081c3b;text-align:left}.resource:hover{background:#fff2ce;border-color:#e8bd60}.notice{display:none;margin-top:12px;padding:13px;background:#f4f8fc;border:1px solid #d8e4f2;border-radius:12px;font-weight:700;color:#455a73}.notice.show{display:block}.bottom{margin-top:22px;text-align:center;color:#65758b;font-size:12px;font-weight:800;padding:16px 10px;border-top:1px solid #dfd4c2}.bottom .copyright{display:block;margin-top:9px;color:#7b8798;font-size:11px;font-weight:700}@media(max-width:650px){.topics{grid-template-columns:1fr}.resources{grid-template-columns:repeat(2,minmax(0,1fr))}}
-  </style></head><body><header class="top"><div class="brand">Colegio La Salle del Sur · Catequesis 2026</div><h1>${esc(s.title)}</h1><p>${esc(s.subtitle)}</p></header><main class="wrap"><div class="actions"><span class="pill">ETAPA ${idx+1} · ${s.topics.length} TEMAS</span><button class="back" id="return-main">🏠 Volver al panel principal</button></div><p class="intro">Elige un tema para consultar su contenido y abrir sus materiales.</p><div class="topics">${topicCards}</div><section class="detail" id="topic-detail"><h2 id="detail-title"></h2><div id="detail-content"></div><div class="resources" id="resources"></div><div class="notice" id="notice" role="status"></div></section><div class="bottom">Camino hacia Jesús · Con fe, alegría y amor ✨<span class="copyright">© 2026 Colegio La Salle del Sur · Programa Camino hacia Jesús. Todos los derechos reservados.</span></div></main><script>
-  const data=${JSON.stringify(s.topics)};const stageName=${JSON.stringify(s.title)};const detail=document.getElementById('topic-detail');
-  function safe(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-  document.querySelectorAll('[data-topic]').forEach(btn=>btn.addEventListener('click',()=>{const t=data[Number(btn.dataset.topic)];document.querySelectorAll('[data-topic]').forEach(x=>x.classList.toggle('active',x===btn));document.getElementById('detail-title').textContent='Tema '+t[0]+': '+t[1];document.getElementById('detail-content').innerHTML='<strong>Contenidos del tema:</strong><ul>'+t[2].map(x=>'<li>'+safe(x)+'</li>').join('')+'</ul>';const res=[['📖','Material de clase'],['📄','Ficha de trabajo'],['✍️','Práctica'],['✅','Evaluación'],['🎵','Canción'],['🎬','Video']];document.getElementById('resources').innerHTML=res.map(([e,n])=>'<button class="resource" data-res="'+n+'">'+e+' '+n+'</button>').join('');document.getElementById('notice').classList.remove('show');document.querySelectorAll('[data-res]').forEach(b=>b.addEventListener('click',()=>{const n=b.dataset.res,box=document.getElementById('notice');box.textContent=n+': este espacio está listo para vincular el archivo o enlace correspondiente. El recurso real se mostrará cuando se incorpore al portal.';box.classList.add('show')}));detail.classList.add('open');detail.scrollIntoView({behavior:'smooth',block:'start'});}));
-  document.getElementById('return-main').addEventListener('click',()=>{if(window.opener&&!window.opener.closed){window.opener.focus();window.close();}else{location.href='./index.html';}});
-  <\/script></body></html>`);
-  win.document.close();win.focus();
-}
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function showResource(name,stage,topic){$('modal-emoji').textContent=({'Material de clase':'📖','Ficha de trabajo':'📄','Práctica':'✍️','Evaluación':'✅','Canción':'🎵','Video':'🎬','Prácticas':'✍️','Evaluaciones':'🌟','Canciones':'🎵','Videos':'🎬'}[name]||'📚');$('modal-title').textContent=name;$('modal-text').textContent=`${stage?stage+' · ':''}${topic?topic+' · ':''}Este espacio está preparado para vincular el archivo o enlace correspondiente. Para abrir el material real, todavía hay que añadir su archivo o enlace.`;$('resource-modal').classList.add('show')}
-document.querySelectorAll('.stage').forEach(b=>b.addEventListener('click',()=>openStage(Number(b.dataset.stage))));document.querySelectorAll('[data-resource]').forEach(b=>b.addEventListener('click',()=>showResource(b.dataset.resource,'Recursos generales','')));$('modal-close').onclick=()=>$('resource-modal').classList.remove('show');$('resource-modal').addEventListener('click',e=>{if(e.target===$('resource-modal'))$('resource-modal').classList.remove('show')});document.addEventListener('keydown',e=>{if(e.key==='Escape')$('resource-modal').classList.remove('show')});
-const monthNames=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-const week=['L','M','X','J','V','S','D'];
-function dateKey(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
 
-// El calendario sigue la numeración académica de los temas, no el orden visual de los seis botones.
-const orderedTopics=stages.flatMap((stage,stageIndex)=>stage.topics.map(t=>({stage:stage.title,stageIndex,num:t[0],title:t[1],content:t[2]}))).sort((a,b)=>a.num-b.num);
-const calendarEntries=new Map();
-const preparationDates=[];
-for(let d=new Date(2026,5,16,12);d<=new Date(2026,11,1,12);d.setDate(d.getDate()+1)){
-  if(d.getDay()===2||d.getDay()===4)preparationDates.push(new Date(d));
-}
-// Programación acordada: las primeras siete clases llevan dos temas cada una:
-// 16, 18, 23, 25 y 30 de junio; 2 y 7 de julio. Desde el 9 de julio, un tema por clase.
-const preparationTopics=orderedTopics.filter(t=>t.num<56);
-let topicCursor=0;
-preparationDates.forEach((d,i)=>{
-  if(topicCursor>=preparationTopics.length)return;
-  const amount=i<7?2:1;
-  const topicsForDate=preparationTopics.slice(topicCursor,topicCursor+amount);
-  if(topicsForDate.length){
-    calendarEntries.set(dateKey(d),{type:'lesson',session:i+1,topics:topicsForDate});
-    topicCursor+=topicsForDate.length;
-  }
-});
-// Fecha solicitada por el programa: Primera Comunión, jueves 3 de diciembre de 2026.
-calendarEntries.set('2026-12-03',{type:'event',title:'¡Primera Comunión!',description:'Celebración del sacramento de la Eucaristía. Que Jesús acompañe a cada niño y a su familia en este día especial.'});
-// Tema posterior a la celebración.
-const afterCommunion=orderedTopics.find(t=>t.num===56);
-if(afterCommunion)calendarEntries.set('2026-12-08',{type:'lesson',session:preparationDates.length+1,topics:[afterCommunion]});
+const grid = document.getElementById('stages-grid');
+stages.forEach((stage, idx) => {
+  const card = document.createElement('div');
+  card.className = 'stage-card';
+  
+  let topicsHtml = stage.topics.map(t => `
+    <div class="topic-item">
+      <span class="topic-number">Tema ${t[0]}</span>
+      <div class="topic-name">${t[1]}</div>
+      ${Array.isArray(t[2]) ? `<ul class="topic-bullets">${t[2].map(b => `<li>${b}</li>`).join('')}</ul>` : `<div style="font-size:12px;font-weight:700;color:#4b5d73;">${t[2]}</div>`}
+    </div>
+  `).join('');
 
-function renderCalendar(){
-  const y=currentMonth.getFullYear(),m=currentMonth.getMonth();
-  $('month-label').textContent=`${monthNames[m]} ${y}`;
-  const g=$('calendar-grid');g.innerHTML='';
-  week.forEach(w=>{const e=document.createElement('div');e.className='weekday';e.textContent=w;g.appendChild(e)});
-  const first=(new Date(y,m,1,12).getDay()+6)%7,days=new Date(y,m+1,0,12).getDate();
-  for(let i=0;i<first;i++)g.appendChild(document.createElement('div'));
-  for(let day=1;day<=days;day++){
-    const d=new Date(y,m,day,12),key=dateKey(d),entry=calendarEntries.get(key),b=document.createElement('button');
-    b.className='day';b.textContent=day;
-    if(entry){
-      b.classList.add(entry.type==='event'?'communion-day':'classday');
-      if(entry.type==='lesson'){b.classList.add('c'+(((entry.session-1)%6)+1));if(entry.topics.length>1)b.classList.add('double-session');if(entry.session<=5)b.classList.add('first-five-session');}
-      if(selectedDate&&key===dateKey(selectedDate))b.classList.add('selected');
-      b.title=entry.type==='event'?'Primera Comunión':`Encuentro de catequesis${entry.topics.length>1?': varios temas':entry.topics[0] ? ': '+entry.topics[0].title:''}`;
-      b.setAttribute('aria-label',`${day} de ${monthNames[m]}: ${b.title}`);
-      b.setAttribute('aria-pressed',String(Boolean(selectedDate&&key===dateKey(selectedDate))));
-      b.onclick=()=>selectDate(d);
-    }else{
-      b.disabled=true;
-      b.title='Sin encuentro asignado';
-      b.setAttribute('aria-label',`${day} de ${monthNames[m]}, sin encuentro asignado`);
-    }
-    g.appendChild(b);
-  }
-}
-function renderTopicCards(topics){
-  const container=$('calendar-topic-list');container.innerHTML='';
-  topics.forEach(topic=>{
-    const card=document.createElement('div');card.className='calendar-topic-item';
-    const title=document.createElement('strong');title.textContent=`Tema ${topic.num}: ${topic.title}`;card.appendChild(title);
-    const stage=document.createElement('span');stage.className='topic-stage';stage.textContent=`Etapa: ${topic.stage}`;card.appendChild(stage);
-    if(topic.content&&topic.content.length){
-      const ul=document.createElement('ul');
-      topic.content.forEach(item=>{const li=document.createElement('li');li.textContent=item;ul.appendChild(li)});
-      card.appendChild(ul);
-    }
-    container.appendChild(card);
-  });
-}
-function selectDate(d){
-  const key=dateKey(d),entry=calendarEntries.get(key);
-  if(!entry)return;
-  selectedDate=new Date(d);
-  const weekdayName=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'][d.getDay()];
-  $('selected-date').textContent=`${weekdayName}, ${d.getDate()} de ${monthNames[d.getMonth()]}`;
-  const list=$('calendar-topic-list');list.innerHTML='';
-  if(entry.type==='event'){
-    $('calendar-topic').textContent=entry.title;
-    $('calendar-description').textContent=entry.description;
-  }else{
-    $('calendar-topic').textContent=entry.topics.length>1?'Temas del encuentro':`Tema ${entry.topics[0].num}: ${entry.topics[0].title}`;
-    $('calendar-description').textContent=entry.topics.length>1?`Encuentro ${String(entry.session).padStart(2,'0')}. Esta sesión incluye dos temas, según la programación de catequesis.`:`Encuentro ${String(entry.session).padStart(2,'0')}. Revisa el contenido previsto para esta sesión.`;
-    renderTopicCards(entry.topics);
-  }
-  renderCalendar();
-}
-$('prev-month').onclick=()=>{currentMonth=new Date(currentMonth.getFullYear(),currentMonth.getMonth()-1,1,12);renderCalendar()};
-$('next-month').onclick=()=>{currentMonth=new Date(currentMonth.getFullYear(),currentMonth.getMonth()+1,1,12);renderCalendar()};
-renderCalendar();
-// El calendario inicia en junio y selecciona la primera clase oficial: martes 16 de junio de 2026.
-const initialDate=new Date(2026,5,16,12);
-selectDate(initialDate);
-</script></body></html>
+  card.innerHTML = `
+    <div class="stage-header">
+      <div class="stage-icon">${stage.icon}</div>
+      <div class="stage-title-wrap">
+        <span>Etapa ${idx + 1}</span>
+        <h3>${stage.title}</h3>
+      </div>
+    </div>
+    <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:12px;">${stage.subtitle}</div>
+    <div class="topics-list">${topicsHtml}</div>
+  `;
+  grid.appendChild(card);
+});
+</script>
+</body>
+</html>
