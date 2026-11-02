@@ -45,7 +45,7 @@
       background-size: 100% 100%;
     }
 
-    /* PANEL CONTENEDOR DE LOS BOTONES A LA DERECHA (ESTILO 3D ACORDE AL PORTAL) */
+    /* PANEL CONTENEDOR DE LOS BOTONES A LA DERECHA */
     .panel-menu {
       position: fixed;
       z-index: 5;
@@ -53,8 +53,8 @@
       bottom: 1.5%;
       right: 0.8%;
       width: 16%;
-      max-width: 220px;
-      min-width: 140px;
+      max-width: 210px;
+      min-width: 135px;
       background: linear-gradient(145deg, #102a5c 0%, #061a38 60%, #020d22 100%);
       border: 3px solid #d7b65d;
       border-radius: 14px;
@@ -63,7 +63,7 @@
       flex-direction: column;
       justify-content: space-evenly;
       align-items: center;
-      padding: 12px 8px;
+      padding: 10px 6px;
     }
 
     .menu {
@@ -73,7 +73,7 @@
       flex-direction: column;
       justify-content: space-evenly;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       margin: 0;
       padding: 0;
     }
@@ -84,53 +84,54 @@
       align-items: center;
       width: 100%;
       flex: 1;
-      max-height: 18.5%;
+      max-height: 19%;
       min-height: 0;
+      justify-content: center;
     }
 
-    /* BOTONES 3D INTERACTIVOS */
+    /* BOTONES 3D PROPORCIONADOS E INTERACTIVOS */
     .boton {
-      width: 72%;
-      height: 70%;
-      max-width: 115px;
-      min-height: 0;
+      width: 82%;
+      height: 72%;
+      max-width: 105px;
+      max-height: 105px;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto;
       padding: 0;
       border: 2px solid #f5d477;
-      border-radius: 10px;
-      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.25), rgba(10, 35, 83, 0.8));
-      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+      border-radius: 12px;
+      background: transparent;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.6);
       cursor: pointer;
       line-height: 0;
       overflow: hidden;
       -webkit-tap-highlight-color: transparent;
-      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, background 0.2s ease;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, filter 0.2s ease;
     }
 
     .boton img {
       display: block;
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
       object-position: center;
+      border-radius: 10px;
       border: none;
       margin: 0;
       padding: 0;
-      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.4));
     }
 
     .boton:hover {
-      transform: translateY(-3px) scale(1.06);
-      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), rgba(20, 55, 120, 0.9));
-      box-shadow: 0 8px 18px rgba(215, 182, 93, 0.4), inset 0 1px 3px rgba(255, 255, 255, 0.8);
+      transform: translateY(-4px) scale(1.06);
+      box-shadow: 0 10px 22px rgba(215, 182, 93, 0.5), inset 0 1px 4px rgba(255, 255, 255, 0.9);
+      filter: brightness(1.08);
     }
 
     .boton:active {
-      transform: translateY(1px) scale(0.98);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6), inset 0 2px 4px rgba(0, 0, 0, 0.4);
+      transform: translateY(2px) scale(0.97);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
     }
 
     /* NOMBRE DE CADA BOTÓN DEBAJO */
@@ -226,7 +227,7 @@
     @media (max-width: 600px) {
       .panel-menu {
         width: 24%;
-        padding: 6px 3px;
+        padding: 5px 2px;
       }
       .portada {
         right: 25.5%;
@@ -455,12 +456,11 @@
         controlAudio.setAttribute("aria-label", "Reproducir música");
       });
 
-      /* INTENTAR REPRODUCIR LA MÚSICA CON INTERACCIÓN DE USUARIO O CARGA */
+      /* INTENTAR REPRODUCIR LA MÚSICA CON CARGA E INTERACCIÓN */
       window.addEventListener("load", () => {
         iniciarMusica();
       }, { once: true });
 
-      // Permite iniciar música con cualquier clic en la página si el navegador bloquea el autoplay inicial
       document.body.addEventListener("click", () => {
         if (musica.paused && !silenciado) {
           iniciarMusica();
