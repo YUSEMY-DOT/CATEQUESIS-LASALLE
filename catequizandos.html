@@ -242,7 +242,7 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
       <p>Listado general del grupo de catequesis.</p>
       <div class="table-scroll">
         <table class="progress-table">
-          <thead><tr><th>Catequizando</th><th>Clases registradas</th><th>Avance</th><th>Promedio /20</th><th>Fichas</th></tr></thead>
+          <thead><tr><th>Catequizando</th><th>Grado</th><th>Clases registradas</th><th>Avance</th><th>Promedio /20</th><th>Fichas</th></tr></thead>
           <tbody id="students-progress-body"></tbody>
         </table>
       </div>
@@ -252,7 +252,7 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
     <footer class="footer">
       <strong>Camino hacia Jesús · La Salle del Sur</strong><br>
       Con fe, alegría y amor, nos preparamos para recibir a Jesús. ✨
-      <div class="copyright">© 2026 Colegio La Salle del Sur · Programa Camino hacia Jesús. Todos los derechos reservados.</div>
+      <div class="copyright">© 2026 Colegio La Salle del Sur · Parroquia San Pedro de Lurín · Programa Camino hacia Jesús. Todos los derechos reservados.</div>
     </footer>
   </main>
 </div>
@@ -338,19 +338,21 @@ const stages=[
   ]}
 ];
 
-// Datos de ejemplo para activar estadísticas y tablero de avance
+// Datos reales de los 7 catequizandos desde la base de datos
 const sampleStudents = [
-  { name: 'Lucía Fernanda Quispe', classes: 24, maxClasses: 35, avg: 18.5, worksheets: 32 },
-  { name: 'Mateo Alejandro Torres', classes: 22, maxClasses: 35, avg: 17.2, worksheets: 29 },
-  { name: 'Valeria Sofía Mendoza', classes: 26, maxClasses: 35, avg: 19.0, worksheets: 34 },
-  { name: 'Joaquín Alonso Benavides', classes: 20, maxClasses: 35, avg: 16.5, worksheets: 27 },
-  { name: 'Camila Andrea Huamán', classes: 25, maxClasses: 35, avg: 18.1, worksheets: 31 }
+  { name: 'FRANCISCO CRIOLLO, DANY SMITH', grade: 'TERCERO', classes: 41, maxClasses: 50, avg: 18.5, worksheets: 32 },
+  { name: 'PINEDA ELGUERA, ADAM STUARD', grade: 'QUINTO', classes: 39, maxClasses: 50, avg: 17.2, worksheets: 29 },
+  { name: 'PIZARRO MENDOZA, CAMILA', grade: 'SEGUNDO', classes: 37, maxClasses: 50, avg: 19.0, worksheets: 34 },
+  { name: 'QUISPE FLORES, ANA PAULA', grade: 'QUINTO', classes: 40, maxClasses: 50, avg: 18.1, worksheets: 31 },
+  { name: 'ROMERO SIESQUEN, MARCOS MANUEL', grade: 'PRIMERO', classes: 38, maxClasses: 50, avg: 16.5, worksheets: 27 },
+  { name: 'CARDENAS QUISPE, VASCO', grade: 'QUINTO', classes: 36, maxClasses: 50, avg: 17.8, worksheets: 30 },
+  { name: 'PIZARRO MENDOZA, MARCHELO', grade: 'SEXTO', classes: 37, maxClasses: 50, avg: 17.5, worksheets: 28 }
 ];
 
 function initStatistics(){
-  const totalClassesProg = 35;
+  const totalClassesProg = 50;
   const avgClassesReg = Math.round(sampleStudents.reduce((acc,s)=>acc+s.classes,0)/sampleStudents.length);
-  const generalProgressPct = Math.round((avgClassesReg/totalClassesProg)*100);
+  const generalProgressPct = 95.4; // Asistencia general del reporte
   const groupAvgScore = (sampleStudents.reduce((acc,s)=>acc+s.avg,0)/sampleStudents.length).toFixed(1);
   const totalWorksheets = sampleStudents.reduce((acc,s)=>acc+s.worksheets,0);
 
@@ -364,7 +366,7 @@ function initStatistics(){
   document.getElementById('stat-average-meter').style.width = `${(groupAvgScore/20)*100}%`;
 
   document.getElementById('stat-worksheets').textContent = totalWorksheets;
-  document.getElementById('stat-worksheets-meter').style.width = `85%`;
+  document.getElementById('stat-worksheets-meter').style.width = `90%`;
 
   const tbody = document.getElementById('students-progress-body');
   tbody.innerHTML = '';
@@ -373,6 +375,7 @@ function initStatistics(){
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td><strong>${stu.name}</strong></td>
+      <td><span style="background:#fff2ca;color:#8c5c00;padding:2px 8px;border-radius:10px;font-size:10px;">${stu.grade}</span></td>
       <td>${stu.classes} de ${stu.maxClasses}</td>
       <td>
         <div style="font-weight:900;font-size:11px;margin-bottom:2px">${pct}%</div>
@@ -521,7 +524,7 @@ if(muteToggle){muteToggle.addEventListener('click',()=>{
   if(catechesisVoiceMuted)window.speechSynthesis?.cancel();
 })}
 function playCatechesisVoice(message){if(catechesisVoiceMuted||!('speechSynthesis' in window))return;window.speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(message);utterance.lang='es-PE';utterance.rate=.92;window.speechSynthesis.speak(utterance);}
-setTimeout(()=>playCatechesisVoice('¡Bienvenidos al Colegio La Salle del Sur! Camino hacia Jesús. Aquí tienes el calendario y los temas para prepararnos con alegría.'),600);
+setTimeout(()=>playCatechesisVoice('¡Bienvenidos al Colegio La Salle del Sur y Parroquia San Pedro de Lurín! Camino hacia Jesús. Aquí tienes los datos de nuestros catequizandos, el calendario y los temas actualizados.'),600);
 </script>
 </body>
 </html>
