@@ -14,14 +14,14 @@ header{background:radial-gradient(circle at 80% 20%,#174878 0,#0b2850 35%,#06152
 .topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;position:relative;z-index:1}
 .brand{display:flex;align-items:center;gap:13px}.crest{width:90px;height:90px;min-width:90px;object-fit:contain;filter:drop-shadow(0 5px 10px #0006)}
 .brand h2{font:700 clamp(16px,2vw,22px) Fredoka,sans-serif;color:#ffdf94;margin:0}.brand small{display:block;color:#d7e6f8;font-weight:800;letter-spacing:1px;text-transform:uppercase;font-size:11px}
-.badge{display:inline-block;margin-top:5px;border:1px solid #e8bd6090;background:#ffffff12;border-radius:20px;padding:3px 11px;color:#ffe8a3;font:500 12px Fredoka,sans-serif}
 .top-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap}
 .mute-toggle{border:1px solid #f0c75a;border-radius:24px;padding:9px 13px;background:#fff8e5;color:#17385f;font-size:12px;font-weight:900;cursor:pointer;white-space:nowrap;box-shadow:0 3px 9px #081c3b0c}
 .mute-toggle:hover{background:#ffe8a0;border-color:#d9a528}
 .home{background:#ffc94d;color:#102b4e;border:1px solid #fff2c9;border-radius:24px;padding:9px 16px;font-weight:900;box-shadow:0 4px 12px #0002;white-space:nowrap}
 .hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);gap:clamp(14px,2vw,25px);align-items:center;padding-top:16px;position:relative;z-index:1}
+.hero-copy{text-align:center}
 .hero h1{font:700 clamp(30px,3.2vw,44px)/1.05 Fredoka,sans-serif;margin:8px 0;color:#fff}.hero h1 span{color:#ffdf94}
-.hero p{max-width:760px;color:#e0ebf9;font-size:clamp(14px,1.15vw,16px);font-weight:700;margin:0}
+.hero p{max-width:760px;margin:0 auto;color:#e0ebf9;font-size:clamp(14px,1.15vw,16px);font-weight:700}
 .countdown{max-width:410px;width:100%;justify-self:end;padding:10px 12px;border-radius:15px;background:linear-gradient(140deg,#173e69,#214c79);border:1px solid #e5c76d;box-shadow:0 7px 17px #091c351f}
 .countdown-title{font:700 clamp(14px,1.25vw,17px)/1.2 Fredoka,sans-serif;color:#ffe5a0;text-align:center;margin-bottom:6px}
 .timer{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;width:100%}
@@ -43,7 +43,6 @@ main{padding:0 clamp(14px,2.5vw,36px) 40px}
 .avatar-choice{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:68px;border:2px solid #fff;background:#ffffffd9;border-radius:16px;padding:9px 6px;color:#163354;font-weight:900;box-shadow:0 4px 10px #7b5a1910;cursor:pointer;transition:.18s}
 .avatar-choice span{font-size:28px}.avatar-choice small{font-size:9px}.avatar-choice:hover{transform:translateY(-2px)}
 .avatar-choice[aria-pressed="true"]{border-color:#e5a821;background:#fff2bb;box-shadow:0 0 0 2px #f8d97655,0 5px 12px #7b5a1918}
-.avatar-tip{margin-top:9px;font-size:11px;color:#73571d;font-weight:900}
 
 .section{margin-top:26px}.eyebrow{color:#9b6b10;font:600 12px Fredoka,sans-serif;letter-spacing:1.3px;text-transform:uppercase}
 .section h2{font:700 clamp(23px,2.8vw,32px) Fredoka,sans-serif;color:#12345a;margin:2px 0 14px}
@@ -92,7 +91,6 @@ main{padding:0 clamp(14px,2.5vw,36px) 40px}
 .topic-content .topic-stage{display:block;font-size:11px;color:#986c13;font-weight:900;margin:0 0 5px}
 .topic-content ul{padding-left:18px;margin:5px 0 10px}
 .topic-content li{font-size:12px;color:#4b5d73;font-weight:700;margin:3px 0}
-.topic-close-button{border:1px solid #e4c77e;border-radius:18px;background:#fff8e7;color:#76521a;padding:5px 12px;font-size:11px;font-weight:900;cursor:pointer}
 .calendar-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;color:#61738a;font-size:11px;font-weight:800}
 .legend-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#d4a21f;margin-right:4px}
 .legend-special{display:inline-block;width:8px;height:8px;border-radius:3px;background:#ffe9e9;border:1px solid #d76b6b;margin-right:4px}
@@ -152,7 +150,6 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
         <div>
           <h2>COLEGIO LA SALLE DEL SUR</h2>
           <small>Programa de Catequesis · 2026</small>
-          <span class="badge">✨ Camino hacia Jesús ✨</span>
         </div>
       </div>
       <div class="top-actions">
@@ -178,7 +175,6 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
   </header>
 
   <main>
-    <!-- BIENVENIDA INTERACTIVA Y ACCESOS RÁPIDOS (Sin la tercera imagen ni la frase de insignias) -->
     <section class="kid-welcome" aria-label="Bienvenida interactiva">
       <div>
         <span class="adventure-kicker">✨ TU AVENTURA DE FE COMIENZA AQUÍ</span>
@@ -198,7 +194,6 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
       </div>
     </section>
 
-    <!-- SEIS ETAPAS DE FORMACIÓN -->
     <section class="section">
       <div class="eyebrow">Nuestro itinerario</div>
       <h2>Seis etapas para crecer en la fe</h2>
@@ -212,7 +207,6 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
       </div>
     </section>
 
-    <!-- CALENDARIO -->
     <section class="section" id="calendar-section">
       <div class="eyebrow">Organiza tus encuentros</div>
       <h2>📅 Calendario de catequesis</h2>
@@ -243,7 +237,6 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
       </div>
     </section>
 
-    <!-- PROGRESO Y ESTADÍSTICAS -->
     <div class="progress-title">
       <h3>📊 Progreso del grupo y estadísticas</h3>
       <p>Resumen general de participación, fichas entregadas y promedios.</p>
@@ -309,7 +302,7 @@ const stages=[
     [15,'El Santo Rosario',['Qué es','Cómo se reza','Misterios']]
   ]},
   {title:'Los sacramentos',subtitle:'Signos de la gracia de Dios.',topics:[
-    [29,'¿Qué es un Sacramento?',['Signo visible','Gracia']],
+    [29,'¿Quién es un Sacramento?',['Signo visible','Gracia']],
     [30,'Los Siete Sacramentos',['Clasificación: Iniciación, Curación y Servicio']],
     [31,'La Gracia',['Gracia santificante','Vivir en gracia']],
     [32,'El Bautismo',['Agua, óleo, vela','Incorporación a la Iglesia']],
