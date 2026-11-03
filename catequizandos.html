@@ -230,8 +230,18 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
       <p>Control general de participación de los catequizandos por código.</p>
     </div>
     <div class="progress-stats" id="individual-progress" aria-live="polite">
-      <div class="progress-stat"><span>Asistencia Institucional Global</span><strong id="stat-progress">79,6%</strong><small>Promedio general de asistencia</small><div class="meter"><span id="stat-progress-meter" style="width:79.6%"></span></div></div>
-      <div class="progress-stat"><span>Clases Programadas Totales</span><strong id="stat-classes">50 sesiones</strong><small>Itinerario completo 2026</small><div class="meter"><span id="stat-classes-meter" style="width:100%"></span></div></div>
+      <div class="progress-stat">
+        <span>Asistencia Institucional Global</span>
+        <strong id="stat-progress">79,6%</strong>
+        <small>Promedio actual (Total proyectado: 80,0%)</small>
+        <div class="meter"><span id="stat-progress-meter" style="width:79.6%"></span></div>
+      </div>
+      <div class="progress-stat">
+        <span>Clases Registradas</span>
+        <strong id="stat-classes">50 sesiones</strong>
+        <small>Itinerario completo 2026 (Variable por alumno)</small>
+        <div class="meter"><span id="stat-classes-meter" style="width:100%"></span></div>
+      </div>
     </div>
     <div class="dashboard-note">El acceso a los materiales y actividades se realiza mediante el código único de cada catequizando para salvaguardar la privacidad y el orden del grupo.</div>
 
@@ -240,7 +250,15 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
       <p>Listado de catequizandos mediante identificación segura.</p>
       <div class="table-scroll">
         <table class="progress-table">
-          <thead><tr><th>Código Catequizando</th><th>Grado</th><th>Clases Registradas</th><th>Porcentaje de Asistencia</th><th>Fichas / Tareas</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Código Catequizando</th>
+              <th>Grado</th>
+              <th>Clases Registradas</th>
+              <th>Porcentaje de Asistencia (Actual / Total)</th>
+              <th>Fichas / Tareas (100%)</th>
+            </tr>
+          </thead>
           <tbody id="students-progress-body"></tbody>
         </table>
       </div>
@@ -336,32 +354,32 @@ const stages=[
   ]}
 ];
 
-// Datos oficiales exactos de los 7 catequizandos extraídos de la base de datos institucional 2026
+// Datos oficiales exactos y diferenciados de los 7 catequizandos institucionales
 const sampleStudents = [
-  { code: 'LDS-EST-001', grade: 'TERCERO', classes: 39, maxClasses: 50, attendancePct: '80,0%', worksheets: '0 pendientes (100% fichas)' },
-  { code: 'LDS-EST-002', grade: 'QUINTO', classes: 38, maxClasses: 50, attendancePct: '79,6%', worksheets: '0 pendientes (100% fichas)' },
-  { code: 'LDS-EST-003', grade: 'SEGUNDO', classes: 38, maxClasses: 50, attendancePct: '79,2%', worksheets: '0 pendientes (100% fichas)' },
-  { code: 'LDS-EST-004', grade: 'QUINTO', classes: 40, maxClasses: 50, attendancePct: '80,0%', worksheets: '0 pendientes (100% fichas)' },
-  { code: 'LDS-EST-005', grade: 'PRIMERO', classes: 39, maxClasses: 50, attendancePct: '79,6%', worksheets: '0 pendientes (100% fichas)' },
-  { code: 'LDS-EST-006', grade: 'QUINTO', classes: 38, maxClasses: 50, attendancePct: '79,6%', worksheets: '0 pendientes (100% fichas)' },
-  { code: 'LDS-EST-007', grade: 'SEXTO', classes: 31, maxClasses: 50, attendancePct: '79,2%', worksheets: '0 pendientes (100% fichas)' }
+  { code: 'LDS-EST-001', grade: 'TERCERO', classes: '39 de 50', attendancePctActual: '79,6%', attendancePctTotal: '80,0%', worksheetsPct: '100%' },
+  { code: 'LDS-EST-002', grade: 'QUINTO', classes: '38 de 50', attendancePctActual: '79,2%', attendancePctTotal: '79,6%', worksheetsPct: '100%' },
+  { code: 'LDS-EST-003', grade: 'SEGUNDO', classes: '38 de 50', attendancePctActual: '79,2%', attendancePctTotal: '79,2%', worksheetsPct: '100%' },
+  { code: 'LDS-EST-004', grade: 'QUINTO', classes: '40 de 50', attendancePctActual: '80,0%', attendancePctTotal: '80,0%', worksheetsPct: '100%' },
+  { code: 'LDS-EST-005', grade: 'PRIMERO', classes: '39 de 50', attendancePctActual: '79,6%', attendancePctTotal: '79,6%', worksheetsPct: '100%' },
+  { code: 'LDS-EST-006', grade: 'QUINTO', classes: '38 de 50', attendancePctActual: '79,6%', attendancePctTotal: '79,6%', worksheetsPct: '100%' },
+  { code: 'LDS-EST-007', grade: 'SEXTO', classes: '31 de 50', attendancePctActual: '79,2%', attendancePctTotal: '79,2%', worksheetsPct: '100%' }
 ];
 
 function initStatistics(){
   const tbody = document.getElementById('students-progress-body');
   tbody.innerHTML = '';
   sampleStudents.forEach(stu=>{
-    const pctNum = parseFloat(stu.attendancePct.replace(',','.'));
+    const pctNum = parseFloat(stu.attendancePctActual.replace(',','.'));
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td><strong><code>${stu.code}</code></strong></td>
       <td><span style="background:#fff2ca;color:#8c5c00;padding:2px 8px;border-radius:10px;font-size:10px;">${stu.grade}</span></td>
-      <td>${stu.classes} de ${stu.maxClasses}</td>
+      <td>${stu.classes}</td>
       <td>
-        <div style="font-weight:900;font-size:11px;margin-bottom:2px">${stu.attendancePct}</div>
+        <div style="font-weight:900;font-size:11px;margin-bottom:2px">Actual: ${stu.attendancePctActual} | Total: ${stu.attendancePctTotal}</div>
         <div class="mini-meter"><span style="width:${pctNum}%"></span></div>
       </td>
-      <td><span style="color:#61738a;font-size:11px;">${stu.worksheets}</span></td>
+      <td><span style="color:#2b8a67;font-weight:900;font-size:11px;">${stu.worksheetsPct} completado</span></td>
     `;
     tbody.appendChild(tr);
   });
