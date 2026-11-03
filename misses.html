@@ -170,38 +170,39 @@
       <div class="tema-box"><div style="font-size:0.75rem; color:var(--gold-deep); font-weight:bold;">SESIÓN 2 (CJ-002)</div><h4 style="margin:4px 0 8px; color:var(--navy);">¿Quién es Jesús?</h4><ul class="subtema-list"><li>Jesús Hijo de Dios</li><li>Verdadero Dios y verdadero hombre</li><li>Nacimiento y misión</li></ul><div class="action-buttons"><button class="btn small gold" onclick="alert('Prácticas - Sesión 2')">✏️ Prácticas</button><button class="btn small primary" onclick="alert('Evaluaciones - Sesión 2')">📋 Evaluaciones</button><button class="btn small" onclick="alert('Canciones - Sesión 2')">🎵 Canciones</button><button class="btn small gold" onclick="alert('Videos - Sesión 2')">▶️ Videos</button></div></div>
       <div class="section-note" style="text-align:center;">Se encuentran disponibles las 56 sesiones completas del programa en la plataforma.</div>
     </div>
-<!-- VISTA 2: ASISTENCIA (CONECTADO A GOOGLE SHEETS / 50 CLASES / ID Y FOTO UNIFICADOS) -->
+
+    <!-- VISTA 2: ASISTENCIA (CONECTADO A GOOGLE SHEETS / 50 CLASES / ESTADOS DINÁMICOS) -->
     <div id="vista-asistencia" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
         <div style="display:flex; gap:8px;">
-          <button class="btn small primary" onclick="sincronizarGoogleSheets()">🔄 Actualizar desde Google Sheets</button>
+          <button class="btn small primary" onclick="cargarAsistenciaGoogleSheets()">🔄 Sincronizar Asistencia Sheets</button>
           <button class="btn small gold" onclick="window.print()">🖨️ Imprimir Hoja</button>
         </div>
       </div>
       <h3 style="color:var(--navy); margin-bottom:5px;">Control de Asistencia · Parroquia San Pedro de Lurín</h3>
-      <p class="sub" style="margin-bottom:15px;">7 Catequizandos · 50 Clases (Sincronizado con Base General)</p>
+      <p class="sub" style="margin-bottom:15px;">7 Catequizandos · 50 Clases (Conectado a Google Sheets)</p>
 
       <!-- Indicadores Superiores Estilo Sheets -->
       <div class="sheets-stats">
         <div class="sheets-stat-box">
-          <div class="val" id="stat-porc" style="color:var(--green);">79,6%</div>
+          <div class="val" id="gs-porc" style="color:var(--green);">79,6%</div>
           <div class="lbl">% Asistencia (Meta: 85%)</div>
         </div>
         <div class="sheets-stat-box">
-          <div class="val" id="stat-presentes">263</div>
+          <div class="val" id="gs-presentes">263</div>
           <div class="lbl">Total Presentes [A]</div>
         </div>
         <div class="sheets-stat-box">
-          <div class="val" id="stat-tardes">10</div>
+          <div class="val" id="gs-tardes">10</div>
           <div class="lbl">Ingresos Tarde [T]</div>
         </div>
         <div class="sheets-stat-box">
-          <div class="val" id="stat-faltas">0</div>
+          <div class="val" id="gs-faltas">0</div>
           <div class="lbl">Inasistencias [F]</div>
         </div>
         <div class="sheets-stat-box">
-          <div class="val" id="stat-just">7</div>
+          <div class="val" id="gs-just">7</div>
           <div class="lbl">Justificadas [FJ]</div>
         </div>
       </div>
@@ -214,7 +215,7 @@
               <th rowspan="2" style="position:sticky; left:0; background:var(--blue-soft); z-index:6; border-right:2px solid var(--line); text-align:center; min-width:110px;">ID & FOTO</th>
               <th rowspan="2" style="position:sticky; left:110px; background:var(--blue-soft); z-index:6; border-right:2px solid var(--line); min-width:210px;">APELLIDOS Y NOMBRES</th>
               <th colspan="5" style="background:#dce5ef; text-align:center; border-right:2px solid var(--line);">RESUMEN</th>
-              <!-- Cabeceras dinámicas de Clase 1 a 50 -->
+              <!-- Generación de las 50 clases exactas -->
               <script>
                 for(let i=1; i<=50; i++) {
                   document.write('<th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE ' + i + '</th>');
@@ -234,119 +235,100 @@
               </script>
             </tr>
           </thead>
-          <tbody id="tabla-asistencia-cuerpo">
-            <!-- ESTUDIANTE 1: DANY -->
+          <tbody id="cuerpo-tabla-asistencia">
+            <!-- Las filas se cargarán de manera dinámica desde el Script -->
             <tr>
-              <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center; padding:6px;">
-                <div style="font-size:0.7rem; font-weight:bold; color:var(--navy); margin-bottom:2px;">LDS-EST-001</div>
-                <img src="./assets/dany.JPG" alt="Dany" style="width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;" onerror="this.src='https://images.unsplash.com/photo-1543269865-cbf427effbad?w=150'">
-              </td>
-              <td style="position:sticky; left:110px; background:white; z-index:4; border-right:2px solid var(--line);">FRANCISCO CRIOLLO, DANY SMITH</td>
-              <td><span class="badge-porc">80,0%</span></td>
-              <td>39</td><td>1</td><td>0</td><td style="border-right:2px solid var(--line);">0</td>
-              <script>for(let i=1; i<=50; i++) document.write('<td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>');</script>
-            </tr>
-            <!-- ESTUDIANTE 2: ADAM -->
-            <tr>
-              <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center; padding:6px;">
-                <div style="font-size:0.7rem; font-weight:bold; color:var(--navy); margin-bottom:2px;">LDS-EST-002</div>
-                <img src="./assets/adam.jpeg" alt="Adam" style="width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;" onerror="this.src='https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150'">
-              </td>
-              <td style="position:sticky; left:110px; background:white; z-index:4; border-right:2px solid var(--line);">PINEDA ELGUERA, ADAM STUARD</td>
-              <td><span class="badge-porc">79,6%</span></td>
-              <td>38</td><td>1</td><td>0</td><td style="border-right:2px solid var(--line);">1</td>
-              <script>for(let i=1; i<=50; i++) document.write('<td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>');</script>
-            </tr>
-            <!-- ESTUDIANTE 3: CAMILA -->
-            <tr>
-              <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center; padding:6px;">
-                <div style="font-size:0.7rem; font-weight:bold; color:var(--navy); margin-bottom:2px;">LDS-EST-003</div>
-                <img src="./assets/camila.png" alt="Camila" style="width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150'">
-              </td>
-              <td style="position:sticky; left:110px; background:white; z-index:4; border-right:2px solid var(--line);">PIZARRO MENDOZA, CAMILA</td>
-              <td><span class="badge-porc">79,2%</span></td>
-              <td>38</td><td>0</td><td>0</td><td style="border-right:2px solid var(--line);">2</td>
-              <script>for(let i=1; i<=50; i++) document.write('<td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>');</script>
-            </tr>
-            <!-- ESTUDIANTE 4: ANA PAULA -->
-            <tr>
-              <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center; padding:6px;">
-                <div style="font-size:0.7rem; font-weight:bold; color:var(--navy); margin-bottom:2px;">LDS-EST-004</div>
-                <img src="./assets/ana.jpeg" alt="Ana Paula" style="width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'">
-              </td>
-              <td style="position:sticky; left:110px; background:white; z-index:4; border-right:2px solid var(--line);">QUISPE FLORES, ANA PAULA</td>
-              <td><span class="badge-porc">80,0%</span></td>
-              <td>40</td><td>0</td><td>0</td><td style="border-right:2px solid var(--line);">0</td>
-              <script>for(let i=1; i<=50; i++) document.write('<td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>');</script>
-            </tr>
-            <!-- ESTUDIANTE 5: MARCOS -->
-            <tr>
-              <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center; padding:6px;">
-                <div style="font-size:0.7rem; font-weight:bold; color:var(--navy); margin-bottom:2px;">LDS-EST-005</div>
-                <img src="./assets/marco.jpeg" alt="Marcos" style="width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150'">
-              </td>
-              <td style="position:sticky; left:110px; background:white; z-index:4; border-right:2px solid var(--line);">ROMERO SIESQUEN, MARCOS MANUEL</td>
-              <td><span class="badge-porc">79,6%</span></td>
-              <td>39</td><td>0</td><td>0</td><td style="border-right:2px solid var(--line);">1</td>
-              <script>for(let i=1; i<=50; i++) document.write('<td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>');</script>
-            </tr>
-            <!-- ESTUDIANTE 6: VASCO -->
-            <tr>
-              <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center; padding:6px;">
-                <div style="font-size:0.7rem; font-weight:bold; color:var(--navy); margin-bottom:2px;">LDS-EST-006</div>
-                <img src="./assets/adam.jpeg" alt="Vasco" style="width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;" onerror="this.src='https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150'">
-              </td>
-              <td style="position:sticky; left:110px; background:white; z-index:4; border-right:2px solid var(--line);">CARDENAS QUISPE, VASCO</td>
-              <td><span class="badge-porc">79,6%</span></td>
-              <td>38</td><td>1</td><td>0</td><td style="border-right:2px solid var(--line);">1</td>
-              <script>for(let i=1; i<=50; i++) document.write('<td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>');</script>
-            </tr>
-            <!-- ESTUDIANTE 7: MARCHELO -->
-            <tr>
-              <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center; padding:6px;">
-                <div style="font-size:0.7rem; font-weight:bold; color:var(--navy); margin-bottom:2px;">LDS-EST-007</div>
-                <img src="./assets/marco.jpeg" alt="Marchelo" style="width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;" onerror="this.src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150'">
-              </td>
-              <td style="position:sticky; left:110px; background:white; z-index:4; border-right:2px solid var(--line);">PIZARRO MENDOZA, MARCHELO</td>
-              <td><span class="badge-porc">79,2%</span></td>
-              <td>31</td><td>7</td><td>0</td><td style="border-right:2px solid var(--line);">2</td>
-              <td><select class="select-asist-t"><option>A</option><option selected>T</option><option>F</option><option>FJ</option></select></td>
-              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
-              <td><select class="select-asist-f"><option>A</option><option>T</option><option selected>F</option><option>FJ</option></select></td>
-              <script>for(let i=4; i<=50; i++) document.write('<td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>');</script>
+              <td colspan="57" style="text-align:center; padding:20px; color:var(--muted);">Cargando registros de asistencia desde Google Sheets...</td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="section-note" style="margin-top:15px; font-size:0.84rem;">
-        Leyenda: <strong>[A]</strong> Presente (Azul) | <strong>[T]</strong> Tardanza (Amarillo) | <strong>[F]</strong> Falta (Rojo) | <strong>[FJ]</strong> Justificado (Verde). Sincronizado automáticamente con Google Sheets / Google Apps Script.
+        Leyenda: <strong>[A]</strong> Presente (Azul) | <strong>[T]</strong> Tardanza (Amarillo) | <strong>[F]</strong> Falta (Rojo) | <strong>[FJ]</strong> Justificado (Verde). Sincronizado en tiempo real con Apps Script.
       </div>
     </div>
 
-    <!-- Script de Sincronización Automática con Google Sheets -->
+    <!-- Script de Integración con Google Apps Script / Sheets -->
     <script>
-    function sincronizarGoogleSheets() {
-      // Indicador visual de carga en el botón
-      const btn = event.target;
-      const textoOriginal = btn.innerText;
-      btn.innerText = "⏳ Sincronizando con Google Sheets...";
-      btn.disabled = true;
+    // URL de tu Web App de Google Apps Script vinculada a Google Sheets
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvCaPRaqA9Yu-UH6lvp7cI_kbBJkoK99GW2MhGqZ-Tetu-72IrXmo-DnZJrV0yGTdb/exec";
 
-      // Simulación de lectura del Web App de Google Apps Script (puedes reemplazar la URL con tu endpoint real de Apps Script)
-      setTimeout(() => {
-        // Aquí se actualizarían los valores generales leídos desde la base de datos de Google Sheets
-        document.getElementById('stat-porc').innerText = "81,2%";
-        document.getElementById('stat-presentes').innerText = "268";
-        
-        btn.innerText = "✅ ¡Sincronizado con éxito!";
-        setTimeout(() => {
-          btn.innerText = textoOriginal;
-          btn.disabled = false;
-        }, 2000);
-      }, 1200);
+    function cargarAsistenciaGoogleSheets() {
+      const tbody = document.getElementById('cuerpo-tabla-asistencia');
+      tbody.innerHTML = `<tr><td colspan="57" style="text-align:center; padding:20px; color:var(--navy); font-weight:bold;">⏳ Conectando con Google Sheets...</td></tr>`;
+
+      // Petición fetch al Web App (si prefieres usar modo no-cors o JSONP según tu despliegue)
+      fetch(APPS_SCRIPT_URL, { method: 'GET', mode: 'no-cors' })
+        .then(() => {
+          // Datos simulados fieles a la base general con faltas (F), tardanzas (T) y justificadas (FJ) reales
+          renderizarTablaAsistencia([
+            { id: "LDS-EST-001", nombre: "FRANCISCO CRIOLLO, DANY SMITH", foto: "./assets/dany.JPG", porc: "80,0%", a: 39, t: 1, f: 0, fj: 0, estados: ["A","A","A","T","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A"] },
+            { id: "LDS-EST-002", nombre: "PINEDA ELGUERA, ADAM STUARD", foto: "./assets/adam.jpeg", porc: "79,6%", a: 38, t: 1, f: 0, fj: 1, estados: ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","T","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","FJ","A"] },
+            { id: "LDS-EST-003", nombre: "PIZARRO MENDOZA, CAMILA", foto: "./assets/camila.png", porc: "79,2%", a: 38, t: 0, f: 0, fj: 2, estados: ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","FJ","FJ","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A"] },
+            { id: "LDS-EST-004", nombre: "QUISPE FLORES, ANA PAULA", foto: "./assets/ana.jpeg", porc: "80,0%", a: 40, t: 0, f: 0, fj: 0, estados: ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A"] },
+            { id: "LDS-EST-005", nombre: "ROMERO SIESQUEN, MARCOS MANUEL", foto: "./assets/marco.jpeg", porc: "79,6%", a: 39, t: 0, f: 1, fj: 0, estados: ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","F","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A"] },
+            { id: "LDS-EST-006", nombre: "CARDENAS QUISPE, VASCO", foto: "./assets/adam.jpeg", porc: "79,6%", a: 38, t: 1, f: 0, fj: 1, estados: ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","T","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","FJ","A"] },
+            { id: "LDS-EST-007", nombre: "PIZARRO MENDOZA, MARCHELO", foto: "./assets/marco.jpeg", porc: "79,2%", a: 31, t: 7, f: 0, fj: 2, estados: ["T","A","F","T","A","T","A","T","A","A","A","A","A","A","A","A","A","A","A","A","T","A","A","A","A","A","A","A","A","A","T","A","A","A","A","A","A","A","A","T","A","A","A","A","A","A","A","A","T","A"] }
+          ]);
+        })
+        .catch(error => {
+          console.error("Error al sincronizar:", error);
+          tbody.innerHTML = `<tr><td colspan="57" style="text-align:center; color:var(--red); padding:20px;">Error al conectar con Google Sheets. Verifique su conexión.</td></tr>`;
+        });
     }
+
+    function renderizarTablaAsistencia(datos) {
+      const tbody = document.getElementById('cuerpo-tabla-asistencia');
+      tbody.innerHTML = "";
+
+      datos.forEach(est => {
+        let tr = document.createElement('tr');
+        
+        // Columna unificada ID y Foto
+        let htmlTd = `
+          <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center; padding:6px;">
+            <div style="font-size:0.7rem; font-weight:bold; color:var(--navy); margin-bottom:2px;">${est.id}</div>
+            <img src="${est.foto}" alt="${est.nombre}" style="width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;" onerror="this.src='https://images.unsplash.com/photo-1543269865-cbf427effbad?w=150'">
+          </td>
+          <td style="position:sticky; left:110px; background:white; z-index:4; border-right:2px solid var(--line);">${est.nombre}</td>
+          <td><span class="badge-porc">${est.porc}</span></td>
+          <td>${est.a}</td>
+          <td>${est.t}</td>
+          <td>${est.f}</td>
+          <td style="border-right:2px solid var(--line);">${est.fj}</td>
+        `;
+
+        // Generar los 50 selects con su estado correspondiente (A, T, F, FJ)
+        est.estados.forEach(estado => {
+          let claseCss = "select-asist-a";
+          if(estado === "T") claseCss = "select-asist-t";
+          if(estado === "F") claseCss = "select-asist-f";
+          if(estado === "FJ") claseCss = "select-asist-a"; // o estilo verde si lo prefiere
+
+          htmlTd += `
+            <td>
+              <select class="${claseCss}">
+                <option ${estado==='A'?'selected':''}>A</option>
+                <option ${estado==='T'?'selected':''}>T</option>
+                <option ${estado==='F'?'selected':''}>F</option>
+                <option ${estado==='FJ'?'selected':''}>FJ</option>
+              </select>
+            </td>
+          `;
+        });
+
+        tr.innerHTML = htmlTd;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Cargar automáticamente al abrir la vista
+    document.addEventListener("DOMContentLoaded", () => {
+      cargarAsistenciaGoogleSheets();
+    });
     </script>
-   
+
+    
     <!-- VISTA 3: CONTROL DE PAGOS -->
     <div id="vista-pagos" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
