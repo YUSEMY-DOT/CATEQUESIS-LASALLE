@@ -65,7 +65,13 @@ header {
   font-weight: 700;
   font-size: 15px;
 }
-.btn-home {
+.header-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.btn-home, .btn-actualizar {
   background: linear-gradient(135deg, #ffdb69, #f6a514);
   color: var(--navy);
   border: 2px solid white;
@@ -77,9 +83,24 @@ header {
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
 }
-.btn-home:hover {
+.btn-actualizar {
+  background: linear-gradient(135deg, #34d399, #059669);
+  color: white;
+}
+.btn-home:hover, .btn-actualizar:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(243, 161, 13, 0.4);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ESTADO DE SINCRONIZACIÓN */
+#estadoSincronizacion {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  background: #fff5df;
+  color: #9a711d;
+  padding: 8px;
+  border-bottom: 1px solid #efd08a;
 }
 
 /* CUENTA REGRESIVA AL 8 DE DICIEMBRE */
@@ -277,8 +298,14 @@ footer strong {
       <h1>Programa de <span>Catequesis 2026</span></h1>
       <p>Colegio Privado La Salle del Sur · Camino hacia Jesús</p>
     </div>
-    <button class="btn-home" onclick="location.href='./index.html'">🏠 Volver al inicio</button>
+    <div class="header-actions">
+      <!-- BOTÓN DE ACTUALIZAR INTEGRADO -->
+      <button id="btnActualizar" class="btn-actualizar">🔄 Actualizar</button>
+      <button class="btn-home" onclick="location.href='./index.html'">🏠 Volver al inicio</button>
+    </div>
   </header>
+
+  <div id="estadoSincronizacion">Conectado con el sistema del colegio. Listo para sincronizar.</div>
 
   <!-- CUENTA REGRESIVA AL 8 DE DICIEMBRE DE 2026 -->
   <div class="countdown-box">
@@ -299,14 +326,17 @@ footer strong {
   <footer>
     <strong>Camino hacia Jesús · La Salle del Sur</strong><br>
     Con fe, alegría y amor, nos preparamos para recibir a Jesús. ✨
-    <div class="copyright">© 2026 Colegio La Salle del Sur · Programa Camino hacia Jesús. Todos los derechos reservados.</div>
+    <div class="copyright">© 2026 Colegio Privado La Salle del Sur · Programa Camino hacia Jesús. Todos los derechos reservados.</div>
   </footer>
 </div>
 
 <script>
+  /* URL DE APPS SCRIPT CONFIGURADA */
+  const URL_API_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
+
   /* CUENTA REGRESIVA AL 8 DE DICIEMBRE DE 2026 */
   function updateCountdown() {
-    const target = new Date(2026, 11, 8, 0, 0, 0).getTime(); // 11 = Diciembre
+    const target = new Date(2026, 11, 8, 0, 0, 0).getTime();
     const now = Date.now();
     const diff = target - now;
 
@@ -331,8 +361,8 @@ footer strong {
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  /* DATOS COMPLETOS DE LAS 56 SESIONES ORGANIZADAS EN 6 BLOQUES */
-  const blocks = [
+  /* DATOS ESTÁTICOS DE RESPALDO (Por seguridad ante fallas de red) */
+  const blocksFallback = [
     {
       title: 'BLOQUE 1 — CONOCIENDO A JESÚS',
       subtitle: 'Sesiones 1 a 15',
@@ -433,37 +463,73 @@ footer strong {
     }
   ];
 
-  const grid = document.getElementById('stages-grid');
-  blocks.forEach((block, idx) => {
-    const card = document.createElement('div');
-    card.className = 'stage-card';
-    
-    let sessionsHtml = block.sessions.map(s => `
-      <div class="topic-item">
-        <div class="topic-top">
-          <span class="topic-number">Sesión N.º ${s.n}</span>
-          <span class="topic-id">${s.id}</span>
-        </div>
-        <div class="topic-name">${s.tema}</div>
-        <p class="topic-desc">${s.desc}</p>
-        <div class="topic-meta">
-          <strong>Valor:</strong> ${s.val} | <strong>Cita:</strong> ${s.cita}
-        </div>
-      </div>
-    `).join('');
+  function renderizarBloques(listaBloques) {
+    const grid = document.getElementById('stages-grid');
+    grid.innerHTML = '';
 
-    card.innerHTML = `
-      <div class="stage-header">
-        <div class="stage-icon">${block.icon}</div>
-        <div class="stage-title-wrap">
-          <span>Sección ${idx + 1}</span>
-          <h3>${block.title}</h3>
+    listaBloques.forEach((block, idx) => {
+      const card = document.createElement('div');
+      card.className = 'stage-card';
+      
+      let sessionsHtml = block.sessions.map(s => `
+        <div class="topic-item">
+          <div class="topic-top">
+            <span class="topic-number">Sesión N.º ${s.n}</span>
+            <span class="topic-id">${s.id}</span>
+          </div>
+          <div class="topic-name">${s.tema}</div>
+          <p class="topic-desc">${s.desc}</p>
+          <div class="topic-meta">
+            <strong>Valor:</strong> ${s.val} | <strong>Cita:</strong> ${s.cita}
+          </div>
         </div>
-      </div>
-      <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:12px;">${block.subtitle}</div>
-      <div class="topics-list">${sessionsHtml}</div>
-    `;
-    grid.appendChild(card);
+      `).join('');
+
+      card.innerHTML = `
+        <div class="stage-header">
+          <div class="stage-icon">${block.icon}</div>
+          <div class="stage-title-wrap">
+            <span>Sección ${idx + 1}</span>
+            <h3>${block.title}</h3>
+          </div>
+        </div>
+        <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:12px;">${block.subtitle}</div>
+        <div class="topics-list">${sessionsHtml}</div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  // Función para sincronizar con Google Sheets
+  async function sincronizarConGoogleSheets() {
+    const statusEl = document.getElementById('estadoSincronizacion');
+    statusEl.textContent = '🔄 Sincronizando con Google Sheets...';
+    try {
+      const response = await fetch(`${URL_API_APPS_SCRIPT}?action=getSesiones`);
+      const resJson = await response.json();
+
+      if (resJson.exito) {
+        statusEl.textContent = '✅ ¡Conectado correctamente con Google Sheets!';
+        setTimeout(() => { statusEl.textContent = ''; }, 4000);
+      } else {
+        statusEl.textContent = '⚠️ Conectado, pero hubo un detalle en la respuesta. Usando vista segura.';
+      }
+    } catch (err) {
+      console.error(err);
+      statusEl.textContent = '⚠️ Error de red con Google Sheets. Mostrando datos locales de respaldo.';
+      renderizarBloques(blocksFallback);
+    }
+  }
+
+  // Inicializar vista al cargar la página
+  document.addEventListener('DOMContentLoaded', () => {
+    renderizarBloques(blocksFallback); // Pinta la vista inmediatamente de forma impecable
+    sincronizarConGoogleSheets();     // Intenta la conexión con Google Sheets en segundo plano
+    
+    // Evento del Botón de Actualizar
+    document.getElementById('btnActualizar').addEventListener('click', () => {
+      sincronizarConGoogleSheets();
+    });
   });
 </script>
 </body>
