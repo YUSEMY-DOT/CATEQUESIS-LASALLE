@@ -170,41 +170,7 @@
       <div class="tema-box"><div style="font-size:0.75rem; color:var(--gold-deep); font-weight:bold;">SESIÓN 2 (CJ-002)</div><h4 style="margin:4px 0 8px; color:var(--navy);">¿Quién es Jesús?</h4><ul class="subtema-list"><li>Jesús Hijo de Dios</li><li>Verdadero Dios y verdadero hombre</li><li>Nacimiento y misión</li></ul><div class="action-buttons"><button class="btn small gold" onclick="alert('Prácticas - Sesión 2')">✏️ Prácticas</button><button class="btn small primary" onclick="alert('Evaluaciones - Sesión 2')">📋 Evaluaciones</button><button class="btn small" onclick="alert('Canciones - Sesión 2')">🎵 Canciones</button><button class="btn small gold" onclick="alert('Videos - Sesión 2')">▶️ Videos</button></div></div>
       <div class="section-note" style="text-align:center;">Se encuentran disponibles las 56 sesiones completas del programa en la plataforma.</div>
     </div>
-
-   <!-- VISTA 2: ASISTENCIA (ESTILO GOOGLE SHEETS - 50+ SESIONES OPTIMIZADAS) -->
-    <div id="vista-asistencia" style="display:none; margin-top:15px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
-        <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
-        <button class="btn small gold" onclick="window.print()">🖨️ Imprimir Hoja de Asistencia</button>
-      </div>
-      <h3 style="color:var(--navy); margin-bottom:5px;">Control de Asistencia · Parroquia San Pedro de Lurín</h3>
-      <p class="sub" style="margin-bottom:15px;">7 Catequizandos · 56 Sesiones (Martes y Jueves)</p>
-
-      <!-- Indicadores Superiores Estilo Sheets -->
-      <div class="sheets-stats">
-        <div class="sheets-stat-box">
-          <div class="val" style="color:var(--green);">79,6%</div>
-          <div class="lbl">% Asistencia (Meta: 85%)</div>
-        </div>
-        <div class="sheets-stat-box">
-          <div class="val">263</div>
-          <div class="lbl">Total Presentes [A]</div>
-        </div>
-        <div class="sheets-stat-box">
-          <div class="val">10</div>
-          <div class="lbl">Ingresos Tarde [T]</div>
-        </div>
-        <div class="sheets-stat-box">
-          <div class="val">0</div>
-          <div class="lbl">Inasistencias [F]</div>
-        </div>
-        <div class="sheets-stat-box">
-          <div class="val">7</div>
-          <div class="lbl">Justificadas [FJ]</div>
-        </div>
-      </div>
-
-      <!-- VISTA 2: ASISTENCIA (50 CLASES/DÍAS - ID Y FOTO UNIFICADOS + BOTÓN ACTUALIZAR) -->
+<!-- VISTA 2: ASISTENCIA (50 CLASES - ID/FOTO UNIFICADOS Y BOTÓN ACTUALIZAR) -->
     <div id="vista-asistencia" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
@@ -239,22 +205,66 @@
           <div class="lbl">Justificadas [FJ]</div>
         </div>
       </div>
-      
-<!-- VISTA 2: ASISTENCIA (50 CLASES/DÍAS - ID Y FOTO UNIFICADOS + BOTÓN ACTUALIZAR) -->
+
       <!-- Contenedor con scroll horizontal para las 50 clases -->
-      <div style="overflow-x:auto; max-height:65vh; border:1px solid var(--line); border-radius:12px; background:white;">
+      <div style="overflow-x:auto; max-height:60vh; border:1px solid var(--line); border-radius:12px; background:white;">
         <table class="data-table" style="margin:0; border-collapse:collapse;">
           <thead style="position:sticky; top:0; z-index:5; background:var(--blue-soft);">
             <tr>
               <th rowspan="2" style="position:sticky; left:0; background:var(--blue-soft); z-index:6; border-right:2px solid var(--line); text-align:center; min-width:110px;">ID & FOTO</th>
-              <th rowspan="2" style="position:sticky; left:110px; background:var(--blue-soft); z-index:6; border-right:2px solid var(--line); min-width:220px;">APELLIDOS Y NOMBRES</th>
-              <th colspan="5" style="background:#dce5ef; text-align:center; border-right:2px solid var(--line);">RESUMEN DE ASISTENCIA</th>
-              <!-- Bucle exacto para las 50 clases -->
-              <script>
-                for(let i=1; i<=50; i++) {
-                  document.write('<th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE ' + i + '</th>');
-                }
-              </script>
+              <th rowspan="2" style="position:sticky; left:110px; background:var(--blue-soft); z-index:6; border-right:2px solid var(--line); min-width:210px;">APELLIDOS Y NOMBRES</th>
+              <th colspan="5" style="background:#dce5ef; text-align:center; border-right:2px solid var(--line);">RESUMEN</th>
+              <!-- Cabeceras de Clase 1 a 50 -->
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 1</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 2</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 3</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 4</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 5</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 6</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 7</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 8</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 9</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 10</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 11</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 12</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 13</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 14</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 15</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 16</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 17</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 18</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 19</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 20</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 21</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 22</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 23</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 24</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 25</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 26</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 27</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 28</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 29</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 30</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 31</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 32</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 33</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 34</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 35</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 36</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 37</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 38</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 39</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 40</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 41</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 42</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 43</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 44</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 45</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 46</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 47</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 48</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 49</th>
+              <th style="text-align:center; min-width:85px; font-size:0.75rem;">CLASE 50</th>
             </tr>
             <tr>
               <th style="font-size:0.75rem;">% ASIST.</th>
@@ -262,6 +272,7 @@
               <th style="font-size:0.75rem;">T</th>
               <th style="font-size:0.75rem;">F</th>
               <th style="font-size:0.75rem; border-right:2px solid var(--line);">FJ</th>
+              <!-- 50 Sub-etiquetas de Estado -->
               <script>
                 for(let i=1; i<=50; i++) {
                   document.write('<th style="text-align:center; font-size:0.68rem; color:var(--muted);">Estado</th>');
@@ -270,95 +281,141 @@
             </tr>
           </thead>
           <tbody>
+            <!-- ESTUDIANTE 1: DANY -->
             <tr>
-              <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center;">
-                <div style="font-size:0.72rem; font-weight:bold; color:var(--navy); margin-bottom:3px;">LDS-EST-001</div>
-                <img src="./assets/dany.JPG" alt="Dany" style="width:52px; height:52px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;">
+              <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center; padding:6px;">
+                <div style="font-size:0.7rem; font-weight:bold; color:var(--navy); margin-bottom:2px;">LDS-EST-001</div>
+                <img src="./assets/dany.JPG" alt="Dany" style="width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;">
               </td>
               <td style="position:sticky; left:110px; background:white; z-index:4; border-right:2px solid var(--line);">FRANCISCO CRIOLLO, DANY SMITH</td>
               <td><span class="badge-porc">80,0%</span></td>
               <td>39</td><td>1</td><td>0</td><td style="border-right:2px solid var(--line);">0</td>
+              <!-- 50 Selects de Estado -->
               <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
               <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
-              <script>for(let i=3; i<=50; i++) document.write('<td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>');</script>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
             </tr>
+            <!-- ESTUDIANTE 2: ADAM -->
             <tr>
-              <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center;">
-                <div style="font-size:0.72rem; font-weight:bold; color:var(--navy); margin-bottom:3px;">LDS-EST-002</div>
-                <img src="./assets/adam.jpeg" alt="Adam" style="width:52px; height:52px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;">
+              <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center; padding:6px;">
+                <div style="font-size:0.7rem; font-weight:bold; color:var(--navy); margin-bottom:2px;">LDS-EST-002</div>
+                <img src="./assets/adam.jpeg" alt="Adam" style="width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;">
               </td>
               <td style="position:sticky; left:110px; background:white; z-index:4; border-right:2px solid var(--line);">PINEDA ELGUERA, ADAM STUARD</td>
               <td><span class="badge-porc">79,6%</span></td>
               <td>38</td><td>1</td><td>0</td><td style="border-right:2px solid var(--line);">1</td>
-              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
-              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
-              <script>for(let i=3; i<=50; i++) document.write('<td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>');</script>
+              <script>for(let i=1; i<=50; i++) document.write('<td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>');</script>
             </tr>
+            <!-- ESTUDIANTE 3: CAMILA -->
             <tr>
-              <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center;">
-                <div style="font-size:0.72rem; font-weight:bold; color:var(--navy); margin-bottom:3px;">LDS-EST-003</div>
-                <img src="./assets/camila.png" alt="Camila" style="width:52px; height:52px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;">
+              <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center; padding:6px;">
+                <div style="font-size:0.7rem; font-weight:bold; color:var(--navy); margin-bottom:2px;">LDS-EST-003</div>
+                <img src="./assets/camila.png" alt="Camila" style="width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;">
               </td>
               <td style="position:sticky; left:110px; background:white; z-index:4; border-right:2px solid var(--line);">PIZARRO MENDOZA, CAMILA</td>
               <td><span class="badge-porc">79,2%</span></td>
               <td>38</td><td>0</td><td>0</td><td style="border-right:2px solid var(--line);">2</td>
-              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
-              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
-              <script>for(let i=3; i<=50; i++) document.write('<td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>');</script>
+              <script>for(let i=1; i<=50; i++) document.write('<td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>');</script>
             </tr>
+            <!-- ESTUDIANTE 4: ANA PAULA -->
             <tr>
-              <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center;">
-                <div style="font-size:0.72rem; font-weight:bold; color:var(--navy); margin-bottom:3px;">LDS-EST-004</div>
-                <img src="./assets/ana.jpeg" alt="Ana Paula" style="width:52px; height:52px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;">
+              <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center; padding:6px;">
+                <div style="font-size:0.7rem; font-weight:bold; color:var(--navy); margin-bottom:2px;">LDS-EST-004</div>
+                <img src="./assets/ana.jpeg" alt="Ana Paula" style="width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;">
               </td>
               <td style="position:sticky; left:110px; background:white; z-index:4; border-right:2px solid var(--line);">QUISPE FLORES, ANA PAULA</td>
               <td><span class="badge-porc">80,0%</span></td>
               <td>40</td><td>0</td><td>0</td><td style="border-right:2px solid var(--line);">0</td>
-              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
-              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
-              <script>for(let i=3; i<=50; i++) document.write('<td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>');</script>
+              <script>for(let i=1; i<=50; i++) document.write('<td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>');</script>
             </tr>
+            <!-- ESTUDIANTE 5: MARCOS -->
             <tr>
-              <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center;">
-                <div style="font-size:0.72rem; font-weight:bold; color:var(--navy); margin-bottom:3px;">LDS-EST-005</div>
-                <img src="./assets/marco.jpeg" alt="Marcos" style="width:52px; height:52px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;">
+              <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center; padding:6px;">
+                <div style="font-size:0.7rem; font-weight:bold; color:var(--navy); margin-bottom:2px;">LDS-EST-005</div>
+                <img src="./assets/marco.jpeg" alt="Marcos" style="width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;">
               </td>
               <td style="position:sticky; left:110px; background:white; z-index:4; border-right:2px solid var(--line);">ROMERO SIESQUEN, MARCOS MANUEL</td>
               <td><span class="badge-porc">79,6%</span></td>
               <td>39</td><td>0</td><td>0</td><td style="border-right:2px solid var(--line);">1</td>
-              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
-              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
-              <script>for(let i=3; i<=50; i++) document.write('<td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>');</script>
+              <script>for(let i=1; i<=50; i++) document.write('<td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>');</script>
             </tr>
+            <!-- ESTUDIANTE 6: VASCO -->
             <tr>
-              <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center;">
-                <div style="font-size:0.72rem; font-weight:bold; color:var(--navy); margin-bottom:3px;">LDS-EST-006</div>
-                <img src="./assets/adam.jpeg" alt="Vasco" style="width:52px; height:52px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;">
+              <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center; padding:6px;">
+                <div style="font-size:0.7rem; font-weight:bold; color:var(--navy); margin-bottom:2px;">LDS-EST-006</div>
+                <img src="./assets/adam.jpeg" alt="Vasco" style="width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;">
               </td>
               <td style="position:sticky; left:110px; background:white; z-index:4; border-right:2px solid var(--line);">CARDENAS QUISPE, VASCO</td>
               <td><span class="badge-porc">79,6%</span></td>
               <td>38</td><td>1</td><td>0</td><td style="border-right:2px solid var(--line);">1</td>
-              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
-              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
-              <script>for(let i=3; i<=50; i++) document.write('<td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>');</script>
+              <script>for(let i=1; i<=50; i++) document.write('<td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>');</script>
             </tr>
+            <!-- ESTUDIANTE 7: MARCHELO -->
             <tr>
-              <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center;">
-                <div style="font-size:0.72rem; font-weight:bold; color:var(--navy); margin-bottom:3px;">LDS-EST-007</div>
-                <img src="./assets/marco.jpeg" alt="Marchelo" style="width:52px; height:52px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;">
+              <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center; padding:6px;">
+                <div style="font-size:0.7rem; font-weight:bold; color:var(--navy); margin-bottom:2px;">LDS-EST-007</div>
+                <img src="./assets/marco.jpeg" alt="Marchelo" style="width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;">
               </td>
               <td style="position:sticky; left:110px; background:white; z-index:4; border-right:2px solid var(--line);">PIZARRO MENDOZA, MARCHELO</td>
               <td><span class="badge-porc">79,2%</span></td>
               <td>31</td><td>7</td><td>0</td><td style="border-right:2px solid var(--line);">2</td>
               <td><select class="select-asist-t"><option>A</option><option selected>T</option><option>F</option><option>FJ</option></select></td>
               <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
-              <script>for(let i=3; i<=50; i++) document.write('<td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>');</script>
+              <td><select class="select-asist-f"><option>A</option><option>T</option><option selected>F</option><option>FJ</option></select></td>
+              <script>for(let i=4; i<=50; i++) document.write('<td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>');</script>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="section-note" style="margin-top:15px; font-size:0.84rem;">
-        Leyenda: <strong>[A]</strong> Presente (Azul) | <strong>[T]</strong> Tardanza (Amarillo) | <strong>[F]</strong> Falta (Rojo) | <strong>[FJ]</strong> Justificado (Verde). Las columnas de ID/Foto y Nombres permanecen fijas al deslizar las 50 clases.
+        Leyenda: <strong>[A]</strong> Presente (Azul) | <strong>[T]</strong> Tardanza (Amarillo) | <strong>[F]</strong> Falta (Rojo) | <strong>[FJ]</strong> Justificado (Verde). Las columnas de ID/Foto y Nombres quedan fijas al deslizar las 50 clases.
       </div>
     </div>
     <!-- VISTA 3: CONTROL DE PAGOS -->
