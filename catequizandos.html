@@ -15,9 +15,8 @@ header{background:radial-gradient(circle at 80% 20%,#174878 0,#0b2850 35%,#06152
 .brand{display:flex;align-items:center;gap:13px}.crest{width:90px;height:90px;min-width:90px;object-fit:contain;filter:drop-shadow(0 5px 10px #0006)}
 .brand h2{font:700 clamp(16px,2vw,22px) Fredoka,sans-serif;color:#ffdf94;margin:0}.brand small{display:block;color:#d7e6f8;font-weight:800;letter-spacing:1px;text-transform:uppercase;font-size:11px}
 .top-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap}
-.mute-toggle,.btn-actualizar{border:1px solid #f0c75a;border-radius:24px;padding:9px 13px;background:#fff8e5;color:#17385f;font-size:12px;font-weight:900;cursor:pointer;white-space:nowrap;box-shadow:0 3px 9px #081c3b0c}
-.btn-actualizar{background:linear-gradient(135deg,#34d399,#059669);color:white;border:1px solid #10b981}
-.mute-toggle:hover,.btn-actualizar:hover{opacity:0.9}
+.mute-toggle{border:1px solid #f0c75a;border-radius:24px;padding:9px 13px;background:#fff8e5;color:#17385f;font-size:12px;font-weight:900;cursor:pointer;white-space:nowrap;box-shadow:0 3px 9px #081c3b0c}
+.mute-toggle:hover{opacity:0.9}
 .home{background:#ffc94d;color:#102b4e;border:1px solid #fff2c9;border-radius:24px;padding:9px 16px;font-weight:900;box-shadow:0 4px 12px #0002;white-space:nowrap}
 .hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);gap:clamp(14px,2vw,25px);align-items:center;padding-top:4px;position:relative;z-index:1}
 .hero-copy{text-align:center;margin-top:-6px}
@@ -89,19 +88,6 @@ main{padding:0 clamp(14px,2.5vw,36px) 40px}
 .legend-special{display:inline-block;width:8px;height:8px;border-radius:3px;background:#ffe9e9;border:1px solid #d76b6b;margin-right:4px}
 .legend-double{display:inline-grid;place-items:center;width:12px;height:12px;border-radius:3px;background:#fff1c6;border:1px solid #e5b43c;color:#895d07;font:900 8px Nunito,sans-serif;margin-right:4px}
 
-/* Progreso y Estadísticas */
-.progress-title{margin-top:24px}
-.progress-title h3{margin:0;color:#12345a;font:700 22px Fredoka,sans-serif}
-
-.progress-board{margin-top:16px;padding:16px;background:#fff;border:1px solid #e5d7b7;border-radius:16px;box-shadow:0 4px 14px #12345a0a}
-.progress-board h3{margin:0 0 4px;color:#12345a;font:700 20px Fredoka,sans-serif}
-.table-scroll{overflow-x:auto}
-table.progress-table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px;min-width:580px}
-table.progress-table th{padding:10px;text-align:left;color:#fff;background:#12345a;font-weight:900}
-table.progress-table th:first-child{border-radius:9px 0 0 0}table.progress-table th:last-child{border-radius:0 9px 0 0}
-table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-align:middle;font-weight:800}
-.empty-board{padding:18px;text-align:center;color:#697990;font-weight:800;background:#f7f9fc;border-radius:10px;display:none}
-
 .footer{margin-top:28px;background:linear-gradient(135deg,#0b2850,#174878);color:#e4edfa;text-align:center;padding:20px;border-radius:18px;font-weight:700;font-size:12px}
 .footer strong{color:#ffdf94;font-family:Fredoka,sans-serif;font-size:15px}
 .copyright{margin-top:9px;padding-top:7px;border-top:1px solid #ffffff2b;color:#c6d4e8;font-size:10px}
@@ -133,7 +119,6 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
         </div>
       </div>
       <div class="top-actions">
-        <button class="btn-actualizar" id="btnActualizar" type="button">🔄 Actualizar</button>
         <button class="mute-toggle" id="mute-toggle" type="button" aria-pressed="false" title="Silenciar voz">🔊 Silenciar</button>
         <a class="home" href="./index.html">🏠 Volver al inicio</a>
       </div>
@@ -205,27 +190,6 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
       </div>
     </section>
 
-    <div class="progress-title">
-      <h3>📊 Tablero de avance por códigos</h3>
-    </div>
-
-    <div class="progress-board" id="progress-board">
-      <div class="table-scroll">
-        <table class="progress-table">
-          <thead>
-            <tr>
-              <th>Código Catequizando</th>
-              <th>Apellidos y Nombres</th>
-              <th>Grado</th>
-              <th>Teléfono Familia</th>
-            </tr>
-          </thead>
-          <tbody id="students-progress-body"></tbody>
-        </table>
-      </div>
-      <div id="students-progress-empty" class="empty-board">Cargando registros desde Google Sheets...</div>
-    </div>
-
     <footer class="footer">
       <strong>Camino hacia Jesús · La Salle del Sur</strong><br>
       Parroquia San Pedro de Lurín · Zona Sur de Lima ✨
@@ -244,8 +208,6 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
 </div>
 
 <script>
-const URL_API_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
-
 const stages=[
   {title:'Conociendo a Jesús',subtitle:'Su vida, su mensaje y su amor.',topics:[
     [1,'¿Quién es Dios?',['Introducción breve','Quién es Dios','Dios único','Dios creador','Dios eterno','Dios Padre']],
@@ -310,3 +272,138 @@ const stages=[
     [14,'¿Por qué hay tantas Vírgenes?',['Advocaciones marianas']],
     [16,'¿Qué es la Iglesia?',['Pueblo de Dios']],
     [17,'¿Quiénes Forman la Iglesia?',['Papa, sacerdotes y laicos']],
+    [18,'Los Santos',['Modelos de vida evangélica']],
+    [43,'Servidores y Monaguillos',['Función en el altar']],
+    [54,'Padrinos y Madrinas',['Acompañamiento en la fe']],
+    [56,'Después de la Primera Comunión',['Continuar viviendo la fe']]
+  ]}
+];
+
+function openStage(idx){
+  const s=stages[idx];if(!s)return;
+  const win=window.open('','_blank');
+  if(!win){alert('Permite las ventanas emergentes para este sitio.');return;}
+  const esc=escapeHtml;
+  
+  const topicCards=s.topics.map((t,i)=>`
+    <div style="border:1px solid #eadcc2;border-radius:14px;background:#fff;padding:16px;margin-bottom:14px;box-shadow:0 3px 10px #12345a08;">
+      <span style="font-size:11px;font-weight:900;color:#b27b19;text-transform:uppercase;letter-spacing:.5px;">TEMA ${t[0]}</span>
+      <h3 style="margin:4px 0 8px;font-size:18px;color:#12345a;font-family:Fredoka,sans-serif;">${esc(t[1])}</h3>
+      <ul style="margin:0 0 14px;padding-left:18px;font-size:13px;color:#61738a">${t[2].map(x=>'<li>'+esc(x)+'</li>').join('')}</ul>
+      
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;border-top:1px dashed #eadaaf;padding-top:12px;">
+        <button onclick="alert('Abriendo Prácticas del Tema ${t[0]}')" style="background:#fff8e6;border:1px solid #e8cb82;border-radius:10px;padding:8px 10px;font:700 12px Nunito,sans-serif;color:#12345a;display:flex;align-items:center;gap:6px;cursor:pointer;justify-content:center;">🖍️ Prácticas</button>
+        <button onclick="alert('Abriendo Evaluaciones del Tema ${t[0]}')" style="background:#fff2f0;border:1px solid #f2a9a0;border-radius:10px;padding:8px 10px;font:700 12px Nunito,sans-serif;color:#8a2817;display:flex;align-items:center;gap:6px;cursor:pointer;justify-content:center;">📝 Evaluaciones</button>
+        <button onclick="alert('Abriendo Canciones del Tema ${t[0]}')" style="background:#f0f4ff;border:1px solid #a8c2f5;border-radius:10px;padding:8px 10px;font:700 12px Nunito,sans-serif;color:#173b7a;display:flex;align-items:center;gap:6px;cursor:pointer;justify-content:center;">🎶 Canciones</button>
+        <button onclick="alert('Abriendo Videos del Tema ${t[0]}')" style="background:#eef9f2;border:1px solid #98dfb0;border-radius:10px;padding:8px 10px;font:700 12px Nunito,sans-serif;color:#156b37;display:flex;align-items:center;gap:6px;cursor:pointer;justify-content:center;">▶️ Videos</button>
+      </div>
+    </div>
+  `).join('');
+
+  win.document.open();
+  win.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><title>${esc(s.title)}</title><style>body{font:14px Nunito,Arial,sans-serif;background:#f7f5ef;color:#193453;max-width:850px;margin:25px auto;padding:0 15px}header{background:#12345a;color:white;padding:20px 24px;border-radius:16px;margin-bottom:20px;box-shadow:0 4px 15px #12345a20}h1{margin:0;font-size:24px;font-family:Fredoka,sans-serif}button.close-btn{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin-top:15px;color:#12345a;box-shadow:0 3px 8px #0002}</style></head><body><header><h1>${esc(s.title)}</h1><p style="margin:5px 0 0;color:#ffdf94;font-weight:700">${esc(s.subtitle)}</p></header><main>${topicCards}</main><button class="close-btn" onclick="window.close()">Cerrar ventana</button></body></html>`);
+  win.document.close();win.focus();
+}
+
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+document.querySelectorAll('.stage').forEach((b,idx)=>b.addEventListener('click',()=>openStage(idx)));
+
+const monthNames=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const week=['L','M','X','J','V','S','D'];
+function dateKey(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+
+const orderedTopics=stages.flatMap((stage,stageIndex)=>stage.topics.map(t=>({stage:stage.title,stageIndex,num:t[0],title:t[1],content:t[2]}))).sort((a,b)=>a.num-b.num);
+const calendarEntries=new Map();
+const preparationDates=[];
+for(let d=new Date(2026,5,16,12);d<=new Date(2026,11,1,12);d.setDate(d.getDate()+1)){
+  if(d.getDay()===2||d.getDay()===4)preparationDates.push(new Date(d));
+}
+let topicCursor=0;
+preparationDates.forEach((d,i)=>{
+  if(topicCursor>=orderedTopics.length)return;
+  const amount=i<7?2:1;
+  const topicsForDate=orderedTopics.slice(topicCursor,topicCursor+amount);
+  if(topicsForDate.length){
+    calendarEntries.set(dateKey(d),{type:'lesson',session:i+1,topics:topicsForDate});
+    topicCursor+=topicsForDate.length;
+  }
+});
+calendarEntries.set('2026-12-03',{type:'event',title:'¡Primera Comunión!',description:'Celebración del sacramento de la Eucaristía. Que Jesús acompañe a cada niño y a su familia.'});
+
+let currentMonth=new Date(2026,5,1,12), selectedDate=null;
+function renderCalendar(){
+  const y=currentMonth.getFullYear(),m=currentMonth.getMonth();
+  document.getElementById('month-label').textContent=`${monthNames[m]} ${y}`;
+  const g=document.getElementById('calendar-grid');g.innerHTML='';
+  week.forEach(w=>{const e=document.createElement('div');e.className='weekday';e.textContent=w;g.appendChild(e)});
+  const first=(new Date(y,m,1,12).getDay()+6)%7,days=new Date(y,m+1,0,12).getDate();
+  for(let i=0;i<first;i++)g.appendChild(document.createElement('div'));
+  for(let day=1;day<=days;day++){
+    const d=new Date(y,m,day,12),key=dateKey(d),entry=calendarEntries.get(key),b=document.createElement('button');
+    b.className='day';b.textContent=day;
+    if(entry){
+      b.classList.add(entry.type==='event'?'communion-day':'classday');
+      if(entry.type==='lesson'&&entry.topics.length>1)b.classList.add('double-session');
+      if(selectedDate&&key===dateKey(selectedDate))b.classList.add('selected');
+      b.onclick=()=>selectDate(d);
+    }else{b.disabled=true;}
+    g.appendChild(b);
+  }
+}
+function selectDate(d){
+  const key=dateKey(d),entry=calendarEntries.get(key);
+  if(!entry)return;
+  selectedDate=new Date(d);
+  const weekdayName=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'][d.getDay()];
+  document.getElementById('selected-date').textContent=`${weekdayName}, ${d.getDate()} de ${monthNames[d.getMonth()]}`;
+  const list=document.getElementById('calendar-topic-list');list.innerHTML='';
+  if(entry.type==='event'){
+    document.getElementById('calendar-topic').textContent=entry.title;
+    document.getElementById('calendar-description').textContent=entry.description;
+  }else{
+    document.getElementById('calendar-topic').textContent=entry.topics.length>1?'Temas del encuentro':`Tema ${entry.topics[0].num}: ${entry.topics[0].title}`;
+    document.getElementById('calendar-description').textContent=`Encuentro ${String(entry.session).padStart(2,'0')}.`;
+    entry.topics.forEach(topic=>{
+      const card=document.createElement('details');card.className='calendar-topic-item topic-collapsible';
+      const summary=document.createElement('summary');summary.className='topic-summary';
+      const title=document.createElement('strong');title.className='topic-summary-title';title.textContent=`Tema ${topic.num}: ${topic.title}`;
+      const toggleLabel=document.createElement('span');toggleLabel.className='topic-toggle-label';toggleLabel.textContent='Ver';
+      summary.append(title,toggleLabel);card.appendChild(summary);
+      const content=document.createElement('div');content.className='topic-content';
+      const stage=document.createElement('span');stage.className='topic-stage';stage.textContent=`Etapa: ${topic.stage}`;content.appendChild(stage);
+      if(topic.content&&topic.content.length){
+        const ul=document.createElement('ul');
+        topic.content.forEach(item=>{const li=document.createElement('li');li.textContent=item;ul.appendChild(li)});
+        content.appendChild(ul);
+      }
+      card.appendChild(content);
+      list.appendChild(card);
+    });
+  }
+  renderCalendar();
+}
+document.getElementById('prev-month').onclick=()=>{currentMonth=new Date(currentMonth.getFullYear(),currentMonth.getMonth()-1,1,12);renderCalendar()};
+document.getElementById('next-month').onclick=()=>{currentMonth=new Date(currentMonth.getFullYear(),currentMonth.getMonth()+1,1,12);renderCalendar()};
+
+const todayForCalendar=new Date();todayForCalendar.setHours(12,0,0,0);
+const todayKey=dateKey(todayForCalendar);
+const scheduledKeys=Array.from(calendarEntries.keys()).sort();
+const nearestScheduledKey=scheduledKeys.find(key=>key>=todayKey)||scheduledKeys[scheduledKeys.length-1];
+const initialDate=nearestScheduledKey?new Date(nearestScheduledKey+'T12:00:00'):new Date(2026,5,16,12);
+currentMonth=new Date(initialDate.getFullYear(),initialDate.getMonth(),1,12);
+renderCalendar();
+selectDate(initialDate);
+
+// Asistente de voz
+let catechesisVoiceMuted=false;
+const muteToggle=document.getElementById('mute-toggle');
+if(muteToggle){muteToggle.addEventListener('click',()=>{
+  catechesisVoiceMuted=!catechesisVoiceMuted;
+  muteToggle.textContent=catechesisVoiceMuted?'🔇 Activar sonido':'🔊 Silenciar';
+  if(catechesisVoiceMuted)window.speechSynthesis?.cancel();
+})}
+function playCatechesisVoice(message){if(catechesisVoiceMuted||!('speechSynthesis' in window))return;window.speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(message);utterance.lang='es-PE';utterance.rate=.92;window.speechSynthesis.speak(utterance);}
+setTimeout(()=>playCatechesisVoice('¡Bienvenidos al portal de catequesis del Colegio La Salle del Sur y Parroquia San Pedro de Lurín! Camino hacia Jesús.'),600);
+</script>
+</body>
+</html>
