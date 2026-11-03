@@ -92,7 +92,6 @@ header {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* ESTADO DE SINCRONIZACIÓN */
 #estadoSincronizacion {
   text-align: center;
   font-size: 13px;
@@ -103,7 +102,6 @@ header {
   border-bottom: 1px solid #efd08a;
 }
 
-/* CUENTA REGRESIVA AL 8 DE DICIEMBRE */
 .countdown-box {
   background: linear-gradient(135deg, #061a38 0%, #102a5c 100%);
   border: 2px solid #e8bd60;
@@ -299,7 +297,6 @@ footer strong {
       <p>Colegio Privado La Salle del Sur · Camino hacia Jesús</p>
     </div>
     <div class="header-actions">
-      <!-- BOTÓN DE ACTUALIZAR INTEGRADO -->
       <button id="btnActualizar" class="btn-actualizar">🔄 Actualizar</button>
       <button class="btn-home" onclick="location.href='./index.html'">🏠 Volver al inicio</button>
     </div>
@@ -331,10 +328,8 @@ footer strong {
 </div>
 
 <script>
-  /* URL DE APPS SCRIPT CONFIGURADA */
   const URL_API_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
 
-  /* CUENTA REGRESIVA AL 8 DE DICIEMBRE DE 2026 */
   function updateCountdown() {
     const target = new Date(2026, 11, 8, 0, 0, 0).getTime();
     const now = Date.now();
@@ -361,7 +356,6 @@ footer strong {
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  /* DATOS ESTÁTICOS DE RESPALDO (Por seguridad ante fallas de red) */
   const blocksFallback = [
     {
       title: 'BLOQUE 1 — CONOCIENDO A JESÚS',
@@ -500,7 +494,6 @@ footer strong {
     });
   }
 
-  // Función para sincronizar con Google Sheets
   async function sincronizarConGoogleSheets() {
     const statusEl = document.getElementById('estadoSincronizacion');
     statusEl.textContent = '🔄 Sincronizando con Google Sheets...';
@@ -512,21 +505,19 @@ footer strong {
         statusEl.textContent = '✅ ¡Conectado correctamente con Google Sheets!';
         setTimeout(() => { statusEl.textContent = ''; }, 4000);
       } else {
-        statusEl.textContent = '⚠️ Conectado, pero hubo un detalle en la respuesta. Usando vista segura.';
+        statusEl.textContent = '⚠️ Conectado, pero hubo un detalle en la respuesta.';
       }
     } catch (err) {
       console.error(err);
-      statusEl.textContent = '⚠️ Error de red con Google Sheets. Mostrando datos locales de respaldo.';
+      statusEl.textContent = '⚠️ Error de red. Mostrando datos locales de respaldo.';
       renderizarBloques(blocksFallback);
     }
   }
 
-  // Inicializar vista al cargar la página
   document.addEventListener('DOMContentLoaded', () => {
-    renderizarBloques(blocksFallback); // Pinta la vista inmediatamente de forma impecable
-    sincronizarConGoogleSheets();     // Intenta la conexión con Google Sheets en segundo plano
+    renderizarBloques(blocksFallback);
+    sincronizarConGoogleSheets();
     
-    // Evento del Botón de Actualizar
     document.getElementById('btnActualizar').addEventListener('click', () => {
       sincronizarConGoogleSheets();
     });
