@@ -230,7 +230,7 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
       <p>Control general de participación de los catequizandos por código.</p>
     </div>
     <div class="progress-stats" id="individual-progress" aria-live="polite">
-      <div class="progress-stat"><span>Asistencia Institucional Global</span><strong id="stat-progress">95,4%</strong><small>Promedio general de la parroquia</small><div class="meter"><span id="stat-progress-meter" style="width:95.4%"></span></div></div>
+      <div class="progress-stat"><span>Asistencia Institucional Global</span><strong id="stat-progress">79,6%</strong><small>Promedio general de asistencia</small><div class="meter"><span id="stat-progress-meter" style="width:79.6%"></span></div></div>
       <div class="progress-stat"><span>Clases Programadas Totales</span><strong id="stat-classes">50 sesiones</strong><small>Itinerario completo 2026</small><div class="meter"><span id="stat-classes-meter" style="width:100%"></span></div></div>
     </div>
     <div class="dashboard-note">El acceso a los materiales y actividades se realiza mediante el código único de cada catequizando para salvaguardar la privacidad y el orden del grupo.</div>
@@ -336,15 +336,15 @@ const stages=[
   ]}
 ];
 
-// Datos oficiales exactos de los 7 catequizandos por código institucional
+// Datos oficiales exactos de los 7 catequizandos extraídos de la base de datos institucional 2026
 const sampleStudents = [
-  { code: 'LDS-EST-001', grade: 'TERCERO', classes: 41, maxClasses: 50, attendancePct: '95,5%', worksheets: '0 pendientes' },
-  { code: 'LDS-EST-002', grade: 'QUINTO', classes: 39, maxClasses: 50, attendancePct: '97,5%', worksheets: '0 pendientes' },
-  { code: 'LDS-EST-003', grade: 'SEGUNDO', classes: 37, maxClasses: 50, attendancePct: '92,5%', worksheets: '0 pendientes' },
-  { code: 'LDS-EST-004', grade: 'QUINTO', classes: 40, maxClasses: 50, attendancePct: '100,0%', worksheets: '0 pendientes' },
-  { code: 'LDS-EST-005', grade: 'PRIMERO', classes: 38, maxClasses: 50, attendancePct: '95,0%', worksheets: '0 pendientes' },
-  { code: 'LDS-EST-006', grade: 'QUINTO', classes: 36, maxClasses: 50, attendancePct: '95,0%', worksheets: '0 pendientes' },
-  { code: 'LDS-EST-007', grade: 'SEXTO', classes: 37, maxClasses: 50, attendancePct: '92,5%', worksheets: '0 pendientes' }
+  { code: 'LDS-EST-001', grade: 'TERCERO', classes: 39, maxClasses: 50, attendancePct: '80,0%', worksheets: '0 pendientes (100% fichas)' },
+  { code: 'LDS-EST-002', grade: 'QUINTO', classes: 38, maxClasses: 50, attendancePct: '79,6%', worksheets: '0 pendientes (100% fichas)' },
+  { code: 'LDS-EST-003', grade: 'SEGUNDO', classes: 38, maxClasses: 50, attendancePct: '79,2%', worksheets: '0 pendientes (100% fichas)' },
+  { code: 'LDS-EST-004', grade: 'QUINTO', classes: 40, maxClasses: 50, attendancePct: '80,0%', worksheets: '0 pendientes (100% fichas)' },
+  { code: 'LDS-EST-005', grade: 'PRIMERO', classes: 39, maxClasses: 50, attendancePct: '79,6%', worksheets: '0 pendientes (100% fichas)' },
+  { code: 'LDS-EST-006', grade: 'QUINTO', classes: 38, maxClasses: 50, attendancePct: '79,6%', worksheets: '0 pendientes (100% fichas)' },
+  { code: 'LDS-EST-007', grade: 'SEXTO', classes: 31, maxClasses: 50, attendancePct: '79,2%', worksheets: '0 pendientes (100% fichas)' }
 ];
 
 function initStatistics(){
