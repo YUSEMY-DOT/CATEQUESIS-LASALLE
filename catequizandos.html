@@ -233,13 +233,13 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
       <div class="progress-stat">
         <span>Asistencia Institucional Global</span>
         <strong id="stat-progress">79,6%</strong>
-        <small>Promedio actual (Total proyectado: 80,0%)</small>
+        <small>Promedio actual sobre el 100% total</small>
         <div class="meter"><span id="stat-progress-meter" style="width:79.6%"></span></div>
       </div>
       <div class="progress-stat">
         <span>Clases Registradas</span>
-        <strong id="stat-classes">40 sesiones</strong>
-        <small>De un total de 50 sesiones programadas</small>
+        <strong id="stat-classes">40 de 50</strong>
+        <small>Sesiones dictadas hasta el momento</small>
         <div class="meter"><span id="stat-classes-meter" style="width:80%"></span></div>
       </div>
     </div>
@@ -354,15 +354,15 @@ const stages=[
   ]}
 ];
 
-// Datos institucionales corregidos y ajustados por código (incluyendo Alumno 7 corregido y fichas a 0%)
+// Datos institucionales con códigos, 40 de 50 clases registradas, porcentaje actual vs 100% total, y fichas en 0 de 100%
 const sampleStudents = [
-  { code: 'LDS-EST-001', grade: 'TERCERO', classes: '40 de 50', attendancePctActual: '79,6%', attendancePctTotal: '80,0%', worksheetsPct: '0% (0 de 100%)' },
-  { code: 'LDS-EST-002', grade: 'QUINTO', classes: '40 de 50', attendancePctActual: '79,2%', attendancePctTotal: '79,6%', worksheetsPct: '0% (0 de 100%)' },
-  { code: 'LDS-EST-003', grade: 'SEGUNDO', classes: '40 de 50', attendancePctActual: '79,2%', attendancePctTotal: '79,2%', worksheetsPct: '0% (0 de 100%)' },
-  { code: 'LDS-EST-004', grade: 'QUINTO', classes: '40 de 50', attendancePctActual: '80,0%', attendancePctTotal: '80,0%', worksheetsPct: '0% (0 de 100%)' },
-  { code: 'LDS-EST-005', grade: 'PRIMERO', classes: '40 de 50', attendancePctActual: '79,6%', attendancePctTotal: '79,6%', worksheetsPct: '0% (0 de 100%)' },
-  { code: 'LDS-EST-006', grade: 'QUINTO', classes: '40 de 50', attendancePctActual: '79,6%', attendancePctTotal: '79,6%', worksheetsPct: '0% (0 de 100%)' },
-  { code: 'LDS-EST-007', grade: 'SEXTO', classes: '40 de 50', attendancePctActual: '80,0%', attendancePctTotal: '80,0%', worksheetsPct: '0% (0 de 100%)' }
+  { code: 'LDS-EST-001', grade: 'TERCERO', classes: '40 de 50', attendancePctActual: '79,6%', attendancePctTotal: '100%', worksheetsPct: '0% (0 de 100%)' },
+  { code: 'LDS-EST-002', grade: 'QUINTO', classes: '40 de 50', attendancePctActual: '79,2%', attendancePctTotal: '100%', worksheetsPct: '0% (0 de 100%)' },
+  { code: 'LDS-EST-003', grade: 'SEGUNDO', classes: '40 de 50', attendancePctActual: '79,2%', attendancePctTotal: '100%', worksheetsPct: '0% (0 de 100%)' },
+  { code: 'LDS-EST-004', grade: 'QUINTO', classes: '40 de 50', attendancePctActual: '80,0%', attendancePctTotal: '100%', worksheetsPct: '0% (0 de 100%)' },
+  { code: 'LDS-EST-005', grade: 'PRIMERO', classes: '40 de 50', attendancePctActual: '79,6%', attendancePctTotal: '100%', worksheetsPct: '0% (0 de 100%)' },
+  { code: 'LDS-EST-006', grade: 'QUINTO', classes: '40 de 50', attendancePctActual: '79,6%', attendancePctTotal: '100%', worksheetsPct: '0% (0 de 100%)' },
+  { code: 'LDS-EST-007', grade: 'SEXTO', classes: '40 de 50', attendancePctActual: '80,0%', attendancePctTotal: '100%', worksheetsPct: '0% (0 de 100%)' }
 ];
 
 function initStatistics(){
