@@ -17,6 +17,7 @@
 .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
 .data-table th, .data-table td { border: 1px solid var(--line); padding: 8px; text-align: left; vertical-align: middle; white-space: nowrap; }
 .data-table th { background: var(--blue-soft); color: var(--navy); text-align: center; }
+.avatar-cell { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); }
 .badge-porc { padding: 4px 8px; border-radius: 6px; font-size: 0.85rem; font-weight: bold; background: var(--green-soft); color: var(--green); }
 .badge-pago { padding: 4px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; background: var(--cream); color: var(--gold-deep); }
 
@@ -117,7 +118,7 @@
         <div>
           <div style="font-size: 1.5rem; margin-bottom: 8px;">✅</div>
           <h4>Asistencia (7 Niños)</h4>
-          <p>Control exacto estilo Google Sheets con porcentajes, tardanzas y sesiones.</p>
+          <p>Control exacto estilo Google Sheets con fotos de GitHub, porcentajes y sesiones.</p>
         </div>
         <button class="btn small primary" onclick="mostrarVista('vista-asistencia')">Ver Asistencia</button>
       </div>
@@ -170,7 +171,7 @@
       <div class="section-note" style="text-align:center;">Se encuentran disponibles las 56 sesiones completas del programa en la plataforma.</div>
     </div>
 
-    <!-- VISTA 2: ASISTENCIA (ESTILO GOOGLE SHEETS CONECTADA PARA LOS 7 NIÑOS) -->
+    <!-- VISTA 2: ASISTENCIA (ESTILO GOOGLE SHEETS CON FOTOS DE GITHUB) -->
     <div id="vista-asistencia" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
@@ -209,11 +210,11 @@
             <tr>
               <th rowspan="2">ID</th>
               <th rowspan="2">APELLIDOS Y NOMBRES</th>
-              <th rowspan="2">FOTO (DRIVE)</th>
+              <th rowspan="2">FOTO</th>
               <th colspan="5" style="background:#dce5ef;">RESUMEN DE ASISTENCIA</th>
-              <th colspan="4">SESIÓN 1<br><span style="font-size:0.7rem; font-weight:normal;">16/06</span></th>
-              <th colspan="4">SESIÓN 2<br><span style="font-size:0.7rem; font-weight:normal;">18/06</span></th>
-              <th colspan="4">SESIÓN 3<br><span style="font-size:0.7rem; font-weight:normal;">23/06</span></th>
+              <th colspan="1">SESIÓN 1<br><span style="font-size:0.7rem; font-weight:normal;">16/06</span></th>
+              <th colspan="1">SESIÓN 2<br><span style="font-size:0.7rem; font-weight:normal;">18/06</span></th>
+              <th colspan="1">SESIÓN 3<br><span style="font-size:0.7rem; font-weight:normal;">23/06</span></th>
             </tr>
             <tr>
               <th style="font-size:0.75rem;">% ASIST.</th>
@@ -222,70 +223,86 @@
               <th style="font-size:0.75rem;">F</th>
               <th style="font-size:0.75rem;">FJ</th>
               <th style="font-size:0.7rem;">Estado</th>
+              <th style="font-size:0.7rem;">Estado</th>
+              <th style="font-size:0.7rem;">Estado</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><strong>LDS-EST-001</strong></td>
               <td>FRANCISCO CRIOLLO, DANY SMITH</td>
-              <td><a href="#" target="_blank" style="color:var(--blue); text-decoration:underline;">Ver Drive ↗</a></td>
+              <td><img class="avatar-cell" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/miss%20lily.jpg" alt="Dany" onerror="this.src='https://images.unsplash.com/photo-1543269865-cbf427effbad?w=150'"></td>
               <td><span class="badge-porc">80,0%</span></td>
               <td>39</td><td>1</td><td>0</td><td>0</td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
               <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
             </tr>
             <tr>
               <td><strong>LDS-EST-002</strong></td>
               <td>PINEDA ELGUERA, ADAM STUARD</td>
-              <td><a href="#" target="_blank" style="color:var(--blue); text-decoration:underline;">Ver Drive ↗</a></td>
+              <td><img class="avatar-cell" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/miss%20kiara.png" alt="Adam" onerror="this.src='https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150'"></td>
               <td><span class="badge-porc">79,6%</span></td>
               <td>38</td><td>1</td><td>0</td><td>1</td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
               <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
             </tr>
             <tr>
               <td><strong>LDS-EST-003</strong></td>
               <td>PIZARRO MENDOZA, CAMILA</td>
-              <td><a href="#" target="_blank" style="color:var(--blue); text-decoration:underline;">Ver Drive ↗</a></td>
+              <td><img class="avatar-cell" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/miss%20lily.jpg" alt="Camila" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150'"></td>
               <td><span class="badge-porc">79,2%</span></td>
               <td>38</td><td>0</td><td>0</td><td>2</td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
               <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
             </tr>
             <tr>
               <td><strong>LDS-EST-004</strong></td>
               <td>QUISPE FLORES, ANA PAULA</td>
-              <td><a href="#" target="_blank" style="color:var(--blue); text-decoration:underline;">Ver Drive ↗</a></td>
+              <td><img class="avatar-cell" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/miss%20kiara.png" alt="Ana Paula" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'"></td>
               <td><span class="badge-porc">80,0%</span></td>
               <td>40</td><td>0</td><td>0</td><td>0</td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
               <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
             </tr>
             <tr>
               <td><strong>LDS-EST-005</strong></td>
               <td>ROMERO SIESQUEN, MARCOS MANUEL</td>
-              <td><a href="#" target="_blank" style="color:var(--blue); text-decoration:underline;">Ver Drive ↗</a></td>
+              <td><img class="avatar-cell" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/miss%20lily.jpg" alt="Marcos" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150'"></td>
               <td><span class="badge-porc">79,6%</span></td>
               <td>39</td><td>0</td><td>0</td><td>1</td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
               <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
             </tr>
             <tr>
               <td><strong>LDS-EST-006</strong></td>
               <td>CARDENAS QUISPE, VASCO</td>
-              <td><a href="#" target="_blank" style="color:var(--blue); text-decoration:underline;">Ver Drive ↗</a></td>
+              <td><img class="avatar-cell" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/miss%20kiara.png" alt="Vasco" onerror="this.src='https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150'"></td>
               <td><span class="badge-porc">79,6%</span></td>
               <td>38</td><td>1</td><td>0</td><td>1</td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
               <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
             </tr>
             <tr>
               <td><strong>LDS-EST-007</strong></td>
               <td>PIZARRO MENDOZA, MARCHELO</td>
-              <td><a href="#" target="_blank" style="color:var(--blue); text-decoration:underline;">Ver Drive ↗</a></td>
+              <td><img class="avatar-cell" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/miss%20lily.jpg" alt="Marchelo" onerror="this.src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150'"></td>
               <td><span class="badge-porc">79,2%</span></td>
               <td>31</td><td>7</td><td>0</td><td>2</td>
               <td><select class="select-asist-t"><option>A</option><option selected>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-a"><option selected>A</option><option>T</option><option>F</option><option>FJ</option></select></td>
+              <td><select class="select-asist-f"><option>A</option><option>T</option><option selected>F</option><option>FJ</option></select></td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="section-note" style="margin-top:15px; font-size:0.84rem;">
-        Leyenda: <strong>[A]</strong> Presente (Azul) | <strong>[T]</strong> Tardanza (Amarillo) | <strong>[F]</strong> Falta (Rojo) | <strong>[FJ]</strong> Justificado (Verde). Sincronizado en tiempo real con Google Sheets.
+        Leyenda: <strong>[A]</strong> Presente (Azul) | <strong>[T]</strong> Tardanza (Amarillo) | <strong>[F]</strong> Falta (Rojo) | <strong>[FJ]</strong> Justificado (Verde). Fotografías sincronizadas desde GitHub.
       </div>
     </div>
 
