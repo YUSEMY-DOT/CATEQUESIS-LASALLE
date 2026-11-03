@@ -128,7 +128,7 @@
   </div>
 </section>
 
-<!-- CALENDAR OUTSIDE -->
+<!-- CALENDAR OUTSIDE (ACCESO DIRECTO EXTERIOR) -->
 <section class="view" id="view-calendar-main">
   <div class="panel">
     <div class="panel-head">
@@ -185,17 +185,71 @@
   </div>
 </section>
 
-<!-- 1. CATEQUIZANDOS (AGRUPA PROGRESO, ASISTENCIA, TAREAS Y FICHAS) -->
+<!-- 1. CATEQUIZANDOS (CON EL CALENDARIO INTERACTIVO Y SUS PESTAÑAS DE PROGRESO, ASISTENCIA, TAREAS Y FICHAS) -->
 <section class="view" id="view-catequizandos-main">
   <div class="subtabs">
-    <button class="subtab active" data-sub="students">👧🏻 Fichas de catequizandos</button>
+    <button class="subtab active" data-sub="calendar-sub">📅 Calendario interactivo y temas</button>
+    <button class="subtab" data-sub="students">👧🏻 Fichas de catequizandos</button>
     <button class="subtab" data-sub="progress">📊 Progreso por porcentaje</button>
     <button class="subtab" data-sub="attendance">✅ Asistencia y notas</button>
     <button class="subtab" data-sub="tasks">📚 Materiales y tareas</button>
   </div>
 
+  <!-- SUBVISTA: CALENDARIO INTERACTIVO (DENTRO DE CATEQUIZANDOS) -->
+  <div class="subview active" id="sub-calendar-sub">
+    <div class="panel">
+      <div class="panel-head">
+        <div><h2>Calendario interactivo de clases y temas por fecha</h2><p class="sub">Visualiza los temas programados para cada día martes y jueves de catequesis.</p></div>
+        <div class="form-actions">
+          <button class="btn gold" id="sub-add-event-btn">＋ Añadir evento</button>
+          <button class="btn" id="sub-print-day-btn">🖨 Imprimir ficha del día</button>
+        </div>
+      </div>
+      <div class="calendar-layout">
+        <div class="calendar-box">
+          <div class="calendar-head">
+            <strong>Calendario de catequesis</strong>
+            <div class="month-controls">
+              <button id="sub-prev-month" aria-label="Mes anterior">‹</button>
+              <strong class="month-label" id="sub-month-label">Octubre 2026</strong>
+              <button id="sub-next-month" aria-label="Mes siguiente">›</button>
+            </div>
+          </div>
+          <div class="cal-grid" id="sub-calendar-grid"></div>
+          <div class="legend">
+            <span><i class="dot class"></i>Clase</span>
+            <span><i class="dot liturgy"></i>Tema litúrgico / sacramental</span>
+            <span><i class="dot event"></i>Misa / evento</span>
+            <span><i class="dot selected"></i>Fecha seleccionada</span>
+          </div>
+        </div>
+        <div class="selected-panel">
+          <div class="panel-head">
+            <div>
+              <div class="date-label" id="sub-selected-kind">ENCUENTRO</div>
+              <h3 id="sub-selected-date-title">Selecciona una fecha</h3>
+              <p class="sub" id="sub-selected-date-sub">Temas, tareas y planificación de la sesión.</p>
+            </div>
+          </div>
+          <div id="sub-selected-topics"></div>
+          <div id="sub-selected-events"></div>
+          <div class="field" style="margin-top:13px">
+            <label for="sub-session-notes">Planificación / observaciones de las catequistas</label>
+            <textarea id="sub-session-notes" placeholder="Objetivo de la sesión, materiales que preparar, acuerdos o notas de seguimiento..."></textarea>
+          </div>
+          <div class="form-actions">
+            <button class="btn primary" id="sub-save-session-notes">Guardar planificación</button>
+            <button class="btn" id="sub-calendar-attendance-btn">Registrar asistencia</button>
+            <button class="btn" id="sub-calendar-add-task-btn">Asignar material o tarea</button>
+          </div>
+          <div class="section-note" id="sub-session-summary">Selecciona una fecha para ver su información.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- SUBVISTA: FICHAS -->
-  <div class="subview active" id="sub-students">
+  <div class="subview" id="sub-students">
     <div class="panel">
       <div class="panel-head">
         <div><h2>Fichas individuales de catequizandos</h2><p class="sub">Cada niño cuenta con su foto oficial (GitHub), código único y datos de seguimiento.</p></div>
@@ -239,7 +293,7 @@
     <div class="panel">
       <div class="panel-head">
         <div><h2>Control de asistencia y puntos</h2><p class="sub">Selecciona la fecha y registra asistencia, nota sobre 20, ficha y revisión del cuaderno.</p></div>
-        <button class="btn" onclick="goView('calendar-main')">Ver calendario</button>
+        <button class="btn" onclick="goView('calendar-main')">Ver calendario principal</button>
       </div>
       <div class="formgrid" style="margin-bottom:14px">
         <div class="field"><label for="attendance-date">Fecha del encuentro</label><input type="date" id="attendance-date"></div>
@@ -433,7 +487,7 @@
 
 <input id="import-file-hidden" type="file" accept="application/json,.json" class="hidden"><div class="toast" id="toast" role="status"></div>
 <script>
-const CURRICULUM = [{"title":"Conociendo a Jesús","subtitle":"Su vida, su mensaje y su amor.","topics":[[1,"¿Quién es Dios?",["Introducción breve","Quién es Dios","Dios único","Dios creador","Dios eterno","Dios Padre","Cómo conocemos a Dios"]],[2,"¿Quién es Jesús?",["Jesús es el Hijo de Dios","Verdadero Dios y verdadero hombre","Nacimiento y misión","Por qué Jesús es fundamental para los cristianos"]],[3,"¿Quién es el Espíritu Santo?",["Quién es","Su misión","Cómo actúa","Pentecostés","Símbolos principales"]],[4,"La Santísima Trinidad",["Un solo Dios","Padre, Hijo y Espíritu Santo","Tres Personas","No son tres dioses","¿Quién es primero?","Relación entre las tres Personas","Señal de la Cruz"]],[5,"La Creación",["Dios creador","Creación del mundo","Creación del ser humano","El ser humano y la creación","Responsabilidad de cuidar lo creado"]],[7,"Dios se Revela al Ser Humano",["¿Cómo conocemos a Dios?","Revelación","Sagrada Escritura","Tradición","Jesucristo como plenitud de la Revelación"]],[8,"La Biblia",["Qué es","Antiguo Testamento","Nuevo Testamento","Evangelios","Evangelistas","Cómo se divide","Cómo buscar una cita","Cómo leerla"]],[9,"La Vida de Jesús",["Nacimiento","María y José","Infancia","Bautismo","Vida pública","Discípulos","Predicación","Reino de Dios"]],[10,"Las Enseñanzas de Jesús",["Qué es una parábola y por qué Jesús las utilizaba","Parábola del Buen Samaritano","Parábola del Hijo Pródigo","Parábola del Sembrador","Parábola de la Oveja perdida","Parábola de los Talentos","Aplicación a nuestra vida"]],[11,"Los Milagros de Jesús",["Qué es un milagro","Para qué los realizaba Jesús","Milagros de sanación","Milagros sobre la naturaleza","Qué revelan sobre Jesús"]],[12,"Pasión, Muerte y Resurrección",["Última Cena","Pasión","Crucifixión","Muerte","Resurrección","Ascensión","Qué significa para nuestra fe"]]]},{title:"Aprendemos a orar","subtitle":"Hablar con Dios con confianza.","topics":[[19,"¿Quién es un Sacramento?",["Qué significa","Quién los instituyó","Signo visible","Gracia","Para qué sirven"]],[30,"Los Siete Sacramentos",["Clasificación: Iniciación, Curación y Servicio"]],[31,"La Gracia",["Qué es","Gracia santificante","Relación entre gracia y sacramentos","Vivir en gracia"]],[32,"El Bautismo",["Qué es y qué sucede","Agua, óleo, vela y vestidura blanca","Padrinos","Incorporación a la Iglesia","Ser hijo de Dios","Compromiso del bautizado"]],[33,"La Confirmación",["Qué es y relación con el Bautismo","Espíritu Santo y sus Dones","Qué significa ser confirmado"]],[34,"Los Demás Sacramentos",["Reconciliación, Unción de los enfermos, Matrimonio y Orden sacerdotal","Para qué sirve cada uno"]]]},{title:"La Eucaristía","subtitle":"Prepararnos para recibir a Jesús.","topics":[[35,"El Sacramento de la Reconciliación",["Qué es y por qué confesarnos","Contrición, confesión, propósito de enmienda, penitencia y absolución","Sigilo sacramental"]],[36,"Mi Primera Confesión",["Examen de conciencia y cómo prepararme","Qué decir y cómo acercarme al sacerdote","Qué hacer después"]],[37,"El Año Litúrgico",["Adviento, Navidad, Cuaresma, Semana Santa, Triduo Pascual, Pascua, Pentecostés y Tiempo Ordinario","Solemnidades, fiestas y memorias"]],[38,"Signos y Símbolos Litúrgicos",["Cruz, agua, aceite, fuego, cirios, incienso, imágenes y colores litúrgicos"]],[39,"¿Qué es la Santa Misa?",["Qué es y por qué vamos","Qué celebramos","Relación con la Última Cena y la Eucaristía","La Misa como celebración de la Iglesia"]],[40,"Antes de la Misa",["Vestimenta, higiene y presentación","Puntualidad, entrada, agua bendita, señal de la Cruz, silencio, genuflexión, reverencia, Sagrario y preparación interior"]],[41,"Conocemos el Templo",["Altar, Ambón, Sede, Sagrario, Cruz, Cirios, Confesionario, Pila bautismal e Imágenes"]],[42,"Vestiduras del Sacerdote",["Alba, cíngulo, estola, casulla, colores litúrgicos y significado básico"]],[44,"Gestos y Posturas",["De pie, sentados, arrodillados, inclinación, genuflexión, señal de la Cruz, golpearse el pecho, darse la paz, silencio y Amén","Cuándo se hace cada uno y por qué"]],[45,"Ritos Iniciales",["Procesión, saludo, acto penitencial, Yo confieso, Kyrie, Gloria y oración colecta"]],[46,"Liturgia de la Palabra",["Primera lectura, salmo, segunda lectura, Aleluya, Evangelio, homilía, Credo y oración de los fieles"]],[47,"Liturgia Eucarística",["Preparación de los dones, ofertorio, prefacio, Santo, Plegaria Eucarística, epíclesis, consagración, anamnesis, intercesiones, doxología y Amén"]],[48,"Rito de la Comunión",["Padre Nuestro, paz, fracción del Pan, Cordero de Dios, respuestas, procesión, recepción de la Comunión y acción de gracias"]],[49,"Ritos Finales",["Oración después de la Comunión, bendición, despedida, envío y cómo debemos salir de la iglesia"]],[50,"¿Qué es la Eucaristía?",["Última Cena, institución, Cuerpo y Sangre de Cristo, presencia real, sacrificio, banquete, action de gracias y memorial"]],[51,"¿Qué Sucede en la Consagración?",["Pan y vino, Espíritu Santo, palabras de Jesús, Cuerpo y Sangre, presencia real y Transubstanciación explicada para niños"]],[52,"Jesús en el Sagrario",["Qué es el Sagrario, lámpara, presencia de Jesús, genuflexión, adoración, visita al Santísimo y cómo orar ante Jesús"]],[53,"¿Cómo Recibimos la Comunión?",["Preparación, estado de gracia, ayuno eucarístico, procesión, reverencia, respuesta “Amén”, recepción, regreso al lugar y acción de gracias"]],[55,"Mi Primera Comunión",["Qué voy a recibir, por qué me preparé, qué debo saber, cómo participar, cómo comulgar, vestimenta, actitud, respuestas y acción de gracias"]]]},{title:"Valores cristianos","subtitle":"Amor, respeto y perdón.","topics":[[6,"El Ser Humano y el Pecado",["Libertad, bien y mal, pecado, consecuencias y conversión"]],[24,"Los Diez Mandamientos",["Qué son, por qué existen, los diez y aplicación a la vida de los niños"]],[25,"Los Mandamientos de la Iglesia",["Qué son, Misa, confesión, comunión, ayuno/abstinencia y otras obligaciones"]],[26,"Las Bienaventuranzas",["Qué son, enseñanzas de Jesús y cómo vivirlas"]],[27,"Obras de Misericordia",["Corporales, espirituales y ejemplos concretos"]],[28,"El Pecado y el Examen de Conciencia",["Qué es pecado, venial y mortal, libertad y responsabilidad, examen de conciencia y conversión"]]]},{title:"Compartimos la fe","subtitle":"Vivir en comunidad y familia.","topics":[[13,"¿Quién es la Virgen María?",["María en el plan de Dios, Anunciación, Nacimiento, Madre de Jesús, al pie de la Cruz, María y la Iglesia"]],[14,"¿Por qué hay tantas Vírgenes?",["Una sola Virgen María, qué es una advocación, nombres e imágenes: Carmen, Guadalupe, Fátima y Lourdes, veneración y adoración"]],[16,"¿Qué es la Iglesia?",["Quién fundó la Iglesia, qué significa, comunidad, Pueblo de Dios, Cuerpo de Cristo, templo y comunidad"]],[17,"¿Quiénes Forman la Iglesia?",["Papa, Obispos, Sacerdotes, Diáconos, Religiosos, Laicos, Ministros y Monaguillos; función básica de cada uno"]],[18,"Los Santos",["Qué es un santo, por qué existen, adoración/veneración, intercesión, comunión de los santos y modelos de vida"]],[43,"Servidores y Monaguillos",["Qué es un monaguillo, función, vestimenta, cruz, cirios, incienso, participación y actitud"]],[54,"Padrinos y Madrinas",["Qué significa ser padrino/madrina, requisitos, funciones, responsabilidad espiritual y acompañamiento"]],[56,"Después de la Primera Comunión",["¿Terminó la catequesis?, continuar en Misa, orar, confesión, Biblia, community, service y seguir creciendo en la fe"]]]}];
+const CURRICULUM = [{"title":"Conociendo a Jesús","subtitle":"Su vida, su mensaje y su amor.","topics":[[1,"¿Quién es Dios?",["Introducción breve","Quién es Dios","Dios único","Dios creador","Dios eterno","Dios Padre","Cómo conocemos a Dios"]],[2,"¿Quién es Jesús?",["Jesús es el Hijo de Dios","Verdadero Dios y verdadero hombre","Nacimiento y misión","Por qué Jesús es fundamental para los cristianos"]],[3,"¿Quién es el Espíritu Santo?",["Quién es","Su misión","Cómo actúa","Pentecostés","Símbolos principales"]],[4,"La Santísima Trinidad",["Un solo Dios","Padre, Hijo y Espíritu Santo","Tres Personas","No son tres dioses","¿Quién es primero?","Relación entre las tres Personas","Señal de la Cruz"]],[5,"La Creación",["Dios creador","Creación del mundo","Creación del ser humano","El ser humano y la creación","Responsabilidad de cuidar lo creado"]],[7,"Dios se Revela al Ser Humano",["¿Cómo conocemos a Dios?","Revelación","Sagrada Escritura","Tradición","Jesucristo como plenitud de la Revelación"]],[8,"La Biblia",["Qué es","Antiguo Testamento","Nuevo Testamento","Evangelios","Evangelistas","Cómo se divide","Cómo buscar una cita","Cómo leerla"]],[9,"La Vida de Jesús",["Nacimiento","María y José","Infancia","Bautismo","Vida pública","Discípulos","Predicación","Reino de Dios"]],[10,"Las Enseñanzas de Jesús",["Qué es una parábola y por qué Jesús las utilizaba","Parábola del Buen Samaritano","Parábola del Hijo Pródigo","Parábola del Sembrador","Parábola de la Oveja perdida","Parábola de los Talentos","Aplicación a nuestra vida"]],[11,"Los Milagros de Jesús",["Qué es un milagro","Para qué los realizaba Jesús","Milagros de sanación","Milagros sobre la naturaleza","Qué revelan sobre Jesús"]],[12,"Pasión, Muerte y Resurrección",["Última Cena","Pasión","Crucifixión","Muerte","Resurrección","Ascensión","Qué significa para nuestra fe"]]]},{title:"Aprendemos a orar","subtitle":"Hablar con Dios con confianza.","topics":[[19,"¿Quién es un Sacramento?",["Qué significa","Quién los instituyó","Signo visible","Gracia","Para qué sirven"]],[30,"Los Siete Sacramentos",["Clasificación: Iniciación, Curación y Servicio"]],[31,"La Gracia",["Qué es","Gracia santificante","Relación entre gracia y sacramentos","Vivir en gracia"]],[32,"El Bautismo",["Qué es y qué sucede","Agua, óleo, vela y vestidura blanca","Padrinos","Incorporación a la Iglesia","Ser hijo de Dios","Compromiso del bautizado"]],[33,"La Confirmación",["Qué es y relación con el Bautismo","Espíritu Santo y sus Dones","Qué significa ser confirmado"]],[34,"Los Demás Sacramentos",["Reconciliación, Unción de los enfermos, Matrimonio y Orden sacerdotal","Para qué sirve cada uno"]]]},{title:"La Eucaristía","subtitle":"Prepararnos para recibir a Jesús.","topics":[[35,"El Sacramento de la Reconciliación",["Qué es y por qué confesarnos","Contrición, confesión, propósito de enmienda, penitencia y absolución","Sigilo sacramental"]],[36,"Mi Primera Confesión",["Examen de conciencia y cómo prepararme","Qué decir y cómo acercarme al sacerdote","Qué hacer después"]],[37,"El Año Litúrgico",["Adviento, Navidad, Cuaresma, Semana Santa, Triduo Pascual, Pascua, Pentecostés y Tiempo Ordinario","Solemnidades, fiestas y memorias"]],[38,"Signos y Símbolos Litúrgicos",["Cruz, agua, aceite, fuego, cirios, incienso, imágenes y colores litúrgicos"]],[39,"¿Qué es la Santa Misa?",["Qué es y por qué vamos","Qué celebramos","Relación con la Última Cena y la Eucaristía","La Misa como celebración de la Iglesia"]],[40,"Antes de la Misa",["Vestimenta, higiene y presentación","Puntualidad, entrada, agua bendita, señal de la Cruz, silencio, genuflexión, reverencia, Sagrario y preparación interior"]],[41,"Conocemos el Templo",["Altar, Ambón, Sede, Sagrario, Cruz, Cirios, Confesionario, Pila bautismal e Imágenes"]],[42,"Vestiduras del Sacerdote",["Alba, cíngulo, estola, casulla, colores litúrgicos y significado básico"]],[44,"Gestos y Posturas",["De pie, sentados, arrodillados, inclinación, genuflexión, señal de la Cruz, golpearse el pecho, darse la paz, silencio y Amén","Cuándo se hace cada uno y por qué"]],[45,"Ritos Iniciales",["Procesión, saludo, acto penitencial, Yo confieso, Kyrie, Gloria y oración colecta"]],[46,"Liturgia de la Palabra",["Primera lectura, salmo, segunda lectura, Aleluya, Evangelio, homilía, Credo y oración de los fieles"]],[47,"Liturgia Eucarística",["Preparación de los dones, ofertorio, prefacio, Santo, Plegaria Eucarística, epíclesis, consagración, anamnesis, intercesiones, doxología y Amén"]],[48,"Rito de la Comunión",["Padre Nuestro, paz, fracción del Pan, Cordero de Dios, respuestas, procesión, recepción de la Comunión y acción de gracias"]],[49,"Ritos Finales",["Oración después de la Comunión, bendición, despedida, envío y cómo debemos salir de la iglesia"]],[50,"¿Qué es la Eucaristía?",["Última Cena, institución, Cuerpo y Sangre de Cristo, presencia real, sacrificio, banquete, acción de gracias y memorial"]],[51,"¿Qué Sucede en la Consagración?",["Pan y vino, Espíritu Santo, palabras de Jesús, Cuerpo y Sangre, presencia real y Transubstanciación explicada para niños"]],[52,"Jesús en el Sagrario",["Qué es el Sagrario, lámpara, presencia de Jesús, genuflexión, adoración, visita al Santísimo y cómo orar ante Jesús"]],[53,"¿Cómo Recibimos la Comunión?",["Preparación, estado de gracia, ayuno eucarístico, procesión, reverencia, respuesta “Amén”, recepción, regreso al lugar y acción de gracias"]],[55,"Mi Primera Comunión",["Qué voy a recibir, por qué me preparé, qué debo saber, cómo participar, cómo comulgar, vestimenta, actitud, respuestas y acción de gracias"]]]},{title:"Valores cristianos","subtitle":"Amor, respeto y perdón.","topics":[[6,"El Ser Humano y el Pecado",["Libertad, bien y mal, pecado, consecuencias y conversión"]],[24,"Los Diez Mandamientos",["Qué son, por qué existen, los diez y aplicación a la vida de los niños"]],[25,"Los Mandamientos de la Iglesia",["Qué son, Misa, confesión, comunión, ayuno/abstinencia y otras obligaciones"]],[26,"Las Bienaventuranzas",["Qué son, enseñanzas de Jesús y cómo vivirlas"]],[27,"Obras de Misericordia",["Corporales, espirituales y ejemplos concretos"]],[28,"El Pecado y el Examen de Conciencia",["Qué es pecado, venial y mortal, libertad y responsabilidad, examen de conciencia y conversión"]]]},{title:"Compartimos la fe","subtitle":"Vivir en comunidad y familia.","topics":[[13,"¿Quién es la Virgen María?",["María en el plan de Dios, Anunciación, Nacimiento, Madre de Jesús, al pie de la Cruz, María y la Iglesia"]],[14,"¿Por qué hay tantas Vírgenes?",["Una sola Virgen María, qué es una advocación, nombres e imágenes: Carmen, Guadalupe, Fátima y Lourdes, veneración y adoración"]],[16,"¿Qué es la Iglesia?",["Quién fundó la Iglesia, qué significa, comunidad, Pueblo de Dios, Cuerpo de Cristo, templo y comunidad"]],[17,"¿Quiénes Forman la Iglesia?",["Papa, Obispos, Sacerdotes, Diáconos, Religiosos, Laicos, Ministros y Monaguillos; función básica de cada uno"]],[18,"Los Santos",["Qué es un santo, por qué existen, adoración/veneración, intercesión, comunión de los santos y modelos de vida"]],[43,"Servidores y Monaguillos",["Qué es un monaguillo, función, vestimenta, cruz, cirios, incienso, participación y actitud"]],[54,"Padrinos y Madrinas",["Qué significa ser padrino/madrina, requisitos, funciones, responsabilidad espiritual y acompañamiento"]],[56,"Después de la Primera Comunión",["¿Terminó la catequesis?, continuar en Misa, orar, confesión, Biblia, community, service y seguir creciendo en la fe"]]]}];
 const DB_KEY='caminoJesusCatequistasPortal_v3';
 const $=id=>document.getElementById(id);
 const z=n=>String(n).padStart(2,'0');
@@ -480,7 +534,7 @@ function goView(name){
   activeView=name;
   document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.view===name));
   document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id==='view-'+name));
-  if(name==='calendar-main')renderCalendar();
+  if(name==='calendar-main'||name==='catequizandos-main')renderCalendar();
   if(name==='catequizandos-main'){renderStudents();renderProgress();renderAttendance();renderTasks();}
   if(name==='parents-main')renderMessages();
   if(name==='coordination-main')renderCoordination();
@@ -490,6 +544,7 @@ function goView(name){
 function switchSubTab(subName){
   document.querySelectorAll('.subtab').forEach(b=>b.classList.toggle('active',b.dataset.sub===subName));
   document.querySelectorAll('.subview').forEach(v=>v.classList.toggle('active',v.id==='sub-'+subName));
+  if(subName==='calendar-sub')renderCalendar();
   if(subName==='students')renderStudents();
   if(subName==='progress')renderProgress();
   if(subName==='attendance')renderAttendance();
@@ -507,16 +562,104 @@ function abrirControlMise(nombre, codigo){
 }
 function addMonths(amount){monthCursor=new Date(monthCursor.getFullYear(),monthCursor.getMonth()+amount,1,12);renderCalendar()}
 $('prev-month').addEventListener('click',()=>addMonths(-1));$('next-month').addEventListener('click',()=>addMonths(1));
+$('sub-prev-month').addEventListener('click',()=>addMonths(-1));$('sub-next-month').addEventListener('click',()=>addMonths(1));
+
 function combinedEvents(k){return db.events.filter(e=>e.date===k)}
-function renderCalendar(){const y=monthCursor.getFullYear(),m=monthCursor.getMonth();$('month-label').textContent=MONTHS[m].charAt(0).toUpperCase()+MONTHS[m].slice(1)+' '+y;const grid=$('calendar-grid');grid.innerHTML='';['L','M','X','J','V','S','D'].forEach(w=>{const el=document.createElement('div');el.className='weekday';el.textContent=w;grid.appendChild(el)});const offset=(new Date(y,m,1,12).getDay()+6)%7;for(let i=0;i<offset;i++)grid.appendChild(document.createElement('div'));const days=new Date(y,m+1,0,12).getDate();for(let day=1;day<=days;day++){const d=new Date(y,m,day,12),k=keyDate(d),base=lessonMap.get(k),events=combinedEvents(k);const b=document.createElement('button');b.className='day';b.textContent=day;if(base?.type==='lesson')b.classList.add('classday');if(hasLiturgyTopic(base))b.classList.add('liturgyday');if(base?.type==='event'||events.length)b.classList.add('eventday');if(events.length)b.classList.add('has-event');if(k===keyDate(new Date()))b.classList.add('today');if(k===selectedDate)b.classList.add('selected');b.title=hasLiturgyTopic(base)?'Clase con tema de liturgia, Santa Misa o preparación sacramental':base?.type==='lesson'?'Clase de catequesis':base?.title||events.map(e=>e.title).join(', ')||'Sin actividad programada.';b.setAttribute('aria-pressed',String(k===selectedDate));b.addEventListener('click',()=>selectDate(k));grid.appendChild(b);}renderSelectedDate();}
-function selectDate(k){selectedDate=k;monthCursor=new Date(parseDate(k).getFullYear(),parseDate(k).getMonth(),1,12);renderCalendar();$('attendance-date').value=k;}
-function renderSelectedDate(){const base=lessonMap.get(selectedDate),events=combinedEvents(selectedDate);$('selected-date-title').textContent=dateLabel(selectedDate);$('selected-kind').textContent=base?.type==='lesson'?'ENCUENTRO DE CATEQUESIS':base?.type==='event'?'CELEBRACIÓN':'FECHA SELECCIONADA';$('selected-date-sub').textContent=base?.type==='lesson'?`Encuentro ${String(base.session).padStart(2,'0')} · ${base.topics.length} tema${base.topics.length===1?'':'s'}${hasLiturgyTopic(base)?' · Incluye tema de liturgia / Santa Misa':''}`:base?.description||'Puedes registrar una misa, reunión, tarea o actividad para esta fecha.';const topics=$('selected-topics');topics.innerHTML='';if(base?.type==='lesson'){if(hasLiturgyTopic(base)){const liturgyBadge=document.createElement('div');liturgyBadge.className='section-note';liturgyBadge.textContent='Esta clase forma parte de la preparación litúrgica y sacramental. Los temas asignados aparecen debajo.';topics.appendChild(liturgyBadge);}base.topics.forEach(t=>{const det=document.createElement('details');det.className='topic-details';const sum=document.createElement('summary');sum.textContent=`Tema ${t.num}: ${t.title}`;const content=document.createElement('div');content.className='topic-content';content.innerHTML=`<div class="chip">Etapa: ${safe(t.stage)}</div><ul>${t.content.map(x=>`<li>${safe(x)}</li>`).join('')}</ul>`;det.append(sum,content);topics.appendChild(det)});}else if(base?.type==='event'){topics.innerHTML=`<div class="event-card"><strong>${safe(base.title)}</strong><p class="small">${safe(base.description||'')}</p></div>`;}else{topics.innerHTML='<div class="empty">No hay tema de clase asignado en esta fecha. Puedes añadir una misa, reunión, tarea o actividad especial.</div>';}const ev=$('selected-events');ev.innerHTML='';events.forEach(e=>{const card=document.createElement('div');card.className='event-card';card.innerHTML=`<div class="item-card-head"><div><span class="chip">${safe(e.type)}</span><h3 style="margin-top:5px">${safe(e.title)}</h3>${e.theme?`<div class="small"><strong>Tema / intención:</strong> ${safe(e.theme)}</div>`:''}<div class="small">${safe(e.details||'Sin detalles añadidos')}</div></div><button class="btn small red" data-delete-event="${safe(e.id)}">Eliminar</button></div>`;ev.appendChild(card)});$('session-notes').value=db.sessionNotes[selectedDate]||'';$('session-summary').textContent=`Materiales asignados para esta fecha: ${db.tasks.filter(t=>t.date===selectedDate).length}. Eventos adicionales: ${events.length}.`;
+function renderCalendar(){
+  const y=monthCursor.getFullYear(),m=monthCursor.getMonth();
+  const labelText=MONTHS[m].charAt(0).toUpperCase()+MONTHS[m].slice(1)+' '+y;
+  $('month-label').textContent=labelText;
+  $('sub-month-label').textContent=labelText;
+
+  ['calendar-grid','sub-calendar-grid'].forEach(gridId=>{
+    const grid=$(gridId);
+    if(!grid)return;
+    grid.innerHTML='';
+    ['L','M','X','J','V','S','D'].forEach(w=>{const el=document.createElement('div');el.className='weekday';el.textContent=w;grid.appendChild(el)});
+    const offset=(new Date(y,m,1,12).getDay()+6)%7;
+    for(let i=0;i<offset;i++)grid.appendChild(document.createElement('div'));
+    const days=new Date(y,m+1,0,12).getDate();
+    for(let day=1;day<=days;day++){
+      const d=new Date(y,m,day,12),k=keyDate(d),base=lessonMap.get(k),events=combinedEvents(k);
+      const b=document.createElement('button');b.className='day';b.textContent=day;
+      if(base?.type==='lesson')b.classList.add('classday');
+      if(hasLiturgyTopic(base))b.classList.add('liturgyday');
+      if(base?.type==='event'||events.length)b.classList.add('eventday');
+      if(events.length)b.classList.add('has-event');
+      if(k===keyDate(new Date()))b.classList.add('today');
+      if(k===selectedDate)b.classList.add('selected');
+      b.title=hasLiturgyTopic(base)?'Clase con tema de liturgia, Santa Misa o preparación sacramental':base?.type==='lesson'?'Clase de catequesis':base?.title||events.map(e=>e.title).join(', ')||'Sin actividad programada.';
+      b.setAttribute('aria-pressed',String(k===selectedDate));
+      b.addEventListener('click',()=>selectDate(k));
+      grid.appendChild(b);
+    }
+  });
+  renderSelectedDate();
 }
-$('save-session-notes').addEventListener('click',()=>{db.sessionNotes[selectedDate]=$('session-notes').value;saveDb();toast('Planificación guardada para '+dateLabel(selectedDate,false)+'.')});
-$('calendar-attendance-btn').addEventListener('click',()=>{goView('catequizandos-main');switchSubTab('attendance');$('attendance-date').value=selectedDate;renderAttendance()});
+function selectDate(k){selectedDate=k;monthCursor=new Date(parseDate(k).getFullYear(),parseDate(k).getMonth(),1,12);renderCalendar();$('attendance-date').value=k;}
+function renderSelectedDate(){
+  const base=lessonMap.get(selectedDate),events=combinedEvents(selectedDate);
+  const kindText=base?.type==='lesson'?'ENCUENTRO DE CATEQUESIS':base?.type==='event'?'CELEBRACIÓN':'FECHA SELECCIONADA';
+  const titleText=dateLabel(selectedDate);
+  const subText=base?.type==='lesson'?`Encuentro ${String(base.session).padStart(2,'0')} · ${base.topics.length} tema${base.topics.length===1?'':'s'}${hasLiturgyTopic(base)?' · Incluye tema de liturgia / Santa Misa':''}`:base?.description||'Puedes registrar una misa, reunión, tarea o actividad para esta fecha.';
+
+  $('selected-kind').textContent=kindText; $('sub-selected-kind').textContent=kindText;
+  $('selected-date-title').textContent=titleText; $('sub-selected-date-title').textContent=titleText;
+  $('selected-date-sub').textContent=subText; $('sub-selected-date-sub').textContent=subText;
+
+  let topicsHtml='';
+  if(base?.type==='lesson'){
+    if(hasLiturgyTopic(base)){
+      topicsHtml+=`<div class="section-note">Esta clase forma parte de la preparación litúrgica y sacramental. Los temas asignados aparecen debajo.</div>`;
+    }
+    base.topics.forEach(t=>{
+      topicsHtml+=`<details class="topic-details"><summary>Tema ${t.num}: ${safe(t.title)}</summary><div class="topic-content"><div class="chip">Etapa: ${safe(t.stage)}</div><ul>${t.content.map(x=>`<li>${safe(x)}</li>`).join('')}</ul></div></details>`;
+    });
+  }else if(base?.type==='event'){
+    topicsHtml=`<div class="event-card"><strong>${safe(base.title)}</strong><p class="small">${safe(base.description||'')}</p></div>`;
+  }else{
+    topicsHtml='<div class="empty">No hay tema de clase asignado en esta fecha. Puedes añadir una misa, reunión, tarea o actividad especial.</div>';
+  }
+
+  $('selected-topics').innerHTML=topicsHtml;
+  $('sub-selected-topics').innerHTML=topicsHtml;
+
+  let eventsHtml='';
+  events.forEach(e=>{
+    eventsHtml+=`<div class="event-card"><div class="item-card-head"><div><span class="chip">${safe(e.type)}</span><h3 style="margin-top:5px">${safe(e.title)}</h3>${e.theme?`<div class="small"><strong>Tema / intención:</strong> ${safe(e.theme)}</div>`:''}<div class="small">${safe(e.details||'Sin detalles añadidos')}</div></div><button class="btn small red" data-delete-event="${safe(e.id)}">Eliminar</button></div></div>`;
+  });
+  $('selected-events').innerHTML=eventsHtml;
+  $('sub-selected-events').innerHTML=eventsHtml;
+
+  const notesVal=db.sessionNotes[selectedDate]||'';
+  $('session-notes').value=notesVal;
+  $('sub-session-notes').value=notesVal;
+
+  const summaryText=`Materiales asignados para esta fecha: ${db.tasks.filter(t=>t.date===selectedDate).length}. Eventos adicionales: ${events.length}.`;
+  $('session-summary').textContent=summaryText;
+  $('sub-session-summary').textContent=summaryText;
+}
+
+$('save-session-notes').addEventListener('click',saveNotes);
+$('sub-save-session-notes').addEventListener('click',saveNotes);
+function saveNotes(){
+  const val=$('session-notes').value || $('sub-session-notes').value;
+  db.sessionNotes[selectedDate]=val;
+  saveDb();
+  toast('Planificación guardada para '+dateLabel(selectedDate,false)+'.');
+}
+
+$('calendar-attendance-btn').addEventListener('click',goToAttendance);
+$('sub-calendar-attendance-btn').addEventListener('click',goToAttendance);
+function goToAttendance(){goView('catequizandos-main');switchSubTab('attendance');$('attendance-date').value=selectedDate;renderAttendance();}
+
 $('calendar-add-task-btn').addEventListener('click',()=>openTaskModal(selectedDate));
+$('sub-calendar-add-task-btn').addEventListener('click',()=>openTaskModal(selectedDate));
 $('add-event-btn').addEventListener('click',()=>{$('ev-date').value=selectedDate;openModal('event-modal')});
+$('sub-add-event-btn').addEventListener('click',()=>{$('ev-date').value=selectedDate;openModal('event-modal')});
 $('print-day-btn').addEventListener('click',printDay);
+$('sub-print-day-btn').addEventListener('click',printDay);
+
 $('event-form').addEventListener('submit',e=>{e.preventDefault();db.events.push({id:id(),date:$('ev-date').value,type:$('ev-type').value,title:$('ev-title').value.trim(),theme:$('ev-theme').value.trim(),details:$('ev-details').value.trim()});saveDb();hideModal('event-modal');e.target.reset();renderCalendar();renderEvents();toast('Evento añadido al calendario.');});
 function renderEvents(){const wrap=$('events-list');wrap.innerHTML='';const list=[...db.events].sort((a,b)=>a.date.localeCompare(b.date));if(!list.length){wrap.innerHTML='<div class="empty">Todavía no hay eventos adicionales en el calendario.</div>';return}list.forEach(e=>{const c=document.createElement('article');c.className='item-card';c.innerHTML=`<div class="item-card-head"><div><span class="chip">${safe(e.type)}</span><h3>${safe(e.title)}</h3><div class="item-meta"><span>${safe(dateLabel(e.date))}</span></div>${e.theme?`<p class="sub"><strong>Tema / intención:</strong> ${safe(e.theme)}</p>`:''}<p class="sub">${safe(e.details||'')}</p></div><button class="btn red small" data-delete-event="${safe(e.id)}">Eliminar</button></div>`;wrap.appendChild(c)});}
 document.addEventListener('click',e=>{const del=e.target.closest('[data-delete-event]');if(del){db.events=db.events.filter(x=>x.id!==del.dataset.deleteEvent);saveDb();renderCalendar();renderEvents();toast('Evento eliminado.');}});
