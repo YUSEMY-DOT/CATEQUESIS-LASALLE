@@ -35,10 +35,6 @@ main{padding:0 clamp(14px,2.5vw,36px) 40px}
 .adventure-kicker{display:inline-block;border-radius:20px;background:#fffdf7;border:1px solid #ecc45e;color:#8b5a05;padding:4px 10px;font:700 11px Fredoka,sans-serif;letter-spacing:.6px;text-transform:uppercase}
 .kid-welcome h3{font:700 clamp(22px,2.6vw,30px)/1.12 Fredoka,sans-serif;margin:6px 0;color:#12345a}
 .kid-welcome p{font-weight:800;color:#52637a;margin:0}
-.quicklinks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:10px}
-.quick{background:#fffdf8;border:1px solid #ead49b;border-radius:14px;padding:9px 10px;display:flex;align-items:center;gap:9px;box-shadow:0 3px 8px #16375a0b;font-weight:900;color:#12345a;cursor:pointer;transition:.18s}
-.quick .emoji{width:36px;height:36px;display:grid;place-items:center;background:#fff2ca;border:1px solid #e8cb82;border-radius:11px;font-size:20px;flex-shrink:0}
-.quick:hover{background:#fff0be;border-color:#d9aa35;transform:translateY(-1px)}
 
 .section{margin-top:24px}.eyebrow{color:#9b6b10;font:600 12px Fredoka,sans-serif;letter-spacing:1.3px;text-transform:uppercase}
 .section h2{font:700 clamp(21px,2.6vw,30px) Fredoka,sans-serif;color:#12345a;margin:2px 0 12px}
@@ -131,7 +127,6 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
   .countdown{max-width:100%;justify-self:stretch}
   .stages{grid-template-columns:repeat(2,minmax(0,1fr))}
   .calendar-layout{grid-template-columns:1fr}
-  .quicklinks{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 </style>
 </head>
@@ -173,13 +168,7 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
     <section class="kid-welcome" aria-label="Bienvenida interactiva">
       <span class="adventure-kicker">✨ TU AVENTURA DE FE COMIENZA AQUÍ</span>
       <h3 id="adventure-greeting">¡Hola, pequeño amigo de Jesús! 💛</h3>
-      <p>Explora tus clases, descubre los temas del día, completa fichas y crece junto a tus compañeros mientras avanzas hacia tu Primera Comunión.</p>
-      <div class="quicklinks" id="resource-links" aria-label="Recursos de catequesis">
-        <button class="quick" data-resource="Prácticas"><span class="emoji">🖍️</span><span>Prácticas</span></button>
-        <button class="quick" data-resource="Evaluaciones"><span class="emoji">📝</span><span>Evaluaciones</span></button>
-        <button class="quick" data-resource="Canciones"><span class="emoji">🎶</span><span>Canciones</span></button>
-        <button class="quick" data-resource="Videos"><span class="emoji">▶️</span><span>Videos</span></button>
-      </div>
+      <p>Explora cada etapa, descubre los temas del día, revisa prácticas, evaluaciones, canciones y videos organizados por cada tema.</p>
     </section>
 
     <section class="section">
@@ -354,7 +343,7 @@ const stages=[
   ]}
 ];
 
-// Datos institucionales con clases registradas específicas por alumno (de acuerdo a sus asistencias reales), porcentaje actual vs 100% total, y fichas en 0 de 100%
+// Datos institucionales con códigos, clases registradas por alumno, asistencia actual vs total 100%, y fichas en 0 de 100%
 const sampleStudents = [
   { code: 'LDS-EST-001', grade: 'TERCERO', classes: '39 de 40', attendancePctActual: '79,6%', attendancePctTotal: '100%', worksheetsPct: '0% (0 de 100%)' },
   { code: 'LDS-EST-002', grade: 'QUINTO', classes: '38 de 40', attendancePctActual: '79,2%', attendancePctTotal: '100%', worksheetsPct: '0% (0 de 100%)' },
@@ -409,22 +398,31 @@ function openStage(idx){
   const win=window.open('','_blank');
   if(!win){alert('Permite las ventanas emergentes para este sitio.');return;}
   const esc=escapeHtml;
-  const topicCards=s.topics.map((t,i)=>`<div style="border:1px solid #eadcc2;border-radius:12px;background:#fff;padding:12px;margin-bottom:10px;"><span style="font-size:10px;font-weight:900;color:#b27b19;">TEMA ${t[0]}</span><strong style="display:block;font-size:15px;color:#12345a;margin:3px 0">${esc(t[1])}</strong><ul style="margin:5px 0 0;padding-left:18px;font-size:12px;color:#61738a">${t[2].map(x=>'<li>'+esc(x)+'</li>').join('')}</ul></div>`).join('');
+  
+  // Botones organizados por tema dentro de la etapa
+  const topicCards=s.topics.map((t,i)=>`
+    <div style="border:1px solid #eadcc2;border-radius:14px;background:#fff;padding:16px;margin-bottom:14px;box-shadow:0 3px 10px #12345a08;">
+      <span style="font-size:11px;font-weight:900;color:#b27b19;text-transform:uppercase;letter-spacing:.5px;">TEMA ${t[0]}</span>
+      <h3 style="margin:4px 0 8px;font-size:18px;color:#12345a;font-family:Fredoka,sans-serif;">${esc(t[1])}</h3>
+      <ul style="margin:0 0 14px;padding-left:18px;font-size:13px;color:#61738a">${t[2].map(x=>'<li>'+esc(x)+'</li>').join('')}</ul>
+      
+      <!-- Botones por cada tema -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;border-top:1px dashed #eadaaf;padding-top:12px;">
+        <button onclick="alert('Abriendo Prácticas del Tema ${t[0]}')" style="background:#fff8e6;border:1px solid #e8cb82;border-radius:10px;padding:8px 10px;font:700 12px Nunito,sans-serif;color:#12345a;display:flex;align-items:center;gap:6px;cursor:pointer;justify-content:center;">🖍️ Prácticas</button>
+        <button onclick="alert('Abriendo Evaluaciones del Tema ${t[0]}')" style="background:#fff2f0;border:1px solid #f2a9a0;border-radius:10px;padding:8px 10px;font:700 12px Nunito,sans-serif;color:#8a2817;display:flex;align-items:center;gap:6px;cursor:pointer;justify-content:center;">📝 Evaluaciones</button>
+        <button onclick="alert('Abriendo Canciones del Tema ${t[0]}')" style="background:#f0f4ff;border:1px solid #a8c2f5;border-radius:10px;padding:8px 10px;font:700 12px Nunito,sans-serif;color:#173b7a;display:flex;align-items:center;gap:6px;cursor:pointer;justify-content:center;">🎶 Canciones</button>
+        <button onclick="alert('Abriendo Videos del Tema ${t[0]}')" style="background:#eef9f2;border:1px solid #98dfb0;border-radius:10px;padding:8px 10px;font:700 12px Nunito,sans-serif;color:#156b37;display:flex;align-items:center;gap:6px;cursor:pointer;justify-content:center;">▶️ Videos</button>
+      </div>
+    </div>
+  `).join('');
+
   win.document.open();
-  win.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><title>${esc(s.title)}</title><style>body{font:14px Arial,sans-serif;background:#f7f5ef;color:#193453;max-width:800px;margin:20px auto;padding:0 15px}header{background:#12345a;color:white;padding:20px;border-radius:12px;margin-bottom:15px}h1{margin:0;font-size:24px}button{background:#ffc94d;border:0;border-radius:20px;padding:8px 16px;font-weight:900;cursor:pointer;margin-top:10px}</style></head><body><header><h1>${esc(s.title)}</h1><p style="margin:5px 0 0;color:#ffdf94">${esc(s.subtitle)}</p></header><main>${topicCards}</main><button onclick="window.close()">Cerrar ventana</button></body></html>`);
+  win.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><title>${esc(s.title)}</title><style>body{font:14px Nunito,Arial,sans-serif;background:#f7f5ef;color:#193453;max-width:850px;margin:25px auto;padding:0 15px}header{background:#12345a;color:white;padding:20px 24px;border-radius:16px;margin-bottom:20px;box-shadow:0 4px 15px #12345a20}h1{margin:0;font-size:24px;font-family:Fredoka,sans-serif}button.close-btn{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin-top:15px;color:#12345a;box-shadow:0 3px 8px #0002}</style></head><body><header><h1>${esc(s.title)}</h1><p style="margin:5px 0 0;color:#ffdf94;font-weight:700">${esc(s.subtitle)}</p></header><main>${topicCards}</main><button class="close-btn" onclick="window.close()">Cerrar ventana</button></body></html>`);
   win.document.close();win.focus();
 }
+
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 document.querySelectorAll('.stage').forEach((b,idx)=>b.addEventListener('click',()=>openStage(idx)));
-
-document.querySelectorAll('[data-resource]').forEach(b=>b.addEventListener('click',()=>{
-  const name=b.dataset.resource;
-  document.getElementById('modal-emoji').textContent={'Prácticas':'🖍️','Evaluaciones':'📝','Canciones':'🎵','Videos':'▶️'}[name]||'📚';
-  document.getElementById('modal-title').textContent=name;
-  document.getElementById('modal-text').textContent=`Este espacio está preparado para acceder a los contenidos de ${name.toLowerCase()}. Ingresa tu código institucional para continuar.`;
-  document.getElementById('resource-modal').classList.add('show');
-}));
-document.getElementById('modal-close').onclick=()=>document.getElementById('resource-modal').classList.remove('show');
 
 const monthNames=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 const week=['L','M','X','J','V','S','D'];
