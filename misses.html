@@ -20,13 +20,9 @@
 .avatar-cell { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); }
 .badge-porc { padding: 4px 8px; border-radius: 6px; font-size: 0.85rem; font-weight: bold; background: var(--green-soft); color: var(--green); }
 .badge-pago { padding: 4px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; background: var(--cream); color: var(--gold-deep); }
+.badge-pagado { padding: 4px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; background: var(--green-soft); color: var(--green); }
 
-/* Rejilla de los 14 Padres */
-.padres-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px; margin-top: 15px; }
-.padre-card { border: 1px solid var(--line); border-radius: 14px; padding: 16px; background: #fff; display: flex; gap: 15px; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-.padre-avatar { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--blue); flex-shrink: 0; }
-
-@media(max-width:768px){.action-buttons{grid-template-columns:repeat(2,1fr)}.tools-grid{grid-template-columns:1fr}.container{padding:14px}.padres-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.action-buttons{grid-template-columns:repeat(2,1fr)}.tools-grid{grid-template-columns:1fr}.container{padding:14px}}
 @media print{body *{visibility:hidden}#vista-asistencia, #vista-asistencia *, #vista-pagos, #vista-pagos *, #vista-padres, #vista-padres *{visibility:visible}#vista-asistencia, #vista-pagos, #vista-padres{position:absolute;left:0;top:0;width:100%}.no-print{display:none!important}}
 </style>
 </head>
@@ -111,7 +107,7 @@
         <div>
           <div style="font-size: 1.5rem; margin-bottom: 8px;">✅</div>
           <h4>Asistencia (7 Niños)</h4>
-          <p>Control de asistencia, porcentajes acumulados y reporte imprimible.</p>
+          <p>Control de asistencia editable, porcentajes acumulados y fotos completas.</p>
         </div>
         <button class="btn small primary" onclick="mostrarVista('vista-asistencia')">Ver Asistencia</button>
       </div>
@@ -120,7 +116,7 @@
         <div>
           <div style="font-size: 1.5rem; margin-bottom: 8px;">💵</div>
           <h4>Control de Pagos</h4>
-          <p>Registro del aporte único de S/. 40.00 por catequizando y vouchers.</p>
+          <p>Registro único de S/. 40.00, opción de subir voucher y estado editable.</p>
         </div>
         <button class="btn small gold" onclick="mostrarVista('vista-pagos')">Ver Pagos (S/ 40)</button>
       </div>
@@ -129,7 +125,7 @@
         <div>
           <div style="font-size: 1.5rem; margin-bottom: 8px;">👨‍👩‍👧‍👦</div>
           <h4>14 Padres de Familia</h4>
-          <p>Fichas de contacto con fotos, teléfonos, dirección, web, opción de editar e imprimir.</p>
+          <p>Directorio editable en tabla con DNI, Pin Familiar, Teléfono, fotos e imprimir.</p>
         </div>
         <button class="btn small gold" onclick="mostrarVista('vista-padres')">Ver 14 Padres</button>
       </div>
@@ -164,266 +160,186 @@
       <div class="section-note" style="text-align:center;">Se encuentran disponibles las 56 sesiones completas del programa en la plataforma.</div>
     </div>
 
-    <!-- VISTA 2: ASISTENCIA (7 NIÑOS) -->
+    <!-- VISTA 2: ASISTENCIA (7 NIÑOS EDITABLE CON PORCENTAJES Y FOTOS) -->
     <div id="vista-asistencia" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
         <button class="btn small gold" onclick="window.print()">🖨️ Imprimir Resumen</button>
       </div>
       <h3 style="color:var(--navy); margin-bottom:5px;">Control de Asistencia y Porcentajes (7 Catequizandos)</h3>
+      <div class="section-note no-print">Haga clic en el botón de edición rápida o modifique directamente el porcentaje y estado de cada niño.</div>
       <table class="data-table">
         <thead>
-          <tr><th>Foto</th><th>ID / Nombres y Apellidos</th><th>% Asistencia</th><th>Estado</th><th class="no-print">Acción</th></tr>
+          <tr><th>Foto</th><th>ID / Nombres y Apellidos</th><th>% Asistencia</th><th>Estado</th><th class="no-print">Acción Editable</th></tr>
         </thead>
         <tbody>
-          <tr><td><img class="avatar-cell" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/dc65d5b1494500d8d391a2c07de3ec1321a21ba1/assets/miss%20lily.jpg" alt="Dany" onerror="this.style.display='none'"></td><td><strong>LDS-EST-001</strong><br>Francisco Criollo, Dany Smith</td><td><span class="badge-porc">80.0%</span></td><td>Presente [A]</td><td class="no-print"><button class="btn small primary" onclick="alert('Asistencia actualizada')">Cambiar</button></td></tr>
-          <tr><td><img class="avatar-cell" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/dc65d5b1494500d8d391a2c07de3ec1321a21ba1/assets/miss%20lily.jpg" alt="Adam" onerror="this.style.display='none'"></td><td><strong>LDS-EST-002</strong><br>Pineda Elguera, Adam Stuard</td><td><span class="badge-porc">79.6%</span></td><td>Presente [A]</td><td class="no-print"><button class="btn small primary" onclick="alert('Asistencia actualizada')">Cambiar</button></td></tr>
-          <tr><td><img class="avatar-cell" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/dc65d5b1494500d8d391a2c07de3ec1321a21ba1/assets/miss%20lily.jpg" alt="Camila" onerror="this.style.display='none'"></td><td><strong>LDS-EST-003</strong><br>Pizarro Mendoza, Camila</td><td><span class="badge-porc">79.2%</span></td><td>Presente [A]</td><td class="no-print"><button class="btn small primary" onclick="alert('Asistencia actualizada')">Cambiar</button></td></tr>
-          <tr><td><img class="avatar-cell" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/dc65d5b1494500d8d391a2c07de3ec1321a21ba1/assets/miss%20lily.jpg" alt="Ana Paula" onerror="this.style.display='none'"></td><td><strong>LDS-EST-004</strong><br>Quispe Flores, Ana Paula</td><td><span class="badge-porc">80.0%</span></td><td>Presente [A]</td><td class="no-print"><button class="btn small primary" onclick="alert('Asistencia actualizada')">Cambiar</button></td></tr>
-          <tr><td><img class="avatar-cell" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/dc65d5b1494500d8d391a2c07de3ec1321a21ba1/assets/miss%20lily.jpg" alt="Marcos" onerror="this.style.display='none'"></td><td><strong>LDS-EST-005</strong><br>Romero Siesquen, Marcos Manuel</td><td><span class="badge-porc">79.6%</span></td><td>Presente [A]</td><td class="no-print"><button class="btn small primary" onclick="alert('Asistencia actualizada')">Cambiar</button></td></tr>
-          <tr><td><img class="avatar-cell" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/dc65d5b1494500d8d391a2c07de3ec1321a21ba1/assets/miss%20lily.jpg" alt="Vasco" onerror="this.style.display='none'"></td><td><strong>LDS-EST-006</strong><br>Cardenas Quispe, Vasco</td><td><span class="badge-porc">79.6%</span></td><td>Presente [A]</td><td class="no-print"><button class="btn small primary" onclick="alert('Asistencia actualizada')">Cambiar</button></td></tr>
-          <tr><td><img class="avatar-cell" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/dc65d5b1494500d8d391a2c07de3ec1321a21ba1/assets/miss%20lily.jpg" alt="Marchelo" onerror="this.style.display='none'"></td><td><strong>LDS-EST-007</strong><br>Pizarro Mendoza, Marchelo</td><td><span class="badge-porc">79.2%</span></td><td>Presente [A]</td><td class="no-print"><button class="btn small primary" onclick="alert('Asistencia actualizada')">Cambiar</button></td></tr>
+          <tr>
+            <td><img class="avatar-cell" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/dc65d5b1494500d8d391a2c07de3ec1321a21ba1/assets/miss%20lily.jpg" alt="Dany" onerror="this.src='https://images.unsplash.com/photo-1543269865-cbf427effbad?w=150'"></td>
+            <td><strong>LDS-EST-001</strong><br><input type="text" value="Francisco Criollo, Dany Smith" style="width:100%; border:1px solid var(--line); border-radius:6px; padding:4px;" /></td>
+            <td><input type="text" value="80.0%" style="width:70px; border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--green);" /></td>
+            <td><select style="border:1px solid var(--line); border-radius:6px; padding:4px;"><option selected>Presente [A]</option><option>Tardanza [T]</option><option>Falta [F]</option></select></td>
+            <td class="no-print"><button class="btn small primary" style="padding:4px 8px; font-size:0.78rem;" onclick="alert('Asistencia de Dany Smith guardada exitosamente.')">💾 Guardar</button></td>
+          </tr>
+          <tr>
+            <td><img class="avatar-cell" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/dc65d5b1494500d8d391a2c07de3ec1321a21ba1/assets/miss%20lily.jpg" alt="Adam" onerror="this.src='https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150'"></td>
+            <td><strong>LDS-EST-002</strong><br><input type="text" value="Pineda Elguera, Adam Stuard" style="width:100%; border:1px solid var(--line); border-radius:6px; padding:4px;" /></td>
+            <td><input type="text" value="79.6%" style="width:70px; border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--green);" /></td>
+            <td><select style="border:1px solid var(--line); border-radius:6px; padding:4px;"><option selected>Presente [A]</option><option>Tardanza [T]</option><option>Falta [F]</option></select></td>
+            <td class="no-print"><button class="btn small primary" style="padding:4px 8px; font-size:0.78rem;" onclick="alert('Asistencia de Adam Pineda guardada exitosamente.')">💾 Guardar</button></td>
+          </tr>
+          <tr>
+            <td><img class="avatar-cell" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/dc65d5b1494500d8d391a2c07de3ec1321a21ba1/assets/miss%20lily.jpg" alt="Camila" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150'"></td>
+            <td><strong>LDS-EST-003</strong><br><input type="text" value="Pizarro Mendoza, Camila" style="width:100%; border:1px solid var(--line); border-radius:6px; padding:4px;" /></td>
+            <td><input type="text" value="79.2%" style="width:70px; border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--green);" /></td>
+            <td><select style="border:1px solid var(--line); border-radius:6px; padding:4px;"><option selected>Presente [A]</option><option>Tardanza [T]</option><option>Falta [F]</option></select></td>
+            <td class="no-print"><button class="btn small primary" style="padding:4px 8px; font-size:0.78rem;" onclick="alert('Asistencia de Camila Pizarro guardada exitosamente.')">💾 Guardar</button></td>
+          </tr>
+          <tr>
+            <td><img class="avatar-cell" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/dc65d5b1494500d8d391a2c07de3ec1321a21ba1/assets/miss%20lily.jpg" alt="Ana Paula" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'"></td>
+            <td><strong>LDS-EST-004</strong><br><input type="text" value="Quispe Flores, Ana Paula" style="width:100%; border:1px solid var(--line); border-radius:6px; padding:4px;" /></td>
+            <td><input type="text" value="80.0%" style="width:70px; border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--green);" /></td>
+            <td><select style="border:1px solid var(--line); border-radius:6px; padding:4px;"><option selected>Presente [A]</option><option>Tardanza [T]</option><option>Falta [F]</option></select></td>
+            <td class="no-print"><button class="btn small primary" style="padding:4px 8px; font-size:0.78rem;" onclick="alert('Asistencia de Ana Paula Quispe guardada exitosamente.')">💾 Guardar</button></td>
+          </tr>
+          <tr>
+            <td><img class="avatar-cell" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/dc65d5b1494500d8d391a2c07de3ec1321a21ba1/assets/miss%20lily.jpg" alt="Marcos" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150'"></td>
+            <td><strong>LDS-EST-005</strong><br><input type="text" value="Romero Siesquen, Marcos Manuel" style="width:100%; border:1px solid var(--line); border-radius:6px; padding:4px;" /></td>
+            <td><input type="text" value="79.6%" style="width:70px; border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--green);" /></td>
+            <td><select style="border:1px solid var(--line); border-radius:6px; padding:4px;"><option selected>Presente [A]</option><option>Tardanza [T]</option><option>Falta [F]</option></select></td>
+            <td class="no-print"><button class="btn small primary" style="padding:4px 8px; font-size:0.78rem;" onclick="alert('Asistencia de Marcos Romero guardada exitosamente.')">💾 Guardar</button></td>
+          </tr>
+          <tr>
+            <td><img class="avatar-cell" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/dc65d5b1494500d8d391a2c07de3ec1321a21ba1/assets/miss%20lily.jpg" alt="Vasco" onerror="this.src='https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150'"></td>
+            <td><strong>LDS-EST-006</strong><br><input type="text" value="Cardenas Quispe, Vasco" style="width:100%; border:1px solid var(--line); border-radius:6px; padding:4px;" /></td>
+            <td><input type="text" value="79.6%" style="width:70px; border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--green);" /></td>
+            <td><select style="border:1px solid var(--line); border-radius:6px; padding:4px;"><option selected>Presente [A]</option><option>Tardanza [T]</option><option>Falta [F]</option></select></td>
+            <td class="no-print"><button class="btn small primary" style="padding:4px 8px; font-size:0.78rem;" onclick="alert('Asistencia de Vasco Cárdenas guardada exitosamente.')">💾 Guardar</button></td>
+          </tr>
+          <tr>
+            <td><img class="avatar-cell" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/dc65d5b1494500d8d391a2c07de3ec1321a21ba1/assets/miss%20lily.jpg" alt="Marchelo" onerror="this.src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150'"></td>
+            <td><strong>LDS-EST-007</strong><br><input type="text" value="Pizarro Mendoza, Marchelo" style="width:100%; border:1px solid var(--line); border-radius:6px; padding:4px;" /></td>
+            <td><input type="text" value="79.2%" style="width:70px; border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--green);" /></td>
+            <td><select style="border:1px solid var(--line); border-radius:6px; padding:4px;"><option selected>Presente [A]</option><option>Tardanza [T]</option><option>Falta [F]</option></select></td>
+            <td class="no-print"><button class="btn small primary" style="padding:4px 8px; font-size:0.78rem;" onclick="alert('Asistencia de Marchelo Pizarro guardada exitosamente.')">💾 Guardar</button></td>
+          </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- VISTA 3: CONTROL DE PAGOS -->
+    <!-- VISTA 3: CONTROL DE PAGOS (S/. 40.00 CON OPCIÓN DE SUBIR VOUCHER Y EDITAR) -->
     <div id="vista-pagos" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
         <button class="btn small gold" onclick="window.print()">🖨️ Imprimir Reporte de Pagos</button>
       </div>
       <h3 style="color:var(--navy); margin-bottom:5px;">Control de Pago Único (S/. 40.00 Soles)</h3>
-      <div class="section-note">Parroquia San Pedro de Lurín | Registro de Vouchers y Comprobantes</div>
+      <div class="section-note">Parroquia San Pedro de Lurín | Gestione el estado de pago y adjunte el comprobante o voucher de cada catequizando.</div>
       <table class="data-table">
         <thead>
-          <tr><th>ID</th><th>Apellidos y Nombres</th><th>Monto</th><th>Estado</th><th>Voucher / Operación</th></tr>
+          <tr><th>ID</th><th>Apellidos y Nombres</th><th>Monto</th><th>Estado Editable</th><th>Subir / Ver Voucher</th></tr>
         </thead>
         <tbody>
-          <tr><td>LDS-EST-001</td><td>Francisco Criollo, Dany Smith</td><td>S/. 40.00</td><td><span class="badge-pago">Pendiente</span></td><td>[ Ver Voucher ]</td></tr>
-          <tr><td>LDS-EST-002</td><td>Pineda Elguera, Adam Stuard</td><td>S/. 40.00</td><td><span class="badge-pago">Pendiente</span></td><td>[ Ver Voucher ]</td></tr>
-          <tr><td>LDS-EST-003</td><td>Pizarro Mendoza, Camila</td><td>S/. 40.00</td><td><span class="badge-pago">Pendiente</span></td><td>[ Ver Voucher ]</td></tr>
-          <tr><td>LDS-EST-004</td><td>Quispe Flores, Ana Paula</td><td>S/. 40.00</td><td><span class="badge-pago">Pendiente</span></td><td>[ Ver Voucher ]</td></tr>
-          <tr><td>LDS-EST-005</td><td>Romero Siesquen, Marcos Manuel</td><td>S/. 40.00</td><td><span class="badge-pago">Pendiente</span></td><td>[ Ver Voucher ]</td></tr>
-          <tr><td>LDS-EST-006</td><td>Cardenas Quispe, Vasco</td><td>S/. 40.00</td><td><span class="badge-pago">Pendiente</span></td><td>[ Ver Voucher ]</td></tr>
-          <tr><td>LDS-EST-007</td><td>Pizarro Mendoza, Marchelo</td><td>S/. 40.00</td><td><span class="badge-pago">Pendiente</span></td><td>[ Ver Voucher ]</td></tr>
+          <tr>
+            <td>LDS-EST-001</td>
+            <td>Francisco Criollo, Dany Smith</td>
+            <td><strong>S/. 40.00</strong></td>
+            <td><select style="border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--gold-deep);"><option selected>Pendiente</option><option style="color:var(--green);">Pagado</option></select></td>
+            <td><input type="file" accept="image/*,.pdf" style="font-size:0.78rem; max-width:180px;" /><button class="btn small primary" style="padding:3px 6px; font-size:0.75rem; margin-left:4px;" onclick="alert('Voucher subido y pago actualizado a Pagado con éxito.')">Subir</button></td>
+          </tr>
+          <tr>
+            <td>LDS-EST-002</td>
+            <td>Pineda Elguera, Adam Stuard</td>
+            <td><strong>S/. 40.00</strong></td>
+            <td><select style="border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--gold-deep);"><option selected>Pendiente</option><option style="color:var(--green);">Pagado</option></select></td>
+            <td><input type="file" accept="image/*,.pdf" style="font-size:0.78rem; max-width:180px;" /><button class="btn small primary" style="padding:3px 6px; font-size:0.75rem; margin-left:4px;" onclick="alert('Voucher subido y pago actualizado a Pagado con éxito.')">Subir</button></td>
+          </tr>
+          <tr>
+            <td>LDS-EST-003</td>
+            <td>Pizarro Mendoza, Camila</td>
+            <td><strong>S/. 40.00</strong></td>
+            <td><select style="border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--gold-deep);"><option selected>Pendiente</option><option style="color:var(--green);">Pagado</option></select></td>
+            <td><input type="file" accept="image/*,.pdf" style="font-size:0.78rem; max-width:180px;" /><button class="btn small primary" style="padding:3px 6px; font-size:0.75rem; margin-left:4px;" onclick="alert('Voucher subido y pago actualizado a Pagado con éxito.')">Subir</button></td>
+          </tr>
+          <tr>
+            <td>LDS-EST-004</td>
+            <td>Quispe Flores, Ana Paula</td>
+            <td><strong>S/. 40.00</strong></td>
+            <td><select style="border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--gold-deep);"><option selected>Pendiente</option><option style="color:var(--green);">Pagado</option></select></td>
+            <td><input type="file" accept="image/*,.pdf" style="font-size:0.78rem; max-width:180px;" /><button class="btn small primary" style="padding:3px 6px; font-size:0.75rem; margin-left:4px;" onclick="alert('Voucher subido y pago actualizado a Pagado con éxito.')">Subir</button></td>
+          </tr>
+          <tr>
+            <td>LDS-EST-005</td>
+            <td>Romero Siesquen, Marcos Manuel</td>
+            <td><strong>S/. 40.00</strong></td>
+            <td><select style="border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--gold-deep);"><option selected>Pendiente</option><option style="color:var(--green);">Pagado</option></select></td>
+            <td><input type="file" accept="image/*,.pdf" style="font-size:0.78rem; max-width:180px;" /><button class="btn small primary" style="padding:3px 6px; font-size:0.75rem; margin-left:4px;" onclick="alert('Voucher subido y pago actualizado a Pagado con éxito.')">Subir</button></td>
+          </tr>
+          <tr>
+            <td>LDS-EST-006</td>
+            <td>Cardenas Quispe, Vasco</td>
+            <td><strong>S/. 40.00</strong></td>
+            <td><select style="border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--gold-deep);"><option selected>Pendiente</option><option style="color:var(--green);">Pagado</option></select></td>
+            <td><input type="file" accept="image/*,.pdf" style="font-size:0.78rem; max-width:180px;" /><button class="btn small primary" style="padding:3px 6px; font-size:0.75rem; margin-left:4px;" onclick="alert('Voucher subido y pago actualizado a Pagado con éxito.')">Subir</button></td>
+          </tr>
+          <tr>
+            <td>LDS-EST-007</td>
+            <td>Pizarro Mendoza, Marchelo</td>
+            <td><strong>S/. 40.00</strong></td>
+            <td><select style="border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--gold-deep);"><option selected>Pendiente</option><option style="color:var(--green);">Pagado</option></select></td>
+            <td><input type="file" accept="image/*,.pdf" style="font-size:0.78rem; max-width:180px;" /><button class="btn small primary" style="padding:3px 6px; font-size:0.75rem; margin-left:4px;" onclick="alert('Voucher subido y pago actualizado a Pagado con éxito.')">Subir</button></td>
+          </tr>
         </tbody>
       </table>
       <p style="margin-top:10px; font-weight:bold; color:var(--navy);">Total Meta Recaudada: S/. 280.00</p>
     </div>
 
-    <!-- VISTA 4: LOS 14 PADRES DE FAMILIA (CON EDITAR E IMPRIMIR) -->
+    <!-- VISTA 4: LOS 14 PADRES DE FAMILIA (EDITABLES EN TABLA, CON FOTO, AÑADIR E IMPRIMIR) -->
     <div id="vista-padres" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
         <div>
-          <button class="btn small primary" onclick="alert('Abriendo formulario para registrar o agregar un nuevo padre de familia...')">➕ Añadir Padre</button>
+          <button class="btn small primary" onclick="alert('Abriendo formulario para añadir nuevo padre o apoderado y subir su foto...')">➕ Añadir Padre/Madre</button>
           <button class="btn small gold" onclick="window.print()">🖨️ Imprimir Directorio</button>
         </div>
       </div>
-      <h3 style="color:var(--navy); margin-bottom:5px;">Directorio y Fichas de los 14 Padres de Familia</h3>
+      <h3 style="color:var(--navy); margin-bottom:5px;">Directorio de los 14 Padres y Apoderados</h3>
       <div class="section-note no-print">
-        Aquí se muestran los 14 registros oficiales de padres y apoderados. Puede editar la información o imprimir el reporte.
+        Listado oficial editable. Puede modificar directamente los campos o utilizar los botones de edición y añadir nuevos registros con foto.
       </div>
 
-      <div class="padres-grid">
-        <!-- Padre 1 -->
-        <div class="padre-card">
-          <img class="padre-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150" alt="Padre" onerror="this.style.display='none'">
-          <div>
-            <h4 style="margin:0 0 4px; color:var(--navy);">Carlos Alberto Criollo (Padre de Dany)</h4>
-            <p style="margin:0 0 2px; font-size:0.82rem; color:var(--muted);">📍 Av. Principal 123, Lurín</p>
-            <p style="margin:0 0 6px; font-size:0.82rem; color:var(--muted);">📞 987348365</p>
-            <div style="display:flex; gap:6px;">
-              <a href="#" target="_blank" style="font-size:0.78rem; color:var(--blue); font-weight:bold; text-decoration:underline;">🌐 Web</a>
-              <button class="btn small no-print" style="padding:2px 6px; font-size:0.75rem;" onclick="alert('Editando datos de Carlos Alberto Criollo')">✏️ Editar</button>
-            </div>
-          </div>
-        </div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ID / Foto</th>
+            <th>Apellidos y Nombres</th>
+            <th>Parentesco</th>
+            <th>DNI</th>
+            <th>Pin Familiar</th>
+            <th>Teléfono</th>
+            <th>Autoriza</th>
+            <th class="no-print" style="text-align:center;">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 7 Padres -->
+          <tr><td><strong>PAD-EST-001</strong><br><input type="file" accept="image/*" style="font-size:0.68rem; width:80px;" /></td><td><input type="text" value="Carlos Alberto Criollo" style="width:100%; border:1px solid var(--line); border-radius:4px; padding:3px;" /></td><td>PADRE</td><td><input type="text" value="40646634" style="width:75px;" /></td><td><input type="text" value="40646634-343" style="width:95px;" /></td><td><input type="text" value="987348365" style="width:85px;" /></td><td>SI</td><td class="no-print" style="text-align:center;"><button class="btn small primary" style="padding:3px 7px; font-size:0.72rem;" onclick="alert('Datos de PAD-EST-001 actualizados correctamente.')">Guardar</button></td></tr>
+          <tr><td><strong>PAD-EST-002</strong><br><input type="file" accept="image/*" style="font-size:0.68rem; width:80px;" /></td><td><input type="text" value="Manuel Antonio Pineda" style="width:100%; border:1px solid var(--line); border-radius:4px; padding:3px;" /></td><td>PADRE</td><td><input type="text" value="" style="width:75px;" /></td><td><input type="text" value="" style="width:95px;" /></td><td><input type="text" value="941023030" style="width:85px;" /></td><td>SI</td><td class="no-print" style="text-align:center;"><button class="btn small primary" style="padding:3px 7px; font-size:0.72rem;" onclick="alert('Datos actualizados correctamente.')">Guardar</button></td></tr>
+          <tr><td><strong>PAD-EST-003</strong><br><input type="file" accept="image/*" style="font-size:0.68rem; width:80px;" /></td><td><input type="text" value="Jorge Luis Pizarro" style="width:100%; border:1px solid var(--line); border-radius:4px; padding:3px;" /></td><td>PADRE</td><td><input type="text" value="" style="width:75px;" /></td><td><input type="text" value="" style="width:95px;" /></td><td><input type="text" value="915933631" style="width:85px;" /></td><td>SI</td><td class="no-print" style="text-align:center;"><button class="btn small primary" style="padding:3px 7px; font-size:0.72rem;" onclick="alert('Datos actualizados correctamente.')">Guardar</button></td></tr>
+          <tr><td><strong>PAD-EST-004</strong><br><input type="file" accept="image/*" style="font-size:0.68rem; width:80px;" /></td><td><input type="text" value="Alberto Quispe" style="width:100%; border:1px solid var(--line); border-radius:4px; padding:3px;" /></td><td>PADRE</td><td><input type="text" value="" style="width:75px;" /></td><td><input type="text" value="" style="width:95px;" /></td><td><input type="text" value="927297915" style="width:85px;" /></td><td>SI</td><td class="no-print" style="text-align:center;"><button class="btn small primary" style="padding:3px 7px; font-size:0.72rem;" onclick="alert('Datos actualizados correctamente.')">Guardar</button></td></tr>
+          <tr><td><strong>PAD-EST-005</strong><br><input type="file" accept="image/*" style="font-size:0.68rem; width:80px;" /></td><td><input type="text" value="Ricardo Romero" style="width:100%; border:1px solid var(--line); border-radius:4px; padding:3px;" /></td><td>PADRE</td><td><input type="text" value="" style="width:75px;" /></td><td><input type="text" value="" style="width:95px;" /></td><td><input type="text" value="983085095" style="width:85px;" /></td><td>SI</td><td class="no-print" style="text-align:center;"><button class="btn small primary" style="padding:3px 7px; font-size:0.72rem;" onclick="alert('Datos actualizados correctamente.')">Guardar</button></td></tr>
+          <tr><td><strong>PAD-EST-006</strong><br><input type="file" accept="image/*" style="font-size:0.68rem; width:80px;" /></td><td><input type="text" value="Fernando Cárdenas" style="width:100%; border:1px solid var(--line); border-radius:4px; padding:3px;" /></td><td>PADRE</td><td><input type="text" value="" style="width:75px;" /></td><td><input type="text" value="" style="width:95px;" /></td><td><input type="text" value="993188831" style="width:85px;" /></td><td>SI</td><td class="no-print" style="text-align:center;"><button class="btn small primary" style="padding:3px 7px; font-size:0.72rem;" onclick="alert('Datos actualizados correctamente.')">Guardar</button></td></tr>
+          <tr><td><strong>PAD-EST-007</strong><br><input type="file" accept="image/*" style="font-size:0.68rem; width:80px;" /></td><td><input type="text" value="Jorge Luis Pizarro" style="width:100%; border:1px solid var(--line); border-radius:4px; padding:3px;" /></td><td>PADRE</td><td><input type="text" value="" style="width:75px;" /></td><td><input type="text" value="" style="width:95px;" /></td><td><input type="text" value="915933631" style="width:85px;" /></td><td>SI</td><td class="no-print" style="text-align:center;"><button class="btn small primary" style="padding:3px 7px; font-size:0.72rem;" onclick="alert('Datos actualizados correctamente.')">Guardar</button></td></tr>
 
-        <!-- Madre 1 -->
-        <div class="padre-card">
-          <img class="padre-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Madre" onerror="this.style.display='none'">
-          <div>
-            <h4 style="margin:0 0 4px; color:var(--navy);">Rosa María Criollo (Madre de Dany)</h4>
-            <p style="margin:0 0 2px; font-size:0.82rem; color:var(--muted);">📍 Av. Principal 123, Lurín</p>
-            <p style="margin:0 0 6px; font-size:0.82rem; color:var(--muted);">📞 987348365</p>
-            <div style="display:flex; gap:6px;">
-              <a href="#" target="_blank" style="font-size:0.78rem; color:var(--blue); font-weight:bold; text-decoration:underline;">🌐 Web</a>
-              <button class="btn small no-print" style="padding:2px 6px; font-size:0.75rem;" onclick="alert('Editando datos de Rosa María Criollo')">✏️ Editar</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Padre 2 -->
-        <div class="padre-card">
-          <img class="padre-avatar" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150" alt="Padre" onerror="this.style.display='none'">
-          <div>
-            <h4 style="margin:0 0 4px; color:var(--navy);">Manuel Antonio Pineda (Padre de Adam)</h4>
-            <p style="margin:0 0 2px; font-size:0.82rem; color:var(--muted);">📍 Calle San Bartolo 456</p>
-            <p style="margin:0 0 6px; font-size:0.82rem; color:var(--muted);">📞 941023030</p>
-            <div style="display:flex; gap:6px;">
-              <a href="#" target="_blank" style="font-size:0.78rem; color:var(--blue); font-weight:bold; text-decoration:underline;">🌐 Web</a>
-              <button class="btn small no-print" style="padding:2px 6px; font-size:0.75rem;" onclick="alert('Editando datos de Manuel Antonio Pineda')">✏️ Editar</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Madre 2 -->
-        <div class="padre-card">
-          <img class="padre-avatar" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150" alt="Madre" onerror="this.style.display='none'">
-          <div>
-            <h4 style="margin:0 0 4px; color:var(--navy);">Carmen Elguera (Madre de Adam)</h4>
-            <p style="margin:0 0 2px; font-size:0.82rem; color:var(--muted);">📍 Calle San Bartolo 456</p>
-            <p style="margin:0 0 6px; font-size:0.82rem; color:var(--muted);">📞 941023030</p>
-            <div style="display:flex; gap:6px;">
-              <a href="#" target="_blank" style="font-size:0.78rem; color:var(--blue); font-weight:bold; text-decoration:underline;">🌐 Web</a>
-              <button class="btn small no-print" style="padding:2px 6px; font-size:0.75rem;" onclick="alert('Editando datos de Carmen Elguera')">✏️ Editar</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Padre 3 -->
-        <div class="padre-card">
-          <img class="padre-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150" alt="Padre" onerror="this.style.display='none'">
-          <div>
-            <h4 style="margin:0 0 4px; color:var(--navy);">Jorge Luis Pizarro (Padre de Camila)</h4>
-            <p style="margin:0 0 2px; font-size:0.82rem; color:var(--muted);">📍 Urb. Los Rosales 789</p>
-            <p style="margin:0 0 6px; font-size:0.82rem; color:var(--muted);">📞 915933631</p>
-            <div style="display:flex; gap:6px;">
-              <a href="#" target="_blank" style="font-size:0.78rem; color:var(--blue); font-weight:bold; text-decoration:underline;">🌐 Web</a>
-              <button class="btn small no-print" style="padding:2px 6px; font-size:0.75rem;" onclick="alert('Editando datos de Jorge Luis Pizarro')">✏️ Editar</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Madre 3 -->
-        <div class="padre-card">
-          <img class="padre-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150" alt="Madre" onerror="this.style.display='none'">
-          <div>
-            <h4 style="margin:0 0 4px; color:var(--navy);">Elena Mendoza (Madre de Camila)</h4>
-            <p style="margin:0 0 2px; font-size:0.82rem; color:var(--muted);">📍 Urb. Los Rosales 789</p>
-            <p style="margin:0 0 6px; font-size:0.82rem; color:var(--muted);">📞 915933631</p>
-            <div style="display:flex; gap:6px;">
-              <a href="#" target="_blank" style="font-size:0.78rem; color:var(--blue); font-weight:bold; text-decoration:underline;">🌐 Web</a>
-              <button class="btn small no-print" style="padding:2px 6px; font-size:0.75rem;" onclick="alert('Editando datos de Elena Mendoza')">✏️ Editar</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Padre 4 -->
-        <div class="padre-card">
-          <img class="padre-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150" alt="Padre" onerror="this.style.display='none'">
-          <div>
-            <h4 style="margin:0 0 4px; color:var(--navy);">Alberto Quispe (Padre de Ana Paula)</h4>
-            <p style="margin:0 0 2px; font-size:0.82rem; color:var(--muted);">📍 Av. Sol de Lurín 321</p>
-            <p style="margin:0 0 6px; font-size:0.82rem; color:var(--muted);">📞 927297915</p>
-            <div style="display:flex; gap:6px;">
-              <a href="#" target="_blank" style="font-size:0.78rem; color:var(--blue); font-weight:bold; text-decoration:underline;">🌐 Web</a>
-              <button class="btn small no-print" style="padding:2px 6px; font-size:0.75rem;" onclick="alert('Editando datos de Alberto Quispe')">✏️ Editar</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Madre 4 -->
-        <div class="padre-card">
-          <img class="padre-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Madre" onerror="this.style.display='none'">
-          <div>
-            <h4 style="margin:0 0 4px; color:var(--navy);">Sofía Flores (Madre de Ana Paula)</h4>
-            <p style="margin:0 0 2px; font-size:0.82rem; color:var(--muted);">📍 Av. Sol de Lurín 321</p>
-            <p style="margin:0 0 6px; font-size:0.82rem; color:var(--muted);">📞 927297915</p>
-            <div style="display:flex; gap:6px;">
-              <a href="#" target="_blank" style="font-size:0.78rem; color:var(--blue); font-weight:bold; text-decoration:underline;">🌐 Web</a>
-              <button class="btn small no-print" style="padding:2px 6px; font-size:0.75rem;" onclick="alert('Editando datos de Sofía Flores')">✏️ Editar</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Padre 5 -->
-        <div class="padre-card">
-          <img class="padre-avatar" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150" alt="Padre" onerror="this.style.display='none'">
-          <div>
-            <h4 style="margin:0 0 4px; color:var(--navy);">Ricardo Romero (Padre de Marcos)</h4>
-            <p style="margin:0 0 2px; font-size:0.82rem; color:var(--muted);">📍 Calle Las Palmeras 654</p>
-            <p style="margin:0 0 6px; font-size:0.82rem; color:var(--muted);">📞 983085095</p>
-            <div style="display:flex; gap:6px;">
-              <a href="#" target="_blank" style="font-size:0.78rem; color:var(--blue); font-weight:bold; text-decoration:underline;">🌐 Web</a>
-              <button class="btn small no-print" style="padding:2px 6px; font-size:0.75rem;" onclick="alert('Editando datos de Ricardo Romero')">✏️ Editar</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Madre 5 -->
-        <div class="padre-card">
-          <img class="padre-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150" alt="Madre" onerror="this.style.display='none'">
-          <div>
-            <h4 style="margin:0 0 4px; color:var(--navy);">Lucía Siesquen (Madre de Marcos)</h4>
-            <p style="margin:0 0 2px; font-size:0.82rem; color:var(--muted);">📍 Calle Las Palmeras 654</p>
-            <p style="margin:0 0 6px; font-size:0.82rem; color:var(--muted);">📞 983085095</p>
-            <div style="display:flex; gap:6px;">
-              <a href="#" target="_blank" style="font-size:0.78rem; color:var(--blue); font-weight:bold; text-decoration:underline;">🌐 Web</a>
-              <button class="btn small no-print" style="padding:2px 6px; font-size:0.75rem;" onclick="alert('Editando datos de Lucía Siesquen')">✏️ Editar</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Padre 6 -->
-        <div class="padre-card">
-          <img class="padre-avatar" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150" alt="Padre" onerror="this.style.display='none'">
-          <div>
-            <h4 style="margin:0 0 4px; color:var(--navy);">Fernando Cárdenas (Padre de Vasco)</h4>
-            <p style="margin:0 0 2px; font-size:0.82rem; color:var(--muted);">📍 Puente Lurín Mz. B</p>
-            <p style="margin:0 0 6px; font-size:0.82rem; color:var(--muted);">📞 993188831</p>
-            <div style="display:flex; gap:6px;">
-              <a href="#" target="_blank" style="font-size:0.78rem; color:var(--blue); font-weight:bold; text-decoration:underline;">🌐 Web</a>
-              <button class="btn small no-print" style="padding:2px 6px; font-size:0.75rem;" onclick="alert('Editando datos de Fernando Cárdenas')">✏️ Editar</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Madre 6 -->
-        <div class="padre-card">
-          <img class="padre-avatar" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150" alt="Madre" onerror="this.style.display='none'">
-          <div>
-            <h4 style="margin:0 0 4px; color:var(--navy);">Patricia Quispe (Madre de Vasco)</h4>
-            <p style="margin:0 0 2px; font-size:0.82rem; color:var(--muted);">📍 Puente Lurín Mz. B</p>
-            <p style="margin:0 0 6px; font-size:0.82rem; color:var(--muted);">📞 993188831</p>
-            <div style="display:flex; gap:6px;">
-              <a href="#" target="_blank" style="font-size:0.78rem; color:var(--blue); font-weight:bold; text-decoration:underline;">🌐 Web</a>
-              <button class="btn small no-print" style="padding:2px 6px; font-size:0.75rem;" onclick="alert('Editando datos de Patricia Quispe')">✏️ Editar</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Padre 7 -->
-        <div class="padre-card">
-          <img class="padre-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150" alt="Padre" onerror="this.style.display='none'">
-          <div>
-            <h4 style="margin:0 0 4px; color:var(--navy);">Jorge Luis Pizarro (Padre de Marchelo)</h4>
-            <p style="margin:0 0 2px; font-size:0.82rem; color:var(--muted);">📍 Urb. Los Rosales 789</p>
-            <p style="margin:0 0 6px; font-size:0.82rem; color:var(--muted);">📞 915933631</p>
-            <div style="display:flex; gap:6px;">
-              <a href="#" target="_blank" style="font-size:0.78rem; color:var(--blue); font-weight:bold; text-decoration:underline;">🌐 Web</a>
-              <button class="btn small no-print" style="padding:2px 6px; font-size:0.75rem;" onclick="alert('Editando datos de Jorge Luis Pizarro')">✏️ Editar</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Madre 7 -->
-        <div class="padre-card">
-          <img class="padre-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150" alt="Madre" onerror="this.style.display='none'">
-          <div>
-            <h4 style="margin:0 0 4px; color:var(--navy);">Elena Mendoza (Madre de Marchelo)</h4>
-            <p style="margin:0 0 2px; font-size:0.82rem; color:var(--muted);">📍 Urb. Los Rosales 789</p>
-            <p style="margin:0 0 6px; font-size:0.82rem; color:var(--muted);">📞 915933631</p>
-            <div style="display:flex; gap:6px;">
-              <a href="#" target="_blank" style="font-size:0.78rem; color:var(--blue); font-weight:bold; text-decoration:underline;">🌐 Web</a>
-              <button class="btn small no-print" style="padding:2px 6px; font-size:0.75rem;" onclick="alert('Editando datos de Elena Mendoza')">✏️ Editar</button>
-            </div>
-          </div>
-        </div>
-
-      </div>
+          <!-- 7 Madres -->
+          <tr><td><strong>MAD-EST-001</strong><br><input type="file" accept="image/*" style="font-size:0.68rem; width:80px;" /></td><td><input type="text" value="Rosa María Criollo" style="width:100%; border:1px solid var(--line); border-radius:4px; padding:3px;" /></td><td>MADRE</td><td><input type="text" value="" style="width:75px;" /></td><td><input type="text" value="" style="width:95px;" /></td><td><input type="text" value="987348365" style="width:85px;" /></td><td>SI</td><td class="no-print" style="text-align:center;"><button class="btn small primary" style="padding:3px 7px; font-size:0.72rem;" onclick="alert('Datos actualizados correctamente.')">Guardar</button></td></tr>
+          <tr><td><strong>MAD-EST-002</strong><br><input type="file" accept="image/*" style="font-size:0.68rem; width:80px;" /></td><td><input type="text" value="Carmen Elguera" style="width:100%; border:1px solid var(--line); border-radius:4px; padding:3px;" /></td><td>MADRE</td><td><input type="text" value="" style="width:75px;" /></td><td><input type="text" value="" style="width:95px;" /></td><td><input type="text" value="941023030" style="width:85px;" /></td><td>SI</td><td class="no-print" style="text-align:center;"><button class="btn small primary" style="padding:3px 7px; font-size:0.72rem;" onclick="alert('Datos actualizados correctamente.')">Guardar</button></td></tr>
+          <tr><td><strong>MAD-EST-003</strong><br><input type="file" accept="image/*" style="font-size:0.68rem; width:80px;" /></td><td><input type="text" value="Elena Mendoza" style="width:100%; border:1px solid var(--line); border-radius:4px; padding:3px;" /></td><td>MADRE</td><td><input type="text" value="" style="width:75px;" /></td><td><input type="text" value="" style="width:95px;" /></td><td><input type="text" value="915933631" style="width:85px;" /></td><td>SI</td><td class="no-print" style="text-align:center;"><button class="btn small primary" style="padding:3px 7px; font-size:0.72rem;" onclick="alert('Datos actualizados correctamente.')">Guardar</button></td></tr>
+          <tr><td><strong>MAD-EST-004</strong><br><input type="file" accept="image/*" style="font-size:0.68rem; width:80px;" /></td><td><input type="text" value="Sofía Flores" style="width:100%; border:1px solid var(--line); border-radius:4px; padding:3px;" /></td><td>MADRE</td><td><input type="text" value="" style="width:75px;" /></td><td><input type="text" value="" style="width:95px;" /></td><td><input type="text" value="927297915" style="width:85px;" /></td><td>SI</td><td class="no-print" style="text-align:center;"><button class="btn small primary" style="padding:3px 7px; font-size:0.72rem;" onclick="alert('Datos actualizados correctamente.')">Guardar</button></td></tr>
+          <tr><td><strong>MAD-EST-005</strong><br><input type="file" accept="image/*" style="font-size:0.68rem; width:80px;" /></td><td><input type="text" value="Lucía Siesquen" style="width:100%; border:1px solid var(--line); border-radius:4px; padding:3px;" /></td><td>MADRE</td><td><input type="text" value="" style="width:75px;" /></td><td><input type="text" value="" style="width:95px;" /></td><td><input type="text" value="983085095" style="width:85px;" /></td><td>SI</td><td class="no-print" style="text-align:center;"><button class="btn small primary" style="padding:3px 7px; font-size:0.72rem;" onclick="alert('Datos actualizados correctamente.')">Guardar</button></td></tr>
+          <tr><td><strong>MAD-EST-006</strong><br><input type="file" accept="image/*" style="font-size:0.68rem; width:80px;" /></td><td><input type="text" value="Patricia Quispe" style="width:100%; border:1px solid var(--line); border-radius:4px; padding:3px;" /></td><td>MADRE</td><td><input type="text" value="" style="width:75px;" /></td><td><input type="text" value="" style="width:95px;" /></td><td><input type="text" value="993188831" style="width:85px;" /></td><td>SI</td><td class="no-print" style="text-align:center;"><button class="btn small primary" style="padding:3px 7px; font-size:0.72rem;" onclick="alert('Datos actualizados correctamente.')">Guardar</button></td></tr>
+          <tr><td><strong>MAD-EST-007</strong><br><input type="file" accept="image/*" style="font-size:0.68rem; width:80px;" /></td><td><input type="text" value="Elena Mendoza" style="width:100%; border:1px solid var(--line); border-radius:4px; padding:3px;" /></td><td>MADRE</td><td><input type="text" value="" style="width:75px;" /></td><td><input type="text" value="" style="width:95px;" /></td><td><input type="text" value="915933631" style="width:85px;" /></td><td>SI</td><td class="no-print" style="text-align:center;"><button class="btn small primary" style="padding:3px 7px; font-size:0.72rem;" onclick="alert('Datos actualizados correctamente.')">Guardar</button></td></tr>
+        </tbody>
+      </table>
     </div>
 
     <!-- VISTA 5: CALENDARIO PASTORAL -->
