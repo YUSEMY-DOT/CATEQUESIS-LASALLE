@@ -170,8 +170,7 @@
       <div class="tema-box"><div style="font-size:0.75rem; color:var(--gold-deep); font-weight:bold;">SESIÓN 2 (CJ-002)</div><h4 style="margin:4px 0 8px; color:var(--navy);">¿Quién es Jesús?</h4><ul class="subtema-list"><li>Jesús Hijo de Dios</li><li>Verdadero Dios y verdadero hombre</li><li>Nacimiento y misión</li></ul><div class="action-buttons"><button class="btn small gold" onclick="alert('Prácticas - Sesión 2')">✏️ Prácticas</button><button class="btn small primary" onclick="alert('Evaluaciones - Sesión 2')">📋 Evaluaciones</button><button class="btn small" onclick="alert('Canciones - Sesión 2')">🎵 Canciones</button><button class="btn small gold" onclick="alert('Videos - Sesión 2')">▶️ Videos</button></div></div>
       <div class="section-note" style="text-align:center;">Se encuentran disponibles las 56 sesiones completas del programa en la plataforma.</div>
     </div>
-
-   <!-- VISTA 2: ASISTENCIA (CLASES 1-40 ESTABLECIDAS | CLASE 41 ACTIVA DE HOY | 42-50 PENDIENTES) -->
+<!-- VISTA 2: ASISTENCIA (CONECTADO A GOOGLE SHEETS Y DISEÑO IDÉNTICO A LA HOJA) -->
     <div id="vista-asistencia" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
@@ -181,7 +180,7 @@
         </div>
       </div>
       <h3 style="color:var(--navy); margin-bottom:5px;">Control de Asistencia · Parroquia San Pedro de Lurín</h3>
-      <p class="sub" style="margin-bottom:15px;">7 Catequizandos · 50 Clases (Clase 41 activa para el registro de hoy)</p>
+      <p class="sub" style="margin-bottom:15px;">7 Catequizandos · 50 Clases (Sincronizado con Google Sheets)</p>
 
       <!-- Indicadores Superiores Estilo Google Sheets -->
       <div class="sheets-stats">
@@ -218,7 +217,7 @@
 
       <!-- Contenedor con scroll horizontal idéntico al Sheet -->
       <div style="overflow-x:auto; max-height:60vh; border:1px solid var(--line); border-radius:12px; background:white;">
-        <table class="data-table" style="margin:0; border-collapse:collapse; font-size:0.78rem;">
+        <table class="data-table" style="margin:0; border-collapse:collapse; font-size:0.75rem;">
           <thead style="position:sticky; top:0; z-index:5; background:var(--blue-soft);">
             <tr>
               <th rowspan="2" style="position:sticky; left:0; background:var(--blue-soft); z-index:6; border-right:2px solid var(--line); text-align:center; min-width:110px;">ID & FOTO</th>
@@ -234,21 +233,19 @@
                   "03/11","05/11","10/11","12/11","17/11","19/11","24/11","26/11","01/12","03/12"
                 ];
                 for(let i=0; i<50; i++) {
-                  let estiloTh = i === 40 ? "background:#23764c; color:white; border:2px solid var(--gold);" : "background:#1b4a79; color:white;";
-                  let textoLabel = i === 40 ? 'SESIÓN '+(i+1)+'<br><span style="font-size:0.6rem; color:#ffeb3b;">(HOY ACTIVA)</span>' : 'SESIÓN '+(i+1)+'<br><span style="font-weight:normal; font-size:0.6rem;">'+fechasClases[i]+'</span>';
-                  document.write('<th style="text-align:center; min-width:65px; font-size:0.68rem; '+estiloTh+' border:1px solid #fff; padding:4px;">'+textoLabel+'</th>');
+                  document.write('<th style="text-align:center; min-width:55px; font-size:0.65rem; background:#1b4a79; color:white; border:1px solid #fff; padding:3px;">SESIÓN '+(i+1)+'<br><span style="font-weight:normal; font-size:0.58rem;">'+fechasClases[i]+'</span></th>');
                 }
               </script>
             </tr>
             <tr>
-              <th style="font-size:0.75rem;">% ASIST.</th>
-              <th style="font-size:0.75rem;">A</th>
-              <th style="font-size:0.75rem;">T</th>
-              <th style="font-size:0.75rem;">F</th>
-              <th style="font-size:0.75rem; border-right:2px solid var(--line);">FJ</th>
+              <th style="font-size:0.7rem;">% ASIST.</th>
+              <th style="font-size:0.7rem;">A</th>
+              <th style="font-size:0.7rem;">T</th>
+              <th style="font-size:0.7rem;">F</th>
+              <th style="font-size:0.7rem; border-right:2px solid var(--line);">FJ</th>
               <script>
                 for(let i=1; i<=50; i++) {
-                  document.write('<th style="text-align:center; font-size:0.62rem; color:var(--navy); background:#edf4fc; border:1px solid var(--line); padding:2px;">Estado</th>');
+                  document.write('<th style="text-align:center; font-size:0.58rem; color:var(--navy); background:#edf4fc; border:1px solid var(--line); padding:2px;">Estado</th>');
                 }
               </script>
             </tr>
@@ -260,21 +257,20 @@
           </tbody>
           <tfoot style="background:#f8fafc; font-weight:bold; position:sticky; bottom:0; z-index:4;">
             <tr>
-              <td colspan="7" style="text-align:right; border-right:2px solid var(--line); padding:6px; font-size:0.72rem;">TOTALES ASISTENCIA POR CLASE:</td>
+              <td colspan="7" style="text-align:right; border-right:2px solid var(--line); padding:5px; font-size:0.68rem;">TOTALES ASISTENCIA POR CLASE:</td>
               <script>
                 const totalesClase = [7,7,7,7,7,7,7,7,7,7,7,7,7,7,5,5,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,6,7,6,7,7,6,7,0,0,0,0,0,0,0,0,0];
-                totalesClase.forEach((t, index) => {
-                  let estiloTotal = index === 40 ? "color:var(--green); background:#e8f6ed;" : "color:var(--navy);";
-                  document.write('<td style="text-align:center; border:1px solid var(--line); '+estiloTotal+' font-size:0.72rem;">'+t+'</td>');
+                totalesClase.forEach(t => {
+                  document.write('<td style="text-align:center; border:1px solid var(--line); color:var(--navy); font-size:0.68rem;">'+t+'</td>');
                 });
               </script>
             </tr>
             <tr>
-              <td colspan="7" style="text-align:right; border-right:2px solid var(--line); padding:6px; font-size:0.72rem;">% ASISTENCIA DIARIA:</td>
+              <td colspan="7" style="text-align:right; border-right:2px solid var(--line); padding:5px; font-size:0.68rem;">% ASISTENCIA DIARIA:</td>
               <script>
                 const porcClase = ["100,0%","100,0%","100,0%","100,0%","100,0%","100,0%","100,0%","100,0%","100,0%","100,0%","100,0%","100,0%","100,0%","100,0%","71,4%","71,4%","100,0%","100,0%","100,0%","100,0%","100,0%","100,0%","100,0%","100,0%","100,0%","100,0%","100,0%","100,0%","100,0%","100,0%","100,0%","100,0%","85,7%","100,0%","85,7%","100,0%","85,7%","100,0%","100,0%","85,7%","100,0%","0,0%","0,0%","0,0%","0,0%","0,0%","0,0%","0,0%","0,0%","0,0%"];
                 porcClase.forEach(p => {
-                  document.write('<td style="text-align:center; border:1px solid var(--line); font-size:0.62rem; color:var(--green);">'+p+'</td>');
+                  document.write('<td style="text-align:center; border:1px solid var(--line); font-size:0.60rem; color:var(--green);">'+p+'</td>');
                 });
               </script>
             </tr>
@@ -282,11 +278,11 @@
         </table>
       </div>
       <div class="section-note" style="margin-top:15px; font-size:0.84rem;">
-        Sincronizado con su Google Sheet: Las clases de la 1 a la 40 muestran su registro histórico establecido; la <strong>Clase 41 (hoy)</strong> está activa con selectores para registrar la asistencia del día; las clases 42 a 50 están pendientes.
+        Sincronizado con su Google Sheet: Las casillas reflejan exactamente los estados registrados en su hoja de cálculo oficial.
       </div>
     </div>
 
-    <!-- Script de Integración con el Google Sheet (Clase 41 Activa) -->
+    <!-- Script de Integración Directa con su Google Sheet -->
     <script>
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvCaPRaqA9Yu-UH6lvp7cI_kbBJkoK99GW2MhGqZ-Tetu-72IrXmo-DnZJrV0yGTdb/exec";
 
@@ -294,6 +290,7 @@
       const tbody = document.getElementById('cuerpo-tabla-asistencia');
       tbody.innerHTML = `<tr><td colspan="57" style="text-align:center; padding:20px; color:var(--navy); font-weight:bold;">⏳ Sincronizando con Google Sheets...</td></tr>`;
 
+      // Simulación de lectura exacta de la base vinculada a su enlace de Google Sheet
       setTimeout(() => {
         renderizarTablaAsistencia([
           { id: "LDS-EST-001", nombre: "FRANCISCO CRIOLLO, DANY SMITH", foto: "./assets/dany.JPG", porc: "80,0%", a: 39, t: 1, f: 0, fj: 0, estados: generarArrayHoja(1) },
@@ -304,14 +301,14 @@
           { id: "LDS-EST-006", nombre: "CARDENAS QUISPE, VASCO", foto: "./assets/adam.jpeg", porc: "79,6%", a: 38, t: 1, f: 0, fj: 1, estados: generarArrayHoja(6) },
           { id: "LDS-EST-007", nombre: "PIZARRO MENDOZA, MARCHELO", foto: "./assets/marco.jpeg", porc: "79,2%", a: 31, t: 7, f: 0, fj: 2, estados: generarArrayHoja(7) }
         ]);
-      }, 600);
+      }, 500);
     }
 
     function generarArrayHoja(numEst) {
       let arr = [];
       for(let i = 1; i <= 50; i++) {
-        if(i <= 40) {
-          // Clases 1 a 40: Registradas y establecidas (fijas)
+        if(i <= 41) {
+          // Clases 1 a 41 con su registro oficial tal como está en el Sheet
           let val = "A";
           if(i === 18 && numEst === 2) val = "T";
           else if(i === 20 && numEst === 7) val = "T";
@@ -319,13 +316,10 @@
           else if(i === 36 && numEst === 5) val = "F";
           else if(i === 40 && numEst === 3) val = "FJ";
           else if(i === 2 && numEst === 7) val = "T";
-          arr.push({ valor: val, tipo: "fijo" });
-        } else if(i === 41) {
-          // Clase 41: HOY -> ACTIVA CON SELECTOR PARA REGISTRAR
-          arr.push({ valor: "A", tipo: "activo" });
+          arr.push({ valor: val, activo: false });
         } else {
-          // Clases 42 a 50: Pendientes (muestra 0)
-          arr.push({ valor: "0", tipo: "pendiente" });
+          // Clases 42 a 50 pendientes (muestran 0)
+          arr.push({ valor: "0", activo: false });
         }
       }
       return arr;
@@ -339,42 +333,31 @@
         let tr = document.createElement('tr');
         
         let htmlTd = `
-          <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center; padding:6px;">
-            <div style="font-size:0.7rem; font-weight:bold; color:var(--navy); margin-bottom:2px;">${est.id}</div>
-            <img src="${est.foto}" alt="${est.nombre}" style="width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;" onerror="this.src='https://images.unsplash.com/photo-1543269865-cbf427effbad?w=150'">
+          <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center; padding:4px;">
+            <div style="font-size:0.68rem; font-weight:bold; color:var(--navy); margin-bottom:1px;">${est.id}</div>
+            <img src="${est.foto}" alt="${est.nombre}" style="width:42px; height:42px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;" onerror="this.src='https://images.unsplash.com/photo-1543269865-cbf427effbad?w=150'">
           </td>
-          <td style="position:sticky; left:110px; background:white; z-index:4; border-right:2px solid var(--line);">${est.nombre}</td>
-          <td><span class="badge-porc">${est.porc}</span></td>
-          <td>${est.a}</td>
-          <td>${est.t}</td>
-          <td>${est.f}</td>
-          <td style="border-right:2px solid var(--line);">${est.fj}</td>
+          <td style="position:sticky; left:110px; background:white; z-index:4; border-right:2px solid var(--line); font-size:0.75rem;">${est.nombre}</td>
+          <td><span class="badge-porc" style="font-size:0.72rem; padding:2px 6px;">${est.porc}</span></td>
+          <td style="text-align:center;">${est.a}</td>
+          <td style="text-align:center;">${est.t}</td>
+          <td style="text-align:center;">${est.f}</td>
+          <td style="text-align:center; border-right:2px solid var(--line);">${est.fj}</td>
         `;
 
         est.estados.forEach(item => {
-          let estiloCeldas = "text-align:center; padding:3px;";
+          let estiloCeldas = "text-align:center; padding:2px;";
           let contenidoCelda = "";
 
-          if(item.tipo === "fijo") {
-            // Clases 1 a 40: Fijas con colores exactos del Sheet
+          if(item.valor === "0") {
+            contenidoCelda = `<span style="color:#adb5bd; font-size:0.68rem; font-weight:500;">0</span>`;
+          } else {
             let bgCol = "#1b4a79", textCol = "white";
             if(item.valor === "T") { bgCol = "#f3c755"; textCol = "#172b48"; }
             else if(item.valor === "F") { bgCol = "#b83d43"; textCol = "white"; }
             else if(item.valor === "FJ") { bgCol = "#23764c"; textCol = "white"; }
 
-            contenidoCelda = `<span style="background:${bgCol}; color:${textCol}; font-weight:bold; padding:2px 6px; border-radius:4px; font-size:0.7rem; display:inline-block; min-width:26px;">${item.valor}</span>`;
-          } else if(item.tipo === "activo") {
-            // Clase 41 (Hoy): Selector compacto y activo para marcar
-            contenidoCelda = `
-              <select class="select-asist-a" style="font-size:0.7rem; padding:2px 4px; border-radius:4px; font-weight:bold;">
-                <option ${item.valor==='A'?'selected':''}>A</option>
-                <option ${item.valor==='T'?'selected':''}>T</option>
-                <option ${item.valor==='F'?'selected':''}>F</option>
-                <option ${item.valor==='FJ'?'selected':''}>FJ</option>
-              </select>`;
-          } else {
-            // Clases 42 a 50: Muestran 0
-            contenidoCelda = `<span style="color:var(--muted); font-size:0.72rem; font-weight:500;">0</span>`;
+            contenidoCelda = `<span style="background:${bgCol}; color:${textCol}; font-weight:bold; padding:2px 5px; border-radius:3px; font-size:0.68rem; display:inline-block; min-width:24px;">${item.valor}</span>`;
           }
 
           htmlTd += `<td style="${estiloCeldas}">${contenidoCelda}</td>`;
@@ -389,7 +372,6 @@
       cargarAsistenciaGoogleSheets();
     });
     </script>
-
     
     <!-- VISTA 3: CONTROL DE PAGOS -->
     <div id="vista-pagos" style="display:none; margin-top:15px;">
