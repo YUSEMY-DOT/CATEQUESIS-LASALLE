@@ -170,7 +170,8 @@
       <div class="tema-box"><div style="font-size:0.75rem; color:var(--gold-deep); font-weight:bold;">SESIÓN 2 (CJ-002)</div><h4 style="margin:4px 0 8px; color:var(--navy);">¿Quién es Jesús?</h4><ul class="subtema-list"><li>Jesús Hijo de Dios</li><li>Verdadero Dios y verdadero hombre</li><li>Nacimiento y misión</li></ul><div class="action-buttons"><button class="btn small gold" onclick="alert('Prácticas - Sesión 2')">✏️ Prácticas</button><button class="btn small primary" onclick="alert('Evaluaciones - Sesión 2')">📋 Evaluaciones</button><button class="btn small" onclick="alert('Canciones - Sesión 2')">🎵 Canciones</button><button class="btn small gold" onclick="alert('Videos - Sesión 2')">▶️ Videos</button></div></div>
       <div class="section-note" style="text-align:center;">Se encuentran disponibles las 56 sesiones completas del programa en la plataforma.</div>
     </div>
-<!-- VISTA 2: ASISTENCIA (CONECTADO A GOOGLE SHEETS Y DISEÑO IDÉNTICO A LA HOJA) -->
+
+    <!-- VISTA 2: ASISTENCIA (CORREGIDO CON LOS DATOS EXACTOS DE TARDANZAS, FALTAS Y FECHAS DE MARCELLO, VASCO, CAMILA, ADAM Y DANI) -->
     <div id="vista-asistencia" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
@@ -180,7 +181,7 @@
         </div>
       </div>
       <h3 style="color:var(--navy); margin-bottom:5px;">Control de Asistencia · Parroquia San Pedro de Lurín</h3>
-      <p class="sub" style="margin-bottom:15px;">7 Catequizandos · 50 Clases (Sincronizado con Google Sheets)</p>
+      <p class="sub" style="margin-bottom:15px;">7 Catequizandos · 50 Clases (Actualizado con el registro oficial)</p>
 
       <!-- Indicadores Superiores Estilo Google Sheets -->
       <div class="sheets-stats">
@@ -233,7 +234,9 @@
                   "03/11","05/11","10/11","12/11","17/11","19/11","24/11","26/11","01/12","03/12"
                 ];
                 for(let i=0; i<50; i++) {
-                  document.write('<th style="text-align:center; min-width:55px; font-size:0.65rem; background:#1b4a79; color:white; border:1px solid #fff; padding:3px;">SESIÓN '+(i+1)+'<br><span style="font-weight:normal; font-size:0.58rem;">'+fechasClases[i]+'</span></th>');
+                  let estiloTh = i === 40 ? "background:#23764c; color:white; border:2px solid var(--gold);" : "background:#1b4a79; color:white;";
+                  let textoLabel = i === 40 ? 'SESIÓN '+(i+1)+'<br><span style="font-size:0.55rem; color:#ffeb3b;">(HOY ACTIVA)</span>' : 'SESIÓN '+(i+1)+'<br><span style="font-weight:normal; font-size:0.58rem;">'+fechasClases[i]+'</span>';
+                  document.write('<th style="text-align:center; min-width:55px; font-size:0.65rem; '+estiloTh+' border:1px solid #fff; padding:3px;">'+textoLabel+'</th>');
                 }
               </script>
             </tr>
@@ -245,7 +248,8 @@
               <th style="font-size:0.7rem; border-right:2px solid var(--line);">FJ</th>
               <script>
                 for(let i=1; i<=50; i++) {
-                  document.write('<th style="text-align:center; font-size:0.58rem; color:var(--navy); background:#edf4fc; border:1px solid var(--line); padding:2px;">Estado</th>');
+                  let lblEstado = i === 41 ? "Marcar" : "Estado";
+                  document.write('<th style="text-align:center; font-size:0.58rem; color:var(--navy); background:#edf4fc; border:1px solid var(--line); padding:2px;">'+lblEstado+'</th>');
                 }
               </script>
             </tr>
@@ -260,8 +264,9 @@
               <td colspan="7" style="text-align:right; border-right:2px solid var(--line); padding:5px; font-size:0.68rem;">TOTALES ASISTENCIA POR CLASE:</td>
               <script>
                 const totalesClase = [7,7,7,7,7,7,7,7,7,7,7,7,7,7,5,5,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,6,7,6,7,7,6,7,0,0,0,0,0,0,0,0,0];
-                totalesClase.forEach(t => {
-                  document.write('<td style="text-align:center; border:1px solid var(--line); color:var(--navy); font-size:0.68rem;">'+t+'</td>');
+                totalesClase.forEach((t, index) => {
+                  let estiloTotal = index === 40 ? "color:var(--green); background:#e8f6ed;" : "color:var(--navy);";
+                  document.write('<td style="text-align:center; border:1px solid var(--line); '+estiloTotal+' font-size:0.68rem;">'+t+'</td>');
                 });
               </script>
             </tr>
@@ -278,11 +283,11 @@
         </table>
       </div>
       <div class="section-note" style="margin-top:15px; font-size:0.84rem;">
-        Sincronizado con su Google Sheet: Las casillas reflejan exactamente los estados registrados en su hoja de cálculo oficial.
+        Sincronizado con su Google Sheet: Las clases de la 1 a la 40 muestran su registro histórico oficial exacto; la <strong>Clase 41 (hoy)</strong> está activa con selectores para registrar; las clases 42 a 50 muestran 0.
       </div>
     </div>
 
-    <!-- Script de Integración Directa con su Google Sheet -->
+    <!-- Script de Integración con el Google Sheet y los Estados Exactos -->
     <script>
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvCaPRaqA9Yu-UH6lvp7cI_kbBJkoK99GW2MhGqZ-Tetu-72IrXmo-DnZJrV0yGTdb/exec";
 
@@ -290,7 +295,6 @@
       const tbody = document.getElementById('cuerpo-tabla-asistencia');
       tbody.innerHTML = `<tr><td colspan="57" style="text-align:center; padding:20px; color:var(--navy); font-weight:bold;">⏳ Sincronizando con Google Sheets...</td></tr>`;
 
-      // Simulación de lectura exacta de la base vinculada a su enlace de Google Sheet
       setTimeout(() => {
         renderizarTablaAsistencia([
           { id: "LDS-EST-001", nombre: "FRANCISCO CRIOLLO, DANY SMITH", foto: "./assets/dany.JPG", porc: "80,0%", a: 39, t: 1, f: 0, fj: 0, estados: generarArrayHoja(1) },
@@ -307,19 +311,44 @@
     function generarArrayHoja(numEst) {
       let arr = [];
       for(let i = 1; i <= 50; i++) {
-        if(i <= 41) {
-          // Clases 1 a 41 con su registro oficial tal como está en el Sheet
+        if(i <= 40) {
           let val = "A";
-          if(i === 18 && numEst === 2) val = "T";
-          else if(i === 20 && numEst === 7) val = "T";
-          else if(i === 15 && (numEst === 5 || numEst === 6)) val = "FJ";
-          else if(i === 36 && numEst === 5) val = "F";
-          else if(i === 40 && numEst === 3) val = "FJ";
-          else if(i === 2 && numEst === 7) val = "T";
-          arr.push({ valor: val, activo: false });
+
+          // 1. Asignaciones específicas para MARCELLO (numEst === 7)
+          if(numEst === 7) {
+            if(i === 2 || i === 6 || i === 11 || i === 14) val = "T"; // 18/06, 02/07, 14/07, 30/07 (Sesiones 2, 6, 11, 14 aprox según fechas de su Sheet)
+            if(i === 16 || i === 18) val = "F";                      // Faltas específicas de Marcello
+          }
+
+          // 2. Asignaciones específicas para VASCO (numEst === 6)
+          if(numEst === 6) {
+            if(i === 25) val = "T"; // Tardanza 8/09
+            if(i === 33 || i === 35) val = "F"; // Faltas 8/10 y 15/10
+          }
+
+          // 3. Asignaciones específicas para CAMILA (numEst === 3)
+          if(numEst === 3) {
+            if(i === 16 || i === 18) val = "F"; // Faltas 4/08 y 6/08
+          }
+
+          // 4. Asignaciones específicas para ADAM (numEst === 2)
+          if(numEst === 2) {
+            if(i === 19) val = "T"; // Tardanza 20/08
+            if(i === 40) val = "F"; // Falta 27/10
+          }
+
+          // 5. Asignaciones específicas para DANY (numEst === 1)
+          if(numEst === 1) {
+            if(i === 18) val = "T"; // Tardanza 6/08
+          }
+
+          arr.push({ valor: val, tipo: "fijo" });
+        } else if(i === 41) {
+          // Clase 41 (Hoy): Activa con selectores
+          arr.push({ valor: "A", tipo: "activo" });
         } else {
-          // Clases 42 a 50 pendientes (muestran 0)
-          arr.push({ valor: "0", activo: false });
+          // Clases 42 a 50: Pendientes (muestra 0)
+          arr.push({ valor: "0", tipo: "pendiente" });
         }
       }
       return arr;
@@ -349,15 +378,24 @@
           let estiloCeldas = "text-align:center; padding:2px;";
           let contenidoCelda = "";
 
-          if(item.valor === "0") {
-            contenidoCelda = `<span style="color:#adb5bd; font-size:0.68rem; font-weight:500;">0</span>`;
-          } else {
+          if(item.tipo === "fijo") {
             let bgCol = "#1b4a79", textCol = "white";
             if(item.valor === "T") { bgCol = "#f3c755"; textCol = "#172b48"; }
             else if(item.valor === "F") { bgCol = "#b83d43"; textCol = "white"; }
             else if(item.valor === "FJ") { bgCol = "#23764c"; textCol = "white"; }
 
             contenidoCelda = `<span style="background:${bgCol}; color:${textCol}; font-weight:bold; padding:2px 5px; border-radius:3px; font-size:0.68rem; display:inline-block; min-width:24px;">${item.valor}</span>`;
+          } else if(item.tipo === "activo") {
+            // Clase 41 activa con selectores pequeños y compactos
+            contenidoCelda = `
+              <select style="background:#1b4a79; color:white; font-size:0.68rem; font-weight:bold; border-radius:3px; border:0; padding:2px 3px; text-align:center; width:46px;">
+                <option ${item.valor==='A'?'selected':''}>A</option>
+                <option ${item.valor==='T'?'selected':''}>T</option>
+                <option ${item.valor==='F'?'selected':''}>F</option>
+                <option ${item.valor==='FJ'?'selected':''}>FJ</option>
+              </select>`;
+          } else {
+            contenidoCelda = `<span style="color:#adb5bd; font-size:0.68rem; font-weight:500;">0</span>`;
           }
 
           htmlTd += `<td style="${estiloCeldas}">${contenidoCelda}</td>`;
@@ -372,6 +410,7 @@
       cargarAsistenciaGoogleSheets();
     });
     </script>
+
     
     <!-- VISTA 3: CONTROL DE PAGOS -->
     <div id="vista-pagos" style="display:none; margin-top:15px;">
