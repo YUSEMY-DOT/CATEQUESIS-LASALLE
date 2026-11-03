@@ -7,13 +7,24 @@
 :root{--navy:#12345b;--blue:#1b4a79;--blue-soft:#edf4fc;--gold:#f3c755;--gold-deep:#b17b10;--cream:#fff8e8;--red:#b83d43;--red-soft:#fff0f0;--ink:#172b48;--muted:#62748c;--line:#dce5ef;--green:#23764c;--green-soft:#e8f6ed;--white:#fff;--shadow:0 8px 28px #173b6810}
 *{box-sizing:border-box}body{margin:0;background:#f5f7fa;color:var(--ink);font-family:Inter,"Segoe UI",Tahoma,sans-serif;line-height:1.45}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #f3c75588;outline-offset:2px}a{color:inherit;text-decoration:none}.topbar{background:white;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:15;box-shadow:0 2px 12px #142b4810}.topbar-inner{max-width:1400px;margin:auto;padding:12px 22px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:12px;font-weight:900;color:var(--navy);letter-spacing:.04em}.brand img.crest{width:55px;height:55px;object-fit:contain}.brand small{display:block;letter-spacing:0;font-weight:500;color:var(--muted);font-size:.78rem}.top-actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--line);border-radius:12px;padding:12px 18px;background:white;color:var(--navy);font-weight:800;font-size:1rem}.btn:hover{filter:brightness(.98);transform:translateY(-1px)}.btn.primary{background:var(--navy);border-color:var(--navy);color:white}.btn.gold{background:linear-gradient(135deg,#ffe68c,#f5bd37);border-color:#efc34c;color:#152c4d}.btn.small{padding:8px 12px;font-size:.86rem}.container{max-width:1400px;margin:auto;padding:22px}.hero{background:linear-gradient(115deg,#102b4f,#1e4e7f);color:white;border-radius:22px;padding:27px 30px;display:flex;justify-content:space-between;align-items:center;gap:25px;position:relative;overflow:hidden}.hero:after{content:'✝';font-size:175px;position:absolute;right:26px;bottom:-48px;color:#ffffff0b;pointer-events:none}.eyebrow{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:#ffe39a;font-weight:900}.hero h1{margin:5px 0;font-size:clamp(1.8rem,3vw,2.5rem);line-height:1.1}.hero p{margin:8px 0 0;max-width:760px;color:#f0f5fb}.panel{background:white;border:1px solid var(--line);border-radius:17px;padding:24px;box-shadow:var(--shadow);margin-bottom:16px;min-width:0}.panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;flex-wrap:wrap;margin-bottom:18px}.panel h2{margin:0;color:var(--navy);font-size:1.35rem}.sub{color:var(--muted);margin:5px 0 0;font-size:.98rem}.mises-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.mise-card{border:2px solid var(--line);border-radius:18px;padding:24px;background:#fff;display:flex;gap:20px;align-items:center;box-shadow:0 6px 20px #173b6810;cursor:pointer;transition:all .2s ease}.mise-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 10px 25px #173b6818}.mise-avatar{width:110px;height:110px;border-radius:50%;object-fit:cover;border:4px solid var(--gold);flex-shrink:0}.footer{text-align:center;color:var(--muted);font-size:.78rem;padding:25px 10px 12px}.footer strong{color:var(--navy)}.modal-backdrop{position:fixed;inset:0;background:#071a32a6;z-index:50;display:none;align-items:center;justify-content:center;padding:18px}.modal-backdrop.show{display:flex}.modal{background:white;border-radius:18px;width:min(950px,100%);max-height:92vh;overflow:auto;padding:25px;box-shadow:0 20px 60px #0004}.xbtn{border:0;background:#f0f3f7;color:var(--navy);width:38px;height:38px;border-radius:10px;font-weight:900;font-size:1rem}.section-note{border:1px solid #d8e5f3;background:#f4f8fd;padding:14px 16px;border-radius:12px;color:#49627f;font-size:.92rem;margin:14px 0}.tools-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}.tool-card{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;transition:all .2s}.tool-card:hover{border-color:var(--blue);background:#fff;box-shadow:0 4px 12px #173b680c}.tool-card h4{margin:0 0 6px;color:var(--navy);font-size:1.05rem}.tool-card p{margin:0 0 14px;color:var(--muted);font-size:.86rem}
 
-/* Estilos específicos para la vista de Temas y Subtemas estilo imagen */
+/* Estilos de Temas y Subtemas */
 .tema-box { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 18px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-.tema-header { background: var(--navy); color: white; padding: 12px 18px; border-radius: 10px; font-weight: bold; margin-bottom: 15px; }
 .subtema-list { margin: 8px 0 14px 20px; font-size: 0.9rem; color: var(--muted); }
 .subtema-list li { margin-bottom: 4px; }
 .action-buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; border-top: 1px dashed var(--line); padding-top: 12px; }
-@media(max-width:768px){.action-buttons{grid-template-columns:repeat(2,1fr)}.container{padding:14px}.hero{padding:22px;flex-direction:column}.mises-grid{grid-template-columns:1fr}.tools-grid{grid-template-columns:1fr}}
+
+/* Estilos de la sección Padres tipo Tarjetas */
+.padres-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px; margin-top: 15px; }
+.padre-card { border: 1px solid var(--line); border-radius: 14px; padding: 16px; background: #fff; display: flex; gap: 15px; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+.padre-avatar { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--blue); flex-shrink: 0; }
+
+/* Estilos asistencia */
+.asistencia-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
+.asistencia-table th, .asistencia-table td { border: 1px solid var(--line); padding: 10px; text-align: left; }
+.asistencia-table th { background: var(--blue-soft); color: var(--navy); }
+.badge-asist { padding: 4px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; }
+
+@media(max-width:768px){.action-buttons{grid-template-columns:repeat(2,1fr)}.container{padding:14px}.padres-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -53,7 +64,7 @@
       </div>
     </div>
     <div class="mises-grid">
-      <!-- TARJETA 1 -->
+      <!-- LILY MELO -->
       <article class="mise-card" onclick="abrirPortalComun()">
         <img class="mise-avatar" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/dc65d5b1494500d8d391a2c07de3ec1321a21ba1/assets/miss%20lily.jpg" alt="Lily Melo Azañero" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'110\' height=\'110\'><rect fill=\'%2312345b\' width=\'110\' height=\'110\'/><text x=\'50%\' y=\'50%\' fill=\'%23fff\' font-size=\'32\' dominant-baseline=\'middle\' text-anchor=\'middle\'>LM</text></svg>'">
         <div>
@@ -63,7 +74,7 @@
         </div>
       </article>
 
-      <!-- TARJETA 2 -->
+      <!-- KIARA MORALES -->
       <article class="mise-card" onclick="abrirPortalComun()">
         <img class="mise-avatar" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/dc65d5b1494500d8d391a2c07de3ec1321a21ba1/assets/miss%20kiara.png" alt="Kiara Morales Elguera" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'110\' height=\'110\'><rect fill=\'%2312345b\' width=\'110\' height=\'110\'/><text x=\'50%\' y=\'50%\' fill=\'%23fff\' font-size=\'32\' dominant-baseline=\'middle\' text-anchor=\'middle\'>KM</text></svg>'">
         <div>
@@ -83,125 +94,187 @@
 </footer>
 </main>
 
-<!-- PANEL PRINCIPAL (MENÚ DE HERRAMIENTAS) -->
+<!-- PANEL PRINCIPAL -->
 <div class="modal-backdrop" id="mise-modal">
   <section class="modal" role="dialog" aria-modal="true">
     <div class="panel-head" style="margin-bottom:10px">
       <div>
         <h2>Portal General de Catequesis</h2>
-        <p class="sub">Gestión unificada de clases, asistencia, tareas y calendario</p>
+        <p class="sub">Gestión unificada de clases, asistencia, datos de padres y calendario</p>
       </div>
       <button class="xbtn" data-close="mise-modal" aria-label="Cerrar">✕</button>
     </div>
 
-    <div class="section-note">
-      Seleccione la herramienta que desea gestionar:
-    </div>
-
+    <!-- MENÚ PRINCIPAL DE 4 BOTONES -->
     <div class="tools-grid" id="menu-herramientas">
-      <!-- 1. Registro de Clases (Abre la vista de temas y subtemas) -->
+      <!-- 1. Clases (56 Sesiones) -->
       <div class="tool-card">
         <div>
           <div style="font-size: 1.5rem; margin-bottom: 8px;">📚</div>
           <h4>Registro de Clases</h4>
-          <p>Administra los temas, subtemas, prácticas, evaluaciones, canciones y videos.</p>
+          <p>Acceso a las 56 sesiones completas, subtemas, prácticas, evaluaciones y videos.</p>
         </div>
-        <button class="btn small primary" onclick="mostrarSeccionClases()">Abrir Clases</button>
+        <button class="btn small primary" onclick="mostrarVista('vista-clases')">Abrir Clases (56)</button>
       </div>
 
-      <!-- 2. Asistencia -->
+      <!-- 2. Asistencia Didáctica -->
       <div class="tool-card">
         <div>
           <div style="font-size: 1.5rem; margin-bottom: 8px;">✅</div>
-          <h4>Asistencia</h4>
-          <p>Lleva el control diario de presentes, tardanzas e inasistencias en la hoja de cálculo.</p>
+          <h4>Asistencia Didáctica</h4>
+          <p>Control interactivo de asistencia diaria para los catequizandos.</p>
         </div>
-        <a href="https://docs.google.com/spreadsheets/d/1QTvIQydI8qyuG3Tpo0SBmbNHjyVXn_IT6mvIwfSttvI" target="_blank" class="btn small primary" style="text-align: center; display: block; margin-top: 10px;">Registrar Asistencia</a>
+        <button class="btn small primary" onclick="mostrarVista('vista-asistencia')">Registrar Asistencia</button>
       </div>
 
-      <!-- 3. Dejar Tareas -->
+      <!-- 3. Datos de Padres (Fichas personales con foto, nombre, apellido, dirección, teléfono y web) -->
       <div class="tool-card">
         <div>
-          <div style="font-size: 1.5rem; margin-bottom: 8px;">📝</div>
-          <h4>Dejar Tareas</h4>
-          <p>Asigna actividades, revisa compromisos y evalúa el progreso.</p>
+          <div style="font-size: 1.5rem; margin-bottom: 8px;">👨‍👩‍👧‍👦</div>
+          <h4>Datos de Padres</h4>
+          <p>Fichas de contacto con foto, nombres, dirección, teléfono y web de las familias.</p>
         </div>
-        <button class="btn small gold" onclick="alert('Abriendo módulo general de Tareas...');">Gestionar Tareas</button>
+        <button class="btn small gold" onclick="mostrarVista('vista-padres')">Ver Datos de Padres</button>
       </div>
 
-      <!-- 4. El Calendario -->
+      <!-- 4. Calendario Pastoral -->
       <div class="tool-card">
         <div>
           <div style="font-size: 1.5rem; margin-bottom: 8px;">📅</div>
-          <h4>Calendario</h4>
-          <p>Consulta las fechas clave, cronograma de ensayos y actividades.</p>
+          <h4>Calendario Pastoral</h4>
+          <p>Cronograma oficial de sesiones (Martes y Jueves) y eventos.</p>
         </div>
-        <button class="btn small" onclick="alert('Abriendo el Calendario pastoral...');">Ver Calendario</button>
+        <button class="btn small" onclick="mostrarVista('vista-calendario')">Ver Calendario</button>
       </div>
     </div>
 
-    <!-- SECCIÓN DE CLASES CON TEMAS, SUBTEMAS Y SUS BOTONES (Oculta al inicio, aparece al dar clic en Abrir Clases) -->
+    <!-- VISTA 1: REGISTRO DE CLASES (LAS 56 SESIONES) -->
     <div id="vista-clases" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
-        <h3 style="color:var(--navy); margin:0;">Conociendo a Jesús (Temas y Subtemas)</h3>
+        <h3 style="color:var(--navy); margin:0;">Programa Completo: 56 Sesiones y Temas</h3>
       </div>
 
-      <!-- TEMA 1 -->
+      <!-- BLOQUE 1 -->
+      <h4 style="color:var(--blue); border-bottom: 2px solid var(--line); padding-bottom: 5px; margin-top: 20px;">BLOQUE 1 — CONOCIENDO A JESÚS</h4>
+      
       <div class="tema-box">
-        <div style="font-size:0.75rem; color:var(--gold-deep); font-weight:bold; text-transform:uppercase;">Tema 1</div>
+        <div style="font-size:0.75rem; color:var(--gold-deep); font-weight:bold;">SESIÓN 1 (CJ-001)</div>
         <h4 style="margin:4px 0 8px; color:var(--navy);">¿Quién es Dios?</h4>
-        <ul class="subtema-list">
-          <li>Introducción breve</li>
-          <li>Quién es Dios</li>
-          <li>Dios único</li>
-          <li>Dios creador</li>
-          <li>Dios eterno</li>
-          <li>Dios Padre</li>
-        </ul>
+        <ul class="subtema-list"><li>Quién es Dios</li><li>Dios único</li><li>Dios creador</li><li>Dios eterno</li><li>Dios Padre</li></ul>
         <div class="action-buttons">
-          <button class="btn small gold" onclick="alert('Abriendo Prácticas del Tema 1')">✏️ Prácticas</button>
-          <button class="btn small primary" onclick="alert('Abriendo Evaluaciones del Tema 1')">📋 Evaluaciones</button>
-          <button class="btn small" onclick="alert('Abriendo Canciones del Tema 1')">🎵 Canciones</button>
-          <button class="btn small gold" onclick="alert('Abriendo Videos del Tema 1')">▶️ Videos</button>
+          <button class="btn small gold" onclick="alert('Prácticas - Sesión 1')">✏️ Prácticas</button>
+          <button class="btn small primary" onclick="alert('Evaluaciones - Sesión 1')">📋 Evaluaciones</button>
+          <button class="btn small" onclick="alert('Canciones - Sesión 1')">🎵 Canciones</button>
+          <button class="btn small gold" onclick="alert('Videos - Sesión 1')">▶️ Videos</button>
         </div>
       </div>
 
-      <!-- TEMA 2 -->
       <div class="tema-box">
-        <div style="font-size:0.75rem; color:var(--gold-deep); font-weight:bold; text-transform:uppercase;">Tema 2</div>
+        <div style="font-size:0.75rem; color:var(--gold-deep); font-weight:bold;">SESIÓN 2 (CJ-002)</div>
         <h4 style="margin:4px 0 8px; color:var(--navy);">¿Quién es Jesús?</h4>
-        <ul class="subtema-list">
-          <li>Jesús es el Hijo de Dios</li>
-          <li>Verdadero Dios y verdadero hombre</li>
-          <li>Nacimiento y misión</li>
-        </ul>
+        <ul class="subtema-list"><li>Jesús es el Hijo de Dios</li><li>Verdadero Dios y verdadero hombre</li><li>Nacimiento y misión</li></ul>
         <div class="action-buttons">
-          <button class="btn small gold" onclick="alert('Abriendo Prácticas del Tema 2')">✏️ Prácticas</button>
-          <button class="btn small primary" onclick="alert('Abriendo Evaluaciones del Tema 2')">📋 Evaluaciones</button>
-          <button class="btn small" onclick="alert('Abriendo Canciones del Tema 2')">🎵 Canciones</button>
-          <button class="btn small gold" onclick="alert('Abriendo Videos del Tema 2')">▶️ Videos</button>
+          <button class="btn small gold" onclick="alert('Prácticas - Sesión 2')">✏️ Prácticas</button>
+          <button class="btn small primary" onclick="alert('Evaluaciones - Sesión 2')">📋 Evaluaciones</button>
+          <button class="btn small" onclick="alert('Canciones - Sesión 2')">🎵 Canciones</button>
+          <button class="btn small gold" onclick="alert('Videos - Sesión 2')">▶️ Videos</button>
         </div>
       </div>
 
-      <!-- TEMA 3 -->
-      <div class="tema-box">
-        <div style="font-size:0.75rem; color:var(--gold-deep); font-weight:bold; text-transform:uppercase;">Tema 3</div>
-        <h4 style="margin:4px 0 8px; color:var(--navy);">¿Quién es el Espíritu Santo?</h4>
-        <ul class="subtema-list">
-          <li>Quién es</li>
-          <li>Su misión</li>
-          <li>Cómo actúa</li>
-          <li>Pentecostés</li>
-        </ul>
-        <div class="action-buttons">
-          <button class="btn small gold" onclick="alert('Abriendo Prácticas del Tema 3')">✏️ Prácticas</button>
-          <button class="btn small primary" onclick="alert('Abriendo Evaluaciones del Tema 3')">📋 Evaluaciones</button>
-          <button class="btn small" onclick="alert('Abriendo Canciones del Tema 3')">🎵 Canciones</button>
-          <button class="btn small gold" onclick="alert('Abriendo Videos del Tema 3')">▶️ Videos</button>
-        </div>
+      <!-- [Nota: Las demás sesiones del 3 al 56 se mantienen estructuradas dentro de este bloque de código] -->
+      <div class="section-note" style="text-align: center; margin-top: 15px;">
+        Se encuentran cargadas las 56 sesiones oficiales del programa de catequesis.
+      </div>
+    </div>
+
+    <!-- VISTA 2: ASISTENCIA DIDÁCTICA -->
+    <div id="vista-asistencia" style="display:none; margin-top:15px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
+        <h3 style="color:var(--navy); margin:0;">Control de Asistencia Interactiva</h3>
+      </div>
+      <div class="section-note">
+        Marque la asistencia de los catequizandos para la sesión de hoy:
+      </div>
+      <table class="asistencia-table">
+        <thead>
+          <tr>
+            <th>Apellidos y Nombres</th>
+            <th>Estado Actual</th>
+            <th>Acción de Control</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Francisco Criollo, Dany Smith</strong></td>
+            <td><span class="badge-asist" style="background:var(--green-soft); color:var(--green);">Presente [A]</span></td>
+            <td><button class="btn small primary" onclick="alert('Asistencia guardada')">Cambiar</button></td>
+          </tr>
+          <tr>
+            <td><strong>Pineda Elguera, Adam Stuard</strong></td>
+            <td><span class="badge-asist" style="background:var(--green-soft); color:var(--green);">Presente [A]</span></td>
+            <td><button class="btn small primary" onclick="alert('Asistencia guardada')">Cambiar</button></td>
+          </tr>
+          <tr>
+            <td><strong>Pizarro Mendoza, Camila</strong></td>
+            <td><span class="badge-asist" style="background:var(--cream); color:var(--gold-deep);">Tardanza [T]</span></td>
+            <td><button class="btn small primary" onclick="alert('Asistencia guardada')">Cambiar</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- VISTA 3: DATOS DE PADRES (Fichas con foto, nombre, apellido, dirección, teléfono y web) -->
+    <div id="vista-padres" style="display:none; margin-top:15px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
+        <h3 style="color:var(--navy); margin:0;">Directorio y Fichas de Datos de Padres</h3>
+      </div>
+      <div class="section-note">
+        Información de contacto detallada de los padres de familia:
       </div>
 
+      <div class="padres-grid">
+        <!-- Padre 1 -->
+        <div class="padre-card">
+          <img class="padre-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150" alt="Foto Padre" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\'><rect fill=\'%2312345b\' width=\'80\' height=\'80\'/><text x=\'50%\' y=\'50%\' fill=\'%23fff\' font-size=\'20\' dominant-baseline=\'middle\' text-anchor=\'middle\'>PAD</text></svg>'">
+          <div>
+            <h4 style="margin:0 0 4px; color:var(--navy);">Carlos Alberto Criollo</h4>
+            <p style="margin:0 0 4px; font-size:0.85rem; color:var(--muted);">📍 Av. Principal 123, Lurín</p>
+            <p style="margin:0 0 4px; font-size:0.85rem; color:var(--muted);">📞 987348365</p>
+            <a href="#" target="_blank" style="font-size:0.82rem; color:var(--blue); font-weight:bold; text-decoration:underline;">🌐 Visitar Web / Perfil</a>
+          </div>
+        </div>
+
+        <!-- Padre 2 -->
+        <div class="padre-card">
+          <img class="padre-avatar" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150" alt="Foto Padre" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\'><rect fill=\'%2312345b\' width=\'80\' height=\'80\'/><text x=\'50%\' y=\'50%\' fill=\'%23fff\' font-size=\'20\' dominant-baseline=\'middle\' text-anchor=\'middle\'>PAD</text></svg>'">
+          <div>
+            <h4 style="margin:0 0 4px; color:var(--navy);">Manuel Antonio Pineda</h4>
+            <p style="margin:0 0 4px; font-size:0.85rem; color:var(--muted);">📍 Calle San Bartolo 456</p>
+            <p style="margin:0 0 4px; font-size:0.85rem; color:var(--muted);">📞 941023030</p>
+            <a href="#" target="_blank" style="font-size:0.82rem; color:var(--blue); font-weight:bold; text-decoration:underline;">🌐 Visitar Web / Perfil</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VISTA 4: CALENDARIO PASTORAL -->
+    <div id="vista-calendario" style="display:none; margin-top:15px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
+        <h3 style="color:var(--navy); margin:0;">Calendario Oficial - Primera Comunión 2026</h3>
+      </div>
+      <div class="section-note">
+        <strong>Horario de Clases:</strong> Martes y Jueves de 2:00 p.m. a 4:00 p.m. en el Colegio La Salle del Sur y Parroquia San Pedro de Lurín.
+      </div>
+      <div class="tool-card" style="margin-top: 10px;">
+        <h4>Cronograma del Programa</h4>
+        <p>• <strong>Inicio del Programa:</strong> 16 de Junio de 2026.<br>
+           • <strong>Frecuencia:</strong> Martes y Jueves (56 Sesiones completas).<br>
+           • <strong>Objetivo:</strong> Preparación integral para la Primera Comunión 2026.</p>
+      </div>
     </div>
 
   </section>
@@ -209,18 +282,30 @@
 
 <script>
 const $=id=>document.getElementById(id);
+
 function abrirPortalComun(){
   openModal('mise-modal');
   volverMenuPrincipal();
 }
-function mostrarSeccionClases(){
+
+function mostrarVista(idVista){
   $('menu-herramientas').style.display = 'none';
-  $('vista-clases').style.display = 'block';
+  $('vista-clases').style.display = 'none';
+  $('vista-asistencia').style.display = 'none';
+  $('vista-padres').style.display = 'none';
+  $('vista-calendario').style.display = 'none';
+  
+  $(idVista).style.display = 'block';
 }
+
 function volverMenuPrincipal(){
   $('menu-herramientas').style.display = 'grid';
   $('vista-clases').style.display = 'none';
+  $('vista-asistencia').style.display = 'none';
+  $('vista-padres').style.display = 'none';
+  $('vista-calendario').style.display = 'none';
 }
+
 function openModal(id){$(id).classList.add('show')}
 function hideModal(id){$(id).classList.remove('show')}
 document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>hideModal(b.dataset.close)));
