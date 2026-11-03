@@ -90,9 +90,8 @@ main{padding:0 clamp(14px,2.5vw,36px) 40px}
 .legend-double{display:inline-grid;place-items:center;width:12px;height:12px;border-radius:3px;background:#fff1c6;border:1px solid #e5b43c;color:#895d07;font:900 8px Nunito,sans-serif;margin-right:4px}
 
 /* Progreso y Estadísticas */
-.progress-title{margin-top:24px;display:flex;align-items:end;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.progress-title{margin-top:24px}
 .progress-title h3{margin:0;color:#12345a;font:700 22px Fredoka,sans-serif}
-.progress-title p{margin:0;color:#61738a;font-size:12px;font-weight:800}
 .progress-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin:12px 0}
 .progress-stat{padding:14px;background:#fff;border:1px solid #e5d7b7;border-radius:15px;box-shadow:0 4px 12px #12345a08}
 .progress-stat span{display:block;color:#61738a;font-size:11px;font-weight:900}
@@ -100,10 +99,9 @@ main{padding:0 clamp(14px,2.5vw,36px) 40px}
 .progress-stat small{color:#748198;font-size:10px;font-weight:700}
 .meter{height:7px;background:#e8edf4;border-radius:99px;overflow:hidden;margin-top:7px}
 .meter span{display:block;height:100%;width:0;background:linear-gradient(90deg,#2b8a67,#8fd7a6);border-radius:99px;transition:width .25s}
-.dashboard-note{margin:10px 0 16px;color:#61738a;font-size:11px;font-weight:700;background:#edf5ff;border:1px solid #d2e5fb;border-radius:12px;padding:10px 12px}
+
 .progress-board{margin-top:16px;padding:16px;background:#fff;border:1px solid #e5d7b7;border-radius:16px;box-shadow:0 4px 14px #12345a0a}
 .progress-board h3{margin:0 0 4px;color:#12345a;font:700 20px Fredoka,sans-serif}
-.progress-board>p{margin:0 0 12px;color:#61738a;font-size:12px;font-weight:800}
 .table-scroll{overflow-x:auto}
 table.progress-table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px;min-width:580px}
 table.progress-table th{padding:10px;text-align:left;color:#fff;background:#12345a;font-weight:900}
@@ -217,9 +215,9 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
     </section>
 
     <div class="progress-title">
-      <h3>📊 Resumen de asistencia institucional</h3>
-      <p>Control general de participación de los catequizandos por código.</p>
+      <h3>📊 Tablero de avance por códigos</h3>
     </div>
+
     <div class="progress-stats" id="individual-progress" aria-live="polite">
       <div class="progress-stat">
         <span>Asistencia Institucional Global</span>
@@ -234,11 +232,8 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
         <div class="meter"><span id="stat-classes-meter" style="width:80%"></span></div>
       </div>
     </div>
-    <div class="dashboard-note">El acceso a los materiales y actividades se realiza mediante el código único de cada catequizando para salvaguardar la privacidad y el orden del grupo.</div>
 
     <div class="progress-board" id="progress-board">
-      <h3>📊 Tablero de avance por códigos</h3>
-      <p>Listado de catequizandos mediante identificación segura (Sincronizado con Google Sheets).</p>
       <div class="table-scroll">
         <table class="progress-table">
           <thead>
@@ -339,7 +334,7 @@ const stages=[
   {title:'Compartimos la fe',subtitle:'Vivir en comunidad y familia.',topics:[
     [13,'¿Quién es la Virgen María?',['Madre de Jesús y ejemplo de fe']],
     [14,'¿Por qué hay tantas Vírgenes?',['Advocaciones marianas']],
-    [16,'¿Qué is la Iglesia?',['Pueblo de Dios']],
+    [16,'¿Qué es la Iglesia?',['Pueblo de Dios']],
     [17,'¿Quiénes Forman la Iglesia?',['Papa, sacerdotes y laicos']],
     [18,'Los Santos',['Modelos de vida evangélica']],
     [43,'Servidores y Monaguillos',['Función en el altar']],
@@ -348,7 +343,6 @@ const stages=[
   ]}
 ];
 
-// Fallback por seguridad si fuera necesario
 const fallbackStudents = [
   { ID_NINO: 'LDS-EST-001', APELLIDOS: 'FRANCISCO CRIOLLO', NOMBRES: 'DANY SMITH', GRADO: 'TERCERO' },
   { ID_NINO: 'LDS-EST-002', APELLIDOS: 'PINEDA ELGUERA', NOMBRES: 'ADAM STUARD', GRADO: 'QUINTO' },
@@ -372,20 +366,20 @@ function renderStudentsTable(data){
 
   data.forEach(stu => {
     const code = stu.ID_NINO || stu.code || '';
-    const name = `${stu.NOMBRES || ''} ${stu.APELLIDOS || ''}`.trim();
+    const apellidos = stu.APELLIDOS || '';
+    const nombres = stu.NOMBRES || '';
+    const fullName = `${apellidos} ${nombres}`.trim();
     const grade = stu.GRADO || stu.grade || '';
-    const classes = '40 de 50';
-    const attendance = '79,6%';
-    const pctNum = 79.6;
     
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td><strong><code>${code}</code></strong><br><small style="color:#61738a">${name}</small></td>
+      <td><code>${code}</code></td>
+      <td><strong>${fullName}</strong></td>
       <td><span style="background:#fff2ca;color:#8c5c00;padding:2px 8px;border-radius:10px;font-size:10px;">${grade}</span></td>
-      <td>${classes}</td>
+      <td>40 de 50</td>
       <td>
-        <div style="font-weight:900;font-size:11px;margin-bottom:2px">Actual: ${attendance} | Total: 100%</div>
-        <div class="mini-meter"><span style="width:${pctNum}%"></span></div>
+        <div style="font-weight:900;font-size:11px;margin-bottom:2px">Actual: 79,6% | Total: 100%</div>
+        <div class="mini-meter"><span style="width:79.6%"></span></div>
       </td>
       <td><span style="color:#61738a;font-weight:900;font-size:11px;">0% (0 de 100%)</span></td>
     `;
@@ -412,7 +406,6 @@ document.getElementById('btnActualizar').addEventListener('click', () => {
   sincronizarConGoogleSheets();
 });
 
-// Cargar al iniciar
 sincronizarConGoogleSheets();
 
 function updateCountdown(){
