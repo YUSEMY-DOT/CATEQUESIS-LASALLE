@@ -184,4 +184,131 @@
     </div>
     <form id="task-form">
       <div class="formgrid">
-        <div class="field
+        <div class="field">
+          <label for="task-type">Tipo</label>
+          <select id="task-type"><option value="Ficha">Ficha</option><option value="Práctica">Práctica</option><option value="Evaluación">Evaluación</option><option value="Video">Video</option><option value="Revisión de cuaderno">Revisión de cuaderno</option><option value="Otro material">Otro material</option></select>
+        </div>
+        <div class="field"><label for="task-date">Fecha de asignación *</label><input id="task-date" type="date" required></div>
+        <div class="field"><label for="task-due">Fecha límite</label><input id="task-due" type="date"></div>
+        <div class="field full"><label for="task-title">Nombre de la actividad *</label><input id="task-title" required maxlength="180" placeholder="Ej.: Ficha sobre la Liturgia de la Palabra"></div>
+        <div class="field full"><label for="task-details">Indicaciones</label><textarea id="task-details" maxlength="1500" placeholder="Qué debe realizar el niño, qué debe traer, etc."></textarea></div>
+        <div class="field full"><label for="task-url">Enlace de recurso (opcional)</label><input id="task-url" type="url" maxlength="1200" placeholder="https://..."></div>
+      </div>
+      <div class="form-actions"><button class="btn primary" type="submit">Guardar actividad</button><button class="btn" type="button" data-close="task-modal">Cancelar</button></div>
+    </form>
+  </section>
+</div>
+
+<input id="import-file-hidden" type="file" accept="application/json,.json" class="hidden"><div class="toast" id="toast" role="status"></div>
+<script>
+const CURRICULUM = [{"title":"Conociendo a Jesús","subtitle":"Su vida, su mensaje y su amor.","topics":[[1,"¿Quién es Dios?",["Introducción breve","Quién es Dios","Dios único","Dios creador","Dios eterno","Dios Padre","Cómo conocemos a Dios"]],[2,"¿Quién es Jesús?",["Jesús es el Hijo de Dios","Verdadero Dios y verdadero hombre","Nacimiento y misión","Por qué Jesús es fundamental para los cristianos"]],[3,"¿Quién es el Espíritu Santo?",["Quién es","Su misión","Cómo actúa","Pentecostés","Símbolos principales"]],[4,"La Santísima Trinidad",["Un solo Dios","Padre, Hijo y Espíritu Santo","Tres Personas","No son tres dioses","¿Quién es primero?","Relación entre las tres Personas","Señal de la Cruz"]],[5,"La Creación",["Dios creador","Creación del mundo","Creación del ser humano","El ser humano y la creación","Responsabilidad de cuidar lo creado"]],[7,"Dios se Revela al Ser Humano",["¿Cómo conocemos a Dios?","Revelación","Sagrada Escritura","Tradición","Jesucristo como plenitud de la Revelación"]],[8,"La Biblia",["Qué es","Antiguo Testamento","Nuevo Testamento","Evangelios","Evangelistas","Cómo se divide","Cómo buscar una cita","Cómo leerla"]],[9,"La Vida de Jesús",["Nacimiento","María y José","Infancia","Bautismo","Vida pública","Discípulos","Predicación","Reino de Dios"]],[10,"Las Enseñanzas de Jesús",["Qué es una parábola y por qué Jesús las utilizaba","Parábola del Buen Samaritano","Parábola del Hijo Pródigo","Parábola del Sembrador","Parábola de la Oveja perdida","Parábola de los Talentos","Aplicación a nuestra vida"]],[11,"Los Milagros de Jesús",["Qué es un milagro","Para qué los realizaba Jesús","Milagros de sanación","Milagros sobre la naturaleza","Qué revelan sobre Jesús"]],[12,"Pasión, Muerte y Resurrección",["Última Cena","Pasión","Crucifixión","Muerte","Resurrección","Ascensión","Qué significa para nuestra fe"]]]},{title:"Aprendemos a orar","subtitle":"Hablar con Dios con confianza.","topics":[[19,"¿Quién es un Sacramento?",["Qué significa","Quién los instituyó","Signo visible","Gracia","Para qué sirven"]],[30,"Los Siete Sacramentos",["Clasificación: Iniciación, Curación y Servicio"]],[31,"La Gracia",["Qué es","Gracia santificante","Relación entre gracia y sacramentos","Vivir en gracia"]],[32,"El Bautismo",["Qué es y qué sucede","Agua, óleo, vela y vestidura blanca","Padrinos","Incorporación a la Iglesia","Ser hijo de Dios","Compromiso del bautizado"]],[33,"La Confirmación",["Qué es y relación con el Bautismo","Espíritu Santo y sus Dones","Qué significa ser confirmado"]],[34,"Los Demás Sacramentos",["Reconciliación, Unción de los enfermos, Matrimonio y Orden sacerdotal","Para qué sirve cada uno"]]]},{title:"La Eucaristía","subtitle":"Prepararnos para recibir a Jesús.","topics":[[35,"El Sacramento de la Reconciliación",["Qué es y por qué confesarnos","Contrición, confesión, propósito de enmienda, penitencia y absolución","Sigilo sacramental"]],[36,"Mi Primera Confesión",["Examen de conciencia y cómo prepararme","Qué decir y cómo acercarme al sacerdote","Qué hacer después"]],[37,"El Año Litúrgico",["Adviento, Navidad, Cuaresma, Semana Santa, Triduo Pascual, Pascua, Pentecostés y Tiempo Ordinario","Solemnidades, fiestas y memorias"]],[38,"Signos y Símbolos Litúrgicos",["Cruz, agua, aceite, fuego, cirios, incienso, imágenes y colores litúrgicos"]],[39,"¿Qué es la Santa Misa?",["Qué es y por qué vamos","Qué celebramos","Relación con la Última Cena y la Eucaristía","La Misa como celebración de la Iglesia"]],[40,"Antes de la Misa",["Vestimenta, higiene y presentación","Puntualidad, entrada, agua bendita, señal de la Cruz, silencio, genuflexión, reverencia, Sagrario y preparación interior"]],[41,"Conocemos el Templo",["Altar, Ambón, Sede, Sagrario, Cruz, Cirios, Confesionario, Pila bautismal e Imágenes"]],[42,"Vestiduras del Sacerdote",["Alba, cíngulo, estola, casulla, colores litúrgicos y significado básico"]],[44,"Gestos y Posturas",["De pie, sentados, arrodillados, inclinación, genuflexión, señal de la Cruz, golpearse el pecho, darse la paz, silencio y Amén","Cuándo se hace cada uno y por qué"]],[45,"Ritos Iniciales",["Procesión, saludo, acto penitencial, Yo confieso, Kyrie, Gloria y oración colecta"]],[46,"Liturgia de la Palabra",["Primera lectura, salmo, segunda lectura, Aleluya, Evangelio, homilía, Credo y oración de los fieles"]],[47,"Liturgia Eucarística",["Preparación de los dones, ofertorio, prefacio, Santo, Plegaria Eucarística, epíclesis, consagración, anamnesis, intercesiones, doxología y Amén"]],[48,"Rito de la Comunión",["Padre Nuestro, paz, fracción del Pan, Cordero de Dios, respuestas, procesión, recepción de la Comunión y acción de gracias"]],[49,"Ritos Finales",["Oración después de la Comunión, bendición, despedida, envío y cómo debemos salir de la iglesia"]],[50,"¿Qué es la Eucaristía?",["Última Cena, institución, Cuerpo y Sangre de Cristo, presencia real, sacrificio, banquete, acción de gracias y memorial"]],[51,"¿Qué Sucede en la Consagración?",["Pan y vino, Espíritu Santo, palabras de Jesús, Cuerpo y Sangre, presencia real y Transubstanciación explicada para niños"]],[52,"Jesús en el Sagrario",["Qué es el Sagrario, lámpara, presencia de Jesús, genuflexión, adoración, visita al Santísimo y cómo orar ante Jesús"]],[53,"¿Cómo Recibimos la Comunión?",["Preparación, estado de gracia, ayuno eucarístico, procesión, reverencia, respuesta “Amén”, recepción, regreso al lugar y acción de gracias"]],[55,"Mi Primera Comunión",["Qué voy a recibir, por qué me preparé, qué debo saber, cómo participar, cómo comulgar, vestimenta, actitud, respuestas y acción de gracias"]]]},{title:"Valores cristianos","subtitle":"Amor, respeto y perdón.","topics":[[6,"El Ser Humano y el Pecado",["Libertad, bien y mal, pecado, consecuencias y conversión"]],[24,"Los Diez Mandamientos",["Qué son, por qué existen, los diez y aplicación a la vida de los niños"]],[25,"Los Mandamientos de la Iglesia",["Qué son, Misa, confesión, comunión, ayuno/abstinencia y otras obligaciones"]],[26,"Las Bienaventuranzas",["Qué son, enseñanzas de Jesús y cómo vivirlas"]],[27,"Obras de Misericordia",["Corporales, espirituales y ejemplos concretos"]],[28,"El Pecado y el Examen de Conciencia",["Qué es pecado, venial y mortal, libertad y responsabilidad, examen de conciencia y conversión"]]]},{title:"Compartimos la fe","subtitle":"Vivir en comunidad y familia.","topics":[[13,"¿Quién es la Virgen María?",["María en el plan de Dios, Anunciación, Nacimiento, Madre de Jesús, al pie de la Cruz, María y la Iglesia"]],[14,"¿Por qué hay tantas Vírgenes?",["Una sola Virgen María, qué es una advocación, nombres e imágenes: Carmen, Guadalupe, Fátima y Lourdes, veneración y adoración"]],[16,"¿Qué es la Iglesia?",["Quién fundó la Iglesia, qué significa, comunidad, Pueblo de Dios, Cuerpo de Cristo, templo y comunidad"]],[17,"¿Quiénes Forman la Iglesia?",["Papa, Obispos, Sacerdotes, Diáconos, Religiosos, Laicos, Ministros y Monaguillos; función básica de cada uno"]],[18,"Los Santos",["Qué es un santo, por qué existen, adoración/veneración, intercesión, comunión de los santos y modelos de vida"]],[43,"Servidores y Monaguillos",["Qué es un monaguillo, función, vestimenta, cruz, cirios, incienso, participación y actitud"]],[54,"Padrinos y Madrinas",["Qué significa ser padrino/madrina, requisitos, funciones, responsabilidad espiritual y acompañamiento"]],[56,"Después de la Primera Comunión",["¿Terminó la catequesis?, continuar en Misa, orar, confesión, Biblia, community, service y seguir creciendo en la fe"]]]}];
+const DB_KEY='caminoJesusCatequistasPortal_v3';
+const $=id=>document.getElementById(id);
+const z=n=>String(n).padStart(2,'0');
+const keyDate=d=>`${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}`;
+const parseDate=k=>{const [y,m,d]=String(k||'').split('-').map(Number);return y&&m&&d?new Date(y,m-1,d,12):new Date()};
+const MONTHS=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const DAYS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+const topicList=CURRICULUM.flatMap((stage,si)=>stage.topics.map(t=>({num:Number(t[0]),title:t[1],content:t[2],stage:stage.title,stageIndex:si}))).sort((a,b)=>a.num-b.num);
+const byTopicNum=new Map(topicList.map(t=>[t.num,t]));
+const lessonMap=new Map();
+const plannedDates=[];
+for(let d=new Date(2026,5,16,12);d<=new Date(2026,11,1,12);d.setDate(d.getDate()+1)){if(d.getDay()===2||d.getDay()===4)plannedDates.push(new Date(d));}
+let cursor=0;
+const preCommunionTopics=topicList.filter(t=>t.num<56);
+plannedDates.forEach((d,i)=>{if(cursor>=preCommunionTopics.length)return;const count=i<7?2:1;const selected=preCommunionTopics.slice(cursor,cursor+count);if(selected.length)lessonMap.set(keyDate(d),{type:'lesson',session:i+1,topics:selected});cursor+=selected.length;});
+lessonMap.set('2026-12-03',{type:'event',title:'Primera Comunión',description:'Celebración del sacramento de la Eucaristía.'});
+if(byTopicNum.has(56))lessonMap.set('2026-12-08',{type:'lesson',session:plannedDates.length+1,topics:[byTopicNum.get(56)]});
+function id(){return (crypto?.randomUUID?crypto.randomUUID():'id-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10));}
+function initialDb(){return {events:[],tasks:[],records:{},sessionNotes:{}}; }
+let db=JSON.parse(localStorage.getItem(DB_KEY)||'null')||initialDb();
+function saveDb(){try{localStorage.setItem(DB_KEY,JSON.stringify(db));return true}catch(e){return false}}
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove('show'),3500)}
+function safe(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+const LITURGY_TOPIC_NUMS=new Set([25,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56]);
+function hasLiturgyTopic(entry){return !!entry&&entry.type==='lesson'&&entry.topics.some(t=>LITURGY_TOPIC_NUMS.has(Number(t.num)));}
+function nearestLessonKey(){const today=keyDate(new Date());const keys=[...lessonMap.keys()].sort();return keys.find(k=>k>=today)||keys[keys.length-1]||'2026-06-16'}
+let selectedDate=nearestLessonKey();let monthCursor=parseDate(selectedDate);
+
+function abrirControlMise(nombre, codigo){
+  $('mise-modal-title').textContent = 'Control de Catequista: ' + nombre;
+  $('mise-modal-sub').textContent = 'Código institucional: ' + codigo;
+  $('mise-welcome-msg').textContent = '¡Bienvenida, ' + nombre + '! Desde este panel puedes registrar la asistencia o revisar actividades.';
+  openModal('mise-modal');
+}
+function addMonths(amount){monthCursor=new Date(monthCursor.getFullYear(),monthCursor.getMonth()+amount,1,12);renderCalendar()}
+$('prev-month').addEventListener('click',()=>addMonths(-1));$('next-month').addEventListener('click',()=>addMonths(1));
+
+function combinedEvents(k){return db.events.filter(e=>e.date===k)}
+function renderCalendar(){
+  const y=monthCursor.getFullYear(),m=monthCursor.getMonth();
+  const labelText=MONTHS[m].charAt(0).toUpperCase()+MONTHS[m].slice(1)+' '+y;
+  $('month-label').textContent=labelText;
+
+  const grid=$('calendar-grid');
+  if(!grid)return;
+  grid.innerHTML='';
+  ['L','M','X','J','V','S','D'].forEach(w=>{const el=document.createElement('div');el.className='weekday';el.textContent=w;grid.appendChild(el)});
+  const offset=(new Date(y,m,1,12).getDay()+6)%7;
+  for(let i=0;i<offset;i++)grid.appendChild(document.createElement('div'));
+  const days=new Date(y,m+1,0,12).getDate();
+  for(let day=1;day<=days;day++){
+    const d=new Date(y,m,day,12),k=keyDate(d),base=lessonMap.get(k),events=combinedEvents(k);
+    const b=document.createElement('button');b.className='day';b.textContent=day;
+    if(base?.type==='lesson')b.classList.add('classday');
+    if(hasLiturgyTopic(base))b.classList.add('liturgyday');
+    if(base?.type==='event'||events.length)b.classList.add('eventday');
+    if(events.length)b.classList.add('has-event');
+    if(k===keyDate(new Date()))b.classList.add('today');
+    if(k===selectedDate)b.classList.add('selected');
+    b.title=base?.type==='lesson'?'Clase de catequesis':base?.title||'Sin actividad';
+    b.addEventListener('click',()=>selectDate(k));
+    grid.appendChild(b);
+  }
+  renderSelectedDate();
+}
+function selectDate(k){selectedDate=k;monthCursor=new Date(parseDate(k).getFullYear(),parseDate(k).getMonth(),1,12);renderCalendar();}
+function renderSelectedDate(){
+  const base=lessonMap.get(selectedDate),events=combinedEvents(selectedDate);
+  const kindText=base?.type==='lesson'?'ENCUENTRO DE CATEQUESIS':'FECHA SELECCIONADA';
+  const titleText=`${DAYS[parseDate(selectedDate).getDay()}, ${parseDate(selectedDate).getDate()} de ${MONTHS[parseDate(selectedDate).getMonth()]} de ${parseDate(selectedDate).getFullYear()}`;
+  const subText=base?.type==='lesson'?`Encuentro ${String(base.session).padStart(2,'0')} · ${base.topics.length} tema${base.topics.length===1?'':'s'}`:'';
+
+  $('selected-kind').textContent=kindText;
+  $('selected-date-title').textContent=titleText;
+  $('selected-date-sub').textContent=subText;
+
+  let topicsHtml='';
+  if(base?.type==='lesson'){
+    base.topics.forEach(t=>{
+      topicsHtml+=`<details class="topic-details"><summary>Tema ${t.num}: ${safe(t.title)}</summary><div class="topic-content"><div class="chip">Etapa: ${safe(t.stage)}</div><ul>${t.content.map(x=>`<li>${safe(x)}</li>`).join('')}</ul></div></details>`;
+    });
+  }else{
+    topicsHtml='<div class="empty">No hay tema de clase asignado en esta fecha.</div>';
+  }
+  $('selected-topics').innerHTML=topicsHtml;
+  $('session-notes').value=db.sessionNotes[selectedDate]||'';
+}
+
+$('save-session-notes').addEventListener('click',()=>{
+  db.sessionNotes[selectedDate]=$('session-notes').value;
+  saveDb();
+  toast('Planificación guardada.');
+});
+
+$('calendar-attendance-btn').addEventListener('click',()=>alert('Módulo de asistencia directa.'));
+$('calendar-add-task-btn').addEventListener('click',()=>openModal('task-modal'));
+$('add-event-btn').addEventListener('click',()=>{$('ev-date').value=selectedDate;openModal('event-modal')});
+$('print-day-btn').addEventListener('click',()=>window.print());
+
+$('event-form').addEventListener('submit',e=>{e.preventDefault();db.events.push({date:$('ev-date').value,type:$('ev-type').value,title:$('ev-title').value.trim()});saveDb();hideModal('event-modal');e.target.reset();renderCalendar();toast('Evento añadido.');});
+$('task-form').addEventListener('submit',e=>{e.preventDefault();db.tasks.push({type:$('task-type').value,date:$('task-date').value,title:$('task-title').value.trim()});saveDb();hideModal('task-modal');e.target.reset();toast('Actividad asignada.');});
+
+function openModal(id){$(id).classList.add('show')}function hideModal(id){$(id).classList.remove('show')}
+$('export-backup').addEventListener('click',()=>{const blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='respaldo.json';a.click();});
+document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>hideModal(b.dataset.close)));
+selectedDate=nearestLessonKey();monthCursor=parseDate(selectedDate);
+renderCalendar();
+</script>
+</body>
+</html>
