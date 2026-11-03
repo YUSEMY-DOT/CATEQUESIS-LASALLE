@@ -366,6 +366,9 @@ function renderStudentsTable(data){
 
   data.forEach(stu => {
     const code = stu.ID_NINO || stu.code || '';
+    // Filtramos filas vacías para que no aparezca esa fila extra defectuosa al final
+    if (!code || String(code).trim() === '') return;
+    
     const apellidos = stu.APELLIDOS || '';
     const nombres = stu.NOMBRES || '';
     const fullName = `${apellidos} ${nombres}`.trim();
@@ -388,17 +391,28 @@ function renderStudentsTable(data){
 }
 
 async function sincronizarConGoogleSheets() {
+  const btn = document.getElementById('btnActualizar');
+  const originalText = btn.textContent;
   try {
+    btn.textContent = '⏳ Actualizando...';
+    btn.disabled = true;
+    
     const response = await fetch(`${URL_API_APPS_SCRIPT}?action=getCatequizandos`);
     const resJson = await response.json();
+    
     if (resJson && resJson.exito && resJson.datos && resJson.datos.length > 0) {
       renderStudentsTable(resJson.datos);
+      alert('¡Tablero actualizado correctamente desde Google Sheets!');
     } else {
       renderStudentsTable(fallbackStudents);
     }
   } catch (err) {
-    console.error('Error al sincronizar, usando respaldo:', err);
+    console.error('Error al sincronizar:', err);
     renderStudentsTable(fallbackStudents);
+    alert('No se pudo conectar con Google Sheets. Se muestran los datos locales.');
+  } finally {
+    btn.textContent = originalText;
+    btn.disabled = false;
   }
 }
 
