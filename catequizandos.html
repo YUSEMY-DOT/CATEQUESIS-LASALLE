@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+*<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,8 +15,9 @@ header{background:radial-gradient(circle at 80% 20%,#174878 0,#0b2850 35%,#06152
 .brand{display:flex;align-items:center;gap:13px}.crest{width:90px;height:90px;min-width:90px;object-fit:contain;filter:drop-shadow(0 5px 10px #0006)}
 .brand h2{font:700 clamp(16px,2vw,22px) Fredoka,sans-serif;color:#ffdf94;margin:0}.brand small{display:block;color:#d7e6f8;font-weight:800;letter-spacing:1px;text-transform:uppercase;font-size:11px}
 .top-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap}
-.mute-toggle{border:1px solid #f0c75a;border-radius:24px;padding:9px 13px;background:#fff8e5;color:#17385f;font-size:12px;font-weight:900;cursor:pointer;white-space:nowrap;box-shadow:0 3px 9px #081c3b0c}
-.mute-toggle:hover{background:#ffe8a0;border-color:#d9a528}
+.mute-toggle,.btn-actualizar{border:1px solid #f0c75a;border-radius:24px;padding:9px 13px;background:#fff8e5;color:#17385f;font-size:12px;font-weight:900;cursor:pointer;white-space:nowrap;box-shadow:0 3px 9px #081c3b0c}
+.btn-actualizar{background:linear-gradient(135deg,#34d399,#059669);color:white;border:1px solid #10b981}
+.mute-toggle:hover,.btn-actualizar:hover{opacity:0.9}
 .home{background:#ffc94d;color:#102b4e;border:1px solid #fff2c9;border-radius:24px;padding:9px 16px;font-weight:900;box-shadow:0 4px 12px #0002;white-space:nowrap}
 .hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);gap:clamp(14px,2vw,25px);align-items:center;padding-top:4px;position:relative;z-index:1}
 .hero-copy{text-align:center;margin-top:-6px}
@@ -143,6 +144,7 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
         </div>
       </div>
       <div class="top-actions">
+        <button class="btn-actualizar" id="btnActualizar" type="button">🔄 Actualizar</button>
         <button class="mute-toggle" id="mute-toggle" type="button" aria-pressed="false" title="Silenciar voz">🔊 Silenciar</button>
         <a class="home" href="./index.html">🏠 Volver al inicio</a>
       </div>
@@ -257,7 +259,7 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
     <footer class="footer">
       <strong>Camino hacia Jesús · La Salle del Sur</strong><br>
       Parroquia San Pedro de Lurín · Zona Sur de Lima ✨
-      <div class="copyright">© 2026 Colegio La Salle del Sur · Programa Camino hacia Jesús. Todos los derechos reservados.</div>
+      <div class="copyright">© 2026 Colegio Privado La Salle del Sur · Programa Camino hacia Jesús. Todos los derechos reservados.</div>
     </footer>
   </main>
 </div>
@@ -272,6 +274,8 @@ table.progress-table td{padding:10px;border-bottom:1px solid #e8edf3;vertical-al
 </div>
 
 <script>
+const URL_API_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
+
 const stages=[
   {title:'Conociendo a Jesús',subtitle:'Su vida, su mensaje y su amor.',topics:[
     [1,'¿Quién es Dios?',['Introducción breve','Quién es Dios','Dios único','Dios creador','Dios eterno','Dios Padre']],
@@ -343,7 +347,6 @@ const stages=[
   ]}
 ];
 
-// Datos institucionales con códigos, clases registradas por alumno, asistencia actual vs total 100%, y fichas en 0 de 100%
 const sampleStudents = [
   { code: 'LDS-EST-001', grade: 'TERCERO', classes: '39 de 40', attendancePctActual: '79,6%', attendancePctTotal: '100%', worksheetsPct: '0% (0 de 100%)' },
   { code: 'LDS-EST-002', grade: 'QUINTO', classes: '38 de 40', attendancePctActual: '79,2%', attendancePctTotal: '100%', worksheetsPct: '0% (0 de 100%)' },
@@ -354,26 +357,52 @@ const sampleStudents = [
   { code: 'LDS-EST-007', grade: 'SEXTO', classes: '40 de 40', attendancePctActual: '80,0%', attendancePctTotal: '100%', worksheetsPct: '0% (0 de 100%)' }
 ];
 
-function initStatistics(){
+function initStatistics(data = sampleStudents){
   const tbody = document.getElementById('students-progress-body');
   tbody.innerHTML = '';
-  sampleStudents.forEach(stu=>{
-    const pctNum = parseFloat(stu.attendancePctActual.replace(',','.'));
+  data.forEach(stu=>{
+    const pctNum = parseFloat((stu.attendancePctActual || '0').replace(',','.'));
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td><strong><code>${stu.code}</code></strong></td>
-      <td><span style="background:#fff2ca;color:#8c5c00;padding:2px 8px;border-radius:10px;font-size:10px;">${stu.grade}</span></td>
-      <td>${stu.classes}</td>
+      <td><strong><code>${stu.code || stu.ID_NINO || ''}</code></strong></td>
+      <td><span style="background:#fff2ca;color:#8c5c00;padding:2px 8px;border-radius:10px;font-size:10px;">${stu.grade || stu.GRADO || ''}</span></td>
+      <td>${stu.classes || '40 de 50'}</td>
       <td>
-        <div style="font-weight:900;font-size:11px;margin-bottom:2px">Actual: ${stu.attendancePctActual} | Total: ${stu.attendancePctTotal}</div>
-        <div class="mini-meter"><span style="width:${pctNum}%"></span></div>
+        <div style="font-weight:900;font-size:11px;margin-bottom:2px">Actual: ${stu.attendancePctActual || '79,6%'} | Total: ${stu.attendancePctTotal || '100%'}</div>
+        <div class="mini-meter"><span style="width:${isNaN(pctNum)?79.6:pctNum}%"></span></div>
       </td>
-      <td><span style="color:#61738a;font-weight:900;font-size:11px;">${stu.worksheetsPct}</span></td>
+      <td><span style="color:#61738a;font-weight:900;font-size:11px;">${stu.worksheetsPct || '0% (0 de 100%)'}</span></td>
     `;
     tbody.appendChild(tr);
   });
 }
 initStatistics();
+
+// Función de sincronización con Google Sheets vía Apps Script mediante el botón Actualizar
+async function sincronizarConGoogleSheets() {
+  try {
+    const response = await fetch(`${URL_API_APPS_SCRIPT}?action=getCatequizandos`);
+    const resJson = await response.json();
+    if (resJson && resJson.datos && resJson.datos.length > 0) {
+      // Mapeo dinámico si el cerebro devuelve la información de catequizandos
+      const mapped = resJson.datos.map(item => ({
+        code: item.ID_NINO || item.code,
+        grade: item.GRADO || item.grade,
+        classes: '40 de 50',
+        attendancePctActual: '79,6%',
+        attendancePctTotal: '100%',
+        worksheetsPct: '0% (0 de 100%)'
+      }));
+      initStatistics(mapped);
+    }
+  } catch (err) {
+    console.error('Error sincronizando catequizandos:', err);
+  }
+}
+
+document.getElementById('btnActualizar').addEventListener('click', () => {
+  sincronizarConGoogleSheets();
+});
 
 function updateCountdown(){
   const target=new Date(2026,11,3,0,0,0).getTime(),now=Date.now(),diff=target-now;
@@ -399,14 +428,12 @@ function openStage(idx){
   if(!win){alert('Permite las ventanas emergentes para este sitio.');return;}
   const esc=escapeHtml;
   
-  // Botones organizados por tema dentro de la etapa
   const topicCards=s.topics.map((t,i)=>`
     <div style="border:1px solid #eadcc2;border-radius:14px;background:#fff;padding:16px;margin-bottom:14px;box-shadow:0 3px 10px #12345a08;">
       <span style="font-size:11px;font-weight:900;color:#b27b19;text-transform:uppercase;letter-spacing:.5px;">TEMA ${t[0]}</span>
       <h3 style="margin:4px 0 8px;font-size:18px;color:#12345a;font-family:Fredoka,sans-serif;">${esc(t[1])}</h3>
       <ul style="margin:0 0 14px;padding-left:18px;font-size:13px;color:#61738a">${t[2].map(x=>'<li>'+esc(x)+'</li>').join('')}</ul>
       
-      <!-- Botones por cada tema -->
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;border-top:1px dashed #eadaaf;padding-top:12px;">
         <button onclick="alert('Abriendo Prácticas del Tema ${t[0]}')" style="background:#fff8e6;border:1px solid #e8cb82;border-radius:10px;padding:8px 10px;font:700 12px Nunito,sans-serif;color:#12345a;display:flex;align-items:center;gap:6px;cursor:pointer;justify-content:center;">🖍️ Prácticas</button>
         <button onclick="alert('Abriendo Evaluaciones del Tema ${t[0]}')" style="background:#fff2f0;border:1px solid #f2a9a0;border-radius:10px;padding:8px 10px;font:700 12px Nunito,sans-serif;color:#8a2817;display:flex;align-items:center;gap:6px;cursor:pointer;justify-content:center;">📝 Evaluaciones</button>
