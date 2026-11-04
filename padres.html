@@ -12,7 +12,7 @@
     .card-custom { border: none; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
   </style>
 </head>
-<body>
+<body onload="reproducirBienvenida()">
 
   <!-- Cabecera del Portal -->
   <header class="header-padres shadow-sm mb-4">
@@ -23,7 +23,7 @@
         <small class="opacity-75">Colegio La Salle del Sur & Parroquia San Pedro de Lurín</small>
       </div>
       <div class="d-flex gap-2">
-        <!-- Botón de Actualizar -->
+        <button class="btn btn-outline-light btn-sm fw-bold rounded-pill px-3" onclick="reproducirBienvenida()">🔊 Escuchar Bienvenida</button>
         <button class="btn btn-outline-light btn-sm fw-bold rounded-pill px-3" onclick="location.reload()">🔄 Actualizar</button>
         <a href="<?= ScriptApp.getService().getUrl() ?>" class="btn btn-light btn-sm fw-bold rounded-pill px-3">⬅️ Salir</a>
       </div>
@@ -32,9 +32,23 @@
 
   <main class="container mb-5">
     
+    <!-- Mensaje de Bienvenida Institucional con opción de voz -->
+    <div class="card card-custom p-4 mb-4 border-start border-4 border-primary bg-white shadow-sm">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <h4 class="fw-bold text-primary m-0">🕊️ ¡Bienvenidos, Queridas Familias!</h4>
+        <button class="btn btn-primary btn-sm rounded-pill px-3" onclick="reproducirBienvenida()">🔊 Reproducir Audio</button>
+      </div>
+      <p class="text-muted mt-3 mb-2">
+        Nos alegra darles la más cordial bienvenida al programa de Catequesis <strong>"Camino hacia Jesús 2026"</strong>. Un espacio formativo impulsado de la mano por el <strong>Colegio La Salle del Sur</strong> y la <strong>Parroquia San Pedro de Lurín</strong>.
+      </p>
+      <p class="text-muted small mb-0 fst-italic">
+        "Sembrando fe, cultivando valores y construyendo amistad con Jesús."
+      </p>
+    </div>
+
     <!-- Alerta Informativa -->
     <div class="alert alert-info border-0 shadow-sm rounded-4 small mb-4" role="alert">
-      💡 <strong>Estimado Padre/Madre:</strong> Aquí puede supervisar el avance de la catequesis, revisar tareas y verificar los requisitos o aportes parroquiales.
+      💡 <strong>Estimado Padre/Madre:</strong> Desde aquí puede consultar la información completa de los catequizandos, revisar tareas y verificar los requisitos o aportes parroquiales en tiempo real.
     </div>
 
     <div class="row g-4">
@@ -43,7 +57,7 @@
       <div class="col-md-6">
         <div class="card card-custom p-4 h-100">
           <h5 class="fw-bold text-primary mb-3">👧🧒 Información del Catequizando</h5>
-          <p class="text-muted small">Consulte los datos de registro, grupo asignado y el reporte de asistencia general a las sesiones.</p>
+          <p class="text-muted small">Consulte los datos de registro, grupo asignado y toda la información completa extraída directamente de la base de datos.</p>
           <div class="mt-auto">
             <button class="btn btn-outline-primary btn-sm w-100" onclick="consultarDatos('getCatequizandos')">Ver Ficha y Asistencia</button>
           </div>
@@ -85,16 +99,27 @@
 
     </div>
 
-    <!-- Contenedor dinámico de resultados -->
+    <!-- Contenedor dinámico -->
     <div id="resultadoContenedor" class="mt-4"></div>
   </main>
 
   <script>
     const URL_WEB_APP = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
 
+    function reproducirBienvenida() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const mensajeTexto = "Bienvenidos, queridas familias, al programa de Catequesis Camino hacia Jesús 2026. Un espacio formativo impulsado por el Colegio La Salle del Sur y la Parroquia San Pedro de Lurín. Sembrando fe, cultivando valores y construyendo amistad con Jesús.";
+        const utterance = new SpeechSynthesisUtterance(mensajeTexto);
+        utterance.lang = 'es-ES';
+        utterance.rate = 1.0;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
     function consultarDatos(accion) {
       const contenedor = document.getElementById('resultadoContenedor');
-      contenedor.innerHTML = `<div class="alert alert-warning text-center">Consultando tu Google Sheet, por favor espera...</div>`;
+      contenedor.innerHTML = `<div class="alert alert-warning text-center">Conectando con tu Google Sheet y extrayendo toda la información de los catequizandos, por favor espera...</div>`;
 
       fetch(`${URL_WEB_APP}?action=${accion}`)
         .then(response => response.json())
@@ -102,8 +127,8 @@
           if (data.exito) {
             contenedor.innerHTML = `
               <div class="card card-custom p-3 bg-light">
-                <h6 class="fw-bold text-success">✅ Sincronizado correctamente (Total registros: ${data.total})</h6>
-                <pre class="small text-muted" style="max-height: 250px; overflow-y: auto;">${JSON.stringify(data.datos, null, 2)}</pre>
+                <h6 class="fw-bold text-success">✅ Información completa extraída con éxito (Total registros: ${data.total})</h6>
+                <pre class="small text-muted" style="max-height: 280px; overflow-y: auto;">${JSON.stringify(data.datos, null, 2)}</pre>
               </div>`;
           } else {
             contenedor.innerHTML = `<div class="alert alert-danger">Error: ${data.mensaje}</div>`;
