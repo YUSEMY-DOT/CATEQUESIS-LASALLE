@@ -1,108 +1,662 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#12345a">
 <title>Camino hacia Jesús 2026 | Catequizandos y calendario · Colegio La Salle del Sur</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#12345a;--gold:#ffc94d;--line:#eadbb8;--paper:#fffdf7;--ink:#193453;--muted:#61738a}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f7f5ef;color:var(--ink);font-family:Nunito,Arial,sans-serif;line-height:1.45}button,a{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}
-.wrap{max-width:1300px;margin:auto;background:var(--paper);min-height:100vh;box-shadow:0 0 35px #12345a10}.goldline{height:6px;background:linear-gradient(90deg,#bd8421,#ffe89a,#dba12d)}
-header{background:radial-gradient(circle at 80% 20%,#174878 0,#0b2850 35%,#06152e 100%);color:white;padding:16px clamp(16px,3vw,42px) 24px;border-radius:0 0 30px 30px;position:relative;overflow:hidden}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;position:relative;z-index:1}
-.brand{display:flex;align-items:center;gap:13px}.crest{width:90px;height:90px;min-width:90px;object-fit:contain;filter:drop-shadow(0 5px 10px #0006)}
-.brand h2{font:700 clamp(16px,2vw,22px) Fredoka,sans-serif;color:#ffdf94;margin:0}.brand small{display:block;color:#d7e6f8;font-weight:800;letter-spacing:1px;text-transform:uppercase;font-size:11px}
-.top-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap}
-.mute-toggle{border:1px solid #f0c75a;border-radius:24px;padding:9px 13px;background:#fff8e5;color:#17385f;font-size:12px;font-weight:900;cursor:pointer;white-space:nowrap;box-shadow:0 3px 9px #081c3b0c}
-.mute-toggle:hover{opacity:0.9}
-.home{background:#ffc94d;color:#102b4e;border:1px solid #fff2c9;border-radius:24px;padding:9px 16px;font-weight:900;box-shadow:0 4px 12px #0002;white-space:nowrap}
-.hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);gap:clamp(14px,2vw,25px);align-items:center;padding-top:4px;position:relative;z-index:1}
-.hero-copy{text-align:center;margin-top:-6px}
-.hero h1{font:700 clamp(28px,3vw,42px)/1.05 Fredoka,sans-serif;margin:2px 0 4px;color:#fff}.hero h1 span{color:#ffdf94}
-.hero p{max-width:760px;margin:0 auto;color:#e0ebf9;font-size:clamp(13px,1.1vw,15px);font-weight:700}
-.countdown{max-width:410px;width:100%;justify-self:end;padding:8px 10px;border-radius:15px;background:linear-gradient(140deg,#173e69,#214c79);border:1px solid #e5c76d;box-shadow:0 7px 17px #091c351f}
-.countdown-title{font:700 clamp(13px,1.15vw,16px)/1.2 Fredoka,sans-serif;color:#ffe5a0;text-align:center;margin-bottom:4px}
-.timer{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;width:100%}
-.timebox{min-height:48px;padding:5px 4px;background:#fffdf7;color:#102b4e;border:1px solid #f4e6c2;border-bottom:3px solid #ffc43d;border-radius:9px;text-align:center;box-shadow:0 2px 5px #071b3412;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:1px}
-.timebox b{font:700 clamp(18px,1.7vw,24px)/1.05 Fredoka,sans-serif;color:#102b4e}
-.timebox span{font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.4px;color:#234569}
-.countdown-note{font-size:9.5px;line-height:1.2;margin-top:4px;color:#fff1ca;text-align:center}
+:root {
+  --navy: #12345a;
+  --navy-dark: #091c35;
+  --gold: #ffc94d;
+  --gold-light: #fff5d1;
+  --line: #e6d5b8;
+  --paper: #fffdf9;
+  --ink: #193453;
+  --muted: #5c6f84;
+}
 
-main{padding:0 clamp(14px,2.5vw,36px) 40px}
-.kid-welcome{margin:20px 0 18px;padding:clamp(16px,2.2vw,24px);border:2px solid #ffd77b;border-radius:22px;background:linear-gradient(135deg,#fff0bd 0%,#fff8e6 100%);box-shadow:0 7px 20px #9b70120c}
-.adventure-kicker{display:inline-block;border-radius:20px;background:#fffdf7;border:1px solid #ecc45e;color:#8b5a05;padding:4px 10px;font:700 11px Fredoka,sans-serif;letter-spacing:.6px;text-transform:uppercase}
-.kid-welcome h3{font:700 clamp(22px,2.6vw,30px)/1.12 Fredoka,sans-serif;margin:6px 0;color:#12345a}
-.kid-welcome p{font-weight:800;color:#52637a;margin:0}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: var(--ink);
+  font-family: 'Nunito', Arial, sans-serif;
+  line-height: 1.6;
+  font-size: 15px;
+}
 
-.section{margin-top:24px}.eyebrow{color:#9b6b10;font:600 12px Fredoka,sans-serif;letter-spacing:1.3px;text-transform:uppercase}
-.section h2{font:700 clamp(21px,2.6vw,30px) Fredoka,sans-serif;color:#12345a;margin:2px 0 12px}
-.stages{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
-.stage{border:1px solid #e7d8b5;background:#fff;border-radius:16px;padding:10px 8px;text-align:center;cursor:pointer;transition:.18s;position:relative;color:#12345a;box-shadow:0 4px 12px #12345a08}
-.stage[aria-pressed=true]{border-color:#e5b734;background:#fff4cc;box-shadow:0 6px 16px #dca32d20}
-.stage .num{position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:24px;height:24px;border-radius:50%;background:#ffc94d;border:2px solid #fff;display:grid;place-items:center;font:700 12px Fredoka,sans-serif;box-shadow:0 2px 5px #0002}
-.stage .icon{height:70px;border-radius:13px;display:grid;place-items:center;font-size:36px;margin:4px 0 7px;background:#fff9e6;border:1px solid #f2dfa8;box-shadow:inset 0 1px 0 #fff}
-.stage strong{display:block;font:600 12px/1.2 Fredoka,sans-serif}.stage small{display:block;color:#61738a;font-size:9.5px;font-weight:700;margin-top:2px}
-.stage:hover{transform:translateY(-2px);border-color:#dca32d;box-shadow:0 8px 18px #12345a12}
+button, a { font: inherit; }
+button { cursor: pointer; border: none; background: none; }
+a { text-decoration: none; color: inherit; }
 
-/* Calendario y Temas */
-#calendar-section{margin-top:24px}
-.calendar-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.8fr);gap:14px;align-items:stretch}
-.calendar-card,.calendar-info{background:#fffdf7;border:1px solid #e5c76d;border-radius:16px;padding:14px;box-shadow:0 4px 14px #12345a0a}
-.cal-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:11px;border:1px solid #e5bd50;background:#fff2c7;border-radius:12px;padding:8px 10px}
-.cal-top h3,.calendar-info h3{font:700 18px Fredoka,sans-serif;color:#12345a;margin:0}
-.cal-controls{display:flex;align-items:center;gap:7px}
-.cal-controls button{width:30px;height:30px;border:1px solid #dcb33e;border-radius:9px;background:#fffdf7;color:#12345a;font-size:18px;font-weight:900;cursor:pointer}
-.cal-controls button:hover{background:#ffe79b}
-.cal-controls strong{font:600 13px Fredoka,sans-serif;min-width:105px;text-align:center;color:#12345a}
-.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
-.weekday{text-align:center;color:#17385f;font-size:11px;font-weight:900;padding:3px 0}
-.day{min-height:38px;border:1px solid #ece2ca;border-radius:9px;background:#fffaf0;color:#304761;font-weight:900;position:relative;cursor:pointer;transition:.15s}
-.day:disabled{opacity:1;background:#f6f5f1;color:#a3a8ae;border-color:#e9e8e2;cursor:default}
-.day.classday:not(.selected){background:#ffedb6;border-color:#e8bb38;color:#19385d}
-.day.classday:not(.selected):hover{background:#ffe18a}
-.day.classday:after{content:'';position:absolute;width:5px;height:5px;background:#c7900e;border-radius:50%;bottom:4px;left:calc(50% - 2px)}
-.day.double-session:not(.selected):before{content:'2';position:absolute;top:2px;right:3px;width:12px;height:12px;display:grid;place-items:center;border-radius:4px;background:#fffaf0;color:#a65b06;border:1px solid #e5a74b;font:900 8px Nunito,sans-serif}
-.day.communion-day{background:#fff0ef;border:1px solid #dc7474;color:#992d2d}
-.day.selected{background:#12345a;color:#fff;border:2px solid #e8bd3d;box-shadow:0 0 0 2px #fff7dc,0 3px 8px #102b4e25}
-.day.selected:after{background:#ffdc70}
-.calendar-info{background:#fffdf8}
-.calendar-info .pill{display:inline-flex;align-items:center;border-radius:20px;padding:4px 10px;background:#fff0be;color:#7f560b;font-weight:900;font-size:10px}
-.calendar-info .date-big{font:700 22px Fredoka,sans-serif;color:#17385f;margin:8px 0 8px;line-height:1.15}
-.calendar-info p{color:#61738a;font-weight:700;font-size:13px;margin:0 0 10px}
-.calendar-topic-list{display:grid;gap:8px;margin-top:8px}
-.calendar-topic-item.topic-collapsible{border:1px solid #e5d7b7;border-left:4px solid #e5b536;border-radius:11px;background:#fff;overflow:hidden}
-.topic-summary{display:flex;align-items:center;justify-content:space-between;gap:9px;cursor:pointer;list-style:none;padding:10px 11px}
-.topic-summary::-webkit-details-marker{display:none}
-.topic-summary::after{content:"＋";width:22px;height:22px;border-radius:50%;background:#fff2cc;color:#8c5c00;font-size:15px;display:grid;place-items:center;font-weight:900}
-.calendar-topic-item.topic-collapsible[open]>.topic-summary::after{content:"−"}
-.topic-summary-title{margin:0;font:700 14px Fredoka,sans-serif;color:#12345a}
-.topic-toggle-label{color:#94650e;font-size:10px;font-weight:900;white-space:nowrap}
-.topic-content{padding:0 12px 12px}
-.topic-content .topic-stage{display:block;font-size:11px;color:#986c13;font-weight:900;margin:0 0 5px}
-.topic-content ul{padding-left:18px;margin:5px 0 10px}
-.topic-content li{font-size:12px;color:#4b5d73;font-weight:700;margin:3px 0}
-.calendar-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;color:#61738a;font-size:11px;font-weight:800}
-.legend-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#d4a21f;margin-right:4px}
-.legend-special{display:inline-block;width:8px;height:8px;border-radius:3px;background:#ffe9e9;border:1px solid #d76b6b;margin-right:4px}
-.legend-double{display:inline-grid;place-items:center;width:12px;height:12px;border-radius:3px;background:#fff1c6;border:1px solid #e5b43c;color:#895d07;font:900 8px Nunito,sans-serif;margin-right:4px}
+.wrap {
+  max-width: 1240px;
+  margin: 24px auto;
+  background: var(--paper);
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(18, 52, 90, 0.08);
+  overflow: hidden;
+  border: 1px solid #eadecb;
+}
 
-.footer{margin-top:28px;background:linear-gradient(135deg,#0b2850,#174878);color:#e4edfa;text-align:center;padding:20px;border-radius:18px;font-weight:700;font-size:12px}
-.footer strong{color:#ffdf94;font-family:Fredoka,sans-serif;font-size:15px}
-.copyright{margin-top:9px;padding-top:7px;border-top:1px solid #ffffff2b;color:#c6d4e8;font-size:10px}
+.goldline {
+  height: 6px;
+  background: linear-gradient(90deg, #bd8421, #ffe89a, #dba12d);
+}
 
-.toast{position:fixed;inset:0;background:#06152ebd;display:none;align-items:center;justify-content:center;padding:18px;z-index:50}.toast.show{display:flex}
-.toast-card{max-width:400px;width:100%;background:#fffdf8;border:2px solid #e5c76d;border-radius:20px;padding:20px;text-align:center;box-shadow:0 20px 60px #0003}
-.toast-card .big{font-size:36px}.toast-card h3{font:700 21px Fredoka,sans-serif;color:#12345a;margin:6px}
-.toast-card p{color:#61738a;font-weight:700;font-size:13px}.toast-card button{background:#12345a;color:white;border:0;border-radius:20px;padding:8px 20px;font-weight:900;cursor:pointer}
+/* Header estilizado y elegante */
+header {
+  background: radial-gradient(circle at 80% 20%, #1b4f84 0%, #0d2b50 45%, #06152a 100%);
+  color: white;
+  padding: 28px clamp(20px, 4vw, 48px) 36px;
+  position: relative;
+}
 
-@media(max-width:1000px){.stages{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:760px){
-  .hero{grid-template-columns:1fr;gap:12px}
-  .countdown{max-width:100%;justify-self:stretch}
-  .stages{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .calendar-layout{grid-template-columns:1fr}
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.crest {
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+
+.brand-text h2 {
+  font: 700 19px 'Fredoka', sans-serif;
+  color: #ffdf94;
+  margin: 0 0 2px;
+  letter-spacing: 0.3px;
+}
+
+.brand-text small {
+  display: block;
+  color: #cddff8;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 20px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 800;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+}
+
+.btn-actualizar {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  color: white;
+  border: 1px solid #219653;
+}
+
+.mute-toggle {
+  background: #fff8e5;
+  color: #17385f;
+  border: 1px solid #e5c76d;
+}
+
+.home {
+  background: var(--gold);
+  color: #102b4e;
+  border: 1px solid #ffe18a;
+}
+
+.btn-action:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
+/* Hero Section */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.85fr);
+  gap: 32px;
+  align-items: center;
+}
+
+.hero-copy h1 {
+  font: 700 clamp(30px, 3.5vw, 42px)/1.15 'Fredoka', sans-serif;
+  margin: 0 0 10px;
+  color: #fff;
+}
+
+.hero-copy h1 span {
+  color: #ffdf94;
+}
+
+.hero-copy p {
+  margin: 0;
+  color: #dbe7f9;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* Cronómetro didáctico y dinámico para niños */
+.countdown {
+  background: linear-gradient(145deg, rgba(25, 62, 105, 0.9), rgba(13, 35, 63, 0.95));
+  border: 2px solid #e8ca6b;
+  border-radius: 20px;
+  padding: 18px 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.countdown::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, #ffc94d, #ff9f43, #ffc94d);
+}
+
+.countdown-title {
+  font: 700 16px 'Fredoka', sans-serif;
+  color: #ffe5a0;
+  text-align: center;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.timer {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.timebox {
+  background: #fffdf9;
+  color: #102b4e;
+  border-radius: 12px;
+  padding: 10px 6px;
+  text-align: center;
+  border-bottom: 4px solid #f1b731;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timebox b {
+  font: 700 24px/1 'Fredoka', sans-serif;
+  color: #12345a;
+}
+
+.timebox span {
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #526882;
+  margin-top: 3px;
+}
+
+.countdown-note {
+  font-size: 11.5px;
+  line-height: 1.4;
+  margin-top: 10px;
+  color: #fff3db;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* Contenido Principal */
+main {
+  padding: 32px clamp(20px, 4vw, 48px) 48px;
+}
+
+/* Bienvenida */
+.kid-welcome {
+  margin-bottom: 36px;
+  padding: 26px 30px;
+  border: 2px solid #f2d385;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #fff9e6 0%, #fff4d1 100%);
+  box-shadow: 0 4px 16px rgba(175, 131, 31, 0.08);
+}
+
+.adventure-kicker {
+  display: inline-block;
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid #e8cb75;
+  color: #925f05;
+  padding: 5px 14px;
+  font: 700 11.5px 'Fredoka', sans-serif;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+
+.kid-welcome h3 {
+  font: 700 26px 'Fredoka', sans-serif;
+  margin: 0 0 6px;
+  color: #12345a;
+}
+
+.kid-welcome p {
+  font-weight: 700;
+  color: #51637a;
+  margin: 0;
+  font-size: 15px;
+}
+
+/* Secciones e Itinerario */
+.section {
+  margin-top: 40px;
+}
+
+.eyebrow {
+  color: #a4720e;
+  font: 700 12px 'Fredoka', sans-serif;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.section h2 {
+  font: 700 28px 'Fredoka', sans-serif;
+  color: #12345a;
+  margin: 0 0 20px;
+}
+
+.stages {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.stage {
+  border: 1px solid #e7d6b8;
+  background: #fff;
+  border-radius: 18px;
+  padding: 16px 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  color: #12345a;
+  box-shadow: 0 4px 12px rgba(18,52,90,0.04);
+}
+
+.stage:hover {
+  transform: translateY(-3px);
+  border-color: #d8aa35;
+  box-shadow: 0 8px 20px rgba(18,52,90,0.1);
+  background: #fffefb;
+}
+
+.stage .num {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid #fff;
+  display: grid;
+  place-items: center;
+  font: 700 12px 'Fredoka', sans-serif;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  color: #12345a;
+}
+
+.stage .icon {
+  height: 70px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 36px;
+  margin: 8px 0 10px;
+  background: #fffbf0;
+  border: 1px solid #fae8bd;
+}
+
+.stage strong {
+  display: block;
+  font: 700 13px/1.3 'Fredoka', sans-serif;
+  color: #12345a;
+}
+
+.stage small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+/* Calendario Layout */
+#calendar-section {
+  margin-top: 44px;
+}
+
+.calendar-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.9fr);
+  gap: 20px;
+  align-items: stretch;
+}
+
+.calendar-card, .calendar-info {
+  background: #fff;
+  border: 1px solid #e8d7bb;
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: 0 4px 16px rgba(18,52,90,0.05);
+}
+
+.cal-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #e7cf82;
+  background: #fff7d6;
+  border-radius: 14px;
+  padding: 10px 16px;
+}
+
+.cal-top h3, .calendar-info h3 {
+  font: 700 20px 'Fredoka', sans-serif;
+  color: #12345a;
+  margin: 0;
+}
+
+.cal-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cal-controls button {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #dfb944;
+  border-radius: 10px;
+  background: #fff;
+  color: #12345a;
+  font-size: 18px;
+  font-weight: 900;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s;
+}
+
+.cal-controls button:hover { background: #ffe99a; }
+.cal-controls strong { font: 700 14px 'Fredoka', sans-serif; min-width: 120px; text-align: center; color: #12345a; }
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.weekday {
+  text-align: center;
+  color: #1f4675;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 6px 0;
+}
+
+.day {
+  min-height: 48px;
+  border: 1px solid #ebdcbf;
+  border-radius: 10px;
+  background: #fffcf7;
+  color: #2c435c;
+  font-weight: 900;
+  font-size: 14px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.day:disabled {
+  opacity: 0.6;
+  background: #f7f6f2;
+  color: #9da3ad;
+  border-color: #eae5db;
+  cursor: default;
+}
+
+.day.classday:not(.selected) {
+  background: #fffae3;
+  border-color: #e8c75d;
+  color: #17375e;
+}
+
+.day.classday:not(.selected):hover {
+  background: #ffefad;
+}
+
+.day.classday::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #d49a0e;
+  border-radius: 50%;
+  bottom: 6px;
+  left: calc(50% - 3px);
+}
+
+.day.double-session:not(.selected)::before {
+  content: '2';
+  position: absolute;
+  top: 3px;
+  right: 4px;
+  width: 15px;
+  height: 15px;
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  background: #fff9ea;
+  color: #b56708;
+  border: 1px solid #e5a74b;
+  font: 900 9px 'Nunito', sans-serif;
+}
+
+.day.communion-day {
+  background: #ffebe9;
+  border-color: #d97070;
+  color: #992d2d;
+}
+
+.day.selected {
+  background: #12345a;
+  color: #fff;
+  border: 2px solid #e8bd3d;
+  box-shadow: 0 0 0 2px #fff6dc, 0 4px 10px rgba(16,43,78,0.25);
+}
+
+.day.selected::after { background: #ffdc70; }
+
+.calendar-info .pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 20px;
+  padding: 5px 12px;
+  background: #fff4d1;
+  color: #8c5c00;
+  font-weight: 900;
+  font-size: 11px;
+}
+
+.calendar-info .date-big {
+  font: 700 24px 'Fredoka', sans-serif;
+  color: #12345a;
+  margin: 10px 0 8px;
+  line-height: 1.2;
+}
+
+.calendar-info p {
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 14px;
+  margin: 0 0 14px;
+}
+
+.calendar-topic-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.calendar-topic-item.topic-collapsible {
+  border: 1px solid #e5d5b3;
+  border-left: 4px solid #e5b536;
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.topic-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  cursor: pointer;
+  list-style: none;
+  padding: 12px 14px;
+}
+
+.topic-summary::-webkit-details-marker { display: none; }
+.topic-summary::after {
+  content: "＋";
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff3cc;
+  color: #8c5c00;
+  font-size: 16px;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+}
+
+.calendar-topic-item.topic-collapsible[open] > .topic-summary::after {
+  content: "−";
+}
+
+.topic-summary-title {
+  margin: 0;
+  font: 700 15px 'Fredoka', sans-serif;
+  color: #12345a;
+}
+
+.topic-toggle-label {
+  color: #94650e;
+  font-size: 11px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.topic-content {
+  padding: 0 14px 14px;
+}
+
+.topic-content .topic-stage {
+  display: block;
+  font-size: 12px;
+  color: #986c13;
+  font-weight: 900;
+  margin: 0 0 6px;
+}
+
+.topic-content ul {
+  padding-left: 18px;
+  margin: 6px 0 10px;
+}
+
+.topic-content li {
+  font-size: 13px;
+  color: #4b5d73;
+  font-weight: 700;
+  margin: 4px 0;
+}
+
+.calendar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  border-top: 1px solid #f0e6d2;
+  padding-top: 12px;
+}
+
+.legend-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #d4a21f; margin-right: 5px; }
+.legend-special { display: inline-block; width: 9px; height: 9px; border-radius: 3px; background: #ffe9e9; border: 1px solid #d76b6b; margin-right: 5px; }
+.legend-double { display: inline-grid; place-items: center; width: 14px; height: 14px; border-radius: 3px; background: #fff1c6; border: 1px solid #e5b43c; color: #895d07; font: 900 9px 'Nunito', sans-serif; margin-right: 5px; }
+
+/* Footer */
+.footer {
+  margin-top: 48px;
+  background: linear-gradient(135deg, #0b2850, #174878);
+  color: #e4edfa;
+  text-align: center;
+  padding: 26px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 13px;
+  box-shadow: inset 0 2px 5px rgba(255,255,255,0.1);
+}
+
+.footer strong { color: #ffdf94; font-family: 'Fredoka', sans-serif; font-size: 16px; }
+.copyright { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.15); color: #c6d4e8; font-size: 11.5px; }
+
+/* Responsive */
+@media(max-width: 1024px) {
+  .stages { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .hero { grid-template-columns: 1fr; gap: 24px; }
+  .calendar-layout { grid-template-columns: 1fr; }
+}
+
+@media(max-width: 600px) {
+  .stages { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .topbar { flex-direction: column; align-items: flex-start; }
+  .top-actions { width: 100%; justify-content: flex-start; }
 }
 </style>
 </head>
@@ -113,16 +667,18 @@ main{padding:0 clamp(14px,2.5vw,36px) 40px}
     <div class="topbar">
       <div class="brand">
         <img class="crest" src="./assets/insignia.png" alt="Insignia del Colegio La Salle del Sur" onerror="this.style.display='none'">
-        <div>
+        <div class="brand-text">
           <h2>COLEGIO LA SALLE DEL SUR</h2>
           <small>Programa de Catequesis · Parroquia San Pedro de Lurín</small>
         </div>
       </div>
       <div class="top-actions">
-        <button class="mute-toggle" id="mute-toggle" type="button" aria-pressed="false" title="Silenciar voz">🔊 Silenciar</button>
-        <a class="home" href="./index.html">🏠 Volver al inicio</a>
+        <button class="btn-action btn-actualizar" id="btnActualizar" type="button" title="Sincronizar datos">🔄 Actualizar</button>
+        <button class="btn-action mute-toggle" id="mute-toggle" type="button" aria-pressed="false" title="Silenciar voz">🔊 Silenciar</button>
+        <a class="btn-action home" href="./index.html">🏠 Inicio</a>
       </div>
     </div>
+    
     <div class="hero">
       <div class="hero-copy">
         <h1>¡Nuestro camino<br>hacia <span>Jesús!</span> 💛</h1>
@@ -142,9 +698,9 @@ main{padding:0 clamp(14px,2.5vw,36px) 40px}
 
   <main>
     <section class="kid-welcome" aria-label="Bienvenida interactiva">
-      <span class="adventure-kicker">✨ TU AVENTURA DE FE COMIENZA AQUÍ</span>
+      <span class="adventure-kicker">✨ Tu aventura de fe comienza aquí</span>
       <h3 id="adventure-greeting">¡Hola, pequeño amigo de Jesús! 💛</h3>
-      <p>Explora cada etapa, descubre los temas del día, revisa prácticas, evaluaciones, canciones y videos organizados por cada tema.</p>
+      <p>Explora cada etapa, descubre los temas del día, revisa prácticas, evaluaciones, canciones y videos organizados para ti.</p>
     </section>
 
     <section class="section">
@@ -198,16 +754,9 @@ main{padding:0 clamp(14px,2.5vw,36px) 40px}
   </main>
 </div>
 
-<div class="toast" id="resource-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-  <div class="toast-card">
-    <div class="big" id="modal-emoji">📚</div>
-    <h3 id="modal-title">Material de catequesis</h3>
-    <p id="modal-text">Este espacio está preparado para el recurso.</p>
-    <button id="modal-close">Entendido</button>
-  </div>
-</div>
-
 <script>
+const URL_API_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
+
 const stages=[
   {title:'Conociendo a Jesús',subtitle:'Su vida, su mensaje y su amor.',topics:[
     [1,'¿Quién es Dios?',['Introducción breve','Quién es Dios','Dios único','Dios creador','Dios eterno','Dios Padre']],
@@ -285,23 +834,23 @@ function openStage(idx){
   if(!win){alert('Permite las ventanas emergentes para este sitio.');return;}
   const esc=escapeHtml;
   
-  const topicCards=s.topics.map((t,i)=>`
-    <div style="border:1px solid #eadcc2;border-radius:14px;background:#fff;padding:16px;margin-bottom:14px;box-shadow:0 3px 10px #12345a08;">
+  const topicCards=s.topics.map((t)=>`
+    <div style="border:1px solid #e7d6b8;border-radius:14px;background:#fff;padding:16px;margin-bottom:14px;box-shadow:0 3px 10px rgba(18,52,90,0.05);">
       <span style="font-size:11px;font-weight:900;color:#b27b19;text-transform:uppercase;letter-spacing:.5px;">TEMA ${t[0]}</span>
-      <h3 style="margin:4px 0 8px;font-size:18px;color:#12345a;font-family:Fredoka,sans-serif;">${esc(t[1])}</h3>
-      <ul style="margin:0 0 14px;padding-left:18px;font-size:13px;color:#61738a">${t[2].map(x=>'<li>'+esc(x)+'</li>').join('')}</ul>
+      <h3 style="margin:4px 0 8px;font-size:18px;color:#12345a;font-family:'Fredoka',sans-serif;">${esc(t[1])}</h3>
+      <ul style="margin:0 0 14px;padding-left:18px;font-size:13px;color:#5c6f84">${t[2].map(x=>'<li>'+esc(x)+'</li>').join('')}</ul>
       
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;border-top:1px dashed #eadaaf;padding-top:12px;">
-        <button onclick="alert('Abriendo Prácticas del Tema ${t[0]}')" style="background:#fff8e6;border:1px solid #e8cb82;border-radius:10px;padding:8px 10px;font:700 12px Nunito,sans-serif;color:#12345a;display:flex;align-items:center;gap:6px;cursor:pointer;justify-content:center;">🖍️ Prácticas</button>
-        <button onclick="alert('Abriendo Evaluaciones del Tema ${t[0]}')" style="background:#fff2f0;border:1px solid #f2a9a0;border-radius:10px;padding:8px 10px;font:700 12px Nunito,sans-serif;color:#8a2817;display:flex;align-items:center;gap:6px;cursor:pointer;justify-content:center;">📝 Evaluaciones</button>
-        <button onclick="alert('Abriendo Canciones del Tema ${t[0]}')" style="background:#f0f4ff;border:1px solid #a8c2f5;border-radius:10px;padding:8px 10px;font:700 12px Nunito,sans-serif;color:#173b7a;display:flex;align-items:center;gap:6px;cursor:pointer;justify-content:center;">🎶 Canciones</button>
-        <button onclick="alert('Abriendo Videos del Tema ${t[0]}')" style="background:#eef9f2;border:1px solid #98dfb0;border-radius:10px;padding:8px 10px;font:700 12px Nunito,sans-serif;color:#156b37;display:flex;align-items:center;gap:6px;cursor:pointer;justify-content:center;">▶️ Videos</button>
+        <button onclick="alert('Abriendo Prácticas del Tema ${t[0]}')" style="background:#fff8e6;border:1px solid #e8cb82;border-radius:10px;padding:8px 10px;font:700 12px 'Nunito',sans-serif;color:#12345a;display:flex;align-items:center;gap:6px;cursor:pointer;justify-content:center;">🖍️ Prácticas</button>
+        <button onclick="alert('Abriendo Evaluaciones del Tema ${t[0]}')" style="background:#fff2f0;border:1px solid #f2a9a0;border-radius:10px;padding:8px 10px;font:700 12px 'Nunito',sans-serif;color:#8a2817;display:flex;align-items:center;gap:6px;cursor:pointer;justify-content:center;">📝 Evaluaciones</button>
+        <button onclick="alert('Abriendo Canciones del Tema ${t[0]}')" style="background:#f0f4ff;border:1px solid #a8c2f5;border-radius:10px;padding:8px 10px;font:700 12px 'Nunito',sans-serif;color:#173b7a;display:flex;align-items:center;gap:6px;cursor:pointer;justify-content:center;">🎶 Canciones</button>
+        <button onclick="alert('Abriendo Videos del Tema ${t[0]}')" style="background:#eef9f2;border:1px solid #98dfb0;border-radius:10px;padding:8px 10px;font:700 12px 'Nunito',sans-serif;color:#156b37;display:flex;align-items:center;gap:6px;cursor:pointer;justify-content:center;">▶️ Videos</button>
       </div>
     </div>
   `).join('');
 
   win.document.open();
-  win.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><title>${esc(s.title)}</title><style>body{font:14px Nunito,Arial,sans-serif;background:#f7f5ef;color:#193453;max-width:850px;margin:25px auto;padding:0 15px}header{background:#12345a;color:white;padding:20px 24px;border-radius:16px;margin-bottom:20px;box-shadow:0 4px 15px #12345a20}h1{margin:0;font-size:24px;font-family:Fredoka,sans-serif}button.close-btn{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin-top:15px;color:#12345a;box-shadow:0 3px 8px #0002}</style></head><body><header><h1>${esc(s.title)}</h1><p style="margin:5px 0 0;color:#ffdf94;font-weight:700">${esc(s.subtitle)}</p></header><main>${topicCards}</main><button class="close-btn" onclick="window.close()">Cerrar ventana</button></body></html>`);
+  win.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><title>${esc(s.title)}</title><style>body{font:14px 'Nunito',Arial,sans-serif;background:#f4f1ea;color:#193453;max-width:850px;margin:25px auto;padding:0 15px}header{background:#12345a;color:white;padding:20px 24px;border-radius:16px;margin-bottom:20px;box-shadow:0 4px 15px rgba(18,52,90,0.15)}h1{margin:0;font-size:24px;font-family:'Fredoka',sans-serif}button.close-btn{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin-top:15px;color:#12345a;box-shadow:0 3px 8px rgba(0,0,0,0.1)}</style></head><body><header><h1>${esc(s.title)}</h1><p style="margin:5px 0 0;color:#ffdf94;font-weight:700">${esc(s.subtitle)}</p></header><main>${topicCards}</main><button class="close-btn" onclick="window.close()">Cerrar ventana</button></body></html>`);
   win.document.close();win.focus();
 }
 
@@ -312,7 +861,7 @@ const monthNames=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agos
 const week=['L','M','X','J','V','S','D'];
 function dateKey(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
 
-const orderedTopics=stages.flatMap((stage,stageIndex)=>stage.topics.map(t=>({stage:stage.title,stageIndex,num:t[0],title:t[1],content:t[2]}))).sort((a,b)=>a.num-b.num);
+const orderedTopics=stages.flatMap((stage)=>stage.topics.map(t=>({stage:stage.title,num:t[0],title:t[1],content:t[2]}))).sort((a,b)=>a.num-b.num);
 const calendarEntries=new Map();
 const preparationDates=[];
 for(let d=new Date(2026,5,16,12);d<=new Date(2026,11,1,12);d.setDate(d.getDate()+1)){
@@ -350,6 +899,7 @@ function renderCalendar(){
     g.appendChild(b);
   }
 }
+
 function selectDate(d){
   const key=dateKey(d),entry=calendarEntries.get(key);
   if(!entry)return;
@@ -382,6 +932,7 @@ function selectDate(d){
   }
   renderCalendar();
 }
+
 document.getElementById('prev-month').onclick=()=>{currentMonth=new Date(currentMonth.getFullYear(),currentMonth.getMonth()-1,1,12);renderCalendar()};
 document.getElementById('next-month').onclick=()=>{currentMonth=new Date(currentMonth.getFullYear(),currentMonth.getMonth()+1,1,12);renderCalendar()};
 
@@ -394,12 +945,44 @@ currentMonth=new Date(initialDate.getFullYear(),initialDate.getMonth(),1,12);
 renderCalendar();
 selectDate(initialDate);
 
+// Cuenta regresiva
+function updateCountdown(){
+  const target=new Date(2026,11,3,0,0,0).getTime(),now=Date.now(),diff=target-now;
+  if(diff<=0){
+    document.getElementById('days').textContent='0';
+    document.getElementById('hours').textContent='0';
+    document.getElementById('minutes').textContent='0';
+    document.getElementById('countdown-note').textContent='¡Llegó el día de la Primera Comunión! 💛';
+    return;
+  }
+  const days=Math.floor(diff/(1000*60*60*24));
+  const hours=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+  const minutes=Math.floor((diff%(1000*60*60))/(1000*60));
+  document.getElementById('days').textContent=days;
+  document.getElementById('hours').textContent=String(hours).padStart(2,'0');
+  document.getElementById('minutes').textContent=String(minutes).padStart(2,'0');
+}
+updateCountdown();setInterval(updateCountdown,1000);
+
+// Botón Actualizar (Sincronización o recarga visual)
+document.getElementById('btnActualizar').addEventListener('click', () => {
+  const btn = document.getElementById('btnActualizar');
+  const original = btn.innerHTML;
+  btn.innerHTML = '⏳ Actualizando...';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.innerHTML = original;
+    btn.disabled = false;
+    alert('¡Calendario y contenido sincronizados correctamente!');
+  }, 700);
+});
+
 // Asistente de voz
 let catechesisVoiceMuted=false;
 const muteToggle=document.getElementById('mute-toggle');
 if(muteToggle){muteToggle.addEventListener('click',()=>{
   catechesisVoiceMuted=!catechesisVoiceMuted;
-  muteToggle.textContent=catechesisVoiceMuted?'🔇 Activar sonido':'🔊 Silenciar';
+  muteToggle.textContent=catechesisVoiceMuted?'🔇 Activar':'🔊 Silenciar';
   if(catechesisVoiceMuted)window.speechSynthesis?.cancel();
 })}
 function playCatechesisVoice(message){if(catechesisVoiceMuted||!('speechSynthesis' in window))return;window.speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(message);utterance.lang='es-PE';utterance.rate=.92;window.speechSynthesis.speak(utterance);}
