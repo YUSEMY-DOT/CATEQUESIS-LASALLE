@@ -7,7 +7,7 @@
 :root{--navy:#12345b;--blue:#1b4a79;--blue-soft:#edf4fc;--gold:#f3c755;--gold-deep:#b17b10;--cream:#fff8e8;--red:#b83d43;--green:#23764c;--green-soft:#e8f6ed;--ink:#172b48;--muted:#62748c;--line:#dce5ef;--white:#fff;--shadow:0 8px 28px #173b6810}
 *{box-sizing:border-box}body{margin:0;background:#f5f7fa;color:var(--ink);font-family:Inter,"Segoe UI",Tahoma,sans-serif;line-height:1.45}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible{outline:3px solid #f3c75588;outline-offset:2px}a{color:inherit;text-decoration:none}.topbar{background:white;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:15;box-shadow:0 2px 12px #142b4810}.topbar-inner{max-width:1400px;margin:auto;padding:12px 22px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:12px;font-weight:900;color:var(--navy);letter-spacing:.04em}.brand img.crest{width:55px;height:55px;object-fit:contain}.brand small{display:block;letter-spacing:0;font-weight:500;color:var(--muted);font-size:.78rem}.top-actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--line);border-radius:12px;padding:12px 18px;background:white;color:var(--navy);font-weight:800;font-size:1rem}.btn:hover{filter:brightness(.98);transform:translateY(-1px)}.btn.primary{background:var(--navy);border-color:var(--navy);color:white}.btn.gold{background:linear-gradient(135deg,#ffe68c,#f5bd37);border-color:#efc34c;color:#152c4d}.btn.small{padding:8px 12px;font-size:.86rem}.container{max-width:1400px;margin:auto;padding:22px}.hero{background:linear-gradient(115deg,#102b4f,#1e4e7f);color:white;border-radius:22px;padding:27px 30px;display:flex;justify-content:space-between;align-items:center;gap:25px;position:relative;overflow:hidden}.eyebrow{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:#ffe39a;font-weight:900}.hero h1{margin:5px 0;font-size:clamp(1.8rem,3vw,2.5rem);line-height:1.1}.hero p{margin:8px 0 0;max-width:760px;color:#f0f5fb}.panel{background:white;border:1px solid var(--line);border-radius:17px;padding:24px;box-shadow:var(--shadow);margin-bottom:16px;min-width:0}.panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;flex-wrap:wrap;margin-bottom:18px}.panel h2{margin:0;color:var(--navy);font-size:1.35rem}.sub{color:var(--muted);margin:5px 0 0;font-size:.98rem}.mises-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.mise-card{border:2px solid var(--line);border-radius:18px;padding:24px;background:#fff;display:flex;gap:20px;align-items:center;box-shadow:0 6px 20px #173b6810;cursor:pointer;transition:all .2s ease}.mise-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 10px 25px #173b6818}.mise-avatar{width:110px;height:110px;border-radius:50%;object-fit:cover;border:4px solid var(--gold);flex-shrink:0}.modal-backdrop{position:fixed;inset:0;background:#071a32a6;z-index:50;display:none;align-items:center;justify-content:center;padding:18px}.modal-backdrop.show{display:flex}.modal{background:white;border-radius:18px;width:min(1250px,100%);max-height:92vh;overflow:auto;padding:25px;box-shadow:0 20px 60px #0004}.xbtn{border:0;background:#f0f3f7;color:var(--navy);width:38px;height:38px;border-radius:10px;font-weight:900;font-size:1rem}.section-note{border:1px solid #d8e5f3;background:#f4f8fd;padding:14px 16px;border-radius:12px;color:#49627f;font-size:.92rem;margin:14px 0}.tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:16px}.tool-card{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;transition:all .2s}.tool-card:hover{border-color:var(--blue);background:#fff;box-shadow:0 4px 12px #173b680c}.tool-card h4{margin:0 0 6px;color:var(--navy);font-size:1.05rem}.tool-card p{margin:0 0 14px;color:var(--muted);font-size:.86rem}
 
-/* Estilo Calendario Interactivo */
+/* Calendario */
 .cal-container { display: grid; grid-template-columns: 1.35fr 1fr; gap: 24px; align-items: start; }
 .cal-box { background: white; border: 1px solid var(--line); border-radius: 20px; padding: 22px; box-shadow: var(--shadow); }
 .cal-header-bar { display: flex; justify-content: space-between; align-items: center; background: #fffdf5; border: 1.5px solid #fae8b3; border-radius: 14px; padding: 12px 18px; margin-bottom: 18px; }
@@ -24,12 +24,12 @@
 .encounter-tag { background: #fef3d6; color: #8a6207; font-size: 0.72rem; font-weight: 900; padding: 4px 10px; border-radius: 6px; display: inline-block; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
 .encounter-card { border: 1px solid #fae8b3; background: #fffdf7; border-radius: 14px; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; margin-top: 15px; }
 
-/* Nueva Estructura de Asistencia Modular */
+/* Asistencia Modular */
 .asist-layout { display: grid; grid-template-columns: 280px 1fr; gap: 20px; align-items: start; }
 .estudiantes-lista-asist { background: #f8fafc; border: 1px solid var(--line); border-radius: 14px; padding: 12px; max-height: 520px; overflow-y: auto; }
 .est-item-btn { display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px; background: white; border: 1px solid var(--line); border-radius: 10px; margin-bottom: 8px; text-align: left; transition: all 0.2s; }
 .est-item-btn:hover, .est-item-btn.active { border-color: var(--navy); background: var(--blue-soft); }
-.est-item-btn img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); flex-shrink: 0; }
+.est-item-btn img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); flex-shrink: 0; }
 .est-item-btn .info-n { font-size: 0.8rem; font-weight: bold; color: var(--navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .est-item-btn .info-sub { font-size: 0.7rem; color: var(--muted); }
 .sesiones-grid-box { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; max-height: 460px; overflow-y: auto; padding: 4px; }
@@ -65,7 +65,7 @@
   <div>
     <div class="eyebrow">Programa de Catequesis · Primera Comunión 2026</div>
     <h1>Portal de Catequistas</h1>
-    <p>Gestión pastoral unificada: Clases, 7 Catequizandos, Asistencia, Pagos y 14 Padres de Familia.</p>
+    <p>Gestión pastoral unificada: Clases, 7 Catequizandos con fotos de GitHub, Asistencia, Pagos y Padres.</p>
   </div>
 </section>
 
@@ -106,7 +106,7 @@
     <div class="panel-head" style="margin-bottom:10px">
       <div>
         <h2>Portal Pastoral Unificado</h2>
-        <p class="sub">Control de 56 sesiones, 7 catequizandos, asistencia optimizada, pagos y padres</p>
+        <p class="sub">Control de 56 sesiones, 7 catequizandos con fotos de GitHub, asistencia y pagos</p>
       </div>
       <button class="xbtn" data-close="mise-modal">✕</button>
     </div>
@@ -118,7 +118,7 @@
         <button class="btn small primary" onclick="mostrarVista('vista-clases')">Abrir Sesiones</button>
       </div>
       <div class="tool-card">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">✅</div><h4>Asistencia (Google Sheet)</h4><p>Nueva estructura modular sin barras interminables por catequizando.</p></div>
+        <div><div style="font-size:1.5rem;margin-bottom:8px;">✅</div><h4>Asistencia (Google Sheet)</h4><p>Control por catequizando sincronizado con fotos de GitHub.</p></div>
         <button class="btn small primary" onclick="mostrarVista('vista-asistencia')">Ver Asistencia</button>
       </div>
       <div class="tool-card">
@@ -148,49 +148,47 @@
       <div id="contenedor-56-sesiones"></div>
     </div>
 
-    <!-- 2. VISTA ASISTENCIA MODULAR (NUEVA ESTRUCTURA LIMPIA) -->
+    <!-- 2. VISTA ASISTENCIA CON FOTOS DE GITHUB -->
     <div id="vista-asistencia" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
         <div style="display:flex; gap:8px;">
-          <button class="btn small primary" onclick="alert('Datos sincronizados correctamente con Google Sheets.')">🔄 Sincronizar Google Sheets</button>
+          <button class="btn small primary" onclick="alert('Sincronizado con Google Sheets y repositorio de GitHub.')">🔄 Sincronizar Datos</button>
           <button class="btn small gold" onclick="window.print()">🖨️ Imprimir Reporte</button>
         </div>
       </div>
 
       <h3 style="color:var(--navy); margin-bottom:5px;">Control de Asistencia Optimizada · Parroquia San Pedro de Lurín</h3>
-      <p class="sub" style="margin-bottom:15px;">Selecciona un catequizando a la izquierda para gestionar sus 50 sesiones de forma rápida o revisa el resumen global.</p>
+      <p class="sub" style="margin-bottom:15px;">Seleccione un catequizando para gestionar sus 50 sesiones de asistencia.</p>
 
-      <div class="sheets-stats" style="display:grid; grid-template-columns: repeat(5, 1fr); gap:10px; margin-bottom:15px; background:#f8fafc; border:1px solid var(--line); border-radius:12px; padding:12px; text-align:center;">
-        <div class="sheets-stat-box"><div class="val" style="color:var(--green);">79,6%</div><div class="lbl">% Asistencia General</div></div>
-        <div class="sheets-stat-box"><div class="val">263</div><div class="lbl">Total Presentes [A]</div></div>
-        <div class="sheets-stat-box"><div class="val">10</div><div class="lbl">Ingresos Tarde [T]</div></div>
-        <div class="sheets-stat-box"><div class="val" style="color:var(--red);">0</div><div class="lbl">Inasistencias [F]</div></div>
-        <div class="sheets-stat-box"><div class="val" style="color:var(--green);">7</div><div class="lbl">Justificadas [FJ]</div></div>
+      <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:10px; margin-bottom:15px; background:#f8fafc; border:1px solid var(--line); border-radius:12px; padding:12px; text-align:center;">
+        <div><div style="font-size:1.25rem; font-weight:900; color:var(--green);">79,6%</div><div style="font-size:0.75rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">% Asistencia General</div></div>
+        <div><div style="font-size:1.25rem; font-weight:900; color:var(--navy);">263</div><div style="font-size:0.75rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">Total Presentes [A]</div></div>
+        <div><div style="font-size:1.25rem; font-weight:900; color:var(--navy);">10</div><div style="font-size:0.75rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">Ingresos Tarde [T]</div></div>
+        <div><div style="font-size:1.25rem; font-weight:900; color:var(--red);">0</div><div style="font-size:0.75rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">Inasistencias [F]</div></div>
+        <div><div style="font-size:1.25rem; font-weight:900; color:var(--green);">7</div><div style="font-size:0.75rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">Justificadas [FJ]</div></div>
       </div>
 
       <div class="asist-layout">
-        <!-- Izquierda: Lista de los 7 Catequizandos -->
-        <div class="estudiantes-lista-asist" id="lista-catequizandos-asist">
-          <!-- Se llena por JavaScript -->
-        </div>
+        <!-- Lista de los 7 Catequizandos con Fotos de GitHub -->
+        <div class="estudiantes-lista-asist" id="lista-catequizandos-asist"></div>
 
-        <!-- Derecha: Panel de 50 sesiones del catequizando seleccionado -->
+        <!-- Panel de 50 sesiones -->
         <div style="background:white; border:1px solid var(--line); border-radius:14px; padding:18px;">
           <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid var(--gold); padding-bottom:10px; margin-bottom:14px;">
             <div>
               <h4 id="nombre-catequizando-activo" style="margin:0; color:var(--navy); font-size:1.1rem;">Seleccione un catequizando</h4>
               <p id="sub-id-activo" class="sub" style="margin:2px 0 0; font-size:0.8rem;">ID: -</p>
             </div>
-            <div style="display:flex; gap:10px; font-size:0.75rem; font-weight:bold;">
-              <span style="color:var(--blue);">[A] Presente</span>
-              <span style="color:var(--gold-deep);">[T] Tardanza</span>
+            <div style="display:flex; gap:8px; font-size:0.75rem; font-weight:bold;">
+              <span style="color:var(--blue);">[A] Pres.</span>
+              <span style="color:var(--gold-deep);">[T] Tarde</span>
               <span style="color:var(--red);">[F] Falta</span>
-              <span style="color:var(--green);">[FJ] Justificado</span>
+              <span style="color:var(--green);">[FJ] Just.</span>
             </div>
           </div>
           <div class="sesiones-grid-box" id="grid-sesiones-estudiante">
-            <p style="color:var(--muted); text-align:center; grid-column:1/-1; padding:30px;">Haga clic en un catequizando de la lista izquierda para ver y editar sus 50 sesiones de asistencia.</p>
+            <p style="color:var(--muted); text-align:center; grid-column:1/-1; padding:30px;">Haga clic en un catequizando de la izquierda para ver y editar su asistencia.</p>
           </div>
         </div>
       </div>
@@ -309,15 +307,15 @@ function openModal(id){$(id).classList.add('show')}
 function hideModal(id){$(id).classList.remove('show')}
 document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>hideModal(b.closest('.modal-backdrop').id)));
 
-// Datos de los 7 catequizandos con sus 50 sesiones de asistencia
+// Fotos de los 7 catequizandos enlazadas directamente desde el repositorio de GitHub
 let datosAsistenciaGlobal = [
-  { id: "LDS-EST-001", nombre: "FRANCISCO CRIOLLO, DANY SMITH", foto: "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=150", estados: generarEstadosDefault(1) },
-  { id: "LDS-EST-002", nombre: "PINEDA ELGUERA, ADAM STUARD", foto: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150", estados: generarEstadosDefault(2) },
-  { id: "LDS-EST-003", nombre: "PIZARRO MENDOZA, CAMILA", foto: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150", estados: generarEstadosDefault(3) },
-  { id: "LDS-EST-004", nombre: "QUISPE FLORES, ANA PAULA", foto: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150", estados: generarEstadosDefault(4) },
-  { id: "LDS-EST-005", nombre: "ROMERO SIESQUEN, MARCOS MANUEL", foto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150", estados: generarEstadosDefault(5) },
-  { id: "LDS-EST-006", nombre: "CARDENAS QUISPE, VASCO", foto: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150", estados: generarEstadosDefault(6) },
-  { id: "LDS-EST-007", nombre: "PIZARRO MENDOZA, MARCHELO", foto: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150", estados: generarEstadosDefault(7) }
+  { id: "LDS-EST-001", nombre: "FRANCISCO CRIOLLO, DANY SMITH", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/dany.jpg", estados: generarEstadosDefault(1) },
+  { id: "LDS-EST-002", nombre: "PINEDA ELGUERA, ADAM STUARD", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/adam.jpg", estados: generarEstadosDefault(2) },
+  { id: "LDS-EST-003", nombre: "PIZARRO MENDOZA, CAMILA", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/camila.jpg", estados: generarEstadosDefault(3) },
+  { id: "LDS-EST-004", nombre: "QUISPE FLORES, ANA PAULA", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/anapaula.jpg", estados: generarEstadosDefault(4) },
+  { id: "LDS-EST-005", nombre: "ROMERO SIESQUEN, MARCOS MANUEL", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/marcos.jpg", estados: generarEstadosDefault(5) },
+  { id: "LDS-EST-006", nombre: "CARDENAS QUISPE, VASCO", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/vasco.jpg", estados: generarEstadosDefault(6) },
+  { id: "LDS-EST-007", nombre: "PIZARRO MENDOZA, MARCHELO", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/marchelo.jpg", estados: generarEstadosDefault(7) }
 ];
 
 const fechasClasesAsist = ["16/06","18/06","23/06","25/06","30/06","02/07","07/07","09/07","14/07","16/07","21/07","23/07","28/07","30/07","04/08","06/08","11/08","13/08","18/08","20/08","25/08","27/08","01/09","03/09","08/09","10/09","15/09","17/09","22/09","24/09","29/09","01/10","06/10","08/10","13/10","15/10","20/10","22/10","27/10","29/10","03/11","05/11","10/11","12/11","17/11","19/11","24/11","26/11","01/12","03/12"];
@@ -341,7 +339,7 @@ function inicializarAsistenciaModular() {
     let btn = document.createElement('button');
     btn.className = 'est-item-btn' + (idx === 0 ? ' active' : '');
     btn.innerHTML = `
-      <img src="${est.foto}" alt="${est.nombre}">
+      <img src="${est.foto}" alt="${est.nombre}" onerror="this.src='https://images.unsplash.com/photo-1543269865-cbf427effbad?w=150'">
       <div style="overflow:hidden;">
         <div class="info-n">${est.nombre}</div>
         <div class="info-sub">${est.id}</div>
@@ -537,7 +535,7 @@ const bloquesProgramacion = [
     topics: [
       {num: 46, title: 'El ser humano y el pecado', sub: ['Libertad y responsabilidad']},
       {num: 47, title: 'Los Diez Mandamientos', sub: ['Ley de Dios para el amor al prójimo']},
-      {num: 48, title: 'Los Mandamientos de la Iglesia', sub: ['Obligaciones del cristiano']},
+      {num: 48, title: 'Los Mandamientos de la Iglesia', sub: ['Obligaciones du cristiano']},
       {num: 49, title: 'Las Bienaventuranzas', sub: ['Camino de la verdadera felicidad']},
       {num: 50, title: 'Obras de misericordia', sub: ['Corporales y espirituales']},
       {num: 51, title: 'Examen de conciencia', sub: ['Reconocer errores y buscar conversión']}
