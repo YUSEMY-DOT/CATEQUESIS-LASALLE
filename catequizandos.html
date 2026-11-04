@@ -657,7 +657,7 @@ main {
 .legend-special { display: inline-block; width: 9px; height: 9px; border-radius: 3px; background: #ffe9e9; border: 1px solid #d76b6b; margin-right: 5px; }
 .legend-double { display: inline-grid; place-items: center; width: 14px; height: 14px; border-radius: 3px; background: #fff1c6; border: 1px solid #e5b43c; color: #895d07; font: 900 9px 'Nunito', sans-serif; margin-right: 5px; }
 
-/* Sección Post-Calendario: Control de Catequizandos, Asistencia, Tareas y Notificaciones */
+/* Sección Post-Calendario: Control de Catequizandos, Asistencia, Tareas y Módulos Interactivos de Mensajes/Avisos */
 .post-calendar-section {
   margin-top: 50px;
   border-top: 2px dashed #e6d5b8;
@@ -773,19 +773,57 @@ main {
   box-shadow: 0 4px 16px rgba(18,52,90,0.05);
   display: flex;
   flex-direction: column;
+  gap: 14px;
 }
 
 .notice-card h3 {
   font: 700 18px 'Fredoka', sans-serif;
   color: #12345a;
-  margin-top: 0;
-  margin-bottom: 14px;
+  margin: 0;
 }
 
-.notice-list {
+.interactive-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.interactive-form input, .interactive-form textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #e2d5c3;
+  border-radius: 10px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13.5px;
+  background: #fffcf7;
+  color: var(--ink);
+}
+
+.interactive-form input:focus, .interactive-form textarea:focus {
+  outline: none;
+  border-color: #d49a0e;
+  box-shadow: 0 0 0 2px rgba(212, 154, 14, 0.15);
+}
+
+.btn-docente-submit {
+  align-self: flex-end;
+  background: var(--navy);
+  color: #fff;
+  font: 700 12px 'Fredoka', sans-serif;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-docente-submit:hover { opacity: 0.9; }
+
+.dynamic-items-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 180px;
+  overflow-y: auto;
 }
 
 .notice-item {
@@ -793,10 +831,13 @@ main {
   border: 1px solid #e8cb82;
   border-left: 4px solid #d49a0e;
   border-radius: 10px;
-  padding: 12px;
+  padding: 10px 12px;
   font-size: 13px;
   color: #193453;
   font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .notice-item.parish {
@@ -804,6 +845,16 @@ main {
   border-color: #98dfb0;
   border-left-color: #27ae60;
   color: #154a2a;
+}
+
+.remove-item-btn {
+  background: none;
+  border: none;
+  color: #c0392b;
+  font-weight: 900;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 4px;
 }
 
 .footer {
@@ -928,7 +979,7 @@ main {
       </div>
     </section>
 
-    <!-- SECCIÓN DEBAJO DEL CALENDARIO: CONTROL DE CATEQUIZANDOS, ASISTENCIA, TAREAS, FOTOS, IDs, MENSAJES Y AVISOS -->
+    <!-- SECCIÓN DEBAJO DEL CALENDARIO: CONTROL DE CATEQUIZANDOS (FOTOS OFICIALES JITSI/DRIVE, IDS, ASISTENCIA, TAREAS) Y MÓDULOS INTERACTIVOS DOCENTES -->
     <section class="post-calendar-section">
       <div class="eyebrow">Control de Catequizandos Oficial</div>
       <h2>📊 Asistencia, Tareas y Seguimiento por Alumno</h2>
@@ -937,15 +988,15 @@ main {
         <!-- Alumno 1 -->
         <div class="student-card">
           <div class="student-header">
-            <img class="student-avatar" src="https://drive.google.com/uc?export=view&id=1jNx6nx6wCDaYdcnSKGbzj_uCfb2cDbdl" alt="Dany Smith" onerror="this.src='https://via.placeholder.com/60'">
+            <img class="student-avatar" src="https://drive.google.com/uc?export=view&id=1jNx6nx6wCDaYdcnSKGbzj_uCfb2cDbdl" alt="Dany Smith Francisco Criollo" onerror="this.src='https://via.placeholder.com/60'">
             <div class="student-info">
-              <h4>Dany Smith Francisco Criollo</h4>
+              <h4>Dany Smith Francisco Criollo[cite: 6.2]</h4>
               <small>ID: LDS-EST-001</small>
             </div>
           </div>
           <div class="metrics-box">
             <div class="metric-row">
-              <div class="metric-label"><span>Asistencia</span><span style="color:#27ae60;">80.0%</span></div>
+              <div class="metric-label"><span>Asistencia</span><span style="color:#27ae60;">80.0%[cite: 6.2]</span></div>
               <div class="progress-track"><div class="progress-fill-attendance" style="width: 80%;"></div></div>
             </div>
             <div class="metric-row" style="margin-top: 10px;">
@@ -958,15 +1009,15 @@ main {
         <!-- Alumno 2 -->
         <div class="student-card">
           <div class="student-header">
-            <img class="student-avatar" src="https://drive.google.com/uc?export=view&id=1jf5ch769iUpYqAKJ-Hx1HIUPDaRBJgwd" alt="Adam Stuard" onerror="this.src='https://via.placeholder.com/60'">
+            <img class="student-avatar" src="https://drive.google.com/uc?export=view&id=1jf5ch769iUpYqAKJ-Hx1HIUPDaRBJgwd" alt="Adam Stuard Pineda Elguera" onerror="this.src='https://via.placeholder.com/60'">
             <div class="student-info">
-              <h4>Adam Stuard Pineda Elguera</h4>
+              <h4>Adam Stuard Pineda Elguera[cite: 6.2]</h4>
               <small>ID: LDS-EST-002</small>
             </div>
           </div>
           <div class="metrics-box">
             <div class="metric-row">
-              <div class="metric-label"><span>Asistencia</span><span style="color:#27ae60;">79.6%</span></div>
+              <div class="metric-label"><span>Asistencia</span><span style="color:#27ae60;">79.6%[cite: 6.2]</span></div>
               <div class="progress-track"><div class="progress-fill-attendance" style="width: 79.6%;"></div></div>
             </div>
             <div class="metric-row" style="margin-top: 10px;">
@@ -979,15 +1030,15 @@ main {
         <!-- Alumno 3 -->
         <div class="student-card">
           <div class="student-header">
-            <img class="student-avatar" src="https://drive.google.com/uc?export=view&id=1sqVFTBMqMT1pNIG7y1edplv8SvFTWiHg" alt="Camila" onerror="this.src='https://via.placeholder.com/60'">
+            <img class="student-avatar" src="https://drive.google.com/uc?export=view&id=1sqVFTBMqMT1pNIG7y1edplv8SvFTWiHg" alt="Camila Pizarro Mendoza" onerror="this.src='https://via.placeholder.com/60'">
             <div class="student-info">
-              <h4>Camila Pizarro Mendoza</h4>
+              <h4>Camila Pizarro Mendoza[cite: 6.2]</h4>
               <small>ID: LDS-EST-003</small>
             </div>
           </div>
           <div class="metrics-box">
             <div class="metric-row">
-              <div class="metric-label"><span>Asistencia</span><span style="color:#27ae60;">79.2%</span></div>
+              <div class="metric-label"><span>Asistencia</span><span style="color:#27ae60;">79.2%[cite: 6.2]</span></div>
               <div class="progress-track"><div class="progress-fill-attendance" style="width: 79.2%;"></div></div>
             </div>
             <div class="metric-row" style="margin-top: 10px;">
@@ -1000,15 +1051,15 @@ main {
         <!-- Alumno 4 -->
         <div class="student-card">
           <div class="student-header">
-            <img class="student-avatar" src="https://drive.google.com/uc?export=view&id=19KV30WDkKReEo5vBbx9ia4bebrPpyWPw" alt="Ana Paula" onerror="this.src='https://via.placeholder.com/60'">
+            <img class="student-avatar" src="https://drive.google.com/uc?export=view&id=19KV30WDkKReEo5vBbx9ia4bebrPpyWPw" alt="Ana Paula Quispe Flores" onerror="this.src='https://via.placeholder.com/60'">
             <div class="student-info">
-              <h4>Ana Paula Quispe Flores</h4>
+              <h4>Ana Paula Quispe Flores[cite: 6.2]</h4>
               <small>ID: LDS-EST-004</small>
             </div>
           </div>
           <div class="metrics-box">
             <div class="metric-row">
-              <div class="metric-label"><span>Asistencia</span><span style="color:#27ae60;">80.0%</span></div>
+              <div class="metric-label"><span>Asistencia</span><span style="color:#27ae60;">80.0%[cite: 6.2]</span></div>
               <div class="progress-track"><div class="progress-fill-attendance" style="width: 80%;"></div></div>
             </div>
             <div class="metric-row" style="margin-top: 10px;">
@@ -1021,15 +1072,15 @@ main {
         <!-- Alumno 5 -->
         <div class="student-card">
           <div class="student-header">
-            <img class="student-avatar" src="https://drive.google.com/uc?export=view&id=1NT-x1ycdUiVXL0Au4xekdVx4sZ3BFWfU" alt="Marcos Manuel" onerror="this.src='https://via.placeholder.com/60'">
+            <img class="student-avatar" src="https://drive.google.com/uc?export=view&id=1NT-x1ycdUiVXL0Au4xekdVx4sZ3BFWfU" alt="Marcos Manuel Romero Siesquen" onerror="this.src='https://via.placeholder.com/60'">
             <div class="student-info">
-              <h4>Marcos Manuel Romero Siesquen</h4>
+              <h4>Marcos Manuel Romero Siesquen[cite: 6.2]</h4>
               <small>ID: LDS-EST-005</small>
             </div>
           </div>
           <div class="metrics-box">
             <div class="metric-row">
-              <div class="metric-label"><span>Asistencia</span><span style="color:#27ae60;">79.6%</span></div>
+              <div class="metric-label"><span>Asistencia</span><span style="color:#27ae60;">79.6%[cite: 6.2]</span></div>
               <div class="progress-track"><div class="progress-fill-attendance" style="width: 79.6%;"></div></div>
             </div>
             <div class="metric-row" style="margin-top: 10px;">
@@ -1042,15 +1093,15 @@ main {
         <!-- Alumno 6 -->
         <div class="student-card">
           <div class="student-header">
-            <div class="student-avatar" style="display:grid; place-items:center; font-weight:900; color:#12345a;">VC</div>
+            <img class="student-avatar" src="https://drive.google.com/uc?export=view&id=1JighRZ1N9WGd6hXALZG3kK5qHuiTLs0i" alt="Vasco Cardenas Quispe" onerror="this.src='https://via.placeholder.com/60'">
             <div class="student-info">
-              <h4>Vasco Cardenas Quispe</h4>
+              <h4>Vasco Cardenas Quispe[cite: 6.2]</h4>
               <small>ID: LDS-EST-006</small>
             </div>
           </div>
           <div class="metrics-box">
             <div class="metric-row">
-              <div class="metric-label"><span>Asistencia</span><span style="color:#27ae60;">79.6%</span></div>
+              <div class="metric-label"><span>Asistencia</span><span style="color:#27ae60;">79.6%[cite: 6.2]</span></div>
               <div class="progress-track"><div class="progress-fill-attendance" style="width: 79.6%;"></div></div>
             </div>
             <div class="metric-row" style="margin-top: 10px;">
@@ -1063,15 +1114,15 @@ main {
         <!-- Alumno 7 -->
         <div class="student-card">
           <div class="student-header">
-            <div class="student-avatar" style="display:grid; place-items:center; font-weight:900; color:#12345a;">MP</div>
+            <img class="student-avatar" src="https://drive.google.com/uc?export=view&id=1QTvIQydI8qyuG3Tpo0SBmbNHjyVXn_IT6mvIwfSttvI" alt="Marchelo Pizarro Mendoza" onerror="this.src='https://via.placeholder.com/60'">
             <div class="student-info">
-              <h4>Marchelo Pizarro Mendoza</h4>
+              <h4>Marchelo Pizarro Mendoza[cite: 6.2]</h4>
               <small>ID: LDS-EST-007</small>
             </div>
           </div>
           <div class="metrics-box">
             <div class="metric-row">
-              <div class="metric-label"><span>Asistencia</span><span style="color:#27ae60;">79.2%</span></div>
+              <div class="metric-label"><span>Asistencia</span><span style="color:#27ae60;">79.2%[cite: 6.2]</span></div>
               <div class="progress-track"><div class="progress-fill-attendance" style="width: 79.2%;"></div></div>
             </div>
             <div class="metric-row" style="margin-top: 10px;">
@@ -1082,28 +1133,42 @@ main {
         </div>
       </div>
 
-      <!-- Mensajes de los Alumnos y Avisos Parroquiales -->
+      <!-- Módulos Interactivos de Mensajes y Avisos Parroquiales (Gestionados desde el Botón Docentes) -->
       <div class="notifications-layout">
         <div class="notice-card">
           <h3>💬 Mensajes de los Alumnos</h3>
-          <div class="notice-list">
+          <div class="interactive-form">
+            <input type="text" id="input-alumno-nombre" placeholder="Nombre del alumno..." />
+            <textarea id="input-alumno-mensaje" rows="2" placeholder="Escribe el mensaje o consulta del alumno..."></textarea>
+            <button class="btn-docente-submit" id="btn-add-mensaje" type="button">➕ Agregar Mensaje (Docente)</button>
+          </div>
+          <div class="dynamic-items-container" id="list-mensajes">
             <div class="notice-item">
-              ✨ <strong>Dany Smith:</strong> "Miss, ya terminé la ficha del Bloque 1 sobre la Creación. ¿Se lo puedo mostrar el martes?"
+              <div>✨ <strong>Dany Smith:</strong> "Miss, ya terminé la ficha del Bloque 1 sobre la Creación. ¿Se lo puedo mostrar el martes?"</div>
+              <button class="remove-item-btn" onclick="this.parentElement.remove()" title="Eliminar">×</button>
             </div>
             <div class="notice-item">
-              ✨ <strong>Camila Pizarro:</strong> "Miss Lily, tengo una duda sobre la cita bíblica del Rosario. ¡Gracias!"
+              <div>✨ <strong>Camila Pizarro:</strong> "Miss Lily, tengo una duda sobre la cita bíblica del Rosario. ¡Gracias!"</div>
+              <button class="remove-item-btn" onclick="this.parentElement.remove()" title="Eliminar">×</button>
             </div>
           </div>
         </div>
 
         <div class="notice-card">
           <h3>📢 Avisos y Notificaciones Parroquiales</h3>
-          <div class="notice-list">
+          <div class="interactive-form">
+            <input type="text" id="input-aviso-titulo" placeholder="Título del aviso..." />
+            <textarea id="input-aviso-mensaje" rows="2" placeholder="Detalle de la notificación parroquial..."></textarea>
+            <button class="btn-docente-submit" id="btn-add-aviso" type="button">➕ Publicar Aviso (Docente)</button>
+          </div>
+          <div class="dynamic-items-container" id="list-avisos">
             <div class="notice-item parish">
-              🙏 <strong>Parroquia San Pedro de Lurín:</strong> Recordar traer las fichas y constancias de Bautismo actualizadas para el expediente.
+              <div>🙏 <strong>Parroquia San Pedro de Lurín:</strong> Recordar traer las fichas y constancias de Bautismo actualizadas para el expediente.</div>
+              <button class="remove-item-btn" onclick="this.parentElement.remove()" title="Eliminar">×</button>
             </div>
             <div class="notice-item parish">
-              🔔 <strong>Aviso Catequistas:</strong> Próxima revisión de tareas y prácticas de los temas 20 al 27.
+              <div>🔔 <strong>Aviso Catequistas:</strong> Próxima revisión de tareas y prácticas de los temas 20 al 27.</div>
+              <button class="remove-item-btn" onclick="this.parentElement.remove()" title="Eliminar">×</button>
             </div>
           </div>
         </div>
@@ -1130,7 +1195,7 @@ const stages = [
       {num: 4, title: 'LA SANTÍSIMA TRINIDAD', sub: ['Un solo Dios', 'Padre, Hijo y Espíritu Santo', 'Tres Personas', 'No son tres dioses', '¿Quién es primero?', 'Relación entre las tres Personas', 'Señal de la Cruz'], obj: 'Explicar que el Padre, el Hijo y el Espíritu Santo son tres Personas distintas y un solo Dios, según la fe cristiana.', val: 'Unidad y comunión', cite: 'Mt 3,16-17; Mt 28,19; 2 Co 13,13', act: 'Construir un esquema sencillo que muestre al Padre, al Hijo y al Espíritu Santo como tres Personas y un solo Dios; practicar la Señal de la Cruz.'},
       {num: 5, title: 'LA CREACIÓN', sub: ['Dios creador', 'Creación del mundo', 'Creación del ser humano', 'El ser humano y la creación', 'Responsabilidad de cuidar lo creado'], obj: 'Reconocer a Dios como creador de todo lo que existe y expresar formas concretas de cuidar la creación.', val: 'Responsabilidad y cuidado de la creación', cite: 'Gn 1,1-31; Gn 2,7.15; Sal 8,4-9', act: 'Elaborar un mural de la creación y escribir un compromiso concreto para cuidar la naturaleza.'},
       {num: 6, title: 'DIOS SE REVELA AL SER HUMANO', sub: ['¿Cómo conocemos a Dios?', 'Revelación', 'Sagrada Escritura', 'Tradición', 'Jesucristo como plenitud de la Revelación'], obj: 'Comprender que Dios se da a conocer al ser humano e identificar ejemplos de esa revelación en la historia de la salvación.', val: 'Apertura a la Palabra de Dios', cite: 'Heb 1,1-2; Jn 1,18; 2 Tim 3,16-17', act: 'Preparar una línea de tiempo con ejemplos de cómo Dios se revela y ubicar a Jesucristo como plenitud de la Revelación.'},
-      {num: 7, title: 'LA BIBLIA', sub: ['Qué es', 'Antiguo Testamento', 'Nuevo Testamento', 'Evangelios', 'Evangelistas', 'Cómo se divide', 'Cómo buscar una cita', 'Cómo leerla'], obj: 'Reconocer la Biblia como Palabra de Dios, distinguir sus دو grandes partes y practicar cómo buscar una cita bíblica sencilla.', val: 'Amor a la Palabra de Dios', cite: '2 Tim 3,16-17; Lc 24,27; Lc 24,44-45', act: 'Realizar una búsqueda guiada de citas bíblicas: localizar un libro, capítulo y versículo y distinguir Antiguo y Nuevo Testamento.'},
+      {num: 7, title: 'LA BIBLIA', sub: ['Qué es', 'Antiguo Testamento', 'Nuevo Testamento', 'Evangelios', 'Evangelistas', 'Cómo se divide', 'Cómo buscar una cita', 'Cómo leerla'], obj: 'Reconocer la Biblia como Palabra de Dios, distinguir sus dos grandes partes y practicar cómo buscar una cita bíblica sencilla.', val: 'Amor a la Palabra de Dios', cite: '2 Tim 3,16-17; Lc 24,27; Lc 24,44-45', act: 'Realizar una búsqueda guiada de citas bíblicas: localizar un libro, capítulo y versículo y distinguir Antiguo y Nuevo Testamento.'},
       {num: 8, title: 'LA VIDA DE JESÚS', sub: ['Nacimiento', 'María y José', 'Infancia', 'Bautismo', 'Vida pública', 'Discípulos', 'Predicación', 'Reino de Dios'], obj: 'Identificar los principales momentos de la vida de Jesús y relacionarlos con su misión de anunciar el amor de Dios.', val: 'Disponibilidad para seguir a Jesús', cite: 'Lc 2,1-20; Lc 2,41-52; Mc 1,9-15; Mt 4,18-22', act: 'Ordenar imágenes de los principales momentos de la vida de Jesús y explicar qué enseñan sobre su misión.'},
       {num: 9, title: 'LAS ENSEÑANZAS DE JESÚS', sub: ['Parábolas', '¿Qué es una parábola?', 'Por qué Jesús las utilizaba', 'Buen Samaritano', 'Hijo Pródigo', 'Sembrador', 'Oveja perdida', 'Talentos', 'Aplicación a nuestra vida'], obj: 'Reconocer enseñanzas de Jesús y explicar cómo ponerlas en práctica en situaciones cotidianas.', val: 'Misericordia y solidaridad', cite: 'Mt 13,1-23; Lc 10,25-37; Lc 15,11-32; Mt 25,14-30', act: 'Representar una parábola de Jesús y completar una ficha con su enseñanza y una aplicación para la vida diaria.'},
       {num: 10, title: 'LOS MILAGROS DE JESÚS', sub: ['Qué es un milagro', 'Para qué los realizaba Jesús', 'Milagros de sanación', 'Milagros sobre la naturaleza', 'Qué revelan sobre Jesús'], obj: 'Identificar algunos milagros de Jesús y explicar qué revelan sobre su amor, su poder y su compasión.', val: 'Confianza en Jesús', cite: 'Mc 2,1-12; Mc 4,35-41; Jn 2,1-11; Mc 6,34-44', act: 'Analizar tarjetas de milagros de Jesús y relacionar cada uno con la fe, la compasión o la confianza en Dios.'},
@@ -1378,6 +1443,35 @@ document.getElementById('btnActualizar').addEventListener('click', () => {
     }, 1200);
   }, 600);
 });
+
+// Interactividad para agregar/quitar Mensajes y Avisos Parroquiales (Modo Docente)
+document.getElementById('btn-add-mensaje').addEventListener('click', () => {
+  const nom = document.getElementById('input-alumno-nombre').value.trim();
+  const msg = document.getElementById('input-alumno-mensaje').value.trim();
+  if(!nom || !msg){ alert('Por favor completa el nombre y el mensaje.'); return; }
+  const container = document.getElementById('list-mensajes');
+  const div = document.createElement('div');
+  div.className = 'notice-item';
+  div.innerHTML = `<div>✨ <strong>${escapeHtml(nom)}:</strong> "${escapeHtml(msg)}"</div><button class="remove-item-btn" onclick="this.parentElement.remove()" title="Eliminar">×</button>`;
+  container.prepend(div);
+  document.getElementById('input-alumno-nombre').value = '';
+  document.getElementById('input-alumno-mensaje').value = '';
+});
+
+document.getElementById('btn-add-aviso').addEventListener('click', () => {
+  const tit = document.getElementById('input-aviso-titulo').value.trim();
+  const msg = document.getElementById('input-aviso-mensaje').value.trim();
+  if(!tit || !msg){ alert('Por favor completa el título y el aviso.'); return; }
+  const container = document.getElementById('list-avisos');
+  const div = document.createElement('div');
+  div.className = 'notice-item parish';
+  div.innerHTML = `<div>🙏 <strong>${escapeHtml(tit)}:</strong> ${escapeHtml(msg)}</div><button class="remove-item-btn" onclick="this.parentElement.remove()" title="Eliminar">×</button>`;
+  container.prepend(div);
+  document.getElementById('input-aviso-titulo').value = '';
+  document.getElementById('input-aviso-mensaje').value = '';
+});
+
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 
 // Asistente de voz
 let catechesisVoiceMuted=false;
