@@ -65,7 +65,7 @@
   <div>
     <div class="eyebrow">Programa de Catequesis · Primera Comunión 2026</div>
     <h1>Portal de Catequistas</h1>
-    <p>Gestión pastoral unificada: Clases, 7 Catequizandos con fotos de GitHub, Asistencia, Pagos y Padres.</p>
+    <p>Gestión pastoral unificada: Clases, 7 Catequizandos, Asistencia, Pagos y Padres.</p>
   </div>
 </section>
 
@@ -170,7 +170,7 @@
       </div>
 
       <div class="asist-layout">
-        <!-- Lista de los 7 Catequizandos con Fotos de GitHub -->
+        <!-- Lista de los 7 Catequizandos con Fotos directas de GitHub -->
         <div class="estudiantes-lista-asist" id="lista-catequizandos-asist"></div>
 
         <!-- Panel de 50 sesiones -->
@@ -307,7 +307,7 @@ function openModal(id){$(id).classList.add('show')}
 function hideModal(id){$(id).classList.remove('show')}
 document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>hideModal(b.closest('.modal-backdrop').id)));
 
-// Fotos de los 7 catequizandos enlazadas directamente desde GitHub (YUSEMY-DOT/CATEQUESIS-LASALLE)
+// Fotos de los 7 catequizandos enlazadas directo a tu repositorio de GitHub (YUSEMY-DOT/CATEQUESIS-LASALLE)
 let datosAsistenciaGlobal = [
   { id: "LDS-EST-001", nombre: "FRANCISCO CRIOLLO, DANY SMITH", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/dany.jpg", estados: generarEstadosDefault(1) },
   { id: "LDS-EST-002", nombre: "PINEDA ELGUERA, ADAM STUARD", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/adam.jpg", estados: generarEstadosDefault(2) },
@@ -339,7 +339,7 @@ function inicializarAsistenciaModular() {
     let btn = document.createElement('button');
     btn.className = 'est-item-btn' + (idx === 0 ? ' active' : '');
     btn.innerHTML = `
-      <img src="${est.foto}" alt="${est.nombre}" onerror="this.src='https://images.unsplash.com/photo-1543269865-cbf427effbad?w=150'">
+      <img src="${est.foto}" alt="${est.nombre}" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/default.jpg'">
       <div style="overflow:hidden;">
         <div class="info-n">${est.nombre}</div>
         <div class="info-sub">${est.id}</div>
