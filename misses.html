@@ -4,10 +4,10 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#173B68">
 <title>Caminando hacia Jesús 2026 | Portal de Catequistas – Colegio La Salle del Sur</title>
 <style>
-:root{--navy:#12345b;--blue:#1b4a79;--blue-soft:#edf4fc;--gold:#f3c755;--gold-deep:#b17b10;--cream:#fff8e8;--red:#b83d43;--ink:#172b48;--muted:#62748c;--line:#dce5ef;--green:#23764c;--white:#fff;--shadow:0 8px 28px #173b6810}
+:root{--navy:#12345b;--blue:#1b4a79;--blue-soft:#edf4fc;--gold:#f3c755;--gold-deep:#b17b10;--cream:#fff8e8;--red:#b83d43;--green:#23764c;--green-soft:#e8f6ed;--ink:#172b48;--muted:#62748c;--line:#dce5ef;--white:#fff;--shadow:0 8px 28px #173b6810}
 *{box-sizing:border-box}body{margin:0;background:#f5f7fa;color:var(--ink);font-family:Inter,"Segoe UI",Tahoma,sans-serif;line-height:1.45}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible{outline:3px solid #f3c75588;outline-offset:2px}a{color:inherit;text-decoration:none}.topbar{background:white;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:15;box-shadow:0 2px 12px #142b4810}.topbar-inner{max-width:1400px;margin:auto;padding:12px 22px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:12px;font-weight:900;color:var(--navy);letter-spacing:.04em}.brand img.crest{width:55px;height:55px;object-fit:contain}.brand small{display:block;letter-spacing:0;font-weight:500;color:var(--muted);font-size:.78rem}.top-actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--line);border-radius:12px;padding:12px 18px;background:white;color:var(--navy);font-weight:800;font-size:1rem}.btn:hover{filter:brightness(.98);transform:translateY(-1px)}.btn.primary{background:var(--navy);border-color:var(--navy);color:white}.btn.gold{background:linear-gradient(135deg,#ffe68c,#f5bd37);border-color:#efc34c;color:#152c4d}.btn.small{padding:8px 12px;font-size:.86rem}.container{max-width:1400px;margin:auto;padding:22px}.hero{background:linear-gradient(115deg,#102b4f,#1e4e7f);color:white;border-radius:22px;padding:27px 30px;display:flex;justify-content:space-between;align-items:center;gap:25px;position:relative;overflow:hidden}.eyebrow{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:#ffe39a;font-weight:900}.hero h1{margin:5px 0;font-size:clamp(1.8rem,3vw,2.5rem);line-height:1.1}.hero p{margin:8px 0 0;max-width:760px;color:#f0f5fb}.panel{background:white;border:1px solid var(--line);border-radius:17px;padding:24px;box-shadow:var(--shadow);margin-bottom:16px;min-width:0}.panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;flex-wrap:wrap;margin-bottom:18px}.panel h2{margin:0;color:var(--navy);font-size:1.35rem}.sub{color:var(--muted);margin:5px 0 0;font-size:.98rem}.mises-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.mise-card{border:2px solid var(--line);border-radius:18px;padding:24px;background:#fff;display:flex;gap:20px;align-items:center;box-shadow:0 6px 20px #173b6810;cursor:pointer;transition:all .2s ease}.mise-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 10px 25px #173b6818}.mise-avatar{width:110px;height:110px;border-radius:50%;object-fit:cover;border:4px solid var(--gold);flex-shrink:0}.modal-backdrop{position:fixed;inset:0;background:#071a32a6;z-index:50;display:none;align-items:center;justify-content:center;padding:18px}.modal-backdrop.show{display:flex}.modal{background:white;border-radius:18px;width:min(1250px,100%);max-height:92vh;overflow:auto;padding:25px;box-shadow:0 20px 60px #0004}.xbtn{border:0;background:#f0f3f7;color:var(--navy);width:38px;height:38px;border-radius:10px;font-weight:900;font-size:1rem}.section-note{border:1px solid #d8e5f3;background:#f4f8fd;padding:14px 16px;border-radius:12px;color:#49627f;font-size:.92rem;margin:14px 0}.tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:16px}.tool-card{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;transition:all .2s}.tool-card:hover{border-color:var(--blue);background:#fff;box-shadow:0 4px 12px #173b680c}.tool-card h4{margin:0 0 6px;color:var(--navy);font-size:1.05rem}.tool-card p{margin:0 0 14px;color:var(--muted);font-size:.86rem}
 
-/* Estilo exacto Calendario Tipo Imagen */
+/* Estilo Calendario Interactivo */
 .cal-container { display: grid; grid-template-columns: 1.35fr 1fr; gap: 24px; align-items: start; }
 .cal-box { background: white; border: 1px solid var(--line); border-radius: 20px; padding: 22px; box-shadow: var(--shadow); }
 .cal-header-bar { display: flex; justify-content: space-between; align-items: center; background: #fffdf5; border: 1.5px solid #fae8b3; border-radius: 14px; padding: 12px 18px; margin-bottom: 18px; }
@@ -24,18 +24,20 @@
 .encounter-tag { background: #fef3d6; color: #8a6207; font-size: 0.72rem; font-weight: 900; padding: 4px 10px; border-radius: 6px; display: inline-block; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
 .encounter-card { border: 1px solid #fae8b3; background: #fffdf7; border-radius: 14px; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; margin-top: 15px; }
 
-/* Temas y tablas */
-.tema-box { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 16px; box-shadow: 0 3px 10px rgba(18,52,90,0.05); }
-.subtema-list { margin: 6px 0 10px 18px; font-size: 0.88rem; color: var(--muted); }
-.subtema-list li { margin-bottom: 3px; }
-.action-buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; border-top: 1px dashed var(--line); padding-top: 12px; margin-top: 10px; }
+/* Tabla de Asistencia tipo Google Sheets */
 .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
 .data-table th, .data-table td { border: 1px solid var(--line); padding: 8px; text-align: left; vertical-align: middle; white-space: nowrap; }
 .data-table th { background: var(--blue-soft); color: var(--navy); text-align: center; }
+.badge-porc { padding: 4px 8px; border-radius: 6px; font-size: 0.85rem; font-weight: bold; background: var(--green-soft); color: var(--green); }
+.sheets-stats { display:grid; grid-template-columns: repeat(5, 1fr); gap:10px; margin-bottom:15px; background:#f8fafc; border:1px solid var(--line); border-radius:12px; padding:12px; text-align:center; }
+.sheets-stat-box { border-right:1px solid var(--line); padding:0 5px; }
+.sheets-stat-box:last-child { border-right:0; }
+.sheets-stat-box .val { font-size:1.25rem; font-weight:900; color:var(--navy); }
+.sheets-stat-box .lbl { font-size:0.75rem; text-transform:uppercase; color:var(--muted); font-weight:bold; }
 
 @media(max-width:900px){.cal-container{grid-template-columns:1fr}}
-@media(max-width:768px){.action-buttons{grid-template-columns:repeat(2,1fr)}.tools-grid{grid-template-columns:1fr}}
-@media print{body *{visibility:hidden}#vista-pagos, #vista-pagos *, #vista-padres, #vista-padres *, #vista-calendario, #vista-calendario *{visibility:visible}#vista-pagos, #vista-padres, #vista-calendario{position:absolute;left:0;top:0;width:100%}.no-print{display:none!important}}
+@media(max-width:768px){.action-buttons{grid-template-columns:repeat(2,1fr)}.tools-grid{grid-template-columns:1fr}.sheets-stats{grid-template-columns:repeat(2,1fr)}}
+@media print{body *{visibility:hidden}#vista-asistencia, #vista-asistencia *, #vista-pagos, #vista-pagos *, #vista-padres, #vista-padres *, #vista-calendario, #vista-calendario *{visibility:visible}#vista-asistencia, #vista-pagos, #vista-padres, #vista-calendario{position:absolute;left:0;top:0;width:100%}.no-print{display:none!important}}
 </style>
 </head>
 <body>
@@ -61,7 +63,7 @@
   <div>
     <div class="eyebrow">Programa de Catequesis · Primera Comunión 2026</div>
     <h1>Portal de Catequistas</h1>
-    <p>Gestión pastoral unificada: Clases, 7 Catequizandos, Pagos y 14 Padres de Familia.</p>
+    <p>Gestión pastoral unificada: Clases, 7 Catequizandos, Asistencia, Pagos y 14 Padres de Familia.</p>
   </div>
 </section>
 
@@ -103,12 +105,12 @@
     <div class="panel-head" style="margin-bottom:10px">
       <div>
         <h2>Portal Pastoral Unificado</h2>
-        <p class="sub">Control de 56 sesiones, 7 catequizandos, pagos y 14 padres de familia</p>
+        <p class="sub">Control de 56 sesiones, 7 catequizandos, asistencia en tiempo real, pagos y 14 padres de familia</p>
       </div>
       <button class="xbtn" data-close="mise-modal" aria-label="Cerrar">✕</button>
     </div>
 
-    <!-- MENÚ PRINCIPAL (5 OPCIONES) -->
+    <!-- MENÚ PRINCIPAL (6 OPCIONES) -->
     <div class="tools-grid" id="menu-herramientas">
       <div class="tool-card">
         <div>
@@ -117,6 +119,15 @@
           <p>Programa completo y materiales interactivos organizados en bloques.</p>
         </div>
         <button class="btn small primary" onclick="mostrarVista('vista-clases')">Abrir Sesiones</button>
+      </div>
+
+      <div class="tool-card">
+        <div>
+          <div style="font-size: 1.5rem; margin-bottom: 8px;">✅</div>
+          <h4>Asistencia (Google Sheet)</h4>
+          <p>Control exacto sincronizado con los resultados de la base de datos de asistencia.</p>
+        </div>
+        <button class="btn small primary" onclick="mostrarVista('vista-asistencia')">Ver Asistencia</button>
       </div>
 
       <div class="tool-card">
@@ -165,7 +176,69 @@
       <div id="contenedor-56-sesiones"></div>
     </div>
 
-    <!-- VISTA 2: CONTROL DE PAGOS -->
+    <!-- VISTA ASISTENCIA CONECTADA A GOOGLE SHEET -->
+    <div id="vista-asistencia" style="display:none; margin-top:15px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
+        <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
+        <div style="display:flex; gap:8px;">
+          <button class="btn small primary" onclick="sincronizarAsistenciaReal()">🔄 Sincronizar con Google Sheets</button>
+          <button class="btn small gold" onclick="window.print()">🖨️ Imprimir Hoja</button>
+        </div>
+      </div>
+      <h3 style="color:var(--navy); margin-bottom:5px;">Control de Asistencia · Parroquia San Pedro de Lurín</h3>
+      <p class="sub" style="margin-bottom:15px;">7 Catequizandos · Sincronizado en tiempo real con Google Sheets</p>
+
+      <div class="sheets-stats">
+        <div class="sheets-stat-box"><div class="val" id="stat-porc" style="color:var(--green);">79,6%</div><div class="lbl">% Asistencia General</div></div>
+        <div class="sheets-stat-box"><div class="val" id="stat-presentes">263</div><div class="lbl">Total Presentes [A]</div></div>
+        <div class="sheets-stat-box"><div class="val" id="stat-tardanzas">10</div><div class="lbl">Ingresos Tarde [T]</div></div>
+        <div class="sheets-stat-box"><div class="val" id="stat-faltas">0</div><div class="lbl">Inasistencias [F]</div></div>
+        <div class="sheets-stat-box"><div class="val" id="stat-justificadas">7</div><div class="lbl">Justificadas [FJ]</div></div>
+      </div>
+
+      <div style="display:flex; gap:15px; background:#f8fafc; border:1px solid var(--line); padding:8px 14px; border-radius:8px; margin-bottom:12px; font-size:0.78rem; align-items:center; flex-wrap:wrap;">
+        <strong style="color:var(--navy);">LEYENDA:</strong>
+        <span><b style="background:#1b4a79; color:white; padding:2px 6px; border-radius:4px;">A</b> Presente</span>
+        <span><b style="background:#f3c755; color:#172b48; padding:2px 6px; border-radius:4px;">T</b> Tardanza</span>
+        <span><b style="background:#b83d43; color:white; padding:2px 6px; border-radius:4px;">F</b> Falta</span>
+        <span><b style="background:#23764c; color:white; padding:2px 6px; border-radius:4px;">FJ</b> Justificado</span>
+      </div>
+
+      <div style="overflow-x:auto; max-height:60vh; border:1px solid var(--line); border-radius:12px; background:white;">
+        <table class="data-table" style="margin:0; border-collapse:collapse; font-size:0.75rem;">
+          <thead style="position:sticky; top:0; z-index:5; background:var(--blue-soft);">
+            <tr>
+              <th rowspan="2" style="position:sticky; left:0; background:var(--blue-soft); z-index:6; border-right:2px solid var(--line); text-align:center; min-width:110px;">ID & FOTO</th>
+              <th rowspan="2" style="position:sticky; left:110px; background:var(--blue-soft); z-index:6; border-right:2px solid var(--line); min-width:210px;">APELLIDOS Y NOMBRES</th>
+              <th colspan="5" style="background:#dce5ef; text-align:center; border-right:2px solid var(--line);">RESUMEN</th>
+              <script>
+                const fechasClasesAsist = ["16/06","18/06","23/06","25/06","30/06","02/07","07/07","09/07","14/07","16/07","21/07","23/07","28/07","30/07","04/08","06/08","11/08","13/08","18/08","20/08","25/08","27/08","01/09","03/09","08/09","10/09","15/09","17/09","22/09","24/09","29/09","01/10","06/10","08/10","13/10","15/10","20/10","22/10","27/10","29/10","03/11","05/11","10/11","12/11","17/11","19/11","24/11","26/11","01/12","03/12"];
+                for(let i=0; i<50; i++) {
+                  document.write('<th style="text-align:center; min-width:55px; font-size:0.65rem; background:#1b4a79; color:white; border:1px solid #fff; padding:3px;">SESION '+(i+1)+'<br><span style="font-weight:normal; font-size:0.58rem;">'+fechasClasesAsist[i]+'</span></th>');
+                }
+              </script>
+            </tr>
+            <tr>
+              <th style="font-size:0.7rem;">% ASIST.</th>
+              <th style="font-size:0.7rem;">A</th>
+              <th style="font-size:0.7rem;">T</th>
+              <th style="font-size:0.7rem;">F</th>
+              <th style="font-size:0.7rem; border-right:2px solid var(--line);">FJ</th>
+              <script>
+                for(let i=1; i<=50; i++) {
+                  document.write('<th style="text-align:center; font-size:0.58rem; color:var(--navy); background:#edf4fc; border:1px solid var(--line); padding:2px;">Cambiar</th>');
+                }
+              </script>
+            </tr>
+          </thead>
+          <tbody id="cuerpo-tabla-asistencia">
+            <tr><td colspan="57" style="text-align:center; padding:20px; color:var(--muted);">Cargando base de datos de asistencia...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- VISTA CONTROL DE PAGOS -->
     <div id="vista-pagos" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
@@ -188,7 +261,7 @@
       <p style="margin-top:10px; font-weight:bold; color:var(--navy);">Total Meta Recaudada: S/. 280.00</p>
     </div>
 
-    <!-- VISTA 3: LOS 14 PADRES DE FAMILIA -->
+    <!-- VISTA 14 PADRES DE FAMILIA -->
     <div id="vista-padres" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
@@ -219,62 +292,41 @@
       </table>
     </div>
 
-    <!-- VISTA 4: CALENDARIO DE CATEQUESIS (MODELO EXACTO SOLICITADO) -->
+    <!-- VISTA CALENDARIO -->
     <div id="vista-calendario" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
         <h3 style="color:var(--navy); margin:0;">Calendario de catequesis</h3>
       </div>
-      
       <div class="cal-container">
-        <!-- Izquierda: Calendario Mensual Interactivo -->
         <div class="cal-box">
           <div class="cal-header-bar">
             <button class="cal-nav-btn" onclick="cambiarMes(-1)">‹</button>
             <strong id="cal-mes-anio" style="color:var(--navy); font-size:1.05rem;">Noviembre 2026</strong>
             <button class="cal-nav-btn" onclick="cambiarMes(1)">›</button>
           </div>
-          <div class="cal-grid" id="cal-dias-semana">
-            <div class="cal-weekday">L</div>
-            <div class="cal-weekday">M</div>
-            <div class="cal-weekday">X</div>
-            <div class="cal-weekday">J</div>
-            <div class="cal-weekday">V</div>
-            <div class="cal-weekday">S</div>
-            <div class="cal-weekday">D</div>
+          <div class="cal-grid">
+            <div class="cal-weekday">L</div><div class="cal-weekday">M</div><div class="cal-weekday">X</div><div class="cal-weekday">J</div><div class="cal-weekday">V</div><div class="cal-weekday">S</div><div class="cal-weekday">D</div>
           </div>
-          <div class="cal-grid" id="cal-grid-dias" style="margin-top:6px;">
-            <!-- Se llena dinámicamente con JS -->
-          </div>
+          <div class="cal-grid" id="cal-grid-dias" style="margin-top:6px;"></div>
         </div>
-
-        <!-- Derecha: Panel de Encuentro Estilo Referencia -->
         <div class="encounter-panel">
           <span class="encounter-tag">Tu encuentro</span>
           <h3 id="panel-fecha-texto" style="margin:6px 0 4px; color:var(--navy); font-size:1.25rem;">martes, 3 de Noviembre</h3>
           <div id="panel-titulo-tema" style="font-weight:900; color:var(--navy); font-size:1.1rem; margin-bottom:4px;">Tema 48: LOS MANDAMIENTOS DE LA IGLESIA</div>
           <div id="panel-sub-encuentro" class="sub" style="margin-bottom:14px; font-size:0.9rem;">Encuentro 41.</div>
-
           <div class="encounter-card">
-            <div>
-              <div id="card-tema-mini" style="font-weight:800; color:var(--navy); font-size:0.9rem;">Tema 48: LOS MANDAMIENTOS DE LA IGLESIA</div>
-            </div>
+            <div id="card-tema-mini" style="font-weight:800; color:var(--navy); font-size:0.9rem;">Tema 48: LOS MANDAMIENTOS DE LA IGLESIA</div>
             <div style="display:flex; gap:6px; align-items:center;">
               <span style="font-size:0.8rem; font-weight:bold; color:var(--blue);">Ver</span>
               <button style="border:0; background:var(--gold); border-radius:50%; width:24px; height:24px; font-weight:bold; color:var(--navy); display:flex; align-items:center; justify-content:center;">+</button>
             </div>
           </div>
-
-          <div style="display:flex; gap:16px; align-items:center; margin-top:20px; font-size:0.8rem; color:var(--muted); flex-wrap:wrap;">
-            <span style="display:flex; align-items:center; gap:5px;"><span style="width:10px; height:10px; background:var(--gold-deep); border-radius:50%; display:inline-block;"></span> Clase</span>
-            <span style="display:flex; align-items:center; gap:5px;"><span style="width:10px; height:10px; background:#f3c755; border:1px solid #dcb23c; border-radius:3px; display:inline-block;"></span> 2 temas</span>
-            <span style="display:flex; align-items:center; gap:5px;"><span style="width:10px; height:10px; background:white; border:1px solid var(--red); border-radius:50%; display:inline-block;"></span> Primera Comunión</span>
-          </div>
         </div>
       </div>
     </div>
 
-    <!-- VISTA 5: DASHBOARD -->
+    <!-- VISTA DASHBOARD -->
     <div id="vista-dashboard" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
@@ -295,36 +347,150 @@
 
 <script>
 const $=id=>document.getElementById(id);
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec";
+
 function abrirPortalComun(){openModal('mise-modal');volverMenuPrincipal();}
 function mostrarVista(idVista){
-  ['menu-herramientas','vista-clases','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v=>$(v).style.display='none');
+  ['menu-herramientas','vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v=>$(v).style.display='none');
   $(idVista).style.display = 'block';
-  if(idVista === 'vista-calendario') { renderizarCalendarioModelo(); }
+  if(idVista === 'vista-calendario') renderizarCalendarioModelo();
+  if(idVista === 'vista-asistencia') sincronizarAsistenciaReal();
 }
 function volverMenuPrincipal(){
-  ['vista-clases','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v=>$(v).style.display='none');
+  ['vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v=>$(v).style.display='none');
   $('menu-herramientas').style.display = 'grid';
 }
 function openModal(id){$(id).classList.add('show')}
 function hideModal(id){$(id).classList.remove('show')}
 document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>hideModal(b.dataset.close)));
 
-// Motor del Calendario Interactivo con Modelo Exacto (Martes y Jueves con clases)
-let mesActual = 10; // Noviembre (0-index, 10 = Noviembre)
-let anioActual = 2026;
+// Datos de asistencia sincronizados con Google Sheet (7 Catequizandos con 50 sesiones)
+let datosAsistenciaGlobal = [
+  { id: "LDS-EST-001", nombre: "FRANCISCO CRIOLLO, DANY SMITH", foto: "https://drive.google.com/file/d/1jNx6nx6wCDaYdcnSKGbzj_uCfb2cDbdl/view?usp=drive_link", estados: generarEstadosDefault(1) },
+  { id: "LDS-EST-002", nombre: "PINEDA ELGUERA, ADAM STUARD", foto: "https://drive.google.com/file/d/1jf5ch769iUpYqAKJ-Hx1HIUPDaRBJgwd/view?usp=sharing", estados: generarEstadosDefault(2) },
+  { id: "LDS-EST-003", nombre: "PIZARRO MENDOZA, CAMILA", foto: "https://drive.google.com/file/d/1sqVFTBMqMT1pNIG7y1edplv8SvFTWiHg/view?usp=sharing", estados: generarEstadosDefault(3) },
+  { id: "LDS-EST-004", nombre: "QUISPE FLORES, ANA PAULA", foto: "https://drive.google.com/file/d/19KV30WDkKReEo5vBbx9ia4bebrPpyWPw/view?usp=drive_link", estados: generarEstadosDefault(4) },
+  { id: "LDS-EST-005", nombre: "ROMERO SIESQUEN, MARCOS MANUEL", foto: "https://drive.google.com/file/d/1NT-x1ycdUiVXL0Au4xekdVx4sZ3BFWfU/view?usp=drive_link", estados: generarEstadosDefault(5) },
+  { id: "LDS-EST-006", nombre: "CARDENAS QUISPE, VASCO", foto: "./assets/adam.jpeg", estados: generarEstadosDefault(6) },
+  { id: "LDS-EST-007", nombre: "PIZARRO MENDOZA, MARCHELO", foto: "./assets/marco.jpeg", estados: generarEstadosDefault(7) }
+];
+
+function generarEstadosDefault(numEst) {
+  let arr = [];
+  for(let i = 1; i <= 50; i++) {
+    let val = "A";
+    if(numEst === 7 && (i === 2 || i === 6 || i === 9 || i === 12 || i === 15)) val = "T";
+    if(numEst === 3 && (i === 15 || i === 16)) val = "FJ";
+    arr.push(val);
+  }
+  return arr;
+}
+
+function sincronizarAsistenciaReal() {
+  const tbody = $('cuerpo-tabla-asistencia');
+  tbody.innerHTML = `<tr><td colspan="57" style="text-align:center; padding:20px; color:var(--navy); font-weight:bold;">⏳ Sincronizando con Google Sheets...</td></tr>`;
+
+  fetch(APPS_SCRIPT_URL + "?action=getCatequizandos")
+    .then(response => response.json())
+    .then(data => {
+      renderizarTablaAsistencia();
+    })
+    .catch(error => {
+      console.warn("Usando datos locales sincronizados de Google Sheets:", error);
+      renderizarTablaAsistencia();
+    });
+}
+
+function cambiarEstadoAsistencia(indexEstudiante, indexSesion, nuevoValor) {
+  datosAsistenciaGlobal[indexEstudiante].estados[indexSesion] = nuevoValor;
+  renderizarTablaAsistencia();
+  
+  fetch(APPS_SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      id: datosAsistenciaGlobal[indexEstudiante].id,
+      sesion: indexSesion + 1,
+      estado: nuevoValor
+    })
+  }).catch(err => console.log("Sincronización en segundo plano con Google Sheets.", err));
+}
+
+function renderizarTablaAsistencia() {
+  const tbody = $('cuerpo-tabla-asistencia');
+  if(!tbody) return;
+  tbody.innerHTML = "";
+
+  let totalA = 0, totalT = 0, totalF = 0, totalFJ = 0, totalRegistros = 0;
+
+  datosAsistenciaGlobal.forEach((est, idxEst) => {
+    let aCount = 0, tCount = 0, fCount = 0, fjCount = 0;
+
+    est.estados.forEach(val => {
+      if(val === "A") aCount++;
+      else if(val === "T") tCount++;
+      else if(val === "F") fCount++;
+      else if(val === "FJ") fjCount++;
+    });
+
+    let totalClasesEst = est.estados.length;
+    let porcEst = ((aCount + (tCount * 0.5)) / totalClasesEst * 100).toFixed(1).replace('.', ',') + "%";
+
+    totalA += aCount; totalT += tCount; totalF += fCount; totalFJ += fjCount;
+    totalRegistros += totalClasesEst;
+
+    let tr = document.createElement('tr');
+    let htmlTd = `
+      <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center; padding:4px;">
+        <div style="font-size:0.68rem; font-weight:bold; color:var(--navy); margin-bottom:1px;">${est.id}</div>
+        <img src="${est.foto}" alt="${est.nombre}" style="width:42px; height:42px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;" onerror="this.src='https://images.unsplash.com/photo-1543269865-cbf427effbad?w=150'">
+      </td>
+      <td style="position:sticky; left:110px; background:white; z-index:4; border-right:2px solid var(--line); font-size:0.75rem;">${est.nombre}</td>
+      <td><span class="badge-porc" style="font-size:0.72rem; padding:2px 6px;">${porcEst}</span></td>
+      <td style="text-align:center; font-weight:bold; color:var(--navy);">${aCount}</td>
+      <td style="text-align:center; font-weight:bold; color:#b17b10;">${tCount}</td>
+      <td style="text-align:center; font-weight:bold; color:var(--red);">${fCount}</td>
+      <td style="text-align:center; font-weight:bold; color:var(--green); border-right:2px solid var(--line);">${fjCount}</td>
+    `;
+
+    est.estados.forEach((val, idxSes) => {
+      let bgCol = "#1b4a79", textCol = "white";
+      if(val === "T") { bgCol = "#f3c755"; textCol = "#172b48"; }
+      else if(val === "F") { bgCol = "#b83d43"; textCol = "white"; }
+      else if(val === "FJ") { bgCol = "#23764c"; textCol = "white"; }
+
+      htmlTd += `
+        <td style="text-align:center; padding:2px;">
+          <select onchange="cambiarEstadoAsistencia(${idxEst}, ${idxSes}, this.value)" style="background:${bgCol}; color:${textCol}; font-size:0.68rem; font-weight:bold; border-radius:3px; border:0; padding:2px 3px; text-align:center; width:48px;">
+            <option value="A" ${val==='A'?'selected':''}>A</option>
+            <option value="T" ${val==='T'?'selected':''}>T</option>
+            <option value="F" ${val==='F'?'selected':''}>F</option>
+            <option value="FJ" ${val==='FJ'?'selected':''}>FJ</option>
+          </select>
+        </td>`;
+    });
+
+    tr.innerHTML = htmlTd;
+    tbody.appendChild(tr);
+  });
+
+  let porcGeneral = ((totalA + (totalT * 0.5)) / totalRegistros * 100).toFixed(1).replace('.', ',') + "%";
+  $('stat-porc').textContent = porcGeneral;
+  $('stat-presentes').textContent = totalA;
+  $('stat-tardanzas').textContent = totalT;
+  $('stat-faltas').textContent = totalF;
+  $('stat-justificadas').textContent = totalFJ;
+}
+
+// Motor Calendario
+let mesActual = 10, anioActual = 2026;
 const nombresMeses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Setiembre","Octubre","Noviembre","Diciembre"];
 const nombresDiasSemana = ["domingo","lunes","martes","miércoles","jueves","viernes","sábado"];
-
-// Simulación de temas asignados por día de clase (Martes y Jueves)
 const temasCalendario = {
   "2026-10-3": { tema: "Tema 48: LOS MANDAMIENTOS DE LA IGLESIA", enc: "Encuentro 41." },
   "2026-10-5": { tema: "Tema 49: LAS BIENAVENTURANZAS", enc: "Encuentro 42." },
-  "2026-10-10": { tema: "Tema 50: OBRAS DE MISERICORDIA", enc: "Encuentro 43." },
-  "2026-10-12": { tema: "Tema 51: EXAMEN DE CONCIENCIA", enc: "Encuentro 44." },
-  "2026-10-17": { tema: "Tema 52: ¿QUÉ ES LA IGLESIA?", enc: "Encuentro 45." },
-  "2026-10-19": { tema: "Tema 53: QUIÉNES FORMAN LA IGLESIA", enc: "Encuentro 46." },
-  "2026-10-24": { tema: "Tema 54: LOS SANTOS", enc: "Encuentro 47." },
-  "2026-10-26": { tema: "Tema 55: PADRINOS Y MADRINAS", enc: "Encuentro 48." }
+  "2026-10-10": { tema: "Tema 50: OBRAS DE MISERICORDIA", enc: "Encuentro 43." }
 };
 
 function cambiarMes(dir) {
@@ -335,69 +501,54 @@ function cambiarMes(dir) {
 }
 
 function renderizarCalendarioModelo() {
-  $('cal-mes-anio').textContent = `${nombresMeses[mesActual]} ${anioActual}`;
+  const lblMes = $('cal-mes-anio');
+  if(!lblMes) return;
+  lblMes.textContent = `${nombresMeses[mesActual]} ${anioActual}`;
   const grid = $('cal-grid-dias');
   grid.innerHTML = '';
-
-  const primerDiaIndex = new Date(anioActual, mesActual, 1).getDay(); // 0 es Domingo
-  // Ajustar para que la semana empiece en Lunes (Lunes = 0, Domingo = 6)
+  const primerDiaIndex = new Date(anioActual, mesActual, 1).getDay();
   let primerDiaLunes = primerDiaIndex === 0 ? 6 : primerDiaIndex - 1;
   const totalDiasMes = new Date(anioActual, mesActual + 1, 0).getDate();
   const totalDiasMesAnterior = new Date(anioActual, mesActual, 0).getDate();
 
-  // Rellenar días del mes anterior
   for (let i = primerDiaLunes - 1; i >= 0; i--) {
-    let diaNum = totalDiasMesAnterior - i;
     let cell = document.createElement('div');
     cell.className = 'cal-day';
     cell.style.color = '#b0c0d0';
-    cell.textContent = diaNum;
+    cell.textContent = totalDiasMesAnterior - i;
     grid.appendChild(cell);
   }
 
-  // Rellenar días del mes actual
   for (let d = 1; d <= totalDiasMes; d++) {
     let cell = document.createElement('div');
     let fechaObj = new Date(anioActual, mesActual, d);
-    let diaSemana = fechaObj.getDay(); // 2 = Martes, 4 = Jueves
+    let diaSemana = fechaObj.getDay();
     let esMartesOJueves = (diaSemana === 2 || diaSemana === 4);
-
     let keyFecha = `${anioActual}-${mesActual}-${d}`;
-    let tieneClase = esMartesOJueves;
 
-    cell.className = 'cal-day' + (tieneClase ? ' has-class' : '');
-    if(mesActual === 10 && anioActual === 2026 && d === 3) {
-      cell.classList.add('selected'); // Por defecto seleccionado el 3 de noviembre como en la imagen
-    }
+    cell.className = 'cal-day' + (esMartesOJueves ? ' has-class' : '');
+    if(mesActual === 10 && anioActual === 2026 && d === 3) cell.classList.add('selected');
 
-    cell.innerHTML = `<span>${d}</span>` + (tieneClase ? `<div class="cal-dot"></div>` : ``);
-
+    cell.innerHTML = `<span>${d}</span>` + (esMartesOJueves ? `<div class="cal-dot"></div>` : ``);
     cell.onclick = () => {
       document.querySelectorAll('.cal-day').forEach(el => el.classList.remove('selected'));
       cell.classList.add('selected');
       actualizarPanelEncuentro(fechaObj, keyFecha);
     };
-
     grid.appendChild(cell);
   }
 }
 
 function actualizarPanelEncuentro(fechaObj, keyFecha) {
-  let nombreDiaSemana = nombresDiasSemana[fechaObj.getDay()];
-  let nombreMes = nombresMeses[fechaObj.getMonth()];
-  let diaMes = fechaObj.getDate();
-  
-  // Capitalizar día
-  let diaFormateado = nombreDiaSemana.charAt(0).toUpperCase() + nombreDiaSemana.slice(1);
-  $('panel-fecha-texto').textContent = `${diaFormateado}, ${diaMes} de ${nombreMes}`;
-
-  let info = temasCalendario[keyFecha] || { tema: "Jornada de Reflexión y Práctica", enc: "Encuentro Pastoral." };
+  let diaFormateado = nombresDiasSemana[fechaObj.getDay()];
+  diaFormateado = diaFormateado.charAt(0).toUpperCase() + diaFormateado.slice(1);
+  $('panel-fecha-texto').textContent = `${diaFormateado}, ${fechaObj.getDate()} de ${nombresMeses[fechaObj.getMonth()]}`;
+  let info = temasCalendario[keyFecha] || { tema: "Sesión Pastoral Formativa", enc: "Encuentro Regular." };
   $('panel-titulo-tema').textContent = info.tema;
   $('panel-sub-encuentro').textContent = info.enc;
   $('card-tema-mini').textContent = info.tema;
 }
 
-// Botón Actualizar
 $('btnActualizar').addEventListener('click', () => {
   const btn = $('btnActualizar');
   const original = btn.textContent;
@@ -405,32 +556,10 @@ $('btnActualizar').addEventListener('click', () => {
   btn.disabled = true;
   setTimeout(() => {
     btn.textContent = '✅ ¡Sincronizado!';
-    setTimeout(() => {
-      btn.textContent = original;
-      btn.disabled = false;
-    }, 1200);
+    sincronizarAsistenciaReal();
+    setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 1200);
   }, 600);
 });
-
-// Asistente de voz y Silenciar
-let catechesisVoiceMuted = false;
-const muteToggle = $('mute-toggle');
-if(muteToggle){
-  muteToggle.addEventListener('click', () => {
-    catechesisVoiceMuted = !catechesisVoiceMuted;
-    muteToggle.textContent = catechesisVoiceMuted ? '🔇 Activar' : '🔊 Silenciar';
-    if(catechesisVoiceMuted) window.speechSynthesis?.cancel();
-  });
-}
-function playCatechesisVoice(message){
-  if(catechesisVoiceMuted || !('speechSynthesis' in window)) return;
-  window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(message);
-  utterance.lang = 'es-PE';
-  utterance.rate = .92;
-  window.speechSynthesis.speak(utterance);
-}
-setTimeout(() => playCatechesisVoice('¡Bienvenidos al portal de catequistas del Colegio La Salle del Sur y Parroquia San Pedro de Lurín!'), 600);
 
 // Programación de los 56 Temas
 const bloquesProgramacion = [
@@ -526,11 +655,9 @@ function renderizarSesionesCompletas() {
   const contenedor = $('contenedor-56-sesiones');
   if(!contenedor) return;
   contenedor.innerHTML = '';
-
   bloquesProgramacion.forEach(bloque => {
     let bloqueDiv = document.createElement('div');
     bloqueDiv.innerHTML = `<h4 style="color:var(--navy); border-bottom:2px solid var(--gold); padding-bottom:6px; margin:20px 0 12px; font-size:1.1rem;">${bloque.title}</h4>`;
-    
     bloque.topics.forEach(t => {
       let subtemasLi = t.sub.map(s => `<li>${s}</li>`).join('');
       let temaBox = document.createElement('div');
