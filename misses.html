@@ -41,6 +41,11 @@
 .tool-card h4{margin:0 0 4px;color:var(--navy);font-size:1.02rem}
 .tool-card p{margin:0 0 12px;color:var(--muted);font-size:.84rem}
 
+/* Estilos de las tarjetas de sesiones y botones */
+.tema-box { background: #fdfefe; border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+.subtema-list { margin: 8px 0 14px 20px; padding: 0; color: var(--muted); font-size: 0.9rem; }
+.action-buttons { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+
 /* Calendario Estilizado */
 .cal-container { display: grid; grid-template-columns: 1.35fr 1fr; gap: 24px; align-items: start; }
 .cal-box { background: white; border: 1px solid var(--line); border-radius: 18px; padding: 22px; box-shadow: var(--shadow); }
@@ -612,6 +617,12 @@ function renderizarSesionesCompletas() {
         <div style="font-size:0.75rem; color:var(--gold-deep); font-weight:bold;">SESIÓN ${t.num} (CJ-${String(t.num).padStart(3, '0')})</div>
         <h4 style="margin:4px 0 8px; color:var(--navy);">${t.title}</h4>
         <ul class="subtema-list">${subtemasLi}</ul>
+        <div class="action-buttons">
+          <button class="btn small gold" onclick="alert('Prácticas - Sesión ${t.num}')">✏️ Prácticas</button>
+          <button class="btn small primary" onclick="alert('Evaluaciones - Sesión ${t.num}')">📋 Evaluaciones</button>
+          <button class="btn small" onclick="alert('Canciones - Sesión ${t.num}')">🎵 Canciones</button>
+          <button class="btn small gold" onclick="alert('Videos - Sesión ${t.num}')">▶️ Videos</button>
+        </div>
       `;
       bloqueDiv.appendChild(temaBox);
     });
