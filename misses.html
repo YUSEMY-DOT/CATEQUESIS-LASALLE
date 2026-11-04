@@ -238,10 +238,12 @@
 const $=id=>document.getElementById(id);
 function abrirPortalComun(){openModal('mise-modal');volverMenuPrincipal();}
 function mostrarVista(idVista){
-  ['menu-herramientas','vista-clases','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v=>$(v).style.display='none');$(idVista).style.display = 'block';
+  ['menu-herramientas','vista-clases','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v=>$(v).style.display='none');
+  $(idVista).style.display = 'block';
 }
 function volverMenuPrincipal(){
-  ['vista-clases','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v=>$(v).style.display='none');$('menu-herramientas').style.display = 'grid';
+  ['vista-clases','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v=>$(v).style.display='none');
+  $('menu-herramientas').style.display = 'grid';
 }
 function openModal(id){$(id).classList.add('show')}
 function hideModal(id){$(id).classList.remove('show')}
@@ -341,7 +343,7 @@ const bloquesProgramacion = [
       {num: 37, title: 'Liturgia de la Palabra', sub: ['Lecturas, Evangelio y homilía']},
       {num: 38, title: 'Liturgia Eucarística', sub: ['Ofertorio y consagración']},
       {num: 39, title: 'Rito de la Comunión', sub: ['Padre Nuestro y Cordero de Dios']},
-      {num: 40, title: 'Ritos finales', sub: ['Bendición y envío misional']},
+      {num: 40, title: 'Ritos final y envío', sub: ['Bendición y envío misional']},
       {num: 41, title: '¿Qué es la Eucaristía?', sub: ['Presencia real de Cristo']},
       {num: 42, title: '¿Qué sucede en la consagración?', sub: ['Transubstanciación']},
       {num: 43, title: 'Jesús en el Sagrario', sub: ['Lámpara y adoración']},
@@ -382,4 +384,29 @@ function renderizarSesionesCompletas() {
     bloqueDiv.innerHTML = `<h4 style="color:var(--navy); border-bottom:2px solid var(--gold); padding-bottom:6px; margin:20px 0 12px; font-size:1.1rem;">${bloque.title}</h4>`;
     
     bloque.topics.forEach(t => {
-      let subtemasLi = t.sub
+      let subtemasLi = t.sub.map(s => `<li>${s}</li>`).join('');
+      let temaBox = document.createElement('div');
+      temaBox.className = 'tema-box';
+      temaBox.innerHTML = `
+        <div style="font-size:0.75rem; color:var(--gold-deep); font-weight:bold;">SESIÓN ${t.num} (CJ-${String(t.num).padStart(3, '0')})</div>
+        <h4 style="margin:4px 0 8px; color:var(--navy);">${t.title}</h4>
+        <ul class="subtema-list">${subtemasLi}</ul>
+        <div class="action-buttons">
+          <button class="btn small gold" onclick="alert('Abriendo Prácticas - Sesión ${t.num}: ${t.title}')">✏️ Prácticas</button>
+          <button class="btn small primary" onclick="alert('Abriendo Evaluaciones - Sesión ${t.num}: ${t.title}')">📋 Evaluaciones</button>
+          <button class="btn small" onclick="alert('Abriendo Canciones - Sesión ${t.num}: ${t.title}')">🎵 Canciones</button>
+          <button class="btn small gold" onclick="alert('Abriendo Videos - Sesión ${t.num}: ${t.title}')">▶️ Videos</button>
+        </div>
+      `;
+      bloqueDiv.appendChild(temaBox);
+    });
+    contenedor.appendChild(bloqueDiv);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderizarSesionesCompletas();
+});
+</script>
+</body>
+</html>
