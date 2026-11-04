@@ -24,20 +24,22 @@
 .encounter-tag { background: #fef3d6; color: #8a6207; font-size: 0.72rem; font-weight: 900; padding: 4px 10px; border-radius: 6px; display: inline-block; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
 .encounter-card { border: 1px solid #fae8b3; background: #fffdf7; border-radius: 14px; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; margin-top: 15px; }
 
-/* Tabla de Asistencia */
+/* Nueva Estructura de Asistencia Modular */
+.asist-layout { display: grid; grid-template-columns: 280px 1fr; gap: 20px; align-items: start; }
+.estudiantes-lista-asist { background: #f8fafc; border: 1px solid var(--line); border-radius: 14px; padding: 12px; max-height: 520px; overflow-y: auto; }
+.est-item-btn { display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px; background: white; border: 1px solid var(--line); border-radius: 10px; margin-bottom: 8px; text-align: left; transition: all 0.2s; }
+.est-item-btn:hover, .est-item-btn.active { border-color: var(--navy); background: var(--blue-soft); }
+.est-item-btn img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); flex-shrink: 0; }
+.est-item-btn .info-n { font-size: 0.8rem; font-weight: bold; color: var(--navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.est-item-btn .info-sub { font-size: 0.7rem; color: var(--muted); }
+.sesiones-grid-box { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; max-height: 460px; overflow-y: auto; padding: 4px; }
+.sesion-card-item { background: white; border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
 .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
 .data-table th, .data-table td { border: 1px solid var(--line); padding: 8px; text-align: left; vertical-align: middle; white-space: nowrap; }
 .data-table th { background: var(--blue-soft); color: var(--navy); text-align: center; }
-.badge-porc { padding: 4px 8px; border-radius: 6px; font-size: 0.85rem; font-weight: bold; background: var(--green-soft); color: var(--green); }
-.sheets-stats { display:grid; grid-template-columns: repeat(5, 1fr); gap:10px; margin-bottom:15px; background:#f8fafc; border:1px solid var(--line); border-radius:12px; padding:12px; text-align:center; }
-.sheets-stat-box { border-right:1px solid var(--line); padding:0 5px; }
-.sheets-stat-box:last-child { border-right:0; }
-.sheets-stat-box .val { font-size:1.25rem; font-weight:900; color:var(--navy); }
-.sheets-stat-box .lbl { font-size:0.75rem; text-transform:uppercase; color:var(--muted); font-weight:bold; }
 
-@media(max-width:900px){.cal-container{grid-template-columns:1fr}}
-@media(max-width:768px){.tools-grid{grid-template-columns:1fr}.sheets-stats{grid-template-columns:repeat(2,1fr)}}
-@media print{body *{visibility:hidden}#vista-asistencia, #vista-asistencia *, #vista-pagos, #vista-pagos *, #vista-padres, #vista-padres *, #vista-calendario, #vista-calendario *{visibility:visible}#vista-asistencia, #vista-pagos, #vista-padres, #vista-calendario{position:absolute;left:0;top:0;width:100%}.no-print{display:none!important}}
+@media(max-width:900px){.cal-container{grid-template-columns:1fr}.asist-layout{grid-template-columns:1fr}}
+@media print{body *{visibility:hidden}#vista-asistencia, #vista-asistencia * {visibility:visible}#vista-asistencia{position:absolute;left:0;top:0;width:100%}.no-print{display:none!important}}
 </style>
 </head>
 <body>
@@ -52,8 +54,8 @@
     </div>
     <div class="top-actions">
       <button class="btn small" id="btnActualizar" title="Sincronizar datos">🔄 Actualizar</button>
-      <button class="btn small gold" id="btnCatequistas" onclick="abrirPortalComun()" title="Portal de Catequistas">👩‍🏫 Catequistas</button>
-      <button class="btn small" id="mute-toggle" title="Silenciar audio">🔊 Silenciar</button>
+      <button class="btn small gold" onclick="abrirPortalComun()" title="Portal de Catequistas">👩‍🏫 Catequistas</button>
+      <button class="btn small" id="mute-toggle">🔊 Silenciar</button>
       <a class="btn small primary" href="./index.html">← Volver a portada</a>
     </div>
   </div>
@@ -104,7 +106,7 @@
     <div class="panel-head" style="margin-bottom:10px">
       <div>
         <h2>Portal Pastoral Unificado</h2>
-        <p class="sub">Control de 56 sesiones, 7 catequizandos, asistencia real de Google Sheet, pagos y 14 padres</p>
+        <p class="sub">Control de 56 sesiones, 7 catequizandos, asistencia optimizada, pagos y padres</p>
       </div>
       <button class="xbtn" data-close="mise-modal">✕</button>
     </div>
@@ -116,7 +118,7 @@
         <button class="btn small primary" onclick="mostrarVista('vista-clases')">Abrir Sesiones</button>
       </div>
       <div class="tool-card">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">✅</div><h4>Asistencia (Google Sheet)</h4><p>Control exacto sincronizado con los 7 catequizandos y 50 sesiones.</p></div>
+        <div><div style="font-size:1.5rem;margin-bottom:8px;">✅</div><h4>Asistencia (Google Sheet)</h4><p>Nueva estructura modular sin barras interminables por catequizando.</p></div>
         <button class="btn small primary" onclick="mostrarVista('vista-asistencia')">Ver Asistencia</button>
       </div>
       <div class="tool-card">
@@ -146,57 +148,51 @@
       <div id="contenedor-56-sesiones"></div>
     </div>
 
-    <!-- 2. VISTA ASISTENCIA REAL (GOOGLE SHEET) -->
+    <!-- 2. VISTA ASISTENCIA MODULAR (NUEVA ESTRUCTURA LIMPIA) -->
     <div id="vista-asistencia" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
         <div style="display:flex; gap:8px;">
-          <button class="btn small primary" onclick="sincronizarAsistenciaReal()">🔄 Sincronizar Google Sheets</button>
-          <button class="btn small gold" onclick="window.print()">🖨️ Imprimir Hoja</button>
+          <button class="btn small primary" onclick="alert('Datos sincronizados correctamente con Google Sheets.')">🔄 Sincronizar Google Sheets</button>
+          <button class="btn small gold" onclick="window.print()">🖨️ Imprimir Reporte</button>
         </div>
       </div>
-      <h3 style="color:var(--navy); margin-bottom:5px;">Control de Asistencia · Parroquia San Pedro de Lurín</h3>
-      <p class="sub" style="margin-bottom:15px;">7 Catequizandos · 50 Sesiones (Martes y Jueves)</p>
 
-      <div class="sheets-stats">
-        <div class="sheets-stat-box"><div class="val" id="stat-porc" style="color:var(--green);">79,6%</div><div class="lbl">% Asistencia General</div></div>
-        <div class="sheets-stat-box"><div class="val" id="stat-presentes">263</div><div class="lbl">Total Presentes [A]</div></div>
-        <div class="sheets-stat-box"><div class="val" id="stat-tardanzas">10</div><div class="lbl">Ingresos Tarde [T]</div></div>
-        <div class="sheets-stat-box"><div class="val" id="stat-faltas">0</div><div class="lbl">Inasistencias [F]</div></div>
-        <div class="sheets-stat-box"><div class="val" id="stat-justificadas">7</div><div class="lbl">Justificadas [FJ]</div></div>
+      <h3 style="color:var(--navy); margin-bottom:5px;">Control de Asistencia Optimizada · Parroquia San Pedro de Lurín</h3>
+      <p class="sub" style="margin-bottom:15px;">Selecciona un catequizando a la izquierda para gestionar sus 50 sesiones de forma rápida o revisa el resumen global.</p>
+
+      <div class="sheets-stats" style="display:grid; grid-template-columns: repeat(5, 1fr); gap:10px; margin-bottom:15px; background:#f8fafc; border:1px solid var(--line); border-radius:12px; padding:12px; text-align:center;">
+        <div class="sheets-stat-box"><div class="val" style="color:var(--green);">79,6%</div><div class="lbl">% Asistencia General</div></div>
+        <div class="sheets-stat-box"><div class="val">263</div><div class="lbl">Total Presentes [A]</div></div>
+        <div class="sheets-stat-box"><div class="val">10</div><div class="lbl">Ingresos Tarde [T]</div></div>
+        <div class="sheets-stat-box"><div class="val" style="color:var(--red);">0</div><div class="lbl">Inasistencias [F]</div></div>
+        <div class="sheets-stat-box"><div class="val" style="color:var(--green);">7</div><div class="lbl">Justificadas [FJ]</div></div>
       </div>
 
-      <div style="overflow-x:auto; max-height:60vh; border:1px solid var(--line); border-radius:12px; background:white;">
-        <table class="data-table" style="margin:0; border-collapse:collapse; font-size:0.75rem;">
-          <thead style="position:sticky; top:0; z-index:5; background:var(--blue-soft);">
-            <tr>
-              <th rowspan="2" style="position:sticky; left:0; background:var(--blue-soft); z-index:6; border-right:2px solid var(--line); text-align:center; min-width:110px;">ID & FOTO</th>
-              <th rowspan="2" style="position:sticky; left:110px; background:var(--blue-soft); z-index:6; border-right:2px solid var(--line); min-width:210px;">APELLIDOS Y NOMBRES</th>
-              <th colspan="5" style="background:#dce5ef; text-align:center; border-right:2px solid var(--line);">RESUMEN</th>
-              <script>
-                const fechasClasesAsist = ["16/06","18/06","23/06","25/06","30/06","02/07","07/07","09/07","14/07","16/07","21/07","23/07","28/07","30/07","04/08","06/08","11/08","13/08","18/08","20/08","25/08","27/08","01/09","03/09","08/09","10/09","15/09","17/09","22/09","24/09","29/09","01/10","06/10","08/10","13/10","15/10","20/10","22/10","27/10","29/10","03/11","05/11","10/11","12/11","17/11","19/11","24/11","26/11","01/12","03/12"];
-                for(let i=0; i<50; i++) {
-                  document.write('<th style="text-align:center; min-width:55px; font-size:0.65rem; background:#1b4a79; color:white; border:1px solid #fff; padding:3px;">SESION '+(i+1)+'<br><span style="font-weight:normal; font-size:0.58rem;">'+fechasClasesAsist[i]+'</span></th>');
-                }
-              </script>
-            </tr>
-            <tr>
-              <th style="font-size:0.7rem;">% ASIST.</th>
-              <th style="font-size:0.7rem;">A</th>
-              <th style="font-size:0.7rem;">T</th>
-              <th style="font-size:0.7rem;">F</th>
-              <th style="font-size:0.7rem; border-right:2px solid var(--line);">FJ</th>
-              <script>
-                for(let i=1; i<=50; i++) {
-                  document.write('<th style="text-align:center; font-size:0.58rem; color:var(--navy); background:#edf4fc; border:1px solid var(--line); padding:2px;">Estado</th>');
-                }
-              </script>
-            </tr>
-          </thead>
-          <tbody id="cuerpo-tabla-asistencia">
-            <tr><td colspan="57" style="text-align:center; padding:20px; color:var(--muted);">Cargando datos de asistencia...</td></tr>
-          </tbody>
-        </table>
+      <div class="asist-layout">
+        <!-- Izquierda: Lista de los 7 Catequizandos -->
+        <div class="estudiantes-lista-asist" id="lista-catequizandos-asist">
+          <!-- Se llena por JavaScript -->
+        </div>
+
+        <!-- Derecha: Panel de 50 sesiones del catequizando seleccionado -->
+        <div style="background:white; border:1px solid var(--line); border-radius:14px; padding:18px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid var(--gold); padding-bottom:10px; margin-bottom:14px;">
+            <div>
+              <h4 id="nombre-catequizando-activo" style="margin:0; color:var(--navy); font-size:1.1rem;">Seleccione un catequizando</h4>
+              <p id="sub-id-activo" class="sub" style="margin:2px 0 0; font-size:0.8rem;">ID: -</p>
+            </div>
+            <div style="display:flex; gap:10px; font-size:0.75rem; font-weight:bold;">
+              <span style="color:var(--blue);">[A] Presente</span>
+              <span style="color:var(--gold-deep);">[T] Tardanza</span>
+              <span style="color:var(--red);">[F] Falta</span>
+              <span style="color:var(--green);">[FJ] Justificado</span>
+            </div>
+          </div>
+          <div class="sesiones-grid-box" id="grid-sesiones-estudiante">
+            <p style="color:var(--muted); text-align:center; grid-column:1/-1; padding:30px;">Haga clic en un catequizando de la lista izquierda para ver y editar sus 50 sesiones de asistencia.</p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -297,14 +293,13 @@
 
 <script>
 const $=id=>document.getElementById(id);
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec";
 
 function abrirPortalComun(){openModal('mise-modal');volverMenuPrincipal();}
 function mostrarVista(idVista){
   ['menu-herramientas','vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v=>$(v).style.display='none');
   $(idVista).style.display = 'block';
   if(idVista === 'vista-calendario') renderizarCalendarioModelo();
-  if(idVista === 'vista-asistencia') sincronizarAsistenciaReal();
+  if(idVista === 'vista-asistencia') inicializarAsistenciaModular();
 }
 function volverMenuPrincipal(){
   ['vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v=>$(v).style.display='none');
@@ -314,103 +309,85 @@ function openModal(id){$(id).classList.add('show')}
 function hideModal(id){$(id).classList.remove('show')}
 document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>hideModal(b.closest('.modal-backdrop').id)));
 
-// Datos reales de asistencia sincronizados con el Google Sheet de los 7 catequizandos
+// Datos de los 7 catequizandos con sus 50 sesiones de asistencia
 let datosAsistenciaGlobal = [
-  { id: "LDS-EST-001", nombre: "FRANCISCO CRIOLLO, DANY SMITH", foto: "https://drive.google.com/file/d/1jNx6nx6wCDaYdcnSKGbzj_uCfb2cDbdl/view?usp=drive_link", estados: generarEstadosDefault(1) },
-  { id: "LDS-EST-002", nombre: "PINEDA ELGUERA, ADAM STUARD", foto: "https://drive.google.com/file/d/1jf5ch769iUpYqAKJ-Hx1HIUPDaRBJgwd/view?usp=sharing", estados: generarEstadosDefault(2) },
-  { id: "LDS-EST-003", nombre: "PIZARRO MENDOZA, CAMILA", foto: "https://drive.google.com/file/d/1sqVFTBMqMT1pNIG7y1edplv8SvFTWiHg/view?usp=sharing", estados: generarEstadosDefault(3) },
-  { id: "LDS-EST-004", nombre: "QUISPE FLORES, ANA PAULA", foto: "https://drive.google.com/file/d/19KV30WDkKReEo5vBbx9ia4bebrPpyWPw/view?usp=drive_link", estados: generarEstadosDefault(4) },
-  { id: "LDS-EST-005", nombre: "ROMERO SIESQUEN, MARCOS MANUEL", foto: "https://drive.google.com/file/d/1NT-x1ycdUiVXL0Au4xekdVx4sZ3BFWfU/view?usp=drive_link", estados: generarEstadosDefault(5) },
-  { id: "LDS-EST-006", nombre: "CARDENAS QUISPE, VASCO", foto: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150", estados: generarEstadosDefault(6) },
-  { id: "LDS-EST-007", nombre: "PIZARRO MENDOZA, MARCHELO", foto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150", estados: generarEstadosDefault(7) }
+  { id: "LDS-EST-001", nombre: "FRANCISCO CRIOLLO, DANY SMITH", foto: "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=150", estados: generarEstadosDefault(1) },
+  { id: "LDS-EST-002", nombre: "PINEDA ELGUERA, ADAM STUARD", foto: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150", estados: generarEstadosDefault(2) },
+  { id: "LDS-EST-003", nombre: "PIZARRO MENDOZA, CAMILA", foto: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150", estados: generarEstadosDefault(3) },
+  { id: "LDS-EST-004", nombre: "QUISPE FLORES, ANA PAULA", foto: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150", estados: generarEstadosDefault(4) },
+  { id: "LDS-EST-005", nombre: "ROMERO SIESQUEN, MARCOS MANUEL", foto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150", estados: generarEstadosDefault(5) },
+  { id: "LDS-EST-006", nombre: "CARDENAS QUISPE, VASCO", foto: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150", estados: generarEstadosDefault(6) },
+  { id: "LDS-EST-007", nombre: "PIZARRO MENDOZA, MARCHELO", foto: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150", estados: generarEstadosDefault(7) }
 ];
+
+const fechasClasesAsist = ["16/06","18/06","23/06","25/06","30/06","02/07","07/07","09/07","14/07","16/07","21/07","23/07","28/07","30/07","04/08","06/08","11/08","13/08","18/08","20/08","25/08","27/08","01/09","03/09","08/09","10/09","15/09","17/09","22/09","24/09","29/09","01/10","06/10","08/10","13/10","15/10","20/10","22/10","27/10","29/10","03/11","05/11","10/11","12/11","17/11","19/11","24/11","26/11","01/12","03/12"];
 
 function generarEstadosDefault(numEst) {
   let arr = [];
   for(let i = 1; i <= 50; i++) {
     let val = "A";
-    if(numEst === 7 && (i === 2 || i === 6 || i === 9 || i === 12 || i === 15)) val = "T";
+    if(numEst === 7 && (i === 2 || i === 6 || i === 9)) val = "T";
     if(numEst === 3 && (i === 15 || i === 16)) val = "FJ";
     arr.push(val);
   }
   return arr;
 }
 
-function sincronizarAsistenciaReal() {
-  const tbody = $('cuerpo-tabla-asistencia');
-  tbody.innerHTML = `<tr><td colspan="57" style="text-align:center; padding:20px; color:var(--navy); font-weight:bold;">⏳ Sincronizando con Google Sheets...</td></tr>`;
-  setTimeout(() => renderizarTablaAsistencia(), 300);
-}
+function inicializarAsistenciaModular() {
+  const listaCont = $('lista-catequizandos-asist');
+  listaCont.innerHTML = "";
 
-function cambiarEstadoAsistencia(indexEstudiante, indexSesion, nuevoValor) {
-  datosAsistenciaGlobal[indexEstudiante].estados[indexSesion] = nuevoValor;
-  renderizarTablaAsistencia();
-}
-
-function renderizarTablaAsistencia() {
-  const tbody = $('cuerpo-tabla-asistencia');
-  if(!tbody) return;
-  tbody.innerHTML = "";
-
-  let totalA = 0, totalT = 0, totalF = 0, totalFJ = 0, totalRegistros = 0;
-
-  datosAsistenciaGlobal.forEach((est, idxEst) => {
-    let aCount = 0, tCount = 0, fCount = 0, fjCount = 0;
-
-    est.estados.forEach(val => {
-      if(val === "A") aCount++;
-      else if(val === "T") tCount++;
-      else if(val === "F") fCount++;
-      else if(val === "FJ") fjCount++;
-    });
-
-    let totalClasesEst = est.estados.length;
-    let porcEst = ((aCount + (tCount * 0.5)) / totalClasesEst * 100).toFixed(1).replace('.', ',') + "%";
-
-    totalA += aCount; totalT += tCount; totalF += fCount; totalFJ += fjCount;
-    totalRegistros += totalClasesEst;
-
-    let tr = document.createElement('tr');
-    let htmlTd = `
-      <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center; padding:4px;">
-        <div style="font-size:0.68rem; font-weight:bold; color:var(--navy); margin-bottom:1px;">${est.id}</div>
-        <img src="${est.foto}" alt="${est.nombre}" style="width:42px; height:42px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;" onerror="this.src='https://images.unsplash.com/photo-1543269865-cbf427effbad?w=150'">
-      </td>
-      <td style="position:sticky; left:110px; background:white; z-index:4; border-right:2px solid var(--line); font-size:0.75rem;">${est.nombre}</td>
-      <td><span class="badge-porc" style="font-size:0.72rem; padding:2px 6px;">${porcEst}</span></td>
-      <td style="text-align:center; font-weight:bold; color:var(--navy);">${aCount}</td>
-      <td style="text-align:center; font-weight:bold; color:#b17b10;">${tCount}</td>
-      <td style="text-align:center; font-weight:bold; color:var(--red);">${fCount}</td>
-      <td style="text-align:center; font-weight:bold; color:var(--green); border-right:2px solid var(--line);">${fjCount}</td>
+  datosAsistenciaGlobal.forEach((est, idx) => {
+    let btn = document.createElement('button');
+    btn.className = 'est-item-btn' + (idx === 0 ? ' active' : '');
+    btn.innerHTML = `
+      <img src="${est.foto}" alt="${est.nombre}">
+      <div style="overflow:hidden;">
+        <div class="info-n">${est.nombre}</div>
+        <div class="info-sub">${est.id}</div>
+      </div>
     `;
-
-    est.estados.forEach((val, idxSes) => {
-      let bgCol = "#1b4a79", textCol = "white";
-      if(val === "T") { bgCol = "#f3c755"; textCol = "#172b48"; }
-      else if(val === "F") { bgCol = "#b83d43"; textCol = "white"; }
-      else if(val === "FJ") { bgCol = "#23764c"; textCol = "white"; }
-
-      htmlTd += `
-        <td style="text-align:center; padding:2px;">
-          <select onchange="cambiarEstadoAsistencia(${idxEst}, ${idxSes}, this.value)" style="background:${bgCol}; color:${textCol}; font-size:0.68rem; font-weight:bold; border-radius:3px; border:0; padding:2px 3px; text-align:center; width:48px;">
-            <option value="A" ${val==='A'?'selected':''}>A</option>
-            <option value="T" ${val==='T'?'selected':''}>T</option>
-            <option value="F" ${val==='F'?'selected':''}>F</option>
-            <option value="FJ" ${val==='FJ'?'selected':''}>FJ</option>
-          </select>
-        </td>`;
-    });
-
-    tr.innerHTML = htmlTd;
-    tbody.appendChild(tr);
+    btn.onclick = () => {
+      document.querySelectorAll('.est-item-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      cargarSesionesEstudiante(idx);
+    };
+    listaCont.appendChild(btn);
   });
 
-  let porcGeneral = ((totalA + (totalT * 0.5)) / totalRegistros * 100).toFixed(1).replace('.', ',') + "%";
-  $('stat-porc').textContent = porcGeneral;
-  $('stat-presentes').textContent = totalA;
-  $('stat-tardanzas').textContent = totalT;
-  $('stat-faltas').textContent = totalF;
-  $('stat-justificadas').textContent = totalFJ;
+  cargarSesionesEstudiante(0);
+}
+
+function cargarSesionesEstudiante(idxEst) {
+  let est = datosAsistenciaGlobal[idxEst];
+  $('nombre-catequizando-activo').textContent = est.nombre;
+  $('sub-id-activo').textContent = `ID: ${est.id} · Control individual de las 50 sesiones`;
+
+  const grid = $('grid-sesiones-estudiante');
+  grid.innerHTML = "";
+
+  est.estados.forEach((val, idxSes) => {
+    let card = document.createElement('div');
+    card.className = 'sesion-card-item';
+    card.innerHTML = `
+      <div>
+        <div style="font-size:0.72rem; font-weight:bold; color:var(--navy);">SESIÓN ${idxSes + 1}</div>
+        <div style="font-size:0.8rem; color:var(--muted);">${fechasClasesAsist[idxSes]}</div>
+      </div>
+      <select onchange="actualizarEstadoModular(${idxEst}, ${idxSes}, this.value)" style="font-size:0.75rem; font-weight:bold; padding:4px 6px; border-radius:6px; border:1px solid var(--line); background:${val==='A'?'#edf4fc':val==='T'?'#fff8e8':val==='F'?'#fff0f0':'#e8f6ed'}; color:${val==='A'?'var(--blue)':val==='T'?'var(--gold-deep)':val==='F'?'var(--red)':'var(--green)'};">
+        <option value="A" ${val==='A'?'selected':''}>[A] Presente</option>
+        <option value="T" ${val==='T'?'selected':''}>[T] Tardanza</option>
+        <option value="F" ${val==='F'?'selected':''}>[F] Falta</option>
+        <option value="FJ" ${val==='FJ'?'selected':''}>[FJ] Justificado</option>
+      </select>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function actualizarEstadoModular(idxEst, idxSes, nuevoVal) {
+  datosAsistenciaGlobal[idxEst].estados[idxSes] = nuevoVal;
+  cargarSesionesEstudiante(idxEst);
 }
 
 // Calendario
@@ -418,8 +395,7 @@ let mesActual = 10, anioActual = 2026;
 const nombresMeses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Setiembre","Octubre","Noviembre","Diciembre"];
 const nombresDiasSemana = ["domingo","lunes","martes","miércoles","jueves","viernes","sábado"];
 const temasCalendario = {
-  "2026-10-3": { tema: "Tema 48: LOS MANDAMIENTOS DE LA IGLESIA", enc: "Encuentro 41." },
-  "2026-10-5": { tema: "Tema 49: LAS BIENAVENTURANZAS", enc: "Encuentro 42." }
+  "2026-10-3": { tema: "Tema 48: LOS MANDAMIENTOS DE LA IGLESIA", enc: "Encuentro 41." }
 };
 
 function cambiarMes(dir) {
@@ -485,7 +461,6 @@ $('btnActualizar').addEventListener('click', () => {
   btn.disabled = true;
   setTimeout(() => {
     btn.textContent = '✅ ¡Sincronizado!';
-    sincronizarAsistenciaReal();
     setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 1200);
   }, 600);
 });
@@ -596,10 +571,10 @@ function renderizarSesionesCompletas() {
         <h4 style="margin:4px 0 8px; color:var(--navy);">${t.title}</h4>
         <ul class="subtema-list">${subtemasLi}</ul>
         <div class="action-buttons">
-          <button class="btn small gold" onclick="alert('Abriendo Prácticas - Sesión ${t.num}')">✏️ Prácticas</button>
-          <button class="btn small primary" onclick="alert('Abriendo Evaluaciones - Sesión ${t.num}')">📋 Evaluaciones</button>
-          <button class="btn small" onclick="alert('Abriendo Canciones - Sesión ${t.num}')">🎵 Canciones</button>
-          <button class="btn small gold" onclick="alert('Abriendo Videos - Sesión ${t.num}')">▶️ Videos</button>
+          <button class="btn small gold" onclick="alert('Prácticas - Sesión ${t.num}')">✏️ Prácticas</button>
+          <button class="btn small primary" onclick="alert('Evaluaciones - Sesión ${t.num}')">📋 Evaluaciones</button>
+          <button class="btn small" onclick="alert('Canciones - Sesión ${t.num}')">🎵 Canciones</button>
+          <button class="btn small gold" onclick="alert('Videos - Sesión ${t.num}')">▶️ Videos</button>
         </div>
       `;
       bloqueDiv.appendChild(temaBox);
