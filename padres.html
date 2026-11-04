@@ -10,7 +10,7 @@
     body { background-color: #f8f9fa; font-family: 'Segoe UI', Roboto, sans-serif; color: #333; }
     
     /* Membrete del Calendario con Colores Alegres y Vivos */
-    .calendar-header- alegre { 
+    .calendar-header-alegre { 
       background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 50%, #ff6b6b 100%); 
       color: white; 
       padding: 20px; 
@@ -22,24 +22,18 @@
     .card-custom { border: none; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; background: white; }
     .login-container { max-width: 420px; margin: 80px auto; background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
     
-    /* Estilos del Calendario Visual Interactivo */
+    /* Estilos del Calendario Visual Interactivo con Temas Integrados */
     .calendar-card { border-radius: 16px; border: 1px solid #e9ecef; background: #fff; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
     .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; }
     .calendar-day-header { font-weight: bold; color: #ff6b6b; font-size: 0.85rem; padding-bottom: 8px; }
     .calendar-day { 
-      aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; 
-      border-radius: 12px; background: #fff; border: 1px solid #f1f3f5; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; position: relative;
+      min-height: 95px; display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; 
+      border-radius: 12px; background: #fff; border: 1px solid #f1f3f5; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; position: relative; padding: 6px; text-align: left;
     }
-    .calendar-day:hover { background: #fff0eb; border-color: #ffb199; transform: scale(1.05); }
+    .calendar-day:hover { background: #fff0eb; border-color: #ffb199; transform: scale(1.02); }
     .calendar-day.has-clase { border: 2px solid #ff7e5f; background: #fff9f6; }
     .calendar-day.has-cumple { border: 2px solid #ff6b6b; background: #fff0f3; }
     .calendar-day.has-aviso { border: 2px solid #ffd166; background: #fffdf5; }
-    
-    /* Indicadores de eventos (puntos de colores) */
-    .dots-container { display: flex; gap: 3px; margin-top: 3px; }
-    .dot-clase { height: 5px; width: 5px; background-color: #ff7e5f; border-radius: 50%; }
-    .dot-cumple { height: 5px; width: 5px; background-color: #ff6b6b; border-radius: 50%; }
-    .dot-aviso { height: 5px; width: 5px; background-color: #ffd166; border-radius: 50%; }
   </style>
 </head>
 <body>
@@ -298,20 +292,18 @@
       for (let dia = 1; dia <= totalDiasMes; dia++) {
         const fechaStr = `${anio}-${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
         
-        const claseEncontrada = eventosSesiones.find(ev => (ev.FECHA || '').includes(fechaStr) || (ev.DIA || '').includes(fechaStr));
+        const claseEncontrada = eventosSesiones.find(ev => {
+          const fechaEv = String(ev.FECHA || ev.DIA || ev.FECHA_SESION || '');
+          return fechaEv.includes(fechaStr);
+        });
         
-        let clasesExtra = '';
-        let puntosHtml = '<div class="dots-container">';
-        if (claseEncontrada) {
-          clasesExtra += ' has-clase';
-          puntosHtml += '<div class="dot-clase" title="Clase"></div>';
-        }
-        puntosHtml += '</div>';
+        const clasesExtra = claseEncontrada ? 'has-clase' : '';
+        const nombreTema = claseEncontrada ? (claseEncontrada.TEMA || claseEncontrada.SESION || claseEncontrada.TITULO || 'Clase') : '';
 
         html += `
           <div class="calendar-day ${clasesExtra}" onclick='seleccionarDia(${dia}, ${mes}, ${anio}, ${JSON.stringify(claseEncontrada || null)})'>
-            <span>${dia}</span>
-            ${puntosHtml}
+            <span class="fw-bold text-dark">${dia}</span>
+            ${nombreTema ? `<div class="bg-primary text-white p-1 rounded mt-1" style="font-size: 0.60rem; line-height: 1.1; overflow: hidden; max-height: 48px; text-align: center; font-weight: 500;">${nombreTema}</div>` : ''}
           </div>
         `;
       }
@@ -324,7 +316,9 @@
       document.getElementById('detalleFecha').textContent = `${dia} de ${mesesNombres[mes]} de ${anio}`;
 
       if (clase) {
-        document.getElementById('detalleClase').textContent = clase.SESION || clase.TITULO || clase.TEMA || 'Encuentro de Catequesis';
+        const nombreTema = clase.TEMA || clase.SESION || clase.TITULO || clase.CONTENIDO || 'Encuentro Programado';
+        const descripcionTema = clase.DESCRIPCION || clase.OBSERVACIONES || clase.DETALLE || 'Sin descripción adicional.';
+        document.getElementById('detalleClase').innerHTML = `<strong class="text-primary">${nombreTema}</strong><br><span class="text-muted small">${descripcionTema}</span>`;
       } else {
         document.getElementById('detalleClase').textContent = 'Sin clase o encuentro programado';
       }
