@@ -657,7 +657,7 @@ main {
 .legend-special { display: inline-block; width: 9px; height: 9px; border-radius: 3px; background: #ffe9e9; border: 1px solid #d76b6b; margin-right: 5px; }
 .legend-double { display: inline-grid; place-items: center; width: 14px; height: 14px; border-radius: 3px; background: #fff1c6; border: 1px solid #e5b43c; color: #895d07; font: 900 9px 'Nunito', sans-serif; margin-right: 5px; }
 
-/* Sección Post-Calendario: Control de Catequizandos, Asistencia, Tareas y Módulos Interactivos Docentes */
+/* Sección Post-Calendario */
 .post-calendar-section {
   margin-top: 50px;
   border-top: 2px dashed #e6d5b8;
@@ -758,6 +758,7 @@ main {
   border-radius: 8px;
 }
 
+/* 3 Secciones de Mensajes y Comunicados */
 .notifications-layout {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -788,7 +789,7 @@ main {
   gap: 10px;
 }
 
-.interactive-form input, .interactive-form textarea {
+.interactive-form input, .interactive-form textarea, .interactive-form select {
   width: 100%;
   padding: 10px 14px;
   border: 1px solid #e2d5c3;
@@ -799,7 +800,7 @@ main {
   color: var(--ink);
 }
 
-.interactive-form input:focus, .interactive-form textarea:focus {
+.interactive-form input:focus, .interactive-form textarea:focus, .interactive-form select:focus {
   outline: none;
   border-color: #d49a0e;
   box-shadow: 0 0 0 2px rgba(212, 154, 14, 0.15);
@@ -822,7 +823,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: 180px;
+  max-height: 220px;
   overflow-y: auto;
 }
 
@@ -840,11 +841,18 @@ main {
   align-items: flex-start;
 }
 
-.notice-item.parish {
-  background: #eef9f2;
-  border-color: #98dfb0;
-  border-left-color: #27ae60;
-  color: #154a2a;
+.notice-item.coord {
+  background: #eef2ff;
+  border-color: #a5b4fc;
+  border-left-color: #4f46e5;
+  color: #1e1b4b;
+}
+
+.notice-item.cat {
+  background: #fdf4ff;
+  border-color: #f0abfc;
+  border-left-color: #c084fc;
+  color: #581c87;
 }
 
 .remove-item-btn {
@@ -979,7 +987,7 @@ main {
       </div>
     </section>
 
-    <!-- SECCIÓN DEBAJO DEL CALENDARIO: CONTROL DE CATEQUIZANDOS CON FOTOS Y MÓDULOS INTERACTIVOS DOCENTES -->
+    <!-- SECCIÓN DEBAJO DEL CALENDARIO: CONTROL DE CATEQUIZANDOS Y TRES BLOQUES DE MENSAJES -->
     <section class="post-calendar-section">
       <div class="eyebrow">Control de Catequizandos Oficial</div>
       <h2>📊 Asistencia, Tareas y Seguimiento por Alumno</h2>
@@ -1133,43 +1141,45 @@ main {
         </div>
       </div>
 
-      <!-- Módulos Interactivos de Mensajes y Avisos Parroquiales -->
+      <!-- 3 SECCIONES DE MENSAJES Y COMUNICADOS -->
       <div class="notifications-layout">
+        <!-- 1. Mensajes que dejan las Catequistas (Panel visualizador sincronizado desde su espacio) -->
         <div class="notice-card">
-          <h3>💬 Mensajes de los Alumnos</h3>
-          <div class="interactive-form">
-            <input type="text" id="input-alumno-nombre" placeholder="Nombre del alumno..." />
-            <textarea id="input-alumno-mensaje" rows="2" placeholder="Escribe el mensaje o consulta del alumno..."></textarea>
-            <button class="btn-docente-submit" id="btn-add-mensaje" type="button">➕ Agregar Mensaje (Docente)</button>
-          </div>
-          <div class="dynamic-items-container" id="list-mensajes">
-            <div class="notice-item">
-              <div>✨ <strong>Dany Smith:</strong> "Miss, ya terminé la ficha del Bloque 1 sobre la Creación. ¿Se lo puedo mostrar el martes?"</div>
-              <button class="remove-item-btn" onclick="this.parentElement.remove()" title="Eliminar">×</button>
-            </div>
-            <div class="notice-item">
-              <div>✨ <strong>Camila Pizarro:</strong> "Miss Lily, tengo una duda sobre la cita bíblica del Rosario. ¡Gracias!"</div>
-              <button class="remove-item-btn" onclick="this.parentElement.remove()" title="Eliminar">×</button>
+          <h3>📝 Mensajes de las Catequistas</h3>
+          <p style="font-size:12px; color:var(--muted); margin:0 0 10px;">Comunicados oficiales publicados por las catequistas desde su portada.</p>
+          <div class="dynamic-items-container" id="list-cat-mensajes">
+            <div class="notice-item cat">
+              <div>📝 <strong>Miss Lily & Miss Kiara:</strong> Bienvenidos al programa de preparación. Recuerden revisar el calendario de encuentros y completar sus fichas a tiempo. ✨</div>
             </div>
           </div>
         </div>
 
+        <!-- 2. Mensajes que vienen de los Coordinadores (Panel visualizador sincronizado desde sus archivos) -->
         <div class="notice-card">
-          <h3>📢 Avisos y Notificaciones Parroquiales</h3>
-          <div class="interactive-form">
-            <input type="text" id="input-aviso-titulo" placeholder="Título del aviso..." />
-            <textarea id="input-aviso-mensaje" rows="2" placeholder="Detalle de la notificación parroquial..."></textarea>
-            <button class="btn-docente-submit" id="btn-add-aviso" type="button">➕ Publicar Aviso (Docente)</button>
+          <h3>📢 Mensajes de los Coordinadores</h3>
+          <p style="font-size:12px; color:var(--muted); margin:0 0 10px;">Avisos oficiales de la coordinación y parroquia.</p>
+          <div class="dynamic-items-container" id="list-coord-mensajes">
+            <div class="notice-item coord">
+              <div>📢 <strong>Coordinación Parroquial:</strong> Presentar las constancias y fichas de Bautismo actualizadas para el expediente general. 🙏</div>
+            </div>
           </div>
-          <div class="dynamic-items-container" id="list-avisos">
-            <div class="notice-item parish">
-              <div>🙏 <strong>Parroquia San Pedro de Lurín:</strong> Recordar traer las fichas y constancias de Bautismo actualizadas para el expediente.</div>
-              <button class="remove-item-btn" onclick="this.parentElement.remove()" title="Eliminar">×</button>
-            </div>
-            <div class="notice-item parish">
-              <div>🔔 <strong>Aviso Catequistas:</strong> Próxima revisión de tareas y prácticas de los temas 20 al 27.</div>
-              <button class="remove-item-btn" onclick="this.parentElement.remove()" title="Eliminar">×</button>
-            </div>
+        </div>
+
+        <!-- 3. Mensajes de Alumnos a las Catequistas (Activo para que los alumnos escriban) -->
+        <div class="notice-card">
+          <h3>💬 Mensajes de Alumnos a las Catequistas</h3>
+          <div class="interactive-form">
+            <input type="text" id="input-alum-nombre" placeholder="Nombre del alumno..." />
+            <select id="select-catequista">
+              <option value="" disabled selected>Dirigido a catequista...</option>
+              <option value="Miss Kiara Morales Elguera">Miss Kiara Morales Elguera</option>
+              <option value="Miss Lily Melo Azañero">Miss Lily Melo Azañero</option>
+            </select>
+            <textarea id="input-alum-mensaje" rows="2" placeholder="Escribe tu mensaje a la catequista..."></textarea>
+            <button class="btn-docente-submit" id="btn-add-alum" type="button">✉️ Enviar a Catequista</button>
+          </div>
+          <div class="dynamic-items-container" id="list-alum-mensajes" style="margin-top: 10px;">
+            <!-- Aquí se irán registrando los mensajes enviados por los alumnos -->
           </div>
         </div>
       </div>
@@ -1203,7 +1213,7 @@ const stages = [
       {num: 12, title: '¿QUIÉN ES LA VIRGEN MARÍA?', sub: ['María en el plan de Dios', 'Anunciación', 'Nacimiento de Jesús', 'María como Madre de Jesús', 'María al pie de la Cruz', 'María y la Iglesia'], obj: 'Reconocer a María como madre de Jesús y valorar su ejemplo de fe, confianza y disponibilidad a la voluntad de Dios.', val: 'Amor filial y confianza', cite: 'Lc 1,26-38; Lc 1,39-45; Jn 19,25-27; Hch 1,14', act: 'Representar la Anunciación y redactar una frase sobre cómo imitar el «sí» de María.'},
       {num: 13, title: '¿POR QUÉ HAY TANTAS VÍRGENES?', sub: ['Una sola Virgen María', 'Qué es una advocación', 'Por qué existen diferentes nombres', 'Por qué existen diferentes imágenes', 'Virgen del Carmen', 'Guadalupe', 'Fátima', 'Lourdes', 'Veneración y adoración'], obj: 'Comprender que las distintas advocaciones marianas se refieren a una misma Virgen María y reconocer algunas de ellas.', val: 'Respeto y veneración', cite: 'Lc 1,26-48; Jn 2,1-11; Lc 1,48', act: 'Observar distintas advocaciones marianas y elaborar un pequeño panel que explique que todas representan a la misma Virgen María.'},
       {num: 14, title: '¿QUÉ SIGNIFICA TENER FE?', sub: ['Qué es creer', 'Fe y confianza', 'Qué significa “Creo”', 'Profesión de fe'], obj: 'Explicar qué significa tener fe e identificar acciones concretas para expresar confianza en Dios en la vida diaria.', val: 'Fe y confianza', cite: 'Heb 11,1.6; Mc 9,24; Mt 17,20', act: 'Resolver situaciones cotidianas y escribir cómo actuaría un niño que confía en Dios; crear una tarjeta con la frase «Creo».'},
-      {num: 15, title: 'EL CREDO', sub: ['Qué es', 'Para qué lo rezamos', 'Credo explicado parte por parte'], obj: 'Comprender the sentido general del Credo e identificar las principales verdades de fe que profesan los cristianos.', val: 'Fidelidad a la fe', cite: 'Mt 28,19; 1 Co 15,3-5; 2 Co 13,13', act: 'Armar un mapa visual del Credo, agrupando sus afirmaciones principales: Padre, Hijo, Espíritu Santo e Iglesia.'}
+      {num: 15, title: 'EL CREDO', sub: ['Qué es', 'Para qué lo rezamos', 'Credo explicado parte por parte'], obj: 'Comprender el sentido general del Credo e identificar las principales verdades de fe que profesan los cristianos.', val: 'Fidelidad a la fe', cite: 'Mt 28,19; 1 Co 15,3-5; 2 Co 13,13', act: 'Armar un mapa visual del Credo, agrupando sus afirmaciones principales: Padre, Hijo, Espíritu Santo e Iglesia.'}
     ]
   },
   {
@@ -1444,31 +1454,20 @@ document.getElementById('btnActualizar').addEventListener('click', () => {
   }, 600);
 });
 
-// Interactividad para agregar/quitar Mensajes y Avisos Parroquiales
-document.getElementById('btn-add-mensaje').addEventListener('click', () => {
-  const nom = document.getElementById('input-alumno-nombre').value.trim();
-  const msg = document.getElementById('input-alumno-mensaje').value.trim();
-  if(!nom || !msg){ alert('Por favor completa el nombre y el mensaje.'); return; }
-  const container = document.getElementById('list-mensajes');
+// Interactividad: Envío de Mensajes de Alumnos a las Catequistas
+document.getElementById('btn-add-alum').addEventListener('click', () => {
+  const nom = document.getElementById('input-alum-nombre').value.trim();
+  const cat = document.getElementById('select-catequista').value;
+  const msg = document.getElementById('input-alum-mensaje').value.trim();
+  if(!nom || !cat || !msg){ alert('Por favor completa tu nombre, selecciona a la catequista y escribe tu mensaje.'); return; }
+  const container = document.getElementById('list-alum-mensajes');
   const div = document.createElement('div');
   div.className = 'notice-item';
-  div.innerHTML = `<div>✨ <strong>${escapeHtml(nom)}:</strong> "${escapeHtml(msg)}"</div><button class="remove-item-btn" onclick="this.parentElement.remove()" title="Eliminar">×</button>`;
+  div.innerHTML = `<div>💬 <strong>${escapeHtml(nom)}</strong> ➔ <em>${escapeHtml(cat)}</em>: "${escapeHtml(msg)}"</div><button class="remove-item-btn" onclick="this.parentElement.remove()" title="Eliminar">×</button>`;
   container.prepend(div);
-  document.getElementById('input-alumno-nombre').value = '';
-  document.getElementById('input-alumno-mensaje').value = '';
-});
-
-document.getElementById('btn-add-aviso').addEventListener('click', () => {
-  const tit = document.getElementById('input-aviso-titulo').value.trim();
-  const msg = document.getElementById('input-aviso-mensaje').value.trim();
-  if(!tit || !msg){ alert('Por favor completa el título y el aviso.'); return; }
-  const container = document.getElementById('list-avisos');
-  const div = document.createElement('div');
-  div.className = 'notice-item parish';
-  div.innerHTML = `<div>🙏 <strong>${escapeHtml(tit)}:</strong> ${escapeHtml(msg)}</div><button class="remove-item-btn" onclick="this.parentElement.remove()" title="Eliminar">×</button>`;
-  container.prepend(div);
-  document.getElementById('input-aviso-titulo').value = '';
-  document.getElementById('input-aviso-mensaje').value = '';
+  document.getElementById('input-alum-nombre').value = '';
+  document.getElementById('select-catequista').selectedIndex = 0;
+  document.getElementById('input-alum-mensaje').value = '';
 });
 
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
