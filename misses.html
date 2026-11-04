@@ -89,7 +89,7 @@
       </div>
     </div>
     <div class="top-actions">
-      <button class="btn small" id="btnActualizar" title="Actualizar">🔄 Sincronizar Google Sheet</button>
+      <button class="btn small" id="btnActualizar" title="Actualizar">🔄 Sincronizar</button>
       <button class="btn small gold" onclick="abrirPortalComun()" title="Portal de Catequistas">👩‍🏫 Catequistas</button>
       <button class="btn small" id="mute-toggle">🔊 Silenciar</button>
       <a class="btn small primary" href="./index.html">← Volver a portada</a>
@@ -101,7 +101,7 @@
   <div>
     <div class="eyebrow">Programa de Catequesis · Primera Comunión 2026</div>
     <h1>Portal de Catequistas</h1>
-    <p>Gestión pastoral unificada: Clases, 7 Catequizandos con datos de Google Sheet, Asistencia, Pagos y Padres.</p>
+    <p>Gestión pastoral unificada: Clases, 7 Catequizandos, Asistencia, Pagos y Padres.</p>
   </div>
 </section>
 
@@ -142,7 +142,7 @@
     <div class="panel-head" style="margin-bottom:10px">
       <div>
         <h2>Portal Pastoral Unificado</h2>
-        <p class="sub">Control de 56 sesiones, 7 catequizandos con datos sincronizados de Google Sheets, asistencia y pagos</p>
+        <p class="sub">Control de 56 sesiones, 7 catequizandos, asistencia y pagos</p>
       </div>
       <button class="xbtn" data-close="mise-modal">✕</button>
     </div>
@@ -154,7 +154,7 @@
         <button class="btn small primary" onclick="mostrarVista('vista-clases')">Abrir Sesiones</button>
       </div>
       <div class="tool-card">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">✅</div><h4>Asistencia Modular</h4><p>Control por catequizando conectado a los datos de tu Google Sheet.</p></div>
+        <div><div style="font-size:1.5rem;margin-bottom:8px;">✅</div><h4>Asistencia Modular</h4><p>Control por catequizando conectado a los datos de la hoja.</p></div>
         <button class="btn small primary" onclick="mostrarVista('vista-asistencia')">Ver Asistencia</button>
       </div>
       <div class="tool-card">
@@ -184,20 +184,20 @@
       <div id="contenedor-56-sesiones"></div>
     </div>
 
-    <!-- 2. VISTA ASISTENCIA MODULAR CONECTADA A LA HOJA -->
+    <!-- 2. VISTA ASISTENCIA MODULAR -->
     <div id="vista-asistencia" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
         <div style="display:flex; gap:8px;">
-          <button class="btn small primary" onclick="alert('Datos sincronizados correctamente con Google Sheets.')">🔄 Sincronizar Google Sheet</button>
+          <button class="btn small primary" onclick="alert('Datos sincronizados correctamente.')">🔄 Sincronizar</button>
           <button class="btn small gold" onclick="window.print()">🖨️ Imprimir Reporte</button>
         </div>
       </div>
 
       <h3 style="color:var(--navy); margin-bottom:4px;">Control de Asistencia Modular • Parroquia San Pedro de Lurín</h3>
-      <p class="sub" style="margin-bottom:15px;">Seleccione un catequizando para gestionar sus 50 sesiones de asistencia con actualización exacta desde tu Google Sheet.</p>
+      <p class="sub" style="margin-bottom:15px;">Seleccione un catequizando para gestionar sus 50 sesiones de asistencia con actualización exacta.</p>
 
-      <!-- CUADRO PORCENTUAL GLOBAL DE LA HOJA DE CÁLCULO -->
+      <!-- CUADRO PORCENTUAL GLOBAL -->
       <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:10px; margin-bottom:18px; background:#f8fafc; border:1px solid var(--line); border-radius:14px; padding:14px; text-align:center;">
         <div><div id="stat-porcentaje-global" style="font-size:1.35rem; font-weight:900; color:var(--green);">79,6%</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">% Asistencia</div></div>
         <div><div id="stat-presentes-global" style="font-size:1.35rem; font-weight:900; color:var(--navy);">265</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">[A] Presentes</div></div>
@@ -210,7 +210,7 @@
         <!-- Lista lateral de los 7 Catequizandos -->
         <div class="estudiantes-lista-asist" id="lista-catequizandos-asist"></div>
 
-        <!-- Panel principal de las 50 sesiones conectadas a la hoja -->
+        <!-- Panel principal de las 50 sesiones -->
         <div style="background:white; border:1px solid var(--line); border-radius:16px; padding:20px; box-shadow:0 4px 16px rgba(0,0,0,0.02);">
           <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid var(--gold); padding-bottom:12px; margin-bottom:16px;">
             <div>
@@ -225,7 +225,7 @@
             </div>
           </div>
           <div class="sesiones-grid-box" id="grid-sesiones-estudiante">
-            <p style="color:var(--muted); text-align:center; grid-column:1/-1; padding:40px;">Haga clic en un catequizando de la izquierda para ver y gestionar su asistencia de la hoja.</p>
+            <p style="color:var(--muted); text-align:center; grid-column:1/-1; padding:40px;">Haga clic en un catequizando de la izquierda para ver y gestionar su asistencia.</p>
           </div>
         </div>
       </div>
@@ -347,7 +347,7 @@ document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',
 // Fechas oficiales de las 50 sesiones
 const fechasClasesAsist = ["16/06","18/06","23/06","25/06","30/06","02/07","07/07","09/07","14/07","16/07","21/07","23/07","28/07","30/07","04/08","06/08","11/08","13/08","18/08","20/08","25/08","27/08","01/09","03/09","08/09","10/09","15/09","17/09","22/09","24/09","29/09","01/10","06/10","08/10","13/10","15/10","20/10","22/10","27/10","29/10","03/11","05/11","10/11","12/11","17/11","19/11","24/11","26/11","01/12","03/12"];
 
-// Datos sincronizados con tu Google Sheet (Sesiones 42 a 50 limpias y habilitadas con opción vacía)
+// Datos de asistencia actualizados (sesiones 42 a 50 libres con opción vacía)
 let datosAsistenciaGlobal = [
   {
     id: "LDS-EST-001",
@@ -424,12 +424,11 @@ function inicializarAsistenciaModular() {
 function cargarSesionesEstudiante(idxEst) {
   let est = datosAsistenciaGlobal[idxEst];
   $('nombre-catequizando-activo').textContent = est.nombre;
-  $('sub-id-activo').textContent = `ID: ${est.id} · Control individual de sesiones sincronizado con Google Sheet`;
+  $('sub-id-activo').textContent = `ID: ${est.id} · Control individual de sesiones`;
 
   const grid = $('grid-sesiones-estudiante');
   grid.innerHTML = "";
 
-  // Renderizar las 50 sesiones con sus valores reales y casillas limpias habilitadas para las próximas
   est.estados.forEach((val, idxSes) => {
     let card = document.createElement('div');
     card.className = 'sesion-card-item';
@@ -547,7 +546,7 @@ $('btnActualizar').addEventListener('click', () => {
   btn.disabled = true;
   setTimeout(() => {
     recalcularTotalesGlobales();
-    btn.textContent = '✅ ¡Sincronizado con Google Sheet!';
+    btn.textContent = '✅ ¡Sincronizado!';
     setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 1200);
   }, 600);
 });
