@@ -143,22 +143,6 @@ header {
   align-items: center;
 }
 
-.hero-content-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.hero-jesus-img {
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #ffdf94;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
-  flex-shrink: 0;
-}
-
 .hero-copy h1 {
   font: 700 clamp(28px, 3.2vw, 40px)/1.15 'Fredoka', sans-serif;
   margin: 0 0 8px;
@@ -176,6 +160,23 @@ header {
   font-weight: 700;
 }
 
+.hero-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+}
+
+.hero-jesus-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ffdf94;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+  flex-shrink: 0;
+}
+
 .countdown {
   background: linear-gradient(145deg, rgba(25, 62, 105, 0.9), rgba(13, 35, 63, 0.95));
   border: 2px solid #e8ca6b;
@@ -184,6 +185,7 @@ header {
   box-shadow: 0 8px 25px rgba(0,0,0,0.25);
   position: relative;
   overflow: hidden;
+  width: 100%;
 }
 
 .countdown::before {
@@ -680,7 +682,7 @@ main {
   .stages { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .topbar { flex-direction: column; align-items: flex-start; }
   .top-actions { width: 100%; justify-content: flex-start; }
-  .hero-content-wrapper { flex-direction: column; text-align: center; }
+  .hero-right { justify-content: center; }
 }
 </style>
 </head>
@@ -690,6 +692,7 @@ main {
   <header>
     <div class="topbar">
       <div class="brand">
+        <!-- Insignia oficial -->
         <img class="crest" src="./assets/insignia.png" alt="Insignia del Colegio La Salle del Sur" onerror="this.style.display='none'">
         <div class="brand-text">
           <h2>COLEGIO LA SALLE DEL SUR</h2>
@@ -704,28 +707,30 @@ main {
     </div>
     
     <div class="hero">
-      <div class="hero-content-wrapper">
-        <img class="hero-jesus-img" src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=300&q=80" alt="Jesús Buen Pastor" onerror="this.style.display='none'">
-        <div class="hero-copy">
-          <h1>¡Nuestro camino<br>hacia <span>Jesús!</span> 💛</h1>
-          <p>Sembrando fe, cultivando valores y construyendo amistad con Jesús.</p>
-        </div>
+      <div class="hero-copy">
+        <h1>¡Nuestro camino<br>hacia <span>Jesús!</span> 💛</h1>
+        <p>Sembrando fe, cultivando valores y construyendo amistad con Jesús.</p>
       </div>
-      <aside class="countdown" aria-label="Cuenta regresiva del programa">
-        <div class="countdown-title">🎉 ¡Falta poquito para el gran día!</div>
-        <div class="timer" aria-live="polite">
-          <div class="timebox"><b id="days">--</b><span>Días</span></div>
-          <div class="timebox"><b id="hours">--</b><span>Horas</span></div>
-          <div class="timebox"><b id="minutes">--</b><span>Minutos</span></div>
-        </div>
-        <div class="countdown-note" id="countdown-note">Cada día estamos más cerca de encontrarnos con Jesús. 🙏</div>
-      </aside>
+      <!-- Imagen jesus3.png ubicada al lado derecho, totalmente separada de la insignia -->
+      <div class="hero-right">
+        <img class="hero-jesus-img" src="./assets/jesus3.png" alt="Jesús" onerror="this.style.display='none'">
+        <aside class="countdown" aria-label="Cuenta regresiva del programa">
+          <div class="countdown-title">🎉 ¡Falta poquito!</div>
+          <div class="timer" aria-live="polite">
+            <div class="timebox"><b id="days">--</b><span>Días</span></div>
+            <div class="timebox"><b id="hours">--</b><span>Horas</span></div>
+            <div class="timebox"><b id="minutes">--</b><span>Min</span></div>
+          </div>
+          <div class="countdown-note" id="countdown-note">Cercanos a Jesús. 🙏</div>
+        </aside>
+      </div>
     </div>
   </header>
 
   <main>
     <section class="kid-welcome" aria-label="Bienvenida interactiva">
-      <img class="welcome-img" src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=300&q=80" alt="Jesús y los niños" onerror="this.style.display='none'">
+      <!-- Imagen jesus 4.png ("Jesús y niños") en la tarjeta de bienvenida -->
+      <img class="welcome-img" src="./assets/jesus 4.png" alt="Jesús y los niños" onerror="this.style.display='none'">
       <div class="welcome-text">
         <span class="adventure-kicker">✨ Tu aventura de fe comienza aquí</span>
         <h3 id="adventure-greeting">¡Hola, pequeño amigo de Jesús! 💛</h3>
@@ -740,7 +745,7 @@ main {
         <button class="stage" data-stage="0" aria-pressed="false"><span class="num">1</span><span class="icon">✝️</span><strong>Conociendo a Jesús</strong><small>Temas 1 al 15</small></button>
         <button class="stage" data-stage="1" aria-pressed="false"><span class="num">2</span><span class="icon">🕊️</span><strong>Aprendemos a Orar</strong><small>Temas 16 al 19</small></button>
         <button class="stage" data-stage="2" aria-pressed="false"><span class="num">3</span><span class="icon">📖</span><strong>Los Sacramentos</strong><small>Temas 20 al 27</small></button>
-        <button class="stage" data-stage="3" aria-pressed="false"><span class="icon">✨</span><strong>La Eucaristía</strong><small>Temas 28 al 45</small></button>
+        <button class="stage" data-stage="3" aria-pressed="false"><span class="num">4</span><span class="icon">✨</span><strong>La Eucaristía</strong><small>Temas 28 al 45</small></button>
         <button class="stage" data-stage="4" aria-pressed="false"><span class="num">5</span><span class="icon">🙏</span><strong>Valores Cristianos</strong><small>Temas 46 al 51</small></button>
         <button class="stage" data-stage="5" aria-pressed="false"><span class="num">6</span><span class="icon">🍞</span><strong>Compartimos la Fe</strong><small>Temas 52 al 56</small></button>
       </div>
@@ -785,7 +790,7 @@ main {
 </div>
 
 <script>
-// Los 6 bloques oficiales y los 56 temas extraídos exactamente de la pestaña SESIONES del Google Sheet
+// Los 6 bloques oficiales y los 56 temas exactos de tu Google Sheet (SESIONES)
 const stages = [
   {
     title: 'BLOQUE 1 — CONOCIENDO A JESÚS',
