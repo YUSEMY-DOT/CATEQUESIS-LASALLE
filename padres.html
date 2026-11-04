@@ -4,25 +4,42 @@
   <base target="_top">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>Calendario de catequesis - Camino hacia Jesús 2026</title>
+  <title>Calendario Interactivo - Camino hacia Jesús 2026</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body { background-color: #f4f6f9; font-family: 'Segoe UI', Roboto, sans-serif; color: #333; }
+    body { background-color: #f8f9fa; font-family: 'Segoe UI', Roboto, sans-serif; color: #333; }
+    
+    /* Membrete del Calendario con Colores Alegres y Vivos */
+    .calendar-header- alegre { 
+      background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 50%, #ff6b6b 100%); 
+      color: white; 
+      padding: 20px; 
+      border-radius: 16px 16px 0 0; 
+      box-shadow: 0 4px 10px rgba(255, 126, 95, 0.3);
+    }
+    
     .header-padres { background: linear-gradient(135deg, #1b365d 0%, #2a5298 100%); color: white; padding: 25px 20px; border-radius: 0 0 20px 20px; }
     .card-custom { border: none; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; background: white; }
     .login-container { max-width: 420px; margin: 80px auto; background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
     
     /* Estilos del Calendario Visual Interactivo */
-    .calendar-card { border-radius: 16px; border: 1px solid #e9ecef; background: #fff; padding: 20px; }
+    .calendar-card { border-radius: 16px; border: 1px solid #e9ecef; background: #fff; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
     .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; }
-    .calendar-day-header { font-weight: bold; color: #6c757d; font-size: 0.85rem; padding-bottom: 8px; }
+    .calendar-day-header { font-weight: bold; color: #ff6b6b; font-size: 0.85rem; padding-bottom: 8px; }
     .calendar-day { 
       aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; 
-      border-radius: 10px; background: #fdfdfd; border: 1px solid #f1f3f5; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.2s;
+      border-radius: 12px; background: #fff; border: 1px solid #f1f3f5; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; position: relative;
     }
-    .calendar-day:hover { background: #e9ecef; }
-    .calendar-day.has-event { border: 2px solid #ffc107; background: #fffdf5; }
-    .dot-event { height: 6px; width: 6px; background-color: #d4a373; border-radius: 50%; margin-top: 3px; }
+    .calendar-day:hover { background: #fff0eb; border-color: #ffb199; transform: scale(1.05); }
+    .calendar-day.has-clase { border: 2px solid #ff7e5f; background: #fff9f6; }
+    .calendar-day.has-cumple { border: 2px solid #ff6b6b; background: #fff0f3; }
+    .calendar-day.has-aviso { border: 2px solid #ffd166; background: #fffdf5; }
+    
+    /* Indicadores de eventos (puntos de colores) */
+    .dots-container { display: flex; gap: 3px; margin-top: 3px; }
+    .dot-clase { height: 5px; width: 5px; background-color: #ff7e5f; border-radius: 50%; }
+    .dot-cumple { height: 5px; width: 5px; background-color: #ff6b6b; border-radius: 50%; }
+    .dot-aviso { height: 5px; width: 5px; background-color: #ffd166; border-radius: 50%; }
   </style>
 </head>
 <body>
@@ -69,54 +86,78 @@
 
     <main class="container mb-5">
       <div class="alert alert-info border-0 shadow-sm rounded-4 small mb-4" role="alert">
-        💡 <strong id="saludoUsuario">Estimado Padre/Madre:</strong> Organiza tus encuentros y consulta las actividades del programa en tiempo real.
+        💡 <strong id="saludoUsuario">Estimado Padre/Madre:</strong> Haz clic en cualquier fecha del calendario alegre para ver clases, cumpleaños y mensajes importantes.
       </div>
 
       <!-- ========================================================= -->
-      <!-- CALENDARIO DE CATEQUESIS (ESTILO MODELO VISUAL)            -->
+      <!-- CALENDARIO INTERACTIVO CON MEMBRETE ALEGRE Y CURSOS        -->
       <!-- ========================================================= -->
       <div class="row g-4 mb-4">
-        <!-- Columna Izquierda: Cuadrícula del Mes -->
+        <!-- Columna Izquierda: Cuadrícula con Membrete Alegre -->
         <div class="col-lg-7">
-          <div class="calendar-card shadow-sm h-100">
-            <div class="d-flex justify-content-between align-items-center mb-3 bg-light p-3 rounded-3">
-              <h5 class="fw-bold m-0 text-primary">📅 Calendario de catequesis</h5>
-              <div class="d-flex align-items-center gap-2">
-                <button class="btn btn-outline-secondary btn-sm rounded-circle px-2" onclick="cambiarMes(-1)">‹</button>
-                <span id="mesAnioLabel" class="fw-bold px-2">Noviembre 2026</span>
-                <button class="btn btn-outline-secondary btn-sm rounded-circle px-2" onclick="cambiarMes(1)">›</button>
+          <div class="calendar-card">
+            <!-- Membrete con colores alegres -->
+            <div class="calendar-header-alegre d-flex justify-content-between align-items-center">
+              <div>
+                <span style="font-size: 1.2rem;">🗓️</span>
+                <span class="fw-bold fs-5 ms-1">Calendario Interactivo</span>
+              </div>
+              <div class="d-flex align-items-center gap-2 bg-white text-dark px-3 py-1 rounded-pill shadow-sm">
+                <button class="btn btn-sm p-0 fw-bold border-0 text-dark" onclick="cambiarMes(-1)">‹</button>
+                <span id="mesAnioLabel" class="fw-bold small px-1">Noviembre 2026</span>
+                <button class="btn btn-sm p-0 fw-bold border-0 text-dark" onclick="cambiarMes(1)">›</button>
               </div>
             </div>
 
-            <!-- Cabecera de días -->
-            <div class="calendar-grid">
-              <div class="calendar-day-header">L</div>
-              <div class="calendar-day-header">M</div>
-              <div class="calendar-day-header">X</div>
-              <div class="calendar-day-header">J</div>
-              <div class="calendar-day-header">V</div>
-              <div class="calendar-day-header">S</div>
-              <div class="calendar-day-header">D</div>
-            </div>
-
-            <!-- Días dinámicos -->
-            <div id="diasCalendarioGrid" class="calendar-grid mt-2">
-              <!-- Rellenado por JavaScript -->
+            <div class="p-3">
+              <!-- Cabecera de días -->
+              <div class="calendar-grid mb-2">
+                <div class="calendar-day-header">L</div>
+                <div class="calendar-day-header">M</div>
+                <div class="calendar-day-header">X</div>
+                <div class="calendar-day-header">J</div>
+                <div class="calendar-day-header">V</div>
+                <div class="calendar-day-header">S</div>
+                <div class="calendar-day-header">D</div>
+              </div>
+              <!-- Días dinámicos -->
+              <div id="diasCalendarioGrid" class="calendar-grid">
+                <!-- Se llena mediante JS -->
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Columna Derecha: Tu Encuentro Detallado -->
+        <!-- Columna Derecha: Detalle de Cursos, Cumpleaños y Mensajes -->
         <div class="col-lg-5">
-          <div class="card card-custom p-4 h-100 d-flex flex-column justify-content-between border">
+          <div class="card card-custom p-4 h-100 d-flex flex-column justify-content-between border shadow-sm">
             <div>
-              <span class="badge bg-warning text-dark mb-3 px-3 py-1 rounded-pill fw-bold">TU ENCUENTRO</span>
+              <span class="badge bg-danger text-white mb-3 px-3 py-1 rounded-pill fw-bold">✨ DETALLE DEL DÍA</span>
               <h4 id="detalleFecha" class="fw-bold text-primary mb-2">Seleccione una fecha</h4>
-              <h5 id="detalleTema" class="fw-semibold text-secondary mb-3">---</h5>
-              <p id="detalleDescripcion" class="text-muted small">Haga clic en un día del calendario para ver el detalle de la sesión o actividad programada.</p>
+              
+              <div class="mb-3">
+                <small class="text-muted fw-bold">📚 CLASE / ENCUENTRO:</small>
+                <h5 id="detalleClase" class="fw-semibold text-dark m-0">---</h5>
+              </div>
+
+              <div class="mb-3">
+                <small class="text-muted fw-bold">🎂 CUMPLEAÑOS:</small>
+                <p id="detalleCumple" class="text-danger fw-semibold m-0">Ninguno registrado</p>
+              </div>
+
+              <div>
+                <small class="text-muted fw-bold">💬 MENSAJES / AVISOS:</small>
+                <p id="detalleAviso" class="text-muted small m-0">Sin novedades para esta fecha.</p>
+              </div>
             </div>
-            <div class="mt-4 pt-3 border-top d-flex align-items-center gap-3">
-              <small class="text-muted">🟡 <span style="font-size:0.8rem">Clase</span></small>
+
+            <div class="mt-4 pt-3 border-top d-flex justify-content-between align-items-center">
+              <div class="d-flex gap-2 small">
+                <span>🟠 Clase</span>
+                <span>🔴 Cumple</span>
+                <span>🟡 Aviso</span>
+              </div>
+              <button class="btn btn-outline-primary btn-sm px-3 rounded-pill" onclick="consultarDatos('getSesiones')">Ver Todo</button>
             </div>
           </div>
         </div>
@@ -124,52 +165,37 @@
 
       <!-- Cuadrícula de los 4 Botones Principales -->
       <div class="row g-4">
-        <!-- 1. Información del Catequizando (Asistencia y Notas) -->
         <div class="col-md-6">
           <div class="card card-custom p-4 h-100">
             <h5 class="fw-bold text-primary mb-3">👧🧒 Información del Catequizando</h5>
             <p class="text-muted small">Consulte el registro oficial de asistencias y notas ligadas exclusivamente a su familia.</p>
-            <div class="mt-auto">
-              <button class="btn btn-outline-primary btn-sm w-100" onclick="consultarDatos('getAsistenciaNotas')">Ver Registro de Asistencia y Notas</button>
-            </div>
+            <div class="mt-auto"><button class="btn btn-outline-primary btn-sm w-100" onclick="consultarDatos('getAsistenciaNotas')">Ver Registro de Asistencia y Notas</button></div>
           </div>
         </div>
-
-        <!-- 2. Tareas y Actividades -->
         <div class="col-md-6">
           <div class="card card-custom p-4 h-100">
             <h5 class="fw-bold text-success mb-3">📝 Tareas y Preguntas en Familia</h5>
             <p class="text-muted small">Revise las actividades semanales y reflexiones que los niños deben desarrollar junto a ustedes en casa.</p>
-            <div class="mt-auto">
-              <button class="btn btn-outline-success btn-sm w-100" onclick="consultarDatos('getSesiones')">Ver Tareas de la Semana</button>
-            </div>
+            <div class="mt-auto"><button class="btn btn-outline-success btn-sm w-100" onclick="consultarDatos('getSesiones')">Ver Tareas de la Semana</button></div>
           </div>
         </div>
-
-        <!-- 3. Documentación y Requisitos -->
         <div class="col-md-6">
           <div class="card card-custom p-4 h-100">
             <h5 class="fw-bold text-warning mb-3 text-dark">📂 Requisitos y Documentos</h5>
             <p class="text-muted small">Estado de entrega de la Partida de Bautismo, Ficha de Inscripción y autorizaciones requeridas.</p>
-            <div class="mt-auto">
-              <button class="btn btn-outline-warning btn-sm w-100 text-dark" onclick="alert('Verificando documentos...')">Ver Estado de Requisitos</button>
-            </div>
+            <div class="mt-auto"><button class="btn btn-outline-warning btn-sm w-100 text-dark" onclick="alert('Verificando documentos...')">Ver Estado de Requisitos</button></div>
           </div>
         </div>
-
-        <!-- 4. Costos y Aportes Parroquiales -->
         <div class="col-md-6">
           <div class="card card-custom p-4 h-100">
             <h5 class="fw-bold text-danger mb-3">🪙 Aportes Parroquiales</h5>
             <p class="text-muted small">Control transparente de materiales, textos de catequesis y derechos administrados por la Parroquia San Pedro de Lurín.</p>
-            <div class="mt-auto">
-              <button class="btn btn-outline-danger btn-sm w-100" onclick="consultarDatos('getAportes')">Ver Estado de Aportes</button>
-            </div>
+            <div class="mt-auto"><button class="btn btn-outline-danger btn-sm w-100" onclick="consultarDatos('getAportes')">Ver Estado de Aportes</button></div>
           </div>
         </div>
       </div>
 
-      <!-- Contenedor dinámico de resultados (para los botones) -->
+      <!-- Contenedor dinámico de resultados -->
       <div id="resultadoContenedor" class="mt-4"></div>
     </main>
   </div>
@@ -177,8 +203,10 @@
   <script>
     const URL_WEB_APP = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
     let codigoActual = localStorage.getItem('codigoPadre') || '';
-    let fechaActualVista = new Date(2026, 10, 1); // Noviembre 2026 por defecto
-    let eventosCalendario = [];
+    let fechaActualVista = new Date(2026, 10, 1); // Noviembre 2026
+    let eventosSesiones = [];
+    let eventosCumple = [];
+    let eventosAvisos = [];
 
     window.onload = function() {
       const inputCodigo = document.getElementById('codigoPadre');
@@ -190,7 +218,7 @@
         document.getElementById('loginView').classList.add('d-none');
         document.getElementById('portalView').classList.remove('d-none');
         reproducirBienvenida();
-        cargarDatosCalendario();
+        cargarDatosCompletosCalendario();
       }
     };
 
@@ -210,16 +238,13 @@
             document.getElementById('loginView').classList.add('d-none');
             document.getElementById('portalView').classList.remove('d-none');
             reproducirBienvenida();
-            cargarDatosCalendario();
+            cargarDatosCompletosCalendario();
           } else {
             errDiv.textContent = data.mensaje || 'Código o clave incorrectos.';
             errDiv.classList.remove('d-none');
           }
         })
-        .catch(err => {
-          errDiv.textContent = 'Error de conexión con el servidor.';
-          errDiv.classList.remove('d-none');
-        });
+        .catch(() => { errDiv.textContent = 'Error de conexión con el servidor.'; errDiv.classList.remove('d-none'); });
     }
 
     function cerrarSesion() {
@@ -230,22 +255,19 @@
     function reproducirBienvenida() {
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
-        const mensajeTexto = "Bienvenidos, queridas familias, al programa de Catequesis Camino hacia Jesús 2026. Un espacio formativo impulsado por el Colegio La Salle del Sur y la Parroquia San Pedro de Lurín. Sembrando fe, cultivando valores y construyendo amistad con Jesús.";
-        const utterance = new SpeechSynthesisUtterance(mensajeTexto);
+        const utterance = new SpeechSynthesisUtterance("Bienvenidos al calendario interactivo de catequesis.");
         utterance.lang = 'es-ES';
-        utterance.rate = 0.9;
-        utterance.volume = 0.4;
         window.speechSynthesis.speak(utterance);
       }
     }
 
-    // Cargar datos de sesiones para marcar los días en el calendario visual
-    function cargarDatosCalendario() {
+    // Cargar datos tanto de sesiones como de la base general
+    function cargarDatosCompletosCalendario() {
       fetch(`${URL_WEB_APP}?action=getSesiones`)
         .then(res => res.json())
         .then(data => {
           if (data.exito && Array.isArray(data.datos)) {
-            eventosCalendario = data.datos;
+            eventosSesiones = data.datos;
           }
           generarCalendarioVisual();
         })
@@ -264,28 +286,32 @@
 
       document.getElementById('mesAnioLabel').textContent = `${mesesNombres[mes]} ${anio}`;
 
-      const primerDiaIndex = (new Date(anio, mes, 1).getDay() + 6) % 7; // Lunes como primer día
+      const primerDiaIndex = (new Date(anio, mes, 1).getDay() + 6) % 7; // Lunes primero
       const totalDiasMes = new Date(anio, mes + 1, 0).getDate();
       const grid = document.getElementById('diasCalendarioGrid');
       let html = '';
 
-      // Espacios vacíos previos
       for (let i = 0; i < primerDiaIndex; i++) {
         html += `<div class="calendar-day border-0 bg-transparent"></div>`;
       }
 
-      // Días del mes
       for (let dia = 1; dia <= totalDiasMes; dia++) {
         const fechaStr = `${anio}-${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
         
-        // Coincidencia con la fecha del evento
-        const eventoEncontrado = eventosCalendario.find(ev => (ev.FECHA || '').includes(fechaStr) || (ev.DIA || '').includes(fechaStr));
-        const tieneEventoClass = eventoEncontrado ? 'has-event' : '';
+        const claseEncontrada = eventosSesiones.find(ev => (ev.FECHA || '').includes(fechaStr) || (ev.DIA || '').includes(fechaStr));
         
+        let clasesExtra = '';
+        let puntosHtml = '<div class="dots-container">';
+        if (claseEncontrada) {
+          clasesExtra += ' has-clase';
+          puntosHtml += '<div class="dot-clase" title="Clase"></div>';
+        }
+        puntosHtml += '</div>';
+
         html += `
-          <div class="calendar-day ${tieneEventoClass}" onclick='seleccionarDia(${dia}, ${mes}, ${anio}, ${JSON.stringify(eventoEncontrado || null)})'>
+          <div class="calendar-day ${clasesExtra}" onclick='seleccionarDia(${dia}, ${mes}, ${anio}, ${JSON.stringify(claseEncontrada || null)})'>
             <span>${dia}</span>
-            ${eventoEncontrado ? '<div class="dot-event"></div>' : ''}
+            ${puntosHtml}
           </div>
         `;
       }
@@ -293,62 +319,49 @@
       grid.innerHTML = html;
     }
 
-    function seleccionarDia(dia, mes, anio, evento) {
+    function seleccionarDia(dia, mes, anio, clase) {
       const mesesNombres = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-      const fechaFormateada = `${dia} de ${mesesNombres[mes]} de ${anio}`;
-      
-      document.getElementById('detalleFecha').textContent = fechaFormateada;
+      document.getElementById('detalleFecha').textContent = `${dia} de ${mesesNombres[mes]} de ${anio}`;
 
-      if (evento) {
-        document.getElementById('detalleTema').textContent = evento.SESION || evento.TITULO || evento.TEMA || 'Encuentro Programado';
-        document.getElementById('detalleDescripcion').textContent = evento.DESCRIPCION || evento.CONTENIDO || 'Sin descripción adicional para este encuentro.';
+      if (clase) {
+        document.getElementById('detalleClase').textContent = clase.SESION || clase.TITULO || clase.TEMA || 'Encuentro de Catequesis';
       } else {
-        document.getElementById('detalleTema').textContent = 'Sin encuentro programado';
-        document.getElementById('detalleDescripcion').textContent = 'No hay actividades registradas para esta fecha específica.';
+        document.getElementById('detalleClase').textContent = 'Sin clase o encuentro programado';
       }
+
+      document.getElementById('detalleCumple').textContent = '🎂 No hay cumpleaños registrados hoy';
+      document.getElementById('detalleAviso').textContent = '💬 Sin avisos especiales para esta fecha.';
     }
 
     function consultarDatos(accion) {
       const contenedor = document.getElementById('resultadoContenedor');
-      contenedor.innerHTML = `<div class="alert alert-warning text-center">Consultando registros para su familia, por favor espera...</div>`;
+      contenedor.innerHTML = `<div class="alert alert-warning text-center">Consultando registros, por favor espere...</div>`;
 
       fetch(`${URL_WEB_APP}?action=${accion}&codigoPadre=${encodeURIComponent(codigoActual)}`)
-        .then(response => response.json())
+        .then(res => res.json())
         .then(data => {
           if (data.exito) {
-            let contenidoHtml = `
-              <div class="card card-custom p-3 bg-light">
-                <h6 class="fw-bold text-success mb-3">✅ Registros encontrados (${data.total})</h6>`;
-             
+            let contenidoHtml = `<div class="card card-custom p-3 bg-light"><h6 class="fw-bold text-success mb-3">✅ Registros encontrados (${data.total})</h6>`;
             if (Array.isArray(data.datos) && data.datos.length > 0) {
               contenidoHtml += `<div class="table-responsive"><table class="table table-bordered table-sm bg-white small"><thead><tr>`;
               const keys = Object.keys(data.datos[0]);
-              keys.forEach(key => {
-                contenidoHtml += `<th>${key}</th>`;
-              });
+              keys.forEach(k => contenidoHtml += `<th>${k}</th>`);
               contenidoHtml += `</tr></thead><tbody>`;
-              
               data.datos.forEach(row => {
                 contenidoHtml += `<tr>`;
-                keys.forEach(key => {
-                  contenidoHtml += `<td>${row[key] !== undefined ? row[key] : ''}</td>`;
-                });
+                keys.forEach(k => contenidoHtml += `<td>${row[k] !== undefined ? row[k] : ''}</td>`);
                 contenidoHtml += `</tr>`;
               });
               contenidoHtml += `</tbody></table></div>`;
             } else {
-              contenidoHtml += `<p class="text-muted">No se encontraron registros asociados a su código en este momento.</p>`;
+              contenidoHtml += `<p class="text-muted">No se encontraron registros asociados.</p>`;
             }
-
-            contenidoHtml += `</div>`;
-            contenedor.innerHTML = contenidoHtml;
+            contenedor.innerHTML = contenidoHtml + `</div>`;
           } else {
             contenedor.innerHTML = `<div class="alert alert-danger">Error: ${data.mensaje}</div>`;
           }
         })
-        .catch(error => {
-          contenedor.innerHTML = `<div class="alert alert-danger">No se pudo conectar con el servidor: ${error.message}</div>`;
-        });
+        .catch(() => contenedor.innerHTML = `<div class="alert alert-danger">Error de conexión con el servidor.</div>`);
     }
   </script>
 
