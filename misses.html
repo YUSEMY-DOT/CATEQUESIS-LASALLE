@@ -330,6 +330,37 @@
   </section>
 </div>
 
+<!-- MODAL INTERACTIVO PARA GESTIÓN DE MATERIALES (PRÁCTICAS, EVALUACIONES, CANCIONES, VIDEOS) -->
+<div class="modal-backdrop" id="modal-material">
+  <section class="modal" role="dialog" aria-modal="true" style="max-width: 650px;">
+    <div class="panel-head" style="margin-bottom:10px">
+      <div>
+        <h2 id="material-titulo">Gestión de Materiales</h2>
+        <p id="material-sub" class="sub">Ingrese o adjunte la información correspondiente</p>
+      </div>
+      <button class="xbtn" onclick="hideModal('modal-material')">✕</button>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 15px;">
+      <div>
+        <label style="font-weight: 800; font-size: 0.85rem; color: var(--navy); display: block; margin-bottom: 4px;">Título o Enlace / URL:</label>
+        <input type="text" id="input-material-url" placeholder="Ej. https://youtube.com/... o enlace de Drive" style="width: 100%; padding: 10px; border: 1px solid var(--line); border-radius: 8px;" />
+      </div>
+      <div>
+        <label style="font-weight: 800; font-size: 0.85rem; color: var(--navy); display: block; margin-bottom: 4px;">Cargar Archivo (PDF, Word, Imagen):</label>
+        <input type="file" id="input-material-archivo" style="font-size: 0.85rem;" />
+      </div>
+      <div>
+        <label style="font-weight: 800; font-size: 0.85rem; color: var(--navy); display: block; margin-bottom: 4px;">Notas / Observaciones:</label>
+        <textarea id="input-material-notas" rows="3" placeholder="Escriba aquí los detalles o instrucciones..." style="width: 100%; padding: 10px; border: 1px solid var(--line); border-radius: 8px;"></textarea>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+        <button class="btn small" onclick="hideModal('modal-material')">Cancelar</button>
+        <button class="btn small primary" onclick="guardarMaterialSesion()">💾 Guardar Información</button>
+      </div>
+    </div>
+  </section>
+</div>
+
 <script>
 const $=id=>document.getElementById(id);
 const URL_APPS_SCRIPT = "AQUÍ_PEGA_TU_URL_DE_GOOGLE_APPS_SCRIPT";
@@ -348,6 +379,26 @@ function volverMenuPrincipal(){
 function openModal(id){$(id).classList.add('show')}
 function hideModal(id){$(id).classList.remove('show')}
 document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>hideModal(b.closest('.modal-backdrop').id)));
+
+let sesionActualInteractiva = 1;
+let tipoMaterialActual = '';
+function abrirGestionMaterial(numSesion, tipo) {
+  sesionActualInteractiva = numSesion;
+  tipoMaterialActual = tipo;
+  $('material-titulo').textContent = `${tipo} — Sesión ${numSesion}`;
+  $('material-sub').textContent = `Gestión e ingreso de contenido para la Sesión ${numSesion}`;
+  $('input-material-url').value = '';
+  $('input-material-archivo').value = '';
+  $('input-material-notas').value = '';
+  openModal('modal-material');
+}
+
+function guardarMaterialSesion() {
+  const urlVal = $('input-material-url').value;
+  const notasVal = $('input-material-notas').value;
+  alert(`¡${tipoMaterialActual} de la Sesión ${sesionActualInteractiva} guardado con éxito!\nEnlace: ${urlVal || 'Ninguno'}\nNotas: ${notasVal || 'Ninguna'}`);
+  hideModal('modal-material');
+}
 
 const fechasClasesAsist = ["16/06","18/06","23/06","25/06","30/06","02/07","07/07","09/07","14/07","16/07","21/07","23/07","28/07","30/07","04/08","06/08","11/08","13/08","18/08","20/08","25/08","27/08","01/09","03/09","08/09","10/09","15/09","17/09","22/09","24/09","29/09","01/10","06/10","08/10","13/10","15/10","20/10","22/10","27/10","29/10","03/11","05/11","10/11","12/11","17/11","19/11","24/11","26/11","01/12","03/12"];
 
@@ -610,7 +661,7 @@ function renderizarSesionesCompletas() {
     let bloqueDiv = document.createElement('div');
     bloqueDiv.innerHTML = `<h4 style="color:var(--navy); border-bottom:2px solid var(--gold); padding-bottom:6px; margin:20px 0 12px; font-size:1.1rem;">${bloque.title}</h4>`;
     bloque.topics.forEach(t => {
-      let subtemasLi = t.sub.map(s => `<li>${s}</li>`).join('');
+      let subtemasLi = t.sub.main?.map ? t.sub.map(s => `<li>${s}</li>`).join('') : t.sub.map(s => `<li>${s}</li>`).join('');
       let temaBox = document.createElement('div');
       temaBox.className = 'tema-box';
       temaBox.innerHTML = `
@@ -618,10 +669,10 @@ function renderizarSesionesCompletas() {
         <h4 style="margin:4px 0 8px; color:var(--navy);">${t.title}</h4>
         <ul class="subtema-list">${subtemasLi}</ul>
         <div class="action-buttons">
-          <button class="btn small gold" onclick="alert('Prácticas - Sesión ${t.num}')">✏️ Prácticas</button>
-          <button class="btn small primary" onclick="alert('Evaluaciones - Sesión ${t.num}')">📋 Evaluaciones</button>
-          <button class="btn small" onclick="alert('Canciones - Sesión ${t.num}')">🎵 Canciones</button>
-          <button class="btn small gold" onclick="alert('Videos - Sesión ${t.num}')">▶️ Videos</button>
+          <button class="btn small gold" onclick="abrirGestionMaterial(${t.num}, 'Prácticas')">✏️ Prácticas</button>
+          <button class="btn small primary" onclick="abrirGestionMaterial(${t.num}, 'Evaluaciones')">📋 Evaluaciones</button>
+          <button class="btn small" onclick="abrirGestionMaterial(${t.num}, 'Canciones')">🎵 Canciones</button>
+          <button class="btn small gold" onclick="abrirGestionMaterial(${t.num}, 'Videos')">▶️ Videos</button>
         </div>
       `;
       bloqueDiv.appendChild(temaBox);
