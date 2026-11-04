@@ -168,7 +168,6 @@ header {
   flex-wrap: wrap;
 }
 
-/* Imagen superior proporcionada y limpia sin deformaciones */
 .hero-jesus-img {
   width: 90px;
   height: 90px;
@@ -266,7 +265,6 @@ main {
   gap: 20px;
 }
 
-/* Imagen de bienvenida proporcionada y limpia sin deformaciones */
 .welcome-img {
   width: 85px;
   height: 85px;
@@ -318,6 +316,150 @@ main {
   font: 700 28px 'Fredoka', sans-serif;
   color: #12345a;
   margin: 0 0 20px;
+}
+
+/* Selector de Catequizandos y sus Tarjetas de Seguimiento */
+.students-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.student-card {
+  background: #fff;
+  border: 1px solid #e8d7bb;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 16px rgba(18,52,90,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.student-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.student-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--gold);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  background: #fff3cc;
+}
+
+.student-info h4 {
+  font: 700 16px 'Fredoka', sans-serif;
+  color: #12345a;
+  margin: 0 0 2px;
+}
+
+.student-info small {
+  display: inline-block;
+  background: #fff4d1;
+  color: #8c5c00;
+  font-weight: 800;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.metrics-box {
+  background: #fffbf5;
+  border: 1px solid #fae8bd;
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.metric-row {
+  margin-bottom: 10px;
+}
+
+.metric-row:last-child {
+  margin-bottom: 0;
+}
+
+.metric-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #193453;
+  margin-bottom: 4px;
+}
+
+.progress-track {
+  background: #f0eae1;
+  border-radius: 8px;
+  height: 8px;
+  overflow: hidden;
+  border: 1px solid #e2d5c3;
+}
+
+.progress-fill-attendance {
+  background: linear-gradient(90deg, #2ecc71, #27ae60);
+  height: 100%;
+  border-radius: 8px;
+}
+
+.progress-fill-tasks {
+  background: linear-gradient(90deg, #f1b731, #d49a0e);
+  height: 100%;
+  border-radius: 8px;
+}
+
+/* Sección de Mensajes y Avisos Parroquiales */
+.notifications-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.notice-card {
+  background: #fff;
+  border: 1px solid #e8d7bb;
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: 0 4px 16px rgba(18,52,90,0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.notice-card h3 {
+  font: 700 18px 'Fredoka', sans-serif;
+  color: #12345a;
+  margin-top: 0;
+  margin-bottom: 14px;
+}
+
+.notice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.notice-item {
+  background: #fff8e6;
+  border: 1px solid #e8cb82;
+  border-left: 4px solid #d49a0e;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 13px;
+  color: #193453;
+  font-weight: 700;
+}
+
+.notice-item.parish {
+  background: #eef9f2;
+  border-color: #98dfb0;
+  border-left-color: #27ae60;
+  color: #154a2a;
 }
 
 .stages {
@@ -694,7 +836,6 @@ main {
   <header>
     <div class="topbar">
       <div class="brand">
-        <!-- Insignia oficial -->
         <img class="crest" src="./assets/insignia.png" alt="Insignia del Colegio La Salle del Sur" onerror="this.style.display='none'">
         <div class="brand-text">
           <h2>COLEGIO LA SALLE DEL SUR</h2>
@@ -713,7 +854,6 @@ main {
         <h1>¡Nuestro camino<br>hacia <span>Jesús!</span> 💛</h1>
         <p>Sembrando fe, cultivando valores y construyendo amistad con Jesús.</p>
       </div>
-      <!-- Imagen jesus3.png con tamaño equilibrado -->
       <div class="hero-right">
         <img class="hero-jesus-img" src="./assets/jesus3.png" alt="Jesús" onerror="this.style.display='none'">
         <aside class="countdown" aria-label="Cuenta regresiva del programa">
@@ -731,12 +871,194 @@ main {
 
   <main>
     <section class="kid-welcome" aria-label="Bienvenida interactiva">
-      <!-- Imagen jesus 4.png con tamaño equilibrado -->
       <img class="welcome-img" src="./assets/jesus 4.png" alt="Jesús y los niños" onerror="this.style.display='none'">
       <div class="welcome-text">
         <span class="adventure-kicker">✨ Tu aventura de fe comienza aquí</span>
         <h3 id="adventure-greeting">¡Hola, pequeño amigo de Jesús! 💛</h3>
         <p>Explora los 6 bloques oficiales, revisa tus 56 temas, subtítulos, objetivos, valores, citas bíblicas y actividades organizadas para ti.</p>
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE SEGUIMIENTO: FOTOS, CÓDIGOS, ASISTENCIA Y TAREAS DE LOS CATEQUIZANDOS -->
+    <section class="section">
+      <div class="eyebrow">Control de Catequizandos Oficial</div>
+      <h2>📊 Asistencia y Tareas por Alumno</h2>
+      
+      <div class="students-grid">
+        <!-- Alumno 1 -->
+        <div class="student-card">
+          <div class="student-header">
+            <img class="student-avatar" src="https://drive.google.com/uc?export=view&id=1jNx6nx6wCDaYdcnSKGbzj_uCfb2cDbdl" alt="Dany Smith" onerror="this.src='https://via.placeholder.com/60'">
+            <div class="student-info">
+              <h4>Dany Smith Francisco Criollo</h4>
+              <small>ID: LDS-EST-001</small>
+            </div>
+          </div>
+          <div class="metrics-box">
+            <div class="metric-row">
+              <div class="metric-label"><span>Asistencia</span><span style="color:#27ae60;">80.0%</span></div>
+              <div class="progress-track"><div class="progress-fill-attendance" style="width: 80%;"></div></div>
+            </div>
+            <div class="metric-row" style="margin-top: 10px;">
+              <div class="metric-label"><span>Tareas Entregadas</span><span style="color:#d49a0e;" id="task-001">Pendiente / Auto</span></div>
+              <div class="progress-track"><div class="progress-fill-tasks" style="width: 0%;"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alumno 2 -->
+        <div class="student-card">
+          <div class="student-header">
+            <img class="student-avatar" src="https://drive.google.com/uc?export=view&id=1jf5ch769iUpYqAKJ-Hx1HIUPDaRBJgwd" alt="Adam Stuard" onerror="this.src='https://via.placeholder.com/60'">
+            <div class="student-info">
+              <h4>Adam Stuard Pineda Elguera</h4>
+              <small>ID: LDS-EST-002</small>
+            </div>
+          </div>
+          <div class="metrics-box">
+            <div class="metric-row">
+              <div class="metric-label"><span>Asistencia</span><span style="color:#27ae60;">79.6%</span></div>
+              <div class="progress-track"><div class="progress-fill-attendance" style="width: 79.6%;"></div></div>
+            </div>
+            <div class="metric-row" style="margin-top: 10px;">
+              <div class="metric-label"><span>Tareas Entregadas</span><span style="color:#d49a0e;">Pendiente / Auto</span></div>
+              <div class="progress-track"><div class="progress-fill-tasks" style="width: 0%;"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alumno 3 -->
+        <div class="student-card">
+          <div class="student-header">
+            <img class="student-avatar" src="https://drive.google.com/uc?export=view&id=1sqVFTBMqMT1pNIG7y1edplv8SvFTWiHg" alt="Camila" onerror="this.src='https://via.placeholder.com/60'">
+            <div class="student-info">
+              <h4>Camila Pizarro Mendoza</h4>
+              <small>ID: LDS-EST-003</small>
+            </div>
+          </div>
+          <div class="metrics-box">
+            <div class="metric-row">
+              <div class="metric-label"><span>Asistencia</span><span style="color:#27ae60;">79.2%</span></div>
+              <div class="progress-track"><div class="progress-fill-attendance" style="width: 79.2%;"></div></div>
+            </div>
+            <div class="metric-row" style="margin-top: 10px;">
+              <div class="metric-label"><span>Tareas Entregadas</span><span style="color:#d49a0e;">Pendiente / Auto</span></div>
+              <div class="progress-track"><div class="progress-fill-tasks" style="width: 0%;"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alumno 4 -->
+        <div class="student-card">
+          <div class="student-header">
+            <img class="student-avatar" src="https://drive.google.com/uc?export=view&id=19KV30WDkKReEo5vBbx9ia4bebrPpyWPw" alt="Ana Paula" onerror="this.src='https://via.placeholder.com/60'">
+            <div class="student-info">
+              <h4>Ana Paula Quispe Flores</h4>
+              <small>ID: LDS-EST-004</small>
+            </div>
+          </div>
+          <div class="metrics-box">
+            <div class="metric-row">
+              <div class="metric-label"><span>Asistencia</span><span style="color:#27ae60;">80.0%</span></div>
+              <div class="progress-track"><div class="progress-fill-attendance" style="width: 80%;"></div></div>
+            </div>
+            <div class="metric-row" style="margin-top: 10px;">
+              <div class="metric-label"><span>Tareas Entregadas</span><span style="color:#d49a0e;">Pendiente / Auto</span></div>
+              <div class="progress-track"><div class="progress-fill-tasks" style="width: 0%;"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alumno 5 -->
+        <div class="student-card">
+          <div class="student-header">
+            <img class="student-avatar" src="https://drive.google.com/uc?export=view&id=1NT-x1ycdUiVXL0Au4xekdVx4sZ3BFWfU" alt="Marcos Manuel" onerror="this.src='https://via.placeholder.com/60'">
+            <div class="student-info">
+              <h4>Marcos Manuel Romero Siesquen</h4>
+              <small>ID: LDS-EST-005</small>
+            </div>
+          </div>
+          <div class="metrics-box">
+            <div class="metric-row">
+              <div class="metric-label"><span>Asistencia</span><span style="color:#27ae60;">79.6%</span></div>
+              <div class="progress-track"><div class="progress-fill-attendance" style="width: 79.6%;"></div></div>
+            </div>
+            <div class="metric-row" style="margin-top: 10px;">
+              <div class="metric-label"><span>Tareas Entregadas</span><span style="color:#d49a0e;">Pendiente / Auto</span></div>
+              <div class="progress-track"><div class="progress-fill-tasks" style="width: 0%;"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alumno 6 -->
+        <div class="student-card">
+          <div class="student-header">
+            <div class="student-avatar" style="display:grid; place-items:center; font-weight:900; color:#12345a;">VC</div>
+            <div class="student-info">
+              <h4>Vasco Cardenas Quispe</h4>
+              <small>ID: LDS-EST-006</small>
+            </div>
+          </div>
+          <div class="metrics-box">
+            <div class="metric-row">
+              <div class="metric-label"><span>Asistencia</span><span style="color:#27ae60;">79.6%</span></div>
+              <div class="progress-track"><div class="progress-fill-attendance" style="width: 79.6%;"></div></div>
+            </div>
+            <div class="metric-row" style="margin-top: 10px;">
+              <div class="metric-label"><span>Tareas Entregadas</span><span style="color:#d49a0e;">Pendiente / Auto</span></div>
+              <div class="progress-track"><div class="progress-fill-tasks" style="width: 0%;"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alumno 7 -->
+        <div class="student-card">
+          <div class="student-header">
+            <div class="student-avatar" style="display:grid; place-items:center; font-weight:900; color:#12345a;">MP</div>
+            <div class="student-info">
+              <h4>Marchelo Pizarro Mendoza</h4>
+              <small>ID: LDS-EST-007</small>
+            </div>
+          </div>
+          <div class="metrics-box">
+            <div class="metric-row">
+              <div class="metric-label"><span>Asistencia</span><span style="color:#27ae60;">79.2%</span></div>
+              <div class="progress-track"><div class="progress-fill-attendance" style="width: 79.2%;"></div></div>
+            </div>
+            <div class="metric-row" style="margin-top: 10px;">
+              <div class="metric-label"><span>Tareas Entregadas</span><span style="color:#d49a0e;">Pendiente / Auto</span></div>
+              <div class="progress-track"><div class="progress-fill-tasks" style="width: 0%;"></div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Notificaciones, Mensajes y Avisos -->
+      <div class="notifications-layout">
+        <div class="notice-card">
+          <h3>💬 Mensajes de los Alumnos</h3>
+          <div class="notice-list">
+            <div class="notice-item">
+              ✨ <strong>Dany Smith:</strong> "Miss, ya terminé la ficha del Bloque 1 sobre la Creación. ¿Se lo puedo mostrar el martes?"
+            </div>
+            <div class="notice-item">
+              ✨ <strong>Camila Pizarro:</strong> "Miss Lily, tengo una duda sobre la cita bíblica del Rosario. ¡Gracias!"
+            </div>
+          </div>
+        </div>
+
+        <div class="notice-card">
+          <h3>📢 Avisos y Notificaciones Parroquiales</h3>
+          <div class="notice-list">
+            <div class="notice-item parish">
+              🙏 <strong>Parroquia San Pedro de Lurín:</strong> Recordar traer las fichas y constancias de Bautismo actualizadas para el expediente.
+            </div>
+            <div class="notice-item parish">
+              🔔 <strong>Aviso Catequistas:</strong> Próxima revisión de tareas y prácticas de los temas 20 al 27.
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -792,7 +1114,6 @@ main {
 </div>
 
 <script>
-// Los 6 bloques oficiales y los 56 temas exactos de tu Google Sheet (SESIONES)
 const stages = [
   {
     title: 'BLOQUE 1 — CONOCIENDO A JESÚS',
@@ -854,215 +1175,4 @@ const stages = [
       {num: 36, title: 'RITOS INICIALES', sub: ['Procesión', 'Saludo', 'Acto penitencial', 'Yo confieso', 'Kyrie', 'Gloria', 'Oración colecta'], obj: 'Reconocer los ritos iniciales de la Misa y comprender que preparan a la comunidad para celebrar la Eucaristía.', val: 'Humildad', cite: 'Sal 100,4; Lc 18,13; Flp 2,10-11', act: 'Ordenar las acciones de los ritos iniciales y representar el saludo, acto penitencial y oración colecta.'},
       {num: 37, title: 'LITURGIA DE LA PALABRA', sub: ['Primera lectura', 'Salmo', 'Segunda lectura', 'Aleluya', 'Evangelio', 'Tres cruces', 'Homilía', 'Credo', 'Oración de los fieles'], obj: 'Identificar los momentos principales de la Liturgia de la Palabra y comprender la importancia de escuchar y acoger la Palabra de Dios.', val: 'Escucha atenta', cite: 'Neh 8,1-8; Lc 4,16-21; Lc 24,27; 1 Ts 2,13', act: 'Realizar una lectura guiada: escuchar una lectura, identificar una palabra importante y expresar cómo ponerla en práctica.'},
       {num: 38, title: 'LITURGIA EUCARÍSTICA', sub: ['Preparación de los dones', 'Pan y vino', 'Ofertorio', 'Prefacio', 'Santo', 'Plegaria Eucarística', 'Epíclesis', 'Consagración', 'Anamnesis', 'Intercesiones', 'Doxología', 'Amén'], obj: 'Describir los momentos principales de la Liturgia Eucarística y reconocer la presentación de los dones y la plegaria eucarística.', val: 'Adoración', cite: 'Lc 22,19-20; Mt 26,26-28; 1 Co 11,23-26', act: 'Construir una secuencia ilustrada de la Liturgia Eucarística: presentación de dones, plegaria eucarística y consagración.'},
-      {num: 39, title: 'RITO DE LA COMUNIÓN', sub: ['Padre Nuestro', 'Paz', 'Fracción del Pan', 'Cordero de Dios', '“Este es el Cordero de Dios”', '“Señor, no soy digno”', 'Procesión', 'Cómo acercarse', '“El Cuerpo de Cristo”', '“Amén”', 'Cómo recibir la Comunión', 'Qué hacer después'], obj: 'Reconocer los momentos del rito de la Comunión y comprender la preparación necesaria para recibir a Jesús con respeto.', val: 'Fraternidad', cite: 'Mt 6,9-13; Jn 1,29; 1 Co 10,16-17; 1 Co 11,27-29', act: 'Ordenar las partes del rito de la Comunión y practicar las respuestas «Amén» y «Señor, no soy digno» con respeto.'},
-      {num: 40, title: 'RITOS FINALES', sub: ['Oración después de la Comunión', 'Bendición', 'Despedida', 'Envío', 'Cómo debemos salir de la iglesia'], obj: 'Identificar los ritos finales de la Misa y explicar que la celebración impulsa a vivir y compartir el Evangelio en la vida diaria.', val: 'Disponibilidad para la misión', cite: 'Mt 28,19-20; Mc 16,15; Lc 24,50-53', act: 'Crear una tarjeta de envío con una acción concreta para llevar el mensaje de Jesús a la familia o comunidad.'},
-      {num: 41, title: '¿QUÉ ES LA EUCARISTÍA?', sub: ['Última Cena', 'Institución', 'Cuerpo y Sangre de Cristo', 'Presencia real', 'Sacrificio', 'Banquete', 'Acción de gracias', 'Memorial'], obj: 'Explicar qué es la Eucaristía y reconocerla como el sacramento en el que la Iglesia celebra la presencia de Jesús.', val: 'Gratitud', cite: 'Jn 6,51-58; Lc 22,19-20; 1 Co 11,23-26', act: 'Elaborar un mapa conceptual con las ideas de presencia real, memorial, sacrificio, banquete y acción de gracias.'},
-      {num: 42, title: '¿QUÉ SUCEDE EN LA CONSAGRACIÓN?', sub: ['Pan y vino', 'Espíritu Santo', 'Palabras de Jesús', 'Cuerpo y Sangre', 'Presencia real', 'Transubstanciación explicada para niños'], obj: 'Comprender, según la fe católica, que en la consagración el pan y el vino se convierten en el Cuerpo y la Sangre de Cristo.', val: 'Fe y reverencia', cite: 'Lc 22,19-20; Mt 26,26-28; 1 Co 11,23-25', act: 'Ordenar las imágenes de la consagración y realizar un momento breve de silencio y oración ante Jesús presente en la Eucaristía.'},
-      {num: 43, title: 'JESÚS EN EL SAGRARIO', sub: ['Qué es el Sagrario', 'Lámpara', 'Presencia de Jesús', 'Genuflexión', 'Adoración', 'Visita al Santísimo', 'Cómo orar ante Jesús'], obj: 'Reconocer el sagrario como el lugar donde se reserva la Eucaristía y practicar actitudes de respeto y oración ante Jesús sacramentado.', val: 'Adoración y confianza', cite: 'Mt 28,20; Jn 6,56; 1 Co 11,27', act: 'Identificar el sagrario y la lámpara del Santísimo en una imagen o visita guiada; practicar una oración breve de adoración.'},
-      {num: 44, title: '¿CÓMO RECIBIMOS LA COMUNIÓN?', sub: ['Preparación', 'Estado de gracia', 'Ayuno eucarístico', 'Procesión', 'Reverencia', 'Respuesta “Amén”', 'Recepción', 'Regreso al lugar', 'Acción de gracias', 'Alma de Cristo', '“Sagrario vivo”'], obj: 'Identificar las disposiciones básicas para recibir la Comunión y describir cómo acercarse a ella con respeto y recogimiento.', val: 'Preparación interior y respeto', cite: 'Jn 6,54-56; 1 Co 10,16-17; 1 Co 11,27-29; Mt 5,23-24', act: 'Realizar una simulación respetuosa de la procesión de Comunión, practicando la reverencia, la respuesta «Amén» y la acción de gracias.'},
-      {num: 45, title: 'MI PRIMERA COMUNIÓN', sub: ['Qué voy a recibir', 'Por qué me preparé', 'Qué debo saber', 'Cómo participar', 'Cómo comulgar', 'Vestimenta', 'Actitud', 'Respuestas', 'Acción de gracias'], obj: 'Comprender el significado espiritual de la Primera Comunión y expresar compromisos para continuar creciendo en la amistad con Jesús.', val: 'Amor a Jesús', cite: 'Jn 6,51; Lc 22,19; 1 Co 11,26', act: 'Escribir una carta breve a Jesús expresando qué significa recibirlo por primera vez y qué compromiso se desea asumir.'}
-    ]
-  },
-  {
-    title: 'BLOQUE 5 — VALORES CRISTIANOS',
-    subtitle: 'Temas 46 al 51: Pecado, Mandamientos de la Ley y de la Iglesia, Bienaventuranzas y Obras de Misericordia',
-    topics: [
-      {num: 46, title: 'EL SER HUMANO Y EL PECADO', sub: ['Libertad', 'El bien y el mal', 'Pecado', 'Consecuencia del pecado', 'Necesidad de conversión y reconciliación'], obj: 'Reconocer que el ser humano es creado por Dios con dignidad, comprender de manera inicial qué es el pecado y distinguirlo de un error involuntario.', val: 'Responsabilidad y libertad', cite: 'Gn 3,1-19; Rm 3,23; Rm 6,23; Sal 8,5-7', act: 'Clasificar situaciones sencillas distinguiendo acciones buenas, malas y errores; proponer una decisión responsable.'},
-      {num: 47, title: 'LOS DIEZ MANDAMIENTOS', sub: ['Qué son', 'Por qué existen', 'Los diez', 'Aplicación a la vida de los niños'], obj: 'Conocer los Diez Mandamientos y relacionarlos con decisiones concretas que ayudan a amar a Dios y al prójimo.', val: 'Obediencia', cite: 'Ex 20,1-17; Dt 5,6-21; Mt 22,37-40', act: 'Resolver un rompecabezas de los Diez Mandamientos y relacionar cada uno con un ejemplo de la vida diaria.'},
-      {num: 48, title: 'LOS MANDAMIENTOS DE LA IGLESIA', sub: ['Misa', 'Confesión', 'Comunión', 'Ayuno y abstinencia', 'Otras obligaciones'], obj: 'Identificar los Mandamientos de la Iglesia y comprender cómo orientan la participación y la vida de los católicos.', val: 'Fidelidad a la Iglesia', cite: 'Hch 2,42; Heb 10,24-25; Mt 16,18-19', act: 'Relacionar cada Mandamiento de la Iglesia con su finalidad y elaborar un calendario sencillo de compromisos de vida cristiana.'},
-      {num: 49, title: 'LAS BIENAVENTURANZAS', sub: ['Qué son', 'Enseñanzas de Jesús', 'Cómo vivirlas'], obj: 'Explicar el mensaje central de las Bienaventuranzas e identificar actitudes que ayudan a vivirlas en la escuela, la familia y la comunidad.', val: 'Humildad y sencillez', cite: 'Mt 5,1-12; Lc 6,20-23', act: 'Relacionar cada Bienaventuranza con una situación concreta de la escuela, la familia o la comunidad.'},
-      {num: 50, title: 'OBRAS DE MISERICORDIA', sub: ['Corporales', 'Espirituales', 'Ejemplos concretos'], obj: 'Reconocer las obras de misericordia y proponer acciones concretas para ayudar a quienes necesitan apoyo material o espiritual.', val: 'Misericordia y servicio', cite: 'Mt 25,35-40; St 2,14-17; Ga 6,2', act: 'Organizar un calendario de pequeñas obras de misericordia y elegir una acción concreta para realizar durante la semana.'},
-      {num: 51, title: 'EL PECADO Y EL EXAMEN DE CONCIENCIA', sub: ['Qué es pecado', 'Pecado venial y mortal', 'Libertad y responsabilidad', 'Examen de conciencia', 'Conversión'], obj: 'Comprender la relación entre pecado y conciencia, y practicar un examen de conciencia sencillo que ayude a reconocer errores y buscar la reconciliación.', val: 'Sinceridad y conversión', cite: '1 Jn 1,8-9; Rm 2,14-16; Sal 139,23-24', act: 'Completar una guía personal de examen de conciencia con situaciones adaptadas a la edad; escribir en privado un propósito de mejora.'}
-    ]
-  },
-  {
-    title: 'BLOQUE 6 — COMPARTIMOS LA FE',
-    subtitle: 'Temas 52 al 56: La Iglesia, Miembros, Santos, Padrinos y Después de la Primera Comunión',
-    topics: [
-      {num: 52, title: '¿QUÉ ES LA IGLESIA?', sub: ['Quién fundó la Iglesia', 'Qué significa Iglesia', 'Iglesia como comunidad', 'Iglesia como Pueblo de Dios', 'Iglesia como Cuerpo de Cristo', 'La Iglesia como templo y como comunidad'], obj: 'Explicar qué es la Iglesia y reconocerla como comunidad de creyentes reunida en Cristo para vivir y anunciar el Evangelio.', val: 'Unidad y sentido de pertenencia', cite: 'Mt 16,18; Hch 2,42-47; 1 Co 12,12-27', act: 'Crear un mural titulado «Somos Iglesia» que represente a la comunidad reunida en Jesús y sus formas de participar.'},
-      {num: 53, title: '¿QUIÉNES FORMAN LA IGLESIA?', sub: ['Papa', 'Obispos', 'Sacerdotes', 'Diáconos', 'Religiosos', 'Laicos', 'Ministros', 'Monaguillos', 'Función básica de cada uno'], obj: 'Identificar a los miembros de la Iglesia y reconocer que cada persona tiene una responsabilidad en la comunidad cristiana.', val: 'Servicio y colaboración', cite: '1 Co 12,12-27; Ef 4,11-13; 1 Pe 2,9', act: 'Preparar tarjetas de roles de la Iglesia y explicar cómo cada miembro contribuye a la misión común.'},
-      {num: 54, title: 'LOS SANTOS', sub: ['Qué es un santo', 'Por qué existen', 'Adoración y veneración', 'Intercesión', 'Comunión de los santos', 'Santos como modelos'], obj: 'Reconocer a los santos como personas que vivieron el Evangelio de manera ejemplar e identificar actitudes de santidad que se pueden imitar.', val: 'Santidad e imitación de los santos', cite: 'Heb 12,1; 1 Co 11,1; Ap 7,9-14', act: 'Elegir un santo, conocer un rasgo de su vida y elaborar una tarjeta con una virtud que se pueda imitar.'},
-      {num: 55, title: 'PADRINOS Y MADRINAS', sub: ['Qué significa ser padrino', 'Qué significa ser madrina', 'Requisitos', 'Funciones', 'Responsabilidad espiritual', 'Acompañamiento'], obj: 'Comprender el papel de los padrinos y madrinas como acompañantes en la vida de fe y reconocer el compromiso que asumen junto al niño.', val: 'Responsabilidad y acompañamiento', cite: 'Mt 28,19-20; 2 Tim 1,5-6; 1 Co 12,13', act: 'Crear un esquema de acompañamiento que explique cómo padrinos y madrinas ayudan a cuidar y fortalecer la fe.'},
-      {num: 56, title: 'DESPUÉS DE LA PRIMERA COMUNIÓN', sub: ['¿Terminó la catequesis?', 'Continuar en Misa', 'Continuar orando', 'Confesión', 'Biblia', 'Comunidad', 'Servicio', 'Seguir creciendo en la fe'], obj: 'Proponer acciones para continuar viviendo la fe después de la Primera Comunión mediante la oración, la participación en la Misa, el servicio y la vida comunitaria.', val: 'Perseverancia en la fe', cite: 'Hch 2,42; Heb 10,24-25; Col 4,2; Mt 28,19-20', act: 'Elaborar un plan personal posterior a la Primera Comunión con compromisos de Misa, oración, reconciliación, Palabra y servicio.'}
-    ]
-  }
-];
-
-function openStage(idx){
-  const s = stages[idx]; if(!s) return;
-  const win = window.open('','_blank');
-  if(!win){ alert('Permite las ventanas emergentes para este sitio.'); return; }
-  const esc = escapeHtml;
-  
-  const topicCards = s.topics.map((t)=>`
-    <div style="border:1px solid #e7d6b8;border-radius:14px;background:#fff;padding:18px;margin-bottom:16px;box-shadow:0 3px 10px rgba(18,52,90,0.05);">
-      <span style="font-size:11px;font-weight:900;color:#b27b19;text-transform:uppercase;letter-spacing:.5px;">TEMA ${t.num}</span>
-      <h3 style="margin:4px 0 8px;font-size:18px;color:#12345a;font-family:'Fredoka',sans-serif;">${esc(t.title)}</h3>
-      
-      <div style="margin-bottom:10px;">
-        <strong style="font-size:12px;color:#12345a;">Subtemas:</strong>
-        <ul style="margin:4px 0 10px;padding-left:18px;font-size:13px;color:#5c6f84">${t.sub.map(x=>'<li>'+esc(x)+'</li>').join('')}</ul>
-      </div>
-
-      <div style="font-size:13px;color:#193453;background:#fffaf0;border:1px solid #fae8bd;padding:10px 12px;border-radius:10px;margin-bottom:8px;">
-        <strong>🎯 Objetivo:</strong> ${esc(t.obj)}<br>
-        <strong>💛 Valor:</strong> ${esc(t.val)}<br>
-        <strong>📖 Cita Bíblica:</strong> ${esc(t.cite)}
-      </div>
-
-      <div style="font-size:13px;color:#154a2a;background:#eef9f2;border:1px solid #98dfb0;padding:10px 12px;border-radius:10px;margin-bottom:12px;">
-        <strong>✨ Actividad:</strong> ${esc(t.act)}
-      </div>
-      
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;border-top:1px dashed #eadaaf;padding-top:12px;">
-        <button onclick="alert('Abriendo Prácticas del Tema ${t.num}')" style="background:#fff8e6;border:1px solid #e8cb82;border-radius:10px;padding:8px 10px;font:700 12px 'Nunito',sans-serif;color:#12345a;cursor:pointer;text-align:center;">🖍️ Prácticas</button>
-        <button onclick="alert('Abriendo Evaluaciones del Tema ${t.num}')" style="background:#fff2f0;border:1px solid #f2a9a0;border-radius:10px;padding:8px 10px;font:700 12px 'Nunito',sans-serif;color:#8a2817;cursor:pointer;text-align:center;">📝 Evaluaciones</button>
-        <button onclick="alert('Abriendo Canciones del Tema ${t.num}')" style="background:#f0f4ff;border:1px solid #a8c2f5;border-radius:10px;padding:8px 10px;font:700 12px 'Nunito',sans-serif;color:#173b7a;cursor:pointer;text-align:center;">🎶 Canciones</button>
-        <button onclick="alert('Abriendo Videos del Tema ${t.num}')" style="background:#eef9f2;border:1px solid #98dfb0;border-radius:10px;padding:8px 10px;font:700 12px 'Nunito',sans-serif;color:#156b37;cursor:pointer;text-align:center;">▶️ Videos</button>
-      </div>
-    </div>
-  `).join('');
-
-  win.document.open();
-  win.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><title>${esc(s.title)}</title><style>body{font:14px 'Nunito',Arial,sans-serif;background:#f4f1ea;color:#193453;max-width:850px;margin:25px auto;padding:0 15px}header{background:#12345a;color:white;padding:20px 24px;border-radius:16px;margin-bottom:20px;box-shadow:0 4px 15px rgba(18,52,90,0.15)}h1{margin:0;font-size:22px;font-family:'Fredoka',sans-serif}button.close-btn{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin:20px 0;color:#12345a;box-shadow:0 3px 8px rgba(0,0,0,0.1)}</style></head><body><header><h1>${esc(s.title)}</h1><p style="margin:5px 0 0;color:#ffdf94;font-weight:700">${esc(s.subtitle)}</p></header><main>${topicCards}</main><button class="close-btn" onclick="window.close()">Cerrar ventana</button></body></html>`);
-  win.document.close(); win.focus();
-}
-
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-document.querySelectorAll('.stage').forEach((b,idx)=>b.addEventListener('click',()=>openStage(idx)));
-
-const monthNames=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-const week=['L','M','X','J','V','S','D'];
-function dateKey(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
-
-const orderedTopics=stages.flatMap((stage)=>stage.topics.map(t=>({stage:stage.title,num:t.num,title:t.title,sub:t.sub,obj:t.obj,val:t.val,cite:t.cite,act:t.act}))).sort((a,b)=>a.num-b.num);
-const calendarEntries=new Map();
-const preparationDates=[];
-for(let d=new Date(2026,5,16,12);d<=new Date(2026,11,1,12);d.setDate(d.getDate()+1)){
-  if(d.getDay()===2||d.getDay()===4)preparationDates.push(new Date(d));
-}
-let topicCursor=0;
-preparationDates.forEach((d,i)=>{
-  if(topicCursor>=orderedTopics.length)return;
-  const amount=i<7?2:1;
-  const topicsForDate=orderedTopics.slice(topicCursor,topicCursor+amount);
-  if(topicsForDate.length){
-    calendarEntries.set(dateKey(d),{type:'lesson',session:i+1,topics:topicsForDate});
-    topicCursor+=topicsForDate.length;
-  }
-});
-calendarEntries.set('2026-12-03',{type:'event',title:'¡Primera Comunión!',description:'Celebración del sacramento de la Eucaristía. Que Jesús acompañe a cada niño y a su familia.'});
-
-let currentMonth=new Date(2026,5,1,12), selectedDate=null;
-function renderCalendar(){
-  const y=currentMonth.getFullYear(),m=currentMonth.getMonth();
-  document.getElementById('month-label').textContent=`${monthNames[m]} ${y}`;
-  const g=document.getElementById('calendar-grid'); g.innerHTML='';
-  week.forEach(w=>{const e=document.createElement('div');e.className='weekday';e.textContent=w;g.appendChild(e)});
-  const first=(new Date(y,m,1,12).getDay()+6)%7,days=new Date(y,m+1,0,12).getDate();
-  for(let i=0;i<first;i++)g.appendChild(document.createElement('div'));
-  for(let day=1;day<=days;day++){
-    const d=new Date(y,m,day,12),key=dateKey(d),entry=calendarEntries.get(key),b=document.createElement('button');
-    b.className='day';b.textContent=day;
-    if(entry){
-      b.classList.add(entry.type==='event'?'communion-day':'classday');
-      if(entry.type==='lesson'&&entry.topics.length>1)b.classList.add('double-session');
-      if(selectedDate&&key===dateKey(selectedDate))b.classList.add('selected');
-      b.onclick=()=>selectDate(d);
-    }else{b.disabled=true;}
-    g.appendChild(b);
-  }
-}
-
-function selectDate(d){
-  const key=dateKey(d),entry=calendarEntries.get(key);
-  if(!entry)return;
-  selectedDate=new Date(d);
-  const weekdayName=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'][d.getDay()];
-  document.getElementById('selected-date').textContent=`${weekdayName}, ${d.getDate()} de ${monthNames[d.getMonth()]}`;
-  const list=document.getElementById('calendar-topic-list'); list.innerHTML='';
-  if(entry.type==='event'){
-    document.getElementById('calendar-topic').textContent=entry.title;
-    document.getElementById('calendar-description').textContent=entry.description;
-  }else{
-    document.getElementById('calendar-topic').textContent=entry.topics.length>1?'Temas del encuentro':`Tema ${entry.topics[0].num}: ${entry.topics[0].title}`;
-    document.getElementById('calendar-description').textContent=`Encuentro ${String(entry.session).padStart(2,'0')}.`;
-    entry.topics.forEach(topic=>{
-      const card=document.createElement('details');card.className='calendar-topic-item topic-collapsible';
-      const summary=document.createElement('summary');summary.className='topic-summary';
-      const title=document.createElement('strong');title.className='topic-summary-title';title.textContent=`Tema ${topic.num}: ${topic.title}`;
-      const toggleLabel=document.createElement('span');toggleLabel.className='topic-toggle-label';toggleLabel.textContent='Ver';
-      summary.append(title,toggleLabel);card.appendChild(summary);
-      const content=document.createElement('div');content.className='topic-content';
-      const stage=document.createElement('span');stage.className='topic-stage';stage.textContent=`${topic.stage}`;content.appendChild(stage);
-      if(topic.sub&&topic.sub.length){
-        const ul=document.createElement('ul');
-        topic.sub.forEach(item=>{const li=document.createElement('li');li.textContent=item;ul.appendChild(li)});
-        content.appendChild(ul);
-      }
-      card.appendChild(content);
-      list.appendChild(card);
-    });
-  }
-  renderCalendar();
-}
-
-document.getElementById('prev-month').onclick=()=>{currentMonth=new Date(currentMonth.getFullYear(),currentMonth.getMonth()-1,1,12);renderCalendar()};
-document.getElementById('next-month').onclick=()=>{currentMonth=new Date(currentMonth.getFullYear(),currentMonth.getMonth()+1,1,12);renderCalendar()};
-
-const todayForCalendar=new Date();todayForCalendar.setHours(12,0,0,0);
-const todayKey=dateKey(todayForCalendar);
-const scheduledKeys=Array.from(calendarEntries.keys()).sort();
-const nearestScheduledKey=scheduledKeys.find(key=>key>=todayKey)||scheduledKeys[scheduledKeys.length-1];
-const initialDate=nearestScheduledKey?new Date(nearestScheduledKey+'T12:00:00'):new Date(2026,5,16,12);
-currentMonth=new Date(initialDate.getFullYear(),initialDate.getMonth(),1,12);
-renderCalendar();
-selectDate(initialDate);
-
-// Cuenta regresiva
-function updateCountdown(){
-  const target=new Date(2026,11,3,0,0,0).getTime(),now=Date.now(),diff=target-now;
-  if(diff<=0){
-    document.getElementById('days').textContent='0';
-    document.getElementById('hours').textContent='0';
-    document.getElementById('minutes').textContent='0';
-    document.getElementById('countdown-note').textContent='¡Llegó el día de la Primera Comunión! 💛';
-    return;
-  }
-  const days=Math.floor(diff/(1000*60*60*24));
-  const hours=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-  const minutes=Math.floor((diff%(1000*60*60))/(1000*60));
-  document.getElementById('days').textContent=days;
-  document.getElementById('hours').textContent=String(hours).padStart(2,'0');
-  document.getElementById('minutes').textContent=String(minutes).padStart(2,'0');
-}
-updateCountdown(); setInterval(updateCountdown,1000);
-
-// Botón Actualizar
-document.getElementById('btnActualizar').addEventListener('click', () => {
-  const btn = document.getElementById('btnActualizar');
-  const original = btn.innerHTML;
-  btn.innerHTML = '⏳ Actualizando...';
-  btn.disabled = true;
-  setTimeout(() => {
-    btn.innerHTML = '✅ ¡Sincronizado!';
-    setTimeout(() => {
-      btn.innerHTML = original;
-      btn.disabled = false;
-    }, 1200);
-  }, 600);
-});
-
-// Asistente de voz
-let catechesisVoiceMuted=false;
-const muteToggle=document.getElementById('mute-toggle');
-if(muteToggle){muteToggle.addEventListener('click',()=>{
-  catechesisVoiceMuted=!catechesisVoiceMuted;
-  muteToggle.textContent=muteToggle.textContent.includes('🔇')?'🔊 Silenciar':'🔇 Activar';
-  if(catechesisVoiceMuted)window.speechSynthesis?.cancel();
-})}
-function playCatechesisVoice(message){if(catechesisVoiceMuted||!('speechSynthesis' in window))return;window.speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(message);utterance.lang='es-PE';utterance.rate=.92;window.speechSynthesis.speak(utterance);}
-setTimeout(()=>playCatechesisVoice('¡Bienvenidos al portal de catequesis del Colegio La Salle del Sur y Parroquia San Pedro de Lurín! Camino hacia Jesús.'),600);
-</script>
-</body>
-</html>
+      {num: 39, title: 'RITO DE LA COMUNIÓN', sub: ['Padre Nuestro', 'Paz', 'Fracción del Pan', 'Cordero de Dios', '“Este es el Cordero de Dios”', '“Señor, no soy digno”', 'Procesión', 'Cómo acercarse', '“El Cuerpo de Cristo”', '“Amén”', 'Cómo recibir la Comunión', 'Qué hacer después'], obj: 'Reconocer los momentos del rito de la Comunión y comprender la preparación necesaria para recibir a Jesús con respeto.', val: 'Fraternidad', cite: 'Mt 6,9-13; Jn 1,29; 1 Co 10,16-17; 1 Co 11,27-29', act: 'Ordenar las partes del rito de la Comunión y practicar las respuestas «Amén» y «Se
