@@ -167,14 +167,15 @@ header {
   gap: 20px;
 }
 
+/* Imagen grande sin contorno, sin círculo */
 .hero-jesus-img {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #ffdf94;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+  max-width: 170px;
+  height: auto;
+  object-fit: contain;
+  border: none;
+  box-shadow: none;
   flex-shrink: 0;
+  border-radius: 12px;
 }
 
 .countdown {
@@ -264,14 +265,15 @@ main {
   gap: 24px;
 }
 
+/* Imagen de bienvenida grande sin contorno, sin círculo */
 .welcome-img {
-  width: 95px;
-  height: 95px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #e8ca6b;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  max-width: 150px;
+  height: auto;
+  object-fit: contain;
+  border: none;
+  box-shadow: none;
   flex-shrink: 0;
+  border-radius: 12px;
 }
 
 .welcome-text h3 {
@@ -711,7 +713,7 @@ main {
         <h1>¡Nuestro camino<br>hacia <span>Jesús!</span> 💛</h1>
         <p>Sembrando fe, cultivando valores y construyendo amistad con Jesús.</p>
       </div>
-      <!-- Imagen jesus3.png ubicada al lado derecho, totalmente separada de la insignia -->
+      <!-- Imagen jesus3.png grande, sin círculo ni contorno -->
       <div class="hero-right">
         <img class="hero-jesus-img" src="./assets/jesus3.png" alt="Jesús" onerror="this.style.display='none'">
         <aside class="countdown" aria-label="Cuenta regresiva del programa">
@@ -729,7 +731,7 @@ main {
 
   <main>
     <section class="kid-welcome" aria-label="Bienvenida interactiva">
-      <!-- Imagen jesus 4.png ("Jesús y niños") en la tarjeta de bienvenida -->
+      <!-- Imagen jesus 4.png ("Jesús y niños") grande, sin círculo ni contorno -->
       <img class="welcome-img" src="./assets/jesus 4.png" alt="Jesús y los niños" onerror="this.style.display='none'">
       <div class="welcome-text">
         <span class="adventure-kicker">✨ Tu aventura de fe comienza aquí</span>
@@ -879,7 +881,7 @@ const stages = [
     topics: [
       {num: 52, title: '¿QUÉ ES LA IGLESIA?', sub: ['Quién fundó la Iglesia', 'Qué significa Iglesia', 'Iglesia como comunidad', 'Iglesia como Pueblo de Dios', 'Iglesia como Cuerpo de Cristo', 'La Iglesia como templo y como comunidad'], obj: 'Explicar qué es la Iglesia y reconocerla como comunidad de creyentes reunida en Cristo para vivir y anunciar el Evangelio.', val: 'Unidad y sentido de pertenencia', cite: 'Mt 16,18; Hch 2,42-47; 1 Co 12,12-27', act: 'Crear un mural titulado «Somos Iglesia» que represente a la comunidad reunida en Jesús y sus formas de participar.'},
       {num: 53, title: '¿QUIÉNES FORMAN LA IGLESIA?', sub: ['Papa', 'Obispos', 'Sacerdotes', 'Diáconos', 'Religiosos', 'Laicos', 'Ministros', 'Monaguillos', 'Función básica de cada uno'], obj: 'Identificar a los miembros de la Iglesia y reconocer que cada persona tiene una responsabilidad en la comunidad cristiana.', val: 'Servicio y colaboración', cite: '1 Co 12,12-27; Ef 4,11-13; 1 Pe 2,9', act: 'Preparar tarjetas de roles de la Iglesia y explicar cómo cada miembro contribuye a la misión común.'},
-      {num: 54, title: 'LOS SANTOS', sub: ['Qué es un santo', 'Por qué existen', 'Adoración y veneración', 'Intercesión', 'Comunión de los santos', 'Santos como modelos'], obj: 'Reconocer a los santos como personas que vivieron el Evangelio de manera ejemplar e identificar actitudes de santidad que se pueden imitar.', val: 'Santidad e imitación de los santos', cite: 'Heb 12,1; 1 Co 11,1; Ap 7,9-14', act: 'Elegir un santo, conocer un rasgo de su vida y elaborar una tarjeta con una virtud que se pueda imitar.'},
+      {num: 54, title: 'LOS SANTOS', sub: ['Qué es un santo', 'Por qué existen', 'Adoración y veneración', 'Intercesión', 'Comunión de los santos', 'Santos como modelos'], obj: 'Reconocer al santo como una persona que vivió el Evangelio de manera ejemplar e identificar actitudes de santidad que se pueden imitar.', val: 'Santidad e imitación de los santos', cite: 'Heb 12,1; 1 Co 11,1; Ap 7,9-14', act: 'Elegir un santo, conocer un rasgo de su vida y elaborar una tarjeta con una virtud que se pueda imitar.'},
       {num: 55, title: 'PADRINOS Y MADRINAS', sub: ['Qué significa ser padrino', 'Qué significa ser madrina', 'Requisitos', 'Funciones', 'Responsabilidad espiritual', 'Acompañamiento'], obj: 'Comprender el papel de los padrinos y madrinas como acompañantes en la vida de fe y reconocer el compromiso que asumen junto al niño.', val: 'Responsabilidad y acompañamiento', cite: 'Mt 28,19-20; 2 Tim 1,5-6; 1 Co 12,13', act: 'Crear un esquema de acompañamiento que explique cómo padrinos y madrinas ayudan a cuidar y fortalecer la fe.'},
       {num: 56, title: 'DESPUÉS DE LA PRIMERA COMUNIÓN', sub: ['¿Terminó la catequesis?', 'Continuar en Misa', 'Continuar orando', 'Confesión', 'Biblia', 'Comunidad', 'Servicio', 'Seguir creciendo en la fe'], obj: 'Proponer acciones para continuar viviendo la fe después de la Primera Comunión mediante la oración, la participación en la Misa, el servicio y la vida comunitaria.', val: 'Perseverancia en la fe', cite: 'Hch 2,42; Heb 10,24-25; Col 4,2; Mt 28,19-20', act: 'Elaborar un plan personal posterior a la Primera Comunión con compromisos de Misa, oración, reconciliación, Palabra y servicio.'}
     ]
