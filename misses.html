@@ -17,17 +17,9 @@
 .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
 .data-table th, .data-table td { border: 1px solid var(--line); padding: 8px; text-align: left; vertical-align: middle; white-space: nowrap; }
 .data-table th { background: var(--blue-soft); color: var(--navy); text-align: center; }
-.badge-porc { padding: 4px 8px; border-radius: 6px; font-size: 0.85rem; font-weight: bold; background: var(--green-soft); color: var(--green); }
 
-/* Indicadores superiores tipo Sheets */
-.sheets-stats { display:grid; grid-template-columns: repeat(5, 1fr); gap:10px; margin-bottom:15px; background:#f8fafc; border:1px solid var(--line); border-radius:12px; padding:12px; text-align:center; }
-.sheets-stat-box { border-right:1px solid var(--line); padding:0 5px; }
-.sheets-stat-box:last-child { border-right:0; }
-.sheets-stat-box .val { font-size:1.25rem; font-weight:900; color:var(--navy); }
-.sheets-stat-box .lbl { font-size:0.75rem; text-transform:uppercase; color:var(--muted); font-weight:bold; }
-
-@media(max-width:768px){.action-buttons{grid-template-columns:repeat(2,1fr)}.tools-grid{grid-template-columns:1fr}.container{padding:14px}.sheets-stats{grid-template-columns:repeat(2,1fr)}}
-@media print{body *{visibility:hidden}#vista-asistencia, #vista-asistencia *, #vista-pagos, #vista-pagos *, #vista-padres, #vista-padres *{visibility:visible}#vista-asistencia, #vista-pagos, #vista-padres{position:absolute;left:0;top:0;width:100%}.no-print{display:none!important}}
+@media(max-width:768px){.action-buttons{grid-template-columns:repeat(2,1fr)}.tools-grid{grid-template-columns:1fr}.container{padding:14px}}
+@media print{body *{visibility:hidden}#vista-pagos, #vista-pagos *, #vista-padres, #vista-padres *{visibility:visible}#vista-pagos, #vista-padres{position:absolute;left:0;top:0;width:100%}.no-print{display:none!important}}
 </style>
 </head>
 <body>
@@ -53,7 +45,7 @@
   <div>
     <div class="eyebrow">Programa de Catequesis · Primera Comunión 2026</div>
     <h1>Portal de Catequistas</h1>
-    <p>Gestión pastoral unificada: Clases, 7 Catequizandos, Asistencia, Pagos y 14 Padres de Familia.</p>
+    <p>Gestión pastoral unificada: Clases, 7 Catequizandos, Pagos y 14 Padres de Familia.</p>
   </div>
 </section>
 
@@ -95,12 +87,12 @@
     <div class="panel-head" style="margin-bottom:10px">
       <div>
         <h2>Portal Pastoral Unificado</h2>
-        <p class="sub">Control de 56 sesiones, 7 catequizandos, asistencia conectada, pagos y 14 padres de familia</p>
+        <p class="sub">Control de 56 sesiones, 7 catequizandos, pagos y 14 padres de familia</p>
       </div>
       <button class="xbtn" data-close="mise-modal" aria-label="Cerrar">✕</button>
     </div>
 
-    <!-- MENÚ PRINCIPAL (6 OPCIONES) -->
+    <!-- MENÚ PRINCIPAL (5 OPCIONES) -->
     <div class="tools-grid" id="menu-herramientas">
       <div class="tool-card">
         <div>
@@ -109,15 +101,6 @@
           <p>Programa completo y materiales interactivos organizados en bloques.</p>
         </div>
         <button class="btn small primary" onclick="mostrarVista('vista-clases')">Abrir Sesiones</button>
-      </div>
-
-      <div class="tool-card">
-        <div>
-          <div style="font-size: 1.5rem; margin-bottom: 8px;">✅</div>
-          <h4>Asistencia (7 Niños)</h4>
-          <p>Control exacto estilo Google Sheets con fotos de GitHub, porcentajes y sesiones.</p>
-        </div>
-        <button class="btn small primary" onclick="mostrarVista('vista-asistencia')">Ver Asistencia</button>
       </div>
 
       <div class="tool-card">
@@ -166,71 +149,7 @@
       <div id="contenedor-56-sesiones"></div>
     </div>
 
-   <!-- VISTA 2: ASISTENCIA INTERACTIVA CONECTADA A GOOGLE SHEETS -->
-    <div id="vista-asistencia" style="display:none; margin-top:15px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
-        <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
-        <div style="display:flex; gap:8px;">
-          <button class="btn small primary" onclick="sincronizarAsistenciaReal()">🔄 Sincronizar con Google Sheets</button>
-          <button class="btn small gold" onclick="window.print()">🖨️ Imprimir Hoja</button>
-        </div>
-      </div>
-      <h3 style="color:var(--navy); margin-bottom:5px;">Control de Asistencia · Parroquia San Pedro de Lurín</h3>
-      <p class="sub" style="margin-bottom:15px;">7 Catequizandos · 50 Clases (Base de datos en tiempo real ligada a Google Sheets)</p>
-
-      <div class="sheets-stats">
-        <div class="sheets-stat-box"><div class="val" id="stat-porc" style="color:var(--green);">0%</div><div class="lbl">% Asistencia General</div></div>
-        <div class="sheets-stat-box"><div class="val" id="stat-presentes">0</div><div class="lbl">Total Presentes [A]</div></div>
-        <div class="sheets-stat-box"><div class="val" id="stat-tardanzas">0</div><div class="lbl">Ingresos Tarde [T]</div></div>
-        <div class="sheets-stat-box"><div class="val" id="stat-faltas">0</div><div class="lbl">Inasistencias [F]</div></div>
-        <div class="sheets-stat-box"><div class="val" id="stat-justificadas">0</div><div class="lbl">Justificadas [FJ]</div></div>
-      </div>
-
-      <div style="display:flex; gap:15px; background:#f8fafc; border:1px solid var(--line); padding:8px 14px; border-radius:8px; margin-bottom:12px; font-size:0.78rem; align-items:center; flex-wrap:wrap;">
-        <strong style="color:var(--navy);">LEYENDA:</strong>
-        <span><b style="background:#1b4a79; color:white; padding:2px 6px; border-radius:4px;">A</b> Presente</span>
-        <span><b style="background:#f3c755; color:#172b48; padding:2px 6px; border-radius:4px;">T</b> Tardanza</span>
-        <span><b style="background:#b83d43; color:white; padding:2px 6px; border-radius:4px;">F</b> Falta</span>
-        <span><b style="background:#23764c; color:white; padding:2px 6px; border-radius:4px;">FJ</b> Justificado</span>
-      </div>
-
-      <div style="overflow-x:auto; max-height:60vh; border:1px solid var(--line); border-radius:12px; background:white;">
-        <table class="data-table" style="margin:0; border-collapse:collapse; font-size:0.75rem;">
-          <thead style="position:sticky; top:0; z-index:5; background:var(--blue-soft);">
-            <tr>
-              <th rowspan="2" style="position:sticky; left:0; background:var(--blue-soft); z-index:6; border-right:2px solid var(--line); text-align:center; min-width:110px;">ID & FOTO</th>
-              <th rowspan="2" style="position:sticky; left:110px; background:var(--blue-soft); z-index:6; border-right:2px solid var(--line); min-width:210px;">APELLIDOS Y NOMBRES</th>
-              <th colspan="5" style="background:#dce5ef; text-align:center; border-right:2px solid var(--line);">RESUMEN</th>
-              <script>
-                const fechasClases = ["16/06","18/06","23/06","25/06","30/06","02/07","07/07","09/07","14/07","16/07","21/07","23/07","28/07","30/07","04/08","06/08","11/08","13/08","18/08","20/08","25/08","27/08","01/09","03/09","08/09","10/09","15/09","17/09","22/09","24/09","29/09","01/10","06/10","08/10","13/10","15/10","20/10","22/10","27/10","29/10","03/11","05/11","10/11","12/11","17/11","19/11","24/11","26/11","01/12","03/12"];
-                for(let i=0; i<50; i++) {
-                  let estiloTh = i === 40 ? "background:#23764c; color:white; border:2px solid var(--gold);" : "background:#1b4a79; color:white;";
-                  let textoLabel = 'SESIÓN '+(i+1)+'<br><span style="font-weight:normal; font-size:0.58rem;">'+fechasClases[i]+'</span>';
-                  document.write('<th style="text-align:center; min-width:55px; font-size:0.65rem; '+estiloTh+' border:1px solid #fff; padding:3px;">'+textoLabel+'</th>');
-                }
-              </script>
-            </tr>
-            <tr>
-              <th style="font-size:0.7rem;">% ASIST.</th>
-              <th style="font-size:0.7rem;">A</th>
-              <th style="font-size:0.7rem;">T</th>
-              <th style="font-size:0.7rem;">F</th>
-              <th style="font-size:0.7rem; border-right:2px solid var(--line);">FJ</th>
-              <script>
-                for(let i=1; i<=50; i++) {
-                  document.write('<th style="text-align:center; font-size:0.58rem; color:var(--navy); background:#edf4fc; border:1px solid var(--line); padding:2px;">Cambiar</th>');
-                }
-              </script>
-            </tr>
-          </thead>
-          <tbody id="cuerpo-tabla-asistencia">
-            <tr><td colspan="57" style="text-align:center; padding:20px; color:var(--muted);">Cargando base de datos de asistencia...</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- VISTA 3: CONTROL DE PAGOS -->
+    <!-- VISTA 2: CONTROL DE PAGOS -->
     <div id="vista-pagos" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
@@ -253,7 +172,7 @@
       <p style="margin-top:10px; font-weight:bold; color:var(--navy);">Total Meta Recaudada: S/. 280.00</p>
     </div>
 
-    <!-- VISTA 4: LOS 14 PADRES DE FAMILIA -->
+    <!-- VISTA 3: LOS 14 PADRES DE FAMILIA -->
     <div id="vista-padres" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
@@ -284,7 +203,7 @@
       </table>
     </div>
 
-    <!-- VISTA 5: CALENDARIO PASTORAL -->
+    <!-- VISTA 4: CALENDARIO PASTORAL -->
     <div id="vista-calendario" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
@@ -296,7 +215,7 @@
       </div>
     </div>
 
-    <!-- VISTA 6: DASHBOARD -->
+    <!-- VISTA 5: DASHBOARD -->
     <div id="vista-dashboard" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
@@ -319,12 +238,10 @@
 const $=id=>document.getElementById(id);
 function abrirPortalComun(){openModal('mise-modal');volverMenuPrincipal();}
 function mostrarVista(idVista){
-  ['menu-herramientas','vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v=>$(v).style.display='none');
-  $(idVista).style.display = 'block';
+  ['menu-herramientas','vista-clases','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v=>$(v).style.display='none');$(idVista).style.display = 'block';
 }
 function volverMenuPrincipal(){
-  ['vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v=>$(v).style.display='none');
-  $('menu-herramientas').style.display = 'grid';
+  ['vista-clases','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v=>$(v).style.display='none');$('menu-herramientas').style.display = 'grid';
 }
 function openModal(id){$(id).classList.add('show')}
 function hideModal(id){$(id).classList.remove('show')}
@@ -338,7 +255,6 @@ $('btnActualizar').addEventListener('click', () => {
   btn.disabled = true;
   setTimeout(() => {
     btn.textContent = '✅ ¡Sincronizado!';
-    sincronizarAsistenciaReal();
     setTimeout(() => {
       btn.textContent = original;
       btn.disabled = false;
@@ -466,149 +382,4 @@ function renderizarSesionesCompletas() {
     bloqueDiv.innerHTML = `<h4 style="color:var(--navy); border-bottom:2px solid var(--gold); padding-bottom:6px; margin:20px 0 12px; font-size:1.1rem;">${bloque.title}</h4>`;
     
     bloque.topics.forEach(t => {
-      let subtemasLi = t.sub.map(s => `<li>${s}</li>`).join('');
-      let temaBox = document.createElement('div');
-      temaBox.className = 'tema-box';
-      temaBox.innerHTML = `
-        <div style="font-size:0.75rem; color:var(--gold-deep); font-weight:bold;">SESIÓN ${t.num} (CJ-${String(t.num).padStart(3, '0')})</div>
-        <h4 style="margin:4px 0 8px; color:var(--navy);">${t.title}</h4>
-        <ul class="subtema-list">${subtemasLi}</ul>
-        <div class="action-buttons">
-          <button class="btn small gold" onclick="alert('Abriendo Prácticas - Sesión ${t.num}: ${t.title}')">✏️ Prácticas</button>
-          <button class="btn small primary" onclick="alert('Abriendo Evaluaciones - Sesión ${t.num}: ${t.title}')">📋 Evaluaciones</button>
-          <button class="btn small" onclick="alert('Abriendo Canciones - Sesión ${t.num}: ${t.title}')">🎵 Canciones</button>
-          <button class="btn small gold" onclick="alert('Abriendo Videos - Sesión ${t.num}: ${t.title}')">▶️ Videos</button>
-        </div>
-      `;
-      bloqueDiv.appendChild(temaBox);
-    });
-    contenedor.appendChild(bloqueDiv);
-  });
-}
-
-// URL del Web App de Apps Script actualizada
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec";
-
-let datosAsistenciaGlobal = [
-  { id: "LDS-EST-001", nombre: "FRANCISCO CRIOLLO, DANY SMITH", foto: "./assets/dany.JPG", estados: generarArrayAsistencia(1) },
-  { id: "LDS-EST-002", nombre: "PINEDA ELGUERA, ADAM STUARD", foto: "./assets/adam.jpeg", estados: generarArrayAsistencia(2) },
-  { id: "LDS-EST-003", nombre: "PIZARRO MENDOZA, CAMILA", foto: "./assets/camila.png", estados: generarArrayAsistencia(3) },
-  { id: "LDS-EST-004", nombre: "QUISPE FLORES, ANA PAULA", foto: "./assets/ana.jpeg", estados: generarArrayAsistencia(4) },
-  { id: "LDS-EST-005", nombre: "ROMERO SIESQUEN, MARCOS MANUEL", foto: "./assets/marco.jpeg", estados: generarArrayAsistencia(5) },
-  { id: "LDS-EST-006", nombre: "CARDENAS QUISPE, VASCO", foto: "./assets/adam.jpeg", estados: generarArrayAsistencia(6) },
-  { id: "LDS-EST-007", nombre: "PIZARRO MENDOZA, MARCHELO", foto: "./assets/marco.jpeg", estados: generarArrayAsistencia(7) }
-];
-
-function generarArrayAsistencia(numEst) {
-  let arr = [];
-  for(let i = 1; i <= 50; i++) {
-    let val = "A"; // Por defecto presente, limpio de errores previos
-    arr.push(val);
-  }
-  return arr;
-}
-
-function sincronizarAsistenciaReal() {
-  const tbody = $('cuerpo-tabla-asistencia');
-  tbody.innerHTML = `<tr><td colspan="57" style="text-align:center; padding:20px; color:var(--navy); font-weight:bold;">⏳ Sincronizando con Google Sheets...</td></tr>`;
-
-  fetch(APPS_SCRIPT_URL)
-    .then(response => response.json())
-    .then(data => {
-      if(data && Array.isArray(data) && data.length > 0){ datosAsistenciaGlobal = data; }
-      renderizarTablaAsistencia();
-    })
-    .catch(error => {
-      console.warn("Usando base de datos local sincronizada:", error);
-      renderizarTablaAsistencia();
-    });
-}
-
-function cambiarEstadoAsistencia(indexEstudiante, indexSesion, nuevoValor) {
-  datosAsistenciaGlobal[indexEstudiante].estados[indexSesion] = nuevoValor;
-  renderizarTablaAsistencia();
-  
-  fetch(APPS_SCRIPT_URL, {
-    method: "POST",
-    mode: "no-cors",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      id: datosAsistenciaGlobal[indexEstudiante].id,
-      sesion: indexSesion + 1,
-      estado: nuevoValor
-    })
-  }).catch(err => console.log("Sincronización en segundo plano con Sheets.", err));
-}
-
-function renderizarTablaAsistencia() {
-  const tbody = $('cuerpo-tabla-asistencia');
-  tbody.innerHTML = "";
-
-  let totalA = 0, totalT = 0, totalF = 0, totalFJ = 0, totalRegistros = 0;
-
-  datosAsistenciaGlobal.forEach((est, idxEst) => {
-    let aCount = 0, tCount = 0, fCount = 0, fjCount = 0;
-
-    est.estados.forEach(val => {
-      if(val === "A") aCount++;
-      else if(val === "T") tCount++;
-      else if(val === "F") fCount++;
-      else if(val === "FJ") fjCount++;
-    });
-
-    let totalClasesEst = est.estados.length;
-    let porcEst = ((aCount + (tCount * 0.5)) / totalClasesEst * 100).toFixed(1).replace('.', ',') + "%";
-
-    totalA += aCount; totalT += tCount; totalF += fCount; totalFJ += fjCount;
-    totalRegistros += totalClasesEst;
-
-    let tr = document.createElement('tr');
-    let htmlTd = `
-      <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center; padding:4px;">
-        <div style="font-size:0.68rem; font-weight:bold; color:var(--navy); margin-bottom:1px;">${est.id}</div>
-        <img src="${est.foto}" alt="${est.nombre}" style="width:42px; height:42px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;" onerror="this.src='https://images.unsplash.com/photo-1543269865-cbf427effbad?w=150'">
-      </td>
-      <td style="position:sticky; left:110px; background:white; z-index:4; border-right:2px solid var(--line); font-size:0.75rem;">${est.nombre}</td>
-      <td><span class="badge-porc" style="font-size:0.72rem; padding:2px 6px;">${porcEst}</span></td>
-      <td style="text-align:center; font-weight:bold; color:var(--navy);">${aCount}</td>
-      <td style="text-align:center; font-weight:bold; color:#b17b10;">${tCount}</td>
-      <td style="text-align:center; font-weight:bold; color:var(--red);">${fCount}</td>
-      <td style="text-align:center; font-weight:bold; color:var(--green); border-right:2px solid var(--line);">${fjCount}</td>
-    `;
-
-    est.estados.forEach((val, idxSes) => {
-      let bgCol = "#1b4a79", textCol = "white";
-      if(val === "T") { bgCol = "#f3c755"; textCol = "#172b48"; }
-      else if(val === "F") { bgCol = "#b83d43"; textCol = "white"; }
-      else if(val === "FJ") { bgCol = "#23764c"; textCol = "white"; }
-
-      htmlTd += `
-        <td style="text-align:center; padding:2px;">
-          <select onchange="cambiarEstadoAsistencia(${idxEst}, ${idxSes}, this.value)" style="background:${bgCol}; color:${textCol}; font-size:0.68rem; font-weight:bold; border-radius:3px; border:0; padding:2px 3px; text-align:center; width:48px;">
-            <option value="A" ${val==='A'?'selected':''}>A</option>
-            <option value="T" ${val==='T'?'selected':''}>T</option>
-            <option value="F" ${val==='F'?'selected':''}>F</option>
-            <option value="FJ" ${val==='FJ'?'selected':''}>FJ</option>
-          </select>
-        </td>`;
-    });
-
-    tr.innerHTML = htmlTd;
-    tbody.appendChild(tr);
-  });
-
-  let porcGeneral = ((totalA + (totalT * 0.5)) / totalRegistros * 100).toFixed(1).replace('.', ',') + "%";
-  $('stat-porc').textContent = porcGeneral;
-  $('stat-presentes').textContent = totalA;
-  $('stat-tardanzas').textContent = totalT;
-  $('stat-faltas').textContent = totalF;
-  $('stat-justificadas').textContent = totalFJ;
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  renderizarSesionesCompletas();
-  sincronizarAsistenciaReal();
-});
-</script>
-</body>
-</html>
+      let subtemasLi = t.sub
