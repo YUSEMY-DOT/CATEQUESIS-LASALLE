@@ -80,15 +80,15 @@
     </div>
     <div class="mises-grid">
       <article class="mise-card" onclick="abrirPortalComun()">
-        <img class="mise-avatar" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/dc65d5b1494500d8d391a2c07de3ec1321a21ba1/assets/miss%20lily.jpg" alt="Lili Melo">
+        <img class="mise-avatar" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/miss%20lily.jpg" alt="Lily Melo">
         <div>
-          <h3 style="margin:0 0 4px; color:var(--navy); font-size:1.1rem">Lili Melo Azañero</h3>
+          <h3 style="margin:0 0 4px; color:var(--navy); font-size:1.1rem">Lily Melo Azañero</h3>
           <p class="small muted" style="margin:0 0 6px">Catequista Responsable</p>
           <span class="small" style="color:var(--gold-deep); font-weight:900;">Ingresar al Portal ↗</span>
         </div>
       </article>
       <article class="mise-card" onclick="abrirPortalComun()">
-        <img class="mise-avatar" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/dc65d5b1494500d8d391a2c07de3ec1321a21ba1/assets/miss%20kiara.png" alt="Kiara Morales">
+        <img class="mise-avatar" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/miss%20kiara.png" alt="Kiara Morales">
         <div>
           <h3 style="margin:0 0 4px; color:var(--navy); font-size:1.1rem">Kiara Morales Elguera</h3>
           <p class="small muted" style="margin:0 0 6px">Catequista Responsable</p>
@@ -153,7 +153,7 @@
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
         <div style="display:flex; gap:8px;">
-          <button class="btn small primary" onclick="alert('Sincronizado con Google Sheets y repositorio de GitHub.')">🔄 Sincronizar Datos</button>
+          <button class="btn small primary" onclick="alert('Sincronizado con GitHub y Google Sheets.')">🔄 Sincronizar Datos</button>
           <button class="btn small gold" onclick="window.print()">🖨️ Imprimir Reporte</button>
         </div>
       </div>
@@ -282,7 +282,7 @@
            • <strong>Padres / Apoderados:</strong> 14 tutores<br>
            • <strong>Institución:</strong> Colegio La Salle del Sur<br>
            • <strong>Parroquia:</strong> Parroquia San Pedro de Lurín<br>
-           • <strong>Catequistas:</strong> Lili Melo Azañero / Kiara Morales Elguera</p>
+           • <strong>Catequistas:</strong> Lily Melo Azañero / Kiara Morales Elguera</p>
       </div>
     </div>
 
@@ -307,7 +307,7 @@ function openModal(id){$(id).classList.add('show')}
 function hideModal(id){$(id).classList.remove('show')}
 document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>hideModal(b.closest('.modal-backdrop').id)));
 
-// Fotos de los 7 catequizandos enlazadas directamente desde el repositorio de GitHub
+// Fotos de los 7 catequizandos enlazadas directamente desde GitHub (YUSEMY-DOT/CATEQUESIS-LASALLE)
 let datosAsistenciaGlobal = [
   { id: "LDS-EST-001", nombre: "FRANCISCO CRIOLLO, DANY SMITH", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/dany.jpg", estados: generarEstadosDefault(1) },
   { id: "LDS-EST-002", nombre: "PINEDA ELGUERA, ADAM STUARD", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/adam.jpg", estados: generarEstadosDefault(2) },
@@ -535,7 +535,7 @@ const bloquesProgramacion = [
     topics: [
       {num: 46, title: 'El ser humano y el pecado', sub: ['Libertad y responsabilidad']},
       {num: 47, title: 'Los Diez Mandamientos', sub: ['Ley de Dios para el amor al prójimo']},
-      {num: 48, title: 'Los Mandamientos de la Iglesia', sub: ['Obligaciones du cristiano']},
+      {num: 48, title: 'Los Mandamientos de la Iglesia', sub: ['Obligaciones del cristiano']},
       {num: 49, title: 'Las Bienaventuranzas', sub: ['Camino de la verdadera felicidad']},
       {num: 50, title: 'Obras de misericordia', sub: ['Corporales y espirituales']},
       {num: 51, title: 'Examen de conciencia', sub: ['Reconocer errores y buscar conversión']}
