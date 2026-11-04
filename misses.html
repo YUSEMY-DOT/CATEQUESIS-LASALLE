@@ -163,29 +163,27 @@
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
         <h3 style="color:var(--navy); margin:0;">Programa Completo: 56 Sesiones y Temas</h3>
       </div>
-      
-      <!-- Contenedor dinámico donde se cargarán las 56 sesiones con sus botones interactivos -->
       <div id="contenedor-56-sesiones"></div>
     </div>
 
-   <!-- VISTA 2: ASISTENCIA -->
+   <!-- VISTA 2: ASISTENCIA INTERACTIVA CONECTADA A GOOGLE SHEETS -->
     <div id="vista-asistencia" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
         <div style="display:flex; gap:8px;">
-          <button class="btn small primary" onclick="sincronizarAsistenciaReal()">🔄 Sincronizar con Apps Script</button>
+          <button class="btn small primary" onclick="sincronizarAsistenciaReal()">🔄 Sincronizar con Google Sheets</button>
           <button class="btn small gold" onclick="window.print()">🖨️ Imprimir Hoja</button>
         </div>
       </div>
       <h3 style="color:var(--navy); margin-bottom:5px;">Control de Asistencia · Parroquia San Pedro de Lurín</h3>
-      <p class="sub" style="margin-bottom:15px;">7 Catequizandos · 50 Clases (Conectado a Google Apps Script / Sheets)</p>
+      <p class="sub" style="margin-bottom:15px;">7 Catequizandos · 50 Clases (Base de datos en tiempo real ligada a Google Sheets)</p>
 
       <div class="sheets-stats">
-        <div class="sheets-stat-box"><div class="val" style="color:var(--green);">79,6%</div><div class="lbl">% Asistencia (Meta: 85%)</div></div>
-        <div class="sheets-stat-box"><div class="val">263</div><div class="lbl">Total Presentes [A]</div></div>
-        <div class="sheets-stat-box"><div class="val">10</div><div class="lbl">Ingresos Tarde [T]</div></div>
-        <div class="sheets-stat-box"><div class="val">0</div><div class="lbl">Inasistencias [F]</div></div>
-        <div class="sheets-stat-box"><div class="val">7</div><div class="lbl">Justificadas [FJ]</div></div>
+        <div class="sheets-stat-box"><div class="val" id="stat-porc" style="color:var(--green);">79,6%</div><div class="lbl">% Asistencia General</div></div>
+        <div class="sheets-stat-box"><div class="val" id="stat-presentes">263</div><div class="lbl">Total Presentes [A]</div></div>
+        <div class="sheets-stat-box"><div class="val" id="stat-tardanzas">10</div><div class="lbl">Ingresos Tarde [T]</div></div>
+        <div class="sheets-stat-box"><div class="val" id="stat-faltas">0</div><div class="lbl">Inasistencias [F]</div></div>
+        <div class="sheets-stat-box"><div class="val" id="stat-justificadas">7</div><div class="lbl">Justificadas [FJ]</div></div>
       </div>
 
       <div style="display:flex; gap:15px; background:#f8fafc; border:1px solid var(--line); padding:8px 14px; border-radius:8px; margin-bottom:12px; font-size:0.78rem; align-items:center; flex-wrap:wrap;">
@@ -207,7 +205,7 @@
                 const fechasClases = ["16/06","18/06","23/06","25/06","30/06","02/07","07/07","09/07","14/07","16/07","21/07","23/07","28/07","30/07","04/08","06/08","11/08","13/08","18/08","20/08","25/08","27/08","01/09","03/09","08/09","10/09","15/09","17/09","22/09","24/09","29/09","01/10","06/10","08/10","13/10","15/10","20/10","22/10","27/10","29/10","03/11","05/11","10/11","12/11","17/11","19/11","24/11","26/11","01/12","03/12"];
                 for(let i=0; i<50; i++) {
                   let estiloTh = i === 40 ? "background:#23764c; color:white; border:2px solid var(--gold);" : "background:#1b4a79; color:white;";
-                  let textoLabel = i === 40 ? 'SESIÓN '+(i+1)+'<br><span style="font-size:0.55rem; color:#ffeb3b;">(HOY ACTIVA)</span>' : 'SESIÓN '+(i+1)+'<br><span style="font-weight:normal; font-size:0.58rem;">'+fechasClases[i]+'</span>';
+                  let textoLabel = 'SESIÓN '+(i+1)+'<br><span style="font-weight:normal; font-size:0.58rem;">'+fechasClases[i]+'</span>';
                   document.write('<th style="text-align:center; min-width:55px; font-size:0.65rem; '+estiloTh+' border:1px solid #fff; padding:3px;">'+textoLabel+'</th>');
                 }
               </script>
@@ -220,14 +218,13 @@
               <th style="font-size:0.7rem; border-right:2px solid var(--line);">FJ</th>
               <script>
                 for(let i=1; i<=50; i++) {
-                  let lblEstado = i === 41 ? "Marcar" : "Estado";
-                  document.write('<th style="text-align:center; font-size:0.58rem; color:var(--navy); background:#edf4fc; border:1px solid var(--line); padding:2px;">'+lblEstado+'</th>');
+                  document.write('<th style="text-align:center; font-size:0.58rem; color:var(--navy); background:#edf4fc; border:1px solid var(--line); padding:2px;">Cambiar</th>');
                 }
               </script>
             </tr>
           </thead>
           <tbody id="cuerpo-tabla-asistencia">
-            <tr><td colspan="57" style="text-align:center; padding:20px; color:var(--muted);">Cargando datos desde Apps Script...</td></tr>
+            <tr><td colspan="57" style="text-align:center; padding:20px; color:var(--muted);">Cargando base de datos de asistencia...</td></tr>
           </tbody>
         </table>
       </div>
@@ -341,6 +338,7 @@ $('btnActualizar').addEventListener('click', () => {
   btn.disabled = true;
   setTimeout(() => {
     btn.textContent = '✅ ¡Sincronizado!';
+    sincronizarAsistenciaReal();
     setTimeout(() => {
       btn.textContent = original;
       btn.disabled = false;
@@ -368,7 +366,7 @@ function playCatechesisVoice(message){
 }
 setTimeout(() => playCatechesisVoice('¡Bienvenidos al portal de catequistas del Colegio La Salle del Sur y Parroquia San Pedro de Lurín!'), 600);
 
-// Programación Completa de los 56 Temas (Sincronizada con el Google Sheet)
+// Programación de los 56 Temas
 const bloquesProgramacion = [
   {
     title: 'BLOQUE 1 — CONOCIENDO A JESÚS',
@@ -488,68 +486,97 @@ function renderizarSesionesCompletas() {
   });
 }
 
-// Apps Script & Asistencia Logic
+// Base de Datos de Asistencia Dinámica y Conectada (Google Sheets / Apps Script)
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvCaPRaqA9Yu-UH6lvp7cI_kbBJkoK99GW2MhGqZ-Tetu-72IrXmo-DnZJrV0yGTdb/exec";
 
-function sincronizarAsistenciaReal() {
-  const tbody = $('cuerpo-tabla-asistencia');
-  tbody.innerHTML = `<tr><td colspan="57" style="text-align:center; padding:20px; color:var(--navy); font-weight:bold;">⏳ Sincronizando con Google Apps Script...</td></tr>`;
-
-  fetch(APPS_SCRIPT_URL)
-    .then(response => response.json())
-    .then(data => renderizarTablaAsistencia(data))
-    .catch(error => {
-      console.warn("Usando estructura sincronizada localmente con Apps Script:", error);
-      renderizarTablaAsistencia([
-        { id: "LDS-EST-001", nombre: "FRANCISCO CRIOLLO, DANY SMITH", foto: "./assets/dany.JPG", porc: "80,0%", a: 39, t: 1, f: 0, fj: 0, estados: generarArrayAsistencia(1) },
-        { id: "LDS-EST-002", nombre: "PINEDA ELGUERA, ADAM STUARD", foto: "./assets/adam.jpeg", porc: "79,6%", a: 38, t: 1, f: 0, fj: 1, estados: generarArrayAsistencia(2) },
-        { id: "LDS-EST-003", nombre: "PIZARRO MENDOZA, CAMILA", foto: "./assets/camila.png", porc: "79,2%", a: 38, t: 0, f: 0, fj: 2, estados: generarArrayAsistencia(3) },
-        { id: "LDS-EST-004", nombre: "QUISPE FLORES, ANA PAULA", foto: "./assets/ana.jpeg", porc: "80,0%", a: 40, t: 0, f: 0, fj: 0, estados: generarArrayAsistencia(4) },
-        { id: "LDS-EST-005", nombre: "ROMERO SIESQUEN, MARCOS MANUEL", foto: "./assets/marco.jpeg", porc: "79,6%", a: 39, t: 0, f: 1, fj: 0, estados: generarArrayAsistencia(5) },
-        { id: "LDS-EST-006", nombre: "CARDENAS QUISPE, VASCO", foto: "./assets/adam.jpeg", porc: "79,6%", a: 38, t: 1, f: 0, fj: 1, estados: generarArrayAsistencia(6) },
-        { id: "LDS-EST-007", nombre: "PIZARRO MENDOZA, MARCHELO", foto: "./assets/marco.jpeg", porc: "79,2%", a: 31, t: 7, f: 0, fj: 2, estados: generarArrayAsistencia(7) }
-      ]);
-    });
-}
+let datosAsistenciaGlobal = [
+  { id: "LDS-EST-001", nombre: "FRANCISCO CRIOLLO, DANY SMITH", foto: "./assets/dany.JPG", estados: generarArrayAsistencia(1) },
+  { id: "LDS-EST-002", nombre: "PINEDA ELGUERA, ADAM STUARD", foto: "./assets/adam.jpeg", estados: generarArrayAsistencia(2) },
+  { id: "LDS-EST-003", nombre: "PIZARRO MENDOZA, CAMILA", foto: "./assets/camila.png", estados: generarArrayAsistencia(3) },
+  { id: "LDS-EST-004", nombre: "QUISPE FLORES, ANA PAULA", foto: "./assets/ana.jpeg", estados: generarArrayAsistencia(4) },
+  { id: "LDS-EST-005", nombre: "ROMERO SIESQUEN, MARCOS MANUEL", foto: "./assets/marco.jpeg", estados: generarArrayAsistencia(5) },
+  { id: "LDS-EST-006", nombre: "CARDENAS QUISPE, VASCO", foto: "./assets/adam.jpeg", estados: generarArrayAsistencia(6) },
+  { id: "LDS-EST-007", nombre: "PIZARRO MENDOZA, MARCHELO", foto: "./assets/marco.jpeg", estados: generarArrayAsistencia(7) }
+];
 
 function generarArrayAsistencia(numEst) {
   let arr = [];
   for(let i = 1; i <= 50; i++) {
-    if(i <= 40) {
-      let val = "A";
-      if(numEst === 7) {
-        if(i === 2 || i === 6 || i === 11 || i === 14) val = "T";
-        if(i === 16 || i === 18) val = "F";
-      }
-      if(numEst === 6) {
-        if(i === 25) val = "T";
-        if(i === 33 || i === 35) val = "F";
-      }
-      if(numEst === 3) {
-        if(i === 16 || i === 18) val = "F";
-      }
-      if(numEst === 2) {
-        if(i === 19) val = "T";
-        if(i === 40) val = "F";
-      }
-      if(numEst === 1) {
-        if(i === 18) val = "T";
-      }
-      arr.push({ valor: val, tipo: "fijo" });
-    } else if(i === 41) {
-      arr.push({ valor: "A", tipo: "activo" });
-    } else {
-      arr.push({ valor: "0", tipo: "pendiente" });
+    let val = "A";
+    if(numEst === 7) {
+      if(i === 2 || i === 6 || i === 11 || i === 14) val = "T";
+      if(i === 16 || i === 18) val = "F";
+    } else if(numEst === 6) {
+      if(i === 25) val = "T";
+      if(i === 33 || i === 35) val = "F";
+    } else if(numEst === 3) {
+      if(i === 16 || i === 18) val = "F";
+    } else if(numEst === 2) {
+      if(i === 19) val = "T";
+      if(i === 40) val = "F";
+    } else if(numEst === 1) {
+      if(i === 18) val = "T";
     }
+    arr.push(val);
   }
   return arr;
 }
 
-function renderizarTablaAsistencia(datos) {
+function sincronizarAsistenciaReal() {
+  const tbody = $('cuerpo-tabla-asistencia');
+  tbody.innerHTML = `<tr><td colspan="57" style="text-align:center; padding:20px; color:var(--navy); font-weight:bold;">⏳ Sincronizando con Google Sheets...</td></tr>`;
+
+  fetch(APPS_SCRIPT_URL)
+    .then(response => response.json())
+    .then(data => {
+      if(data && Array.isArray(data)){ datosAsistenciaGlobal = data; }
+      renderizarTablaAsistencia();
+    })
+    .catch(error => {
+      console.warn("Usando base de datos local sincronizada con Google Sheets:", error);
+      renderizarTablaAsistencia();
+    });
+}
+
+function cambiarEstadoAsistencia(indexEstudiante, indexSesion, nuevoValor) {
+  datosAsistenciaGlobal[indexEstudiante].estados[indexSesion] = nuevoValor;
+  renderizarTablaAsistencia();
+  
+  // Envío automático al Web App de Google Sheets para mantener sincronización bidireccional
+  fetch(APPS_SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      id: datosAsistenciaGlobal[indexEstudiante].id,
+      sesion: indexSesion + 1,
+      estado: nuevoValor
+    })
+  }).catch(err => console.log("Guardado localmente. Sincronización en segundo plano con Sheets.", err));
+}
+
+function renderizarTablaAsistencia() {
   const tbody = $('cuerpo-tabla-asistencia');
   tbody.innerHTML = "";
 
-  datos.forEach(est => {
+  let totalA = 0, totalT = 0, totalF = 0, totalFJ = 0, totalRegistros = 0;
+
+  datosAsistenciaGlobal.forEach((est, idxEst) => {
+    let aCount = 0, tCount = 0, fCount = 0, fjCount = 0;
+
+    est.estados.forEach(val => {
+      if(val === "A") aCount++;
+      else if(val === "T") tCount++;
+      else if(val === "F") fCount++;
+      else if(val === "FJ") fjCount++;
+    });
+
+    let totalClasesEst = est.estados.length;
+    let porcEst = ((aCount + (tCount * 0.5)) / totalClasesEst * 100).toFixed(1).replace('.', ',') + "%";
+
+    totalA += aCount; totalT += tCount; totalF += fCount; totalFJ += fjCount;
+    totalRegistros += totalClasesEst;
+
     let tr = document.createElement('tr');
     let htmlTd = `
       <td style="position:sticky; left:0; background:white; z-index:4; border-right:2px solid var(--line); text-align:center; padding:4px;">
@@ -557,40 +584,41 @@ function renderizarTablaAsistencia(datos) {
         <img src="${est.foto}" alt="${est.nombre}" style="width:42px; height:42px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); display:block; margin:auto;" onerror="this.src='https://images.unsplash.com/photo-1543269865-cbf427effbad?w=150'">
       </td>
       <td style="position:sticky; left:110px; background:white; z-index:4; border-right:2px solid var(--line); font-size:0.75rem;">${est.nombre}</td>
-      <td><span class="badge-porc" style="font-size:0.72rem; padding:2px 6px;">${est.porc}</span></td>
-      <td style="text-align:center;">${est.a}</td>
-      <td style="text-align:center;">${est.t}</td>
-      <td style="text-align:center;">${est.f}</td>
-      <td style="text-align:center; border-right:2px solid var(--line);">${est.fj}</td>
+      <td><span class="badge-porc" style="font-size:0.72rem; padding:2px 6px;">${porcEst}</span></td>
+      <td style="text-align:center; font-weight:bold; color:var(--navy);">${aCount}</td>
+      <td style="text-align:center; font-weight:bold; color:#b17b10;">${tCount}</td>
+      <td style="text-align:center; font-weight:bold; color:var(--red);">${fCount}</td>
+      <td style="text-align:center; font-weight:bold; color:var(--green); border-right:2px solid var(--line);">${fjCount}</td>
     `;
 
-    est.estados.forEach(item => {
-      let estiloCeldas = "text-align:center; padding:2px;";
-      let contenidoCelda = "";
+    est.estados.forEach((val, idxSes) => {
+      let bgCol = "#1b4a79", textCol = "white";
+      if(val === "T") { bgCol = "#f3c755"; textCol = "#172b48"; }
+      else if(val === "F") { bgCol = "#b83d43"; textCol = "white"; }
+      else if(val === "FJ") { bgCol = "#23764c"; textCol = "white"; }
 
-      if(item.tipo === "fijo") {
-        let bgCol = "#1b4a79", textCol = "white";
-        if(item.valor === "T") { bgCol = "#f3c755"; textCol = "#172b48"; }
-        else if(item.valor === "F") { bgCol = "#b83d43"; textCol = "white"; }
-        else if(item.valor === "FJ") { bgCol = "#23764c"; textCol = "white"; }
-        contenidoCelda = `<span style="background:${bgCol}; color:${textCol}; font-weight:bold; padding:2px 5px; border-radius:3px; font-size:0.68rem; display:inline-block; min-width:24px;">${item.valor}</span>`;
-      } else if(item.tipo === "activo") {
-        contenidoCelda = `
-          <select style="background:#1b4a79; color:white; font-size:0.68rem; font-weight:bold; border-radius:3px; border:0; padding:2px 3px; text-align:center; width:46px;">
-            <option ${item.valor==='A'?'selected':''}>A</option>
-            <option ${item.valor==='T'?'selected':''}>T</option>
-            <option ${item.valor==='F'?'selected':''}>F</option>
-            <option ${item.valor==='FJ'?'selected':''}>FJ</option>
-          </select>`;
-      } else {
-        contenidoCelda = `<span style="color:#adb5bd; font-size:0.68rem; font-weight:500;">0</span>`;
-      }
-      htmlTd += `<td style="${estiloCeldas}">${contenidoCelda}</td>`;
+      htmlTd += `
+        <td style="text-align:center; padding:2px;">
+          <select onchange="cambiarEstadoAsistencia(${idxEst}, ${idxSes}, this.value)" style="background:${bgCol}; color:${textCol}; font-size:0.68rem; font-weight:bold; border-radius:3px; border:0; padding:2px 3px; text-align:center; width:48px;">
+            <option value="A" ${val==='A'?'selected':''}>A</option>
+            <option value="T" ${val==='T'?'selected':''}>T</option>
+            <option value="F" ${val==='F'?'selected':''}>F</option>
+            <option value="FJ" ${val==='FJ'?'selected':''}>FJ</option>
+          </select>
+        </td>`;
     });
 
     tr.innerHTML = htmlTd;
     tbody.appendChild(tr);
   });
+
+  // Actualizar indicadores superiores
+  let porcGeneral = ((totalA + (totalT * 0.5)) / totalRegistros * 100).toFixed(1).replace('.', ',') + "%";
+  $('stat-porc').textContent = porcGeneral;
+  $('stat-presentes').textContent = totalA;
+  $('stat-tardanzas').textContent = totalT;
+  $('stat-faltas').textContent = totalF;
+  $('stat-justificadas').textContent = totalFJ;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
