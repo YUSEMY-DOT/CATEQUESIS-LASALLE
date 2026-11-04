@@ -59,9 +59,9 @@
 .encounter-card { border: 1px solid #fae8b3; background: #fffdf7; border-radius: 12px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
 
 /* Asistencia Modular */
-.asist-layout { display: grid; grid-template-columns: 300px 1fr; gap: 20px; align-items: start; }
-.estudiantes-lista-asist { background: #f8fafc; border: 1px solid var(--line); border-radius: 14px; padding: 12px; max-height: 560px; overflow-y: auto; }
-.est-item-btn { display: flex; align-items: center; gap: 12px; width: 100%; padding: 10px 12px; background: white; border: 1.5px solid var(--line); border-radius: 12px; margin-bottom: 8px; text-align: left; transition: all 0.2s; }
+.asist-layout { display: grid; grid-template-columns: 320px 1fr; gap: 20px; align-items: start; }
+.estudiantes-lista-asist { background: #f8fafc; border: 1px solid var(--line); border-radius: 14px; padding: 12px; min-height: 480px; max-height: 560px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+.est-item-btn { display: flex; align-items: center; gap: 12px; width: 100%; padding: 10px 12px; background: white; border: 1.5px solid var(--line); border-radius: 12px; text-align: left; transition: all 0.2s; flex-shrink: 0; }
 .est-item-btn:hover, .est-item-btn.active { border-color: var(--navy); background: var(--blue-soft); box-shadow: 0 3px 10px #173b6808; }
 .est-item-btn img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); flex-shrink: 0; }
 .est-item-btn .info-n { font-size: 0.82rem; font-weight: 800; color: var(--navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -395,6 +395,7 @@ let datosAsistenciaGlobal = [
 
 function inicializarAsistenciaModular() {
   const listaCont = $('lista-catequizandos-asist');
+  if(!listaCont) return;
   listaCont.innerHTML = "";
 
   recalcularTotalesGlobales();
@@ -455,7 +456,7 @@ function actualizarEstadoModular(idxEst, idxSes, nuevoVal) {
   cargarSesionesEstudiante(idxEst);
 }
 
-function recalcalcularTotalesGlobales() {
+function recalcularTotalesGlobales() {
   let totalA = 0, totalT = 0, totalF = 0, totalFJ = 0, totalRegistrados = 0;
   datosAsistenciaGlobal.forEach(est => {
     est.estados.forEach(v => {
@@ -577,7 +578,7 @@ const bloquesProgramacion = [
     title: 'BLOQUE 2 — APRENDEMOS A ORAR',
     topics: [
       {num: 16, title: 'El Santo Rosario', sub: ['Qué es y para qué sirve', 'Misterios', 'Cómo se reza']},
-      {num: 17, title: '¿Qué es orar?', sub: ['Significado de orar y rezar', 'Oración personal', 'Petición y alabanza']},
+      {num: 17, title: '¿Quién es orar?', sub: ['Significado de orar y rezar', 'Oración personal', 'Petición y alabanza']},
       {num: 18, title: 'Oraciones Fundamentales', sub: ['Señal de la Cruz', 'Padre Nuestro', 'Ave María', 'Gloria']},
       {num: 19, title: 'El Padre Nuestro', sub: ['Explicación de cada petición', 'Significado espiritual']}
     ]
