@@ -189,7 +189,7 @@
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
         <div style="display:flex; gap:8px;">
-          <button class="btn small primary" onclick="alert('Datos sincronizados correctamente.')">🔄 Sincronizar</button>
+          <button class="btn small primary" onclick="sincronizarConHoja()">🔄 Sincronizar</button>
           <button class="btn small gold" onclick="window.print()">🖨️ Imprimir Reporte</button>
         </div>
       </div>
@@ -329,6 +329,9 @@
 <script>
 const $=id=>document.getElementById(id);
 
+// PEGA AQUÍ LA URL DE TU WEB APP DE GOOGLE APPS SCRIPT
+const URL_APPS_SCRIPT = "AQUÍ_PEGA_TU_URL_DE_GOOGLE_APPS_SCRIPT";
+
 function abrirPortalComun(){openModal('mise-modal');volverMenuPrincipal();}
 function mostrarVista(idVista){
   ['menu-herramientas','vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v=>$(v).style.display='none');
@@ -347,7 +350,6 @@ document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',
 // Fechas oficiales de las 50 sesiones
 const fechasClasesAsist = ["16/06","18/06","23/06","25/06","30/06","02/07","07/07","09/07","14/07","16/07","21/07","23/07","28/07","30/07","04/08","06/08","11/08","13/08","18/08","20/08","25/08","27/08","01/09","03/09","08/09","10/09","15/09","17/09","22/09","24/09","29/09","01/10","06/10","08/10","13/10","15/10","20/10","22/10","27/10","29/10","03/11","05/11","10/11","12/11","17/11","19/11","24/11","26/11","01/12","03/12"];
 
-// Datos de asistencia actualizados (sesiones 42 a 50 libres con opción vacía)
 let datosAsistenciaGlobal = [
   {
     id: "LDS-EST-001",
@@ -452,7 +454,45 @@ function cargarSesionesEstudiante(idxEst) {
 function actualizarEstadoModular(idxEst, idxSes, nuevoVal) {
   datosAsistenciaGlobal[idxEst].estados[idxSes] = nuevoVal;
   recalcularTotalesGlobales();
+  
+  // ENVÍO DE DATOS AUTOMÁTICO A LA HOJA DE CÁLCULO
+  let estudiante = datosAsistenciaGlobal[idxEst];
+  enviarDatosASheet({
+    idEstudiante: estudiante.id,
+    nombre: estudiante.nombre,
+    sesion: idxSes + 1,
+    estado: nuevoVal
+  });
+
   cargarSesionesEstudiante(idxEst);
+}
+
+function enviarDatosASheet(payload) {
+  if(!URL_APPS_SCRIPT || URL_APPS_SCRIPT.includes("AQUÍ_PEGA")) {
+    console.warn("Falta configurar la URL de Apps Script.");
+    return;
+  }
+  fetch(URL_APPS_SCRIPT, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  }).then(() => {
+    console.log("Marcación enviada a la base de datos.");
+  }).catch(err => console.error("Error al sincronizar:", err));
+}
+
+function sincronizarConHoja() {
+  const btn = $('btnActualizar') || document.querySelector('.btn.primary');
+  if(!btn) return;
+  const original = btn.textContent;
+  btn.textContent = '⏳ Sincronizando...';
+  btn.disabled = true;
+  setTimeout(() => {
+    recalcularTotalesGlobales();
+    btn.textContent = '✅ ¡Sincronizado!';
+    setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 1200);
+  }, 600);
 }
 
 function recalcularTotalesGlobales() {
@@ -539,17 +579,10 @@ function actualizarPanelEncuentro(fechaObj, keyFecha) {
   $('card-tema-mini').textContent = info.tema;
 }
 
-$('btnActualizar').addEventListener('click', () => {
-  const btn = $('btnActualizar');
-  const original = btn.textContent;
-  btn.textContent = '⏳ Sincronizando...';
-  btn.disabled = true;
-  setTimeout(() => {
-    recalcularTotalesGlobales();
-    btn.textContent = '✅ ¡Sincronizado!';
-    setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 1200);
-  }, 600);
-});
+const btnAct = $('btnActualizar');
+if(btnAct) {
+  btnAct.addEventListener('click', sincronizarConHoja);
+}
 
 // Programa de 56 Sesiones
 const bloquesProgramacion = [
