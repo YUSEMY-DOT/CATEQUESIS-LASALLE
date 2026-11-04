@@ -10,87 +10,145 @@
     body { background-color: #f4f6f9; font-family: 'Segoe UI', Roboto, sans-serif; }
     .header-padres { background: linear-gradient(135deg, #1b365d 0%, #2a5298 100%); color: white; padding: 25px 20px; border-radius: 0 0 20px 20px; }
     .card-custom { border: none; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
+    .login-container { max-width: 420px; margin: 80px auto; background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
   </style>
 </head>
-<body onload="reproducirBienvenida()">
+<body>
 
-  <!-- Cabecera del Portal -->
-  <header class="header-padres shadow-sm mb-4">
-    <div class="container d-flex justify-content-between align-items-center">
-      <div>
-        <span class="badge bg-success text-white mb-1">MÓDULO FAMILIAR</span>
-        <h3 class="fw-bold m-0">👨‍👩‍👧‍👦 Padres de Familia</h3>
-        <small class="opacity-75">Colegio La Salle del Sur & Parroquia San Pedro de Lurín</small>
+  <!-- Vista de Login por Código y Clave -->
+  <div id="loginView" class="container">
+    <div class="login-container">
+      <div class="text-center mb-4">
+        <span class="badge bg-success text-white mb-2">MÓDULO FAMILIAR</span>
+        <h4 class="fw-bold text-primary">Camino hacia Jesús 2026</h4>
+        <small class="text-muted">Colegio La Salle del Sur & Parroquia San Pedro de Lurín</small>
       </div>
-      <div class="d-flex gap-2">
-        <button class="btn btn-outline-light btn-sm fw-bold rounded-pill px-3" onclick="reproducirBienvenida()" title="Escuchar Bienvenida">🔊</button>
-        <button class="btn btn-outline-light btn-sm fw-bold rounded-pill px-3" onclick="location.reload()">🔄 Actualizar</button>
-        <a href="<?= ScriptApp.getService().getUrl() ?>" class="btn btn-light btn-sm fw-bold rounded-pill px-3">⬅️ Salir</a>
-      </div>
+      <div id="loginError" class="alert alert-danger d-none small py-2" role="alert"></div>
+      <form onsubmit="realizarLogin(event)">
+        <div class="mb-3">
+          <label class="form-label small fw-bold text-muted">Código de Padre / Familia</label>
+          <input type="text" id="codigoPadre" class="form-control" placeholder="Ej. PAD-EST-001" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label small fw-bold text-muted">Clave de Acceso</label>
+          <input type="password" id="clavePadre" class="form-control" placeholder="Ingrese su clave" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 fw-bold py-2 rounded-pill shadow-sm">Ingresar al Portal</button>
+      </form>
     </div>
-  </header>
+  </div>
 
-  <main class="container mb-5">
+  <!-- Vista Principal del Portal (Oculta hasta iniciar sesión) -->
+  <div id="portalView" class="d-none">
+    <header class="header-padres shadow-sm mb-4">
+      <div class="container d-flex justify-content-between align-items-center">
+        <div>
+          <span class="badge bg-success text-white mb-1">MÓDULO FAMILIAR</span>
+          <h3 class="fw-bold m-0">👨‍👩‍👧‍👦 Padres de Familia</h3>
+          <small class="opacity-75">Colegio La Salle del Sur & Parroquia San Pedro de Lurín</small>
+        </div>
+        <div class="d-flex gap-2">
+          <button class="btn btn-outline-light btn-sm fw-bold rounded-pill px-3" onclick="reproducirBienvenida()" title="Escuchar Bienvenida">🔊</button>
+          <button class="btn btn-outline-light btn-sm fw-bold rounded-pill px-3" onclick="location.reload()">🔄 Actualizar</button>
+          <button class="btn btn-light btn-sm fw-bold rounded-pill px-3 text-danger" onclick="cerrarSesion()">⬅️ Salir</button>
+        </div>
+      </div>
+    </header>
 
-    <!-- Alerta Informativa -->
-    <div class="alert alert-info border-0 shadow-sm rounded-4 small mb-4" role="alert">
-      💡 <strong>Estimado Padre/Madre:</strong> Desde aquí puede consultar el registro de asistencia y notas de los catequizandos en tiempo real.
-    </div>
+    <main class="container mb-5">
+      <div class="alert alert-info border-0 shadow-sm rounded-4 small mb-4" role="alert">
+        💡 <strong id="saludoUsuario">Estimado Padre/Madre:</strong> Desde aquí puede consultar el registro de asistencia y notas de sus hijos en tiempo real.
+      </div>
 
-    <div class="row g-4">
-      
-      <!-- 1. Mi Hijo / Catequizando (Control de Asistencia y Notas) -->
-      <div class="col-md-6">
-        <div class="card card-custom p-4 h-100">
-          <h5 class="fw-bold text-primary mb-3">👧🧒 Información del Catequizando</h5>
-          <p class="text-muted small">Consulte el registro oficial de asistencias y notas ligadas a la lista de catequizandos.</p>
-          <div class="mt-auto">
-            <button class="btn btn-outline-primary btn-sm w-100" onclick="consultarDatos('getAsistenciaNotas')">Ver Registro de Asistencia y Notas</button>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card card-custom p-4 h-100">
+            <h5 class="fw-bold text-primary mb-3">👧🧒 Información del Catequizando</h5>
+            <p class="text-muted small">Consulte el registro oficial de asistencias y notas ligadas exclusivamente a su familia.</p>
+            <div class="mt-auto">
+              <button class="btn btn-outline-primary btn-sm w-100" onclick="consultarDatos('getAsistenciaNotas')">Ver Registro de Asistencia y Notas</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card card-custom p-4 h-100">
+            <h5 class="fw-bold text-success mb-3">📝 Tareas y Preguntas en Familia</h5>
+            <p class="text-muted small">Revise las actividades semanales y reflexiones que los niños deben desarrollar junto a ustedes en casa.</p>
+            <div class="mt-auto">
+              <button class="btn btn-outline-success btn-sm w-100" onclick="consultarDatos('getSesiones')">Ver Tareas de la Semana</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card card-custom p-4 h-100">
+            <h5 class="fw-bold text-warning mb-3 text-dark">📂 Requisitos y Documentos</h5>
+            <p class="text-muted small">Estado de entrega de la Partida de Bautismo, Ficha de Inscripción y autorizaciones requeridas.</p>
+            <div class="mt-auto">
+              <button class="btn btn-outline-warning btn-sm w-100 text-dark" onclick="alert('Verificando documentos...')">Ver Estado de Requisitos</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card card-custom p-4 h-100">
+            <h5 class="fw-bold text-danger mb-3">🪙 Aportes Parroquiales</h5>
+            <p class="text-muted small">Control transparente de materiales, textos de catequesis y derechos administrados por la Parroquia San Pedro de Lurín.</p>
+            <div class="mt-auto">
+              <button class="btn btn-outline-danger btn-sm w-100" onclick="consultarDatos('getAportes')">Ver Estado de Aportes</button>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- 2. Tareas y Actividades -->
-      <div class="col-md-6">
-        <div class="card card-custom p-4 h-100">
-          <h5 class="fw-bold text-success mb-3">📝 Tareas y Preguntas en Familia</h5>
-          <p class="text-muted small">Revise las actividades semanales y reflexiones que los niños deben desarrollar junto a ustedes en casa.</p>
-          <div class="mt-auto">
-            <button class="btn btn-outline-success btn-sm w-100" onclick="consultarDatos('getSesiones')">Ver Tareas de la Semana</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3. Documentación y Requisitos -->
-      <div class="col-md-6">
-        <div class="card card-custom p-4 h-100">
-          <h5 class="fw-bold text-warning mb-3 text-dark">📂 Requisitos y Documentos</h5>
-          <p class="text-muted small">Estado de entrega de la Partida de Bautismo, Ficha de Inscripción y autorizaciones requeridas.</p>
-          <div class="mt-auto">
-            <button class="btn btn-outline-warning btn-sm w-100 text-dark" onclick="alert('Verificando documentos...')">Ver Estado de Requisitos</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- 4. Costos y Aportes Parroquiales -->
-      <div class="col-md-6">
-        <div class="card card-custom p-4 h-100">
-          <h5 class="fw-bold text-danger mb-3">🪙 Aportes Parroquiales</h5>
-          <p class="text-muted small">Control transparente de materiales, textos de catequesis y derechos administrados por la Parroquia San Pedro de Lurín.</p>
-          <div class="mt-auto">
-            <button class="btn btn-outline-danger btn-sm w-100" onclick="consultarDatos('getAportes')">Ver Estado de Aportes</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Contenedor dinámico de resultados -->
-    <div id="resultadoContenedor" class="mt-4"></div>
-  </main>
+      <div id="resultadoContenedor" class="mt-4"></div>
+    </main>
+  </div>
 
   <script>
-    const URL_WEB_APP = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
+    const URL_WEB_APP = window.location.href.split('?')[0];
+    let codigoActual = localStorage.getItem('codigoPadre') || '';
+
+    window.onload = function() {
+      if (codigoActual) {
+        document.getElementById('loginView').classList.add('d-none');
+        document.getElementById('portalView').classList.remove('d-none');
+        reproducirBienvenida();
+      }
+    };
+
+    function realizarLogin(e) {
+      e.preventDefault();
+      const codigo = document.getElementById('codigoPadre').value.trim();
+      const clave = document.getElementById('clavePadre').value.trim();
+      const errDiv = document.getElementById('loginError');
+      errDiv.classList.add('d-none');
+
+      fetch(`${URL_WEB_APP}?action=validarLogin&codigoPadre=${encodeURIComponent(codigo)}&clave=${encodeURIComponent(clave)}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.exito) {
+            localStorage.setItem('codigoPadre', codigo);
+            codigoActual = codigo;
+            document.getElementById('loginView').classList.add('d-none');
+            document.getElementById('portalView').classList.remove('d-none');
+            reproducirBienvenida();
+          } else {
+            errDiv.textContent = data.mensaje || 'Código o clave incorrectos.';
+            errDiv.classList.remove('d-none');
+          }
+        })
+        .catch(err => {
+          errDiv.textContent = 'Error de conexión con el servidor.';
+          errDiv.classList.remove('d-none');
+        });
+    }
+
+    function cerrarSesion() {
+      localStorage.removeItem('codigoPadre');
+      location.reload();
+    }
 
     function reproducirBienvenida() {
       if ('speechSynthesis' in window) {
@@ -106,9 +164,9 @@
 
     function consultarDatos(accion) {
       const contenedor = document.getElementById('resultadoContenedor');
-      contenedor.innerHTML = `<div class="alert alert-warning text-center">Consultando registros, por favor espera...</div>`;
+      contenedor.innerHTML = `<div class="alert alert-warning text-center">Consultando registros para su familia, por favor espera...</div>`;
 
-      fetch(`${URL_WEB_APP}?action=${accion}`)
+      fetch(`${URL_WEB_APP}?action=${accion}&codigoPadre=${encodeURIComponent(codigoActual)}`)
         .then(response => response.json())
         .then(data => {
           if (data.exito) {
@@ -133,7 +191,7 @@
               });
               contenidoHtml += `</tbody></table></div>`;
             } else {
-              contenidoHtml += `<p class="text-muted">No se encontraron registros en este momento.</p>`;
+              contenidoHtml += `<p class="text-muted">No se encontraron registros asociados a su código en este momento.</p>`;
             }
 
             contenidoHtml += `</div>`;
