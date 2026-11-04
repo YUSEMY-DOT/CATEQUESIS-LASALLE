@@ -22,7 +22,11 @@
         <h3 class="fw-bold m-0">👨‍👩‍👧‍👦 Padres de Familia</h3>
         <small class="opacity-75">Colegio La Salle del Sur & Parroquia San Pedro de Lurín</small>
       </div>
-      <a href="<?= ScriptApp.getService().getUrl() ?>" class="btn btn-light btn-sm fw-bold rounded-pill px-3">⬅️ Salir</a>
+      <div class="d-flex gap-2">
+        <!-- Botón de Actualizar -->
+        <button class="btn btn-outline-light btn-sm fw-bold rounded-pill px-3" onclick="location.reload()">🔄 Actualizar</button>
+        <a href="<?= ScriptApp.getService().getUrl() ?>" class="btn btn-light btn-sm fw-bold rounded-pill px-3">⬅️ Salir</a>
+      </div>
     </div>
   </header>
 
@@ -81,7 +85,7 @@
 
     </div>
 
-    <!-- Contenedor dinámico que mantiene intacta la estructura original de tus tarjetas -->
+    <!-- Contenedor dinámico de resultados -->
     <div id="resultadoContenedor" class="mt-4"></div>
   </main>
 
