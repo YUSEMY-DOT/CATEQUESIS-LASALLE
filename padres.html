@@ -60,6 +60,35 @@
         💡 <strong id="saludoUsuario">Estimado Padre/Madre:</strong> Desde aquí puede consultar el registro de asistencia y notas de sus hijos en tiempo real.
       </div>
 
+      <!-- ========================================================= -->
+      <!-- CRONOGRAMA Y CALENDARIO GENERAL (UBICADO ENCIMA DE LOS BOTONES) -->
+      <!-- ========================================================= -->
+      <div class="card card-custom p-4 mb-4 border-primary shadow-sm">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="fw-bold text-primary m-0">📅 Cronograma y Calendario General 2026</h5>
+          <span class="badge bg-primary text-white">General</span>
+        </div>
+        <p class="text-muted small mb-3">Consulte aquí las fechas de las próximas sesiones, actividades y eventos programados para todo el programa de catequesis.</p>
+        
+        <div id="tabla-calendario-general" class="table-responsive" style="max-height: 250px; overflow-y: auto;">
+          <table class="table table-bordered table-sm bg-white small align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>Sesión / Actividad</th>
+                <th>Fecha</th>
+                <th>Tema / Descripción</th>
+              </tr>
+            </thead>
+            <tbody id="cuerpo-tabla-calendario">
+              <tr>
+                <td colspan="3" class="text-center text-muted">Cargando cronograma general...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Cuadrícula de los 4 Botones Principales -->
       <div class="row g-4">
         <!-- 1. Información del Catequizando (Asistencia y Notas) -->
         <div class="col-md-6">
@@ -106,7 +135,7 @@
         </div>
       </div>
 
-      <!-- Contenedor dinámico de resultados -->
+      <!-- Contenedor dinámico de resultados (para los botones) -->
       <div id="resultadoContenedor" class="mt-4"></div>
     </main>
   </div>
@@ -125,6 +154,7 @@
         document.getElementById('loginView').classList.add('d-none');
         document.getElementById('portalView').classList.remove('d-none');
         reproducirBienvenida();
+        cargarCalendarioGeneral(); // Carga automática del calendario general al entrar
       }
     };
 
@@ -144,6 +174,7 @@
             document.getElementById('loginView').classList.add('d-none');
             document.getElementById('portalView').classList.remove('d-none');
             reproducirBienvenida();
+            cargarCalendarioGeneral(); // Carga automática tras el login exitoso
           } else {
             errDiv.textContent = data.mensaje || 'Código o clave incorrectos.';
             errDiv.classList.remove('d-none');
@@ -172,6 +203,38 @@
       }
     }
 
+    // Función que carga el Cronograma y Calendario General desde Google Apps Script
+    function cargarCalendarioGeneral() {
+      fetch(`${URL_WEB_APP}?action=getSesiones`)
+        .then(response => response.json())
+        .then(data => {
+          const cuerpoTabla = document.getElementById('cuerpo-tabla-calendario');
+          if (data.exito && Array.isArray(data.datos) && data.datos.length > 0) {
+            let html = '';
+            data.datos.forEach(sesion => {
+              const titulo = sesion.SESION || sesion.TITULO || sesion.TEMA || 'Sesión';
+              const fecha = sesion.FECHA || sesion.DIA || 'Por definir';
+              const descripcion = sesion.DESCRIPCION || sesion.CONTENIDO || 'Sin descripción';
+              
+              html += `
+                <tr>
+                  <td><strong>${titulo}</strong></td>
+                  <td>${fecha}</td>
+                  <td>${descripcion}</td>
+                </tr>
+              `;
+            });
+            cuerpoTabla.innerHTML = html;
+          } else {
+            cuerpoTabla.innerHTML = `<tr><td colspan="3" class="text-center text-muted">No hay sesiones registradas en el cronograma en este momento.</td></tr>`;
+          }
+        })
+        .catch(error => {
+          console.error("Error al cargar el cronograma:", error);
+          document.getElementById('cuerpo-tabla-calendario').innerHTML = `<tr><td colspan="3" class="text-center text-danger">Error al conectar con el cronograma general.</td></tr>`;
+        });
+    }
+
     function consultarDatos(accion) {
       const contenedor = document.getElementById('resultadoContenedor');
       contenedor.innerHTML = `<div class="alert alert-warning text-center">Consultando registros para su familia, por favor espera...</div>`;
@@ -183,7 +246,7 @@
             let contenidoHtml = `
               <div class="card card-custom p-3 bg-light">
                 <h6 class="fw-bold text-success mb-3">✅ Registros encontrados (${data.total})</h6>`;
-            
+             
             if (Array.isArray(data.datos) && data.datos.length > 0) {
               contenidoHtml += `<div class="table-responsive"><table class="table table-bordered table-sm bg-white small"><thead><tr>`;
               const keys = Object.keys(data.datos[0]);
