@@ -7,18 +7,17 @@
 :root{--navy:#12345b;--blue:#1b4a79;--blue-soft:#edf4fc;--gold:#f3c755;--gold-deep:#b17b10;--cream:#fff8e8;--red:#b83d43;--red-soft:#fff0f0;--ink:#172b48;--muted:#62748c;--line:#dce5ef;--green:#23764c;--green-soft:#e8f6ed;--white:#fff;--shadow:0 8px 28px #173b6810}
 *{box-sizing:border-box}body{margin:0;background:#f5f7fa;color:var(--ink);font-family:Inter,"Segoe UI",Tahoma,sans-serif;line-height:1.45}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #f3c75588;outline-offset:2px}a{color:inherit;text-decoration:none}.topbar{background:white;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:15;box-shadow:0 2px 12px #142b4810}.topbar-inner{max-width:1400px;margin:auto;padding:12px 22px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:12px;font-weight:900;color:var(--navy);letter-spacing:.04em}.brand img.crest{width:55px;height:55px;object-fit:contain}.brand small{display:block;letter-spacing:0;font-weight:500;color:var(--muted);font-size:.78rem}.top-actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--line);border-radius:12px;padding:12px 18px;background:white;color:var(--navy);font-weight:800;font-size:1rem}.btn:hover{filter:brightness(.98);transform:translateY(-1px)}.btn.primary{background:var(--navy);border-color:var(--navy);color:white}.btn.gold{background:linear-gradient(135deg,#ffe68c,#f5bd37);border-color:#efc34c;color:#152c4d}.btn.small{padding:8px 12px;font-size:.86rem}.container{max-width:1400px;margin:auto;padding:22px}.hero{background:linear-gradient(115deg,#102b4f,#1e4e7f);color:white;border-radius:22px;padding:27px 30px;display:flex;justify-content:space-between;align-items:center;gap:25px;position:relative;overflow:hidden}.hero:after{content:'✝';font-size:175px;position:absolute;right:26px;bottom:-48px;color:#ffffff0b;pointer-events:none}.eyebrow{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:#ffe39a;font-weight:900}.hero h1{margin:5px 0;font-size:clamp(1.8rem,3vw,2.5rem);line-height:1.1}.hero p{margin:8px 0 0;max-width:760px;color:#f0f5fb}.panel{background:white;border:1px solid var(--line);border-radius:17px;padding:24px;box-shadow:var(--shadow);margin-bottom:16px;min-width:0}.panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;flex-wrap:wrap;margin-bottom:18px}.panel h2{margin:0;color:var(--navy);font-size:1.35rem}.sub{color:var(--muted);margin:5px 0 0;font-size:.98rem}.mises-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.mise-card{border:2px solid var(--line);border-radius:18px;padding:24px;background:#fff;display:flex;gap:20px;align-items:center;box-shadow:0 6px 20px #173b6810;cursor:pointer;transition:all .2s ease}.mise-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 10px 25px #173b6818}.mise-avatar{width:110px;height:110px;border-radius:50%;object-fit:cover;border:4px solid var(--gold);flex-shrink:0}.footer{text-align:center;color:var(--muted);font-size:.78rem;padding:25px 10px 12px}.footer strong{color:var(--navy)}.modal-backdrop{position:fixed;inset:0;background:#071a32a6;z-index:50;display:none;align-items:center;justify-content:center;padding:18px}.modal-backdrop.show{display:flex}.modal{background:white;border-radius:18px;width:min(1250px,100%);max-height:92vh;overflow:auto;padding:25px;box-shadow:0 20px 60px #0004}.xbtn{border:0;background:#f0f3f7;color:var(--navy);width:38px;height:38px;border-radius:10px;font-weight:900;font-size:1rem}.section-note{border:1px solid #d8e5f3;background:#f4f8fd;padding:14px 16px;border-radius:12px;color:#49627f;font-size:.92rem;margin:14px 0}.tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:16px}.tool-card{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;transition:all .2s}.tool-card:hover{border-color:var(--blue);background:#fff;box-shadow:0 4px 12px #173b680c}.tool-card h4{margin:0 0 6px;color:var(--navy);font-size:1.05rem}.tool-card p{margin:0 0 14px;color:var(--muted);font-size:.86rem}
 
-/* Temas y subtemas */
-.tema-box { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 18px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-.subtema-list { margin: 8px 0 14px 20px; font-size: 0.9rem; color: var(--muted); }
-.subtema-list li { margin-bottom: 4px; }
-.action-buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; border-top: 1px dashed var(--line); padding-top: 12px; }
+/* Temas y subtemas unificados */
+.tema-box { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 16px; box-shadow: 0 3px 10px rgba(18,52,90,0.05); }
+.subtema-list { margin: 6px 0 10px 18px; font-size: 0.88rem; color: var(--muted); }
+.subtema-list li { margin-bottom: 3px; }
+.action-buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; border-top: 1px dashed var(--line); padding-top: 12px; margin-top: 10px; }
 
 /* Tablas y rejillas */
 .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
 .data-table th, .data-table td { border: 1px solid var(--line); padding: 8px; text-align: left; vertical-align: middle; white-space: nowrap; }
 .data-table th { background: var(--blue-soft); color: var(--navy); text-align: center; }
 .badge-porc { padding: 4px 8px; border-radius: 6px; font-size: 0.85rem; font-weight: bold; background: var(--green-soft); color: var(--green); }
-.badge-pago { padding: 4px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; background: var(--cream); color: var(--gold-deep); }
 
 /* Indicadores superiores tipo Sheets */
 .sheets-stats { display:grid; grid-template-columns: repeat(5, 1fr); gap:10px; margin-bottom:15px; background:#f8fafc; border:1px solid var(--line); border-radius:12px; padding:12px; text-align:center; }
@@ -158,15 +157,15 @@
       </div>
     </div>
 
-    <!-- VISTA 1: 56 SESIONES -->
+    <!-- VISTA 1: 56 SESIONES (PROGRAMACIÓN COMPLETA UNIFICADA CON BOTONES ACTIVOS) -->
     <div id="vista-clases" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
         <h3 style="color:var(--navy); margin:0;">Programa Completo: 56 Sesiones y Temas</h3>
       </div>
-      <div class="tema-box"><div style="font-size:0.75rem; color:var(--gold-deep); font-weight:bold;">SESIÓN 1 (CJ-001)</div><h4 style="margin:4px 0 8px; color:var(--navy);">¿Quién es Dios?</h4><ul class="subtema-list"><li>Quién es Dios</li><li>Dios único y creador</li><li>Dios eterno y Padre</li></ul><div class="action-buttons"><button class="btn small gold" onclick="alert('Prácticas - Sesión 1')">✏️ Prácticas</button><button class="btn small primary" onclick="alert('Evaluaciones - Sesión 1')">📋 Evaluaciones</button><button class="btn small" onclick="alert('Canciones - Sesión 1')">🎵 Canciones</button><button class="btn small gold" onclick="alert('Videos - Sesión 1')">▶️ Videos</button></div></div>
-      <div class="tema-box"><div style="font-size:0.75rem; color:var(--gold-deep); font-weight:bold;">SESIÓN 2 (CJ-002)</div><h4 style="margin:4px 0 8px; color:var(--navy);">¿Quién es Jesús?</h4><ul class="subtema-list"><li>Jesús Hijo de Dios</li><li>Verdadero Dios y verdadero hombre</li><li>Nacimiento y misión</li></ul><div class="action-buttons"><button class="btn small gold" onclick="alert('Prácticas - Sesión 2')">✏️ Prácticas</button><button class="btn small primary" onclick="alert('Evaluaciones - Sesión 2')">📋 Evaluaciones</button><button class="btn small" onclick="alert('Canciones - Sesión 2')">🎵 Canciones</button><button class="btn small gold" onclick="alert('Videos - Sesión 2')">▶️ Videos</button></div></div>
-      <div class="section-note" style="text-align:center;">Se encuentran disponibles las 56 sesiones completas del programa en la plataforma.</div>
+      
+      <!-- Contenedor dinámico donde se cargarán las 56 sesiones con sus botones interactivos -->
+      <div id="contenedor-56-sesiones"></div>
     </div>
 
    <!-- VISTA 2: ASISTENCIA -->
@@ -369,6 +368,126 @@ function playCatechesisVoice(message){
 }
 setTimeout(() => playCatechesisVoice('¡Bienvenidos al portal de catequistas del Colegio La Salle del Sur y Parroquia San Pedro de Lurín!'), 600);
 
+// Programación Completa de los 56 Temas (Sincronizada con el Google Sheet)
+const bloquesProgramacion = [
+  {
+    title: 'BLOQUE 1 — CONOCIENDO A JESÚS',
+    topics: [
+      {num: 1, title: '¿Quién es Dios?', sub: ['Quién es Dios', 'Dios único y creador', 'Dios eterno y Padre']},
+      {num: 2, title: '¿Quién es Jesús?', sub: ['Jesús Hijo de Dios', 'Verdadero Dios y verdadero hombre', 'Nacimiento y misión']},
+      {num: 3, title: '¿Quién es el Espíritu Santo?', sub: ['Quién es', 'Su misión', 'Cómo actúa']},
+      {num: 4, title: 'La Santísima Trinidad', sub: ['Un solo Dios', 'Padre, Hijo y Espíritu Santo', 'Tres Personas']},
+      {num: 5, title: 'La Creación', sub: ['Dios creador', 'Creación del mundo', 'Cuidado de lo creado']},
+      {num: 6, title: 'Dios se revela al ser humano', sub: ['Cómo conocemos a Dios', 'Revelación', 'Sagrada Escritura']},
+      {num: 7, title: 'La Biblia', sub: ['Qué es', 'Antiguo y Nuevo Testamento', 'Evangelios']},
+      {num: 8, title: 'La vida de Jesús', sub: ['Nacimiento', 'Bautismo', 'Vida pública y predicación']},
+      {num: 9, title: 'Las enseñanzas de Jesús', sub: ['Parábolas', 'Buen Samaritano', 'Hijo Pródigo']},
+      {num: 10, title: 'Los milagros de Jesús', sub: ['Qué es un milagro', 'Milagros de sanación', 'Naturaleza']},
+      {num: 11, title: 'Pasión, Muerte y Resurrección', sub: ['Última Cena', 'Crucifixión', 'Resurrección']},
+      {num: 12, title: '¿Quién es la Virgen María?', sub: ['Anunciación', 'Madre de Jesús', 'María en la Iglesia']},
+      {num: 13, title: '¿Por qué hay tantas vírgenes?', sub: ['Abogación mariana', 'Virgen del Carmen', 'Guadalupe']},
+      {num: 14, title: '¿Qué significa tener fe?', sub: ['Qué es creer', 'Fe y confianza', 'Profesión de fe']},
+      {num: 15, title: 'El Credo', sub: ['Qué es', 'Para qué lo rezamos', 'Credo explicado']}
+    ]
+  },
+  {
+    title: 'BLOQUE 2 — APRENDEMOS A ORAR',
+    topics: [
+      {num: 16, title: 'El Santo Rosario', sub: ['Qué es y para qué sirve', 'Misterios', 'Cómo se reza']},
+      {num: 17, title: '¿Qué es orar?', sub: ['Significado de orar y rezar', 'Oración personal', 'Petición y alabanza']},
+      {num: 18, title: 'Oraciones Fundamentales', sub: ['Señal de la Cruz', 'Padre Nuestro', 'Ave María', 'Gloria']},
+      {num: 19, title: 'El Padre Nuestro', sub: ['Explicación de cada petición', 'Significado espiritual']}
+    ]
+  },
+  {
+    title: 'BLOQUE 3 — LOS SACRAMENTOS',
+    topics: [
+      {num: 20, title: '¿Qué es un sacramento?', sub: ['Signo visible', 'Gracia divina', 'Institución de Cristo']},
+      {num: 21, title: 'Los Siete Sacramentos', sub: ['Iniciación cristiana', 'Sanación', 'Servicio a la comunidad']},
+      {num: 22, title: 'La Gracia', sub: ['Gracia santificante', 'Vida en gracia']},
+      {num: 23, title: 'El Bautismo', sub: ['Agua, óleo y vela', 'Hijos de Dios e incorporación a la Iglesia']},
+      {num: 24, title: 'La Confirmación', sub: ['Don del Espíritu Santo', 'Compromiso cristiano']},
+      {num: 25, title: 'Los demás sacramentos', sub: ['Matrimonio, Orden Sacerdotal y Unción']},
+      {num: 26, title: 'El sacramento de la Reconciliación', sub: ['Perdón de Dios', 'Contrición y confesión']},
+      {num: 27, title: 'Mi primera confesión', sub: ['Examen de conciencia', 'Acercarse al sacerdote']}
+    ]
+  },
+  {
+    title: 'BLOQUE 4 — LA EUCARISTÍA',
+    topics: [
+      {num: 28, title: 'El Año Litúrgico', sub: ['Adviento', 'Navidad', 'Cuaresma', 'Pascua']},
+      {num: 29, title: 'Signos y símbolos litúrgicos', sub: ['Cruz, agua, fuego y colores']},
+      {num: 30, title: '¿Qué es la Santa Misa?', sub: ['Celebración eucarística', 'Última Cena']},
+      {num: 31, title: 'Antes de la Misa', sub: ['Puntualidad', 'Preparación interior y respeto']},
+      {num: 32, title: 'Conocemos el templo', sub: ['Altar, ambón y sagrario']},
+      {num: 33, title: 'Vestiduras del sacerdote', sub: ['Alba, estola y casulla']},
+      {num: 34, title: 'Servidores y monaguillos', sub: ['Función y respeto en el altar']},
+      {num: 35, title: 'Gestos y posturas', sub: ['De pie, sentados y arrodillados']},
+      {num: 36, title: 'Ritos iniciales', sub: ['Saludo y acto penitencial']},
+      {num: 37, title: 'Liturgia de la Palabra', sub: ['Lecturas, Evangelio y homilía']},
+      {num: 38, title: 'Liturgia Eucarística', sub: ['Ofertorio y consagración']},
+      {num: 39, title: 'Rito de la Comunión', sub: ['Padre Nuestro y Cordero de Dios']},
+      {num: 40, title: 'Ritos finales', sub: ['Bendición y envío misional']},
+      {num: 41, title: '¿Qué es la Eucaristía?', sub: ['Presencia real de Cristo']},
+      {num: 42, title: '¿Qué sucede en la consagración?', sub: ['Transubstanciación']},
+      {num: 43, title: 'Jesús en el Sagrario', sub: ['Lámpara y adoración']},
+      {num: 44, title: '¿Cómo recibimos la Comunión?', sub: ['Estado de gracia y respeto']},
+      {num: 45, title: 'Mi Primera Comunión', sub: ['Significado espiritual y compromiso']}
+    ]
+  },
+  {
+    title: 'BLOQUE 5 — VALORES CRISTIANOS',
+    topics: [
+      {num: 46, title: 'El ser humano y el pecado', sub: ['Libertad y responsabilidad']},
+      {num: 47, title: 'Los Diez Mandamientos', sub: ['Ley de Dios para el amor al prójimo']},
+      {num: 48, title: 'Los Mandamientos de la Iglesia', sub: ['Obligaciones del cristiano']},
+      {num: 49, title: 'Las Bienaventuranzas', sub: ['Camino de la verdadera felicidad']},
+      {num: 50, title: 'Obras de misericordia', sub: ['Corporales y espirituales']},
+      {num: 51, title: 'Examen de conciencia', sub: ['Reconocer errores y buscar conversión']}
+    ]
+  },
+  {
+    title: 'BLOQUE 6 — COMPARTIMOS LA FE',
+    topics: [
+      {num: 52, title: '¿Qué es la Iglesia?', sub: ['Comunidad y Cuerpo de Cristo']},
+      {num: 53, title: '¿Quiénes forman la Iglesia?', sub: ['Papa, sacerdotes y laicos']},
+      {num: 54, title: 'Los Santos', sub: ['Modelos de vida cristiana']},
+      {num: 55, title: 'Padrinos y madrinas', sub: ['Acompañamiento en la fe']},
+      {num: 56, title: 'Después de la Primera Comunión', sub: ['Continuar en la Misa y la oración']}
+    ]
+  }
+];
+
+function renderizarSesionesCompletas() {
+  const contenedor = $('contenedor-56-sesiones');
+  if(!contenedor) return;
+  contenedor.innerHTML = '';
+
+  bloquesProgramacion.forEach(bloque => {
+    let bloqueDiv = document.createElement('div');
+    bloqueDiv.innerHTML = `<h4 style="color:var(--navy); border-bottom:2px solid var(--gold); padding-bottom:6px; margin:20px 0 12px; font-size:1.1rem;">${bloque.title}</h4>`;
+    
+    bloque.topics.forEach(t => {
+      let subtemasLi = t.sub.map(s => `<li>${s}</li>`).join('');
+      let temaBox = document.createElement('div');
+      temaBox.className = 'tema-box';
+      temaBox.innerHTML = `
+        <div style="font-size:0.75rem; color:var(--gold-deep); font-weight:bold;">SESIÓN ${t.num} (CJ-${String(t.num).padStart(3, '0')})</div>
+        <h4 style="margin:4px 0 8px; color:var(--navy);">${t.title}</h4>
+        <ul class="subtema-list">${subtemasLi}</ul>
+        <div class="action-buttons">
+          <button class="btn small gold" onclick="alert('Abriendo Prácticas - Sesión ${t.num}: ${t.title}')">✏️ Prácticas</button>
+          <button class="btn small primary" onclick="alert('Abriendo Evaluaciones - Sesión ${t.num}: ${t.title}')">📋 Evaluaciones</button>
+          <button class="btn small" onclick="alert('Abriendo Canciones - Sesión ${t.num}: ${t.title}')">🎵 Canciones</button>
+          <button class="btn small gold" onclick="alert('Abriendo Videos - Sesión ${t.num}: ${t.title}')">▶️ Videos</button>
+        </div>
+      `;
+      bloqueDiv.appendChild(temaBox);
+    });
+    contenedor.appendChild(bloqueDiv);
+  });
+}
+
 // Apps Script & Asistencia Logic
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvCaPRaqA9Yu-UH6lvp7cI_kbBJkoK99GW2MhGqZ-Tetu-72IrXmo-DnZJrV0yGTdb/exec";
 
@@ -475,6 +594,7 @@ function renderizarTablaAsistencia(datos) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  renderizarSesionesCompletas();
   sincronizarAsistenciaReal();
 });
 </script>
