@@ -4,13 +4,25 @@
   <base target="_top">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>Portal de Padres - Camino hacia Jesús 2026</title>
+  <title>Calendario de catequesis - Camino hacia Jesús 2026</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body { background-color: #f4f6f9; font-family: 'Segoe UI', Roboto, sans-serif; }
+    body { background-color: #f4f6f9; font-family: 'Segoe UI', Roboto, sans-serif; color: #333; }
     .header-padres { background: linear-gradient(135deg, #1b365d 0%, #2a5298 100%); color: white; padding: 25px 20px; border-radius: 0 0 20px 20px; }
-    .card-custom { border: none; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
+    .card-custom { border: none; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; background: white; }
     .login-container { max-width: 420px; margin: 80px auto; background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    
+    /* Estilos del Calendario Visual Interactivo */
+    .calendar-card { border-radius: 16px; border: 1px solid #e9ecef; background: #fff; padding: 20px; }
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; }
+    .calendar-day-header { font-weight: bold; color: #6c757d; font-size: 0.85rem; padding-bottom: 8px; }
+    .calendar-day { 
+      aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; 
+      border-radius: 10px; background: #fdfdfd; border: 1px solid #f1f3f5; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.2s;
+    }
+    .calendar-day:hover { background: #e9ecef; }
+    .calendar-day.has-event { border: 2px solid #ffc107; background: #fffdf5; }
+    .dot-event { height: 6px; width: 6px; background-color: #d4a373; border-radius: 50%; margin-top: 3px; }
   </style>
 </head>
 <body>
@@ -57,34 +69,56 @@
 
     <main class="container mb-5">
       <div class="alert alert-info border-0 shadow-sm rounded-4 small mb-4" role="alert">
-        💡 <strong id="saludoUsuario">Estimado Padre/Madre:</strong> Desde aquí puede consultar el registro de asistencia y notas de sus hijos en tiempo real.
+        💡 <strong id="saludoUsuario">Estimado Padre/Madre:</strong> Organiza tus encuentros y consulta las actividades del programa en tiempo real.
       </div>
 
       <!-- ========================================================= -->
-      <!-- CRONOGRAMA Y CALENDARIO GENERAL (UBICADO ENCIMA DE LOS BOTONES) -->
+      <!-- CALENDARIO DE CATEQUESIS (ESTILO MODELO VISUAL)            -->
       <!-- ========================================================= -->
-      <div class="card card-custom p-4 mb-4 border-primary shadow-sm">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <h5 class="fw-bold text-primary m-0">📅 Cronograma y Calendario General 2026</h5>
-          <span class="badge bg-primary text-white">General</span>
+      <div class="row g-4 mb-4">
+        <!-- Columna Izquierda: Cuadrícula del Mes -->
+        <div class="col-lg-7">
+          <div class="calendar-card shadow-sm h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3 bg-light p-3 rounded-3">
+              <h5 class="fw-bold m-0 text-primary">📅 Calendario de catequesis</h5>
+              <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-outline-secondary btn-sm rounded-circle px-2" onclick="cambiarMes(-1)">‹</button>
+                <span id="mesAnioLabel" class="fw-bold px-2">Noviembre 2026</span>
+                <button class="btn btn-outline-secondary btn-sm rounded-circle px-2" onclick="cambiarMes(1)">›</button>
+              </div>
+            </div>
+
+            <!-- Cabecera de días -->
+            <div class="calendar-grid">
+              <div class="calendar-day-header">L</div>
+              <div class="calendar-day-header">M</div>
+              <div class="calendar-day-header">X</div>
+              <div class="calendar-day-header">J</div>
+              <div class="calendar-day-header">V</div>
+              <div class="calendar-day-header">S</div>
+              <div class="calendar-day-header">D</div>
+            </div>
+
+            <!-- Días dinámicos -->
+            <div id="diasCalendarioGrid" class="calendar-grid mt-2">
+              <!-- Rellenado por JavaScript -->
+            </div>
+          </div>
         </div>
-        <p class="text-muted small mb-3">Consulte aquí las fechas de las próximas sesiones, actividades y eventos programados para todo el programa de catequesis.</p>
-        
-        <div id="tabla-calendario-general" class="table-responsive" style="max-height: 250px; overflow-y: auto;">
-          <table class="table table-bordered table-sm bg-white small align-middle">
-            <thead class="table-light">
-              <tr>
-                <th>Sesión / Actividad</th>
-                <th>Fecha</th>
-                <th>Tema / Descripción</th>
-              </tr>
-            </thead>
-            <tbody id="cuerpo-tabla-calendario">
-              <tr>
-                <td colspan="3" class="text-center text-muted">Cargando cronograma general...</td>
-              </tr>
-            </tbody>
-          </table>
+
+        <!-- Columna Derecha: Tu Encuentro Detallado -->
+        <div class="col-lg-5">
+          <div class="card card-custom p-4 h-100 d-flex flex-column justify-content-between border">
+            <div>
+              <span class="badge bg-warning text-dark mb-3 px-3 py-1 rounded-pill fw-bold">TU ENCUENTRO</span>
+              <h4 id="detalleFecha" class="fw-bold text-primary mb-2">Seleccione una fecha</h4>
+              <h5 id="detalleTema" class="fw-semibold text-secondary mb-3">---</h5>
+              <p id="detalleDescripcion" class="text-muted small">Haga clic en un día del calendario para ver el detalle de la sesión o actividad programada.</p>
+            </div>
+            <div class="mt-4 pt-3 border-top d-flex align-items-center gap-3">
+              <small class="text-muted">🟡 <span style="font-size:0.8rem">Clase</span></small>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -143,6 +177,8 @@
   <script>
     const URL_WEB_APP = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
     let codigoActual = localStorage.getItem('codigoPadre') || '';
+    let fechaActualVista = new Date(2026, 10, 1); // Noviembre 2026 por defecto
+    let eventosCalendario = [];
 
     window.onload = function() {
       const inputCodigo = document.getElementById('codigoPadre');
@@ -154,7 +190,7 @@
         document.getElementById('loginView').classList.add('d-none');
         document.getElementById('portalView').classList.remove('d-none');
         reproducirBienvenida();
-        cargarCalendarioGeneral(); // Carga automática del calendario general al entrar
+        cargarDatosCalendario();
       }
     };
 
@@ -174,7 +210,7 @@
             document.getElementById('loginView').classList.add('d-none');
             document.getElementById('portalView').classList.remove('d-none');
             reproducirBienvenida();
-            cargarCalendarioGeneral(); // Carga automática tras el login exitoso
+            cargarDatosCalendario();
           } else {
             errDiv.textContent = data.mensaje || 'Código o clave incorrectos.';
             errDiv.classList.remove('d-none');
@@ -203,36 +239,73 @@
       }
     }
 
-    // Función que carga el Cronograma y Calendario General desde Google Apps Script
-    function cargarCalendarioGeneral() {
+    // Cargar datos de sesiones para marcar los días en el calendario visual
+    function cargarDatosCalendario() {
       fetch(`${URL_WEB_APP}?action=getSesiones`)
-        .then(response => response.json())
+        .then(res => res.json())
         .then(data => {
-          const cuerpoTabla = document.getElementById('cuerpo-tabla-calendario');
-          if (data.exito && Array.isArray(data.datos) && data.datos.length > 0) {
-            let html = '';
-            data.datos.forEach(sesion => {
-              const titulo = sesion.SESION || sesion.TITULO || sesion.TEMA || 'Sesión';
-              const fecha = sesion.FECHA || sesion.DIA || 'Por definir';
-              const descripcion = sesion.DESCRIPCION || sesion.CONTENIDO || 'Sin descripción';
-              
-              html += `
-                <tr>
-                  <td><strong>${titulo}</strong></td>
-                  <td>${fecha}</td>
-                  <td>${descripcion}</td>
-                </tr>
-              `;
-            });
-            cuerpoTabla.innerHTML = html;
-          } else {
-            cuerpoTabla.innerHTML = `<tr><td colspan="3" class="text-center text-muted">No hay sesiones registradas en el cronograma en este momento.</td></tr>`;
+          if (data.exito && Array.isArray(data.datos)) {
+            eventosCalendario = data.datos;
           }
+          generarCalendarioVisual();
         })
-        .catch(error => {
-          console.error("Error al cargar el cronograma:", error);
-          document.getElementById('cuerpo-tabla-calendario').innerHTML = `<tr><td colspan="3" class="text-center text-danger">Error al conectar con el cronograma general.</td></tr>`;
-        });
+        .catch(() => generarCalendarioVisual());
+    }
+
+    function cambiarMes(direccion) {
+      fechaActualVista.setMonth(fechaActualVista.getMonth() + direccion);
+      generarCalendarioVisual();
+    }
+
+    function generarCalendarioVisual() {
+      const mesesNombres = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+      const anio = fechaActualVista.getFullYear();
+      const mes = fechaActualVista.getMonth();
+
+      document.getElementById('mesAnioLabel').textContent = `${mesesNombres[mes]} ${anio}`;
+
+      const primerDiaIndex = (new Date(anio, mes, 1).getDay() + 6) % 7; // Lunes como primer día
+      const totalDiasMes = new Date(anio, mes + 1, 0).getDate();
+      const grid = document.getElementById('diasCalendarioGrid');
+      let html = '';
+
+      // Espacios vacíos previos
+      for (let i = 0; i < primerDiaIndex; i++) {
+        html += `<div class="calendar-day border-0 bg-transparent"></div>`;
+      }
+
+      // Días del mes
+      for (let dia = 1; dia <= totalDiasMes; dia++) {
+        const fechaStr = `${anio}-${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+        
+        // Coincidencia con la fecha del evento
+        const eventoEncontrado = eventosCalendario.find(ev => (ev.FECHA || '').includes(fechaStr) || (ev.DIA || '').includes(fechaStr));
+        const tieneEventoClass = eventoEncontrado ? 'has-event' : '';
+        
+        html += `
+          <div class="calendar-day ${tieneEventoClass}" onclick='seleccionarDia(${dia}, ${mes}, ${anio}, ${JSON.stringify(eventoEncontrado || null)})'>
+            <span>${dia}</span>
+            ${eventoEncontrado ? '<div class="dot-event"></div>' : ''}
+          </div>
+        `;
+      }
+
+      grid.innerHTML = html;
+    }
+
+    function seleccionarDia(dia, mes, anio, evento) {
+      const mesesNombres = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+      const fechaFormateada = `${dia} de ${mesesNombres[mes]} de ${anio}`;
+      
+      document.getElementById('detalleFecha').textContent = fechaFormateada;
+
+      if (evento) {
+        document.getElementById('detalleTema').textContent = evento.SESION || evento.TITULO || evento.TEMA || 'Encuentro Programado';
+        document.getElementById('detalleDescripcion').textContent = evento.DESCRIPCION || evento.CONTENIDO || 'Sin descripción adicional para este encuentro.';
+      } else {
+        document.getElementById('detalleTema').textContent = 'Sin encuentro programado';
+        document.getElementById('detalleDescripcion').textContent = 'No hay actividades registradas para esta fecha específica.';
+      }
     }
 
     function consultarDatos(accion) {
