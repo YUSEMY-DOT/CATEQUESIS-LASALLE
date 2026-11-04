@@ -197,7 +197,7 @@
       <h3 style="color:var(--navy); margin-bottom:4px;">Control de Asistencia Modular • Parroquia San Pedro de Lurín</h3>
       <p class="sub" style="margin-bottom:15px;">Seleccione un catequizando para gestionar sus 50 sesiones de asistencia con actualización exacta.</p>
 
-      <!-- CUADRO PORCENTUAL GLOBAL SINCRONIZADO CON LA BASE DE DATOS -->
+      <!-- CUADRO PORCENTUAL GLOBAL EXACTO A LA HOJA -->
       <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:10px; margin-bottom:18px; background:#f8fafc; border:1px solid var(--line); border-radius:14px; padding:14px; text-align:center;">
         <div><div id="stat-porcentaje-global" style="font-size:1.35rem; font-weight:900; color:var(--green);">79,6%</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">% Asistencia</div></div>
         <div><div id="stat-presentes-global" style="font-size:1.35rem; font-weight:900; color:var(--navy);">266</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">[A] Presentes</div></div>
@@ -207,7 +207,7 @@
       </div>
 
       <div class="asist-layout">
-        <!-- Lista lateral de los 7 Catequizandos -->
+        <!-- Lista lateral completa de los 7 Catequizandos -->
         <div class="estudiantes-lista-asist" id="lista-catequizandos-asist"></div>
 
         <!-- Panel principal de las 50 sesiones -->
@@ -347,39 +347,39 @@ function openModal(id){$(id).classList.add('show')}
 function hideModal(id){$(id).classList.remove('show')}
 document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>hideModal(b.closest('.modal-backdrop').id)));
 
-// Fechas oficiales de las 50 sesiones (exactas a tu hoja de cálculo)
+// Fechas oficiales de las 50 sesiones (exactas a tu Google Sheet)
 const fechasClasesAsist = ["16/06","18/06","23/06","25/06","30/06","02/07","07/07","09/07","14/07","16/07","21/07","23/07","28/07","30/07","04/08","06/08","11/08","13/08","18/08","20/08","25/08","27/08","01/09","03/09","08/09","10/09","15/09","17/09","22/09","24/09","29/09","01/10","06/10","08/10","13/10","15/10","20/10","22/10","27/10","29/10","03/11","05/11","10/11","12/11","17/11","19/11","24/11","26/11","01/12","03/12"];
 
-// Datos sincronizados exactamente con tu base de datos de Google Sheet
+// Los 7 catequizandos completos con sus estados reales extraídos de la hoja de cálculo
 let datosAsistenciaGlobal = [
   {
     id: "LDS-EST-001",
     nombre: "FRANCISCO CRIOLLO, DANY SMITH",
-    foto: "https://drive.google.com/file/d/1jNx6nx6wCDaYdcnSKGbzj_uCfb2cDbdl/view?usp=drive_link",
+    foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/dany.JPG",
     estados: ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","T","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","","","","","","","","",""]
   },
   {
     id: "LDS-EST-002",
     nombre: "PINEDA ELGUERA, ADAM STUARD",
-    foto: "https://drive.google.com/file/d/1jf5ch769iUpYqAKJ-Hx1HIUPDaRBJgwd/view?usp=sharing",
+    foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/adam.jpeg",
     estados: ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","T","A","A","A","A","A","A","A","A","A","T","A","A","A","A","A","A","A","A","A","A","A","","","","","","","","",""]
   },
   {
     id: "LDS-EST-003",
     nombre: "PIZARRO MENDOZA, CAMILA",
-    foto: "https://drive.google.com/file/d/1sqVFTBMqMT1pNIG7y1edplv8SvFTWiHg/view?usp=sharing",
+    foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/camila.png",
     estados: ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","FJ","FJ","A","A","A","A","A","A","A","A","FJ","FJ","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","","","","","","","","",""]
   },
   {
     id: "LDS-EST-004",
     nombre: "QUISPE FLORES, ANA PAULA",
-    foto: "https://drive.google.com/file/d/19KV30WDkKReEo5vBbx9ia4bebrPpyWPw/view?usp=drive_link",
+    foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/ana.jpeg",
     estados: ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","","","","","","","","",""]
   },
   {
     id: "LDS-EST-005",
     nombre: "ROMERO SIESQUEN, MARCOS MANUEL",
-    foto: "https://drive.google.com/file/d/1NT-x1ycdUiVXL0Au4xekdVx4sZ3BFWfU/view?usp=drive_link",
+    foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/jesus1.png",
     estados: ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","FJ","A","","","","","","","","",""]
   },
   {
@@ -440,7 +440,7 @@ function cargarSesionesEstudiante(idxEst) {
         <div style="font-size:0.75rem; font-weight:bold; color:var(--navy);">SESIÓN ${idxSes + 1}</div>
         <div style="font-size:0.78rem; color:var(--muted);">${fechasClasesAsist[idxSes]}</div>
       </div>
-      <select onchange="actualizarEstadoModular(${idxEst}, ${idxSes}, this.value)" style="font-size:0.78rem; font-weight:bold; padding:4px 8px; border-radius:8px; border:1px solid var(--line); background:${val==='A'?'#edf4fc':val==='T'?'#fff8e8':val==='F'?'#fff0f0':val==='FJ'?'#e8f6ed':'#fff'}; color:${val==='A'?'var(--blue)':val==='T'?'var(--gold-deep)':val==='F'?'var(--red)':val==='FJ'?'var(--green)':'var(--muted)'};">
+      <select onchange="actualizarEstadoModular(${idxEst},${idxSes}, this.value)" style="font-size:0.78rem; font-weight:bold; padding:4px 8px; border-radius:8px; border:1px solid var(--line); background:${val==='A'?'#edf4fc':val==='T'?'#fff8e8':val==='F'?'#fff0f0':val==='FJ'?'#e8f6ed':'#fff'}; color:${val==='A'?'var(--blue)':val==='T'?'var(--gold-deep)':val==='F'?'var(--red)':val==='FJ'?'var(--green)':'var(--muted)'};">
         <option value="" ${val===''?'selected':''}>-- Opción --</option>
         <option value="A" ${val==='A'?'selected':''}>[A] Presente</option>
         <option value="T" ${val==='T'?'selected':''}>[T] Tardanza</option>
@@ -496,7 +496,6 @@ function sincronizarConHoja() {
 }
 
 function recalcalcularTotalesGlobales() {
-  // Valores exactos y actualizados de tu Google Sheet (CAMINO HACIA JESÚS 2026)
   $('stat-porcentaje-global').textContent = '79,6%';
   $('stat-presentes-global').textContent = '266';
   $('stat-tardanzas-global').textContent = '8';
@@ -522,7 +521,7 @@ function cambiarMes(dir) {
 function renderizarCalendarioModelo() {
   const lblMes = $('cal-mes-anio');
   if(!lblMes) return;
-  lblMes.textContent = `${nombresMeses[mesActual]} ${anioActual}`;
+  lblMes.textContent = `${nombresMeses[mesActual]}${anioActual}`;
   const grid = $('cal-grid-dias');
   grid.innerHTML = '';
   const primerDiaIndex = new Date(anioActual, mesActual, 1).getDay();
@@ -543,12 +542,7 @@ function renderizarCalendarioModelo() {
     let fechaObj = new Date(anioActual, mesActual, d);
     let diaSemana = fechaObj.getDay();
     let esMartesOJueves = (diaSemana === 2 || diaSemana === 4);
-    let keyFecha = `${anioActual}-${mesActual}-${d}`;
-
-    cell.className = 'cal-day' + (esMartesOJueves ? ' has-class' : '');
-    if(mesActual === 10 && anioActual === 2026 && d === 3) cell.classList.add('selected');
-
-    cell.innerHTML = `<span>${d}</span>` + (esMartesOJueves ? `<div class="cal-dot"></div>` : ``);
+    let keyFecha = `${anioActual}-${mesActual}-${d}`;  cell.className = 'cal-day' + (esMartesOJueves ? ' has-class' : ''); if(mesActual === 10 && anioActual === 2026 && d === 3) cell.classList.add('selected');  cell.innerHTML = `<span>${d}</span>` + (esMartesOJueves ? `<div class="cal-dot"></div>` : ``);
     cell.onclick = () => {
       document.querySelectorAll('.cal-day').forEach(el => el.classList.remove('selected'));
       cell.classList.add('selected');
@@ -561,7 +555,7 @@ function renderizarCalendarioModelo() {
 function actualizarPanelEncuentro(fechaObj, keyFecha) {
   let diaFormateado = nombresDiasSemana[fechaObj.getDay()];
   diaFormateado = diaFormateado.charAt(0).toUpperCase() + diaFormateado.slice(1);
-  $('panel-fecha-texto').textContent = `${diaFormateado}, ${fechaObj.getDate()} de ${nombresMeses[fechaObj.getMonth()]}`;
+  $('panel-fecha-texto').textContent = `${diaFormateado}, ${fechaObj.getDate()} de${nombresMeses[fechaObj.getMonth()]}`;
   let info = temasCalendario[keyFecha] || { tema: "Sesión Pastoral Formativa", enc: "Encuentro Regular." };
   $('panel-titulo-tema').textContent = info.tema;
   $('panel-sub-encuentro').textContent = info.enc;
@@ -669,9 +663,7 @@ function renderizarSesionesCompletas() {
   contenedor.innerHTML = '';
   bloquesProgramacion.forEach(bloque => {
     let bloqueDiv = document.createElement('div');
-    bloqueDiv.innerHTML = `<h4 style="color:var(--navy); border-bottom:2px solid var(--gold); padding-bottom:6px; margin:20px 0 12px; font-size:1.1rem;">${bloque.title}</h4>`;
-    bloque.topics.forEach(t => {
-      let subtemasLi = t.sub.map(s => `<li>${s}</li>`).join('');
+    bloqueDiv.innerHTML = `<h4 style="color:var(--navy); border-bottom:2px solid var(--gold); padding-bottom:6px; margin:20px 0 12px; font-size:1.1rem;">${bloque.title}</h4>`; bloque.topics.forEach(t => { let subtemasLi = t.sub.map(s => `<li>${s}</li>`).join('');
       let temaBox = document.createElement('div');
       temaBox.className = 'tema-box';
       temaBox.innerHTML = `
@@ -681,20 +673,4 @@ function renderizarSesionesCompletas() {
         <div class="action-buttons">
           <button class="btn small gold" onclick="alert('Prácticas - Sesión ${t.num}')">✏️ Prácticas</button>
           <button class="btn small primary" onclick="alert('Evaluaciones - Sesión ${t.num}')">📋 Evaluaciones</button>
-          <button class="btn small" onclick="alert('Canciones - Sesión ${t.num}')">🎵 Canciones</button>
-          <button class="btn small gold" onclick="alert('Videos - Sesión ${t.num}')">▶️ Videos</button>
-        </div>
-      `;
-      bloqueDiv.appendChild(temaBox);
-    });
-    contenedor.appendChild(bloqueDiv);
-  });
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  renderizarSesionesCompletas();
-  renderizarCalendarioModelo();
-});
-</script>
-</body>
-</html>
+          <button class="btn small" onclick="alert('Canciones - Sesión ${
