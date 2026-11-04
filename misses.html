@@ -65,7 +65,7 @@
   <div>
     <div class="eyebrow">Programa de Catequesis · Primera Comunión 2026</div>
     <h1>Portal de Catequistas</h1>
-    <p>Gestión pastoral unificada: Clases, 7 Catequizandos, Asistencia, Pagos y Padres.</p>
+    <p>Gestión pastoral unificada: Clases, 7 Catequizandos con fotos de GitHub, Asistencia, Pagos y Padres.</p>
   </div>
 </section>
 
@@ -80,7 +80,7 @@
     </div>
     <div class="mises-grid">
       <article class="mise-card" onclick="abrirPortalComun()">
-        <img class="mise-avatar" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/miss%20lily.jpg" alt="Lily Melo">
+        <img class="mise-avatar" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/miss%20lily.jpg" alt="Lily Melo" onerror="this.style.display='none'">
         <div>
           <h3 style="margin:0 0 4px; color:var(--navy); font-size:1.1rem">Lily Melo Azañero</h3>
           <p class="small muted" style="margin:0 0 6px">Catequista Responsable</p>
@@ -88,7 +88,7 @@
         </div>
       </article>
       <article class="mise-card" onclick="abrirPortalComun()">
-        <img class="mise-avatar" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/miss%20kiara.png" alt="Kiara Morales">
+        <img class="mise-avatar" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/miss%20kiara.png" alt="Kiara Morales" onerror="this.style.display='none'">
         <div>
           <h3 style="margin:0 0 4px; color:var(--navy); font-size:1.1rem">Kiara Morales Elguera</h3>
           <p class="small muted" style="margin:0 0 6px">Catequista Responsable</p>
@@ -307,15 +307,15 @@ function openModal(id){$(id).classList.add('show')}
 function hideModal(id){$(id).classList.remove('show')}
 document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>hideModal(b.closest('.modal-backdrop').id)));
 
-// Fotos de los 7 catequizandos enlazadas directo a tu repositorio de GitHub (YUSEMY-DOT/CATEQUESIS-LASALLE)
+// Fotos de los 7 catequizandos con las extensiones y nombres exactos de GitHub
 let datosAsistenciaGlobal = [
-  { id: "LDS-EST-001", nombre: "FRANCISCO CRIOLLO, DANY SMITH", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/dany.jpg", estados: generarEstadosDefault(1) },
-  { id: "LDS-EST-002", nombre: "PINEDA ELGUERA, ADAM STUARD", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/adam.jpg", estados: generarEstadosDefault(2) },
-  { id: "LDS-EST-003", nombre: "PIZARRO MENDOZA, CAMILA", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/camila.jpg", estados: generarEstadosDefault(3) },
-  { id: "LDS-EST-004", nombre: "QUISPE FLORES, ANA PAULA", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/anapaula.jpg", estados: generarEstadosDefault(4) },
-  { id: "LDS-EST-005", nombre: "ROMERO SIESQUEN, MARCOS MANUEL", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/marcos.jpg", estados: generarEstadosDefault(5) },
-  { id: "LDS-EST-006", nombre: "CARDENAS QUISPE, VASCO", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/vasco.jpg", estados: generarEstadosDefault(6) },
-  { id: "LDS-EST-007", nombre: "PIZARRO MENDOZA, MARCHELO", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/marchelo.jpg", estados: generarEstadosDefault(7) }
+  { id: "LDS-EST-001", nombre: "FRANCISCO CRIOLLO, DANY SMITH", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/dany.JPG", estados: generarEstadosDefault(1) },
+  { id: "LDS-EST-002", nombre: "PINEDA ELGUERA, ADAM STUARD", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/adam.jpeg", estados: generarEstadosDefault(2) },
+  { id: "LDS-EST-003", nombre: "PIZARRO MENDOZA, CAMILA", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/camila.png", estados: generarEstadosDefault(3) },
+  { id: "LDS-EST-004", nombre: "QUISPE FLORES, ANA PAULA", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/ana.jpeg", estados: generarEstadosDefault(4) },
+  { id: "LDS-EST-005", nombre: "ROMERO SIESQUEN, MARCOS MANUEL", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/jesus1.png", estados: generarEstadosDefault(5) },
+  { id: "LDS-EST-006", nombre: "CARDENAS QUISPE, VASCO", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/jesus%204.png", estados: generarEstadosDefault(6) },
+  { id: "LDS-EST-007", nombre: "PIZARRO MENDOZA, MARCHELO", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/camila.png", estados: generarEstadosDefault(7) }
 ];
 
 const fechasClasesAsist = ["16/06","18/06","23/06","25/06","30/06","02/07","07/07","09/07","14/07","16/07","21/07","23/07","28/07","30/07","04/08","06/08","11/08","13/08","18/08","20/08","25/08","27/08","01/09","03/09","08/09","10/09","15/09","17/09","22/09","24/09","29/09","01/10","06/10","08/10","13/10","15/10","20/10","22/10","27/10","29/10","03/11","05/11","10/11","12/11","17/11","19/11","24/11","26/11","01/12","03/12"];
@@ -339,7 +339,7 @@ function inicializarAsistenciaModular() {
     let btn = document.createElement('button');
     btn.className = 'est-item-btn' + (idx === 0 ? ' active' : '');
     btn.innerHTML = `
-      <img src="${est.foto}" alt="${est.nombre}" onerror="this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/default.jpg'">
+      <img src="${est.foto}" alt="${est.nombre}" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/insignia.png';">
       <div style="overflow:hidden;">
         <div class="info-n">${est.nombre}</div>
         <div class="info-sub">${est.id}</div>
