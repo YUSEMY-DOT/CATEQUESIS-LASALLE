@@ -514,7 +514,6 @@ footer strong {
       const resJson = await response.json();
 
       if (resJson.exito && resJson.bloques && resJson.bloques.length > 0) {
-        // AQUÍ ESTABA EL BUG: Ahora sí llamamos a renderizar con los bloques reales de Google Sheets
         renderizarBloques(resJson.bloques);
         statusEl.textContent = '✅ ¡Sincronizado correctamente con Google Sheets!';
         setTimeout(() => { statusEl.textContent = ''; }, 4000);
