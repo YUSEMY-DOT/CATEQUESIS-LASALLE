@@ -96,10 +96,10 @@ header {
   text-align: center;
   font-size: 13px;
   font-weight: 700;
-  background: #fff5df;
-  color: #9a711d;
+  background: #e6f4ea;
+  color: #137333;
   padding: 8px;
-  border-bottom: 1px solid #efd08a;
+  border-bottom: 1px solid #ceead6;
 }
 
 .countdown-box {
@@ -302,7 +302,7 @@ footer strong {
     </div>
   </header>
 
-  <div id="estadoSincronizacion">Conectado con el sistema del colegio. Listo para sincronizar.</div>
+  <div id="estadoSincronizacion">✅ Programa de Catequesis cargado correctamente.</div>
 
   <!-- CUENTA REGRESIVA AL 8 DE DICIEMBRE DE 2026 -->
   <div class="countdown-box">
@@ -328,10 +328,7 @@ footer strong {
 </div>
 
 <script>
-  const URL_API_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
-
   function updateCountdown() {
-    // 8 de diciembre de 2026 a las 00:00:00 (Mes 11 = Diciembre en JavaScript)
     const target = new Date(2026, 11, 8, 0, 0, 0).getTime();
     const now = Date.now();
     const diff = target - now;
@@ -357,7 +354,7 @@ footer strong {
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  const blocksFallback = [
+  const bloquesOficiales = [
     {
       title: 'BLOQUE 1 — CONOCIENDO A JESÚS',
       subtitle: 'Sesiones 1 a 9 (CJ-001 al CJ-009)',
@@ -422,121 +419,4 @@ footer strong {
         {n:36, id:'CJ-036', tema:'LOS MANDAMIENTOS DE LA IGLESIA', desc:'Guía de la comunidad', val:'Fidelidad', cita:'Hch 2,42'},
         {n:37, id:'CJ-037', tema:'LOS PECADOS', desc:'Ruptura con el amor de Dios', val:'Conversión', cita:'Rm 3,23'},
         {n:38, id:'CJ-038', tema:'LOS 7 PECADOS CAPITALES', desc:'Raíz de los vicios', val:'Humildad', cita:'St 1,15'},
-        {n:39, id:'CJ-039', tema:'EL PERDON', desc:'Reconciliación', val:'Misericordia', cita:'Col 3,13'},
-        {n:40, id:'CJ-040', tema:'EXAMEN DE CONCIENCIA', desc:'Revisión personal', val:'Sinceridad', cita:'Sal 139,23'},
-        {n:41, id:'CJ-041', tema:'BIENAVENTURANZAS', desc:'Camino de felicidad', val:'Sencillez', cita:'Mt 5,1'},
-        {n:42, id:'CJ-042', tema:'OBRA DE MISERICORDIA', desc:'Ayuda al prójimo', val:'Caridad', cita:'Mt 25,35'}
-      ]
-    },
-    {
-      title: 'BLOQUE 5 — VIDA CRISTIANA Y MISA',
-      subtitle: 'Sesiones 43 a 60 (CJ-043 al CJ-060)',
-      icon: '💖',
-      sessions: [
-        {n:43, id:'CJ-043', tema:'QUE ES LA EUCARISTIA', desc:'Memorial y presencia', val:'Gratitud', cita:'Lc 22,19'},
-        {n:44, id:'CJ-044', tema:'LA SANTA MISA', desc:'Celebración litúrgica', val:'Participación', cita:'1 Co 11,23'},
-        {n:45, id:'CJ-045', tema:'LOS RITOS INICIALES', desc:'Preparación de la asamblea', val:'Acogida', cita:'Sal 100,4'},
-        {n:46, id:'CJ-046', tema:'LA LITURGIA DE LA PALABRA', desc:'Lecturas y homilía', val:'Atención', cita:'Neh 8,8'},
-        {n:47, id:'CJ-047', tema:'LA LITURGIA DE LA EUCARISTIA', desc:'Presentación de dones y plegaria', val:'Adoración', cita:'Mt 26,26'},
-        {n:48, id:'CJ-048', tema:'LOS RITOS FINALES', desc:'Bendición y envío', val:'Disponibilidad', cita:'Mt 28,19'},
-        {n:49, id:'CJ-049', tema:'PARTES DE LA SANTA MISA', desc:'Estructura de la Misa', val:'Orden', cita:'Lc 24,35'},
-        {n:50, id:'CJ-050', tema:'VESTIDURA DE LOS SACERDOTES', desc:'Ornamentos sagrados', val:'Reverencia', cita:'Ex 28,2'},
-        {n:51, id:'CJ-051', tema:'OBJETOS LITURGICOS', desc:'Utensilios del altar', val:'Cuidado', cita:'Ex 37,16'},
-        {n:52, id:'CJ-052', tema:'COLORES LITURGICOS', desc:'Significado de los colores', val:'Respeto', cita:'Ecl 3,1'},
-        {n:53, id:'CJ-053', tema:'LOS SANTOS', desc:'Testigos de la fe', val:'Santidad', cita:'Heb 12,1'},
-        {n:54, id:'CJ-054', tema:'LA ULTIMA CENA', desc:'Institución de la Eucaristía', val:'Amor', cita:'Jn 13,1'},
-        {n:55, id:'CJ-055', tema:'LA INSTITUCION DE LA EUCARISTIA', desc:'Cuerpo y Sangre de Cristo', val:'Fidelidad', cita:'1 Co 11,24'},
-        {n:56, id:'CJ-056', tema:'LA CONSAGRACION', desc:'Transustanciación', val:'Asombro', cita:'Mt 26,26'},
-        {n:57, id:'CJ-057', tema:'LA PRESENCIA REAL DE JESUS EN LA EUCARISTIA', desc:'Jesús vivo en el sagrario', val:'Devoción', cita:'Jn 6,55'},
-        {n:58, id:'CJ-058', tema:'LA SAGRADA COMUNION', desc:'Recibiendo el pan de vida', val:'Intimidad', cita:'Jn 6,56'},
-        {n:59, id:'CJ-059', tema:'EL SAGRARIO', desc:'Reserva eucarística', val:'Oración', cita:'Mt 28,20'},
-        {n:60, id:'CJ-060', tema:'EL SAGRARIO', desc:'Lugar de adoración', val:'Silencio', cita:'Sal 84,1'}
-      ]
-    },
-    {
-      title: 'BLOQUE 6 — PREPARACIÓN PRIMERA COMUNIÓN',
-      subtitle: 'Sesiones 61 a 68 (CJ-061 al CJ-068)',
-      icon: '👨‍👩‍👧‍👦',
-      sessions: [
-        {n:61, id:'CJ-061', tema:'LA PREPARACION PARA LA PRIMERA COMUNION', desc:'Camino final', val:'Preparación', cita:'Lc 3,4'},
-        {n:62, id:'CJ-062', tema:'PREPARACION ESPIRITUAL', desc:'Renovación interior', val:'Pureza', cita:'Sal 51,10'},
-        {n:63, id:'CJ-063', tema:'ORACIONES QUE DEBEN CONOCER', desc:'Repaso de oraciones', val:'Diligencia', cita:'Flp 4,6'},
-        {n:64, id:'CJ-064', tema:'PREPARACION PARA LA SANTA MISA', desc:'Participación activa', val:'Respeto', cita:'Eccl 5,1'},
-        {n:65, id:'CJ-065', tema:'EL MOMENTO DE COMUNION', desc:'Encuentro con Jesús', val:'Entrega', cita:'Jn 6,54'},
-        {n:66, id:'CJ-066', tema:'DESPUES DE RECIBIR A JESUS', desc:'Vida comunitaria posterior', val:'Gratitud', cita:'Col 3,17'},
-        {n:67, id:'CJ-067', tema:'PREPARACION PERSONAL Y CEREMONIAL', desc:'Protocolo de la ceremonia', val:'Orden', cita:'1 Co 14,40'},
-        {n:68, id:'CJ-068', tema:'PREPÁRACION', desc:'Últimos detalles', val:'Felicidad', cita:'Sal 118,24'}
-      ]
-    }
-  ];
-
-  function renderizarBloques(listaBloques) {
-    const grid = document.getElementById('stages-grid');
-    grid.innerHTML = '';
-
-    listaBloques.forEach((block, idx) => {
-      const card = document.createElement('div');
-      card.className = 'stage-card';
-      
-      let sessionsHtml = block.sessions.map(s => `
-        <div class="topic-item">
-          <div class="topic-top">
-            <span class="topic-number">Sesión N.º ${s.n}</span>
-            <span class="topic-id">${s.id}</span>
-          </div>
-          <div class="topic-name">${s.tema}</div>
-          <p class="topic-desc">${s.desc}</p>
-          <div class="topic-meta">
-            <strong>Valor:</strong> ${s.val} | <strong>Cita:</strong> ${s.cita}
-          </div>
-        </div>
-      `).join('');
-
-      card.innerHTML = `
-        <div class="stage-header">
-          <div class="stage-icon">${block.icon}</div>
-          <div class="stage-title-wrap">
-            <span>Sección ${idx + 1}</span>
-            <h3>${block.title}</h3>
-          </div>
-        </div>
-        <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:12px;">${block.subtitle}</div>
-        <div class="topics-list">${sessionsHtml}</div>
-      `;
-      grid.appendChild(card);
-    });
-  }
-
-  async function sincronizarConGoogleSheets() {
-    const statusEl = document.getElementById('estadoSincronizacion');
-    statusEl.textContent = '🔄 Sincronizando con Google Sheets...';
-    try {
-      const response = await fetch(`${URL_API_APPS_SCRIPT}?action=getSesiones`);
-      const resJson = await response.json();
-
-      if (resJson.exito && resJson.bloques && resJson.bloques.length > 0) {
-        renderizarBloques(resJson.bloques);
-        statusEl.textContent = '✅ ¡Sincronizado correctamente con Google Sheets!';
-        setTimeout(() => { statusEl.textContent = ''; }, 4000);
-      } else {
-        statusEl.textContent = '⚠️ Respuesta vacía. Usando datos locales.';
-        renderizarBloques(blocksFallback);
-      }
-    } catch (err) {
-      console.error(err);
-      statusEl.textContent = '⚠️ Error de red. Mostrando datos locales de respaldo.';
-      renderizarBloques(blocksFallback);
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    renderizarBloques(blocksFallback);
-    sincronizarConGoogleSheets();
-    
-    document.getElementById('btnActualizar').addEventListener('click', () => {
-      sincronizarConGoogleSheets();
-    });
-  });
-</script>
-</body>
-</html>
+        {n:39, id:'CJ-039', tema:'EL PERDON', desc
