@@ -331,6 +331,7 @@ footer strong {
   const URL_API_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
 
   function updateCountdown() {
+    // 8 de diciembre de 2026 a las 00:00:00 (Mes 11 = Diciembre en JavaScript)
     const target = new Date(2026, 11, 8, 0, 0, 0).getTime();
     const now = Date.now();
     const diff = target - now;
