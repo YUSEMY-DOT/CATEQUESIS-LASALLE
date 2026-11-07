@@ -2,30 +2,97 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#173B68">
-<title>Programación | Camino hacia Jesús 2026 – Colegio La Salle del Sur</title>
+<title>Caminando hacia Jesús 2026 | Portal de Catequistas – Colegio La Salle del Sur</title>
 <style>
 :root{--navy:#12345b;--blue:#1b4a79;--blue-soft:#edf4fc;--gold:#f3c755;--gold-deep:#b17b10;--cream:#fff8e8;--red:#b83d43;--green:#23764c;--green-soft:#e8f6ed;--ink:#172b48;--muted:#62748c;--line:#dce5ef;--white:#fff;--shadow:0 10px 30px #173b6812}
-*{box-sizing:border-box}body{margin:0;background:#f4f7fa;color:var(--ink);font-family:Inter,"Segoe UI",Tahoma,sans-serif;line-height:1.5}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}
+*{box-sizing:border-box}body{margin:0;background:#f4f7fa;color:var(--ink);font-family:Inter,"Segoe UI",Tahoma,sans-serif;line-height:1.5}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible{outline:3px solid #f3c75588;outline-offset:2px}a{color:inherit;text-decoration:none}
 .topbar{background:white;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:15;box-shadow:0 2px 12px #142b4810}
 .topbar-inner{max-width:1400px;margin:auto;padding:12px 22px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:12px;font-weight:900;color:var(--navy);letter-spacing:.04em}
 .brand img.crest{width:52px;height:52px;object-fit:contain}
 .brand small{display:block;letter-spacing:0;font-weight:500;color:var(--muted);font-size:.78rem}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap}
 .btn{border:1px solid var(--line);border-radius:12px;padding:10px 16px;background:white;color:var(--navy);font-weight:800;font-size:.95rem;transition:all .2s}
 .btn:hover{filter:brightness(.97);transform:translateY(-1px)}
 .btn.primary{background:var(--navy);border-color:var(--navy);color:white}
+.btn.gold{background:linear-gradient(135deg,#ffe68c,#f5bd37);border-color:#efc34c;color:#152c4d}
 .btn.small{padding:8px 12px;font-size:.84rem}
-.container{max-width:1400px;margin:auto;padding:22px}
-.hero{background:linear-gradient(115deg,#102b4f,#1e4e7f);color:white;border-radius:20px;padding:25px 30px;margin-bottom:20px;box-shadow:var(--shadow)}
-.eyebrow{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:#ffe39a;font-weight:900}
-.hero h1{margin:4px 0;font-size:clamp(1.7rem,2.8vw,2.3rem);line-height:1.1}
-.hero p{margin:6px 0 0;color:#f0f5fb;font-size:.95rem}
-.tema-box { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
-.action-buttons { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+
+/* BOTONES DE RECURSOS */
 .btn-practicas { background: #fcf8ec; border-color: #f3e2b4; color: #8a6a11; }
 .btn-evaluaciones { background: #fcf2f2; border-color: #f0cbcc; color: #9c3338; }
 .btn-canciones { background: #f0f4fc; border-color: #cbdcf4; color: #204a82; }
 .btn-videos { background: #edf7f2; border-color: #c4e4d4; color: #1b5e3c; }
+
+.container{max-width:1400px;margin:auto;padding:22px}
+.hero{background:linear-gradient(115deg,#102b4f,#1e4e7f);color:white;border-radius:20px;padding:25px 30px;display:flex;justify-content:space-between;align-items:center;gap:25px;box-shadow:var(--shadow)}
+.eyebrow{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:#ffe39a;font-weight:900}
+.hero h1{margin:4px 0;font-size:clamp(1.7rem,2.8vw,2.3rem);line-height:1.1}
+.hero p{margin:6px 0 0;max-width:760px;color:#f0f5fb;font-size:.95rem}
+.panel{background:white;border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:var(--shadow);margin-bottom:16px}
+.panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;flex-wrap:wrap;margin-bottom:18px}
+.panel h2{margin:0;color:var(--navy);font-size:1.3rem}
+.sub{color:var(--muted);margin:4px 0 0;font-size:.92rem}
+.mises-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.mise-card{border:2px solid var(--line);border-radius:16px;padding:20px;background:#fff;display:flex;gap:18px;align-items:center;box-shadow:0 4px 16px #173b6808;cursor:pointer;transition:all .2s ease}
+.mise-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 8px 22px #173b6814}
+.mise-avatar{width:100px;height:100px;border-radius:50%;object-fit:cover;border:4px solid var(--gold);flex-shrink:0}
+.modal-backdrop{position:fixed;inset:0;background:#071a32b8;z-index:50;display:none;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(4px)}
+.modal-backdrop.show{display:flex}
+.modal{background:white;border-radius:20px;width:min(1350px,100%);max-height:92vh;overflow:auto;padding:28px;box-shadow:0 25px 60px #0005}
+.xbtn{border:0;background:#f0f3f7;color:var(--navy);width:36px;height:36px;border-radius:10px;font-weight:900;font-size:1rem;transition:background .2s}
+.xbtn:hover{background:#e2e8f0}
+.tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:16px}
+.tool-card{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;transition:all .2s}
+.tool-card:hover{border-color:var(--blue);background:#fff;box-shadow:0 4px 12px #173b680c}
+.tool-card h4{margin:0 0 4px;color:var(--navy);font-size:1.02rem}
+.tool-card p{margin:0 0 12px;color:var(--muted);font-size:.84rem}
+
+.tema-box { background: #fdfefe; border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+.subtema-list { margin: 8px 0 14px 20px; padding: 0; color: var(--muted); font-size: 0.9rem; }
+.action-buttons { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+
+/* Calendario Estilizado */
+.cal-container { display: grid; grid-template-columns: 1.35fr 1fr; gap: 24px; align-items: start; }
+.cal-box { background: white; border: 1px solid var(--line); border-radius: 18px; padding: 22px; box-shadow: var(--shadow); }
+.cal-header-bar { display: flex; justify-content: space-between; align-items: center; background: #fffdf5; border: 1.5px solid #fae8b3; border-radius: 12px; padding: 10px 16px; margin-bottom: 16px; }
+.cal-nav-btn { background: #fff; border: 1px solid #e2c068; border-radius: 8px; width: 34px; height: 34px; font-weight: bold; color: var(--navy); display: flex; align-items: center; justify-content: center; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; }
+.cal-weekday { font-size: 0.8rem; font-weight: 800; color: var(--navy); padding-bottom: 6px; }
+.cal-day { aspect-ratio: 1; background: #fdfefe; border: 1px solid var(--line); border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 700; font-size: 0.92rem; color: var(--ink); position: relative; cursor: pointer; transition: all 0.15s; }
+.cal-day:hover { border-color: var(--navy); background: #f4f8fd; }
+.cal-day.has-class { background: #fffdf2; border-color: #f3c755; }
+.cal-day.selected { background: var(--navy) !important; color: white !important; border-color: var(--navy); }
+.cal-day.selected .cal-dot { background: #fff !important; }
+.cal-dot { width: 5px; height: 5px; background: var(--gold-deep); border-radius: 50%; margin-top: 3px; }
+.encounter-panel { background: white; border: 1px solid var(--line); border-radius: 18px; padding: 22px; box-shadow: var(--shadow); }
+.encounter-tag { background: #fef3d6; color: #8a6207; font-size: 0.7rem; font-weight: 900; padding: 4px 10px; border-radius: 6px; display: inline-block; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
+.encounter-card { border: 1px solid #fae8b3; background: #fffdf7; border-radius: 12px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
+
+/* NUEVA ASISTENCIA MATRICIAL ERGONÓMICA */
+.asist-layout { display: grid; grid-template-columns: 350px 1fr; gap: 24px; align-items: start; }
+.estudiantes-lista-asist { background: #f8fafc; border: 1px solid var(--line); border-radius: 16px; padding: 12px; max-height: 600px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+.est-item-btn { display: flex; align-items: center; gap: 14px; width: 100%; padding: 12px; background: white; border: 1.5px solid var(--line); border-radius: 14px; text-align: left; transition: all 0.2s; cursor: pointer; }
+.est-item-btn:hover, .est-item-btn.active { border-color: var(--navy); background: var(--blue-soft); box-shadow: 0 4px 12px #173b6810; }
+.est-item-btn img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); flex-shrink: 0; }
+.est-item-btn .info-n { font-size: 0.84rem; font-weight: 800; color: var(--navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.est-item-btn .info-sub { font-size: 0.74rem; color: var(--muted); display: flex; justify-content: space-between; margin-top: 3px; }
+
+/* Tabla Matriz Compacta para Asistencia */
+.asistencia-tabla-container { background: white; border: 1px solid var(--line); border-radius: 16px; padding: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.02); max-height: 600px; overflow-y: auto; }
+.matrix-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.matrix-table th, .matrix-table td { border: 1px solid var(--line); padding: 8px 12px; text-align: left; vertical-align: middle; }
+.matrix-table th { background: var(--blue-soft); color: var(--navy); font-weight: 800; text-align: center; position: sticky; top: 0; z-index: 5; }
+.matrix-table td:nth-child(1) { font-weight: bold; color: var(--navy); text-align: center; }
+.matrix-table td:nth-child(2) { font-weight: 700; color: var(--ink); }
+.matrix-table td:nth-child(3) { text-align: center; }
+
+.data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
+.data-table th, .data-table td { border: 1px solid var(--line); padding: 9px 12px; text-align: left; vertical-align: middle; white-space: nowrap; }
+.data-table th { background: var(--blue-soft); color: var(--navy); text-align: center; }
+
+@media(max-width:900px){.cal-container{grid-template-columns:1fr}.asist-layout{grid-template-columns:1fr}}
+@media print{body *{visibility:hidden}#vista-asistencia, #vista-asistencia * {visibility:visible}#vista-asistencia{position:absolute;left:0;top:0;width:100%}.no-print{display:none!important}}
 </style>
 </head>
 <body>
@@ -38,74 +105,39 @@
         <small>Colegio La Salle del Sur · Parroquia San Pedro de Lurín</small>
       </div>
     </div>
-    <div>
+    <div class="top-actions">
+      <button class="btn small primary" id="btnActualizar">🔄 Sincronizar</button>
+      <button class="btn small" id="mute-toggle">🔊 Silenciar</button>
       <a class="btn small primary" href="./index.html">← Volver a portada</a>
     </div>
   </div>
 </header>
-
 <main class="container">
-  <section class="hero">
-    <div class="eyebrow">Itinerario Oficial · Primera Comunión 2026</div>
-    <h1>Programación de Sesiones</h1>
-    <p>Itinerario completo sincronizado en tiempo real desde Google Sheets (Hoja CLASES).</p>
-  </section>
+<section class="hero">
+  <div>
+    <div class="eyebrow">Programa de Catequesis · Primera Comunión 2026</div>
+    <h1>Portal de Catequistas</h1>
+    <p>Gestión pastoral unificada: Clases, Catequizandos, Asistencia, Pagos y Padres.</p>
+  </div>
+</section>
 
-  <section id="contenedor-56-sesiones">
-    <div style="text-align:center; padding:40px; color:var(--muted); font-weight:bold;">⏳ Cargando programación desde Google Sheets...</div>
-  </section>
-</main>
-
-<script>
-const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec";
-
-async function cargarProgramacion() {
-  const contenedor = document.getElementById('contenedor-56-sesiones');
-  if(!contenedor) return;
-
-  try {
-    const response = await fetch(`${URL_APPS_SCRIPT}?action=getSesiones`);
-    const resultado = await response.json();
-
-    if (resultado.exito && resultado.bloques) {
-      contenedor.innerHTML = '';
-      resultado.bloques.forEach(bloque => {
-        let bloqueDiv = document.createElement('div');
-        bloqueDiv.innerHTML = `<h3 style="color:var(--navy); border-bottom:2px solid var(--gold); padding-bottom:6px; margin:24px 0 14px; font-size:1.2rem;">${bloque.icon || '✨'} ${bloque.title}</h3>`;
-        
-        bloque.sessions.forEach(t => {
-          let temaBox = document.createElement('div');
-          temaBox.className = 'tema-box';
-          temaBox.innerHTML = `
-            <div style="font-size:0.75rem; color:var(--gold-deep); font-weight:bold; letter-spacing:0.05em; text-transform:uppercase;">CLASE ${t.n || ''} (${t.id || ''})</div>
-            <h4 style="margin:4px 0 8px; color:var(--navy); font-size:1.1rem;">${t.tema || ''}</h4>
-            <div style="font-size:0.85rem; font-weight:800; color:var(--muted); margin-bottom:4px;">Detalle:</div>
-            <p style="margin:0 0 10px; font-size:0.9rem; color:var(--ink);">${t.desc || ''}</p>
-            <div style="background:#fefbf3; border:1px solid #fae8b3; border-radius:10px; padding:12px; margin-bottom:10px; font-size:0.88rem;">
-              <div style="margin-bottom:4px;"><strong style="color:var(--navy);">💛 Valor:</strong> ${t.val || 'Fe y valores'}</div>
-              ${t.cita ? `<div><strong style="color:var(--blue);">📖 Cita Bíblica:</strong> ${t.cita}</div>` : ''}
-            </div>
-            <div class="action-buttons">
-              <button class="btn small btn-practicas" onclick="alert('Prácticas para ${t.id}')">✏️ Prácticas</button>
-              <button class="btn small btn-evaluaciones" onclick="alert('Evaluaciones para ${t.id}')">📋 Evaluaciones</button>
-              <button class="btn small btn-canciones" onclick="alert('Canciones para ${t.id}')">🎵 Canciones</button>
-              <button class="btn small btn-videos" onclick="alert('Videos para ${t.id}')">▶️ Videos</button>
-            </div>
-          `;
-          bloqueDiv.appendChild(temaBox);
-        });
-        contenedor.appendChild(bloqueDiv);
-      });
-    } else {
-      contenedor.innerHTML = `<div style="text-align:center; padding:20px; color:var(--red);">No se pudieron cargar los datos: ${resultado.mensaje || 'Verifique la hoja CLASES'}</div>`;
-    }
-  } catch (err) {
-    console.error("Error al conectar con Google Sheets:", err);
-    contenedor.innerHTML = `<div style="text-align:center; padding:20px; color:var(--red);">Error de conexión al intentar leer la base de datos de Google Sheets.</div>`;
-  }
-}
-
-document.addEventListener("DOMContentLoaded", cargarProgramacion);
-</script>
-</body>
-</html>
+<!-- CATEQUISTAS RESPONSABLES -->
+<section class="view active" id="view-home" style="margin-top:20px;">
+  <div class="panel">
+    <div class="panel-head">
+      <div>
+        <h2>Catequistas Responsables</h2>
+        <p class="sub">Haga clic en cualquiera de las catequistas para ingresar al portal general.</p>
+      </div>
+    </div>
+    <div class="mises-grid">
+      <article class="mise-card" onclick="abrirPortalComun()">
+        <img class="mise-avatar" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/miss%20lily.jpg" alt="Lily Melo" onerror="this.style.display='none'">
+        <div>
+          <h3 style="margin:0 0 4px; color:var(--navy); font-size:1.1rem">Lily Melo Azañero</h3>
+          <p class="small muted" style="margin:0 0 6px">Catequista Responsable</p>
+          <span class="small" style="color:var(--gold-deep); font-weight:900;">Ingresar al Portal ↗</span>
+        </div>
+      </article>
+      <article class="mise-card" onclick="abrirPortalComun()">
+        <img class="mise-avatar" src="
