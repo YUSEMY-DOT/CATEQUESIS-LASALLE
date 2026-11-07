@@ -1,143 +1,541 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#173B68">
-<title>Caminando hacia Jesús 2026 | Portal de Catequistas – Colegio La Salle del Sur</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#081c3b">
+<title>Programación de Catequesis 2026 | Colegio La Salle del Sur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#12345b;--blue:#1b4a79;--blue-soft:#edf4fc;--gold:#f3c755;--gold-deep:#b17b10;--cream:#fff8e8;--red:#b83d43;--green:#23764c;--green-soft:#e8f6ed;--ink:#172b48;--muted:#62748c;--line:#dce5ef;--white:#fff;--shadow:0 10px 30px #173b6812}
-*{box-sizing:border-box}body{margin:0;background:#f4f7fa;color:var(--ink);font-family:Inter,"Segoe UI",Tahoma,sans-serif;line-height:1.5}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible{outline:3px solid #f3c75588;outline-offset:2px}a{color:inherit;text-decoration:none}
-.topbar{background:white;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:15;box-shadow:0 2px 12px #142b4810}
-.topbar-inner{max-width:1400px;margin:auto;padding:12px 22px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-.brand{display:flex;align-items:center;gap:12px;font-weight:900;color:var(--navy);letter-spacing:.04em}
-.brand img.crest{width:52px;height:52px;object-fit:contain}
-.brand small{display:block;letter-spacing:0;font-weight:500;color:var(--muted);font-size:.78rem}
-.top-actions{display:flex;gap:8px;flex-wrap:wrap}
-.btn{border:1px solid var(--line);border-radius:12px;padding:10px 16px;background:white;color:var(--navy);font-weight:800;font-size:.95rem;transition:all .2s}
-.btn:hover{filter:brightness(.97);transform:translateY(-1px)}
-.btn.primary{background:var(--navy);border-color:var(--navy);color:white}
-.btn.gold{background:linear-gradient(135deg,#ffe68c,#f5bd37);border-color:#efc34c;color:#152c4d}
-.btn.small{padding:8px 12px;font-size:.84rem}
+:root {
+  --navy: #081c3b;
+  --blue: #123d70;
+  --gold: #d99b16;
+  --gold-light: #fff5df;
+  --cream: #fbf8f2;
+  --paper: #ffffff;
+  --ink: #132746;
+  --muted: #65758b;
+  --line: #e6dcce;
+  --shadow: 0 10px 30px rgba(9, 35, 68, 0.08);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: #f4efe6;
+  color: var(--ink);
+  font-family: Nunito, Arial, sans-serif;
+  line-height: 1.5;
+}
+.page-wrap {
+  max-width: 1300px;
+  margin: 20px auto;
+  background: var(--cream);
+  border-radius: 28px;
+  box-shadow: 0 0 40px rgba(6, 26, 51, 0.12);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.gold-bar {
+  height: 6px;
+  background: linear-gradient(90deg, #bd8421, #ffe89a, #dba12d);
+}
+header {
+  background: radial-gradient(circle at 80% 20%, #174878 0, #0b2850 40%, #06152e 100%);
+  color: white;
+  padding: 30px clamp(20px, 4vw, 50px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.header-title h1 {
+  font: 700 clamp(24px, 3.5vw, 36px) Fredoka, sans-serif;
+  color: #fff;
+  margin: 0 0 5px;
+}
+.header-title h1 span { color: #ffdf94; }
+.header-title p {
+  margin: 0;
+  color: #d2e3f8;
+  font-weight: 700;
+  font-size: 15px;
+}
+.header-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.btn-home, .btn-actualizar {
+  background: linear-gradient(135deg, #ffdb69, #f6a514);
+  color: var(--navy);
+  border: 2px solid white;
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-weight: 900;
+  font-family: Fredoka, sans-serif;
+  box-shadow: 0 5px 16px rgba(243, 161, 13, 0.3);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-actualizar {
+  background: linear-gradient(135deg, #34d399, #059669);
+  color: white;
+}
+.btn-home:hover, .btn-actualizar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
 
-/* BOTONES DE RECURSOS */
-.btn-practicas { background: #fcf8ec; border-color: #f3e2b4; color: #8a6a11; }
-.btn-evaluaciones { background: #fcf2f2; border-color: #f0cbcc; color: #9c3338; }
-.btn-canciones { background: #f0f4fc; border-color: #cbdcf4; color: #204a82; }
-.btn-videos { background: #edf7f2; border-color: #c4e4d4; color: #1b5e3c; }
+#estadoSincronizacion {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  background: #fff5df;
+  color: #9a711d;
+  padding: 8px;
+  border-bottom: 1px solid #efd08a;
+}
 
-.container{max-width:1400px;margin:auto;padding:22px}
-.hero{background:linear-gradient(115deg,#102b4f,#1e4e7f);color:white;border-radius:20px;padding:25px 30px;display:flex;justify-content:space-between;align-items:center;gap:25px;box-shadow:var(--shadow)}
-.eyebrow{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:#ffe39a;font-weight:900}
-.hero h1{margin:4px 0;font-size:clamp(1.7rem,2.8vw,2.3rem);line-height:1.1}
-.hero p{margin:6px 0 0;max-width:760px;color:#f0f5fb;font-size:.95rem}
-.panel{background:white;border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:var(--shadow);margin-bottom:16px}
-.panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;flex-wrap:wrap;margin-bottom:18px}
-.panel h2{margin:0;color:var(--navy);font-size:1.3rem}
-.sub{color:var(--muted);margin:4px 0 0;font-size:.92rem}
-.mises-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
-.mise-card{border:2px solid var(--line);border-radius:16px;padding:20px;background:#fff;display:flex;gap:18px;align-items:center;box-shadow:0 4px 16px #173b6808;cursor:pointer;transition:all .2s ease}
-.mise-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 8px 22px #173b6814}
-.mise-avatar{width:100px;height:100px;border-radius:50%;object-fit:cover;border:4px solid var(--gold);flex-shrink:0}
-.modal-backdrop{position:fixed;inset:0;background:#071a32b8;z-index:50;display:none;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(4px)}
-.modal-backdrop.show{display:flex}
-.modal{background:white;border-radius:20px;width:min(1350px,100%);max-height:92vh;overflow:auto;padding:28px;box-shadow:0 25px 60px #0005}
-.xbtn{border:0;background:#f0f3f7;color:var(--navy);width:36px;height:36px;border-radius:10px;font-weight:900;font-size:1rem;transition:background .2s}
-.xbtn:hover{background:#e2e8f0}
-.tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:16px}
-.tool-card{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;transition:all .2s}
-.tool-card:hover{border-color:var(--blue);background:#fff;box-shadow:0 4px 12px #173b680c}
-.tool-card h4{margin:0 0 4px;color:var(--navy);font-size:1.02rem}
-.tool-card p{margin:0 0 12px;color:var(--muted);font-size:.84rem}
+.countdown-box {
+  background: linear-gradient(135deg, #061a38 0%, #102a5c 100%);
+  border: 2px solid #e8bd60;
+  border-radius: 20px;
+  padding: 24px;
+  margin: 30px clamp(20px, 4vw, 50px) 10px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+.countdown-box h3 {
+  font: 700 22px Fredoka, sans-serif;
+  color: #ffdf94;
+  margin: 0 0 5px;
+}
+.countdown-box p {
+  font-size: 14px;
+  font-weight: 700;
+  color: #d7e6f8;
+  margin: 0 0 18px;
+}
+.timer-grid {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.time-card {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+  padding: 10px 18px;
+  min-width: 80px;
+}
+.time-card b {
+  display: block;
+  font: 700 28px Fredoka, sans-serif;
+  color: #ffdf94;
+}
+.time-card span {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #b9d3f5;
+  letter-spacing: 0.5px;
+}
 
-.tema-box { background: #fdfefe; border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
-.subtema-list { margin: 8px 0 14px 20px; padding: 0; color: var(--muted); font-size: 0.9rem; }
-.action-buttons { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
-
-/* Calendario Estilizado */
-.cal-container { display: grid; grid-template-columns: 1.35fr 1fr; gap: 24px; align-items: start; }
-.cal-box { background: white; border: 1px solid var(--line); border-radius: 18px; padding: 22px; box-shadow: var(--shadow); }
-.cal-header-bar { display: flex; justify-content: space-between; align-items: center; background: #fffdf5; border: 1.5px solid #fae8b3; border-radius: 12px; padding: 10px 16px; margin-bottom: 16px; }
-.cal-nav-btn { background: #fff; border: 1px solid #e2c068; border-radius: 8px; width: 34px; height: 34px; font-weight: bold; color: var(--navy); display: flex; align-items: center; justify-content: center; }
-.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; }
-.cal-weekday { font-size: 0.8rem; font-weight: 800; color: var(--navy); padding-bottom: 6px; }
-.cal-day { aspect-ratio: 1; background: #fdfefe; border: 1px solid var(--line); border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 700; font-size: 0.92rem; color: var(--ink); position: relative; cursor: pointer; transition: all 0.15s; }
-.cal-day:hover { border-color: var(--navy); background: #f4f8fd; }
-.cal-day.has-class { background: #fffdf2; border-color: #f3c755; }
-.cal-day.selected { background: var(--navy) !important; color: white !important; border-color: var(--navy); }
-.cal-day.selected .cal-dot { background: #fff !important; }
-.cal-dot { width: 5px; height: 5px; background: var(--gold-deep); border-radius: 50%; margin-top: 3px; }
-.encounter-panel { background: white; border: 1px solid var(--line); border-radius: 18px; padding: 22px; box-shadow: var(--shadow); }
-.encounter-tag { background: #fef3d6; color: #8a6207; font-size: 0.7rem; font-weight: 900; padding: 4px 10px; border-radius: 6px; display: inline-block; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
-.encounter-card { border: 1px solid #fae8b3; background: #fffdf7; border-radius: 12px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
-
-/* NUEVA ASISTENCIA MATRICIAL ERGONÓMICA */
-.asist-layout { display: grid; grid-template-columns: 350px 1fr; gap: 24px; align-items: start; }
-.estudiantes-lista-asist { background: #f8fafc; border: 1px solid var(--line); border-radius: 16px; padding: 12px; max-height: 600px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-.est-item-btn { display: flex; align-items: center; gap: 14px; width: 100%; padding: 12px; background: white; border: 1.5px solid var(--line); border-radius: 14px; text-align: left; transition: all 0.2s; cursor: pointer; }
-.est-item-btn:hover, .est-item-btn.active { border-color: var(--navy); background: var(--blue-soft); box-shadow: 0 4px 12px #173b6810; }
-.est-item-btn img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); flex-shrink: 0; }
-.est-item-btn .info-n { font-size: 0.84rem; font-weight: 800; color: var(--navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.est-item-btn .info-sub { font-size: 0.74rem; color: var(--muted); display: flex; justify-content: space-between; margin-top: 3px; }
-
-/* Tabla Matriz Compacta para Asistencia */
-.asistencia-tabla-container { background: white; border: 1px solid var(--line); border-radius: 16px; padding: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.02); max-height: 600px; overflow-y: auto; }
-.matrix-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-.matrix-table th, .matrix-table td { border: 1px solid var(--line); padding: 8px 12px; text-align: left; vertical-align: middle; }
-.matrix-table th { background: var(--blue-soft); color: var(--navy); font-weight: 800; text-align: center; position: sticky; top: 0; z-index: 5; }
-.matrix-table td:nth-child(1) { font-weight: bold; color: var(--navy); text-align: center; }
-.matrix-table td:nth-child(2) { font-weight: 700; color: var(--ink); }
-.matrix-table td:nth-child(3) { text-align: center; }
-
-.data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
-.data-table th, .data-table td { border: 1px solid var(--line); padding: 9px 12px; text-align: left; vertical-align: middle; white-space: nowrap; }
-.data-table th { background: var(--blue-soft); color: var(--navy); text-align: center; }
-
-@media(max-width:900px){.cal-container{grid-template-columns:1fr}.asist-layout{grid-template-columns:1fr}}
-@media print{body *{visibility:hidden}#vista-asistencia, #vista-asistencia * {visibility:visible}#vista-asistencia{position:absolute;left:0;top:0;width:100%}.no-print{display:none!important}}
+main {
+  padding: clamp(20px, 4vw, 40px);
+}
+.stages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 24px;
+  margin-top: 10px;
+}
+.stage-card {
+  background: var(--paper);
+  border: 1.5px solid var(--line);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+.stage-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+  border-bottom: 2px solid var(--gold-light);
+  padding-bottom: 12px;
+}
+.stage-icon {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #fff5df, #ffe2a3);
+  border: 1px solid #efd08a;
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+}
+.stage-title-wrap span {
+  font-size: 11px;
+  font-weight: 900;
+  color: #b27b19;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: block;
+}
+.stage-title-wrap h3 {
+  font: 700 17px Fredoka, sans-serif;
+  color: var(--navy);
+  margin: 2px 0 0;
+}
+.topics-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 480px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.topics-list::-webkit-scrollbar {
+  width: 6px;
+}
+.topics-list::-webkit-scrollbar-thumb {
+  background: #dcccb2;
+  border-radius: 10px;
+}
+.topic-item {
+  background: #fcf9f2;
+  border: 1px solid #efe4d0;
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+.topic-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.topic-number {
+  font-size: 10px;
+  font-weight: 900;
+  color: #9a711d;
+  background: #fff2cf;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+.topic-id {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+}
+.topic-name {
+  font: 700 14px Fredoka, sans-serif;
+  color: var(--navy);
+  margin: 4px 0;
+}
+.topic-desc {
+  font-size: 12px;
+  font-weight: 700;
+  color: #4b5d73;
+  margin: 0 0 6px;
+}
+.topic-meta {
+  font-size: 11px;
+  color: #65758b;
+  border-top: 1px dashed #e8dec9;
+  padding-top: 5px;
+  margin-top: 5px;
+}
+footer {
+  margin-top: 40px;
+  background: linear-gradient(135deg, #081c3b, #123d70);
+  color: #e4edfa;
+  text-align: center;
+  padding: 25px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 13px;
+}
+footer strong {
+  color: #ffdf94;
+  font-family: Fredoka, sans-serif;
+  font-size: 16px;
+}
+.copyright {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  color: #c6d4e8;
+  font-size: 11px;
+}
+@media(max-width: 768px) {
+  .page-wrap { margin: 0; border-radius: 0; border: none; }
+  header { flex-direction: column; align-items: flex-start; }
+  .stages-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
-<header class="topbar">
-  <div class="topbar-inner">
-    <div class="brand">
-      <img class="crest" src="./assets/insignia.png" alt="Insignia" onerror="this.style.display='none'">
-      <div>
-        CAMINANDO HACIA JESÚS 2026
-        <small>Colegio La Salle del Sur · Parroquia San Pedro de Lurín</small>
-      </div>
-    </div>
-    <div class="top-actions">
-      <button class="btn small primary" id="btnActualizar">🔄 Sincronizar</button>
-      <button class="btn small" id="mute-toggle">🔊 Silenciar</button>
-      <a class="btn small primary" href="./index.html">← Volver a portada</a>
-    </div>
-  </div>
-</header>
-<main class="container">
-<section class="hero">
-  <div>
-    <div class="eyebrow">Programa de Catequesis · Primera Comunión 2026</div>
-    <h1>Portal de Catequistas</h1>
-    <p>Gestión pastoral unificada: Clases, Catequizandos, Asistencia, Pagos y Padres.</p>
-  </div>
-</section>
 
-<!-- CATEQUISTAS RESPONSABLES -->
-<section class="view active" id="view-home" style="margin-top:20px;">
-  <div class="panel">
-    <div class="panel-head">
-      <div>
-        <h2>Catequistas Responsables</h2>
-        <p class="sub">Haga clic en cualquiera de las catequistas para ingresar al portal general.</p>
-      </div>
+<div class="page-wrap">
+  <div class="gold-bar"></div>
+  
+  <header>
+    <div class="header-title">
+      <h1>Programa de <span>Catequesis 2026</span></h1>
+      <p>Colegio Privado La Salle del Sur · Camino hacia Jesús</p>
     </div>
-    <div class="mises-grid">
-      <article class="mise-card" onclick="abrirPortalComun()">
-        <img class="mise-avatar" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/miss%20lily.jpg" alt="Lily Melo" onerror="this.style.display='none'">
-        <div>
-          <h3 style="margin:0 0 4px; color:var(--navy); font-size:1.1rem">Lily Melo Azañero</h3>
-          <p class="small muted" style="margin:0 0 6px">Catequista Responsable</p>
-          <span class="small" style="color:var(--gold-deep); font-weight:900;">Ingresar al Portal ↗</span>
+    <div class="header-actions">
+      <button id="btnActualizar" class="btn-actualizar">🔄 Actualizar</button>
+      <button class="btn-home" onclick="location.href='./index.html'">🏠 Volver al inicio</button>
+    </div>
+  </header>
+
+  <div id="estadoSincronizacion">Conectado con el sistema del colegio. Listo para sincronizar.</div>
+
+  <!-- CUENTA REGRESIVA AL 8 DE DICIEMBRE DE 2026 -->
+  <div class="countdown-box">
+    <h3>✨ Cuenta Regresiva para la Catequesis / Gran Cierre ✨</h3>
+    <p>8 de Diciembre de 2026</p>
+    <div class="timer-grid">
+      <div class="time-card"><b id="days">--</b><span>Días</span></div>
+      <div class="time-card"><b id="hours">--</b><span>Horas</span></div>
+      <div class="time-card"><b id="minutes">--</b><span>Minutos</span></div>
+      <div class="time-card"><b id="seconds">--</b><span>Segundos</span></div>
+    </div>
+  </div>
+
+  <main>
+    <div class="stages-grid" id="stages-grid"></div>
+  </main>
+
+  <footer>
+    <strong>Camino hacia Jesús · La Salle del Sur</strong><br>
+    Con fe, alegría y amor, nos preparamos para recibir a Jesús. ✨
+    <div class="copyright">© 2026 Colegio Privado La Salle del Sur · Programa Camino hacia Jesús. Todos los derechos reservados.</div>
+  </footer>
+</div>
+
+<script>
+  const URL_API_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
+
+  function updateCountdown() {
+    const target = new Date(2026, 11, 8, 0, 0, 0).getTime();
+    const now = Date.now();
+    const diff = target - now;
+
+    if (diff <= 0) {
+      document.getElementById('days').textContent = '0';
+      document.getElementById('hours').textContent = '0';
+      document.getElementById('minutes').textContent = '0';
+      document.getElementById('seconds').textContent = '0';
+      return;
+    }
+
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const minutes = Math.floor((diff % 3600000) / 60000);
+    const seconds = Math.floor((diff % 60000) / 1000);
+
+    document.getElementById('days').textContent = String(days);
+    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  const blocksFallback = [
+    {
+      title: 'BLOQUE 1 — CONOCIENDO A JESÚS',
+      subtitle: 'Sesiones 1 a 9',
+      icon: '✝️',
+      sessions: [
+        {n:1, id:'CJ-001', tema:'¿QUIÉN ES DIOS?', desc:'Reconocer a Dios como el único Dios, creador y Padre eterno.', val:'Fe y confianza en Dios', cita:'Dt 6,4; Ex 3,14; Gn 1,1'},
+        {n:2, id:'CJ-002', tema:'¿QUIÉN ES JESÚS?', desc:'Explicar quién es Jesús, reconocerlo como Hijo de Dios y verdadero hombre.', val:'Amor a Jesús', cita:'Jn 1,1.14; Mt 16,15-16'},
+        {n:3, id:'CJ-003', tema:'¿QUIÉN ES EL ESPÍRITU SANTO?', desc:'Identificar al Espíritu Santo, su misión y cómo actúa en la Iglesia.', val:'Docilidad al Espíritu Santo', cita:'Jn 14,16-17; Hch 2,1-4'},
+        {n:4, id:'CJ-004', tema:'LA SANTÍSIMA TRINIDAD', desc:'Explicar que el Padre, el Hijo y el Espíritu Santo son un solo Dios.', val:'Unidad y comunión', cita:'Mt 3,16-17; Mt 28,19'},
+        {n:5, id:'CJ-005', tema:'LA CREACIÓN', desc:'Reconocer a Dios como creador y cuidar la naturaleza.', val:'Responsabilidad y cuidado', cita:'Gn 1,1-31; Sal 8,4-9'},
+        {n:6, id:'CJ-006', tema:'DIOS SE REVELA AL SER HUMANO', desc:'Comprender que Dios se da a conocer a través de la historia y Jesucristo.', val:'Apertura a la Palabra', cita:'Heb 1,1-2; Jn 1,18'},
+        {n:7, id:'CJ-007', tema:'LA BIBLIA', desc:'Reconocer la Biblia como Palabra de Dios y buscar citas bíblicas.', val:'Amor a la Palabra de Dios', cita:'2 Tim 3,16-17; Lc 24,27'},
+        {n:8, id:'CJ-008', tema:'LA VIDA DE JESÚS', desc:'Identificar momentos clave de la vida de Jesús y su misión.', val:'Disponibilidad para seguir a Jesús', cita:'Lc 2,1-20; Mc 1,9-15'},
+        {n:9, id:'CJ-009', tema:'LAS ENSEÑANZAS DE JESÚS (PARÁBOLAS)', desc:'Reconocer enseñanzas de Jesús mediante parábolas y aplicarlas.', val:'Misericordia y solidaridad', cita:'Lc 10,25-37; Lc 15,11-32'}
+      ]
+    },
+    {
+      title: 'BLOQUE 2 — APRENDEMOS A ORAR',
+      subtitle: 'Sesiones 10 a 22',
+      icon: '🙏',
+      sessions: [
+        {n:10, id:'CJ-010', tema:'¿QUÉ SIGNIFICA TENER FE?', desc:'Explicar qué es la fe y cómo expresar confianza en Dios.', val:'Fe y confianza', cita:'Heb 11,1.6; Mc 9,24'},
+        {n:11, id:'CJ-011', tema:'¿QUÉ ES ORAR? Y REZAR', desc:'Reconocer la oración como comunicación con Dios.', val:'Confianza en Dios', cita:'Mt 6,5-13'},
+        {n:12, id:'CJ-012', tema:'La Adoración y la Oración', desc:'Momentos de adoración y oración.', val:'Adoración', cita:'Sal 95,6'},
+        {n:13, id:'CJ-013', tema:'Oraciones Fundamentales', desc:'Practicar oraciones de la tradición cristiana.', val:'Devoción', cita:'Mt 6,9'},
+        {n:14, id:'CJ-014', tema:'SEÑAL DE LA SANTA CRUZ', desc:'Invocación trinitaria.', val:'Reverencia', cita:'Mt 28,19'},
+        {n:15, id:'CJ-015', tema:'ORACION DEL PADRE NUESTRO', desc:'Comprender el Padre Nuestro.', val:'Confianza filial', cita:'Lc 11,2'},
+        {n:16, id:'CJ-016', tema:'ORACION DEL AVE MARIA', desc:'Saludo a la Virgen María.', val:'Amor filial', cita:'Lc 1,28'},
+        {n:17, id:'CJ-017', tema:'GLORIA AL PADRE', desc:'Doxología menor.', val:'Alabanza', cita:'Rom 16,27'},
+        {n:18, id:'CJ-018', tema:'CREDO', desc:'Verdades de fe.', val:'Fidelidad', cita:'1 Co 15,3'},
+        {n:19, id:'CJ-019', tema:'ACTO DE CONTRICSION', desc:'Arrepentimiento de los pecados.', val:'Humildad', cita:'Lc 15,18'},
+        {n:20, id:'CJ-020', tema:'EL SANTO ROSARIO', desc:'Estructura y oración del Rosario.', val:'Perseverancia', cita:'Lc 1,28'},
+        {n:21, id:'CJ-021', tema:'CUANDO Y DONDE PODEMOS ORAR', desc:'Espacios y tiempos de oración.', val:'Recogimiento', cita:'1 Ts 5,17'},
+        {n:22, id:'CJ-022', tema:'COMO HACER UNA ORACION EXPONTANEA', desc:'Diálogo sincero con Dios.', val:'Sinceridad', cita:'Mt 6,6'}
+      ]
+    },
+    {
+      title: 'BLOQUE 3 — LOS SACRAMENTOS',
+      subtitle: 'Sesiones 23 a 31',
+      icon: '🕊️',
+      sessions: [
+        {n:23, id:'CJ-023', tema:'LA GRACIA', desc:'Comprender la gracia santificante.', val:'Vida en gracia', cita:'Ef 2,8-10'},
+        {n:24, id:'CJ-024', tema:'LOS SACRAMENTOS', desc:'Signos eficaces de la gracia.', val:'Compromiso cristiano', cita:'Mt 28,19'},
+        {n:25, id:'CJ-025', tema:'EL BAUTISMO', desc:'Incorporación a la Iglesia.', val:'Gratitud y pertenencia', cita:'Rm 6,3-4'},
+        {n:26, id:'CJ-026', tema:'EL SACRAMENTO DE LA RECONCILIACIÓN', desc:'El perdón de Dios.', val:'Arrepentimiento', cita:'Jn 20,21-23'},
+        {n:27, id:'CJ-027', tema:'LA COMUNIÓN', desc:'Alimento espiritual.', val:'Unidad', cita:'Jn 6,51'},
+        {n:28, id:'CJ-028', tema:'LA CONFIRMACIÓN', desc:'Fortalecidos por el Espíritu Santo.', val:'Testimonio', cita:'Hch 8,17'},
+        {n:29, id:'CJ-029', tema:'LA UNCION DE LOS ENFERMOS', desc:'Auxilio en la enfermedad.', val:'Solidaridad', cita:'St 5,14'},
+        {n:30, id:'CJ-030', tema:'ORDENN SACERDOTAL', desc:'Ministerio ordenado.', val:'Servicio', cita:'Jn 20,21'},
+        {n:31, id:'CJ-031', tema:'MATRIMONIO', desc:'Alianza sagrada.', val:'Amor fiel', cita:'Mt 19,6'}
+      ]
+    },
+    {
+      title: 'BLOQUE 4 — LA EUCARISTÍA Y VALORES',
+      subtitle: 'Sesiones 32 a 42',
+      icon: '🍞',
+      sessions: [
+        {n:32, id:'CJ-032', tema:'QUE ES UN VALOR CRISTIANO', desc:'Principios de vida.', val:'Rectitud', cita:'Flp 4,8'},
+        {n:33, id:'CJ-033', tema:'Las virtudes', desc:'Hábitos buenos.', val:'Virtud', cita:'2 Pe 1,5'},
+        {n:34, id:'CJ-034', tema:'LOS DONES', desc:'Dones del Espíritu Santo.', val:'Docilidad', cita:'Is 11,2'},
+        {n:35, id:'CJ-035', tema:'LOS 10 MANDAMIENTOS', desc:'Ley de Dios.', val:'Obediencia', cita:'Ex 20,1'},
+        {n:36, id:'CJ-036', tema:'LOS MANDAMIENTOS DE LA IGLESIA', desc:'Guía de la comunidad.', val:'Fidelidad', cita:'Hch 2,42'},
+        {n:37, id:'CJ-037', tema:'LOS PECADOS', desc:'Ruptura con el amor de Dios.', val:'Conversión', cita:'Rm 3,23'},
+        {n:38, id:'CJ-038', tema:'LOS 7 PECADOS CAPITALES', desc:'Raíz de los vicios.', val:'Humildad', cita:'St 1,15'},
+        {n:39, id:'CJ-039', tema:'EL PERDON', desc:'Reconciliación.', val:'Misericordia', cita:'Col 3,13'},
+        {n:40, id:'CJ-040', tema:'EXAMEN DE CONCIENCIA', desc:'Revisión personal.', val:'Sinceridad', cita:'Sal 139,23'},
+        {n:41, id:'CJ-041', tema:'BIENAVENTURANZAS', desc:'Camino de felicidad.', val:'Sencillez', cita:'Mt 5,1'},
+        {n:42, id:'CJ-042', tema:'OBRA DE MISERICORDIA', desc:'Ayuda al prójimo.', val:'Caridad', cita:'Mt 25,35'}
+      ]
+    },
+    {
+      title: 'BLOQUE 5 — VIDA CRISTIANA Y MISA',
+      subtitle: 'Sesiones 43 a 60',
+      icon: '💖',
+      sessions: [
+        {n:43, id:'CJ-043', tema:'QUE ES LA EUCARISTIA', desc:'Memorial y presencia.', val:'Gratitud', cita:'Lc 22,19'},
+        {n:44, id:'CJ-044', tema:'LA SANTA MISA', desc:'Celebración litúrgica.', val:'Participación', cita:'1 Co 11,23'},
+        {n:45, id:'CJ-045', tema:'LOS RITOS INICIALES', desc:'Preparación de la asamblea.', val:'Acogida', cita:'Sal 100,4'},
+        {n:46, id:'CJ-046', tema:'LA LITURGIA DE LA PALABRA', desc:'Lecturas y homilía.', val:'Atención', cita:'Neh 8,8'},
+        {n:47, id:'CJ-047', tema:'LA LITURGIA DE LA EUCARISTIA', desc:'Presentación de dones y plegaria.', val:'Adoración', cita:'Mt 26,26'},
+        {n:48, id:'CJ-048', tema:'LOS RITOS FINALES', desc:'Bendición y envío.', val:'Disponibilidad', cita:'Mt 28,19'},
+        {n:49, id:'CJ-049', tema:'PARTES DE LA SANTA MISA', desc:'Estructura de la Misa.', val:'Orden', cita:'Lc 24,35'},
+        {n:50, id:'CJ-050', tema:'VESTIDURA DE LOS SACERDOTES', desc:'Ornamentos sagrados.', val:'Reverencia', cita:'Ex 28,2'},
+        {n:51, id:'CJ-051', tema:'OBJETOS LITURGICOS', desc:'Utensilios del altar.', val:'Cuidado', cita:'Ex 37,16'},
+        {n:52, id:'CJ-052', tema:'COLORES LITURGICOS', desc:'Significado de los colores.', val:'Respeto', cita:'Ecl 3,1'},
+        {n:53, id:'CJ-053', tema:'LOS SANTOS', desc:'Testigos de la fe.', val:'Santidad', cita:'Heb 12,1'},
+        {n:54, id:'CJ-054', tema:'LA ULTIMA CENA', desc:'Institución de la Eucaristía.', val:'Amor', cita:'Jn 13,1'},
+        {n:55, id:'CJ-055', tema:'LA INSTITUCION DE LA EUCARISTIA', desc:'Cuerpo y Sangre de Cristo.', val:'Fidelidad', cita:'1 Co 11,24'},
+        {n:56, id:'CJ-056', tema:'LA CONSAGRACION', desc:'Transustanciación.', val:'Asombro', cita:'Mt 26,26'},
+        {n:57, id:'CJ-057', tema:'LA PRESENCIA REAL DE JESUS EN LA EUCARISTIA', desc:'Jesús vivo en el sagrario.', val:'Devoción', cita:'Jn 6,55'},
+        {n:58, id:'CJ-058', tema:'LA SAGRADA COMUNION', desc:'Recibiendo el pan de vida.', val:'Intimidad', cita:'Jn 6,56'},
+        {n:59, id:'CJ-059', tema:'EL SAGRARIO', desc:'Reserva eucarística.', val:'Oración', cita:'Mt 28,20'},
+        {n:60, id:'CJ-060', tema:'EL SAGRARIO', desc:'Lugar de adoración.', val:'Silencio', cita:'Sal 84,1'}
+      ]
+    },
+    {
+      title: 'BLOQUE 6 — PREPARACIÓN PRIMERA COMUNIÓN',
+      subtitle: 'Sesiones 61 a 68',
+      icon: '👨‍👩‍👧‍👦',
+      sessions: [
+        {n:61, id:'CJ-061', tema:'LA PREPARACION PARA LA PRIMERA COMUNION', desc:'Camino final.', val:'Preparación', cita:'Lc 3,4'},
+        {n:62, id:'CJ-062', tema:'PREPARACION ESPIRITUAL', desc:'Renovación interior.', val:'Pureza', cita:'Sal 51,10'},
+        {n:63, id:'CJ-063', tema:'ORACIONES QUE DEBEN CONOCER', desc:'Repaso de oraciones.', val:'Diligencia', cita:'Flp 4,6'},
+        {n:64, id:'CJ-064', tema:'PREPARACION PARA LA SANTA MISA', desc:'Participación activa.', val:'Respeto', cita:'Eccl 5,1'},
+        {n:65, id:'CJ-065', tema:'EL MOMENTO DE COMUNION', desc:'Encuentro con Jesús.', val:'Entrega', cita:'Jn 6,54'},
+        {n:66, id:'CJ-066', tema:'DESPUES DE RECIBIR A JESUS', desc:'Vida comunitaria posterior.', val:'Gratitud', cita:'Col 3,17'},
+        {n:67, id:'CJ-067', tema:'PREPARACION PERSONAL Y CEREMONIAL', desc:'Protocolo de la ceremonia.', val:'Orden', cita:'1 Co 14,40'},
+        {n:68, id:'CJ-068', tema:'PREPÁRACION', desc:'Últimos detalles.', val:'Felicidad', cita:'Sal 118,24'}
+      ]
+    }
+  ];
+
+  function renderizarBloques(listaBloques) {
+    const grid = document.getElementById('stages-grid');
+    grid.innerHTML = '';
+
+    listaBloques.forEach((block, idx) => {
+      const card = document.createElement('div');
+      card.className = 'stage-card';
+      
+      let sessionsHtml = block.sessions.map(s => `
+        <div class="topic-item">
+          <div class="topic-top">
+            <span class="topic-number">Sesión N.º ${s.n}</span>
+            <span class="topic-id">${s.id}</span>
+          </div>
+          <div class="topic-name">${s.tema}</div>
+          <p class="topic-desc">${s.desc}</p>
+          <div class="topic-meta">
+            <strong>Valor:</strong> ${s.val} | <strong>Cita:</strong> ${s.cita}
+          </div>
         </div>
-      </article>
-      <article class="mise-card" onclick="abrirPortalComun()">
-        <img class="mise-avatar" src="
+      `).join('');
+
+      card.innerHTML = `
+        <div class="stage-header">
+          <div class="stage-icon">${block.icon}</div>
+          <div class="stage-title-wrap">
+            <span>Sección ${idx + 1}</span>
+            <h3>${block.title}</h3>
+          </div>
+        </div>
+        <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:12px;">${block.subtitle}</div>
+        <div class="topics-list">${sessionsHtml}</div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  async function sincronizarConGoogleSheets() {
+    const statusEl = document.getElementById('estadoSincronizacion');
+    statusEl.textContent = '🔄 Sincronizando con Google Sheets...';
+    try {
+      const response = await fetch(`${URL_API_APPS_SCRIPT}?action=getSesiones`);
+      const resJson = await response.json();
+
+      if (resJson.exito && resJson.bloques && resJson.bloques.length > 0) {
+        renderizarBloques(resJson.bloques);
+        statusEl.textContent = '✅ ¡Sincronizado correctamente con Google Sheets!';
+        setTimeout(() => { statusEl.textContent = ''; }, 4000);
+      } else {
+        statusEl.textContent = '⚠️ Respuesta vacía. Usando datos locales.';
+        renderizarBloques(blocksFallback);
+      }
+    } catch (err) {
+      console.error(err);
+      statusEl.textContent = '⚠️ Error de red. Mostrando datos locales de respaldo.';
+      renderizarBloques(blocksFallback);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderizarBloques(blocksFallback);
+    sincronizarConGoogleSheets();
+    
+    document.getElementById('btnActualizar').addEventListener('click', () => {
+      sincronizarConGoogleSheets();
+    });
+  });
+</script>
+</body>
+</html>
