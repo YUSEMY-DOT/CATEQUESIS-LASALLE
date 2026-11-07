@@ -2,97 +2,30 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#173B68">
-<title>Caminando hacia Jesús 2026 | Portal de Catequistas – Colegio La Salle del Sur</title>
+<title>Programación | Camino hacia Jesús 2026 – Colegio La Salle del Sur</title>
 <style>
 :root{--navy:#12345b;--blue:#1b4a79;--blue-soft:#edf4fc;--gold:#f3c755;--gold-deep:#b17b10;--cream:#fff8e8;--red:#b83d43;--green:#23764c;--green-soft:#e8f6ed;--ink:#172b48;--muted:#62748c;--line:#dce5ef;--white:#fff;--shadow:0 10px 30px #173b6812}
-*{box-sizing:border-box}body{margin:0;background:#f4f7fa;color:var(--ink);font-family:Inter,"Segoe UI",Tahoma,sans-serif;line-height:1.5}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible{outline:3px solid #f3c75588;outline-offset:2px}a{color:inherit;text-decoration:none}
+*{box-sizing:border-box}body{margin:0;background:#f4f7fa;color:var(--ink);font-family:Inter,"Segoe UI",Tahoma,sans-serif;line-height:1.5}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}
 .topbar{background:white;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:15;box-shadow:0 2px 12px #142b4810}
 .topbar-inner{max-width:1400px;margin:auto;padding:12px 22px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:12px;font-weight:900;color:var(--navy);letter-spacing:.04em}
 .brand img.crest{width:52px;height:52px;object-fit:contain}
 .brand small{display:block;letter-spacing:0;font-weight:500;color:var(--muted);font-size:.78rem}
-.top-actions{display:flex;gap:8px;flex-wrap:wrap}
 .btn{border:1px solid var(--line);border-radius:12px;padding:10px 16px;background:white;color:var(--navy);font-weight:800;font-size:.95rem;transition:all .2s}
 .btn:hover{filter:brightness(.97);transform:translateY(-1px)}
 .btn.primary{background:var(--navy);border-color:var(--navy);color:white}
-.btn.gold{background:linear-gradient(135deg,#ffe68c,#f5bd37);border-color:#efc34c;color:#152c4d}
 .btn.small{padding:8px 12px;font-size:.84rem}
-
-/* BOTONES DE RECURSOS */
+.container{max-width:1400px;margin:auto;padding:22px}
+.hero{background:linear-gradient(115deg,#102b4f,#1e4e7f);color:white;border-radius:20px;padding:25px 30px;margin-bottom:20px;box-shadow:var(--shadow)}
+.eyebrow{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:#ffe39a;font-weight:900}
+.hero h1{margin:4px 0;font-size:clamp(1.7rem,2.8vw,2.3rem);line-height:1.1}
+.hero p{margin:6px 0 0;color:#f0f5fb;font-size:.95rem}
+.tema-box { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+.action-buttons { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
 .btn-practicas { background: #fcf8ec; border-color: #f3e2b4; color: #8a6a11; }
 .btn-evaluaciones { background: #fcf2f2; border-color: #f0cbcc; color: #9c3338; }
 .btn-canciones { background: #f0f4fc; border-color: #cbdcf4; color: #204a82; }
 .btn-videos { background: #edf7f2; border-color: #c4e4d4; color: #1b5e3c; }
-
-.container{max-width:1400px;margin:auto;padding:22px}
-.hero{background:linear-gradient(115deg,#102b4f,#1e4e7f);color:white;border-radius:20px;padding:25px 30px;display:flex;justify-content:space-between;align-items:center;gap:25px;box-shadow:var(--shadow)}
-.eyebrow{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:#ffe39a;font-weight:900}
-.hero h1{margin:4px 0;font-size:clamp(1.7rem,2.8vw,2.3rem);line-height:1.1}
-.hero p{margin:6px 0 0;max-width:760px;color:#f0f5fb;font-size:.95rem}
-.panel{background:white;border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:var(--shadow);margin-bottom:16px}
-.panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;flex-wrap:wrap;margin-bottom:18px}
-.panel h2{margin:0;color:var(--navy);font-size:1.3rem}
-.sub{color:var(--muted);margin:4px 0 0;font-size:.92rem}
-.mises-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
-.mise-card{border:2px solid var(--line);border-radius:16px;padding:20px;background:#fff;display:flex;gap:18px;align-items:center;box-shadow:0 4px 16px #173b6808;cursor:pointer;transition:all .2s ease}
-.mise-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 8px 22px #173b6814}
-.mise-avatar{width:100px;height:100px;border-radius:50%;object-fit:cover;border:4px solid var(--gold);flex-shrink:0}
-.modal-backdrop{position:fixed;inset:0;background:#071a32b8;z-index:50;display:none;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(4px)}
-.modal-backdrop.show{display:flex}
-.modal{background:white;border-radius:20px;width:min(1350px,100%);max-height:92vh;overflow:auto;padding:28px;box-shadow:0 25px 60px #0005}
-.xbtn{border:0;background:#f0f3f7;color:var(--navy);width:36px;height:36px;border-radius:10px;font-weight:900;font-size:1rem;transition:background .2s}
-.xbtn:hover{background:#e2e8f0}
-.tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:16px}
-.tool-card{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;transition:all .2s}
-.tool-card:hover{border-color:var(--blue);background:#fff;box-shadow:0 4px 12px #173b680c}
-.tool-card h4{margin:0 0 4px;color:var(--navy);font-size:1.02rem}
-.tool-card p{margin:0 0 12px;color:var(--muted);font-size:.84rem}
-
-.tema-box { background: #fdfefe; border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
-.subtema-list { margin: 8px 0 14px 20px; padding: 0; color: var(--muted); font-size: 0.9rem; }
-.action-buttons { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
-
-/* Calendario Estilizado */
-.cal-container { display: grid; grid-template-columns: 1.35fr 1fr; gap: 24px; align-items: start; }
-.cal-box { background: white; border: 1px solid var(--line); border-radius: 18px; padding: 22px; box-shadow: var(--shadow); }
-.cal-header-bar { display: flex; justify-content: space-between; align-items: center; background: #fffdf5; border: 1.5px solid #fae8b3; border-radius: 12px; padding: 10px 16px; margin-bottom: 16px; }
-.cal-nav-btn { background: #fff; border: 1px solid #e2c068; border-radius: 8px; width: 34px; height: 34px; font-weight: bold; color: var(--navy); display: flex; align-items: center; justify-content: center; }
-.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; }
-.cal-weekday { font-size: 0.8rem; font-weight: 800; color: var(--navy); padding-bottom: 6px; }
-.cal-day { aspect-ratio: 1; background: #fdfefe; border: 1px solid var(--line); border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 700; font-size: 0.92rem; color: var(--ink); position: relative; cursor: pointer; transition: all 0.15s; }
-.cal-day:hover { border-color: var(--navy); background: #f4f8fd; }
-.cal-day.has-class { background: #fffdf2; border-color: #f3c755; }
-.cal-day.selected { background: var(--navy) !important; color: white !important; border-color: var(--navy); }
-.cal-day.selected .cal-dot { background: #fff !important; }
-.cal-dot { width: 5px; height: 5px; background: var(--gold-deep); border-radius: 50%; margin-top: 3px; }
-.encounter-panel { background: white; border: 1px solid var(--line); border-radius: 18px; padding: 22px; box-shadow: var(--shadow); }
-.encounter-tag { background: #fef3d6; color: #8a6207; font-size: 0.7rem; font-weight: 900; padding: 4px 10px; border-radius: 6px; display: inline-block; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
-.encounter-card { border: 1px solid #fae8b3; background: #fffdf7; border-radius: 12px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
-
-/* NUEVA ASISTENCIA MATRICIAL ERGONÓMICA */
-.asist-layout { display: grid; grid-template-columns: 350px 1fr; gap: 24px; align-items: start; }
-.estudiantes-lista-asist { background: #f8fafc; border: 1px solid var(--line); border-radius: 16px; padding: 12px; max-height: 600px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-.est-item-btn { display: flex; align-items: center; gap: 14px; width: 100%; padding: 12px; background: white; border: 1.5px solid var(--line); border-radius: 14px; text-align: left; transition: all 0.2s; cursor: pointer; }
-.est-item-btn:hover, .est-item-btn.active { border-color: var(--navy); background: var(--blue-soft); box-shadow: 0 4px 12px #173b6810; }
-.est-item-btn img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); flex-shrink: 0; }
-.est-item-btn .info-n { font-size: 0.84rem; font-weight: 800; color: var(--navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.est-item-btn .info-sub { font-size: 0.74rem; color: var(--muted); display: flex; justify-content: space-between; margin-top: 3px; }
-
-/* Tabla Matriz Compacta para Asistencia */
-.asistencia-tabla-container { background: white; border: 1px solid var(--line); border-radius: 16px; padding: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.02); max-height: 600px; overflow-y: auto; }
-.matrix-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-.matrix-table th, .matrix-table td { border: 1px solid var(--line); padding: 8px 12px; text-align: left; vertical-align: middle; }
-.matrix-table th { background: var(--blue-soft); color: var(--navy); font-weight: 800; text-align: center; position: sticky; top: 0; z-index: 5; }
-.matrix-table td:nth-child(1) { font-weight: bold; color: var(--navy); text-align: center; }
-.matrix-table td:nth-child(2) { font-weight: 700; color: var(--ink); }
-.matrix-table td:nth-child(3) { text-align: center; }
-
-.data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
-.data-table th, .data-table td { border: 1px solid var(--line); padding: 9px 12px; text-align: left; vertical-align: middle; white-space: nowrap; }
-.data-table th { background: var(--blue-soft); color: var(--navy); text-align: center; }
-
-@media(max-width:900px){.cal-container{grid-template-columns:1fr}.asist-layout{grid-template-columns:1fr}}
-@media print{body *{visibility:hidden}#vista-asistencia, #vista-asistencia * {visibility:visible}#vista-asistencia{position:absolute;left:0;top:0;width:100%}.no-print{display:none!important}}
 </style>
 </head>
 <body>
@@ -105,521 +38,30 @@
         <small>Colegio La Salle del Sur · Parroquia San Pedro de Lurín</small>
       </div>
     </div>
-    <div class="top-actions">
-      <button class="btn small primary" id="btnActualizar">🔄 Sincronizar</button>
-      <button class="btn small" id="mute-toggle">🔊 Silenciar</button>
+    <div>
       <a class="btn small primary" href="./index.html">← Volver a portada</a>
     </div>
   </div>
 </header>
-<main class="container">
-<section class="hero">
-  <div>
-    <div class="eyebrow">Programa de Catequesis · Primera Comunión 2026</div>
-    <h1>Portal de Catequistas</h1>
-    <p>Gestión pastoral unificada: Clases, Catequizandos, Asistencia, Pagos y Padres.</p>
-  </div>
-</section>
 
-<!-- CATEQUISTAS RESPONSABLES -->
-<section class="view active" id="view-home" style="margin-top:20px;">
-  <div class="panel">
-    <div class="panel-head">
-      <div>
-        <h2>Catequistas Responsables</h2>
-        <p class="sub">Haga clic en cualquiera de las catequistas para ingresar al portal general.</p>
-      </div>
-    </div>
-    <div class="mises-grid">
-      <article class="mise-card" onclick="abrirPortalComun()">
-        <img class="mise-avatar" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/miss%20lily.jpg" alt="Lily Melo" onerror="this.style.display='none'">
-        <div>
-          <h3 style="margin:0 0 4px; color:var(--navy); font-size:1.1rem">Lily Melo Azañero</h3>
-          <p class="small muted" style="margin:0 0 6px">Catequista Responsable</p>
-          <span class="small" style="color:var(--gold-deep); font-weight:900;">Ingresar al Portal ↗</span>
-        </div>
-      </article>
-      <article class="mise-card" onclick="abrirPortalComun()">
-        <img class="mise-avatar" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/miss%20kiara.png" alt="Kiara Morales" onerror="this.style.display='none'">
-        <div>
-          <h3 style="margin:0 0 4px; color:var(--navy); font-size:1.1rem">Kiara Morales Elguera</h3>
-          <p class="small muted" style="margin:0 0 6px">Catequista Responsable</p>
-          <span class="small" style="color:var(--gold-deep); font-weight:900;">Ingresar al Portal ↗</span>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
+<main class="container">
+  <section class="hero">
+    <div class="eyebrow">Itinerario Oficial · Primera Comunión 2026</div>
+    <h1>Programación de Sesiones</h1>
+    <p>Itinerario completo sincronizado en tiempo real desde Google Sheets (Hoja CLASES).</p>
+  </section>
+
+  <section id="contenedor-56-sesiones">
+    <div style="text-align:center; padding:40px; color:var(--muted); font-weight:bold;">⏳ Cargando programación desde Google Sheets...</div>
+  </section>
 </main>
 
-<!-- MODAL GENERAL -->
-<div class="modal-backdrop" id="mise-modal">
-  <section class="modal" role="dialog" aria-modal="true">
-    <div class="panel-head" style="margin-bottom:10px">
-      <div>
-        <h2>Portal Pastoral Unificado</h2>
-        <p class="sub">Control de sesiones, catequizandos con DNI y matriz de asistencia sincronizada</p>
-      </div>
-      <button class="xbtn" data-close="mise-modal">✕</button>
-    </div>
-
-    <!-- MENÚ DE OPCIONES -->
-    <div class="tools-grid" id="menu-herramientas">
-      <div class="tool-card">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">📚</div><h4>Programación</h4><p>Programa completo y materiales organizados desde Google Sheets.</p></div>
-        <button class="btn small primary" onclick="mostrarVista('vista-clases')">Abrir Sesiones</button>
-      </div>
-      <div class="tool-card">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">✅</div><h4>Asistencia Modular</h4><p>Control matricial ergonómico conectado a Google Sheet.</p></div>
-        <button class="btn small primary" onclick="mostrarVista('vista-asistencia')">Ver Asistencia</button>
-      </div>
-      <div class="tool-card">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">💵</div><h4>Control de Pagos</h4><p>Registro único de S/. 40.00 con vouchers.</p></div>
-        <button class="btn small gold" onclick="mostrarVista('vista-pagos')">Ver Pagos (S/ 40)</button>
-      </div>
-      <div class="tool-card">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">👨‍👩‍👧‍👦</div><h4>Padres de Familia</h4><p>Directorio editable con DNI y teléfono.</p></div>
-        <button class="btn small gold" onclick="mostrarVista('vista-padres')">Ver Padres</button>
-      </div>
-      <div class="tool-card">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">📅</div><h4>Calendario de catequesis</h4><p>Horarios oficiales: Martes y Jueves.</p></div>
-        <button class="btn small" onclick="mostrarVista('vista-calendario')">Ver Calendario</button>
-      </div>
-      <div class="tool-card">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">📊</div><h4>Dashboard</h4><p>Estadísticas generales de la parroquia.</p></div>
-        <button class="btn small" onclick="mostrarVista('vista-dashboard')">Ver Estadísticas</button>
-      </div>
-    </div>
-
-    <!-- 1. VISTA SESIONES -->
-    <div id="vista-clases" style="display:none; margin-top:15px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-        <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
-        <h3 style="color:var(--navy); margin:0;">Programa Completo (Google Sheets)</h3>
-      </div>
-      <div id="contenedor-56-sesiones"></div>
-    </div>
-
-    <!-- 2. VISTA ASISTENCIA MATRICIAL ERGONÓMICA -->
-    <div id="vista-asistencia" style="display:none; margin-top:15px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
-        <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
-        <div style="display:flex; gap:8px;">
-          <button class="btn small primary" onclick="sincronizarConHoja()">🔄 Sincronizar</button>
-          <button class="btn small gold" onclick="window.print()">🖨️ Imprimir Reporte</button>
-        </div>
-      </div>
-
-      <h3 style="color:var(--navy); margin-bottom:4px;">Control de Asistencia Matricial • Parroquia San Pedro de Lurín</h3>
-      <p class="sub" style="margin-bottom:15px;">Seleccione un catequizando a la izquierda para visualizar y marcar su asistencia de forma compacta y directa.</p>
-
-      <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:10px; margin-bottom:18px; background:#f8fafc; border:1px solid var(--line); border-radius:14px; padding:14px; text-align:center;">
-        <div><div id="stat-porcentaje-global" style="font-size:1.35rem; font-weight:900; color:var(--green);">79.6%</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">% Asistencia</div></div>
-        <div><div id="stat-presentes-global" style="font-size:1.35rem; font-weight:900; color:var(--navy);">266</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">[A] Asistencia</div></div>
-        <div><div id="stat-tardanzas-global" style="font-size:1.35rem; font-weight:900; color:var(--gold-deep);">8</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">[T] Tardanza</div></div>
-        <div><div id="stat-faltas-global" style="font-size:1.35rem; font-weight:900; color:var(--red);">0</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">[F] Falta</div></div>
-        <div><div id="stat-justificadas-global" style="font-size:1.35rem; font-weight:900; color:var(--green);">6</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">[FJ] Justificada</div></div>
-      </div>
-
-      <div class="asist-layout">
-        <!-- Lista lateral izquierda -->
-        <div class="estudiantes-lista-asist" id="lista-catequizandos-asist"></div>
-
-        <!-- Panel derecho con Tabla Matriz Compacta -->
-        <div class="asistencia-tabla-container">
-          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid var(--gold); padding-bottom:12px; margin-bottom:16px;">
-            <div>
-              <h4 id="nombre-catequizando-activo" style="margin:0; color:var(--navy); font-size:1.15rem;">Seleccione un catequizando</h4>
-              <p id="sub-id-activo" class="sub" style="margin:2px 0 0; font-size:0.8rem;">ID: - · DNI: -</p>
-            </div>
-            <div id="porcentaje-individual-badge" style="background:var(--blue-soft); color:var(--navy); padding:6px 14px; border-radius:10px; font-weight:900; font-size:0.85rem; border:1px solid var(--line);">Asistencia: 0.0%</div>
-          </div>
-          
-          <table class="matrix-table">
-            <thead>
-              <tr>
-                <th style="width: 80px;">Sesión</th>
-                <th style="width: 110px;">Fecha</th>
-                <th>Estado de Asistencia</th>
-              </tr>
-            </thead>
-            <tbody id="tabla-matriz-cuerpo">
-              <tr><td colspan="3" style="text-align:center; color:var(--muted); padding:30px;">Seleccione un alumno de la lista para ver su matriz de asistencia.</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. VISTA PAGOS -->
-    <div id="vista-pagos" style="display:none; margin-top:15px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
-        <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
-        <button class="btn small gold" onclick="window.print()">🖨️ Imprimir Reporte de Pagos</button>
-      </div>
-      <h3 style="color:var(--navy); margin-bottom:5px;">Control de Pago Único (S/. 40.00 Soles)</h3>
-      <table class="data-table">
-        <thead><tr><th>ID</th><th>Apellidos y Nombres</th><th>DNI Alumno</th><th>Monto</th><th>Estado Editable</th><th>Voucher</th></tr></thead>
-        <tbody>
-          <tr><td>LDS-EST-001</td><td>FRANCISCO CRIOLLO, DANY SMITH</td><td>74823910</td><td><strong>S/. 40.00</strong></td><td><select style="border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--gold-deep);"><option selected>Pendiente</option><option style="color:var(--green);">Pagado</option></select></td><td><input type="file" accept="image/*,.pdf" style="font-size:0.78rem; max-width:180px;" /></td></tr>
-          <tr><td>LDS-EST-002</td><td>PINEDA ELGUERA, ADAM STUARD</td><td>73920184</td><td><strong>S/. 40.00</strong></td><td><select style="border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--gold-deep);"><option selected>Pendiente</option><option style="color:var(--green);">Pagado</option></select></td><td><input type="file" accept="image/*,.pdf" style="font-size:0.78rem; max-width:180px;" /></td></tr>
-          <tr><td>LDS-EST-003</td><td>PIZARRO MENDOZA, CAMILA</td><td>75019283</td><td><strong>S/. 40.00</strong></td><td><select style="border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--gold-deep);"><option selected>Pendiente</option><option style="color:var(--green);">Pagado</option></select></td><td><input type="file" accept="image/*,.pdf" style="font-size:0.78rem; max-width:180px;" /></td></tr>
-          <tr><td>LDS-EST-004</td><td>QUISPE FLORES, ANA PAULA</td><td>74102938</td><td><strong>S/. 40.00</strong></td><td><select style="border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--gold-deep);"><option selected>Pendiente</option><option style="color:var(--green);">Pagado</option></select></td><td><input type="file" accept="image/*,.pdf" style="font-size:0.78rem; max-width:180px;" /></td></tr>
-          <tr><td>LDS-EST-005</td><td>ROMERO SIESQUEN, MARCOS MANUEL</td><td>73849201</td><td><strong>S/. 40.00</strong></td><td><select style="border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--gold-deep);"><option selected>Pendiente</option><option style="color:var(--green);">Pagado</option></select></td><td><input type="file" accept="image/*,.pdf" style="font-size:0.78rem; max-width:180px;" /></td></tr>
-          <tr><td>LDS-EST-006</td><td>CARDENAS QUISPE, VASCO</td><td>75920183</td><td><strong>S/. 40.00</strong></td><td><select style="border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--gold-deep);"><option selected>Pendiente</option><option style="color:var(--green);">Pagado</option></select></td><td><input type="file" accept="image/*,.pdf" style="font-size:0.78rem; max-width:180px;" /></td></tr>
-          <tr><td>LDS-EST-007</td><td>PIZARRO MENDOZA, MARCHELO</td><td>76019284</td><td><strong>S/. 40.00</strong></td><td><select style="border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--gold-deep);"><option selected>Pendiente</option><option style="color:var(--green);">Pagado</option></select></td><td><input type="file" accept="image/*,.pdf" style="font-size:0.78rem; max-width:180px;" /></td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- 4. VISTA PADRES -->
-    <div id="vista-padres" style="display:none; margin-top:15px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
-        <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
-        <button class="btn small gold" onclick="window.print()">🖨️ Imprimir Directorio</button>
-      </div>
-      <h3 style="color:var(--navy); margin-bottom:5px;">Directorio de Padres y Apoderados</h3>
-      <table class="data-table">
-        <thead><tr><th>ID</th><th>Apellidos y Nombres</th><th>Parentesco</th><th>DNI</th><th>Teléfono</th><th>Autoriza</th></tr></thead>
-        <tbody>
-          <tr><td>PAD-EST-001</td><td>Carlos Alberto Criollo</td><td>PADRE</td><td>40646634</td><td>987348365</td><td>SI</td></tr>
-          <tr><td>PAD-EST-002</td><td>Manuel Antonio Pineda</td><td>PADRE</td><td>-</td><td>941023030</td><td>SI</td></tr>
-          <tr><td>PAD-EST-003</td><td>Jorge Luis Pizarro</td><td>PADRE</td><td>-</td><td>915933631</td><td>SI</td></tr>
-          <tr><td>PAD-EST-004</td><td>Alberto Quispe</td><td>PADRE</td><td>-</td><td>927297915</td><td>SI</td></tr>
-          <tr><td>PAD-EST-005</td><td>Ricardo Romero</td><td>PADRE</td><td>-</td><td>983085095</td><td>SI</td></tr>
-          <tr><td>PAD-EST-006</td><td>Fernando Cárdenas</td><td>PADRE</td><td>-</td><td>993188831</td><td>SI</td></tr>
-          <tr><td>PAD-EST-007</td><td>Jorge Luis Pizarro</td><td>PADRE</td><td>-</td><td>915933631</td><td>SI</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- 5. VISTA CALENDARIO -->
-    <div id="vista-calendario" style="display:none; margin-top:15px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
-        <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
-        <h3 style="color:var(--navy); margin:0;">Calendario de catequesis</h3>
-      </div>
-      <div class="cal-container">
-        <div class="cal-box">
-          <div class="cal-header-bar">
-            <button class="cal-nav-btn" onclick="cambiarMes(-1)">‹</button>
-            <strong id="cal-mes-anio" style="color:var(--navy); font-size:1.05rem;">Noviembre 2026</strong>
-            <button class="cal-nav-btn" onclick="cambiarMes(1)">›</button>
-          </div>
-          <div class="cal-grid">
-            <div class="cal-weekday">L</div><div class="cal-weekday">M</div><div class="cal-weekday">X</div><div class="cal-weekday">J</div><div class="cal-weekday">V</div><div class="cal-weekday">S</div><div class="cal-weekday">D</div>
-          </div>
-          <div class="cal-grid" id="cal-grid-dias" style="margin-top:6px;"></div>
-        </div>
-        <div class="encounter-panel">
-          <span class="encounter-tag">Tu encuentro</span>
-          <h3 id="panel-fecha-texto" style="margin:6px 0 4px; color:var(--navy); font-size:1.25rem;">martes, 3 de Noviembre</h3>
-          <div id="panel-titulo-tema" style="font-weight:900; color:var(--navy); font-size:1.1rem; margin-bottom:4px;">Tema 48: LOS MANDAMIENTOS DE LA IGLESIA</div>
-          <div id="panel-sub-encuentro" class="sub" style="margin-bottom:14px; font-size:0.9rem;">Encuentro 41.</div>
-          <div class="encounter-card">
-            <div id="card-tema-mini" style="font-weight:800; color:var(--navy); font-size:0.9rem;">Tema 48: LOS MANDAMIENTOS DE LA IGLESIA</div>
-            <div style="display:flex; gap:6px; align-items:center;">
-              <span style="font-size:0.8rem; font-weight:bold; color:var(--blue);">Ver</span>
-              <button style="border:0; background:var(--gold); border-radius:50%; width:24px; height:24px; font-weight:bold; color:var(--navy); display:flex; align-items:center; justify-content:center;">+</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 6. VISTA DASHBOARD -->
-    <div id="vista-dashboard" style="display:none; margin-top:15px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-        <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
-        <h3 style="color:var(--navy); margin:0;">Resumen Estadístico y Dashboard</h3>
-      </div>
-      <div class="tool-card">
-        <h4>Indicadores del Programa</h4>
-        <p>• <strong>Catequizandos:</strong> 7 niños con DNI registrado<br>
-- <strong>Padres / Apoderados:</strong> 14 tutores<br>
-- <strong>Institución:</strong> Colegio La Salle del Sur<br>
-- <strong>Parroquia:</strong> Parroquia San Pedro de Lurín<br>
-- <strong>Catequistas:</strong> Lily Melo Azañero / Kiara Morales Elguera</p>
-      </div>
-    </div>
-
-  </section>
-</div>
-
-<!-- MODAL INTERACTIVO PARA GESTIÓN DE MATERIALES -->
-<div class="modal-backdrop" id="modal-material">
-  <section class="modal" role="dialog" aria-modal="true" style="max-width: 650px;">
-    <div class="panel-head" style="margin-bottom:10px">
-      <div>
-        <h2 id="material-titulo">Gestión de Materiales</h2>
-        <p id="material-sub" class="sub">Ingrese o adjunte la información correspondiente</p>
-      </div>
-      <button class="xbtn" onclick="hideModal('modal-material')">✕</button>
-    </div>
-    <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 15px;">
-      <div>
-        <label style="font-weight: 800; font-size: 0.85rem; color: var(--navy); display: block; margin-bottom: 4px;">Título o Enlace / URL:</label>
-        <input type="text" id="input-material-url" placeholder="Ej. https://youtube.com/... o enlace de Drive" style="width: 100%; padding: 10px; border: 1px solid var(--line); border-radius: 8px;" />
-      </div>
-      <div>
-        <label style="font-weight: 800; font-size: 0.85rem; color: var(--navy); display: block; margin-bottom: 4px;">Cargar Archivo (PDF, Word, Imagen):</label>
-        <input type="file" id="input-material-archivo" style="font-size: 0.85rem;" />
-      </div>
-      <div>
-        <label style="font-weight: 800; font-size: 0.85rem; color: var(--navy); display: block; margin-bottom: 4px;">Notas / Observaciones:</label>
-        <textarea id="input-material-notas" rows="3" placeholder="Escriba aquí los detalles o instrucciones..." style="width: 100%; padding: 10px; border: 1px solid var(--line); border-radius: 8px;"></textarea>
-      </div>
-      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
-        <button class="btn small" onclick="hideModal('modal-material')">Cancelar</button>
-        <button class="btn small primary" onclick="guardarMaterialSesion()">💾 Guardar Información</button>
-      </div>
-    </div>
-  </section>
-</div>
-
 <script>
-const $=id=>document.getElementById(id);
 const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec";
 
-function abrirPortalComun(){openModal('mise-modal');volverMenuPrincipal();}
-function mostrarVista(idVista){
-  ['menu-herramientas','vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v=>$(v).style.display='none');
-  $(idVista).style.display = 'block';
-  if(idVista === 'vista-calendario') renderizarCalendarioModelo();
-  if(idVista === 'vista-asistencia') inicializarAsistenciaModular();
-  if(idVista === 'vista-clases') renderizarSesionesCompletas();
-}
-function volverMenuPrincipal(){
-  ['vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v=>$(v).style.display='none');
-  $('menu-herramientas').style.display = 'grid';
-}
-function openModal(id){$(id).classList.add('show')}
-function hideModal(id){$(id).classList.remove('show')}
-document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>hideModal(b.closest('.modal-backdrop').id)));
-
-let sesionActualInteractiva = 1;
-let tipoMaterialActual = '';
-function abrirGestionMaterial(numSesion, tipo) {
-  sesionActualInteractiva = numSesion;
-  tipoMaterialActual = tipo;
-  $('material-titulo').textContent = `${tipo} — Sesión ${numSesion}`;
-  $('material-sub').textContent = `Gestión e ingreso de contenido para la Sesión ${numSesion}`;
-  $('input-material-url').value = '';
-  $('input-material-archivo').value = '';
-  $('input-material-notas').value = '';
-  openModal('modal-material');
-}
-
-function guardarMaterialSesion() {
-  const urlVal = $('input-material-url').value;
-  const notasVal = $('input-material-notas').value;
-  alert(`¡${tipoMaterialActual} de la Sesión ${sesionActualInteractiva} guardado con éxito!\nEnlace: ${urlVal || 'Ninguno'}\nNotas: ${notasVal || 'Ninguna'}`);
-  hideModal('modal-material');
-}
-
-const fechasClasesAsist = ["16/06","18/06","23/06","25/06","30/06","02/07","07/07","09/07","14/07","16/07","21/07","23/07","28/07","30/07","04/08","06/08","11/08","13/08","18/08","20/08","25/08","27/08","01/09","03/09","08/09","10/09","15/09","17/09","22/09","24/09","29/09","01/10","06/10","08/10","13/10","15/10","20/10","22/10","27/10","29/10","03/11","05/11","10/11","12/11","17/11","19/11","24/11","26/11","01/12","03/12"];
-
-let datosAsistenciaGlobal = [
-  { id: "LDS-EST-001", dni: "74823910", nombre: "FRANCISCO CRIOLLO, DANY SMITH", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/dany.JPG", estados: ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","T","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","","","","","","","","",""] },
-  { id: "LDS-EST-002", dni: "73920184", nombre: "PINEDA ELGUERA, ADAM STUARD", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/adam.jpeg", estados: ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","T","A","A","A","A","A","A","A","A","A","T","A","A","A","A","A","A","A","A","A","A","A","","","","","","","","",""] },
-  { id: "LDS-EST-003", dni: "75019283", nombre: "PIZARRO MENDOZA, CAMILA", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/camila.png", estados: ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","FJ","FJ","A","A","A","A","A","A","A","A","FJ","FJ","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","","","","","","","","",""] },
-  { id: "LDS-EST-004", dni: "74102938", nombre: "QUISPE FLORES, ANA PAULA", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/ana.jpeg", estados: ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","","","","","","","","",""] },
-  { id: "LDS-EST-005", dni: "73849201", nombre: "ROMERO SIESQUEN, MARCOS MANUEL", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/jesus1.png", estados: ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","FJ","A","","","","","","","","",""] },
-  { id: "LDS-EST-006", dni: "75920183", nombre: "CARDENAS QUISPE, VASCO", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/jesus%204.png", estados: ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","T","A","A","A","A","A","A","A","A","A","FJ","A","A","","","","","","","","",""] },
-  { id: "LDS-EST-007", dni: "76019284", nombre: "PIZARRO MENDOZA, MARCHELO", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/camila.png", estados: ["A","T","A","A","A","T","A","A","T","A","A","A","A","T","FJ","FJ","A","T","A","A","T","A","A","T","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","","","","","","","","",""] }
-];
-
-function inicializarAsistenciaModular() {
-  const listaCont = $('lista-catequizandos-asist');
-  if(!listaCont) return;
-  listaCont.innerHTML = "";
-  recalcularTotalesGlobales();
-
-  datosAsistenciaGlobal.forEach((est, idx) => {
-    let dictadas = 0, asistidas = 0;
-    est.estados.forEach(v => { if(v !== "") { dictadas++; if(v === "A") asistidas++; } });
-    let porc = dictadas > 0 ? ((asistidas / dictadas) * 100).toFixed(0) : "0";
-
-    let btn = document.createElement('div');
-    btn.className = 'est-item-btn' + (idx === 0 ? ' active' : '');
-    btn.innerHTML = `
-      <img src="${est.foto}" alt="${est.nombre}" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/insignia.png';">
-      <div style="overflow:hidden; width:100%;">
-        <div class="info-n">${est.nombre}</div>
-        <div class="info-sub">
-          <span>ID: ${est.id} · DNI: ${est.dni}</span>
-          <strong style="color:var(--navy);">${porc}%</strong>
-        </div>
-      </div>
-    `;
-    btn.onclick = () => {
-      document.querySelectorAll('.est-item-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      cargarMatrizEstudiante(idx);
-    };
-    listaCont.appendChild(btn);
-  });
-  cargarMatrizEstudiante(0);
-}
-
-function cargarMatrizEstudiante(idxEst) {
-  let est = datosAsistenciaGlobal[idxEst];
-  $('nombre-catequizando-activo').textContent = est.nombre;
-  $('sub-id-activo').textContent = `ID: ${est.id} · DNI: ${est.dni}`;
-
-  let dictadas = 0, asistidas = 0;
-  est.estados.forEach(v => { if(v !== "") { dictadas++; if(v === "A") asistidas++; } });
-  let porc = dictadas > 0 ? ((asistidas / dictadas) * 100).toFixed(1) : "0.0";
-  $('porcentaje-individual-badge').textContent = `Asistencia: ${porc}%`;
-
-  const tbody = $('tabla-matriz-cuerpo');
-  tbody.innerHTML = "";
-
-  est.estados.forEach((val, idxSes) => {
-    let tr = document.createElement('tr');
-    
-    let bgSelect = '#fff', colorSelect = 'var(--muted)', borderSelect = 'var(--line)';
-    if(val === 'A') { bgSelect = '#1b4a79'; colorSelect = '#fff'; borderSelect = '#1b4a79'; }
-    else if(val === 'T') { bgSelect = '#f3c755'; colorSelect = '#12345b'; borderSelect = '#e0b23d'; }
-    else if(val === 'F') { bgSelect = '#b83d43'; colorSelect = '#fff'; borderSelect = '#b83d43'; }
-    else if(val === 'FJ') { bgSelect = '#23764c'; colorSelect = '#fff'; borderSelect = '#23764c'; }
-
-    tr.innerHTML = `
-      <td style="text-align:center; font-weight:800; color:var(--navy);">Sesión ${idxSes + 1}</td>
-      <td style="color:var(--muted); font-weight:600;">📅 ${fechasClasesAsist[idxSes]}</td>
-      <td>
-        <select onchange="actualizarEstadoModular(${idxEst}, ${idxSes}, this.value)" style="font-size:0.85rem; font-weight:800; padding:6px 12px; border-radius:8px; border:1.5px solid ${borderSelect}; background:${bgSelect}; color:${colorSelect}; cursor:pointer; width:100%; max-width:240px;">
-          <option value="" ${val===''?'selected':''}>-- Opción --</option>
-          <option value="A" ${val==='A'?'selected':''}>A (Asistencia)</option>
-          <option value="T" ${val==='T'?'selected':''}>T (Tardanza)</option>
-          <option value="F" ${val==='F'?'selected':''}>F (Falta)</option>
-          <option value="FJ" ${val==='FJ'?'selected':''}>FJ (Justificada)</option>
-        </select>
-      </td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-function actualizarEstadoModular(idxEst, idxSes, nuevoVal) {
-  datosAsistenciaGlobal[idxEst].estados[idxSes] = nuevoVal;
-  recalcularTotalesGlobales();
-  
-  let estudiante = datosAsistenciaGlobal[idxEst];
-  fetch(URL_APPS_SCRIPT, {
-    method: "POST",
-    mode: "no-cors",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ idEstudiante: estudiante.id, dni: estudiante.dni, nombre: estudiante.nombre, sesion: idxSes + 1, estado: nuevoVal })
-  }).catch(err => console.error("Error al sincronizar:", err));
-  
-  cargarMatrizEstudiante(idxEst);
-  inicializarAsistenciaModular();
-}
-
-function sincronizarConHoja() {
-  const btn = $('btnActualizar');
-  if(!btn) return;
-  const original = btn.textContent;
-  btn.textContent = '⏳ Sincronizando...';
-  btn.disabled = true;
-  setTimeout(() => {
-    recalcularTotalesGlobales();
-    btn.textContent = '✅ ¡Sincronizado!';
-    setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 1200);
-  }, 600);
-}
-
-function recalcularTotalesGlobales() {
-  let totalPres = 0, totalTard = 0, totalFalt = 0, totalJust = 0, totalMarcadas = 0, totalAsistidas = 0;
-  
-  datosAsistenciaGlobal.forEach(est => {
-    est.estados.forEach(v => {
-      if(v === "A") { totalPres++; totalMarcadas++; totalAsistidas++; }
-      else if(v === "T") { totalTard++; totalMarcadas++; }
-      else if(v === "F") { totalFalt++; totalMarcadas++; }
-      else if(v === "FJ") { totalJust++; totalMarcadas++; }
-    });
-  });
-
-  let porcGlobal = totalMarcadas > 0 ? ((totalAsistidas / totalMarcadas) * 100).toFixed(1) : "79.6";
-  
-  $('stat-porcentaje-global').textContent = porcGlobal + '%';
-  $('stat-presentes-global').textContent = totalPres || 266;
-  $('stat-tardanzas-global').textContent = totalTard || 8;
-  $('stat-faltas-global').textContent = totalFalt || 0;
-  $('stat-justificadas-global').textContent = totalJust || 6;
-}
-
-let mesActual = 10, anioActual = 2026;
-const nombresMeses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Setiembre","Octubre","Noviembre","Diciembre"];
-const nombresDiasSemana = ["domingo","lunes","martes","miércoles","jueves","viernes","sábado"];
-const temasCalendario = { "2026-10-3": { tema: "Tema 48: LOS MANDAMIENTOS DE LA IGLESIA", enc: "Encuentro 41." } };
-
-function cambiarMes(dir) {
-  mesActual += dir;
-  if(mesActual > 11) { mesActual = 0; anioActual++; }
-  else if(mesActual < 0) { mesActual = 11; anioActual--; }
-  renderizarCalendarioModelo();
-}
-
-function renderizarCalendarioModelo() {
-  const lblMes = $('cal-mes-anio');
-  if(!lblMes) return;
-  lblMes.textContent = `${nombresMeses[mesActual]} ${anioActual}`;
-  const grid = $('cal-grid-dias');
-  grid.innerHTML = '';
-  const primerDiaIndex = new Date(anioActual, mesActual, 1).getDay();
-  let primerDiaLunes = primerDiaIndex === 0 ? 6 : primerDiaIndex - 1;
-  const totalDiasMes = new Date(anioActual, mesActual + 1, 0).getDate();
-  const totalDiasMesAnterior = new Date(anioActual, mesActual, 0).getDate();
-
-  for (let i = primerDiaLunes - 1; i >= 0; i--) {
-    let cell = document.createElement('div');
-    cell.className = 'cal-day';
-    cell.style.color = '#b0c0d0';
-    cell.textContent = totalDiasMesAnterior - i;
-    grid.appendChild(cell);
-  }
-
-  for (let d = 1; d <= totalDiasMes; d++) {
-    let cell = document.createElement('div');
-    let fechaObj = new Date(anioActual, mesActual, d);
-    let diaSemana = fechaObj.getDay();
-    let esMartesOJueves = (diaSemana === 2 || diaSemana === 4);
-    let keyFecha = `${anioActual}-${mesActual}-${d}`;
-
-    cell.className = 'cal-day' + (esMartesOJueves ? ' has-class' : '');
-    if(mesActual === 10 && anioActual === 2026 && d === 3) cell.classList.add('selected');
-
-    cell.innerHTML = `<span>${d}</span>` + (esMartesOJueves ? `<div class="cal-dot"></div>` : ``);
-    cell.onclick = () => {
-      document.querySelectorAll('.cal-day').forEach(el => el.classList.remove('selected'));
-      cell.classList.add('selected');
-      actualizarPanelEncuentro(fechaObj, keyFecha);
-    };
-    grid.appendChild(cell);
-  }
-}
-
-function actualizarPanelEncuentro(fechaObj, keyFecha) {
-  let diaFormateado = nombresDiasSemana[fechaObj.getDay()];
-  diaFormateado = diaFormateado.charAt(0).toUpperCase() + diaFormateado.slice(1);
-  $('panel-fecha-texto').textContent = `${diaFormateado}, ${fechaObj.getDate()} de ${nombresMeses[fechaObj.getMonth()]}`;
-  let info = temasCalendario[keyFecha] || { tema: "Sesión Pastoral Formativa", enc: "Encuentro Regular." };
-  $('panel-titulo-tema').textContent = info.tema;
-  $('panel-sub-encuentro').textContent = info.enc;
-  $('card-tema-mini').textContent = info.tema;
-}
-
-/* =========================================================
-   FUNCIÓN DINÁMICA: RENDERIZAR SESIONES DESDE GOOGLE SHEETS
-   ========================================================= */
-async function renderizarSesionesCompletas() {
-  const contenedor = $('contenedor-56-sesiones');
+async function cargarProgramacion() {
+  const contenedor = document.getElementById('contenedor-56-sesiones');
   if(!contenedor) return;
-  
-  contenedor.innerHTML = '<div style="text-align:center; padding:30px; color:var(--muted); font-weight:bold;">⏳ Sincronizando programación desde Google Sheets...</div>';
 
   try {
     const response = await fetch(`${URL_APPS_SCRIPT}?action=getSesiones`);
@@ -627,10 +69,9 @@ async function renderizarSesionesCompletas() {
 
     if (resultado.exito && resultado.bloques) {
       contenedor.innerHTML = '';
-      
       resultado.bloques.forEach(bloque => {
         let bloqueDiv = document.createElement('div');
-        bloqueDiv.innerHTML = `<h4 style="color:var(--navy); border-bottom:2px solid var(--gold); padding-bottom:6px; margin:22px 0 14px; font-size:1.15rem;">${bloque.icon || '✨'} ${bloque.title}</h4>`;
+        bloqueDiv.innerHTML = `<h3 style="color:var(--navy); border-bottom:2px solid var(--gold); padding-bottom:6px; margin:24px 0 14px; font-size:1.2rem;">${bloque.icon || '✨'} ${bloque.title}</h3>`;
         
         bloque.sessions.forEach(t => {
           let temaBox = document.createElement('div');
@@ -640,17 +81,15 @@ async function renderizarSesionesCompletas() {
             <h4 style="margin:4px 0 8px; color:var(--navy); font-size:1.1rem;">${t.tema || ''}</h4>
             <div style="font-size:0.85rem; font-weight:800; color:var(--muted); margin-bottom:4px;">Detalle:</div>
             <p style="margin:0 0 10px; font-size:0.9rem; color:var(--ink);">${t.desc || ''}</p>
-
             <div style="background:#fefbf3; border:1px solid #fae8b3; border-radius:10px; padding:12px; margin-bottom:10px; font-size:0.88rem;">
               <div style="margin-bottom:4px;"><strong style="color:var(--navy);">💛 Valor:</strong> ${t.val || 'Fe y valores'}</div>
               ${t.cita ? `<div><strong style="color:var(--blue);">📖 Cita Bíblica:</strong> ${t.cita}</div>` : ''}
             </div>
-
             <div class="action-buttons">
-              <button class="btn small btn-practicas" onclick="abrirGestionMaterial('${t.id}', 'Prácticas')">✏️ Prácticas</button>
-              <button class="btn small btn-evaluaciones" onclick="abrirGestionMaterial('${t.id}', 'Evaluaciones')">📋 Evaluaciones</button>
-              <button class="btn small btn-canciones" onclick="abrirGestionMaterial('${t.id}', 'Canciones')">🎵 Canciones</button>
-              <button class="btn small btn-videos" onclick="abrirGestionMaterial('${t.id}', 'Videos')">▶️ Videos</button>
+              <button class="btn small btn-practicas" onclick="alert('Prácticas para ${t.id}')">✏️ Prácticas</button>
+              <button class="btn small btn-evaluaciones" onclick="alert('Evaluaciones para ${t.id}')">📋 Evaluaciones</button>
+              <button class="btn small btn-canciones" onclick="alert('Canciones para ${t.id}')">🎵 Canciones</button>
+              <button class="btn small btn-videos" onclick="alert('Videos para ${t.id}')">▶️ Videos</button>
             </div>
           `;
           bloqueDiv.appendChild(temaBox);
@@ -666,11 +105,7 @@ async function renderizarSesionesCompletas() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  renderizarCalendarioModelo();
-  const btnTop = $('btnActualizar');
-  if(btnTop) btnTop.onclick = sincronizarConHoja;
-});
+document.addEventListener("DOMContentLoaded", cargarProgramacion);
 </script>
 </body>
 </html>
