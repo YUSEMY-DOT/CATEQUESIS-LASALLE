@@ -341,41 +341,36 @@ footer strong {
 
   function updateCountdown() {
     const target = new Date(2026, 11, 8, 0, 0, 0).getTime();
-    const now = Date.now();
-    const diff = target - now;
+    const diff = target - Date.now();
+    const values = diff <= 0
+      ? [0, 0, 0, 0]
+      : [
+          Math.floor(diff / 86400000),
+          Math.floor((diff % 86400000) / 3600000),
+          Math.floor((diff % 3600000) / 60000),
+          Math.floor((diff % 60000) / 1000)
+        ];
 
-    if (diff <= 0) {
-      document.getElementById('days').textContent = '0';
-      document.getElementById('hours').textContent = '0';
-      document.getElementById('minutes').textContent = '0';
-      document.getElementById('seconds').textContent = '0';
-      return;
-    }
-
-    const days = Math.floor(diff / 86400000);
-    const hours = Math.floor((diff % 86400000) / 3600000);
-    const minutes = Math.floor((diff % 3600000) / 60000);
-    const seconds = Math.floor((diff % 60000) / 1000);
-
-    document.getElementById('days').textContent = String(days);
-    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    document.getElementById('days').textContent = String(values[0]);
+    document.getElementById('hours').textContent = String(values[1]).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(values[2]).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(values[3]).padStart(2, '0');
   }
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
 
-  const blocksFallback = [
-    {
-      title: 'BLOQUE 1 — CONOCIENDO A JESÚS',
-      subtitle: 'Sesiones 1 a 9',
-      icon: '✝️',
-      sessions: [
-        {n:1, id:'CJ-001', fecha:'2026-06-13', tema:'¿QUIÉN ES DIOS?', subtema:'El Dios creador y Padre', objetivo:'Reconocer a Dios como el único Dios, creador y Padre eterno.', val:'Fe y confianza en Dios', cita:'Dt 6,4; Ex 3,14; Gn 1,1', actividades:'Lectura bíblica y diálogo participativo'},
-        {n:2, id:'CJ-002', fecha:'2026-06-16', tema:'¿QUIÉN ES JESÚS?', subtema:'Jesús, Hijo de Dios y hombre verdadero', objetivo:'Explicar quién es Jesús, reconocerlo como Hijo de Dios y verdadero hombre.', val:'Amor a Jesús', cita:'Jn 1,1.14; Mt 16,15-16', actividades:'Dinámica de preguntas y reflexión grupal'}
-      ]
-    }
-  ];
+  function escaparHTML(valor) {
+    return String(valor == null ? '' : valor).replace(/[&<>"']/g, caracter => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    })[caracter]);
+  }
+
+  function mostrarEstadoEnLista(mensaje) {
+    const grid = document.getElementById('stages-grid');
+    grid.innerHTML = `<div class="stage-card"><p class="topic-desc">${escaparHTML(mensaje)}</p></div>`;
+  }
 
   function renderizarBloques(listaBloques) {
     const grid = document.getElementById('stages-grid');
@@ -384,33 +379,45 @@ footer strong {
     listaBloques.forEach((block, idx) => {
       const card = document.createElement('div');
       card.className = 'stage-card';
-      
-      let sessionsHtml = block.sessions.map(s => `
-        <div class="topic-item">
-          <div class="topic-top">
-            <span class="topic-number">Sesión N.º ${s.n} | 📅 ${s.fecha || 'Por programar'}</span>
-            <span class="topic-id">${s.id || ''}</span>
+
+      const sesiones = Array.isArray(block.sessions) ? block.sessions : [];
+      const sessionsHtml = sesiones.map(s => {
+        const fecha = s.fecha ? escaparHTML(s.fecha) : 'Por programar';
+        const horario = (s.horaInicio || s.horaFin)
+          ? ` · ${escaparHTML(s.horaInicio || '')}${s.horaFin ? ' - ' + escaparHTML(s.horaFin) : ''}`
+          : '';
+        const clase = s.numeroClase ? ` · Clase ${escaparHTML(s.numeroClase)}` : '';
+        const objetivo = s.objetivo || s.desc || '';
+        const actividad = s.actividad || '';
+
+        return `
+          <div class="topic-item">
+            <div class="topic-top">
+              <span class="topic-number">Sesión N.º ${escaparHTML(s.n || '')} | 📅 ${fecha}${horario}${clase}</span>
+              <span class="topic-id">${escaparHTML(s.id || '')}</span>
+            </div>
+            <div class="topic-name">${escaparHTML(s.tema || '')}</div>
+            ${s.subtema ? `<div class="topic-subtema">Subtema: ${escaparHTML(s.subtema)}</div>` : ''}
+            <p class="topic-desc"><strong>Objetivo:</strong> ${escaparHTML(objetivo)}</p>
+            <div class="topic-meta">
+              <div><strong>Valor:</strong> ${escaparHTML(s.val || s.valor || '')}</div>
+              <div><strong>Cita Bíblica:</strong> ${escaparHTML(s.cita || s.cita_biblica || '')}</div>
+              <div><strong>Actividad:</strong> ${escaparHTML(actividad || 'Por definir')}</div>
+              ${s.catequista ? `<div><strong>Catequista:</strong> ${escaparHTML(s.catequista)}</div>` : ''}
+            </div>
           </div>
-          <div class="topic-name">${s.tema || ''}</div>
-          ${s.subtema ? `<div class="topic-subtema">Subtema: ${s.subtema}</div>` : ''}
-          <p class="topic-desc"><strong>Objetivo:</strong> ${s.objetivo || s.desc || ''}</p>
-          <div class="topic-meta">
-            <div><strong>Valor:</strong> ${s.val || ''}</div>
-            <div><strong>Cita Bíblica:</strong> ${s.cita || ''}</div>
-            <div><strong>Actividades:</strong> ${s.actividades || 'Por definir'}</div>
-          </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
 
       card.innerHTML = `
         <div class="stage-header">
-          <div class="stage-icon">${block.icon || '📖'}</div>
+          <div class="stage-icon">${escaparHTML(block.icon || '📖')}</div>
           <div class="stage-title-wrap">
             <span>Sección ${idx + 1}</span>
-            <h3>${block.title}</h3>
+            <h3>${escaparHTML(block.title || 'Bloque')}</h3>
           </div>
         </div>
-        <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:12px;">${block.subtitle || ''}</div>
+        <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:12px;">${sesiones.length} temas programados</div>
         <div class="topics-list">${sessionsHtml}</div>
       `;
       grid.appendChild(card);
@@ -419,33 +426,54 @@ footer strong {
 
   async function sincronizarConGoogleSheets() {
     const statusEl = document.getElementById('estadoSincronizacion');
+    const boton = document.getElementById('btnActualizar');
     statusEl.textContent = '🔄 Sincronizando con Google Sheets...';
-    try {
-      const response = await fetch(`${URL_API_APPS_SCRIPT}?action=getSesiones`);
-      const resJson = await response.json();
+    boton.disabled = true;
 
-      if (resJson.exito && resJson.bloques && resJson.bloques.length > 0) {
-        renderizarBloques(resJson.bloques);
-        statusEl.textContent = '✅ ¡Sincronizado correctamente con Google Sheets!';
-        setTimeout(() => { statusEl.textContent = ''; }, 4000);
-      } else {
-        statusEl.textContent = '⚠️ Respuesta vacía. Usando datos locales.';
-        renderizarBloques(blocksFallback);
+    try {
+      const separador = URL_API_APPS_SCRIPT.includes('?') ? '&' : '?';
+      const response = await fetch(`${URL_API_APPS_SCRIPT}${separador}action=getSesiones`, {
+        method: 'GET',
+        cache: 'no-store',
+        redirect: 'follow'
+      });
+
+      if (!response.ok) {
+        throw new Error(`El servidor respondió con estado ${response.status}.`);
       }
+
+      const resJson = await response.json();
+      if (!resJson || resJson.exito !== true || !Array.isArray(resJson.bloques) || resJson.bloques.length === 0) {
+        throw new Error((resJson && resJson.mensaje) || 'La API no devolvió una programación válida.');
+      }
+
+      const sesionesRecibidas = resJson.bloques.reduce((total, bloque) =>
+        total + (Array.isArray(bloque.sessions) ? bloque.sessions.length : 0), 0);
+
+      if (sesionesRecibidas !== Number(resJson.total)) {
+        throw new Error(`La cantidad recibida (${sesionesRecibidas}) no coincide con el total informado (${resJson.total}).`);
+      }
+
+      renderizarBloques(resJson.bloques);
+      statusEl.textContent = `✅ Sincronizado con Google Sheets: ${sesionesRecibidas} temas en ${resJson.totalClases || '—'} clases.`;
     } catch (err) {
-      console.error(err);
-      statusEl.textContent = '⚠️ Error de red. Mostrando datos locales de respaldo.';
-      renderizarBloques(blocksFallback);
+      console.error('Error al sincronizar Programación:', err);
+      statusEl.textContent = `⚠️ No se pudo sincronizar: ${err.message}`;
+      const grid = document.getElementById('stages-grid');
+      if (!grid.children.length) {
+        mostrarEstadoEnLista('No se pudo cargar la programación desde Google Sheets. Comprueba la conexión y pulsa Actualizar.');
+      }
+    } finally {
+      boton.disabled = false;
     }
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    renderizarBloques(blocksFallback);
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+    mostrarEstadoEnLista('Cargando la programación oficial desde Google Sheets...');
     sincronizarConGoogleSheets();
-    
-    document.getElementById('btnActualizar').addEventListener('click', () => {
-      sincronizarConGoogleSheets();
-    });
+    document.getElementById('btnActualizar').addEventListener('click', sincronizarConGoogleSheets);
   });
 </script>
 </body>
