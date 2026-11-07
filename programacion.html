@@ -244,11 +244,17 @@ main {
   color: var(--navy);
   margin: 4px 0;
 }
+.topic-subtema {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--blue);
+  margin: 2px 0;
+}
 .topic-desc {
   font-size: 12px;
   font-weight: 700;
   color: #4b5d73;
-  margin: 0 0 6px;
+  margin: 4px 0;
 }
 .topic-meta {
   font-size: 11px;
@@ -256,6 +262,9 @@ main {
   border-top: 1px dashed #e8dec9;
   padding-top: 5px;
   margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 footer {
   margin-top: 40px;
@@ -362,109 +371,8 @@ footer strong {
       subtitle: 'Sesiones 1 a 9',
       icon: '✝️',
       sessions: [
-        {n:1, id:'CJ-001', tema:'¿QUIÉN ES DIOS?', desc:'Reconocer a Dios como el único Dios, creador y Padre eterno.', val:'Fe y confianza en Dios', cita:'Dt 6,4; Ex 3,14; Gn 1,1'},
-        {n:2, id:'CJ-002', tema:'¿QUIÉN ES JESÚS?', desc:'Explicar quién es Jesús, reconocerlo como Hijo de Dios y verdadero hombre.', val:'Amor a Jesús', cita:'Jn 1,1.14; Mt 16,15-16'},
-        {n:3, id:'CJ-003', tema:'¿QUIÉN ES EL ESPÍRITU SANTO?', desc:'Identificar al Espíritu Santo, su misión y cómo actúa en la Iglesia.', val:'Docilidad al Espíritu Santo', cita:'Jn 14,16-17; Hch 2,1-4'},
-        {n:4, id:'CJ-004', tema:'LA SANTÍSIMA TRINIDAD', desc:'Explicar que el Padre, el Hijo y el Espíritu Santo son un solo Dios.', val:'Unidad y comunión', cita:'Mt 3,16-17; Mt 28,19'},
-        {n:5, id:'CJ-005', tema:'LA CREACIÓN', desc:'Reconocer a Dios como creador y cuidar la naturaleza.', val:'Responsabilidad y cuidado', cita:'Gn 1,1-31; Sal 8,4-9'},
-        {n:6, id:'CJ-006', tema:'DIOS SE REVELA AL SER HUMANO', desc:'Comprender que Dios se da a conocer a través de la historia y Jesucristo.', val:'Apertura a la Palabra', cita:'Heb 1,1-2; Jn 1,18'},
-        {n:7, id:'CJ-007', tema:'LA BIBLIA', desc:'Reconocer la Biblia como Palabra de Dios y buscar citas bíblicas.', val:'Amor a la Palabra de Dios', cita:'2 Tim 3,16-17; Lc 24,27'},
-        {n:8, id:'CJ-008', tema:'LA VIDA DE JESÚS', desc:'Identificar momentos clave de la vida de Jesús y su misión.', val:'Disponibilidad para seguir a Jesús', cita:'Lc 2,1-20; Mc 1,9-15'},
-        {n:9, id:'CJ-009', tema:'LAS ENSEÑANZAS DE JESÚS (PARÁBOLAS)', desc:'Reconocer enseñanzas de Jesús mediante parábolas y aplicarlas.', val:'Misericordia y solidaridad', cita:'Lc 10,25-37; Lc 15,11-32'}
-      ]
-    },
-    {
-      title: 'BLOQUE 2 — APRENDEMOS A ORAR',
-      subtitle: 'Sesiones 10 a 22',
-      icon: '🙏',
-      sessions: [
-        {n:10, id:'CJ-010', tema:'¿QUÉ SIGNIFICA TENER FE?', desc:'Explicar qué es la fe y cómo expresar confianza en Dios.', val:'Fe y confianza', cita:'Heb 11,1.6; Mc 9,24'},
-        {n:11, id:'CJ-011', tema:'¿QUÉ ES ORAR? Y REZAR', desc:'Reconocer la oración como comunicación con Dios.', val:'Confianza en Dios', cita:'Mt 6,5-13'},
-        {n:12, id:'CJ-012', tema:'La Adoración y la Oración', desc:'Momentos de adoración y oración.', val:'Adoración', cita:'Sal 95,6'},
-        {n:13, id:'CJ-013', tema:'Oraciones Fundamentales', desc:'Practicar oraciones de la tradición cristiana.', val:'Devoción', cita:'Mt 6,9'},
-        {n:14, id:'CJ-014', tema:'SEÑAL DE LA SANTA CRUZ', desc:'Invocación trinitaria.', val:'Reverencia', cita:'Mt 28,19'},
-        {n:15, id:'CJ-015', tema:'ORACION DEL PADRE NUESTRO', desc:'Comprender el Padre Nuestro.', val:'Confianza filial', cita:'Lc 11,2'},
-        {n:16, id:'CJ-016', tema:'ORACION DEL AVE MARIA', desc:'Saludo a la Virgen María.', val:'Amor filial', cita:'Lc 1,28'},
-        {n:17, id:'CJ-017', tema:'GLORIA AL PADRE', desc:'Doxología menor.', val:'Alabanza', cita:'Rom 16,27'},
-        {n:18, id:'CJ-018', tema:'CREDO', desc:'Verdades de fe.', val:'Fidelidad', cita:'1 Co 15,3'},
-        {n:19, id:'CJ-019', tema:'ACTO DE CONTRICSION', desc:'Arrepentimiento de los pecados.', val:'Humildad', cita:'Lc 15,18'},
-        {n:20, id:'CJ-020', tema:'EL SANTO ROSARIO', desc:'Estructura y oración del Rosario.', val:'Perseverancia', cita:'Lc 1,28'},
-        {n:21, id:'CJ-021', tema:'CUANDO Y DONDE PODEMOS ORAR', desc:'Espacios y tiempos de oración.', val:'Recogimiento', cita:'1 Ts 5,17'},
-        {n:22, id:'CJ-022', tema:'COMO HACER UNA ORACION EXPONTANEA', desc:'Diálogo sincero con Dios.', val:'Sinceridad', cita:'Mt 6,6'}
-      ]
-    },
-    {
-      title: 'BLOQUE 3 — LOS SACRAMENTOS',
-      subtitle: 'Sesiones 23 a 31',
-      icon: '🕊️',
-      sessions: [
-        {n:23, id:'CJ-023', tema:'LA GRACIA', desc:'Comprender la gracia santificante.', val:'Vida en gracia', cita:'Ef 2,8-10'},
-        {n:24, id:'CJ-024', tema:'LOS SACRAMENTOS', desc:'Signos eficaces de la gracia.', val:'Compromiso cristiano', cita:'Mt 28,19'},
-        {n:25, id:'CJ-025', tema:'EL BAUTISMO', desc:'Incorporación a la Iglesia.', val:'Gratitud y pertenencia', cita:'Rm 6,3-4'},
-        {n:26, id:'CJ-026', tema:'EL SACRAMENTO DE LA RECONCILIACIÓN', desc:'El perdón de Dios.', val:'Arrepentimiento', cita:'Jn 20,21-23'},
-        {n:27, id:'CJ-027', tema:'LA COMUNIÓN', desc:'Alimento espiritual.', val:'Unidad', cita:'Jn 6,51'},
-        {n:28, id:'CJ-028', tema:'LA CONFIRMACIÓN', desc:'Fortalecidos por el Espíritu Santo.', val:'Testimonio', cita:'Hch 8,17'},
-        {n:29, id:'CJ-029', tema:'LA UNCION DE LOS ENFERMOS', desc:'Auxilio en la enfermedad.', val:'Solidaridad', cita:'St 5,14'},
-        {n:30, id:'CJ-030', tema:'ORDENN SACERDOTAL', desc:'Ministerio ordenado.', val:'Servicio', cita:'Jn 20,21'},
-        {n:31, id:'CJ-031', tema:'MATRIMONIO', desc:'Alianza sagrada.', val:'Amor fiel', cita:'Mt 19,6'}
-      ]
-    },
-    {
-      title: 'BLOQUE 4 — LA EUCARISTÍA Y VALORES',
-      subtitle: 'Sesiones 32 a 42',
-      icon: '🍞',
-      sessions: [
-        {n:32, id:'CJ-032', tema:'QUE ES UN VALOR CRISTIANO', desc:'Principios de vida.', val:'Rectitud', cita:'Flp 4,8'},
-        {n:33, id:'CJ-033', tema:'Las virtudes', desc:'Hábitos buenos.', val:'Virtud', cita:'2 Pe 1,5'},
-        {n:34, id:'CJ-034', tema:'LOS DONES', desc:'Dones del Espíritu Santo.', val:'Docilidad', cita:'Is 11,2'},
-        {n:35, id:'CJ-035', tema:'LOS 10 MANDAMIENTOS', desc:'Ley de Dios.', val:'Obediencia', cita:'Ex 20,1'},
-        {n:36, id:'CJ-036', tema:'LOS MANDAMIENTOS DE LA IGLESIA', desc:'Guía de la comunidad.', val:'Fidelidad', cita:'Hch 2,42'},
-        {n:37, id:'CJ-037', tema:'LOS PECADOS', desc:'Ruptura con el amor de Dios.', val:'Conversión', cita:'Rm 3,23'},
-        {n:38, id:'CJ-038', tema:'LOS 7 PECADOS CAPITALES', desc:'Raíz de los vicios.', val:'Humildad', cita:'St 1,15'},
-        {n:39, id:'CJ-039', tema:'EL PERDON', desc:'Reconciliación.', val:'Misericordia', cita:'Col 3,13'},
-        {n:40, id:'CJ-040', tema:'EXAMEN DE CONCIENCIA', desc:'Revisión personal.', val:'Sinceridad', cita:'Sal 139,23'},
-        {n:41, id:'CJ-041', tema:'BIENAVENTURANZAS', desc:'Camino de felicidad.', val:'Sencillez', cita:'Mt 5,1'},
-        {n:42, id:'CJ-042', tema:'OBRA DE MISERICORDIA', desc:'Ayuda al prójimo.', val:'Caridad', cita:'Mt 25,35'}
-      ]
-    },
-    {
-      title: 'BLOQUE 5 — VIDA CRISTIANA Y MISA',
-      subtitle: 'Sesiones 43 a 60',
-      icon: '💖',
-      sessions: [
-        {n:43, id:'CJ-043', tema:'QUE ES LA EUCARISTIA', desc:'Memorial y presencia.', val:'Gratitud', cita:'Lc 22,19'},
-        {n:44, id:'CJ-044', tema:'LA SANTA MISA', desc:'Celebración litúrgica.', val:'Participación', cita:'1 Co 11,23'},
-        {n:45, id:'CJ-045', tema:'LOS RITOS INICIALES', desc:'Preparación de la asamblea.', val:'Acogida', cita:'Sal 100,4'},
-        {n:46, id:'CJ-046', tema:'LA LITURGIA DE LA PALABRA', desc:'Lecturas y homilía.', val:'Atención', cita:'Neh 8,8'},
-        {n:47, id:'CJ-047', tema:'LA LITURGIA DE LA EUCARISTIA', desc:'Presentación de dones y plegaria.', val:'Adoración', cita:'Mt 26,26'},
-        {n:48, id:'CJ-048', tema:'LOS RITOS FINALES', desc:'Bendición y envío.', val:'Disponibilidad', cita:'Mt 28,19'},
-        {n:49, id:'CJ-049', tema:'PARTES DE LA SANTA MISA', desc:'Estructura de la Misa.', val:'Orden', cita:'Lc 24,35'},
-        {n:50, id:'CJ-050', tema:'VESTIDURA DE LOS SACERDOTES', desc:'Ornamentos sagrados.', val:'Reverencia', cita:'Ex 28,2'},
-        {n:51, id:'CJ-051', tema:'OBJETOS LITURGICOS', desc:'Utensilios del altar.', val:'Cuidado', cita:'Ex 37,16'},
-        {n:52, id:'CJ-052', tema:'COLORES LITURGICOS', desc:'Significado de los colores.', val:'Respeto', cita:'Ecl 3,1'},
-        {n:53, id:'CJ-053', tema:'LOS SANTOS', desc:'Testigos de la fe.', val:'Santidad', cita:'Heb 12,1'},
-        {n:54, id:'CJ-054', tema:'LA ULTIMA CENA', desc:'Institución de la Eucaristía.', val:'Amor', cita:'Jn 13,1'},
-        {n:55, id:'CJ-055', tema:'LA INSTITUCION DE LA EUCARISTIA', desc:'Cuerpo y Sangre de Cristo.', val:'Fidelidad', cita:'1 Co 11,24'},
-        {n:56, id:'CJ-056', tema:'LA CONSAGRACION', desc:'Transustanciación.', val:'Asombro', cita:'Mt 26,26'},
-        {n:57, id:'CJ-057', tema:'LA PRESENCIA REAL DE JESUS EN LA EUCARISTIA', desc:'Jesús vivo en el sagrario.', val:'Devoción', cita:'Jn 6,55'},
-        {n:58, id:'CJ-058', tema:'LA SAGRADA COMUNION', desc:'Recibiendo el pan de vida.', val:'Intimidad', cita:'Jn 6,56'},
-        {n:59, id:'CJ-059', tema:'EL SAGRARIO', desc:'Reserva eucarística.', val:'Oración', cita:'Mt 28,20'},
-        {n:60, id:'CJ-060', tema:'EL SAGRARIO', desc:'Lugar de adoración.', val:'Silencio', cita:'Sal 84,1'}
-      ]
-    },
-    {
-      title: 'BLOQUE 6 — PREPARACIÓN PRIMERA COMUNIÓN',
-      subtitle: 'Sesiones 61 a 68',
-      icon: '👨‍👩‍👧‍👦',
-      sessions: [
-        {n:61, id:'CJ-061', tema:'LA PREPARACION PARA LA PRIMERA COMUNION', desc:'Camino final.', val:'Preparación', cita:'Lc 3,4'},
-        {n:62, id:'CJ-062', tema:'PREPARACION ESPIRITUAL', desc:'Renovación interior.', val:'Pureza', cita:'Sal 51,10'},
-        {n:63, id:'CJ-063', tema:'ORACIONES QUE DEBEN CONOCER', desc:'Repaso de oraciones.', val:'Diligencia', cita:'Flp 4,6'},
-        {n:64, id:'CJ-064', tema:'PREPARACION PARA LA SANTA MISA', desc:'Participación activa.', val:'Respeto', cita:'Eccl 5,1'},
-        {n:65, id:'CJ-065', tema:'EL MOMENTO DE COMUNION', desc:'Encuentro con Jesús.', val:'Entrega', cita:'Jn 6,54'},
-        {n:66, id:'CJ-066', tema:'DESPUES DE RECIBIR A JESUS', desc:'Vida comunitaria posterior.', val:'Gratitud', cita:'Col 3,17'},
-        {n:67, id:'CJ-067', tema:'PREPARACION PERSONAL Y CEREMONIAL', desc:'Protocolo de la ceremonia.', val:'Orden', cita:'1 Co 14,40'},
-        {n:68, id:'CJ-068', tema:'PREPÁRACION', desc:'Últimos detalles.', val:'Felicidad', cita:'Sal 118,24'}
+        {n:1, id:'CJ-001', fecha:'2026-06-13', tema:'¿QUIÉN ES DIOS?', subtema:'El Dios creador y Padre', objetivo:'Reconocer a Dios como el único Dios, creador y Padre eterno.', val:'Fe y confianza en Dios', cita:'Dt 6,4; Ex 3,14; Gn 1,1', actividades:'Lectura bíblica y diálogo participativo'},
+        {n:2, id:'CJ-002', fecha:'2026-06-16', tema:'¿QUIÉN ES JESÚS?', subtema:'Jesús, Hijo de Dios y hombre verdadero', objetivo:'Explicar quién es Jesús, reconocerlo como Hijo de Dios y verdadero hombre.', val:'Amor a Jesús', cita:'Jn 1,1.14; Mt 16,15-16', actividades:'Dinámica de preguntas y reflexión grupal'}
       ]
     }
   ];
@@ -480,26 +388,29 @@ footer strong {
       let sessionsHtml = block.sessions.map(s => `
         <div class="topic-item">
           <div class="topic-top">
-            <span class="topic-number">Sesión N.º ${s.n}</span>
-            <span class="topic-id">${s.id}</span>
+            <span class="topic-number">Sesión N.º ${s.n} | 📅 ${s.fecha || 'Por programar'}</span>
+            <span class="topic-id">${s.id || ''}</span>
           </div>
-          <div class="topic-name">${s.tema}</div>
-          <p class="topic-desc">${s.desc}</p>
+          <div class="topic-name">${s.tema || ''}</div>
+          ${s.subtema ? `<div class="topic-subtema">Subtema: ${s.subtema}</div>` : ''}
+          <p class="topic-desc"><strong>Objetivo:</strong> ${s.objetivo || s.desc || ''}</p>
           <div class="topic-meta">
-            <strong>Valor:</strong> ${s.val} | <strong>Cita:</strong> ${s.cita}
+            <div><strong>Valor:</strong> ${s.val || ''}</div>
+            <div><strong>Cita Bíblica:</strong> ${s.cita || ''}</div>
+            <div><strong>Actividades:</strong> ${s.actividades || 'Por definir'}</div>
           </div>
         </div>
       `).join('');
 
       card.innerHTML = `
         <div class="stage-header">
-          <div class="stage-icon">${block.icon}</div>
+          <div class="stage-icon">${block.icon || '📖'}</div>
           <div class="stage-title-wrap">
             <span>Sección ${idx + 1}</span>
             <h3>${block.title}</h3>
           </div>
         </div>
-        <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:12px;">${block.subtitle}</div>
+        <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:12px;">${block.subtitle || ''}</div>
         <div class="topics-list">${sessionsHtml}</div>
       `;
       grid.appendChild(card);
