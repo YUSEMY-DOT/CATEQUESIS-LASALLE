@@ -74,7 +74,7 @@
 .encounter-tag { background: #fef3d6; color: #8a6207; font-size: 0.7rem; font-weight: 900; padding: 4px 10px; border-radius: 6px; display: inline-block; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
 .encounter-card { border: 1px solid #fae8b3; background: #fffdf7; border-radius: 12px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
 
-/* Asistencia Modular */
+/* Asistencia Modular Harmonizada */
 .asist-layout { display: grid; grid-template-columns: 320px 1fr; gap: 20px; align-items: start; }
 .estudiantes-lista-asist { background: #f8fafc; border: 1px solid var(--line); border-radius: 14px; padding: 12px; min-height: 480px; max-height: 560px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
 .est-item-btn { display: flex; align-items: center; gap: 12px; width: 100%; padding: 10px 12px; background: white; border: 1.5px solid var(--line); border-radius: 12px; text-align: left; transition: all 0.2s; flex-shrink: 0; }
@@ -210,14 +210,14 @@
       </div>
 
       <h3 style="color:var(--navy); margin-bottom:4px;">Control de Asistencia Modular • Parroquia San Pedro de Lurín</h3>
-      <p class="sub" style="margin-bottom:15px;">Seleccione un catequizando para gestionar su asistencia detallada.</p>
+      <p class="sub" style="margin-bottom:15px;">Seleccione un catequizando para gestionar su asistencia detallada con equivalencia en tiempo real.</p>
 
       <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:10px; margin-bottom:18px; background:#f8fafc; border:1px solid var(--line); border-radius:14px; padding:14px; text-align:center;">
-        <div><div id="stat-porcentaje-global" style="font-size:1.35rem; font-weight:900; color:var(--green);">79,6%</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">% Asistencia</div></div>
-        <div><div id="stat-presentes-global" style="font-size:1.35rem; font-weight:900; color:var(--navy);">266</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">[A] Presentes</div></div>
-        <div><div id="stat-tardanzas-global" style="font-size:1.35rem; font-weight:900; color:var(--gold-deep);">8</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">[T] Tardanzas</div></div>
-        <div><div id="stat-faltas-global" style="font-size:1.35rem; font-weight:900; color:var(--red);">0</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">[F] Faltas</div></div>
-        <div><div id="stat-justificadas-global" style="font-size:1.35rem; font-weight:900; color:var(--green);">6</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">[FJ] Justificadas</div></div>
+        <div><div id="stat-porcentaje-global" style="font-size:1.35rem; font-weight:900; color:var(--green);">0.0%</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">% Asistencia</div></div>
+        <div><div id="stat-presentes-global" style="font-size:1.35rem; font-weight:900; color:var(--navy);">0</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">[A] Asistencia</div></div>
+        <div><div id="stat-tardanzas-global" style="font-size:1.35rem; font-weight:900; color:var(--gold-deep);">0</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">[T] Tardanza</div></div>
+        <div><div id="stat-faltas-global" style="font-size:1.35rem; font-weight:900; color:var(--red);">0</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">[F] Falta</div></div>
+        <div><div id="stat-justificadas-global" style="font-size:1.35rem; font-weight:900; color:var(--green);">0</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">[FJ] Justificada</div></div>
       </div>
 
       <div class="asist-layout">
@@ -228,6 +228,7 @@
               <h4 id="nombre-catequizando-activo" style="margin:0; color:var(--navy); font-size:1.15rem;">Seleccione un catequizando</h4>
               <p id="sub-id-activo" class="sub" style="margin:2px 0 0; font-size:0.82rem;">ID: -</p>
             </div>
+            <div id="porcentaje-individual-badge" style="background:var(--blue-soft); color:var(--navy); padding:6px 12px; border-radius:10px; font-weight:900; font-size:0.85rem;">Asistencia: 0.0%</div>
           </div>
           <div class="sesiones-grid-box" id="grid-sesiones-estudiante">
             <p style="color:var(--muted); text-align:center; grid-column:1/-1; padding:40px;">Haga clic en un catequizando de la izquierda para ver y gestionar su asistencia.</p>
@@ -444,23 +445,42 @@ function cargarSesionesEstudiante(idxEst) {
   $('nombre-catequizando-activo').textContent = est.nombre;
   $('sub-id-activo').textContent = `ID: ${est.id} · Control individual de sesiones`;
 
+  // Cálculo dinámico del porcentaje de asistencia basado únicamente en clases con estado registrado
+  let dictadas = 0, asistidas = 0;
+  est.estados.forEach(v => {
+    if(v !== "") {
+      dictadas++;
+      if(v === "A") asistidas++;
+    }
+  });
+  let porc = dictadas > 0 ? ((asistidas / dictadas) * 100).toFixed(1) : "0.0";
+  $('porcentaje-individual-badge').textContent = `Asistencia: ${porc}%`;
+
   const grid = $('grid-sesiones-estudiante');
   grid.innerHTML = "";
 
   est.estados.forEach((val, idxSes) => {
     let card = document.createElement('div');
     card.className = 'sesion-card-item';
+    
+    // Colores exactos de los selectores según la opción seleccionada
+    let bgSelect = '#fff', colorSelect = 'var(--muted)';
+    if(val === 'A') { bgSelect = '#1b4a79'; colorSelect = '#fff'; }
+    else if(val === 'T') { bgSelect = '#f3c755'; colorSelect = '#12345b'; }
+    else if(val === 'F') { bgSelect = '#b83d43'; colorSelect = '#fff'; }
+    else if(val === 'FJ') { bgSelect = '#23764c'; colorSelect = '#fff'; }
+
     card.innerHTML = `
       <div>
         <div style="font-size:0.75rem; font-weight:bold; color:var(--navy);">SESIÓN ${idxSes + 1}</div>
         <div style="font-size:0.78rem; color:var(--muted);">${fechasClasesAsist[idxSes]}</div>
       </div>
-      <select onchange="actualizarEstadoModular(${idxEst}, ${idxSes}, this.value)" style="font-size:0.78rem; font-weight:bold; padding:4px 8px; border-radius:8px; border:1px solid var(--line); background:${val==='A'?'#edf4fc':val==='T'?'#fff8e8':val==='F'?'#fff0f0':val==='FJ'?'#e8f6ed':'#fff'}; color:${val==='A'?'var(--blue)':val==='T'?'var(--gold-deep)':val==='F'?'var(--red)':val==='FJ'?'var(--green)':'var(--muted)'};">
+      <select onchange="actualizarEstadoModular(${idxEst}, ${idxSes}, this.value)" style="font-size:0.78rem; font-weight:bold; padding:4px 8px; border-radius:8px; border:1px solid var(--line); background:${bgSelect}; color:${colorSelect};">
         <option value="" ${val===''?'selected':''}>-- Opción --</option>
-        <option value="A" ${val==='A'?'selected':''}>[A] Presente</option>
-        <option value="T" ${val==='T'?'selected':''}>[T] Tardanza</option>
-        <option value="F" ${val==='F'?'selected':''}>[F] Falta</option>
-        <option value="FJ" ${val==='FJ'?'selected':''}>[FJ] Justificado</option>
+        <option value="A" ${val==='A'?'selected':''}>A</option>
+        <option value="T" ${val==='T'?'selected':''}>T</option>
+        <option value="F" ${val==='F'?'selected':''}>F</option>
+        <option value="FJ" ${val==='FJ'?'selected':''}>FJ</option>
       </select>
     `;
     grid.appendChild(card);
@@ -496,11 +516,24 @@ function sincronizarConHoja() {
 }
 
 function recalcularTotalesGlobales() {
-  $('stat-porcentaje-global').textContent = '79,6%';
-  $('stat-presentes-global').textContent = '266';
-  $('stat-tardanzas-global').textContent = '8';
-  $('stat-faltas-global').textContent = '0';
-  $('stat-justificadas-global').textContent = '6';
+  let totalPres = 0, totalTard = 0, totalFalt = 0, totalJust = 0, totalMarcadas = 0, totalAsistidas = 0;
+  
+  datosAsistenciaGlobal.forEach(est => {
+    est.estados.forEach(v => {
+      if(v === "A") { totalPres++; totalMarcadas++; totalAsistidas++; }
+      else if(v === "T") { totalTard++; totalMarcadas++; }
+      else if(v === "F") { totalFalt++; totalMarcadas++; }
+      else if(v === "FJ") { totalJust++; totalMarcadas++; }
+    });
+  });
+
+  let porcGlobal = totalMarcadas > 0 ? ((totalAsistidas / totalMarcadas) * 100).toFixed(1) : "0.0";
+  
+  $('stat-porcentaje-global').textContent = porcGlobal + '%';
+  $('stat-presentes-global').textContent = totalPres;
+  $('stat-tardanzas-global').textContent = totalTard;
+  $('stat-faltas-global').textContent = totalFalt;
+  $('stat-justificadas-global').textContent = totalJust;
 }
 
 let mesActual = 10, anioActual = 2026;
