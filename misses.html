@@ -17,6 +17,17 @@
 .btn.primary{background:var(--navy);border-color:var(--navy);color:white}
 .btn.gold{background:linear-gradient(135deg,#ffe68c,#f5bd37);border-color:#efc34c;color:#152c4d}
 .btn.small{padding:8px 12px;font-size:.84rem}
+
+/* BOTONES DE RECURSOS CON TONOS DELICADOS Y ARMONIOSOS */
+.btn-practicas { background: #fcf8ec; border-color: #f3e2b4; color: #8a6a11; }
+.btn-practicas:hover { background: #f8f0d8; }
+.btn-evaluaciones { background: #fcf2f2; border-color: #f0cbcc; color: #9c3338; }
+.btn-evaluaciones:hover { background: #f8e5e6; }
+.btn-canciones { background: #f0f4fc; border-color: #cbdcf4; color: #204a82; }
+.btn-canciones:hover { background: #e2ecfb; }
+.btn-videos { background: #edf7f2; border-color: #c4e4d4; color: #1b5e3c; }
+.btn-videos:hover { background: #d9efe4; }
+
 .container{max-width:1400px;margin:auto;padding:22px}
 .hero{background:linear-gradient(115deg,#102b4f,#1e4e7f);color:white;border-radius:20px;padding:25px 30px;display:flex;justify-content:space-between;align-items:center;gap:25px;box-shadow:var(--shadow)}
 .eyebrow{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:#ffe39a;font-weight:900}
@@ -41,10 +52,10 @@
 .tool-card h4{margin:0 0 4px;color:var(--navy);font-size:1.02rem}
 .tool-card p{margin:0 0 12px;color:var(--muted);font-size:.84rem}
 
-/* Estilos de las tarjetas de sesiones y botones */
-.tema-box { background: #fdfefe; border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+/* Tarjetas de sesiones detalladas */
+.tema-box { background: #fdfefe; border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
 .subtema-list { margin: 8px 0 14px 20px; padding: 0; color: var(--muted); font-size: 0.9rem; }
-.action-buttons { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.action-buttons { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
 
 /* Calendario Estilizado */
 .cal-container { display: grid; grid-template-columns: 1.35fr 1fr; gap: 24px; align-items: start; }
@@ -105,7 +116,7 @@
   <div>
     <div class="eyebrow">Programa de Catequesis · Primera Comunión 2026</div>
     <h1>Portal de Catequistas</h1>
-    <p>Gestión pastoral unificada: Clases, 7 Catequizandos, Asistencia, Pagos y Padres.</p>
+    <p>Gestión pastoral unificada: Clases, Catequizandos, Asistencia, Pagos y Padres.</p>
   </div>
 </section>
 
@@ -146,7 +157,7 @@
     <div class="panel-head" style="margin-bottom:10px">
       <div>
         <h2>Portal Pastoral Unificado</h2>
-        <p class="sub">Control de 56 sesiones, 7 catequizandos, asistencia y pagos</p>
+        <p class="sub">Control de sesiones completas, catequizandos, asistencia y pagos</p>
       </div>
       <button class="xbtn" data-close="mise-modal">✕</button>
     </div>
@@ -166,8 +177,8 @@
         <button class="btn small gold" onclick="mostrarVista('vista-pagos')">Ver Pagos (S/ 40)</button>
       </div>
       <div class="tool-card">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">👨‍👩‍👧‍👦</div><h4>14 Padres de Familia</h4><p>Directorio editable con DNI y teléfono.</p></div>
-        <button class="btn small gold" onclick="mostrarVista('vista-padres')">Ver 14 Padres</button>
+        <div><div style="font-size:1.5rem;margin-bottom:8px;">👨‍👩‍👧‍👦</div><h4>Padres de Familia</h4><p>Directorio editable con DNI y teléfono.</p></div>
+        <button class="btn small gold" onclick="mostrarVista('vista-padres')">Ver Padres</button>
       </div>
       <div class="tool-card">
         <div><div style="font-size:1.5rem;margin-bottom:8px;">📅</div><h4>Calendario de catequesis</h4><p>Horarios oficiales: Martes y Jueves.</p></div>
@@ -199,9 +210,8 @@
       </div>
 
       <h3 style="color:var(--navy); margin-bottom:4px;">Control de Asistencia Modular • Parroquia San Pedro de Lurín</h3>
-      <p class="sub" style="margin-bottom:15px;">Seleccione un catequizando para gestionar sus 50 sesiones de asistencia con actualización exacta.</p>
+      <p class="sub" style="margin-bottom:15px;">Seleccione un catequizando para gestionar su asistencia detallada.</p>
 
-      <!-- CUADRO PORCENTUAL GLOBAL -->
       <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:10px; margin-bottom:18px; background:#f8fafc; border:1px solid var(--line); border-radius:14px; padding:14px; text-align:center;">
         <div><div id="stat-porcentaje-global" style="font-size:1.35rem; font-weight:900; color:var(--green);">79,6%</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">% Asistencia</div></div>
         <div><div id="stat-presentes-global" style="font-size:1.35rem; font-weight:900; color:var(--navy);">266</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">[A] Presentes</div></div>
@@ -211,21 +221,12 @@
       </div>
 
       <div class="asist-layout">
-        <!-- Lista lateral de los 7 Catequizandos -->
         <div class="estudiantes-lista-asist" id="lista-catequizandos-asist"></div>
-
-        <!-- Panel principal de las 50 sesiones -->
         <div style="background:white; border:1px solid var(--line); border-radius:16px; padding:20px; box-shadow:0 4px 16px rgba(0,0,0,0.02);">
           <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid var(--gold); padding-bottom:12px; margin-bottom:16px;">
             <div>
               <h4 id="nombre-catequizando-activo" style="margin:0; color:var(--navy); font-size:1.15rem;">Seleccione un catequizando</h4>
               <p id="sub-id-activo" class="sub" style="margin:2px 0 0; font-size:0.82rem;">ID: -</p>
-            </div>
-            <div style="display:flex; gap:10px; font-size:0.75rem; font-weight:bold;">
-              <span style="color:var(--blue); background:#edf4fc; padding:3px 6px; border-radius:6px;">[A] Pres.</span>
-              <span style="color:var(--gold-deep); background:#fff8e8; padding:3px 6px; border-radius:6px;">[T] Tarde</span>
-              <span style="color:var(--red); background:#fff0f0; padding:3px 6px; border-radius:6px;">[F] Falta</span>
-              <span style="color:var(--green); background:#e8f6ed; padding:3px 6px; border-radius:6px;">[FJ] Just.</span>
             </div>
           </div>
           <div class="sesiones-grid-box" id="grid-sesiones-estudiante">
@@ -262,7 +263,7 @@
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
         <button class="btn small gold" onclick="window.print()">🖨️ Imprimir Directorio</button>
       </div>
-      <h3 style="color:var(--navy); margin-bottom:5px;">Directorio de los 14 Padres y Apoderados</h3>
+      <h3 style="color:var(--navy); margin-bottom:5px;">Directorio de Padres y Apoderados</h3>
       <table class="data-table">
         <thead><tr><th>ID</th><th>Apellidos y Nombres</th><th>Parentesco</th><th>DNI</th><th>Teléfono</th><th>Autoriza</th></tr></thead>
         <tbody>
@@ -320,17 +321,17 @@
       <div class="tool-card">
         <h4>Indicadores del Programa</h4>
         <p>• <strong>Catequizandos:</strong> 7 niños<br>
-           • <strong>Padres / Apoderados:</strong> 14 tutores<br>
-           • <strong>Institución:</strong> Colegio La Salle del Sur<br>
-           • <strong>Parroquia:</strong> Parroquia San Pedro de Lurín<br>
-           • <strong>Catequistas:</strong> Lily Melo Azañero / Kiara Morales Elguera</p>
+- <strong>Padres / Apoderados:</strong> 14 tutores<br>
+- <strong>Institución:</strong> Colegio La Salle del Sur<br>
+- <strong>Parroquia:</strong> Parroquia San Pedro de Lurín<br>
+- <strong>Catequistas:</strong> Lily Melo Azañero / Kiara Morales Elguera</p>
       </div>
     </div>
 
   </section>
 </div>
 
-<!-- MODAL INTERACTIVO PARA GESTIÓN DE MATERIALES (PRÁCTICAS, EVALUACIONES, CANCIONES, VIDEOS) -->
+<!-- MODAL INTERACTIVO PARA GESTIÓN DE MATERIALES -->
 <div class="modal-backdrop" id="modal-material">
   <section class="modal" role="dialog" aria-modal="true" style="max-width: 650px;">
     <div class="panel-head" style="margin-bottom:10px">
@@ -363,7 +364,7 @@
 
 <script>
 const $=id=>document.getElementById(id);
-const URL_APPS_SCRIPT = "AQUÍ_PEGA_TU_URL_DE_GOOGLE_APPS_SCRIPT";
+const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec";
 
 function abrirPortalComun(){openModal('mise-modal');volverMenuPrincipal();}
 function mostrarVista(idVista){
@@ -471,14 +472,13 @@ function actualizarEstadoModular(idxEst, idxSes, nuevoVal) {
   recalcularTotalesGlobales();
   
   let estudiante = datosAsistenciaGlobal[idxEst];
-  if(!URL_APPS_SCRIPT.includes("AQUÍ_PEGA")) {
-    fetch(URL_APPS_SCRIPT, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ idEstudiante: estudiante.id, nombre: estudiante.nombre, sesion: idxSes + 1, estado: nuevoVal })
-    }).catch(err => console.error("Error al sincronizar:", err));
-  }
+  fetch(URL_APPS_SCRIPT, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ idEstudiante: estudiante.id, nombre: estudiante.nombre, sesion: idxSes + 1, estado: nuevoVal })
+  }).catch(err => console.error("Error al sincronizar:", err));
+  
   cargarSesionesEstudiante(idxEst);
 }
 
@@ -568,87 +568,87 @@ const bloquesProgramacion = [
   {
     title: 'BLOQUE 1 — CONOCIENDO A JESÚS',
     topics: [
-      {num: 1, title: '¿Quién es Dios?', sub: ['Quién es Dios', 'Dios único y creador', 'Dios eterno y Padre']},
-      {num: 2, title: '¿Quién es Jesús?', sub: ['Jesús Hijo de Dios', 'Verdadero Dios y verdadero hombre', 'Nacimiento y misión']},
-      {num: 3, title: '¿Quién es el Espíritu Santo?', sub: ['Quién es', 'Su misión', 'Cómo actúa']},
-      {num: 4, title: 'La Santísima Trinidad', sub: ['Un solo Dios', 'Padre, Hijo y Espíritu Santo', 'Tres Personas']},
-      {num: 5, title: 'La Creación', sub: ['Dios creador', 'Creación del mundo', 'Cuidado de lo creado']},
-      {num: 6, title: 'Dios se revela al ser humano', sub: ['Cómo conocemos a Dios', 'Revelación', 'Sagrada Escritura']},
-      {num: 7, title: 'La Biblia', sub: ['Qué es', 'Antiguo y Nuevo Testamento', 'Evangelios']},
-      {num: 8, title: 'La vida de Jesús', sub: ['Nacimiento', 'Bautismo', 'Vida pública y predicación']},
-      {num: 9, title: 'Las enseñanzas de Jesús', sub: ['Parábolas', 'Buen Samaritano', 'Hijo Pródigo']},
-      {num: 10, title: 'Los milagros de Jesús', sub: ['Qué es un milagro', 'Milagros de sanación', 'Naturaleza']},
-      {num: 11, title: 'Pasión, Muerte y Resurrección', sub: ['Última Cena', 'Crucifixión', 'Resurrección']},
-      {num: 12, title: '¿Quién es la Virgen María?', sub: ['Anunciación', 'Madre de Jesús', 'María en la Iglesia']},
-      {num: 13, title: '¿Por qué hay tantas vírgenes?', sub: ['Abogación mariana', 'Virgen del Carmen', 'Guadalupe']},
-      {num: 14, title: '¿Qué significa tener fe?', sub: ['Qué es creer', 'Fe y confianza', 'Profesión de fe']},
-      {num: 15, title: 'El Credo', sub: ['Qué es', 'Para qué lo rezamos', 'Credo explicado']}
+      {num: 1, title: '¿Quién es Dios?', sub: ['Dios como Padre y Creador', 'Sus atributos: eterno, bueno, amoroso y misericordioso', 'Dios conoce y ama a cada persona', 'Su presencia en nuestra vida'], obj: 'Reconocer a Dios como Padre amoroso y Creador.', val: 'Amor y confianza', cita: '1 Juan 4,8', act: 'Elaborar un corazón titulado «Dios me ama» y escribir acciones que demuestren su amor.'},
+      {num: 2, title: '¿Quién es Jesús?', sub: ['Jesús, el Hijo de Dios', 'Verdadero Dios y verdadero hombre', 'Nacimiento y misión'], obj: 'Identificar a Jesús como Hijo de Dios.', val: 'Amor y entrega', cita: 'Juan 14,6', act: 'Elaborar una ficha de identidad de Jesús.'},
+      {num: 3, title: '¿Quién es el Espíritu Santo?', sub: ['El Espíritu Santo como tercer ángel / persona', 'Su misión en la Iglesia', 'Cómo actúa en nosotros'], obj: 'Comprender la acción del Espíritu Santo.', val: 'Fortaleza y guía', cita: 'Hechos 1,8', act: 'Realizar un cartel con los dones del Espíritu Santo.'},
+      {num: 4, title: 'La Santísima Trinidad', sub: ['Un solo Dios en tres Personas', 'Misterio central de la fe', 'Relación de amor'], obj: 'Conocer el misterio de la Santísima Trinidad.', val: 'Unidad y comunión', cita: 'Mateo 28,19', act: 'Diseñar un triángulo explicativo de las tres Personas.'},
+      {num: 5, title: 'La Creación', sub: ['Dios creador de todo', 'Bondad de lo creado', 'Cuidado de la casa común'], obj: 'Valorar la creación de Dios.', val: 'Cuidado y gratitud', cita: 'Génesis 1,1', act: 'Dibujar la creación y escribir un compromiso ecológico.'},
+      {num: 6, title: 'Dios se revela al ser humano', sub: ['Cómo conocemos a Dios', 'La Revelación divina', 'La Sagrada Escritura'], obj: 'Entender cómo Dios se comunica con nosotros.', val: 'Escucha y atención', cita: 'Hebreos 1,1-2', act: 'Crear un esquema sobre las formas en que Dios habla hoy.'},
+      {num: 7, title: 'La Biblia', sub: ['Qué es la Biblia', 'Antiguo y Nuevo Testamento', 'Los Evangelios'], obj: 'Familiarizarse con la estructura de la Biblia.', val: 'Amor a la Palabra', cita: '2 Timoteo 3,16', act: 'Ubicar citas bíblicas clave en la Biblia.'},
+      {num: 8, title: 'La vida de Jesús', sub: ['Infancia y vida oculta', 'Bautismo en el Jordán', 'Vida pública y predicación'], obj: 'Repasar los momentos clave de la vida de Jesús.', val: 'Seguimiento', cita: 'Lucas 2,52', act: 'Armar una línea de tiempo con la vida de Jesús.'},
+      {num: 9, title: 'Las enseñanzas de Jesús', sub: ['Las parábolas del Reino', 'El buen samaritano', 'El hijo pródigo'], obj: 'Aplicar las enseñanzas de las parábolas.', val: 'Prójimo y perdón', cita: 'Lucas 10,27', act: 'Dramatizar una parábola en grupo.'},
+      {num: 10, title: 'Los milagros de Jesús', sub: ['Significado de los milagros', 'Milagros de sanación', 'Milagros sobre la naturaleza'], obj: 'Reconocer el poder y amor de Jesús en sus milagros.', val: 'Fe y esperanza', cita: 'Juan 2,11', act: 'Crear un rotafolio con los principales milagros.'},
+      {num: 11, title: 'Pasión, Muerte y Resurrección', sub: ['La Última Cena', 'La Crucifixión', 'La Resurrección gloriosa'], obj: 'Comprender el sacrificio y triunfo de Cristo.', val: 'Entrega y victoria', cita: '1 Corintios 15,3-4', act: 'Elaborar una cruz pascual decorada.'},
+      {num: 12, title: '¿Quién es la Virgen María?', sub: ['La Anunciación', 'Madre de Jesús y nuestra Madre', 'María en la historia de la Iglesia'], obj: 'Honrar a la Virgen María como madre.', val: 'Sencillez y obediencia', cita: 'Lucas 1,38', act: 'Escribir una carta a la Virgen María.'},
+      {num: 13, title: '¿Por qué hay tantas vírgenes?', sub: ['Advocaciones marianas', 'Virgen del Carmen', 'Nuestra Señora de Guadalupe'], obj: 'Conocer las principales advocaciones.', val: 'Devoción', cita: 'Apocalipsis 12,1', act: 'Investigar una advocación mariana local.'},
+      {num: 14, title: '¿Qué significa tener fe?', sub: ['Creer sin ver', 'Fe y confianza absoluta', 'Testimonio de fe'], obj: 'Fortalecer la confianza en Dios.', val: 'Confianza', cita: 'Hebreos 11,1', act: 'Escribir un testimonio personal de fe.'},
+      {num: 15, title: 'El Credo', sub: ['Profesión de fe', 'Artículos principales', 'Significado comunitario'], obj: 'Aprender y rezar el Credo con sentido.', val: 'Verdad', cita: 'Romanos 10,9', act: 'Completar un esquema de las verdades del Credo.'}
     ]
   },
   {
     title: 'BLOQUE 2 — APRENDEMOS A ORAR',
     topics: [
-      {num: 16, title: 'El Santo Rosario', sub: ['Qué es y para qué sirve', 'Misterios', 'Cómo se reza']},
-      {num: 17, title: '¿Quién es orar?', sub: ['Significado de orar y rezar', 'Oración personal', 'Petición y alabanza']},
-      {num: 18, title: 'Oraciones Fundamentales', sub: ['Señal de la Cruz', 'Padre Nuestro', 'Ave María', 'Gloria']},
-      {num: 19, title: 'El Padre Nuestro', sub: ['Explicación de cada petición', 'Significado espiritual']}
+      {num: 16, title: 'El Santo Rosario', sub: ['Estructura y misterios', 'Cómo se reza el rosario', 'María intercesora'], obj: 'Aprender a rezar el Santo Rosario.', val: 'Devoción mariana', cita: 'Lucas 1,28', act: 'Elaborar un rosario con materiales reciclados.'},
+      {num: 17, title: '¿Qué es orar?', sub: ['Hablar con Dios como amigo', 'Oración personal y comunitaria', 'Silencio interior'], obj: 'Descubrir la oración como diálogo de amor.', val: 'Intimidad con Dios', cita: '1 Tesalonicenses 5,17', act: 'Crear un espacio de oración personal.'},
+      {num: 18, title: 'Oraciones Fundamentales', sub: ['Señal de la Cruz', 'Padre Nuestro y Ave María', 'Gloria y acto de contrición'], obj: 'Dominar las oraciones básicas del cristiano.', val: 'Tradición y piedad', cita: 'Lucas 11,1', act: 'Recitar correctamente las oraciones fundamentales.'},
+      {num: 19, title: 'El Padre Nuestro', sub: ['Oración enseñada por Jesús', 'Significado de cada petición', 'Pan nuestro de cada día'], obj: 'Profundizar en la oración del Señor.', val: 'Filiación divina', cita: 'Mateo 6,9-13', act: 'Analizar frase por frase el Padre Nuestro.'}
     ]
   },
   {
     title: 'BLOQUE 3 — LOS SACRAMENTOS',
     topics: [
-      {num: 20, title: '¿Quién es Jesús en los sacramentos?', sub: ['Signo visible', 'Gracia divina', 'Institución de Cristo']},
-      {num: 21, title: 'Los Siete Sacramentos', sub: ['Iniciación cristiana', 'Sanación', 'Servicio a la comunidad']},
-      {num: 22, title: 'La Gracia', sub: ['Gracia santificante', 'Vida en gracia']},
-      {num: 23, title: 'El Bautismo', sub: ['Agua, óleo y vela', 'Hijos de Dios e incorporación a la Iglesia']},
-      {num: 24, title: 'La Confirmación', sub: ['Don del Espíritu Santo', 'Compromiso cristiano']},
-      {num: 25, title: 'Los demás sacramentos', sub: ['Matrimonio, Orden Sacerdotal y Unción']},
-      {num: 26, title: 'El sacramento de la Reconciliación', sub: ['Perdón de Dios', 'Contrición y confesión']},
-      {num: 27, title: 'Mi primera confesión', sub: ['Examen de conciencia', 'Acercarse al sacerdote']}
+      {num: 20, title: '¿Quién es Jesús en los sacramentos?', sub: ['Signos visibles de la gracia', 'Instituidos por Cristo', 'Vida sacramental'], obj: 'Entender qué es un sacramento.', val: 'Gracia y encuentro', cita: 'Romanos 6,4', act: 'Graficar los signos de los sacramentos.'},
+      {num: 21, title: 'Los Siete Sacramentos', sub: ['Clasificación', 'Iniciación, sanación y servicio', 'Camino de salvación'], obj: 'Identificar los 7 sacramentos de la Iglesia.', val: 'Compromiso eclesial', cita: 'Catecismo Iglesia', act: 'Completar un cuadro sinóptico de los 7 sacramentos.'},
+      {num: 22, title: 'La Gracia', sub: ['Gracia santificante y actual', 'Vida en amistad con Dios', 'Tesoro espiritual'], obj: 'Valorar la gracia divina en el alma.', val: 'Pureza interior', cita: '2 Corintios 12,9', act: 'Escribir un compromiso para mantener la gracia.'},
+      {num: 23, title: 'El Bautismo', sub: ['Primer sacramento', 'Agua, óleo, luz y crisma', 'Hijos de Dios y templo del Espíritu'], obj: 'Comprender el significado del Bautismo.', val: 'Renovación y pertenencia', cita: 'Mateo 28,19', act: 'Recordar la fecha y parroquia del propio bautismo.'},
+      {num: 24, title: 'La Confirmación', sub: ['Don del Espíritu Santo', 'Madurez cristiana', 'Testigos de Cristo'], obj: 'Asumir el compromiso de la Confirmación.', val: 'Valor y testimonio', cita: 'Hechos 8,17', act: 'Reflexionar sobre los dones recibidos en la confirmación.'},
+      {num: 25, title: 'Los demás sacramentos', sub: ['Matrimonio y Orden Sacerdotal', 'Unción de los enfermos', 'Vocaciones en la Iglesia'], obj: 'Conocer los sacramentos de servicio y sanación.', val: 'Servicio y entrega', cita: 'Santiago 5,14-15', act: 'Investigar sobre las vocaciones sacramentales.'},
+      {num: 26, title: 'El sacramento de la Reconciliación', sub: ['El perdón de los pecados', 'Arrepentimiento sincero', 'La misericordia del Padre'], obj: 'Prepararse para el sacramento del perdón.', val: 'Humildad y perdón', cita: 'Juan 20,23', act: 'Realizar un esquema de examen de conciencia.'},
+      {num: 27, title: 'Mi primera confesión', sub: ['Pasos para una buena confesión', 'Diálogo con el sacerdote', 'Penitencia y absolución'], obj: 'Experimentar la alegría del perdón divino.', val: 'Paz interior', cita: 'Lucas 15,7', act: 'Simular los pasos de la confesión sacramental.'}
     ]
   },
   {
     title: 'BLOQUE 4 — LA EUCARISTÍA',
     topics: [
-      {num: 28, title: 'El Año Litúrgico', sub: ['Adviento', 'Navidad', 'Cuaresma', 'Pascua']},
-      {num: 29, title: 'Signos y símbolos litúrgicos', sub: ['Cruz, agua, fuego y colores']},
-      {num: 30, title: '¿Qué es la Santa Misa?', sub: ['Celebración eucarística', 'Última Cena']},
-      {num: 31, title: 'Antes de la Misa', sub: ['Puntualidad', 'Preparación interior y respeto']},
-      {num: 32, title: 'Conocemos el templo', sub: ['Altar, ambón y sagrario']},
-      {num: 33, title: 'Vestiduras del sacerdote', sub: ['Alba, estola y casulla']},
-      {num: 34, title: 'Servidores y monaguillos', sub: ['Función y respeto en el altar']},
-      {num: 35, title: 'Gestos y posturas', sub: ['De pie, sentados y arrodillados']},
-      {num: 36, title: 'Ritos iniciales', sub: ['Saludo y acto penitencial']},
-      {num: 37, title: 'Liturgia de la Palabra', sub: ['Lecturas, Evangelio y homilía']},
-      {num: 38, title: 'Liturgia Eucarística', sub: ['Ofertorio y consagración']},
-      {num: 39, title: 'Rito de la Comunión', sub: ['Padre Nuestro y Cordero de Dios']},
-      {num: 40, title: 'Ritos finales', sub: ['Bendición y envío misional']},
-      {num: 41, title: '¿Qué es la Eucaristía?', sub: ['Presencia real de Cristo']},
-      {num: 42, title: '¿Qué sucede en la consagración?', sub: ['Transubstanciación']},
-      {num: 43, title: 'Jesús en el Sagrario', sub: ['Lámpara y adoración']},
-      {num: 44, title: '¿Cómo recibimos la Comunión?', sub: ['Estado de gracia y respeto']},
-      {num: 45, title: 'Mi Primera Comunión', sub: ['Significado espiritual y compromiso']}
+      {num: 28, title: 'El Año Litúrgico', sub: ['Adviento, Navidad y Cuaresma', 'Pascua y Tiempo Ordinario', 'Ciclo de la Iglesia'], obj: 'Conocer las estaciones del año litúrgico.', val: 'Tiempo de gracia', cita: 'Eclesiastés 3,1', act: 'Dibujar la rueda del año litúrgico y sus colores.'},
+      {num: 29, title: 'Signos y símbolos litúrgicos', sub: ['El altar, el ambón, el sagrario', 'El agua bendita y el incienso'], obj: 'Identificar los objetos sagrados del templo.', val: 'Reverencia', cita: 'Éxodo 25,8', act: 'Crear fichas ilustradas de los objetos litúrgicos.'},
+      {num: 30, title: '¿Qué es la Santa Misa?', sub: ['Memorial de la Pascua de Jesús', 'Banquete celestial y sacrificio', 'La gran oración de la Iglesia'], obj: 'Valorar la Misa como centro de la vida cristiana.', val: 'Participación activa', cita: 'Lucas 22,19', act: 'Escribir por qué es importante asistir a Misa.'},
+      {num: 31, title: 'Antes de la Misa', sub: ['Puntualidad y preparación', 'Silencio sagrado en el templo', 'Disposición del corazón'], obj: 'Prepararse espiritualmente antes de la Eucaristía.', val: 'Respeto y orden', cita: 'Salmo 84,10', act: 'Hacer una lista de normas de respeto en el templo.'},
+      {num: 32, title: 'Conocemos el templo', sub: ['Estructura de la parroquia', 'Lugares sagrados', 'Casa de oración'], obj: 'Reconocer los espacios físicos de la parroquia.', val: 'Cuidado de la casa de Dios', cita: '1 Reyes 8,29', act: 'Dibujar el plano del templo parroquial.'},
+      {num: 33, title: 'Vestiduras del sacerdote', sub: ['Alba, estola, casulla y cíngulo', 'Significado de los colores litúrgicos'], obj: 'Conocer la indumentaria sagrada del celebrante.', val: 'Dignidad litúrgica', cita: 'Éxodo 28,2', act: 'Colorear las vestiduras y asociarlas con su función.'},
+      {num: 34, title: 'Servidores y monaguillos', sub: ['El servicio en el altar', 'Ayuda al sacerdote', 'Ejemplo de devoción'], obj: 'Valorar la labor de los monaguillos.', val: 'Servicio humilde', cita: '1 Samuel 3,1', act: 'Conversar sobre el rol de los acólitos en la Misa.'},
+      {num: 35, title: 'Gestos y posturas', sub: ['De pie, sentados, arrodillados', 'Significado de cada postura corporal'], obj: 'Practicar las posturas correctas durante la liturgia.', val: 'Devoción corporal', cita: 'Salmo 95,6', act: 'Practicar los momentos de pie, sentado y arrodillado.'},
+      {num: 36, title: 'Ritos iniciales', sub: ['Entrada, saludo y acto penitencial', 'Gloria y oración colecta'], obj: 'Entender el inicio de la celebración eucarística.', val: 'Reconciliación comunitaria', cita: 'Salmo 122,1', act: 'Escribir el texto del acto penitencial.'},
+      {num: 37, title: 'Liturgia de la Palabra', sub: ['Lecturas bíblicas y salmo', 'Proclamación del Evangelio', 'La homilía y el Credo'], obj: 'Escuchar y meditar la Palabra de Dios en Misa.', val: 'Atención y escucha', cita: 'Nehemías 8,8', act: 'Redactar una enseñanza del Evangelio dominical.'},
+      {num: 38, title: 'Liturgia Eucarística', sub: ['Presentación de dones', 'Plegaria eucarística y consagración', 'El pan y el vino convertidos'], obj: 'Vivir con recogimiento la consagración.', val: 'Adoración', cita: 'Mateo 26,26-28', act: 'Graficar el pan y el vino sobre el altar.'},
+      {num: 39, title: 'Rito de la Comunión', sub: ['Padre Nuestro y gesto de paz', 'Cordero de Dios y comunión'], obj: 'Prepararse para recibir el Cuerpo de Cristo.', val: 'Fraternidad y unión', cita: 'Juan 6,55', act: 'Aprender las respuestas litúrgicas de la comunión.'},
+      {num: 40, title: 'Ritos finales', sub: ['Avisos parroquiales', 'Bendición sacerdotal y envío', 'Id en paz a anunciar el Evangelio'], obj: 'Comprender el envío misional al terminar la Misa.', val: 'Misión y testimonio', cita: 'Mateo 28,19-20', act: 'Escribir un propósito para vivir la Misa en casa.'},
+      {num: 41, title: '¿Qué es la Eucaristía?', sub: ['Jesús vivo y real en la hostia', 'Alimento espiritual del alma', 'Sacrificio de amor'], obj: 'Profundizar en el misterio eucarístico.', val: 'Amor a la Eucaristía', cita: 'Juan 6,51', act: 'Crear un lema eucarístico personal.'},
+      {num: 42, title: '¿Qué sucede en la consagración?', sub: ['Transubstanciación', 'El pan y el vino se vuelven Cuerpo y Sangre'], obj: 'Comprender el milagro de la consagración.', val: 'Asombro y fe', cita: '1 Corintios 11,23-25', act: 'Explicar con tus propias palabras la transubstanciación.'},
+      {num: 43, title: 'Jesús en el Sagrario', sub: ['La lámpara encendida', 'Visita al Santísimo', 'Compañía constante'], obj: 'Visitar y adorar a Jesús en el sagrario.', val: 'Compañía y oración', cita: 'Mateo 28,20', act: 'Escribir una breve oración para visitar el sagrario.'},
+      {num: 44, title: '¿Cómo recibimos la Comunión?', sub: ['Estado de gracia y ayuno eucarístico', 'Respeto al comulgar', 'Acción de gracias posterior'], obj: 'Preparar el alma para una digna comunión.', val: 'Reverencia y pureza', cita: '1 Corintios 11,28', act: 'Redactar la oración de acción de gracias después de comulgar.'},
+      {num: 45, title: 'Mi Primera Comunión', sub: ['Día de fiesta espiritual', 'Compromiso de vida cristiana', 'Acompañamiento familiar'], obj: 'Preparar el corazón para la Primera Comunión.', val: 'Alegría y entrega', cita: 'Cantares 2,16', act: 'Elaborar una tarjeta de invitación o recuerdo para la Primera Comunión.'}
     ]
   },
   {
     title: 'BLOQUE 5 — VALORES CRISTIANOS',
     topics: [
-      {num: 46, title: 'El ser humano y el pecado', sub: ['Libertad y responsabilidad']},
-      {num: 47, title: 'Los Diez Mandamientos', sub: ['Ley de Dios para el amor al prójimo']},
-      {num: 48, title: 'Los Mandamientos de la Iglesia', sub: ['Obligaciones del cristiano']},
-      {num: 49, title: 'Las Bienaventuranzas', sub: ['Camino de la verdadera felicidad']},
-      {num: 50, title: 'Obras de misericordia', sub: ['Corporales y espirituales']},
-      {num: 51, title: 'Examen de conciencia', sub: ['Reconocer errores y buscar conversión']}
+      {num: 46, title: 'El ser humano y el pecado', sub: ['Libertad y conciencia moral', 'Consecuencias del pecado', 'El amor que perdona'], obj: 'Reconocer el valor de la conciencia moral.', val: 'Responsabilidad', cita: 'Gálatas 5,13', act: 'Analizar casos prácticos sobre buenas y malas decisiones.'},
+      {num: 47, title: 'Los Diez Mandamientos', sub: ['Ley de Dios para la felicidad', 'Amar a Dios sobre todas las cosas', 'Amar al prójimo'], obj: 'Memorizar y cumplir los Mandamientos de la Ley de Dios.', val: 'Obediencia y amor', cita: 'Éxodo 20,1-17', act: 'Elaborar las tablas de la ley con los 10 mandamientos.'},
+      {num: 48, title: 'Los Mandamientos de la Iglesia', sub: ['Participar en Misa domingos y fiestas', 'Confesar los pecados y comulgar', 'Ayudar a la Iglesia en sus necesidades'], obj: 'Conocer las obligaciones del católico.', val: 'Pertenencia eclesial', cita: 'Catecismo', act: 'Hacer un esquema de los 5 mandamientos de la Iglesia.'},
+      {num: 49, title: 'Las Bienaventuranzas', sub: ['El sermón de la montaña', 'Camino de la verdadera felicidad', 'Promesas del Reino'], obj: 'Descubrir la felicidad según Jesús.', val: 'Bienaventuranza', cita: 'Mateo 5,3-12', act: 'Escribir qué significa ser pacífico o misericordioso hoy.'},
+      {num: 50, title: 'Obras de misericordia', sub: ['Obras corporales (dar de comer, vestir al desnudo)', 'Obras espirituales (enseñar, consolar, perdonar)'], obj: 'Practicar la misericordia con obras concretas.', val: 'Caridad activa', cita: 'Mateo 25,40', act: 'Diseñar un plan de ayuda solidaria en la comunidad.'},
+      {num: 51, title: 'Examen de conciencia', sub: ['Revisar nuestras acciones ante Dios', 'Propósito de enmienda', 'Búsqueda de conversión'], obj: 'Aprender a examinar el corazón diariamente.', val: 'Sinceridad y conversión', cita: 'Salmo 139,23-24', act: 'Escribir tres preguntas para un examen de conciencia infantil.'}
     ]
   },
   {
     title: 'BLOQUE 6 — COMPARTIMOS LA FE',
     topics: [
-      {num: 52, title: '¿Qué es la Iglesia?', sub: ['Comunidad y Cuerpo de Cristo']},
-      {num: 53, title: '¿Quiénes forman la Iglesia?', sub: ['Papa, sacerdotes y laicos']},
-      {num: 54, title: 'Los Santos', sub: ['Modelos de vida cristiana']},
-      {num: 55, title: 'Padrinos y madrinas', sub: ['Acompañamiento en la fe']},
-      {num: 56, title: 'Después de la Primera Comunión', sub: ['Continuar en la Misa y la oración']}
+      {num: 52, title: '¿Qué es la Iglesia?', sub: ['Familia de los hijos de Dios', 'Cuerpo Místico de Cristo', 'Comunidad guiada por el Espíritu'], obj: 'Sentirse parte activa de la Iglesia.', val: 'Comunidad', cita: '1 Corintios 12,27', act: 'Dibujar la Iglesia como una gran familia.'},
+      {num: 53, title: '¿Quiénes forman la Iglesia?', sub: ['El Papa, obispos y sacerdotes', 'Los consagrados y los laicos', 'Nuestra labor en la parroquia'], obj: 'Identificar los roles dentro de la Iglesia.', val: 'Colaboración', cita: 'Efesios 4,11-12', act: 'Investigar quién es el Papa actual y nuestro obispo o párroco.'},
+      {num: 54, title: 'Los Santos', sub: ['Amigos de Dios y modelos de vida', 'Santos patronos', 'La santidad a nuestro alcance'], obj: 'Tomar a los santos como guías espirituales.', val: 'Santidad y ejemplo', cita: 'Hebreos 12,1', act: 'Escribir la biografía breve de tu santo favorito.'},
+      {num: 55, title: 'Padrinos y madrinas', sub: ['Guías espirituales en el camino', 'Apoyo en la fe y el testimonio', 'Compromiso familiar'], obj: 'Valorar el rol de los padrinos y madrinas.', val: 'Acompañamiento', cita: 'Proverbios 17,17', act: 'Escribir una dedicatoria a tus padrinos de bautizo o comunión.'},
+      {num: 56, title: 'Después de la Primera Comunión', sub: ['Continuar participando en la Misa dominical', 'Ser luz y sal en el mundo', 'perseverar en la catequesis y la oración'], obj: 'Asumir el compromiso de perseverar en la fe.', val: 'Perseverancia y misión', cita: 'Mateo 5,13-16', act: 'Firmar un compromiso personal de perseverancia cristiana.'}
     ]
   }
 ];
@@ -659,20 +659,34 @@ function renderizarSesionesCompletas() {
   contenedor.innerHTML = '';
   bloquesProgramacion.forEach(bloque => {
     let bloqueDiv = document.createElement('div');
-    bloqueDiv.innerHTML = `<h4 style="color:var(--navy); border-bottom:2px solid var(--gold); padding-bottom:6px; margin:20px 0 12px; font-size:1.1rem;">${bloque.title}</h4>`;
+    bloqueDiv.innerHTML = `<h4 style="color:var(--navy); border-bottom:2px solid var(--gold); padding-bottom:6px; margin:22px 0 14px; font-size:1.15rem;">${bloque.title}</h4>`;
+    
     bloque.topics.forEach(t => {
-      let subtemasLi = t.sub.main?.map ? t.sub.map(s => `<li>${s}</li>`).join('') : t.sub.map(s => `<li>${s}</li>`).join('');
+      let subtemasLi = t.sub.map(s => `<li>${s}</li>`).join('');
       let temaBox = document.createElement('div');
       temaBox.className = 'tema-box';
       temaBox.innerHTML = `
-        <div style="font-size:0.75rem; color:var(--gold-deep); font-weight:bold;">SESIÓN ${t.num} (CJ-${String(t.num).padStart(3, '0')})</div>
-        <h4 style="margin:4px 0 8px; color:var(--navy);">${t.title}</h4>
+        <div style="font-size:0.75rem; color:var(--gold-deep); font-weight:bold; letter-spacing:0.05em; text-transform:uppercase;">TEMA ${t.num} (CJ-${String(t.num).padStart(3, '0')})</div>
+        <h4 style="margin:4px 0 8px; color:var(--navy); font-size:1.1rem;">${t.title}</h4>
+        <div style="font-size:0.85rem; font-weight:800; color:var(--muted); margin-bottom:4px;">Subtemas:</div>
         <ul class="subtema-list">${subtemasLi}</ul>
+
+        <!-- DETALLES PASTORALES (OBJETIVO, VALOR, CITA, ACTIVIDAD) -->
+        <div style="background:#fefbf3; border:1px solid #fae8b3; border-radius:10px; padding:12px; margin-bottom:10px; font-size:0.88rem;">
+          <div style="margin-bottom:4px;"><strong style="color:var(--gold-deep);">🎯 Objetivo:</strong> ${t.obj}</div>
+          <div style="margin-bottom:4px;"><strong style="color:var(--navy);">💛 Valor:</strong> ${t.val}</div>
+          <div><strong style="color:var(--blue);">📖 Cita Bíblica:</strong> ${t.cita}</div>
+        </div>
+        <div style="background:#f0f7f4; border:1px solid #cce8dc; border-radius:10px; padding:10px 12px; margin-bottom:12px; font-size:0.88rem;">
+          <strong style="color:var(--green);">✨ Actividad:</strong> ${t.act}
+        </div>
+
+        <!-- BOTONES DE RECURSOS CON DISEÑO DELICADO Y ARMONIOSO -->
         <div class="action-buttons">
-          <button class="btn small gold" onclick="abrirGestionMaterial(${t.num}, 'Prácticas')">✏️ Prácticas</button>
-          <button class="btn small primary" onclick="abrirGestionMaterial(${t.num}, 'Evaluaciones')">📋 Evaluaciones</button>
-          <button class="btn small" onclick="abrirGestionMaterial(${t.num}, 'Canciones')">🎵 Canciones</button>
-          <button class="btn small gold" onclick="abrirGestionMaterial(${t.num}, 'Videos')">▶️ Videos</button>
+          <button class="btn small btn-practicas" onclick="abrirGestionMaterial(${t.num}, 'Prácticas')">✏️ Prácticas</button>
+          <button class="btn small btn-evaluaciones" onclick="abrirGestionMaterial(${t.num}, 'Evaluaciones')">📋 Evaluaciones</button>
+          <button class="btn small btn-canciones" onclick="abrirGestionMaterial(${t.num}, 'Canciones')">🎵 Canciones</button>
+          <button class="btn small btn-videos" onclick="abrirGestionMaterial(${t.num}, 'Videos')">▶️ Videos</button>
         </div>
       `;
       bloqueDiv.appendChild(temaBox);
