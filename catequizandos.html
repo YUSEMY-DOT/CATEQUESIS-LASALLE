@@ -952,6 +952,7 @@ main {
         <p>Explora los 6 bloques oficiales y consulta tus temas, subtítulos, objetivos, valores y citas bíblicas organizados para ti.</p>
       </div>
     </section>
+    <div id="estadoPortal" role="status" aria-live="polite" style="margin:-20px 0 24px;color:#5c6f84;font-size:12px;font-weight:800;text-align:right;">Conectando con Google Sheets...</div>
 
     <section class="section">
       <h2>Los 6 Bloques de Catequesis</h2>
@@ -1001,167 +1002,21 @@ main {
       <div class="eyebrow">Control de Catequizandos Oficial (Hoja Asistencia)</div>
       <h2>📊 Asistencia, Tareas y Seguimiento por Alumno</h2>
       
-      <div class="students-grid">
-        <div class="student-card">
-          <div class="student-header">
-            <img class="student-avatar" src="https://lh3.googleusercontent.com/d/1jNx6nx6wCDaYdcnSKGbzj_uCfb2cDbdl" alt="Dany Smith Francisco Criollo" onerror="this.src='https://via.placeholder.com/60'">
-            <div class="student-info">
-              <h4>Dany Smith Francisco Criollo</h4>
-              <small>ID: LDS-EST-001</small>
-            </div>
-          </div>
-          <div class="metrics-box">
-            <div class="metric-row">
-              <div class="metric-label"><span>Asistencia (Sheet)</span><span style="color:#27ae60;">80.0%</span></div>
-              <div class="progress-track"><div class="progress-fill-attendance" style="width: 80%;"></div></div>
-            </div>
-            <div class="metric-row" style="margin-top: 10px;">
-              <div class="metric-label"><span>Tareas Entregadas</span><span style="color:#d49a0e;">Pendiente / Auto</span></div>
-              <div class="progress-track"><div class="progress-fill-tasks" style="width: 0%;"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="student-card">
-          <div class="student-header">
-            <img class="student-avatar" src="https://lh3.googleusercontent.com/d/1jf5ch769iUpYqAKJ-Hx1HIUPDaRBJgwd" alt="Adam Stuard Pineda Elguera" onerror="this.src='https://via.placeholder.com/60'">
-            <div class="student-info">
-              <h4>Adam Stuard Pineda Elguera</h4>
-              <small>ID: LDS-EST-002</small>
-            </div>
-          </div>
-          <div class="metrics-box">
-            <div class="metric-row">
-              <div class="metric-label"><span>Asistencia (Sheet)</span><span style="color:#27ae60;">79.6%</span></div>
-              <div class="progress-track"><div class="progress-fill-attendance" style="width: 79.6%;"></div></div>
-            </div>
-            <div class="metric-row" style="margin-top: 10px;">
-              <div class="metric-label"><span>Tareas Entregadas</span><span style="color:#d49a0e;">Pendiente / Auto</span></div>
-              <div class="progress-track"><div class="progress-fill-tasks" style="width: 0%;"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="student-card">
-          <div class="student-header">
-            <img class="student-avatar" src="https://lh3.googleusercontent.com/d/1sqVFTBMqMT1pNIG7y1edplv8SvFTWiHg" alt="Camila Pizarro Mendoza" onerror="this.src='https://via.placeholder.com/60'">
-            <div class="student-info">
-              <h4>Camila Pizarro Mendoza</h4>
-              <small>ID: LDS-EST-003</small>
-            </div>
-          </div>
-          <div class="metrics-box">
-            <div class="metric-row">
-              <div class="metric-label"><span>Asistencia (Sheet)</span><span style="color:#27ae60;">79.2%</span></div>
-              <div class="progress-track"><div class="progress-fill-attendance" style="width: 79.2%;"></div></div>
-            </div>
-            <div class="metric-row" style="margin-top: 10px;">
-              <div class="metric-label"><span>Tareas Entregadas</span><span style="color:#d49a0e;">Pendiente / Auto</span></div>
-              <div class="progress-track"><div class="progress-fill-tasks" style="width: 0%;"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="student-card">
-          <div class="student-header">
-            <img class="student-avatar" src="https://lh3.googleusercontent.com/d/19KV30WDkKReEo5vBbx9ia4bebrPpyWPw" alt="Ana Paula Quispe Flores" onerror="this.src='https://via.placeholder.com/60'">
-            <div class="student-info">
-              <h4>Ana Paula Quispe Flores</h4>
-              <small>ID: LDS-EST-004</small>
-            </div>
-          </div>
-          <div class="metrics-box">
-            <div class="metric-row">
-              <div class="metric-label"><span>Asistencia (Sheet)</span><span style="color:#27ae60;">80.0%</span></div>
-              <div class="progress-track"><div class="progress-fill-attendance" style="width: 80%;"></div></div>
-            </div>
-            <div class="metric-row" style="margin-top: 10px;">
-              <div class="metric-label"><span>Tareas Entregadas</span><span style="color:#d49a0e;">Pendiente / Auto</span></div>
-              <div class="progress-track"><div class="progress-fill-tasks" style="width: 0%;"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="student-card">
-          <div class="student-header">
-            <img class="student-avatar" src="https://lh3.googleusercontent.com/d/1NT-x1ycdUiVXL0Au4xekdVx4sZ3BFWfU" alt="Marcos Manuel Romero Siesquen" onerror="this.src='https://via.placeholder.com/60'">
-            <div class="student-info">
-              <h4>Marcos Manuel Romero Siesquen</h4>
-              <small>ID: LDS-EST-005</small>
-            </div>
-          </div>
-          <div class="metrics-box">
-            <div class="metric-row">
-              <div class="metric-label"><span>Asistencia (Sheet)</span><span style="color:#27ae60;">79.6%</span></div>
-              <div class="progress-track"><div class="progress-fill-attendance" style="width: 79.6%;"></div></div>
-            </div>
-            <div class="metric-row" style="margin-top: 10px;">
-              <div class="metric-label"><span>Tareas Entregadas</span><span style="color:#d49a0e;">Pendiente / Auto</span></div>
-              <div class="progress-track"><div class="progress-fill-tasks" style="width: 0%;"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="student-card">
-          <div class="student-header">
-            <img class="student-avatar" src="https://lh3.googleusercontent.com/d/1JighRZ1N9WGd6hXALZG3kK5qHuiTLs0i" alt="Vasco Cardenas Quispe" onerror="this.src='https://via.placeholder.com/60'">
-            <div class="student-info">
-              <h4>Vasco Cardenas Quispe</h4>
-              <small>ID: LDS-EST-006</small>
-            </div>
-          </div>
-          <div class="metrics-box">
-            <div class="metric-row">
-              <div class="metric-label"><span>Asistencia (Sheet)</span><span style="color:#27ae60;">79.6%</span></div>
-              <div class="progress-track"><div class="progress-fill-attendance" style="width: 79.6%;"></div></div>
-            </div>
-            <div class="metric-row" style="margin-top: 10px;">
-              <div class="metric-label"><span>Tareas Entregadas</span><span style="color:#d49a0e;">Pendiente / Auto</span></div>
-              <div class="progress-track"><div class="progress-fill-tasks" style="width: 0%;"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="student-card">
-          <div class="student-header">
-            <img class="student-avatar" src="https://lh3.googleusercontent.com/d/1QTvIQydI8qyuG3Tpo0SBmbNHjyVXn_IT6mvIwfSttvI" alt="Marchelo Pizarro Mendoza" onerror="this.src='https://via.placeholder.com/60'">
-            <div class="student-info">
-              <h4>Marchelo Pizarro Mendoza</h4>
-              <small>ID: LDS-EST-007</small>
-            </div>
-          </div>
-          <div class="metrics-box">
-            <div class="metric-row">
-              <div class="metric-label"><span>Asistencia (Sheet)</span><span style="color:#27ae60;">79.2%</span></div>
-              <div class="progress-track"><div class="progress-fill-attendance" style="width: 79.2%;"></div></div>
-            </div>
-            <div class="metric-row" style="margin-top: 10px;">
-              <div class="metric-label"><span>Tareas Entregadas</span><span style="color:#d49a0e;">Pendiente / Auto</span></div>
-              <div class="progress-track"><div class="progress-fill-tasks" style="width: 0%;"></div></div>
-            </div>
-          </div>
-        </div>
+      <div class="students-grid" id="students-grid">
+        <div class="student-card"><p style="margin:0;color:var(--muted);font-weight:800;">Cargando catequizandos desde Google Sheets...</p></div>
       </div>
 
       <div class="notifications-layout">
         <div class="notice-card">
           <h3>📝 Mensajes de las Catequistas</h3>
           <p style="font-size:12px; color:var(--muted); margin:0 0 10px;">Comunicados oficiales publicados por las catequistas.</p>
-          <div class="dynamic-items-container" id="list-cat-mensajes">
-            <div class="notice-item cat">
-              <div>📝 <strong>Miss Lily & Miss Kiara:</strong> Bienvenidos al portal de preparación. Recuerden revisar el calendario de encuentros y completar sus fichas a tiempo. ✨</div>
-            </div>
-          </div>
+          <div class="dynamic-items-container" id="list-cat-mensajes"><div class="notice-item cat">Cargando comunicados...</div></div>
         </div>
 
         <div class="notice-card">
           <h3>📢 Mensajes de los Coordinadores</h3>
           <p style="font-size:12px; color:var(--muted); margin:0 0 10px;">Avisos oficiales de la coordinación y parroquia.</p>
-          <div class="dynamic-items-container" id="list-coord-mensajes">
-            <div class="notice-item coord">
-              <div>📢 <strong>Coordinación Parroquial:</strong> Presentar las constancias y fichas de Bautismo actualizadas para el expediente general. 🙏</div>
-            </div>
-          </div>
+          <div class="dynamic-items-container" id="list-coord-mensajes"><div class="notice-item coord">Cargando comunicados...</div></div>
         </div>
 
         <div class="notice-card">
@@ -1190,385 +1045,539 @@ main {
 </div>
 
 <script>
-const stages = [
-  {
-    title: 'BLOQUE 1 — CONOCIENDO A JESÚS',
-    subtitle: 'Temas 1 al 9: Dios, Jesús, Espíritu Santo, Trinidad, Creación, Vida de Jesús, Enseñanzas, Milagros y Pasión',
-    topics: [
-      {num: 1, title: '¿QUIÉN ES DIOS?', sub: ['Dios como Padre y Creador', 'Sus atributos: eterno, bueno, amoroso y misericordioso', 'Dios conoce y ama a cada persona', 'Su presencia en nuestra vida'], obj: 'Reconocer a Dios como Padre amoroso y Creador, comprendiendo que nos conoce, nos ama y acompaña nuestra vida.', val: 'Amor y confianza', cite: '1 Juan 4,8', act: 'Elaborar un corazón titulado «Dios me ama» y escribir acciones que demuestren su amor.'},
-      {num: 2, title: '¿QUIÉN ES JESÚS?', sub: ['Jesús, el Hijo de Dios', 'Verdadero Dios y verdadero hombre', 'Jesús como Salvador', 'Su misión de revelar el amor del Padre'], obj: 'Identificar a Jesús como Hijo de Dios y Salvador, reconociendo su misión y sus enseñanzas.', val: 'Amor y entrega', cite: 'Juan 14,6', act: 'Elaborar una ficha de identidad de Jesús con sus características y misión.'},
-      {num: 3, title: '¿QUIÉN ES EL ESPÍRITU SANTO?', sub: ['El Espíritu Santo como tercera Persona de la Trinidad', 'El Espíritu Santo es Dios', 'Su presencia en la vida cristiana', 'Nos guía, ilumina y fortalece'], obj: 'Comprender quién es el Espíritu Santo y reconocer su presencia como guía y fortaleza en la vida cristiana.', val: 'Confianza y docilidad', cite: 'Juan 14,26', act: 'Representar mediante dibujos los símbolos del Espíritu Santo y explicar su significado.'},
-      {num: 4, title: 'LA SANTÍSIMA TRINIDAD', sub: ['Un solo Dios en tres Personas', 'El Padre, el Hijo y el Espíritu Santo', 'Igualdad y unidad divina', 'La Trinidad en el Bautismo y la vida cristiana'], obj: 'Comprender que existe un solo Dios en tres Personas y reconocer la unidad de la Santísima Trinidad.', val: 'Unidad y amor', cite: 'Mateo 28,19', act: 'Elaborar un esquema de la Trinidad identificando sus tres Personas.'},
-      {num: 5, title: 'LA CREACIÓN', sub: ['Dios crea el cielo y la tierra', 'Creación de los seres vivos', 'El ser humano a imagen y semejanza de Dios', 'La creación como regalo', 'Responsabilidad de cuidar la naturaleza'], obj: 'Reconocer a Dios como Creador y asumir la responsabilidad de cuidar la naturaleza y respetar la vida.', val: 'Responsabilidad', cite: 'Génesis 1,31', act: 'Crear un mural de la creación y proponer acciones para protegerla.'},
-      {num: 6, title: 'LA VIDA DE JESÚS', sub: ['Anunciación y nacimiento', 'Infancia y familia de Jesús', 'Bautismo', 'Inicio de su vida pública', 'Elección de los apóstoles', 'Misión y predicación'], obj: 'Conocer los principales acontecimientos de la vida de Jesús y comprender su misión salvadora.', val: 'Obediencia y amor', cite: 'Lucas 2,52', act: 'Elaborar una línea de tiempo ilustrada de la vida de Jesús.'},
-      {num: 7, title: 'LAS ENSEÑANZAS DE JESÚS', sub: ['Mandamiento del amor', 'Amor a Dios y al prójimo', 'Humildad y servicio', 'Perdón y solidaridad', 'Enseñanzas mediante parábolas'], obj: 'Identificar las principales enseñanzas de Jesús y aplicarlas en la familia, el colegio y la comunidad.', val: 'Solidaridad y humildad', cite: 'Juan 13,34-35', act: 'Dramatizar situaciones cotidianas en las que se practique el mandamiento del amor.'},
-      {num: 8, title: 'LOS MILAGROS DE JESÚS', sub: ['Significado de los milagros', 'Milagros de sanación', 'Jesús calma la tempestad', 'Multiplicación de los panes y peces', 'Resurrección de Lázaro', 'Fe y confianza'], obj: 'Reconocer los milagros como manifestaciones del poder y la compasión de Jesús, fortaleciendo la fe.', val: 'Compasión y fe', cite: 'Marcos 4,39-40', act: 'Ordenar tarjetas de milagros y explicar la enseñanza de cada uno.'},
-      {num: 9, title: 'PASIÓN, MUERTE Y RESURRECCIÓN', sub: ['Entrada en Jerusalén', 'Camino de la Pasión', 'Oración en Getsemaní', 'Juicio y crucifixión', 'Muerte y sepultura', 'Resurrección y victoria sobre la muerte'], obj: 'Comprender la Pasión, muerte y Resurrección como expresión del amor de Jesús y su victoria sobre la muerte.', val: 'Amor y esperanza', cite: '1 Corintios 15,3-4', act: 'Ordenar imágenes de la Semana Santa y explicar su significado.'}
-    ]
-  },
-  {
-    title: 'BLOQUE 2 — APRENDEMOS A ORAR',
-    subtitle: 'Temas 10 al 22: La fe, Oración, Adoración, Oraciones Fundamentales, Credo, Rosario y Práctica de Oración',
-    topics: [
-      {num: 10, title: '¿QUÉ SIGNIFICA TENER FE?', sub: ['Concepto de fe', 'Creer y confiar en Dios', 'La fe como respuesta al amor de Dios', 'Ejemplos bíblicos de fe', 'Manifestaciones de la fe en la vida diaria'], obj: 'Comprender qué es la fe y reconocerla como respuesta de confianza al amor de Dios.', val: 'Fe y confianza', cite: 'Hebreos 11,1', act: 'Escribir un compromiso personal para fortalecer la confianza en Dios en momentos difíciles.'},
-      {num: 11, title: '¿QUÉ ES ORAR Y REZAR?', sub: ['Concepto de oración', 'Relación entre orar y rezar', 'Oración como diálogo con Dios', 'Oración personal y comunitaria', 'Formas de oración'], obj: 'Diferenciar y comprender la oración y el rezo como diálogo vivo y constante con Dios.', val: 'Devoción y diálogo', cite: '1 Tesalonicenses 5,17', act: 'Redactar una pequeña carta dirigida a Dios expresando agradecimiento y peticiones.'},
-      {num: 12, title: 'LA ADORACIÓN Y LA ORACIÓN', sub: ['Significado de adorar', 'Adoración exclusiva a Dios', 'Diferencia entre adoración y veneración', 'Adoración eucarística'], obj: 'Comprender la centralidad de la adoración debida solo a Dios y su unión con la oración.', val: 'Adoración y respeto', cite: 'Mateo 4,10', act: 'Elaborar un cartel sobre la diferencia entre adorar a Dios y venerar a los santos o la Virgen.'},
-      {num: 13, title: 'ORACIONES FUNDAMENTALES', sub: ['Importancia de las oraciones cristianas', 'Oración de alabanza', 'Oración de petición', 'Oración de agradecimiento', 'Oración de arrepentimiento'], obj: 'Valorar la riqueza de las oraciones fundamentales en la vida diaria del cristiano.', val: 'Gratitud y piedad', cite: 'Salmo 118,1', act: 'Crear un librito desplegable con las principales intenciones y oraciones cristianas.'},
-      {num: 14, title: 'SEÑAL DE LA SANTA CRUZ', sub: ['Significado de la cruz', 'Palabras de la señal de la cruz', 'Movimientos y gestos', 'Invocación de la Santísima Trinidad'], obj: 'Reconocer el signo de la cruz como profesión de fe y protección en la vida cristiana.', val: 'Identidad cristiana', cite: 'Gálatas 6,14', act: 'Practicar la Señal de la Cruz con reverencia y explicar su significado a un compañero.'},
-      {num: 15, title: 'ORACIÓN DEL PADRE NUESTRO', sub: ['Jesús enseña a orar', 'Dios como Padre', 'Significado de las siete peticiones', 'Perdón y confianza'], obj: 'Aprender y rezar el Padre Nuestro comprendiendo el sentido profundo de cada una de sus peticiones.', val: 'Confianza filial', cite: 'Mateo 6,9-13', act: 'Iluminar las peticiones del Padre Nuestro y relacionarlas con acciones de ayuda mutua.'},
-      {num: 16, title: 'ORACIÓN DEL AVE MARÍA', sub: ['María y la Anunciación', 'Saludo del ángel Gabriel', 'Visita a Isabel', 'Significado de las partes del Ave María', 'María como madre de Jesús'], obj: 'Rezar el Ave María reconociendo a la Virgen como intercesora y modelo de fe.', val: 'Amor filial', cite: 'Lucas 1,28.42', act: 'Crear una flor de papel donde cada pétalo contenga una frase o significado del Ave María.'},
-      {num: 17, title: 'GLORIA AL PADRE', sub: ['Significado de la alabanza', 'Glorificación del Padre, del Hijo y del Espíritu Santo', 'Unidad de la Trinidad'], obj: 'Comprender el sentido de la doxología y glorificar a Dios Trino en la oración cotidiana.', val: 'Gratitud y adoración', cite: 'Romanos 11,36', act: 'Completar una ficha con el significado de cada frase del Gloria y practicar su rezo.'},
-      {num: 18, title: 'CREDO', sub: ['Qué es el Credo', 'Creemos en Dios Padre todopoderoso', 'Creemos en Jesucristo y su obra', 'Creemos en el Espíritu Santo y la Iglesia', 'Resurrección y vida eterna'], obj: 'Comprender las principales verdades de la fe cristiana expresadas en el Credo.', val: 'Fidelidad y fe', cite: 'Hebreos 11,6', act: 'Elaborar un esquema ilustrado del Credo y sus principales afirmaciones.'},
-      {num: 19, title: 'ACTO DE CONTRICIÓN', sub: ['Qué es el arrepentimiento', 'Reconocer nuestros pecados', 'Pedir perdón a Dios', 'Propósito de enmienda'], obj: 'Reconocer los propios errores, arrepentirse sinceramente y comprender la importancia de pedir perdón.', val: 'Sinceridad y humildad', cite: 'Salmo 51,12', act: 'Analizar situaciones cotidianas identificando el error, arrepentimiento y compromiso de cambio.'},
-      {num: 20, title: 'EL SANTO ROSARIO', sub: ['Qué es el Rosario', 'Oración por intercesión de María', 'Misterios gozosos, luminosos, dolorosos y gloriosos', 'Partes y cuentas del rosario'], obj: 'Conocer la estructura y los misterios del Rosario, valorándolo como oración y meditación sobre Jesús.', val: 'Devoción', cite: 'Lucas 2,19', act: 'Elaborar un rosario didáctico e identificar sus partes y misterios.'},
-      {num: 21, title: 'CUANDO Y DONDE PODEMOS ORAR', sub: ['Oración en cualquier momento', 'Oración en casa, colegio e iglesia', 'Oración individual y comunitaria', 'Momentos de encuentro con Dios'], obj: 'Reconocer que podemos comunicarnos con Dios en cualquier momento y lugar.', val: 'Constancia', cite: '1 Tesalonicenses 5,17', act: 'Crear un horario personal de oración para la semana.'},
-      {num: 22, title: 'COMO HACER UNA ORACION ESPONTANEA', sub: ['Qué es la oración espontánea', 'Hablar con Dios con nuestras palabras', 'Expresar agradecimiento, petición, alabanza y arrepentimiento'], obj: 'Aprender a expresar sentimientos, necesidades y agradecimientos a Dios con palabras propias.', val: 'Sinceridad', cite: 'Salmo 62,9', act: 'Redactar una oración espontánea de agradecimiento o petición.'}
-    ]
-  },
-  {
-    title: 'BLOQUE 3 — LOS SACRAMENTOS',
-    subtitle: 'Temas 23 al 31: Gracia, Sacramentos, Bautismo, Reconciliación, Comunión, Confirmación, Unción, Orden y Matrimonio',
-    topics: [
-      {num: 23, title: 'LA GRACIA', sub: ['Qué es la gracia', 'Gracia como regalo gratuito de Dios', 'Gracia santificante y actual', 'Vivir en amistad con Dios'], obj: 'Comprender la gracia como regalo gratuito de Dios que nos ayuda a vivir como sus hijos.', val: 'Gratitud', cite: 'Efesios 2,8', act: 'Elaborar una tarjeta sobre los regalos de la gracia y cómo responder a ellos.'},
-      {num: 24, title: 'LOS SACRAMENTOS', sub: ['Qué son los sacramentos', 'Signos eficaces de la gracia', 'Los siete sacramentos', 'Clasificación de los sacramentos'], obj: 'Identificar los siete sacramentos, su clasificación y su importancia en la vida cristiana.', val: 'Fe y compromiso', cite: 'Hechos 2,38', act: 'Elaborar un organizador gráfico con los siete sacramentos y sus categorías.'},
-      {num: 25, title: 'EL BAUTISMO', sub: ['Qué es el Bautismo', 'Nacimiento a la vida cristiana', 'Perdón del pecado original', 'Agua, óleo, vestidura blanca y cirio', 'Padrinos y responsabilidades'], obj: 'Comprender el Bautismo como puerta de entrada a la vida cristiana e identificar sus signos.', val: 'Identidad cristiana', cite: 'Mateo 3,16-17', act: 'Identificar los símbolos del Bautismo y explicar sus significados.'},
-      {num: 26, title: 'EL SACRAMENTO DE LA RECONCILIACIÓN', sub: ['Qué es la Reconciliación', 'Pecado y sus consecuencias', 'Examen de conciencia', 'Arrepentimiento', 'Confesión y absolución'], obj: 'Reconocer la importancia de la Reconciliación y aprender los pasos de una buena confesión.', val: 'Arrepentimiento y sinceridad', cite: 'Juan 20,22-23', act: 'Ordenar tarjetas con los pasos de la confesión y realizar una dramatización.'},
-      {num: 27, title: 'LA COMUNIÓN', sub: ['Significado de estar en comunión con Jesús', 'Eucaristía como alimento espiritual', 'Unión con Cristo y la Iglesia', 'Importancia de recibir a Jesús dignamente'], obj: 'Comprender que recibir la Comunión significa unirse espiritualmente a Jesús y fortalecer la amistad con Él.', val: 'Unión y amor', cite: '1 Corintios 11,28', act: 'Elaborar un compromiso sobre cómo vivir en comunión con Jesús y los demás.'},
-      {num: 28, title: 'LA CONFIRMACIÓN', sub: ['Qué es la Confirmación', 'Fortalecimiento de la gracia bautismal', 'Acción del Espíritu Santo', 'Siete dones', 'Imposición de manos y unción'], obj: 'Conocer el significado de la Confirmación y reconocer la acción fortalecedora del Espíritu Santo.', val: 'Valentía y compromiso', cite: 'Hechos 1,8', act: 'Relacionar los siete dones del Espíritu Santo con situaciones cotidianas.'},
-      {num: 29, title: 'LA UNCION DE LOS ENFERMOS', sub: ['Qué es el sacramento', 'Atención de Jesús a los enfermos', 'Consuelo y fortaleza espiritual', 'Óleo y oración'], obj: 'Comprender que la Unción de los Enfermos brinda consuelo y fortaleza espiritual a quienes padecen enfermedades graves o vejez.', val: 'Compasión', cite: 'Santiago 5,14-15', act: 'Elaborar tarjetas de oración para personas enfermas.'},
-      {num: 30, title: 'ORDEN SACERDOTAL', sub: ['Qué es el Orden Sacerdotal', 'Obispo, presbítero y diácono', 'Misión de los ministros ordenados', 'Servicio a Dios y a la comunidad'], obj: 'Reconocer el Orden Sacerdotal como sacramento de servicio e identificar sus tres grados.', val: 'Servicio y generosidad', cite: 'Hebreos 5,4', act: 'Elaborar un mural con obispos, presbíteros y diáconos, indicando sus funciones.'},
-      {num: 31, title: 'MATRIMONIO', sub: ['Qué es el sacramento', 'Alianza de amor entre los esposos', 'Fidelidad y compromiso', 'Familia como comunidad de amor'], obj: 'Comprender el Matrimonio como alianza de amor y fidelidad y reconocer la importancia de la familia.', val: 'Fidelidad y respeto', cite: 'Efesios 5,31-32', act: 'Escribir un mensaje de agradecimiento y bendición para las familias.'}
-    ]
-  },
-  {
-    title: 'BLOQUE 4 — LA EUCARISTÍA',
-    subtitle: 'Temas 32 al 42: Año Litúrgico, Signos, Santa Misa, Templo, Vestiduras, Gestos, Ritos, Examen y Bienaventuranzas',
-    topics: [
-      {num: 32, title: 'EL AÑO LITÚRGICO', sub: ['Tiempos litúrgicos', 'Adviento, Navidad, Cuaresma, Pascua y Tiempo Ordinario', 'Significado de los colores litúrgicos'], obj: 'Reconocer el ciclo del Año Litúrgico y su relación con la vida de Jesús y la Iglesia.', val: 'Participación', cite: 'Eclesiastés 3,1', act: 'Construir un calendario circular del año litúrgico pintando cada tiempo con su color respectivo.'},
-      {num: 33, title: 'SIGNOS Y SÍMBOLOS LITÚRGICOS', sub: ['El agua, el fuego, el incienso, las velas y el pan', 'Su uso en la liturgia y la vida sacramental'], obj: 'Identificar los principales signos y símbolos litúrgicos y su sentido espiritual.', val: 'Reverencia', cite: 'Apocalipsis 8,3-4', act: 'Explicar mediante dibujos el significado del agua, el cirio pascual y el incienso.'},
-      {num: 34, title: '¿QUÉ ES LA SANTA MISA?', sub: ['La Misa como memorial de la Pascua de Jesús', 'Banquete y sacrificio', 'Encuentro con la comunidad'], obj: 'Comprender que la Santa Misa es el centro de la vida cristiana y el memorial de la entrega de Jesús.', val: 'Fe y comunidad', cite: 'Lucas 22,19', act: 'Elaborar un esquema sobre por qué los cristianos celebramos la Misa los domingos.'},
-      {num: 35, title: 'ANTES DE LA MISA', sub: ['Preparación espiritual y material', 'Puntualidad, vestimenta adecuada y silencio en el templo', 'Genuflexión al sagrario'], obj: 'Adoptar actitudes de respeto y preparación interior antes de participar en la Santa Misa.', val: 'Respeto y silencio', cite: 'Salmo 95,6', act: 'Dramatizar la llegada correcta al templo y la preparación para la Eucaristía.'},
-      {num: 36, title: 'CONOCEMOS EL TEMPLO', sub: ['El altar, el ambón, el sagrario, la sede y la pila bautismal', 'Ubicación y función de cada espacio'], obj: 'Reconocer los espacios sagrados del templo parroquial y su función litúrgica.', val: 'Cuidado de la casa de Dios', cite: '1 Reyes 8,29', act: 'Dibujar el plano de un templo señalando sus partes principales y su utilidad.'},
-      {num: 37, title: 'VESTIDURAS DEL SACERDOTE', sub: ['El alba, la estola, la casulla y el cíngulo', 'Significado de los colores litúrgicos sacerdotales'], obj: 'Conocer las vestiduras sagradas que utiliza el sacerdote y su simbolismo en la Misa.', val: 'Respeto', cite: 'Éxodo 28,2-4', act: 'Recortar y armar una plantilla con las vestimentas del sacerdote y sus nombres.'},
-      {num: 38, title: 'GESTOS Y POSTURAS', sub: ['De pie, sentados, arrodillados', 'La señal de la cruz, la venia y la genuflexión', 'Qué expresa cada postura'], obj: 'Comprender el sentido de los gestos y posturas corporales durante la celebración litúrgica.', val: 'Atención y reverencia', cite: '1 Corintios 14,40', act: 'Practicar en clase las diferentes posturas de la Misa explicando su significado.'},
-      {num: 39, title: 'RITOS INICIALES', sub: ['Procesión de entrada y canto', 'Saludo inicial', 'Acto penitencial', 'El Gloria y la oración colecta'], obj: 'Reconocer los ritos iniciales como preparación para celebrar los misterios de la fe.', val: 'Humildad y perdón', cite: 'Salmo 122,1', act: 'Representar los ritos iniciales de la Misa destacando el momento del acto penitencial.'},
-      {num: 40, title: 'EXAMEN DE CONCIENCIA', sub: ['Qué es la conciencia moral', 'Reconocer acciones buenas y malas', 'Preparación para la confesión'], obj: 'Aprender a revisar las propias acciones y reconocer los errores para preparar el corazón antes de la Reconciliación.', val: 'Sinceridad y reflexión', cite: 'Salmo 139,23-24', act: 'Completar una guía de examen de conciencia adaptada a la edad.'},
-      {num: 41, title: 'BIENAVENTURANZAS', sub: ['Qué son las Bienaventuranzas predicadas por Jesús', 'Camino de verdadera felicidad cristiana'], obj: 'Conocer las ocho Bienaventuranzas y comprender cómo Jesús invita a vivir con humildad, justicia y misericordia.', val: 'Misericordia y justicia', cite: 'Mateo 5,3-12', act: 'Elaborar un mural de las Bienaventuranzas con una acción concreta para cada una.'},
-      {num: 42, title: 'OBRA DE MISERICORDIA', sub: ['Siete obras corporales', 'Siete obras espirituales', 'Jesús como modelo de misericordia'], obj: 'Identificar las obras de misericordia corporales y espirituales y asumir el compromiso de ayudar al prójimo.', val: 'Solidaridad y compasión', cite: 'Mateo 25,35-40', act: 'Organizar una actividad solidaria y relacionarla con las obras de misericordia.'}
-    ]
-  },
-  {
-    title: 'BLOQUE 5 — VALORES CRISTIANOS',
-    subtitle: 'Temas 43 al 60: Eucaristía avanzada, Liturgia de la Palabra y Eucaristía, Comunión, Ritos, Sagrario, Pecado y Mandamientos',
-    topics: [
-      {num: 43, title: 'QUE ES LA EUCARISTIA', sub: ['Significado de la palabra Eucaristía', 'Sacramento de amor y memorial', 'Alimento espiritual'], obj: 'Comprender la Eucaristía como sacramento en el que Jesús se entrega como alimento espiritual y permanece con nosotros.', val: 'Fe y gratitud', cite: 'Juan 6,51', act: 'Elaborar un mapa conceptual sobre el significado de la Eucaristía.'},
-      {num: 44, title: 'LA SANTA MISA', sub: ['Celebración del misterio pascual', 'Reunión de la comunidad cristiana', 'Participación activa y respetuosa'], obj: 'Reconocer la Santa Misa como celebración comunitaria y encuentro con Jesús mediante la Palabra y la Eucaristía.', val: 'Participación y respeto', cite: 'Lucas 22,19-20', act: 'Elaborar una maqueta de los espacios principales de una celebración eucarística.'},
-      {num: 45, title: 'LOS RITOS INICIALES', sub: ['Procesión y canto de entrada', 'Veneración del altar', 'Saludo del sacerdote y acto penitencial'], obj: 'Identificar los ritos iniciales y comprender que preparan a la comunidad para celebrar la Santa Misa.', val: 'Respeto y disposición', cite: 'Salmo 122,1', act: 'Ordenar imágenes de los ritos iniciales y representar su desarrollo.'},
-      {num: 46, title: 'LA LITURGIA DE LA PALABRA', sub: ['Lecturas bíblicas y salmo responsorial', 'Aclamación y Evangelio', 'Homilía, Credo y oración de los fieles'], obj: 'Reconocer la Liturgia de la Palabra como momento en que Dios habla mediante las Sagradas Escrituras.', val: 'Escucha y atención', cite: 'Lucas 11,28', act: 'Escuchar una lectura bíblica, identificar su mensaje y escribir un compromiso.'},
-      {num: 47, title: 'LA LITURGIA DE LA EUCARISTIA', sub: ['Presentación de los dones', 'Plegaria eucarística y consagración', 'Padre Nuestro y rito de la paz'], obj: 'Identificar los momentos de la Liturgia de la Eucaristía y comprender la importancia de la consagración y Comunión.', val: 'Adoración y fe', cite: 'Mateo 26,26-28', act: 'Ilustrar los momentos principales desde la presentación de dones hasta la consagración.'},
-      {num: 48, title: 'RITO DE LA COMUNION', sub: ['Fracción del pan y Cordero de Dios', 'Oración «Señor, no soy digno»', 'Procesión y recepción de Jesús'], obj: 'Comprender el desarrollo del rito de la Comunión y la actitud de recogimiento al recibir a Jesús.', val: 'Reverencia y unión', cite: 'Juan 6,56', act: 'Practicar los diálogos y respuestas del rito de la Comunión con respeto y orden.'},
-      {num: 49, title: 'RITOS FINALES', sub: ['Oración después de la Comunión', 'Bendición final', 'Despedida y envío a la vida diaria'], obj: 'Entender que el envío final nos llama a ser testigos de Jesús en nuestras familias y colegios.', val: 'Compromiso misionero', cite: 'Mateo 28,19', act: 'Escribir una acción concreta para cumplir el mandato de Jesús al salir de la Misa.'},
-      {num: 50, title: '¿QUÉ ES LA EUCARISTÍA?', sub: ['Presencia real de Cristo', 'Pan de Vida que alimenta nuestro camino'], obj: 'Profundizar en la fe de la presencia real de Jesucristo en las especies sagradas.', val: 'Amor y adoración', cite: 'Juan 6,35', act: 'Escribir un acróstico con la palabra EUCARISTÍA y compartirlo.'},
-      {num: 51, title: 'JESÚS EN EL SAGRARIO', sub: ['El Sagrario como morada de Jesús', 'La lámpara encendida', 'Visitas y oración personal'], obj: 'Reconocer la presencia constante de Jesús en el Sagrario y cultivar la visita y oración ante Él.', val: 'Devoción eucarística', cite: 'Mateo 28,20', act: 'Redactar una oración breve para rezarle a Jesús en el Sagrario.'},
-      {num: 52, title: '¿CÓMO RECIBIMOS LA COMUNIÓN?', sub: ['Disposición del alma y del cuerpo', 'Ayuno eucarístico y estado de gracia'], obj: 'Preparar adecuadamente el alma para recibir a Jesús Eucaristía por primera vez.', val: 'Pureza y respeto', cite: '1 Corintios 11,27-29', act: 'Elaborar un checklist de preparación espiritual para el día de la Primera Comunión.'},
-      {num: 53, title: 'MI PRIMERA COMUNIÓN', sub: ['El gran encuentro de amor con Jesús', 'Significado y alegría del gran día'], obj: 'Vivir el acontecimiento de la Primera Comunión como el encuentro definitivo de amistad con el Señor.', val: 'Alegría y fe', cite: 'Lucas 24,32-35', act: 'Diseñar la invitación o recuerdo gráfico para la ceremonia de Primera Comunión.'},
-      {num: 54, title: 'EL SER HUMANO Y EL PECADO', sub: ['Libertad y conciencia', 'El mal uso de la libertad', 'Consecuencias del pecado en nuestra amistad con Dios'], obj: 'Comprender el concepto de pecado como ruptura del amor y la importancia de la misericordia divina.', val: 'Responsabilidad', cite: 'Romanos 6,23', act: 'Analizar casos prácticos distinguiendo tentación, error y pecado.'},
-      {num: 55, title: 'LOS DIEZ MANDAMIENTOS', sub: ['La Ley de Dios dada a Moisés', 'Los mandamientos del amor a Dios y al prójimo'], obj: 'Estudiar los Diez Mandamientos como guía segura para la convivencia y el amor.', val: 'Obediencia y fidelidad', cite: 'Éxodo 20,1-17', act: 'Memorizar los Diez Mandamientos y explicar con un ejemplo el cumplimiento de dos de ellos.'},
-      {num: 56, title: 'LOS MANDAMIENTOS DE LA IGLESIA', sub: ['Participar en Misa dominical', 'Confesarse y comulgar', 'Ayunar y abstenerse', 'Ayudar a la Iglesia'], obj: 'Conocer los preceptos de la Iglesia para asegurar el crecimiento en la vida cristiana.', val: 'Pertenencia eclesial', cite: 'Hechos 2,42', act: 'Completar un cuadro de compromiso sobre los mandamientos y preceptos de la Iglesia.'},
-      {num: 57, title: 'LAS BIENAVENTURANZAS', sub: ['El nuevo rostro del Reino de los Cielos', 'Felicidad según el Evangelio'], obj: 'Descubrir en las Bienaventuranzas el camino de la verdadera felicidad propuesta por Jesús.', val: 'Sencillez y bien', cite: 'Mateo 5,1-12', act: 'Representar mediante dibujos alegóricos las Bienaventuranzas estudiadas.'},
-      {num: 58, title: 'OBRAS DE MISERICORDIA', sub: ['Ayudar al necesitado con obras corporales y espirituales'], obj: 'Practicar la caridad activa mediante gestos concretos de misericordia con el prójimo.', val: 'Solidaridad', cite: 'Mateo 25,40', act: 'Planificar una campaña de apoyo solidario en el colegio o familia.'},
-      {num: 59, title: 'EL PECADO Y EL EXAMEN DE CONCIENCIA', sub: ['Revisión sincera de la vida', 'Arrepentimiento y propósito de cambio'], obj: 'Desarrollar la capacidad de introspección para examinarse ante Dios con sinceridad.', val: 'Humildad', cite: 'Salmo 51,3', act: 'Realizar un ejercicio práctico de examen de conciencia con apoyo de preguntas guía.'},
-      {num: 60, title: '¿QUÉ ES LA IGLESIA?', sub: ['Fundación de la Iglesia por Cristo', 'La Iglesia como Pueblo de Dios y Cuerpo Místico'], obj: 'Comprender el origen divino de la Iglesia y su misión evangelizadora en el mundo.', val: 'Comunión', cite: 'Mateo 16,18', act: 'Crear un afiche destacando que todos formamos parte de la familia de la Iglesia.'}
-    ]
-  },
-  {
-    title: 'BLOQUE 6 — COMPARTIMOS LA FE',
-    subtitle: 'Temas 61 al 68: Miembros de la Iglesia, Santos, Oraciones, Preparación de Misa, Comunión y Repaso General',
-    topics: [
-      {num: 61, title: '¿QUIÉNES FORMAN LA IGLESIA?', sub: ['El Papa, obispos, sacerdotes, consagrados y laicos', 'La misión de cada miembro en la comunidad'], obj: 'Identificar los diferentes estados de vida y ministerios dentro de la Iglesia católica.', val: 'Colaboración y respeto', cite: '1 Corintios 12,27', act: 'Diseñar un organigrama sencillo de la jerarquía y miembros de la Iglesia.'},
-      {num: 62, title: 'LOS SANTOS', sub: ['Testigos del Evangelio', 'Amigos de Dios y modelos para nuestra vida', 'La comunión de los santos'], obj: 'Conocer las vidas de los santos como ejemplos vivos de respuesta al llamado de Dios.', val: 'Santidad y ejemplo', cite: 'Hebreos 12,1', act: 'Investigar la biografía breve de un santo patrono y exponer sus virtudes.'},
-      {num: 63, title: 'ORACIONES QUE DEBEN CONOCER', sub: ['Repaso y memorización de las oraciones fundamentales', 'Señal de la cruz, Padre Nuestro, Ave María, Gloria, Credo, Acto de contrición'], obj: 'Memorizar y comprender las oraciones fundamentales de la Iglesia, reconociendo su importancia para la vida cristiana.', val: 'Devoción y perseverancia', cite: 'Mateo 6,9-13', act: 'Realizar un repaso oral y escrito de las oraciones mediante tarjetas y ejercicios.'},
-      {num: 64, title: 'PREPARACION PARA LA SANTA MISA', sub: ['Disposición interior, puntualidad y presentación personal', 'Respeto, silencio y participación activa en el templo'], obj: 'Reconocer las disposiciones necesarias para participar en la Santa Misa con atención y respeto.', val: 'Respeto y responsabilidad', cite: 'Salmo 100,2', act: 'Realizar una simulación de participación en la Santa Misa, practicando respuestas y posturas.'},
-      {num: 65, title: 'EL MOMENTO DE COMUNION', sub: ['Acercamiento al altar con reverencia', 'Posturas y gestos de respeto', 'Recepción digna de la Sagrada Eucaristía'], obj: 'Aprender el procedimiento adecuado para acercarse a recibir la Sagrada Comunión con reverencia.', val: 'Reverencia y respeto', cite: '1 Corintios 11,28', act: 'Realizar un ensayo práctico del desplazamiento, postura y recepción de la Comunión.'},
-      {num: 66, title: 'DESPUES DE RECIBIR A JESUS', sub: ['Permanecer en recogimiento y oración personal', 'Agradecer a Jesús en el silencio del corazón', 'Compromiso de vida cristiana'], obj: 'Comprender la importancia de permanecer en oración después de comulgar y agradecer el don recibido.', val: 'Gratitud y amor', cite: 'Salmo 116,12', act: 'Redactar una oración personal de agradecimiento para después de recibir a Jesús.'},
-      {num: 67, title: 'PREPARACION PERSONAL Y CEREMONIAL', sub: ['Vestimenta adecuada para la celebración', 'Organización de catequizandos y familias', 'Ensayo general de entradas y ubicaciones'], obj: 'Participar ordenadamente en la preparación y organización de la ceremonia de la Primera Comunión.', val: 'Responsabilidad y orden', cite: '1 Corintios 14,40', act: 'Realizar un ensayo general de la ceremonia practicando entradas y ubicaciones.'},
-      {num: 68, title: 'PREPÁRACION Y REPASO GENERAL', sub: ['Repaso general de contenidos doctrinales y sacramentales', 'Evaluación final de conocimientos y orientaciones finales para la ceremonia'], obj: 'Comprender y afianzar los saberes aprendidos durante el camino catequético.', val: 'Fidelidad y perseverancia', cite: '2 Timoteo 4,7', act: 'Dinámica final de integración y preparación espiritual para la ceremonia.'}
-    ]
-  }
-];
+'use strict';
 
-function openStage(idx){
-  const s = stages[idx]; if(!s) return;
-  const win = window.open('','_blank');
-  if(!win){ alert('Permite las ventanas emergentes para este sitio.'); return; }
-  const esc = escapeHtml;
-  
-  const topicCards = s.topics.map((t)=>`
-    <div style="border:1px solid #e7d6b8;border-radius:14px;background:#fff;padding:18px;margin-bottom:16px;box-shadow:0 3px 10px rgba(18,52,90,0.05);">
-      <span style="font-size:11px;font-weight:900;color:#b27b19;text-transform:uppercase;letter-spacing:.5px;">TEMA ${t.num}</span>
-      <h3 style="margin:4px 0 8px;font-size:18px;color:#12345a;font-family:'Fredoka',sans-serif;">${esc(t.title)}</h3>
-      
-      <div style="margin-bottom:10px;">
-        <strong style="font-size:12px;color:#12345a;">Subtemas:</strong>
-        <ul style="margin:4px 0 10px;padding-left:18px;font-size:13px;color:#5c6f84">${t.sub.map(x=>'<li>'+esc(x)+'</li>').join('')}</ul>
-      </div>
+// La única fuente de datos del portal es Google Sheets a través de Code.gs.
+const API_URL = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
+const FECHA_CIERRE_PREDETERMINADA = '2026-12-08';
 
-      <div style="font-size:13px;color:#193453;background:#fffaf0;border:1px solid #fae8bd;padding:10px 12px;border-radius:10px;margin-bottom:8px;">
-        <strong>🎯 Objetivo:</strong> ${esc(t.obj)}<br>
-        <strong>💛 Valor:</strong> ${esc(t.val)}<br>
-        <strong>📖 Cita Bíblica:</strong> ${esc(t.cite)}
-      </div>
+let bloquesPortal = [];
+let entradasCalendario = new Map();
+let mesActual = new Date(2026, 5, 1, 12);
+let fechaSeleccionada = null;
+let datosConfig = {};
+let listaAlumnosPortal = [];
+let listaAsistenciaPortal = [];
+let listaTareasPortal = [];
 
-      <div style="font-size:13px;color:#154a2a;background:#eef9f2;border:1px solid #98dfb0;padding:10px 12px;border-radius:10px;margin-bottom:12px;">
-        <strong>✨ Actividad:</strong> ${esc(t.act)}
-      </div>
-      
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;border-top:1px dashed #eadaaf;padding-top:12px;">
-        <button onclick="alert('Abriendo Prácticas del Tema ${t.num}')" type="button" style="background:#fff8e6;border:1px solid #e8cb82;border-radius:10px;padding:8px 10px;font:700 12px 'Nunito',sans-serif;color:#12345a;cursor:pointer;text-align:center;">🖍️ Prácticas</button>
-        <button onclick="alert('Abriendo Evaluaciones del Tema ${t.num}')" type="button" style="background:#fff2f0;border:1px solid #f2a9a0;border-radius:10px;padding:8px 10px;font:700 12px 'Nunito',sans-serif;color:#8a2817;cursor:pointer;text-align:center;">📝 Evaluaciones</button>
-        <button onclick="alert('Abriendo Canciones del Tema ${t.num}')" type="button" style="background:#f0f4ff;border:1px solid #a8c2f5;border-radius:10px;padding:8px 10px;font:700 12px 'Nunito',sans-serif;color:#173b7a;cursor:pointer;text-align:center;">🎶 Canciones</button>
-        <button onclick="alert('Abriendo Videos del Tema ${t.num}')" type="button" style="background:#eef9f2;border:1px solid #98dfb0;border-radius:10px;padding:8px 10px;font:700 12px 'Nunito',sans-serif;color:#156b37;cursor:pointer;text-align:center;">▶️ Videos</button>
-      </div>
-    </div>
-  `).join('');
+const nombresMeses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const diasSemana = ['L','M','X','J','V','S','D'];
 
-  win.document.open();
-  win.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><title>${esc(s.title)}</title><style>body{font:14px 'Nunito',Arial,sans-serif;background:#f4f1ea;color:#193453;max-width:850px;margin:25px auto;padding:0 15px}header{background:#12345a;color:white;padding:20px 24px;border-radius:16px;margin-bottom:20px;box-shadow:0 4px 15px rgba(18,52,90,0.15)}h1{margin:0;font-size:22px;font-family:'Fredoka',sans-serif}button.close-btn{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin:20px 0;color:#12345a;box-shadow:0 3px 8px rgba(0,0,0,0.1)}</style></head><body><header><h1>${esc(s.title)}</h1><p style="margin:5px 0 0;color:#ffdf94;font-weight:700">${esc(s.subtitle)}</p></header><main>${topicCards}</main><button class="close-btn" onclick="window.close()" type="button">Cerrar ventana</button></body></html>`);
-  win.document.close(); win.focus();
+function escaparHTML(valor) {
+  return String(valor == null ? '' : valor).replace(/[&<>"']/g, function(c) {
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
 }
 
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-
-const monthNames=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-const week=['L','M','X','J','V','S','D'];
-function dateKey(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
-
-const orderedTopics=stages.flatMap((stage)=>stage.topics.map(t=>({stage:stage.title,num:t.num,title:t.title,sub:t.sub,obj:t.obj,val:t.val,cite:t.cite,act:t.act}))).sort((a,b)=>a.num-b.num);
-const calendarEntries=new Map();
-const preparationDates=[];
-for(let d=new Date(2026,5,16,12);d<=new Date(2026,11,8,12);d.setDate(d.getDate()+1)){
-  if(d.getDay()===2||d.getDay()===4)preparationDates.push(new Date(d));
-}
-let topicCursor=0;
-preparationDates.forEach((d,i)=>{
-  if(topicCursor>=orderedTopics.length)return;
-  const topicsForDate=orderedTopics.slice(topicCursor,topicCursor+1);
-  if(topicsForDate.length){
-    calendarEntries.set(dateKey(d),{type:'lesson',session:i+1,topics:topicsForDate});
-    topicCursor+=topicsForDate.length;
-  }
-});
-calendarEntries.set('2026-12-08',{type:'event',title:'¡Primera Comunión / Gran Cierre!',description:'Celebración central del programa de catequesis. Que Jesús bendiga a cada niño y a su familia.'});
-
-let currentMonth=new Date(2026,5,1,12), selectedDate=new Date(2026,5,16,12);
-
-function renderCalendar(){
-  const y=currentMonth.getFullYear(), m=currentMonth.getMonth();
-  const lbl=document.getElementById('month-label');
-  if(lbl) lbl.textContent=`${monthNames[m]} ${y}`;
-  const g=document.getElementById('calendar-grid');
-  if(!g) return;
-  g.innerHTML='';
-  week.forEach(w=>{const e=document.createElement('div');e.className='weekday';e.textContent=w;g.appendChild(e)});
-  const first=(new Date(y,m,1,12).getDay()+6)%7,days=new Date(y,m+1,0,12).getDate();
-  for(let i=0;i<first;i++)g.appendChild(document.createElement('div'));
-  for(let day=1;day<=days;day++){
-    const d=new Date(y,m,day,12),key=dateKey(d),entry=calendarEntries.get(key),b=document.createElement('button');
-    b.className='day';b.textContent=day;b.type='button';
-    if(entry){
-      b.classList.add(entry.type==='event'?'communion-day':'classday');
-      if(selectedDate&&key===dateKey(selectedDate))b.classList.add('selected');
-      b.onclick=()=>selectDate(d);
-    }else{b.disabled=true;}
-    g.appendChild(b);
-  }
+function normalizarTexto(valor) {
+  return String(valor == null ? '' : valor).trim().toLocaleLowerCase('es');
 }
 
-function selectDate(d){
-  const key=dateKey(d),entry=calendarEntries.get(key);
-  if(!entry)return;
-  selectedDate=new Date(d);
-  const weekdayName=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'][d.getDay()];
-  const selDateEl=document.getElementById('selected-date');
-  if(selDateEl) selDateEl.textContent=`${weekdayName}, ${d.getDate()} de ${monthNames[d.getMonth()]}`;
-  const list=document.getElementById('calendar-topic-list'); 
-  if(!list) return;
-  list.innerHTML='';
-  if(entry.type==='event'){
-    const tEl=document.getElementById('calendar-topic'); if(tEl) tEl.textContent=entry.title;
-    const dEl=document.getElementById('calendar-description'); if(dEl) dEl.textContent=entry.description;
-  }else{
-    const tEl=document.getElementById('calendar-topic'); if(tEl) tEl.textContent=`Tema ${entry.topics[0].num}: ${entry.topics[0].title}`;
-    const dEl=document.getElementById('calendar-description'); if(dEl) dEl.textContent=`Encuentro ${String(entry.session).padStart(2,'0')}.`;
-    entry.topics.forEach(topic=>{
-      const card=document.createElement('details');card.className='calendar-topic-item topic-collapsible';
-      const summary=document.createElement('summary');summary.className='topic-summary';
-      const title=document.createElement('strong');title.className='topic-summary-title';title.textContent=`Tema ${topic.num}: ${topic.title}`;
-      const toggleLabel=document.createElement('span');toggleLabel.className='topic-toggle-label';toggleLabel.textContent='Ver';
-      summary.append(title,toggleLabel);card.appendChild(summary);
-      const content=document.createElement('div');content.className='topic-content';
-      const stage=document.createElement('span');stage.className='topic-stage';stage.textContent=`${topic.stage}`;content.appendChild(stage);
-      if(topic.sub&&topic.sub.length){
-        const ul=document.createElement('ul');
-        topic.sub.forEach(item=>{const li=document.createElement('li');li.textContent=item;ul.appendChild(li)});
-        content.appendChild(ul);
-      }
-      card.appendChild(content);
-      list.appendChild(card);
-    });
-  }
-  renderCalendar();
+function fechaDesdeISO(iso) {
+  const match = String(iso || '').match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!match) return null;
+  return new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]), 12, 0, 0);
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.stage').forEach((b,idx)=>b.addEventListener('click',()=>openStage(idx)));
-  
-  document.getElementById('prev-month')?.addEventListener('click',()=>{currentMonth=new Date(currentMonth.getFullYear(),currentMonth.getMonth()-1,1,12);renderCalendar();});
-  document.getElementById('next-month')?.addEventListener('click',()=>{currentMonth=new Date(currentMonth.getFullYear(),currentMonth.getMonth()+1,1,12);renderCalendar();});
+function claveFecha(fecha) {
+  return fecha.getFullYear() + '-' + String(fecha.getMonth() + 1).padStart(2, '0') + '-' + String(fecha.getDate()).padStart(2, '0');
+}
 
-  renderCalendar();
-  selectDate(new Date(2026,5,16,12));
+function mostrarEstadoPortal(mensaje, tipo) {
+  const elemento = document.getElementById('estadoPortal');
+  if (!elemento) return;
+  elemento.textContent = mensaje;
+  elemento.style.color = tipo === 'error' ? '#a83232' : tipo === 'ok' ? '#247447' : '#5c6f84';
+}
 
-  function updateCountdown(){
-    const target=new Date(2026,11,8,0,0,0).getTime(),now=Date.now(),diff=target-now;
-    if(diff<=0){
-      const dEl=document.getElementById('days'); if(dEl) dEl.textContent='0';
-      const hEl=document.getElementById('hours'); if(hEl) hEl.textContent='0';
-      const mEl=document.getElementById('minutes'); if(mEl) mEl.textContent='0';
-      const nEl=document.getElementById('countdown-note'); if(nEl) nEl.textContent='¡Llegó el día de la Primera Comunión! 💛';
+async function apiGet(accion, parametros) {
+  const query = new URLSearchParams(Object.assign({action: accion, _: String(Date.now())}, parametros || {}));
+  const respuesta = await fetch(API_URL + '?' + query.toString(), {
+    method: 'GET',
+    mode: 'cors',
+    cache: 'no-store',
+    redirect: 'follow'
+  });
+  if (!respuesta.ok) throw new Error('El servidor respondió con estado ' + respuesta.status + '.');
+  const json = await respuesta.json();
+  if (!json || json.exito !== true) throw new Error((json && json.mensaje) || 'La API no devolvió una respuesta válida.');
+  return json;
+}
+
+function separarSubtemas(texto) {
+  if (Array.isArray(texto)) return texto.map(x => String(x).trim()).filter(Boolean);
+  return String(texto || '')
+    .split(/\r?\n|[•●▪]/)
+    .map(x => x.replace(/^\s*[-–—\d.)\t ]+/, '').trim())
+    .filter(Boolean);
+}
+
+function tituloCortoBloque(titulo) {
+  return String(titulo || '').replace(/^BLOQUE\s*\d+\s*[—–-]\s*/i, '').trim();
+}
+
+function actualizarBotonesBloques() {
+  const botones = document.querySelectorAll('.stage');
+  botones.forEach(function(boton, indice) {
+    const bloque = bloquesPortal[indice];
+    if (!bloque) {
+      boton.disabled = true;
+      boton.setAttribute('aria-pressed', 'false');
       return;
     }
-    const days=Math.floor(diff/(1000*60*60*24));
-    const hours=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-    const minutes=Math.floor((diff%(1000*60*60))/(1000*60));
-    const dEl=document.getElementById('days'); if(dEl) dEl.textContent=days;
-    const hEl=document.getElementById('hours'); if(hEl) hEl.textContent=String(hours).padStart(2,'0');
-    const mEl=document.getElementById('minutes'); if(mEl) mEl.textContent=String(minutes).padStart(2,'0');
-  }
-  updateCountdown(); setInterval(updateCountdown,1000);
+    boton.disabled = false;
+    const temas = Array.isArray(bloque.sessions) ? bloque.sessions : [];
+    const numeros = temas.map(t => Number(t.n)).filter(n => Number.isFinite(n));
+    const minimo = numeros.length ? Math.min.apply(null, numeros) : '';
+    const maximo = numeros.length ? Math.max.apply(null, numeros) : '';
+    const icono = boton.querySelector('.icon');
+    const titulo = boton.querySelector('strong');
+    const subtitulo = boton.querySelector('small');
+    if (icono) icono.textContent = bloque.icon || '📖';
+    if (titulo) titulo.textContent = tituloCortoBloque(bloque.title);
+    if (subtitulo) subtitulo.textContent = numeros.length ? `Temas ${minimo} al ${maximo} · ${temas.length} temas` : `${temas.length} temas`;
+    boton.setAttribute('aria-label', tituloCortoBloque(bloque.title) + ', ' + temas.length + ' temas');
+  });
+}
 
-  // URL OFICIAL DE TU GOOGLE APPS SCRIPT
-  const API_URL = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
-
-  async function cargarDatosBackend() {
-    try {
-      const resAsistencia = await fetch(`${API_URL}?action=getAsistenciaNotas`);
-      const dataAsistencia = await resAsistencia.json();
-      if (dataAsistencia && dataAsistencia.exito && dataAsistencia.datos) {
-        actualizarTarjetasAlumnos(dataAsistencia.datos);
-      }
-      const resAvisos = await fetch(`${API_URL}?action=getAvisos`);
-      const dataAvisos = await resAvisos.json();
-      if (dataAvisos && dataAvisos.exito && dataAvisos.datos) {
-        renderizarAvisos(dataAvisos.datos);
-      }
-    } catch (err) {
-      console.log('Modo local o sin conexión con la API:', err);
-    }
+function abrirBloque(indice) {
+  const bloque = bloquesPortal[indice];
+  if (!bloque) return;
+  const ventana = window.open('', '_blank');
+  if (!ventana) {
+    alert('Permite las ventanas emergentes para consultar los temas.');
+    return;
   }
 
-  cargarDatosBackend();
+  const tarjetas = (bloque.sessions || []).map(function(tema) {
+    const subtemas = separarSubtemas(tema.subtema);
+    const subtemasHTML = subtemas.length
+      ? '<strong>Subtemas:</strong><ol>' + subtemas.map(x => '<li>' + escaparHTML(x) + '</li>').join('') + '</ol>'
+      : '<strong>Subtemas:</strong><p>Sin subtemas registrados.</p>';
+    return `<article class="tema">
+      <span class="numero">TEMA ${escaparHTML(tema.n || '')} · ${escaparHTML(tema.id || '')}</span>
+      <h2>${escaparHTML(tema.tema || '')}</h2>
+      <div class="subtemas">${subtemasHTML}</div>
+      <div class="datos"><p><b>Objetivo:</b> ${escaparHTML(tema.objetivo || '')}</p>
+      <p><b>Valor:</b> ${escaparHTML(tema.val || tema.valor || '')}</p>
+      <p><b>Cita bíblica:</b> ${escaparHTML(tema.cita || tema.cita_biblica || '')}</p>
+      <p><b>Actividad:</b> ${escaparHTML(tema.actividad || 'Por definir')}</p></div>
+      <div class="clase"><b>Programación:</b> ${escaparHTML(tema.fecha || 'Fecha pendiente')} · Clase ${escaparHTML(tema.numeroClase || '')} · ${escaparHTML(tema.horaInicio || '')}${tema.horaFin ? ' a ' + escaparHTML(tema.horaFin) : ''}<br><b>Catequista:</b> ${escaparHTML(tema.catequista || 'Por asignar')}</div>
+    </article>`;
+  }).join('');
 
-  function actualizarTarjetasAlumnos(alumnos) {
-    alumnos.forEach(alumno => {
-      const studentCards = document.querySelectorAll('.student-card');
-      studentCards.forEach(card => {
-        const smallId = card.querySelector('small');
-        if (smallId && smallId.textContent.includes(alumno.ID_NINO)) {
-          const spanPorcentaje = card.querySelector('.metric-label span:nth-child(2)');
-          const progressFill = card.querySelector('.progress-fill-attendance');
-          if (spanPorcentaje && progressFill) {
-            const porc = alumno.ASISTENCIA_PORCENTAJE || '80.0';
-            spanPorcentaje.textContent = porc + '%';
-            progressFill.style.width = porc + '%';
-          }
-        }
+  ventana.document.open();
+  ventana.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escaparHTML(bloque.title)}</title><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"><style>
+  *{box-sizing:border-box}body{font:14px Nunito,Arial,sans-serif;background:#f4f1ea;color:#193453;max-width:900px;margin:25px auto;padding:0 15px}header{background:#12345a;color:white;padding:22px 24px;border-radius:16px;margin-bottom:20px}h1{margin:0;font:700 24px Fredoka,sans-serif}.sub{color:#ffdf94;font-weight:700;margin:6px 0 0}.tema{border:1px solid #e7d6b8;border-radius:14px;background:white;padding:18px;margin-bottom:16px;box-shadow:0 3px 10px #12345a0d}.numero{font-size:11px;font-weight:900;color:#b27b19}.tema h2{font:700 18px Fredoka,sans-serif;color:#12345a;margin:5px 0 12px}.subtemas{background:#f3f7fc;padding:10px 14px;border-left:4px solid #d99b16;border-radius:9px}.subtemas ol{margin:6px 0 0;padding-left:20px}.subtemas li{margin:4px 0}.datos{background:#fffaf0;border:1px solid #fae8bd;border-radius:10px;padding:10px 12px;margin-top:12px}.datos p{margin:5px 0}.clase{font-size:12px;background:#eef9f2;border:1px solid #98dfb0;border-radius:10px;padding:10px 12px;margin-top:10px}.close{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin:8px 0 25px;color:#12345a}
+  </style></head><body><header><h1>${escaparHTML(bloque.title)}</h1><p class="sub">${(bloque.sessions || []).length} temas · Información oficial de Google Sheets</p></header>${tarjetas}<button class="close" onclick="window.close()" type="button">Cerrar ventana</button></body></html>`);
+  ventana.document.close();
+  ventana.focus();
+}
+
+function construirCalendario(sesiones) {
+  entradasCalendario = new Map();
+  const clases = new Map();
+  (sesiones || []).forEach(function(tema) {
+    const fecha = String(tema.fecha || tema.fechaProgramada || '').slice(0, 10);
+    if (!fecha) return;
+    const idClase = String(tema.numeroClase || (fecha + '-' + (tema.catequista || '')));
+    if (!clases.has(idClase)) {
+      clases.set(idClase, {
+        type: 'lesson',
+        numeroClase: tema.numeroClase || '',
+        fecha: fecha,
+        dia: tema.dia || '',
+        horaInicio: tema.horaInicio || '',
+        horaFin: tema.horaFin || '',
+        catequista: tema.catequista || '',
+        topics: []
       });
+    }
+    clases.get(idClase).topics.push({
+      n: tema.n,
+      id: tema.id,
+      title: tema.tema,
+      sub: separarSubtemas(tema.subtema),
+      obj: tema.objetivo,
+      val: tema.val || tema.valor,
+      cite: tema.cita || tema.cita_biblica,
+      act: tema.actividad,
+      stage: tema.bloque
     });
-  }
-
-  function renderizarAvisos(avisos) {
-    const containerCat = document.getElementById('list-cat-mensajes');
-    const containerCoord = document.getElementById('list-coord-mensajes');
-    
-    if (containerCat) containerCat.innerHTML = '';
-    if (containerCoord) containerCoord.innerHTML = '';
-
-    avisos.forEach(aviso => {
-      const dirigido = String(aviso.DIRIGIDO_A || '').toLowerCase();
-      const texto = `<div>📌 <strong>${escapeHtml(aviso.TITULO || 'Aviso')}:</strong> ${escapeHtml(aviso.MENSAJE || '')}</div>`;
-      
-      const div = document.createElement('div');
-      if (dirigido.includes('coord') || dirigido.includes('parroquia')) {
-        div.className = 'notice-item coord';
-        div.innerHTML = texto;
-        if (containerCoord) containerCoord.appendChild(div);
-      } else {
-        div.className = 'notice-item cat';
-        div.innerHTML = texto;
-        if (containerCat) containerCat.appendChild(div);
-      }
-    });
-  }
-
-  document.getElementById('btnActualizar')?.addEventListener('click', async () => {
-    const btn = document.getElementById('btnActualizar');
-    const original = btn.innerHTML;
-    btn.innerHTML = '⏳ Sincronizando...';
-    btn.disabled = true;
-    await cargarDatosBackend();
-    setTimeout(() => {
-      btn.innerHTML = '✅ ¡Sincronizado!';
-      setTimeout(() => {
-        btn.innerHTML = original;
-        btn.disabled = false;
-      }, 1200);
-    }, 600);
   });
 
-  document.getElementById('btn-add-alum')?.addEventListener('click', async () => {
-    const nom = document.getElementById('input-alum-nombre').value.trim();
-    const cat = document.getElementById('select-catequista').value;
-    const msg = document.getElementById('input-alum-mensaje').value.trim();
-    if(!nom || !cat || !msg){ alert('Por favor completa tu nombre, selecciona a la catequista y escribe tu mensaje.'); return; }
-    
-    try {
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        body: JSON.stringify({ action: 'guardarMensaje', nombreAlumno: nom, catequista: cat, mensaje: msg })
-      });
-      const resultado = await response.json();
-      if (resultado.exito) {
-        alert('¡Mensaje enviado con éxito a la catequista!');
-        document.getElementById('input-alum-nombre').value = '';
-        document.getElementById('select-catequista').selectedIndex = 0;
-        document.getElementById('input-alum-mensaje').value = '';
-        cargarDatosBackend();
-      } else {
-        alert('Error al enviar: ' + resultado.mensaje);
-      }
-    } catch (err) {
-      const container = document.getElementById('list-alum-mensajes');
-      const div = document.createElement('div');
-      div.className = 'notice-item';
-      div.innerHTML = `<div>💬 <strong>${escapeHtml(nom)}</strong> ➔ <em>${escapeHtml(cat)}</em>: "${escapeHtml(msg)}"</div><button class="remove-item-btn" onclick="this.parentElement.remove()" title="Eliminar" type="button">×</button>`;
-      if (container) container.prepend(div);
-      document.getElementById('input-alum-nombre').value = '';
-      document.getElementById('select-catequista').selectedIndex = 0;
-      document.getElementById('input-alum-mensaje').value = '';
-      alert('¡Mensaje registrado correctamente!');
+  clases.forEach(function(clase) {
+    if (!entradasCalendario.has(clase.fecha)) {
+      entradasCalendario.set(clase.fecha, clase);
+    } else {
+      const actual = entradasCalendario.get(clase.fecha);
+      actual.topics = actual.topics.concat(clase.topics);
     }
   });
 
-  let catechesisVoiceMuted=false;
-  const muteToggle=document.getElementById('mute-toggle');
-  if(muteToggle){muteToggle.addEventListener('click',()=>{
-    catechesisVoiceMuted=!catechesisVoiceMuted;
-    muteToggle.textContent=muteToggle.textContent.includes('🔇')?'🔊 Silenciar':'🔇 Activar';
-    if(catechesisVoiceMuted)window.speechSynthesis?.cancel();
-  })}
-  function playCatechesisVoice(message){if(catechesisVoiceMuted||!('speechSynthesis' in window))return;window.speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(message);utterance.lang='es-PE';utterance.rate=.92;window.speechSynthesis.speak(utterance);}
-  setTimeout(()=>playCatechesisVoice('¡Bienvenidos al portal de catequizandos del Colegio La Salle del Sur y Parroquia San Pedro de Lurín! Camino hacia Jesús.'),600);
+  const fechaConfig = datosConfig.communionDate || FECHA_CIERRE_PREDETERMINADA;
+  const fechaEvento = String(fechaConfig).slice(0, 10);
+  if (/^\d{4}-\d{2}-\d{2}$/.test(fechaEvento)) {
+    entradasCalendario.set(fechaEvento, {
+      type: 'event',
+      title: '¡Primera Comunión / Gran Cierre!',
+      description: 'Celebración central del programa de catequesis. Que Jesús bendiga a cada niño y a su familia.'
+    });
+  }
+
+  const hoy = new Date(); hoy.setHours(0,0,0,0);
+  const futuras = Array.from(entradasCalendario.keys()).filter(k => k >= claveFecha(hoy) && entradasCalendario.get(k).type === 'lesson').sort();
+  const fechasClase = Array.from(entradasCalendario.keys()).filter(k => entradasCalendario.get(k).type === 'lesson').sort();
+  const inicial = futuras[0] || fechasClase[fechasClase.length - 1] || fechaEvento;
+  const fechaInicial = fechaDesdeISO(inicial) || new Date(2026, 5, 16, 12);
+  mesActual = new Date(fechaInicial.getFullYear(), fechaInicial.getMonth(), 1, 12);
+  fechaSeleccionada = fechaInicial;
+  renderCalendario();
+  seleccionarFecha(fechaInicial);
+}
+
+function renderCalendario() {
+  const etiqueta = document.getElementById('month-label');
+  const grilla = document.getElementById('calendar-grid');
+  if (!grilla) return;
+  const anio = mesActual.getFullYear();
+  const mes = mesActual.getMonth();
+  if (etiqueta) etiqueta.textContent = nombresMeses[mes] + ' ' + anio;
+  grilla.innerHTML = '';
+  diasSemana.forEach(function(dia) {
+    const celda = document.createElement('div'); celda.className = 'weekday'; celda.textContent = dia; grilla.appendChild(celda);
+  });
+  const primerDia = (new Date(anio, mes, 1, 12).getDay() + 6) % 7;
+  const totalDias = new Date(anio, mes + 1, 0, 12).getDate();
+  for (let i = 0; i < primerDia; i++) grilla.appendChild(document.createElement('div'));
+  for (let dia = 1; dia <= totalDias; dia++) {
+    const fecha = new Date(anio, mes, dia, 12);
+    const key = claveFecha(fecha);
+    const entrada = entradasCalendario.get(key);
+    const boton = document.createElement('button');
+    boton.type = 'button'; boton.className = 'day'; boton.textContent = String(dia);
+    if (entrada) {
+      boton.classList.add(entrada.type === 'event' ? 'communion-day' : 'classday');
+      if (entrada.type === 'lesson' && entrada.topics && entrada.topics.length > 1) boton.classList.add('double-session');
+      if (fechaSeleccionada && key === claveFecha(fechaSeleccionada)) boton.classList.add('selected');
+      boton.addEventListener('click', function() { seleccionarFecha(fecha); });
+    } else {
+      boton.disabled = true;
+    }
+    grilla.appendChild(boton);
+  }
+}
+
+function seleccionarFecha(fecha) {
+  const key = claveFecha(fecha);
+  const entrada = entradasCalendario.get(key);
+  if (!entrada) return;
+  fechaSeleccionada = new Date(fecha);
+  const dias = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+  const fechaTexto = dias[fecha.getDay()] + ', ' + fecha.getDate() + ' de ' + nombresMeses[fecha.getMonth()];
+  const fechaEl = document.getElementById('selected-date');
+  const tituloEl = document.getElementById('calendar-topic');
+  const descripcionEl = document.getElementById('calendar-description');
+  const listaEl = document.getElementById('calendar-topic-list');
+  if (fechaEl) fechaEl.textContent = fechaTexto;
+  if (!listaEl) return;
+  listaEl.innerHTML = '';
+
+  if (entrada.type === 'event') {
+    if (tituloEl) tituloEl.textContent = entrada.title;
+    if (descripcionEl) descripcionEl.textContent = entrada.description;
+  } else {
+    if (tituloEl) tituloEl.textContent = entrada.topics.length + (entrada.topics.length === 1 ? ' tema programado' : ' temas programados');
+    const horario = entrada.horaInicio ? ' · ' + entrada.horaInicio + (entrada.horaFin ? ' a ' + entrada.horaFin : '') : '';
+    if (descripcionEl) descripcionEl.textContent = 'Clase ' + (entrada.numeroClase || '—') + horario + (entrada.catequista ? ' · Catequista: ' + entrada.catequista : '');
+    entrada.topics.forEach(function(tema) {
+      const detalle = document.createElement('details'); detalle.className = 'calendar-topic-item topic-collapsible';
+      const resumen = document.createElement('summary'); resumen.className = 'topic-summary';
+      const encabezado = document.createElement('strong'); encabezado.className = 'topic-summary-title';
+      encabezado.textContent = 'Tema ' + (tema.n || '') + ': ' + (tema.title || '');
+      const ver = document.createElement('span'); ver.className = 'topic-toggle-label'; ver.textContent = 'Ver';
+      resumen.append(encabezado, ver); detalle.appendChild(resumen);
+      const contenido = document.createElement('div'); contenido.className = 'topic-content';
+      const bloque = document.createElement('span'); bloque.className = 'topic-stage'; bloque.textContent = tema.stage || ''; contenido.appendChild(bloque);
+      if (tema.sub && tema.sub.length) {
+        const ul = document.createElement('ul');
+        tema.sub.forEach(function(item) { const li = document.createElement('li'); li.textContent = item; ul.appendChild(li); });
+        contenido.appendChild(ul);
+      }
+      const parrafos = [
+        ['Objetivo', tema.obj], ['Valor', tema.val], ['Cita bíblica', tema.cite], ['Actividad', tema.act]
+      ];
+      parrafos.forEach(function(par) {
+        if (!par[1]) return;
+        const p = document.createElement('p'); p.style.cssText = 'font-size:12px;color:#4b5d73;margin:6px 0;';
+        const b = document.createElement('b'); b.textContent = par[0] + ': ';
+        p.append(b, document.createTextNode(par[1])); contenido.appendChild(p);
+      });
+      detalle.appendChild(contenido); listaEl.appendChild(detalle);
+    });
+  }
+  renderCalendario();
+}
+
+function formatearPorcentaje(valor) {
+  if (valor === null || valor === undefined || valor === '') return null;
+  const n = Number(valor);
+  return Number.isFinite(n) ? Math.max(0, Math.min(100, n)) : null;
+}
+
+function tareasDeAlumno(alumno, tareas) {
+  const id = normalizarTexto(alumno.ID_NINO);
+  const nombre = normalizarTexto([alumno.NOMBRES, alumno.APELLIDOS].join(' '));
+  // Solo se atribuyen tareas cuando RESPONSABLE identifica expresamente
+  // al catequizando. Las tareas generales o asignadas a catequistas no
+  // se cuentan como entregas individuales del alumno.
+  return (tareas || []).filter(function(tarea) {
+    const responsable = normalizarTexto(tarea.RESPONSABLE);
+    return responsable === id || responsable === nombre;
+  });
+}
+
+function esTareaTerminada(estado) {
+  return ['entregada','completada','completado','aprobada','aprobado','realizada','realizado','recibida','recibido'].includes(normalizarTexto(estado));
+}
+
+function renderizarTarjetasAlumnos(alumnos, asistencias, tareas) {
+  const contenedor = document.getElementById('students-grid');
+  if (!contenedor) return;
+  if (!Array.isArray(alumnos) || !alumnos.length) {
+    contenedor.innerHTML = '<div class="student-card"><p style="margin:0;color:var(--muted);font-weight:800;">No hay catequizandos vigentes registrados en Google Sheets.</p></div>';
+    return;
+  }
+
+  const asistenciaPorId = new Map((asistencias || []).map(a => [String(a.ID_NINO), a]));
+  contenedor.innerHTML = '';
+  alumnos.forEach(function(alumno) {
+    const asistencia = asistenciaPorId.get(String(alumno.ID_NINO)) || {};
+    const asignadas = tareasDeAlumno(alumno, tareas || []);
+    const terminadas = asignadas.filter(t => esTareaTerminada(t.ESTADO)).length;
+    const porcentajeTareas = asignadas.length ? (terminadas / asignadas.length) * 100 : 0;
+    const porcentajeAsistencia = formatearPorcentaje(asistencia.ASISTENCIA_PORCENTAJE);
+    const nombre = [alumno.NOMBRES, alumno.APELLIDOS].filter(Boolean).join(' ').trim() || 'Catequizando';
+    const foto = String(alumno.FOTO || '').trim();
+
+    const tarjeta = document.createElement('article'); tarjeta.className = 'student-card';
+    const cabecera = document.createElement('div'); cabecera.className = 'student-header';
+    if (foto) {
+      const img = document.createElement('img'); img.className = 'student-avatar'; img.src = foto; img.alt = 'Foto de ' + nombre;
+      img.referrerPolicy = 'no-referrer'; img.onerror = function() { img.style.display = 'none'; };
+      cabecera.appendChild(img);
+    } else {
+      const inicial = document.createElement('div'); inicial.className = 'student-avatar'; inicial.style.cssText = 'display:grid;place-items:center;font-weight:900;color:#12345a;';
+      inicial.textContent = nombre.split(/\s+/).slice(0,2).map(x => x[0] || '').join('').toUpperCase(); cabecera.appendChild(inicial);
+    }
+    const info = document.createElement('div'); info.className = 'student-info';
+    const h4 = document.createElement('h4'); h4.textContent = nombre;
+    const small = document.createElement('small'); small.textContent = 'ID: ' + (alumno.ID_NINO || '—') + (alumno.GRADO ? ' · ' + alumno.GRADO : '');
+    info.append(h4, small); cabecera.appendChild(info); tarjeta.appendChild(cabecera);
+
+    const metricas = document.createElement('div'); metricas.className = 'metrics-box';
+    const filaAsistencia = document.createElement('div'); filaAsistencia.className = 'metric-row';
+    const labelAsistencia = document.createElement('div'); labelAsistencia.className = 'metric-label';
+    const textoA = document.createElement('span'); textoA.textContent = 'Asistencia (Google Sheets)';
+    const valorA = document.createElement('span'); valorA.style.color = '#27ae60'; valorA.textContent = porcentajeAsistencia === null ? 'Sin registro' : porcentajeAsistencia.toFixed(1) + '%';
+    labelAsistencia.append(textoA, valorA); filaAsistencia.appendChild(labelAsistencia);
+    const trackA = document.createElement('div'); trackA.className = 'progress-track';
+    const fillA = document.createElement('div'); fillA.className = 'progress-fill-attendance'; fillA.style.width = (porcentajeAsistencia === null ? 0 : porcentajeAsistencia) + '%'; trackA.appendChild(fillA); filaAsistencia.appendChild(trackA);
+    metricas.appendChild(filaAsistencia);
+
+    const filaTareas = document.createElement('div'); filaTareas.className = 'metric-row'; filaTareas.style.marginTop = '10px';
+    const labelTareas = document.createElement('div'); labelTareas.className = 'metric-label';
+    const textoT = document.createElement('span'); textoT.textContent = 'Tareas individuales';
+    const valorT = document.createElement('span'); valorT.style.color = '#d49a0e'; valorT.textContent = asignadas.length ? terminadas + '/' + asignadas.length : 'Sin asignación individual';
+    labelTareas.append(textoT, valorT); filaTareas.appendChild(labelTareas);
+    const trackT = document.createElement('div'); trackT.className = 'progress-track';
+    const fillT = document.createElement('div'); fillT.className = 'progress-fill-tasks'; fillT.style.width = porcentajeTareas + '%'; trackT.appendChild(fillT); filaTareas.appendChild(trackT);
+    metricas.appendChild(filaTareas);
+
+    const resumen = document.createElement('div'); resumen.style.cssText = 'font-size:11px;color:#65758b;font-weight:800;margin-top:8px;';
+    resumen.textContent = 'Presentes: ' + (asistencia.TOTAL_PRESENTES || 0) + ' · Tardanzas: ' + (asistencia.TOTAL_TARDANZAS || 0) + ' · Faltas: ' + (asistencia.TOTAL_FALTAS || 0) + ' · Justificadas: ' + (asistencia.TOTAL_JUSTIFICADAS || 0);
+    metricas.appendChild(resumen);
+    tarjeta.appendChild(metricas);
+    contenedor.appendChild(tarjeta);
+  });
+}
+
+function renderizarAvisos(avisos) {
+  const cat = document.getElementById('list-cat-mensajes');
+  const coord = document.getElementById('list-coord-mensajes');
+  if (cat) cat.innerHTML = '';
+  if (coord) coord.innerHTML = '';
+  (avisos || []).forEach(function(aviso) {
+    const dirigido = normalizarTexto(aviso.DIRIGIDO_A);
+    const esCoord = dirigido.includes('coord') || dirigido.includes('parroquia');
+    const elemento = document.createElement('div'); elemento.className = esCoord ? 'notice-item coord' : 'notice-item cat';
+    const texto = document.createElement('div');
+    const strong = document.createElement('strong'); strong.textContent = (aviso.TITULO || 'Aviso') + ': ';
+    texto.append('📌 ', strong, document.createTextNode(aviso.MENSAJE || ''));
+    elemento.appendChild(texto);
+    const destino = esCoord ? coord : cat;
+    if (destino) destino.appendChild(elemento);
+  });
+  if (cat && !cat.children.length) cat.innerHTML = '<div class="notice-item cat">No hay comunicados publicados de las catequistas.</div>';
+  if (coord && !coord.children.length) coord.innerHTML = '<div class="notice-item coord">No hay comunicados publicados de coordinación.</div>';
+}
+
+async function cargarDatosBackend() {
+  const resultados = await Promise.allSettled([
+    apiGet('getSesiones'),
+    apiGet('getCatequizandos'),
+    apiGet('getAsistenciaNotas'),
+    apiGet('getTareas'),
+    apiGet('getAvisos'),
+    apiGet('getConfig')
+  ]);
+  const errores = [];
+
+  if (resultados[0].status === 'fulfilled') {
+    const dato = resultados[0].value;
+    bloquesPortal = Array.isArray(dato.bloques) ? dato.bloques : [];
+    actualizarBotonesBloques();
+    const todasLasSesiones = bloquesPortal.flatMap(b => Array.isArray(b.sessions) ? b.sessions : []);
+    construirCalendario(todasLasSesiones);
+  } else errores.push('programación: ' + resultados[0].reason.message);
+
+  if (resultados[1].status === 'fulfilled') listaAlumnosPortal = resultados[1].value.datos || [];
+  else errores.push('catequizandos: ' + resultados[1].reason.message);
+
+  if (resultados[2].status === 'fulfilled') listaAsistenciaPortal = resultados[2].value.datos || [];
+  else errores.push('asistencia: ' + resultados[2].reason.message);
+
+  if (resultados[3].status === 'fulfilled') listaTareasPortal = resultados[3].value.datos || [];
+  else errores.push('tareas: ' + resultados[3].reason.message);
+
+  if (resultados[4].status === 'fulfilled') renderizarAvisos(resultados[4].value.datos || []);
+  else errores.push('avisos: ' + resultados[4].reason.message);
+
+  if (resultados[5].status === 'fulfilled') {
+    datosConfig = resultados[5].value.datos || {};
+    actualizarCuentaRegresiva();
+    // La fecha configurada puede cambiar desde CONFIG; si está vacía se conserva el 8/12/2026 acordado.
+    if (bloquesPortal.length) construirCalendario(bloquesPortal.flatMap(b => b.sessions || []));
+  } else errores.push('configuración: ' + resultados[5].reason.message);
+
+  renderizarTarjetasAlumnos(listaAlumnosPortal, listaAsistenciaPortal, listaTareasPortal);
+  if (errores.length) mostrarEstadoPortal('Algunos datos no pudieron cargarse: ' + errores.join(' · '), 'error');
+  else mostrarEstadoPortal('Conectado con Google Sheets · ' + listaAlumnosPortal.length + ' catequizandos · ' + bloquesPortal.reduce((n,b)=>n+(b.sessions||[]).length,0) + ' temas', 'ok');
+}
+
+function obtenerFechaCierre() {
+  const configurada = String(datosConfig.communionDate || '').slice(0, 10);
+  return /^\d{4}-\d{2}-\d{2}$/.test(configurada) ? configurada : FECHA_CIERRE_PREDETERMINADA;
+}
+
+function actualizarCuentaRegresiva() {
+  const fechaISO = obtenerFechaCierre();
+  const fecha = fechaDesdeISO(fechaISO);
+  if (!fecha) return;
+  fecha.setHours(0, 0, 0, 0);
+  const objetivo = fecha.getTime();
+  const diferencia = Math.max(0, objetivo - Date.now());
+  const dias = Math.floor(diferencia / 86400000);
+  const horas = Math.floor((diferencia % 86400000) / 3600000);
+  const minutos = Math.floor((diferencia % 3600000) / 60000);
+  const d = document.getElementById('days'); if (d) d.textContent = String(dias);
+  const h = document.getElementById('hours'); if (h) h.textContent = String(horas).padStart(2, '0');
+  const m = document.getElementById('minutes'); if (m) m.textContent = String(minutos).padStart(2, '0');
+  const nota = document.getElementById('countdown-note');
+  if (nota) nota.textContent = diferencia === 0 ? '¡Llegó el día de la Primera Comunión! 💛' : 'Cercanos a Jesús. 🙏';
+  const fechaTitulo = document.querySelector('.countdown-main-title b');
+  if (fechaTitulo) {
+    const p = fechaISO.split('-').map(Number);
+    fechaTitulo.textContent = p[2] + ' de ' + nombresMeses[p[1] - 1] + ' de ' + p[0];
+  }
+}
+
+async function enviarMensajeCatequista() {
+  const nombre = document.getElementById('input-alum-nombre').value.trim();
+  const catequista = document.getElementById('select-catequista').value;
+  const mensaje = document.getElementById('input-alum-mensaje').value.trim();
+  if (!nombre || !catequista || !mensaje) {
+    alert('Completa tu nombre, selecciona a la catequista y escribe tu mensaje.');
+    return;
+  }
+
+  const boton = document.getElementById('btn-add-alum');
+  boton.disabled = true;
+  const textoOriginal = boton.textContent;
+  boton.textContent = 'Enviando...';
+  try {
+    const respuesta = await fetch(API_URL, {
+      method: 'POST',
+      mode: 'cors',
+      redirect: 'follow',
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify({action: 'guardarMensaje', nombreAlumno: nombre, catequista: catequista, mensaje: mensaje})
+    });
+    if (!respuesta.ok) throw new Error('El servidor respondió con estado ' + respuesta.status + '.');
+    const resultado = await respuesta.json();
+    if (!resultado || resultado.exito !== true) throw new Error((resultado && resultado.mensaje) || 'No se pudo guardar el mensaje.');
+
+    const contenedor = document.getElementById('list-alum-mensajes');
+    const item = document.createElement('div'); item.className = 'notice-item';
+    const texto = document.createElement('div');
+    const fuerte = document.createElement('strong'); fuerte.textContent = nombre + ' → ' + catequista + ': ';
+    texto.append('💬 ', fuerte, document.createTextNode(mensaje)); item.appendChild(texto);
+    if (contenedor) contenedor.prepend(item);
+    document.getElementById('input-alum-nombre').value = '';
+    document.getElementById('select-catequista').selectedIndex = 0;
+    document.getElementById('input-alum-mensaje').value = '';
+    alert('Mensaje guardado en Google Sheets y dirigido a la catequista.');
+  } catch (error) {
+    alert('No se pudo guardar el mensaje en Google Sheets: ' + error.message);
+  } finally {
+    boton.disabled = false;
+    boton.textContent = textoOriginal;
+  }
+}
+
+let vozSilenciada = false;
+function reproducirBienvenida(mensaje) {
+  if (vozSilenciada || !('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const voz = new SpeechSynthesisUtterance(mensaje);
+  voz.lang = 'es-PE'; voz.rate = 0.92;
+  window.speechSynthesis.speak(voz);
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.stage').forEach(function(boton, indice) {
+    boton.addEventListener('click', function() { abrirBloque(indice); });
+  });
+  document.getElementById('prev-month').addEventListener('click', function() {
+    mesActual = new Date(mesActual.getFullYear(), mesActual.getMonth() - 1, 1, 12); renderCalendario();
+  });
+  document.getElementById('next-month').addEventListener('click', function() {
+    mesActual = new Date(mesActual.getFullYear(), mesActual.getMonth() + 1, 1, 12); renderCalendario();
+  });
+  document.getElementById('btnActualizar').addEventListener('click', async function() {
+    const boton = this; boton.disabled = true; const original = boton.textContent; boton.textContent = '⏳ Actualizando...';
+    try { await cargarDatosBackend(); }
+    finally { boton.disabled = false; boton.textContent = original; }
+  });
+  document.getElementById('btn-add-alum').addEventListener('click', enviarMensajeCatequista);
+  const mute = document.getElementById('mute-toggle');
+  if (mute) mute.addEventListener('click', function() {
+    vozSilenciada = !vozSilenciada;
+    mute.textContent = vozSilenciada ? '🔇 Activar' : '🔊 Silenciar';
+    mute.setAttribute('aria-pressed', vozSilenciada ? 'true' : 'false');
+    if (vozSilenciada && window.speechSynthesis) window.speechSynthesis.cancel();
+  });
+
+  actualizarCuentaRegresiva();
+  setInterval(actualizarCuentaRegresiva, 1000);
+  mostrarEstadoPortal('Cargando información oficial desde Google Sheets...', 'info');
+  cargarDatosBackend().catch(function(error) {
+    console.error('Error general al cargar Catequizando:', error);
+    mostrarEstadoPortal('No se pudo conectar con Google Sheets: ' + error.message, 'error');
+  });
+  setTimeout(function() {
+    reproducirBienvenida('¡Bienvenidos al portal de catequizandos del Colegio La Salle del Sur y Parroquia San Pedro de Lurín! Camino hacia Jesús.');
+  }, 600);
 });
 </script>
 </body>
