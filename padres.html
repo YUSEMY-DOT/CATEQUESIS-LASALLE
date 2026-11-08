@@ -160,6 +160,71 @@
       .module-card { min-height:0; }
       .diagnostic-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
     }
+  
+
+    /* Legibilidad reforzada: conservar el diseño compacto, pero con letras claras. */
+    body { font-size:14px; line-height:1.42; }
+    .header-padres h3 { font-size:1.16rem !important; }
+    .header-padres small { font-size:.76rem !important; }
+    .header-padres .badge { font-size:.66rem !important; }
+    .header-actions .btn { font-size:.76rem !important; padding:.32rem .62rem !important; }
+
+    .calendar-header-alegre { padding:8px 11px; }
+    .calendar-header-alegre .fs-5 { font-size:.98rem !important; }
+    .calendar-header-alegre span:first-child { font-size:1.02rem !important; }
+    .calendar-header-alegre .rounded-pill { padding:3px 8px !important; }
+    .calendar-header-alegre #mesAnioLabel { font-size:.72rem !important; }
+    .calendar-day-header { font-size:.70rem !important; }
+    .calendar-day { font-size:.70rem !important; }
+    .calendar-day .calendar-number { font-size:.75rem !important; }
+    .calendar-day .calendar-topic { font-size:.59rem !important; line-height:1.14 !important; max-height:27px !important; padding:2px 3px !important; }
+
+    .day-detail-card { padding:12px !important; }
+    .day-detail-card .badge { font-size:.66rem !important; }
+    .day-detail-card h4 { font-size:1rem !important; }
+    .day-detail-card h5 { font-size:.86rem !important; line-height:1.32 !important; }
+    .day-detail-card small,.day-detail-card p { font-size:.75rem !important; line-height:1.38 !important; }
+    .day-detail-card .detail-footer { font-size:.70rem !important; }
+    .day-detail-card .detail-footer .btn { font-size:.70rem !important; }
+
+    #diagnosticoPortal { font-size:.76rem !important; }
+    #diagnosticoPortal strong { font-size:.80rem !important; }
+    .diagnostic-grid { gap:6px; }
+    .diagnostic-item { padding:6px 4px; }
+    .diagnostic-label { min-height:27px !important; font-size:.66rem !important; line-height:1.16 !important; }
+    .diagnostic-value { font-size:1.10rem !important; }
+    .diagnostic-note { font-size:.70rem !important; }
+
+    .module-card { padding:11px 12px !important; }
+    .module-card h5 { font-size:.94rem !important; line-height:1.24 !important; }
+    .module-card p { font-size:.75rem !important; line-height:1.36 !important; }
+    .module-card button { font-size:.74rem !important; padding:.31rem .52rem !important; }
+
+    #resultadoContenedor .card-custom { padding:12px !important; }
+    #resultadoContenedor h5 { font-size:.98rem !important; }
+    #resultadoContenedor h6 { font-size:.86rem !important; }
+    #resultadoContenedor .table { font-size:.75rem !important; }
+    #resultadoContenedor .table th,#resultadoContenedor .table td { padding:.34rem .42rem !important; }
+    #resultadoContenedor .btn { font-size:.74rem !important; }
+
+    @media (max-width:760px) {
+      body { font-size:14px; }
+      .header-padres h3 { font-size:1.12rem !important; }
+      .header-padres small { font-size:.74rem !important; }
+      .calendar-day-header { font-size:.68rem !important; }
+      .calendar-day { min-height:52px; }
+      .calendar-day .calendar-topic { font-size:.57rem !important; max-height:25px !important; }
+      .diagnostic-label { font-size:.68rem !important; }
+      .module-card h5 { font-size:.94rem !important; }
+      .module-card p { font-size:.76rem !important; }
+      .module-card button { font-size:.74rem !important; }
+    }
+    @media (max-width:480px) {
+      .calendar-day { min-height:50px; }
+      .calendar-day .calendar-topic { font-size:.55rem !important; }
+      .diagnostic-label { font-size:.66rem !important; }
+    }
+
   </style>
 </head>
 <body>
