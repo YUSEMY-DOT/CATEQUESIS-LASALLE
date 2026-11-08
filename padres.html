@@ -1,40 +1,165 @@
-```
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <base target="_top">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Calendario Interactivo - Camino hacia Jesús 2026</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body { background-color: #f8f9fa; font-family: 'Segoe UI', Roboto, sans-serif; color: #333; }
-    
-    /* Membrete del Calendario con Colores Alegres y Vivos */
-    .calendar-header-alegre { 
-      background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 50%, #ff6b6b 100%); 
-      color: white; 
-      padding: 20px; 
-      border-radius: 16px 16px 0 0; 
-      box-shadow: 0 4px 10px rgba(255, 126, 95, 0.3);
+    :root { --lds-blue:#1f4e8c; --lds-blue-2:#1769e8; --lds-border:#e2e8f0; --lds-text:#344054; }
+    * { box-sizing:border-box; }
+    html { font-size:16px; }
+    body { margin:0; background:#f5f7fa; color:var(--lds-text); font-family:'Segoe UI',Roboto,Arial,sans-serif; font-size:14px; line-height:1.45; }
+    .header-padres { background:linear-gradient(135deg,#1b365d 0%,#2a5298 100%); color:#fff; padding:12px 0; border-radius:0 0 14px 14px; }
+    .header-padres .container { max-width:1160px; display:flex; flex-wrap:wrap; gap:10px 18px; }
+    .header-padres h3 { font-size:1.2rem; line-height:1.2; }
+    .header-padres small { font-size:.75rem; }
+    .header-padres .badge { font-size:.65rem; }
+    .header-padres button { font-size:.76rem; padding:.32rem .7rem !important; }
+    main.container { max-width:1160px; padding-left:16px; padding-right:16px; }
+    .card-custom,.calendar-card { border:1px solid var(--lds-border); border-radius:12px; background:#fff; box-shadow:0 2px 9px rgba(16,24,40,.055); margin-bottom:0; }
+    .calendar-header-alegre { background:linear-gradient(120deg,#ff7e5f 0%,#feb47b 55%,#ff6b6b 100%); color:#fff; padding:11px 15px; border-radius:11px 11px 0 0; box-shadow:none; }
+    .calendar-header-alegre .fs-5 { font-size:1rem !important; }
+    .calendar-header-alegre .rounded-pill { padding:4px 10px !important; }
+    .calendar-card .calendar-inner { padding:10px 12px 12px; }
+    .calendar-layout { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr); gap:16px; align-items:stretch; margin-bottom:18px; }
+    .calendar-column { min-width:0; }
+    .calendar-grid { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:4px; text-align:center; }
+    .calendar-day-header { font-weight:700; color:#e45e57; font-size:.72rem; padding:0 0 4px; }
+    .calendar-day { min-width:0; min-height:68px; display:flex; flex-direction:column; align-items:stretch; justify-content:flex-start; border-radius:8px; background:#fff; border:1px solid #e7ebf0; font-size:.72rem; cursor:pointer; transition:background .15s,border-color .15s; position:relative; padding:5px; text-align:left; overflow:hidden; }
+    .calendar-day:hover { background:#fff5f0; border-color:#ffb199; }
+    .calendar-day:focus-visible { outline:2px solid var(--lds-blue-2); outline-offset:1px; }
+    .calendar-day.has-clase { border:1.5px solid #ff866b; background:#fffaf8; }
+    .calendar-day.has-cumple { border:1.5px solid #ff6b6b; background:#fff0f3; }
+    .calendar-day.has-aviso { border:1.5px solid #edc04d; background:#fffdf5; }
+    .calendar-day .calendar-topic { font-size:.61rem !important; line-height:1.15 !important; max-height:32px !important; padding:3px 4px !important; overflow:hidden; border-radius:5px; overflow-wrap:anywhere; }
+    .calendar-day .calendar-number { font-size:.72rem; font-weight:700; line-height:1; }
+    .day-detail-card { padding:15px !important; min-height:100%; display:flex; flex-direction:column; }
+    .day-detail-card h4 { font-size:1.08rem; }
+    .day-detail-card h5 { font-size:.9rem; line-height:1.35; }
+    .day-detail-card .badge { font-size:.65rem; }
+    .day-detail-card .detail-footer { margin-top:auto; padding-top:10px; }
+    .module-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin-bottom:16px; }
+    .module-item { min-width:0; }
+    .module-card { height:100%; min-height:136px; padding:14px 16px !important; display:flex; flex-direction:column; gap:6px; }
+    .module-card h5 { font-size:1rem; line-height:1.25; margin:0 0 3px !important; }
+    .module-card p { font-size:.78rem; line-height:1.4; margin:0 0 8px !important; }
+    .module-card button { font-size:.76rem; padding:.38rem .65rem; white-space:normal; }
+    #diagnosticoPortal { padding:12px 14px !important; margin-bottom:16px !important; }
+    .diagnostic-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:7px; }
+    .diagnostic-item { min-width:0; padding:7px 5px; border:1px solid var(--lds-border); border-radius:8px; text-align:center; background:#fff; }
+    .diagnostic-label { display:flex; align-items:center; justify-content:center; min-height:27px; font-size:.67rem; line-height:1.15; color:#667085; overflow-wrap:anywhere; }
+    .diagnostic-value { font-size:1.15rem; font-weight:750; line-height:1.15; color:#202939; }
+    .diagnostic-note { font-size:.68rem; line-height:1.35; }
+    .alert { border-radius:10px !important; }
+    main > .alert { padding:9px 12px; font-size:.76rem !important; margin-bottom:14px !important; }
+    #resultadoContenedor { margin-top:14px !important; }
+    #resultadoContenedor .card-custom { padding:15px !important; }
+    #resultadoContenedor h5 { font-size:1rem; }
+    #resultadoContenedor h6 { font-size:.9rem; }
+    #resultadoContenedor .border.rounded-3 { border-radius:9px !important; }
+    #resultadoContenedor .fs-3 { font-size:1.45rem !important; }
+    #resultadoContenedor .fs-4 { font-size:1.15rem !important; }
+    #resultadoContenedor .table { font-size:.76rem; }
+    #resultadoContenedor .table th,#resultadoContenedor .table td { padding:.38rem .45rem; }
+    .login-container { max-width:420px; margin:60px auto; background:#fff; padding:26px; border-radius:15px; box-shadow:0 4px 20px rgba(0,0,0,.08); }
+    .sound-toggle[aria-pressed="true"] { background:#fff !important; color:#1b365d !important; border-color:#fff !important; }
+    .sound-toggle[aria-pressed="false"] { color:#fff !important; background:transparent !important; border-color:rgba(255,255,255,.7) !important; }
+
+    @media (max-width: 980px) {
+      main.container { max-width:820px; }
+      .calendar-layout { grid-template-columns:1fr; }
+      .day-detail-card { min-height:0; }
+      .diagnostic-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
     }
-    
-    .header-padres { background: linear-gradient(135deg, #1b365d 0%, #2a5298 100%); color: white; padding: 25px 20px; border-radius: 0 0 20px 20px; }
-    .card-custom { border: none; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; background: white; }
-    .login-container { max-width: 420px; margin: 80px auto; background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-    
-    /* Estilos del Calendario Visual Interactivo con Temas Integrados */
-    .calendar-card { border-radius: 16px; border: 1px solid #e9ecef; background: #fff; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; }
-    .calendar-day-header { font-weight: bold; color: #ff6b6b; font-size: 0.85rem; padding-bottom: 8px; }
-    .calendar-day { 
-      min-height: 95px; display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; 
-      border-radius: 12px; background: #fff; border: 1px solid #f1f3f5; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; position: relative; padding: 6px; text-align: left;
+    @media (max-width: 600px) {
+      .header-padres { padding:10px 0; }
+      .header-padres .container { align-items:flex-start !important; }
+      .header-padres .header-actions { width:100%; justify-content:flex-start; flex-wrap:wrap; }
+      .header-padres h3 { font-size:1.08rem; }
+      main.container { padding-left:12px; padding-right:12px; }
+      .calendar-header-alegre { padding:9px 11px; }
+      .calendar-header-alegre .fs-5 { font-size:.9rem !important; }
+      .calendar-card .calendar-inner { padding:8px; }
+      .calendar-grid { gap:3px; }
+      .calendar-day { min-height:54px; padding:4px 3px; border-radius:6px; }
+      .calendar-day .calendar-topic { font-size:.54rem !important; max-height:27px !important; }
+      .module-grid { grid-template-columns:1fr; gap:10px; }
+      .module-card { min-height:0; padding:13px !important; }
+      .diagnostic-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .day-detail-card { padding:13px !important; }
+      .day-detail-card .detail-footer { flex-wrap:wrap; gap:8px; }
     }
-    .calendar-day:hover { background: #fff0eb; border-color: #ffb199; transform: scale(1.02); }
-    .calendar-day.has-clase { border: 2px solid #ff7e5f; background: #fff9f6; }
-    .calendar-day.has-cumple { border: 2px solid #ff6b6b; background: #fff0f3; }
-    .calendar-day.has-aviso { border: 2px solid #ffd166; background: #fffdf5; }
+    @media (min-width: 981px) and (max-width: 1200px) {
+      main.container,.header-padres .container { max-width:1040px; }
+      .calendar-day { min-height:62px; }
+    }
+
+    /* Ajuste compacto y uniforme del portal: vista completa sin reducir el zoom. */
+    html { font-size:14px; scroll-behavior:smooth; }
+    body { font-size:13px; line-height:1.35; }
+    .header-padres { padding:8px 0; border-radius:0; margin-bottom:12px !important; }
+    .header-padres .container, main.container { width:calc(100% - 28px); max-width:1120px; padding-left:0; padding-right:0; }
+    .header-padres .container { align-items:center; gap:8px 14px; }
+    .header-padres h3 { font-size:1.05rem; }
+    .header-padres small { font-size:.68rem; }
+    .header-padres .badge { font-size:.58rem; padding:.25em .5em; }
+    .header-actions { align-items:center; flex-wrap:wrap; justify-content:flex-end; gap:6px !important; }
+    .header-actions .btn { font-size:.68rem; padding:.26rem .55rem !important; line-height:1.2; }
+    .calendar-layout { grid-template-columns:minmax(0,1.08fr) minmax(260px,.92fr); gap:10px; margin-bottom:11px; }
+    .calendar-header-alegre { padding:7px 10px; }
+    .calendar-header-alegre .fs-5 { font-size:.86rem !important; }
+    .calendar-header-alegre span:first-child { font-size:.95rem !important; }
+    .calendar-header-alegre .rounded-pill { padding:2px 7px !important; gap:6px !important; }
+    .calendar-card .calendar-inner { padding:7px 8px 8px; }
+    .calendar-grid { gap:3px; }
+    .calendar-day-header { font-size:.62rem; padding-bottom:2px; }
+    .calendar-day { min-height:48px; padding:3px; border-radius:6px; font-size:.62rem; }
+    .calendar-day .calendar-number { font-size:.64rem; }
+    .calendar-day .calendar-topic { font-size:.50rem !important; max-height:22px !important; padding:2px 3px !important; line-height:1.1 !important; }
+    .day-detail-card { min-height:0; padding:11px !important; }
+    .day-detail-card .badge { font-size:.57rem; margin-bottom:6px !important; padding:3px 7px !important; }
+    .day-detail-card h4 { font-size:.92rem; margin-bottom:7px !important; }
+    .day-detail-card h5 { font-size:.76rem; }
+    .day-detail-card small,.day-detail-card p { font-size:.68rem !important; line-height:1.3; }
+    .day-detail-card .mb-3 { margin-bottom:9px !important; }
+    .day-detail-card .detail-footer { padding-top:7px; font-size:.62rem; }
+    .day-detail-card .detail-footer .btn { font-size:.63rem; padding:.22rem .55rem !important; }
+    #diagnosticoPortal { padding:8px 9px !important; margin-bottom:11px !important; }
+    .diagnostic-grid { grid-template-columns:repeat(9,minmax(0,1fr)); gap:5px; }
+    .diagnostic-item { padding:5px 3px; border-radius:6px; }
+    .diagnostic-label { min-height:23px; font-size:.55rem; line-height:1.08; }
+    .diagnostic-value { font-size:.94rem; }
+    .module-grid { gap:9px; margin-bottom:11px; }
+    .module-card { min-height:104px; padding:10px 11px !important; gap:4px; border-radius:9px; }
+    .module-card h5 { font-size:.82rem; line-height:1.18; margin:0 0 1px !important; }
+    .module-card p { font-size:.66rem; line-height:1.25; margin:0 0 3px !important; }
+    .module-card button { font-size:.64rem; padding:.27rem .5rem; line-height:1.2; }
+    #resultadoContenedor { margin-top:11px !important; }
+    #resultadoContenedor .card-custom { padding:11px !important; }
+    #resultadoContenedor h5 { font-size:.9rem; }
+    #resultadoContenedor h6 { font-size:.78rem; }
+    #resultadoContenedor .table { font-size:.67rem; }
+    #resultadoContenedor .table th,#resultadoContenedor .table td { padding:.28rem .34rem; }
+    #resultadoContenedor .btn { font-size:.67rem; padding:.25rem .55rem; }
+    @media (max-width:1050px) {
+      .diagnostic-grid { grid-template-columns:repeat(5,minmax(0,1fr)); }
+    }
+    @media (max-width:760px) {
+      .header-padres .container,main.container { width:calc(100% - 20px); }
+      .header-padres .container { align-items:flex-start; }
+      .header-actions { width:100%; justify-content:flex-start; }
+      .calendar-layout { grid-template-columns:1fr; }
+      .calendar-day { min-height:48px; }
+      .module-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .diagnostic-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    }
+    @media (max-width:480px) {
+      .module-grid { grid-template-columns:1fr; }
+      .module-card { min-height:0; }
+      .diagnostic-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    }
   </style>
 </head>
 <body>
@@ -71,18 +196,15 @@
           <h3 class="fw-bold m-0">👨‍👩‍👧‍👦 Padres de Familia</h3>
           <small class="opacity-75">Colegio La Salle del Sur & Parroquia San Pedro de Lurín</small>
         </div>
-        <div class="d-flex gap-2">
-          <button class="btn btn-outline-light btn-sm fw-bold rounded-pill px-3" onclick="reproducirBienvenida()" title="Escuchar Bienvenida">🔊</button>
-          <button class="btn btn-outline-light btn-sm fw-bold rounded-pill px-3" onclick="location.reload()">🔄 Actualizar</button>
-          <span class="badge bg-warning text-dark align-self-center">PRUEBA INTERNA</span>
+        <div class="d-flex gap-2 header-actions">
+          <button id="audioToggle" type="button" class="btn btn-outline-light btn-sm fw-bold rounded-pill sound-toggle" aria-pressed="false" onclick="alternarSilencio()" title="Silenciar voz">🔊 Sonido</button>
+          <button type="button" class="btn btn-outline-light btn-sm fw-bold rounded-pill" onclick="volverInicio()" title="Volver al inicio">⌂ Inicio</button>
+          <button type="button" class="btn btn-outline-light btn-sm fw-bold rounded-pill" onclick="location.reload()" title="Actualizar portal">↻ Actualizar</button>
         </div>
       </div>
     </header>
 
-    <main class="container mb-5">
-      <div class="alert alert-info border-0 shadow-sm rounded-4 small mb-4" role="alert">
-        💡 <strong id="saludoUsuario">Modo de prueba:</strong> Estamos verificando la conexión del portal con Google Sheets. El acceso está limitado temporalmente a una familia de prueba.
-      </div>
+    <main id="inicioPortal" class="container mb-5">
       <div id="diagnosticoPortal" class="card card-custom p-3 mb-4">
         <div class="d-flex align-items-center gap-2"><span class="spinner-border spinner-border-sm text-primary" role="status"></span><strong>Verificando conexión con Google Sheets…</strong></div>
       </div>
@@ -90,9 +212,9 @@
       <!-- ========================================================= -->
       <!-- CALENDARIO INTERACTIVO CON MEMBRETE ALEGRE Y CURSOS        -->
       <!-- ========================================================= -->
-      <div class="row g-4 mb-4">
+      <section class="calendar-layout">
         <!-- Columna Izquierda: Cuadrícula con Membrete Alegre -->
-        <div class="col-lg-7">
+        <div class="calendar-column">
           <div class="calendar-card">
             <!-- Membrete con colores alegres -->
             <div class="calendar-header-alegre d-flex justify-content-between align-items-center">
@@ -107,7 +229,7 @@
               </div>
             </div>
 
-            <div class="p-3">
+            <div class="calendar-inner">
               <!-- Cabecera de días -->
               <div class="calendar-grid mb-2">
                 <div class="calendar-day-header">L</div>
@@ -127,8 +249,8 @@
         </div>
 
         <!-- Columna Derecha: Detalle de Cursos, Cumpleaños y Mensajes -->
-        <div class="col-lg-5">
-          <div class="card card-custom p-4 h-100 d-flex flex-column justify-content-between border shadow-sm">
+        <div class="calendar-column">
+          <div class="card card-custom day-detail-card border shadow-sm">
             <div>
               <span class="badge bg-danger text-white mb-3 px-3 py-1 rounded-pill fw-bold">✨ DETALLE DEL DÍA</span>
               <h4 id="detalleFecha" class="fw-bold text-primary mb-2">Seleccione una fecha</h4>
@@ -149,7 +271,7 @@
               </div>
             </div>
 
-            <div class="mt-4 pt-3 border-top d-flex justify-content-between align-items-center">
+            <div class="detail-footer border-top d-flex justify-content-between align-items-center">
               <div class="d-flex gap-2 small">
                 <span>🟠 Clase</span>
                 <span>🔴 Cumple</span>
@@ -159,39 +281,39 @@
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- Cuadrícula de los 4 Botones Principales -->
-      <div class="row g-4">
-        <div class="col-md-6">
-          <div class="card card-custom p-4 h-100">
+      <section class="module-grid">
+        <div class="module-item">
+          <div class="card card-custom module-card">
             <h5 class="fw-bold text-primary mb-3">👧🧒 Información del Catequizando</h5>
             <p class="text-muted small">Consulte el registro oficial de asistencias y notas ligadas exclusivamente a su familia.</p>
             <div class="mt-auto"><button class="btn btn-outline-primary btn-sm w-100" onclick="consultarDatos('getAsistenciaNotas')">Ver Registro de Asistencia y Notas</button></div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="card card-custom p-4 h-100">
+        <div class="module-item">
+          <div class="card card-custom module-card">
             <h5 class="fw-bold text-success mb-3">📝 Tareas y Preguntas en Familia</h5>
             <p class="text-muted small">Revise las actividades semanales y reflexiones que los niños deben desarrollar junto a ustedes en casa.</p>
             <div class="mt-auto"><button class="btn btn-outline-success btn-sm w-100" onclick="consultarDatos('getTareas')">Ver Tareas de la Semana</button></div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="card card-custom p-4 h-100">
+        <div class="module-item">
+          <div class="card card-custom module-card">
             <h5 class="fw-bold text-warning mb-3 text-dark">📂 Requisitos y Documentos</h5>
             <p class="text-muted small">Estado de entrega de la Partida de Bautismo, Ficha de Inscripción y autorizaciones requeridas.</p>
             <div class="mt-auto"><button class="btn btn-outline-warning btn-sm w-100 text-dark" onclick="consultarDatos('getRequisitos')">Ver Estado de Requisitos</button></div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="card card-custom p-4 h-100">
+        <div class="module-item">
+          <div class="card card-custom module-card">
             <h5 class="fw-bold text-danger mb-3">🪙 Aportes Parroquiales</h5>
             <p class="text-muted small">Control transparente de materiales, textos de catequesis y derechos administrados por la Parroquia San Pedro de Lurín.</p>
             <div class="mt-auto"><button class="btn btn-outline-danger btn-sm w-100" onclick="consultarDatos('getAportes')">Ver Estado de Aportes</button></div>
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- Contenedor dinámico de resultados -->
       <div id="resultadoContenedor" class="mt-4"></div>
@@ -208,7 +330,8 @@
     window.addEventListener('load', async function() {
       document.getElementById('loginView').classList.add('d-none');
       document.getElementById('portalView').classList.remove('d-none');
-      document.getElementById('saludoUsuario').textContent = 'Modo de prueba interna:';
+      actualizarBotonAudio();
+      if (!('speechSynthesis' in window)) { const b=document.getElementById('audioToggle'); b.disabled=true; b.title='Audio no disponible en este navegador'; }
       await cargarDatosCompletosCalendario();
     });
 
@@ -219,12 +342,38 @@
       return await res.json();
     }
 
-    function reproducirBienvenida() {
-      if ('speechSynthesis' in window) {
+    let vozSilenciada = false;
+
+    function actualizarBotonAudio() {
+      const btn = document.getElementById('audioToggle');
+      if (!btn) return;
+      btn.textContent = vozSilenciada ? '🔇 Silencio' : '🔊 Sonido';
+      btn.title = vozSilenciada ? 'Activar voz' : 'Silenciar voz';
+      btn.setAttribute('aria-label', btn.title);
+      btn.setAttribute('aria-pressed', String(vozSilenciada));
+    }
+
+    function hablar(texto) {
+      if (vozSilenciada || !('speechSynthesis' in window) || !texto) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(String(texto));
+      utterance.lang = 'es-PE';
+      utterance.rate = 0.95;
+      utterance.volume = 1;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function alternarSilencio() {
+      vozSilenciada = !vozSilenciada;
+      if (vozSilenciada && 'speechSynthesis' in window) {
         window.speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance('Bienvenidos al portal familiar de catequesis. Estamos en modo de prueba.');
-        u.lang = 'es-ES'; window.speechSynthesis.speak(u);
       }
+      actualizarBotonAudio();
+      if (!vozSilenciada) hablar('Audio activado. Bienvenidos al portal de padres de familia.');
+    }
+
+    function reproducirBienvenida() {
+      hablar('Bienvenidos al portal de padres de familia de Camino hacia Jesús.');
     }
 
     function escapeHtml(v) {
@@ -279,7 +428,7 @@
         ['Tareas',r.tareas],['Avisos publicados',r.avisos],['Requisitos',r.requisitos],
         ['Control de materiales',r.materiales],['Aportes',r.aportes],['Calificaciones',r.calificaciones]
       ];
-      el.innerHTML=`<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2"><strong class="text-primary">✅ Conexión de lectura establecida</strong><small class="text-muted">Resumen de hojas conectadas</small></div><div class="row g-2">${items.map(([k,v])=>`<div class="col-6 col-md-4 col-lg"><div class="border rounded-3 p-2 h-100 text-center"><div class="small text-muted">${escapeHtml(k)}</div><div class="fs-4 fw-bold text-dark">${Number(v||0)}</div></div></div>`).join('')}</div><div class="small text-muted mt-2">La tabla de asistencia contiene ${Number(r.asistenciaSesiones||0)} columnas de sesiones. Los módulos vacíos responden correctamente cuando aún no hay registros cargados.</div>`;
+      el.innerHTML=`<div class="d-flex align-items-center mb-2"><strong class="text-success small">✓ Conexión establecida</strong></div><div class="diagnostic-grid">${items.map(([k,v])=>`<div class="diagnostic-item"><div class="diagnostic-label">${escapeHtml(k)}</div><div class="diagnostic-value">${Number(v||0)}</div></div>`).join('')}</div>`;
     }
 
     function seleccionarFechaInicial() {
@@ -311,7 +460,7 @@
         const clases=eventosSesiones.filter(x=>fechaKey(x.fecha)===key);
         const avisos=eventosAvisos.filter(x=>fechaKey(x.FECHA)===key);
         const titulo=clases.map(x=>[x.tema1,x.tema2].filter(Boolean).join(' / ')).filter(Boolean).join(' · ');
-        out+=`<button type="button" class="calendar-day ${clases.length?'has-clase':''} ${avisos.length?'has-aviso':''}" onclick="seleccionarDia(${dia},${mes},${anio})"><span class="fw-bold text-dark">${dia}</span>${titulo?`<div class="bg-primary text-white p-1 rounded mt-1" style="font-size:.60rem;line-height:1.1;max-height:48px;overflow:hidden;text-align:center">${escapeHtml(titulo)}</div>`:''}${avisos.length?'<small class="text-warning fw-bold">● Aviso</small>':''}</button>`;
+        out+=`<button type="button" class="calendar-day ${clases.length?'has-clase':''} ${avisos.length?'has-aviso':''}" onclick="seleccionarDia(${dia},${mes},${anio})"><span class="calendar-number text-dark">${dia}</span>${titulo?`<div class="calendar-topic bg-primary text-white mt-1">${escapeHtml(titulo)}</div>`:''}${avisos.length?'<small class="text-warning fw-bold">● Aviso</small>':''}</button>`;
       }
       grid.innerHTML=out;
     }
@@ -371,7 +520,7 @@
         const data=await apiGet(accion);
         if(!data.exito) throw new Error(data.mensaje||'No se pudo consultar la información.');
         const titulos={getSesiones:'Programación de Catequesis',getAsistenciaNotas:'Asistencia y calificaciones',getTareas:'Tareas para la familia',getRequisitos:'Requisitos y materiales',getAportes:'Aportes parroquiales',getMateriales:'Materiales entregados',getCalificaciones:'Calificaciones'};
-        let out=`<div class="card card-custom p-3"><div class="d-flex flex-wrap justify-content-between align-items-center"><h5 class="fw-bold text-primary mb-3">${titulos[accion]||'Información familiar'}</h5><span class="badge bg-light text-dark">${Number(data.total||0)} registro(s)</span></div>`;
+        let out=`<div class="card card-custom p-3"><div class="d-flex flex-wrap justify-content-between align-items-center gap-2"><div><h5 class="fw-bold text-primary mb-1">${titulos[accion]||'Información familiar'}</h5><span class="small text-muted">${Number(data.total||0)} registro(s)</span></div><button type="button" class="btn btn-outline-primary btn-sm rounded-pill" onclick="volverInicio()">← Volver a inicio</button></div><div class="mt-3">`;
         if(accion==='getAsistenciaNotas') out+=renderAsistencia(data);
         else if(accion==='getRequisitos') out+=renderRequisitos(data);
         else if(accion==='getAportes') out+=renderAportes(data);
@@ -386,15 +535,23 @@
         } else if(accion==='getCalificaciones') {
           out+=tableHtml(data.datos||[],['FECHA_REGISTRO','TEMA','TIPO_ACTIVIDAD','NOTA_NUMERICA','EQUIVALENCIA','OBSERVACIONES'],{'FECHA_REGISTRO':'Fecha','TEMA':'Tema','TIPO_ACTIVIDAD':'Actividad','NOTA_NUMERICA':'Nota (0–20)','EQUIVALENCIA':'Equivalencia','OBSERVACIONES':'Observaciones'});
         }
-        c.innerHTML=out+'</div>';
+        c.innerHTML=out+'</div></div>';
       } catch(error) {
         c.innerHTML=`<div class="alert alert-danger"><strong>No se pudo consultar ${escapeHtml(titulosAccion(accion))}.</strong><br>${escapeHtml(error.message||'Error de conexión.')}</div>`;
       }
     }
+
+    function volverInicio() {
+      const resultados = document.getElementById('resultadoContenedor');
+      if (resultados) resultados.innerHTML = '';
+      const inicio = document.getElementById('inicioPortal');
+      if (inicio) inicio.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     function titulosAccion(a) { return ({getAsistenciaNotas:'asistencia',getTareas:'tareas',getRequisitos:'requisitos',getAportes:'aportes',getSesiones:'programación',getMateriales:'materiales',getCalificaciones:'calificaciones'})[a]||a; }
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-```
