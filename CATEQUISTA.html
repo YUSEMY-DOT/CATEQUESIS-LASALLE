@@ -355,8 +355,9 @@
         <div class="cal-stat"><strong id="cal-total-clases">—</strong><span>Clases programadas</span></div>
         <div class="cal-stat"><strong id="cal-total-temas">—</strong><span>Temas del programa</span></div>
         <div class="cal-stat"><strong id="cal-horario-general">14:00–16:00</strong><span>Horario de catequesis</span></div>
-        <div class="cal-stat"><strong id="cal-docentes-asignados">—</strong><span>Clases con catequista</span></div>
-        <div class="cal-stat"><strong id="cal-docentes-pendientes">—</strong><span>Pendientes de asignación</span></div>
+      </div>
+      <div class="no-print" style="display:flex;justify-content:flex-end;margin:14px 0 18px;">
+        <button class="btn primary" type="button" onclick="mostrarVista('vista-calificaciones')">📝 Registrar calificaciones</button>
       </div>
       <div class="cal-container">
         <div class="cal-box">
@@ -399,7 +400,68 @@
       </section>
     </div>
 
-    <!-- 6. VISTA DASHBOARD -->
+    <!-- 6. VISTA DE CALIFICACIONES -->
+    <div id="vista-calificaciones" style="display:none; margin-top:15px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:15px;">
+        <button class="btn small" onclick="mostrarVista('vista-calendario')">← Volver al calendario</button>
+        <h3 style="color:var(--navy);margin:0;">Registro de calificaciones</h3>
+        <button class="btn small" type="button" onclick="cargarVistaCalificaciones(true)">🔄 Actualizar notas</button>
+      </div>
+      <div class="tool-card" style="margin-bottom:16px;">
+        <h4 style="color:var(--navy);margin-top:0;">Nueva evaluación</h4>
+        <p class="sub">Registre cada actividad por separado. La nota en letras se calcula automáticamente a partir de la nota numérica.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;">
+          <div>
+            <label for="calif-alumno" style="display:block;font-weight:800;margin-bottom:5px;">Catequizando</label>
+            <select id="calif-alumno" onchange="filtrarHistorialCalificaciones()" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;"><option value="">Seleccione un catequizando</option></select>
+          </div>
+          <div>
+            <label for="calif-tema" style="display:block;font-weight:800;margin-bottom:5px;">Tema</label>
+            <select id="calif-tema" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;"><option value="">Seleccione un tema</option></select>
+          </div>
+          <div>
+            <label for="calif-tipo" style="display:block;font-weight:800;margin-bottom:5px;">Tipo de actividad</label>
+            <select id="calif-tipo" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;">
+              <option value="">Seleccione</option><option value="Ficha">Ficha</option><option value="Cuestionario">Cuestionario</option><option value="Práctica">Práctica</option><option value="Tarea">Tarea</option>
+            </select>
+          </div>
+          <div>
+            <label for="calif-descripcion" style="display:block;font-weight:800;margin-bottom:5px;">Nombre de la actividad (opcional)</label>
+            <input id="calif-descripcion" type="text" maxlength="120" placeholder="Ej. Ficha de aplicación 1" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;">
+          </div>
+          <div>
+            <label for="calif-nota" style="display:block;font-weight:800;margin-bottom:5px;">Nota numérica (0 a 20)</label>
+            <input id="calif-nota" type="number" min="0" max="20" step="0.5" placeholder="Ej. 17" oninput="actualizarEquivalenciaCalificacion()" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;">
+          </div>
+          <div>
+            <label style="display:block;font-weight:800;margin-bottom:5px;">Equivalencia en letras</label>
+            <div id="calif-equivalencia" style="padding:10px;border:1px solid var(--line);border-radius:8px;background:#f4f7fb;font-weight:900;color:var(--navy);">—</div>
+          </div>
+          <div style="grid-column:1/-1;">
+            <label for="calif-observaciones" style="display:block;font-weight:800;margin-bottom:5px;">Observaciones</label>
+            <textarea id="calif-observaciones" rows="2" maxlength="500" placeholder="Comentario sobre el desempeño (opcional)" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;resize:vertical;"></textarea>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;margin-top:14px;">
+          <button class="btn primary" id="btnGuardarCalificacion" type="button" onclick="guardarCalificacionPortal()">💾 Guardar calificación</button>
+        </div>
+        <p class="sub" style="margin:12px 0 0;">Escala: 18–20 = AD · 14–17 = A · 11–13 = B · 0–10 = C.</p>
+      </div>
+      <div class="tool-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+          <div><h4 style="margin:0;color:var(--navy);">Historial de evaluaciones</h4><p class="sub" style="margin:4px 0 0;">Consulte las notas guardadas por catequizando.</p></div>
+          <span id="calif-total-registros" class="sub">0 registros</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="data-table" style="min-width:850px;">
+            <thead><tr><th>Fecha</th><th>Catequizando</th><th>Tema</th><th>Actividad</th><th>Nota / 20</th><th>Letra</th><th>Observaciones</th></tr></thead>
+            <tbody id="tabla-calificaciones-cuerpo"><tr><td colspan="7" style="text-align:center;padding:20px;">Cargando calificaciones…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. VISTA DASHBOARD -->
     <div id="vista-dashboard" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
@@ -489,6 +551,7 @@ let datosAsistenciaGlobal = [];
 let resumenAsistenciaPortal = {};
 let datosPagosPortal = [];
 let datosPadresPortal = [];
+let calificacionesPortal = [];
 let configPortal = {};
 let fechasClasesAsist = [];
 let indiceCatequizandoActivo = 0;
@@ -577,16 +640,17 @@ function abrirPortalComun() {
   sincronizarConHoja(false);
 }
 function mostrarVista(idVista) {
-  ['menu-herramientas','vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v => { if ($(v)) $(v).style.display = 'none'; });
+  ['menu-herramientas','vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-calificaciones','vista-dashboard'].forEach(v => { if ($(v)) $(v).style.display = 'none'; });
   if ($(idVista)) $(idVista).style.display = 'block';
   if (idVista === 'vista-calendario') { renderizarCalendarioModelo(); sincronizarCalendario(false); }
+  if (idVista === 'vista-calificaciones') cargarVistaCalificaciones(false);
   if (idVista === 'vista-asistencia') inicializarAsistenciaModular();
   if (idVista === 'vista-pagos') renderizarPagos();
   if (idVista === 'vista-padres') renderizarPadres();
   if (idVista === 'vista-dashboard') renderizarDashboard();
 }
 function volverMenuPrincipal() {
-  ['vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v => { if ($(v)) $(v).style.display = 'none'; });
+  ['vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-calificaciones','vista-dashboard'].forEach(v => { if ($(v)) $(v).style.display = 'none'; });
   if ($('menu-herramientas')) $('menu-herramientas').style.display = 'grid';
 }
 function openModal(id) { if ($(id)) $(id).classList.add('show'); }
@@ -1079,6 +1143,132 @@ function enviarMensajeCorreoPadre() {
   a.remove();
 }
 
+function equivalenciaCalificacion(nota) {
+  const n = Number(nota);
+  if (!Number.isFinite(n) || n < 0 || n > 20) return '';
+  if (n >= 18) return 'AD';
+  if (n >= 14) return 'A';
+  if (n >= 11) return 'B';
+  return 'C';
+}
+
+function actualizarEquivalenciaCalificacion() {
+  const entrada = $('calif-nota');
+  const salida = $('calif-equivalencia');
+  if (!entrada || !salida) return;
+  const valor = entrada.value.trim();
+  const letra = valor === '' ? '' : equivalenciaCalificacion(valor);
+  salida.textContent = letra || '—';
+  salida.style.color = letra === 'AD' || letra === 'A' ? 'var(--green)' : (letra === 'B' ? 'var(--gold-deep)' : (letra === 'C' ? 'var(--red)' : 'var(--navy)'));
+}
+
+function prepararFormularioCalificaciones() {
+  const alumno = $('calif-alumno');
+  const tema = $('calif-tema');
+  if (!alumno || !tema) return;
+  const alumnoActual = alumno.value;
+  const temaActual = tema.value;
+  alumno.innerHTML = '<option value="">Seleccione un catequizando</option>' + (catequizandosPortal || []).map(a =>
+    `<option value="${escaparHTML(a.ID_NINO)}">${escaparHTML(a.NOMBRE_COMPLETO || [a.NOMBRES,a.APELLIDOS].filter(Boolean).join(' '))}</option>`
+  ).join('');
+  tema.innerHTML = '<option value="">Seleccione un tema</option>' + (sesionesPortal || []).slice().sort((a,b) => Number(a.numeroSesion || a.n) - Number(b.numeroSesion || b.n)).map(t =>
+    `<option value="${escaparHTML(t.id)}">Tema ${escaparHTML(t.numeroSesion || t.n || '')} · ${escaparHTML(t.tema || t.id)}</option>`
+  ).join('');
+  if (alumnoActual && Array.from(alumno.options).some(o => o.value === alumnoActual)) alumno.value = alumnoActual;
+  if (temaActual && Array.from(tema.options).some(o => o.value === temaActual)) tema.value = temaActual;
+}
+
+async function cargarVistaCalificaciones(mostrarAviso) {
+  const cuerpo = $('tabla-calificaciones-cuerpo');
+  if (cuerpo) cuerpo.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:20px;">Consultando calificaciones…</td></tr>';
+  try {
+    if (!catequizandosPortal.length || !sesionesPortal.length) {
+      const respuestas = await Promise.all([apiGet('getCatequizandos'), apiGet('getSesiones')]);
+      catequizandosPortal = respuestas[0].datos || [];
+      sesionesPortal = (respuestas[1].bloques || []).flatMap(b => (b.sessions || []).map(x => Object.assign({}, x, { bloque: x.bloque || b.title })));
+      clasesPortal = respuestas[1].clases || clasesPortal;
+    }
+    prepararFormularioCalificaciones();
+    const respuesta = await apiGet('getCalificaciones');
+    calificacionesPortal = respuesta.datos || [];
+    renderizarHistorialCalificaciones();
+  } catch (error) {
+    console.error('Error al cargar calificaciones:', error);
+    if (cuerpo) cuerpo.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--red);">No se pudieron cargar las calificaciones: ${escaparHTML(error.message)}</td></tr>`;
+    if (mostrarAviso) alert('No se pudieron consultar las calificaciones.\n' + error.message);
+  }
+}
+
+function filtrarHistorialCalificaciones() {
+  renderizarHistorialCalificaciones();
+}
+
+function renderizarHistorialCalificaciones() {
+  const cuerpo = $('tabla-calificaciones-cuerpo');
+  if (!cuerpo) return;
+  const idSeleccionado = String(($('calif-alumno') && $('calif-alumno').value) || '').trim();
+  const registros = (calificacionesPortal || []).filter(r => !idSeleccionado || String(r.ID_NINO || '') === idSeleccionado)
+    .slice().sort((a,b) => String(b.FECHA_REGISTRO || '').localeCompare(String(a.FECHA_REGISTRO || '')));
+  const total = $('calif-total-registros');
+  if (total) total.textContent = `${registros.length} ${registros.length === 1 ? 'registro' : 'registros'}`;
+  if (!registros.length) {
+    cuerpo.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:20px;">Todavía no hay calificaciones registradas para este filtro.</td></tr>';
+    return;
+  }
+  cuerpo.innerHTML = registros.map(r => {
+    const fecha = String(r.FECHA_REGISTRO || '').slice(0,10) || '—';
+    const nota = Number(r.NOTA_NUMERICA);
+    return `<tr><td>${escaparHTML(fecha)}</td><td>${escaparHTML(r.NOMBRE_CATEQUIZANDO || r.ID_NINO || '—')}</td><td>${escaparHTML(r.TEMA || r.ID_SESION || '—')}</td><td>${escaparHTML([r.TIPO_ACTIVIDAD,r.DESCRIPCION].filter(Boolean).join(' · '))}</td><td style="text-align:center;font-weight:900;">${Number.isFinite(nota) ? nota.toLocaleString('es-PE') : '—'}</td><td style="text-align:center;font-weight:900;">${escaparHTML(r.EQUIVALENCIA || equivalenciaCalificacion(nota) || '—')}</td><td>${escaparHTML(r.OBSERVACIONES || '—')}</td></tr>`;
+  }).join('');
+}
+
+async function guardarCalificacionPortal() {
+  const idNino = String($('calif-alumno').value || '').trim();
+  const idSesion = String($('calif-tema').value || '').trim();
+  const tipo = String($('calif-tipo').value || '').trim();
+  const descripcion = String($('calif-descripcion').value || '').trim();
+  const notaTexto = String($('calif-nota').value || '').trim();
+  const observaciones = String($('calif-observaciones').value || '').trim();
+  const nota = Number(notaTexto);
+  if (!idNino) { alert('Seleccione un catequizando.'); return; }
+  if (!idSesion) { alert('Seleccione el tema evaluado.'); return; }
+  if (!tipo) { alert('Seleccione el tipo de actividad.'); return; }
+  if (notaTexto === '' || !Number.isFinite(nota) || nota < 0 || nota > 20) { alert('Ingrese una nota válida entre 0 y 20.'); return; }
+  const alumno = catequizandosPortal.find(a => String(a.ID_NINO) === idNino);
+  const tema = sesionesPortal.find(t => String(t.id) === idSesion);
+  if (!alumno || !tema) { alert('No se pudo identificar al catequizando o el tema. Actualice los datos e intente nuevamente.'); return; }
+  const boton = $('btnGuardarCalificacion');
+  if (boton) { boton.disabled = true; boton.textContent = '⏳ Guardando…'; }
+  const idCalificacion = 'CAL-' + Date.now() + '-' + Math.floor(Math.random() * 100000);
+  const payload = {
+    action: 'guardarCalificacion', idCalificacion, idNino,
+    nombreCatequizando: alumno.NOMBRE_COMPLETO || [alumno.NOMBRES,alumno.APELLIDOS].filter(Boolean).join(' '),
+    idSesion, tema: tema.tema || idSesion, tipoActividad: tipo,
+    descripcion, notaNumerica: nota, equivalencia: equivalenciaCalificacion(nota),
+    observaciones, catequista: tema.catequista || ''
+  };
+  try {
+    await apiPost(payload);
+    await retraso(900);
+    const respuesta = await apiGet('getCalificaciones');
+    calificacionesPortal = respuesta.datos || [];
+    if (!calificacionesPortal.some(r => String(r.ID_CALIFICACION) === idCalificacion)) {
+      throw new Error('Google Sheets no confirmó el registro. Revise los permisos del despliegue y vuelva a intentar.');
+    }
+    $('calif-descripcion').value = '';
+    $('calif-nota').value = '';
+    $('calif-equivalencia').textContent = '—';
+    $('calif-observaciones').value = '';
+    renderizarHistorialCalificaciones();
+    alert('Calificación guardada y verificada correctamente.');
+  } catch (error) {
+    console.error('Error al guardar calificación:', error);
+    alert('No se pudo guardar la calificación.\n' + error.message);
+  } finally {
+    if (boton) { boton.disabled = false; boton.textContent = '💾 Guardar calificación'; }
+  }
+}
+
 function renderizarDashboard() {
   if ($('dash-catequizandos')) $('dash-catequizandos').textContent = catequizandosPortal.length;
   if ($('dash-padres')) $('dash-padres').textContent = datosPadresPortal.length;
@@ -1333,12 +1523,9 @@ function actualizarPanelEncuentro(fecha, key, clases) {
 function actualizarResumenCalendario() {
   const total = (clasesPortal || []).length;
   const totalTemas = (sesionesPortal || []).length;
-  const asignadas = (clasesPortal || []).filter(c => String(c.catequista || '').trim()).length;
   if ($('cal-total-clases')) $('cal-total-clases').textContent = total;
   if ($('cal-total-temas')) $('cal-total-temas').textContent = totalTemas;
   if ($('cal-horario-general')) $('cal-horario-general').textContent = '14:00–16:00';
-  if ($('cal-docentes-asignados')) $('cal-docentes-asignados').textContent = asignadas;
-  if ($('cal-docentes-pendientes')) $('cal-docentes-pendientes').textContent = total - asignadas;
 }
 
 function renderizarListaProgramaCalendario() {
