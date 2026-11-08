@@ -166,7 +166,7 @@
     <!-- MENÚ DE OPCIONES -->
     <div class="tools-grid" id="menu-herramientas">
       <div class="tool-card">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">📚</div><h4>56 Sesiones</h4><p>Programa completo y materiales organizados.</p></div>
+        <div><div style="font-size:1.5rem;margin-bottom:8px;">📚</div><h4 id="titulo-total-sesiones">Programa de sesiones</h4><p>Programa completo y materiales organizados.</p></div>
         <button class="btn small primary" onclick="mostrarVista('vista-clases')">Abrir Sesiones</button>
       </div>
       <div class="tool-card">
@@ -195,7 +195,7 @@
     <div id="vista-clases" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
-        <h3 style="color:var(--navy); margin:0;">Programa Completo: 56 Sesiones</h3>
+        <h3 style="color:var(--navy); margin:0;">Programa Completo</h3>
       </div>
       <div id="contenedor-56-sesiones"></div>
     </div>
@@ -260,15 +260,7 @@
       <h3 style="color:var(--navy); margin-bottom:5px;">Control de Pago Único (S/. 40.00 Soles)</h3>
       <table class="data-table">
         <thead><tr><th>ID</th><th>Apellidos y Nombres</th><th>DNI Alumno</th><th>Monto</th><th>Estado Editable</th><th>Voucher</th></tr></thead>
-        <tbody>
-          <tr><td>LDS-EST-001</td><td>FRANCISCO CRIOLLO, DANY SMITH</td><td>74823910</td><td><strong>S/. 40.00</strong></td><td><select style="border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--gold-deep);"><option selected>Pendiente</option><option style="color:var(--green);">Pagado</option></select></td><td><input type="file" accept="image/*,.pdf" style="font-size:0.78rem; max-width:180px;" /></td></tr>
-          <tr><td>LDS-EST-002</td><td>PINEDA ELGUERA, ADAM STUARD</td><td>73920184</td><td><strong>S/. 40.00</strong></td><td><select style="border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--gold-deep);"><option selected>Pendiente</option><option style="color:var(--green);">Pagado</option></select></td><td><input type="file" accept="image/*,.pdf" style="font-size:0.78rem; max-width:180px;" /></td></tr>
-          <tr><td>LDS-EST-003</td><td>PIZARRO MENDOZA, CAMILA</td><td>75019283</td><td><strong>S/. 40.00</strong></td><td><select style="border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--gold-deep);"><option selected>Pendiente</option><option style="color:var(--green);">Pagado</option></select></td><td><input type="file" accept="image/*,.pdf" style="font-size:0.78rem; max-width:180px;" /></td></tr>
-          <tr><td>LDS-EST-004</td><td>QUISPE FLORES, ANA PAULA</td><td>74102938</td><td><strong>S/. 40.00</strong></td><td><select style="border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--gold-deep);"><option selected>Pendiente</option><option style="color:var(--green);">Pagado</option></select></td><td><input type="file" accept="image/*,.pdf" style="font-size:0.78rem; max-width:180px;" /></td></tr>
-          <tr><td>LDS-EST-005</td><td>ROMERO SIESQUEN, MARCOS MANUEL</td><td>73849201</td><td><strong>S/. 40.00</strong></td><td><select style="border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--gold-deep);"><option selected>Pendiente</option><option style="color:var(--green);">Pagado</option></select></td><td><input type="file" accept="image/*,.pdf" style="font-size:0.78rem; max-width:180px;" /></td></tr>
-          <tr><td>LDS-EST-006</td><td>CARDENAS QUISPE, VASCO</td><td>75920183</td><td><strong>S/. 40.00</strong></td><td><select style="border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--gold-deep);"><option selected>Pendiente</option><option style="color:var(--green);">Pagado</option></select></td><td><input type="file" accept="image/*,.pdf" style="font-size:0.78rem; max-width:180px;" /></td></tr>
-          <tr><td>LDS-EST-007</td><td>PIZARRO MENDOZA, MARCHELO</td><td>76019284</td><td><strong>S/. 40.00</strong></td><td><select style="border:1px solid var(--line); border-radius:6px; padding:4px; font-weight:bold; color:var(--gold-deep);"><option selected>Pendiente</option><option style="color:var(--green);">Pagado</option></select></td><td><input type="file" accept="image/*,.pdf" style="font-size:0.78rem; max-width:180px;" /></td></tr>
-        </tbody>
+        <tbody id="tabla-pagos-cuerpo"><tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px;">Cargando información de pagos desde Google Sheets…</td></tr></tbody>
       </table>
     </div>
 
@@ -281,15 +273,7 @@
       <h3 style="color:var(--navy); margin-bottom:5px;">Directorio de Padres y Apoderados</h3>
       <table class="data-table">
         <thead><tr><th>ID</th><th>Apellidos y Nombres</th><th>Parentesco</th><th>DNI</th><th>Teléfono</th><th>Autoriza</th></tr></thead>
-        <tbody>
-          <tr><td>PAD-EST-001</td><td>Carlos Alberto Criollo</td><td>PADRE</td><td>40646634</td><td>987348365</td><td>SI</td></tr>
-          <tr><td>PAD-EST-002</td><td>Manuel Antonio Pineda</td><td>PADRE</td><td>-</td><td>941023030</td><td>SI</td></tr>
-          <tr><td>PAD-EST-003</td><td>Jorge Luis Pizarro</td><td>PADRE</td><td>-</td><td>915933631</td><td>SI</td></tr>
-          <tr><td>PAD-EST-004</td><td>Alberto Quispe</td><td>PADRE</td><td>-</td><td>927297915</td><td>SI</td></tr>
-          <tr><td>PAD-EST-005</td><td>Ricardo Romero</td><td>PADRE</td><td>-</td><td>983085095</td><td>SI</td></tr>
-          <tr><td>PAD-EST-006</td><td>Fernando Cárdenas</td><td>PADRE</td><td>-</td><td>993188831</td><td>SI</td></tr>
-          <tr><td>PAD-EST-007</td><td>Jorge Luis Pizarro</td><td>PADRE</td><td>-</td><td>915933631</td><td>SI</td></tr>
-        </tbody>
+        <tbody id="tabla-padres-cuerpo"><tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px;">Cargando directorio desde Google Sheets…</td></tr></tbody>
       </table>
     </div>
 
@@ -335,8 +319,12 @@
       </div>
       <div class="tool-card">
         <h4>Indicadores del Programa</h4>
-        <p>• <strong>Catequizandos:</strong> 7 niños con DNI registrado<br>
-- <strong>Padres / Apoderados:</strong> 14 tutores<br>
+        <p>• <strong>Catequizandos:</strong> <span id="dash-catequizandos">—</span><br>
+- <strong>Padres / Apoderados:</strong> <span id="dash-padres">—</span><br>
+- <strong>Temas del programa:</strong> <span id="dash-temas">—</span><br>
+- <strong>Clases programadas:</strong> <span id="dash-clases">—</span><br>
+- <strong>Pagos registrados:</strong> <span id="dash-pagos">—</span><br>
+- <strong>Pagos completados:</strong> <span id="dash-pagos-completados">—</span><br>
 - <strong>Institución:</strong> Colegio La Salle del Sur<br>
 - <strong>Parroquia:</strong> Parroquia San Pedro de Lurín<br>
 - <strong>Catequistas:</strong> Lily Melo Azañero / Kiara Morales Elguera</p>
@@ -363,7 +351,7 @@
       </div>
       <div>
         <label style="font-weight: 800; font-size: 0.85rem; color: var(--navy); display: block; margin-bottom: 4px;">Cargar Archivo (PDF, Word, Imagen):</label>
-        <input type="file" id="input-material-archivo" style="font-size: 0.85rem;" />
+        <input type="file" id="input-material-archivo" accept=".pdf,.doc,.docx,.ppt,.pptx,.jpg,.jpeg,.png,.webp,.mp4,.mp3" style="font-size: 0.85rem;" />
       </div>
       <div>
         <label style="font-weight: 800; font-size: 0.85rem; color: var(--navy); display: block; margin-bottom: 4px;">Notas / Observaciones:</label>
@@ -378,373 +366,533 @@
 </div>
 
 <script>
-const $=id=>document.getElementById(id);
+const $ = id => document.getElementById(id);
 const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec";
 
-function abrirPortalComun(){openModal('mise-modal');volverMenuPrincipal();}
-function mostrarVista(idVista){
-  ['menu-herramientas','vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v=>$(v).style.display='none');
-  $(idVista).style.display = 'block';
-  if(idVista === 'vista-calendario') renderizarCalendarioModelo();
-  if(idVista === 'vista-asistencia') inicializarAsistenciaModular();
-}
-function volverMenuPrincipal(){
-  ['vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v=>$(v).style.display='none');
-  $('menu-herramientas').style.display = 'grid';
-}
-function openModal(id){$(id).classList.add('show')}
-function hideModal(id){$(id).classList.remove('show')}
-document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>hideModal(b.closest('.modal-backdrop').id)));
-
-let sesionActualInteractiva = 1;
+let sesionesPortal = [];
+let clasesPortal = [];
+let catequizandosPortal = [];
+let datosAsistenciaGlobal = [];
+let resumenAsistenciaPortal = {};
+let datosPagosPortal = [];
+let datosPadresPortal = [];
+let configPortal = {};
+let fechasClasesAsist = [];
+let indiceCatequizandoActivo = 0;
+let idSesionMaterialActual = '';
 let tipoMaterialActual = '';
-function abrirGestionMaterial(numSesion, tipo) {
-  sesionActualInteractiva = numSesion;
-  tipoMaterialActual = tipo;
-  $('material-titulo').textContent = `${tipo} — Sesión ${numSesion}`;
-  $('material-sub').textContent = `Gestión e ingreso de contenido para la Sesión ${numSesion}`;
-  $('input-material-url').value = '';
-  $('input-material-archivo').value = '';
-  $('input-material-notas').value = '';
-  openModal('modal-material');
-}
+let mesActual = new Date().getMonth();
+let anioActual = new Date().getFullYear();
+let fechaCalendarioSeleccionada = '';
 
-function guardarMaterialSesion() {
-  const urlVal = $('input-material-url').value;
-  const notasVal = $('input-material-notas').value;
-  alert(`¡${tipoMaterialActual} de la Sesión ${sesionActualInteractiva} guardado con éxito!\nEnlace: ${urlVal || 'Ninguno'}\nNotas: ${notasVal || 'Ninguna'}`);
-  hideModal('modal-material');
-}
-
-const fechasClasesAsist = ["16/06","18/06","23/06","25/06","30/06","02/07","07/07","09/07","14/07","16/07","21/07","23/07","28/07","30/07","04/08","06/08","11/08","13/08","18/08","20/08","25/08","27/08","01/09","03/09","08/09","10/09","15/09","17/09","22/09","24/09","29/09","01/10","06/10","08/10","13/10","15/10","20/10","22/10","27/10","29/10","03/11","05/11","10/11","12/11","17/11","19/11","24/11","26/11","01/12","03/12"];
-
-let datosAsistenciaGlobal = [
-  { id: "LDS-EST-001", dni: "74823910", nombre: "FRANCISCO CRIOLLO, DANY SMITH", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/dany.JPG", estados: ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","T","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","","","","","","","","",""] },
-  { id: "LDS-EST-002", dni: "73920184", nombre: "PINEDA ELGUERA, ADAM STUARD", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/adam.jpeg", estados: ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","T","A","A","A","A","A","A","A","A","A","T","A","A","A","A","A","A","A","A","A","A","A","","","","","","","","",""] },
-  { id: "LDS-EST-003", dni: "75019283", nombre: "PIZARRO MENDOZA, CAMILA", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/camila.png", estados: ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","FJ","FJ","A","A","A","A","A","A","A","A","FJ","FJ","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","","","","","","","","",""] },
-  { id: "LDS-EST-004", dni: "74102938", nombre: "QUISPE FLORES, ANA PAULA", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/ana.jpeg", estados: ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","","","","","","","","",""] },
-  { id: "LDS-EST-005", dni: "73849201", nombre: "ROMERO SIESQUEN, MARCOS MANUEL", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/jesus1.png", estados: ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","FJ","A","","","","","","","","",""] },
-  { id: "LDS-EST-006", dni: "75920183", nombre: "CARDENAS QUISPE, VASCO", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/jesus%204.png", estados: ["A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","T","A","A","A","A","A","A","A","A","A","FJ","A","A","","","","","","","","",""] },
-  { id: "LDS-EST-007", dni: "76019284", nombre: "PIZARRO MENDOZA, MARCHELO", foto: "https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/camila.png", estados: ["A","T","A","A","A","T","A","A","T","A","A","A","A","T","FJ","FJ","A","T","A","A","T","A","A","T","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","A","","","","","","","","",""] }
-];
-
-function inicializarAsistenciaModular() {
-  const listaCont = $('lista-catequizandos-asist');
-  if(!listaCont) return;
-  listaCont.innerHTML = "";
-  recalcularTotalesGlobales();
-
-  datosAsistenciaGlobal.forEach((est, idx) => {
-    let dictadas = 0, asistidas = 0;
-    est.estados.forEach(v => { if(v !== "") { dictadas++; if(v === "A") asistidas++; } });
-    let porc = dictadas > 0 ? ((asistidas / dictadas) * 100).toFixed(0) : "0";
-
-    let btn = document.createElement('div');
-    btn.className = 'est-item-btn' + (idx === 0 ? ' active' : '');
-    btn.innerHTML = `
-      <img src="${est.foto}" alt="${est.nombre}" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/insignia.png';">
-      <div style="overflow:hidden; width:100%;">
-        <div class="info-n">${est.nombre}</div>
-        <div class="info-sub">
-          <span>ID: ${est.id} · DNI: ${est.dni}</span>
-          <strong style="color:var(--navy);">${porc}%</strong>
-        </div>
-      </div>
-    `;
-    btn.onclick = () => {
-      document.querySelectorAll('.est-item-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      cargarMatrizEstudiante(idx);
-    };
-    listaCont.appendChild(btn);
-  });
-  cargarMatrizEstudiante(0);
-}
-
-function cargarMatrizEstudiante(idxEst) {
-  let est = datosAsistenciaGlobal[idxEst];
-  $('nombre-catequizando-activo').textContent = est.nombre;
-  $('sub-id-activo').textContent = `ID: ${est.id} · DNI: ${est.dni}`;
-
-  let dictadas = 0, asistidas = 0;
-  est.estados.forEach(v => { if(v !== "") { dictadas++; if(v === "A") asistidas++; } });
-  let porc = dictadas > 0 ? ((asistidas / dictadas) * 100).toFixed(1) : "0.0";
-  $('porcentaje-individual-badge').textContent = `Asistencia: ${porc}%`;
-
-  const tbody = $('tabla-matriz-cuerpo');
-  tbody.innerHTML = "";
-
-  est.estados.forEach((val, idxSes) => {
-    let tr = document.createElement('tr');
-    
-    let bgSelect = '#fff', colorSelect = 'var(--muted)', borderSelect = 'var(--line)';
-    if(val === 'A') { bgSelect = '#1b4a79'; colorSelect = '#fff'; borderSelect = '#1b4a79'; }
-    else if(val === 'T') { bgSelect = '#f3c755'; colorSelect = '#12345b'; borderSelect = '#e0b23d'; }
-    else if(val === 'F') { bgSelect = '#b83d43'; colorSelect = '#fff'; borderSelect = '#b83d43'; }
-    else if(val === 'FJ') { bgSelect = '#23764c'; colorSelect = '#fff'; borderSelect = '#23764c'; }
-
-    tr.innerHTML = `
-      <td style="text-align:center; font-weight:800; color:var(--navy);">Sesión ${idxSes + 1}</td>
-      <td style="color:var(--muted); font-weight:600;">📅 ${fechasClasesAsist[idxSes]}</td>
-      <td>
-        <select onchange="actualizarEstadoModular(${idxEst}, ${idxSes}, this.value)" style="font-size:0.85rem; font-weight:800; padding:6px 12px; border-radius:8px; border:1.5px solid ${borderSelect}; background:${bgSelect}; color:${colorSelect}; cursor:pointer; width:100%; max-width:240px;">
-          <option value="" ${val===''?'selected':''}>-- Opción --</option>
-          <option value="A" ${val==='A'?'selected':''}>A (Asistencia)</option>
-          <option value="T" ${val==='T'?'selected':''}>T (Tardanza)</option>
-          <option value="F" ${val==='F'?'selected':''}>F (Falta)</option>
-          <option value="FJ" ${val==='FJ'?'selected':''}>FJ (Justificada)</option>
-        </select>
-      </td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-function actualizarEstadoModular(idxEst, idxSes, nuevoVal) {
-  datosAsistenciaGlobal[idxEst].estados[idxSes] = nuevoVal;
-  recalcularTotalesGlobales();
-  
-  let estudiante = datosAsistenciaGlobal[idxEst];
-  fetch(URL_APPS_SCRIPT, {
-    method: "POST",
-    mode: "no-cors",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ idEstudiante: estudiante.id, dni: estudiante.dni, nombre: estudiante.nombre, sesion: idxSes + 1, estado: nuevoVal })
-  }).catch(err => console.error("Error al sincronizar:", err));
-  
-  cargarMatrizEstudiante(idxEst);
-  inicializarAsistenciaModular();
-}
-
-function sincronizarConHoja() {
-  const btn = $('btnActualizar');
-  if(!btn) return;
-  const original = btn.textContent;
-  btn.textContent = '⏳ Sincronizando...';
-  btn.disabled = true;
-  setTimeout(() => {
-    recalcularTotalesGlobales();
-    btn.textContent = '✅ ¡Sincronizado!';
-    setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 1200);
-  }, 600);
-}
-
-function recalcularTotalesGlobales() {
-  let totalPres = 0, totalTard = 0, totalFalt = 0, totalJust = 0, totalMarcadas = 0, totalAsistidas = 0;
-  
-  datosAsistenciaGlobal.forEach(est => {
-    est.estados.forEach(v => {
-      if(v === "A") { totalPres++; totalMarcadas++; totalAsistidas++; }
-      else if(v === "T") { totalTard++; totalMarcadas++; }
-      else if(v === "F") { totalFalt++; totalMarcadas++; }
-      else if(v === "FJ") { totalJust++; totalMarcadas++; }
-    });
-  });
-
-  let porcGlobal = totalMarcadas > 0 ? ((totalAsistidas / totalMarcadas) * 100).toFixed(1) : "79.6";
-  
-  $('stat-porcentaje-global').textContent = porcGlobal + '%';
-  $('stat-presentes-global').textContent = totalPres || 266;
-  $('stat-tardanzas-global').textContent = totalTard || 8;
-  $('stat-faltas-global').textContent = totalFalt || 0;
-  $('stat-justificadas-global').textContent = totalJust || 6;
-}
-
-let mesActual = 10, anioActual = 2026;
 const nombresMeses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Setiembre","Octubre","Noviembre","Diciembre"];
 const nombresDiasSemana = ["domingo","lunes","martes","miércoles","jueves","viernes","sábado"];
-const temasCalendario = { "2026-10-3": { tema: "Tema 48: LOS MANDAMIENTOS DE LA IGLESIA", enc: "Encuentro 41." } };
+const camposMaterial = {
+  'Prácticas': 'fichaUrl',
+  'Evaluaciones': 'cuestionarioUrl',
+  'Canciones': 'cancionUrl',
+  'Videos': 'videoUrl'
+};
 
-function cambiarMes(dir) {
-  mesActual += dir;
-  if(mesActual > 11) { mesActual = 0; anioActual++; }
-  else if(mesActual < 0) { mesActual = 11; anioActual--; }
-  renderizarCalendarioModelo();
+function escaparHTML(valor) {
+  return String(valor == null ? '' : valor)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
+function fechaLocalISO(fecha) {
+  return [fecha.getFullYear(), String(fecha.getMonth()+1).padStart(2,'0'), String(fecha.getDate()).padStart(2,'0')].join('-');
+}
+function fechaDesdeISO(iso) {
+  const m = String(iso || '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  return m ? new Date(Number(m[1]), Number(m[2])-1, Number(m[3]), 12, 0, 0) : null;
+}
+function formatearFecha(iso, incluirDia) {
+  const f = fechaDesdeISO(iso);
+  if (!f) return 'Fecha pendiente';
+  const base = `${f.getDate()} de ${nombresMeses[f.getMonth()]}`;
+  return incluirDia ? `${nombresDiasSemana[f.getDay()].charAt(0).toUpperCase()+nombresDiasSemana[f.getDay()].slice(1)}, ${base} de ${f.getFullYear()}` : `${String(f.getDate()).padStart(2,'0')}/${String(f.getMonth()+1).padStart(2,'0')}`;
+}
+function retraso(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 
-function renderizarCalendarioModelo() {
-  const lblMes = $('cal-mes-anio');
-  if(!lblMes) return;
-  lblMes.textContent = `${nombresMeses[mesActual]} ${anioActual}`;
-  const grid = $('cal-grid-dias');
-  grid.innerHTML = '';
-  const primerDiaIndex = new Date(anioActual, mesActual, 1).getDay();
-  let primerDiaLunes = primerDiaIndex === 0 ? 6 : primerDiaIndex - 1;
-  const totalDiasMes = new Date(anioActual, mesActual + 1, 0).getDate();
-  const totalDiasMesAnterior = new Date(anioActual, mesActual, 0).getDate();
-
-  for (let i = primerDiaLunes - 1; i >= 0; i--) {
-    let cell = document.createElement('div');
-    cell.className = 'cal-day';
-    cell.style.color = '#b0c0d0';
-    cell.textContent = totalDiasMesAnterior - i;
-    grid.appendChild(cell);
-  }
-
-  for (let d = 1; d <= totalDiasMes; d++) {
-    let cell = document.createElement('div');
-    let fechaObj = new Date(anioActual, mesActual, d);
-    let diaSemana = fechaObj.getDay();
-    let esMartesOJueves = (diaSemana === 2 || diaSemana === 4);
-    let keyFecha = `${anioActual}-${mesActual}-${d}`;
-
-    cell.className = 'cal-day' + (esMartesOJueves ? ' has-class' : '');
-    if(mesActual === 10 && anioActual === 2026 && d === 3) cell.classList.add('selected');
-
-    cell.innerHTML = `<span>${d}</span>` + (esMartesOJueves ? `<div class="cal-dot"></div>` : ``);
-    cell.onclick = () => {
-      document.querySelectorAll('.cal-day').forEach(el => el.classList.remove('selected'));
-      cell.classList.add('selected');
-      actualizarPanelEncuentro(fechaObj, keyFecha);
+// Lectura JSONP: evita errores CORS al consultar Apps Script desde GitHub Pages.
+function apiGet(action, parametros) {
+  parametros = parametros || {};
+  return new Promise((resolve, reject) => {
+    const callback = 'caminoJsonp_' + Date.now() + '_' + Math.floor(Math.random()*1000000);
+    const script = document.createElement('script');
+    let terminado = false;
+    const limpiar = () => {
+      if (script.parentNode) script.parentNode.removeChild(script);
+      try { delete window[callback]; } catch(e) { window[callback] = undefined; }
     };
-    grid.appendChild(cell);
-  }
+    const temporizador = setTimeout(() => {
+      if (terminado) return;
+      terminado = true; limpiar(); reject(new Error('La consulta a Google Sheets agotó el tiempo de espera.'));
+    }, 20000);
+    window[callback] = respuesta => {
+      if (terminado) return;
+      terminado = true; clearTimeout(temporizador); limpiar();
+      if (!respuesta || respuesta.exito === false) reject(new Error(respuesta && respuesta.mensaje ? respuesta.mensaje : 'La consulta no se pudo completar.'));
+      else resolve(respuesta);
+    };
+    const query = new URLSearchParams(Object.assign({}, parametros, { action, callback, _: Date.now() }));
+    script.onerror = () => {
+      if (terminado) return;
+      terminado = true; clearTimeout(temporizador); limpiar(); reject(new Error('No se pudo conectar con el servicio de Google Apps Script.'));
+    };
+    script.src = URL_APPS_SCRIPT + '?' + query.toString();
+    document.head.appendChild(script);
+  });
 }
 
-function actualizarPanelEncuentro(fechaObj, keyFecha) {
-  let diaFormateado = nombresDiasSemana[fechaObj.getDay()];
-  diaFormateado = diaFormateado.charAt(0).toUpperCase() + diaFormateado.slice(1);
-  $('panel-fecha-texto').textContent = `${diaFormateado}, ${fechaObj.getDate()} de ${nombresMeses[fechaObj.getMonth()]}`;
-  let info = temasCalendario[keyFecha] || { tema: "Sesión Pastoral Formativa", enc: "Encuentro Regular." };
-  $('panel-titulo-tema').textContent = info.tema;
-  $('panel-sub-encuentro').textContent = info.enc;
-  $('card-tema-mini').textContent = info.tema;
+// Escritura simple (text/plain) para evitar preflight. Luego se verifica leyendo de nuevo la hoja.
+async function apiPost(payload) {
+  const resultado = await fetch(URL_APPS_SCRIPT, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+    body: JSON.stringify(payload)
+  });
+  return resultado;
 }
 
-const bloquesProgramacion = [
-  {
-    title: 'BLOQUE 1 — CONOCIENDO A JESÚS',
-    topics: [
-      {num: 1, title: '¿Quién es Dios?', sub: ['Dios como Padre y Creador', 'Sus atributos: eterno, bueno, amoroso y misericordioso', 'Dios conoce y ama a cada persona', 'Su presencia en nuestra vida'], obj: 'Reconocer a Dios como Padre amoroso y Creador.', val: 'Amor y confianza', cita: '1 Juan 4,8', act: 'Elaborar un corazón titulado «Dios me ama» y escribir acciones que demuestren su amor.'},
-      {num: 2, title: '¿Quién es Jesús?', sub: ['Jesús, el Hijo de Dios', 'Verdadero Dios y verdadero hombre', 'Nacimiento y misión'], obj: 'Identificar a Jesús como Hijo de Dios.', val: 'Amor y entrega', cita: 'Juan 14,6', act: 'Elaborar una ficha de identidad de Jesús.'},
-      {num: 3, title: '¿Quién es el Espíritu Santo?', sub: ['El Espíritu Santo como tercer ángel / persona', 'Su misión en la Iglesia', 'Cómo actúa en nosotros'], obj: 'Comprender la acción del Espíritu Santo.', val: 'Fortaleza y guía', cita: 'Hechos 1,8', act: 'Realizar un cartel con los dones del Espíritu Santo.'},
-      {num: 4, title: 'La Santísima Trinidad', sub: ['Un solo Dios en tres Personas', 'Misterio central de la fe', 'Relación de amor'], obj: 'Conocer el misterio de la Santísima Trinidad.', val: 'Unidad y comunión', cita: 'Mateo 28,19', act: 'Diseñar un triángulo explicativo de las tres Personas.'},
-      {num: 5, title: 'La Creación', sub: ['Dios creador de todo', 'Bondad de lo creado', 'Cuidado de la casa común'], obj: 'Valorar la creación de Dios.', val: 'Cuidado y gratitud', cita: 'Génesis 1,1', act: 'Dibujar la creación y escribir un compromiso ecológico.'},
-      {num: 6, title: 'Dios se revela al ser humano', sub: ['Cómo conocemos a Dios', 'La Revelación divina', 'La Sagrada Escritura'], obj: 'Entender cómo Dios se comunica con nosotros.', val: 'Escucha y atención', cita: 'Hebreos 1,1-2', act: 'Crear un esquema sobre las formas en que Dios habla hoy.'},
-      {num: 7, title: 'La Biblia', sub: ['Qué es la Biblia', 'Antiguo y Nuevo Testamento', 'Los Evangelios'], obj: 'Familiarizarse con la estructura de la Biblia.', val: 'Amor a la Palabra', cita: '2 Timoteo 3,16', act: 'Ubicar citas bíblicas clave en la Biblia.'},
-      {num: 8, title: 'La vida de Jesús', sub: ['Infancia y vida oculta', 'Bautismo en el Jordán', 'Vida pública y predicación'], obj: 'Repasar los momentos clave de la vida de Jesús.', val: 'Seguimiento', cita: 'Lucas 2,52', act: 'Armar una línea de tiempo con la vida de Jesús.'},
-      {num: 9, title: 'Las enseñanzas de Jesús', sub: ['Las parábolas del Reino', 'El buen samaritano', 'El hijo pródigo'], obj: 'Aplicar las enseñanzas de las parábolas.', val: 'Prójimo y perdón', cita: 'Lucas 10,27', act: 'Dramatizar una parábola en grupo.'},
-      {num: 10, title: 'Los milagros de Jesús', sub: ['Significado de los milagros', 'Milagros de sanación', 'Milagros sobre la naturaleza'], obj: 'Reconocer el poder y amor de Jesús en sus milagros.', val: 'Fe y esperanza', cita: 'Juan 2,11', act: 'Crear un rotafolio con los principales milagros.'},
-      {num: 11, title: 'Pasión, Muerte y Resurrección', sub: ['La Última Cena', 'La Crucifixión', 'La Resurrección gloriosa'], obj: 'Comprender el sacrificio y triunfo de Cristo.', val: 'Entrega y victoria', cita: '1 Corintios 15,3-4', act: 'Elaborar una cruz pascual decorada.'},
-      {num: 12, title: '¿Quién es la Virgen María?', sub: ['La Anunciación', 'Madre de Jesús y nuestra Madre', 'María en la historia de la Iglesia'], obj: 'Honrar a la Virgen María como madre.', val: 'Sencillez y obediencia', cita: 'Lucas 1,38', act: 'Escribir una carta a la Virgen María.'},
-      {num: 13, title: '¿Por qué hay tantas vírgenes?', sub: ['Advocaciones marianas', 'Virgen del Carmen', 'Nuestra Señora de Guadalupe'], obj: 'Conocer las principales advocaciones.', val: 'Devoción', cita: 'Apocalipsis 12,1', act: 'Investigar una advocación mariana local.'},
-      {num: 14, title: '¿Qué significa tener fe?', sub: ['Creer sin ver', 'Fe y confianza absoluta', 'Testimonio de fe'], obj: 'Fortalecer la confianza en Dios.', val: 'Confianza', cita: 'Hebreos 11,1', act: 'Escribir un testimonio personal de fe.'},
-      {num: 15, title: 'El Credo', sub: ['Profesión de fe', 'Artículos principales', 'Significado comunitario'], obj: 'Aprender y rezar el Credo con sentido.', val: 'Verdad', cita: 'Romanos 10,9', act: 'Completar un esquema de las verdades del Credo.'}
-    ]
-  },
-  {
-    title: 'BLOQUE 2 — APRENDEMOS A ORAR',
-    topics: [
-      {num: 16, title: 'El Santo Rosario', sub: ['Estructura y misterios', 'Cómo se reza el rosario', 'María intercesora'], obj: 'Aprender a rezar el Santo Rosario.', val: 'Devoción mariana', cita: 'Lucas 1,28', act: 'Elaborar un rosario con materiales reciclados.'},
-      {num: 17, title: '¿Qué es orar?', sub: ['Hablar con Dios como amigo', 'Oración personal y comunitaria', 'Silencio interior'], obj: 'Descubrir la oración como diálogo de amor.', val: 'Intimidad con Dios', cita: '1 Tesalonicenses 5,17', act: 'Crear un espacio de oración personal.'},
-      {num: 18, title: 'Oraciones Fundamentales', sub: ['Señal de la Cruz', 'Padre Nuestro y Ave María', 'Gloria y acto de contrición'], obj: 'Dominar las oraciones básicas del cristiano.', val: 'Tradición y piedad', cita: 'Lucas 11,1', act: 'Recitar correctamente las oraciones fundamentales.'},
-      {num: 19, title: 'El Padre Nuestro', sub: ['Oración enseñada por Jesús', 'Significado de cada petición', 'Pan nuestro de cada día'], obj: 'Profundizar en la oración del Señor.', val: 'Filiación divina', cita: 'Mateo 6,9-13', act: 'Analizar frase por frase el Padre Nuestro.'}
-    ]
-  },
-  {
-    title: 'BLOQUE 3 — LOS SACRAMENTOS',
-    topics: [
-      {num: 20, title: '¿Quién es Jesús en los sacramentos?', sub: ['Signos visibles de la gracia', 'Instituidos por Cristo', 'Vida sacramental'], obj: 'Entender qué es un sacramento.', val: 'Gracia y encuentro', cita: 'Romanos 6,4', act: 'Graficar los signos de los sacramentos.'},
-      {num: 21, title: 'Los Siete Sacramentos', sub: ['Clasificación', 'Iniciación, sanación y servicio', 'Camino de salvación'], obj: 'Identificar los 7 sacramentos de la Iglesia.', val: 'Compromiso eclesial', cita: 'Catecismo Iglesia', act: 'Completar un cuadro sinóptico de los 7 sacramentos.'},
-      {num: 22, title: 'La Gracia', sub: ['Gracia santificante y actual', 'Vida en amistad con Dios', 'Tesoro espiritual'], obj: 'Valorar la gracia divina en el alma.', val: 'Pureza interior', cita: '2 Corintios 12,9', act: 'Escribir un compromiso para mantener la gracia.'},
-      {num: 23, title: 'El Bautismo', sub: ['Primer sacramento', 'Agua, óleo, luz y crisma', 'Hijos de Dios y templo del Espíritu'], obj: 'Comprender el significado del Bautismo.', val: 'Renovación y pertenencia', cita: 'Mateo 28,19', act: 'Recordar la fecha y parroquia del propio bautismo.'},
-      {num: 24, title: 'La Confirmación', sub: ['Don del Espíritu Santo', 'Madurez cristiana', 'Testigos de Cristo'], obj: 'Asumir el compromiso de la Confirmación.', val: 'Valor y testimonio', cita: 'Hechos 8,17', act: 'Reflexionar sobre los dones recibidos en la confirmación.'},
-      {num: 25, title: 'Los demás sacramentos', sub: ['Matrimonio y Orden Sacerdotal', 'Unción de los enfermos', 'Vocaciones en la Iglesia'], obj: 'Conocer los sacramentos de servicio y sanación.', val: 'Servicio y entrega', cita: 'Santiago 5,14-15', act: 'Investigar sobre las vocaciones sacramentales.'},
-      {num: 26, title: 'El sacramento de la Reconciliación', sub: ['El perdón de los pecados', 'Arrepentimiento sincero', 'La misericordia del Padre'], obj: 'Prepararse para el sacramento del perdón.', val: 'Humildad y perdón', cita: 'Juan 20,23', act: 'Realizar un esquema de examen de conciencia.'},
-      {num: 27, title: 'Mi primera confesión', sub: ['Pasos para una buena confesión', 'Diálogo con el sacerdote', 'Penitencia y absolución'], obj: 'Experimentar la alegría del perdón divino.', val: 'Paz interior', cita: 'Lucas 15,7', act: 'Simular los pasos de la confesión sacramental.'}
-    ]
-  },
-  {
-    title: 'BLOQUE 4 — LA EUCARISTÍA',
-    topics: [
-      {num: 28, title: 'El Año Litúrgico', sub: ['Adviento, Navidad y Cuaresma', 'Pascua y Tiempo Ordinario', 'Ciclo de la Iglesia'], obj: 'Conocer las estaciones del año litúrgico.', val: 'Tiempo de gracia', cita: 'Eclesiastés 3,1', act: 'Dibujar la rueda del año litúrgico y sus colores.'},
-      {num: 29, title: 'Signos y símbolos litúrgicos', sub: ['El altar, el ambón, el sagrario', 'El agua bendita y el incienso'], obj: 'Identificar los objetos sagrados del templo.', val: 'Reverencia', cita: 'Éxodo 25,8', act: 'Crear fichas ilustradas de los objetos litúrgicos.'},
-      {num: 30, title: '¿Qué es la Santa Misa?', sub: ['Memorial de la Pascua de Jesús', 'Banquete celestial y sacrificio', 'La gran oración de la Iglesia'], obj: 'Valorar la Misa como centro de la vida cristiana.', val: 'Participación activa', cita: 'Lucas 22,19', act: 'Escribir por qué es importante asistir a Misa.'},
-      {num: 31, title: 'Antes de la Misa', sub: ['Puntualidad y preparación', 'Silencio sagrado en el templo', 'Disposición del corazón'], obj: 'Prepararse espiritualmente antes de la Eucaristía.', val: 'Respeto y orden', cita: 'Salmo 84,10', act: 'Hacer una lista de normas de respeto en el templo.'},
-      {num: 32, title: 'Conocemos el templo', sub: ['Estructura de la parroquia', 'Lugares sagrados', 'Casa de oración'], obj: 'Reconocer los espacios físicos de la parroquia.', val: 'Cuidado de la casa de Dios', cita: '1 Reyes 8,29', act: 'Dibujar el plano del templo parroquial.'},
-      {num: 33, title: 'Vestiduras del sacerdote', sub: ['Alba, estola, casulla y cíngulo', 'Significado de los colores litúrgicos'], obj: 'Conocer la indumentaria sagrada del celebrante.', val: 'Dignidad litúrgica', cita: 'Éxodo 28,2', act: 'Colorear las vestiduras y asociarlas con su función.'},
-      {num: 34, title: 'Servidores y monaguillos', sub: ['El servicio en el altar', 'Ayuda al sacerdote', 'Ejemplo de devoción'], obj: 'Valorar la labor de los monaguillos.', val: 'Servicio humilde', cita: '1 Samuel 3,1', act: 'Conversar sobre el rol de los acólitos en la Misa.'},
-      {num: 35, title: 'Gestos y posturas', sub: ['De pie, sentados, arrodillados', 'Significado de cada postura corporal'], obj: 'Practicar las posturas correctas durante la liturgia.', val: 'Devoción corporal', cita: 'Salmo 95,6', act: 'Practicar los momentos de pie, sentado y arrodillado.'},
-      {num: 36, title: 'Ritos iniciales', sub: ['Entrada, saludo y acto penitencial', 'Gloria y oración colecta'], obj: 'Entender el inicio de la celebración eucarística.', val: 'Reconciliación comunitaria', cita: 'Salmo 122,1', act: 'Escribir el texto del acto penitencial.'},
-      {num: 37, title: 'Liturgia de la Palabra', sub: ['Lecturas bíblicas y salmo', 'Proclamación del Evangelio', 'La homilía y el Credo'], obj: 'Escuchar y meditar la Palabra de Dios en Misa.', val: 'Atención y escucha', cita: 'Nehemías 8,8', act: 'Redactar una enseñanza del Evangelio dominical.'},
-      {num: 38, title: 'Liturgia Eucarística', sub: ['Presentación de dones', 'Plegaria eucarística y consagración', 'El pan y el vino convertidos'], obj: 'Vivir con recogimiento la consagración.', val: 'Adoración', cita: 'Mateo 26,26-28', act: 'Graficar el pan y el vino sobre el altar.'},
-      {num: 39, title: 'Rito de la Comunión', sub: ['Padre Nuestro y gesto de paz', 'Cordero de Dios y comunión'], obj: 'Prepararse para recibir el Cuerpo de Cristo.', val: 'Fraternidad y unión', cita: 'Juan 6,55', act: 'Aprender las respuestas litúrgicas de la comunión.'},
-      {num: 40, title: 'Ritos finales', sub: ['Avisos parroquiales', 'Bendición sacerdotal y envío', 'Id en paz a anunciar el Evangelio'], obj: 'Comprender el envío misional al terminar la Misa.', val: 'Misión y testimonio', cita: 'Mateo 28,19-20', act: 'Escribir un propósito para vivir la Misa en casa.'},
-      {num: 41, title: '¿Qué es la Eucaristía?', sub: ['Jesús vivo y real en la hostia', 'Alimento espiritual del alma', 'Sacrificio de amor'], obj: 'Profundizar en el misterio eucarístico.', val: 'Amor a la Eucaristía', cita: 'Juan 6,51', act: 'Crear un lema eucarístico personal.'},
-      {num: 42, title: '¿Qué sucede en la consagración?', sub: ['Transubstanciación', 'El pan y el vino se vuelven Cuerpo y Sangre'], obj: 'Comprender el milagro de la consagración.', val: 'Asombro y fe', cita: '1 Corintios 11,23-25', act: 'Explicar con tus propias palabras la transubstanciación.'},
-      {num: 43, title: 'Jesús en el Sagrario', sub: ['La lámpara encendida', 'Visita al Santísimo', 'Compañía constante'], obj: 'Visitar y adorar a Jesús en el sagrario.', val: 'Compañía y oración', cita: 'Mateo 28,20', act: 'Escribir una breve oración para visitar el sagrario.'},
-      {num: 44, title: '¿Cómo recibimos la Comunión?', sub: ['Estado de gracia y ayuno eucarístico', 'Respeto al comulgar', 'Acción de gracias posterior'], obj: 'Preparar el alma para una digna comunión.', val: 'Reverencia y pureza', cita: '1 Corintios 11,28', act: 'Redactar la oración de acción de gracias después de comulgar.'},
-      {num: 45, title: 'Mi Primera Comunión', sub: ['Día de fiesta espiritual', 'Compromiso de vida cristiana', 'Acompañamiento familiar'], obj: 'Preparar el corazón para la Primera Comunión.', val: 'Alegría y entrega', cita: 'Cantares 2,16', act: 'Elaborar una tarjeta de invitación o recuerdo para la Primera Comunión.'}
-    ]
-  },
-  {
-    title: 'BLOQUE 5 — VALORES CRISTIANOS',
-    topics: [
-      {num: 46, title: 'El ser humano y el pecado', sub: ['Libertad y conciencia moral', 'Consecuencias del pecado', 'El amor que perdona'], obj: 'Reconocer el valor de la conciencia moral.', val: 'Responsabilidad', cita: 'Gálatas 5,13', act: 'Analizar casos prácticos sobre buenas y malas decisiones.'},
-      {num: 47, title: 'Los Diez Mandamientos', sub: ['Ley de Dios para la felicidad', 'Amar a Dios sobre todas las cosas', 'Amar al prójimo'], obj: 'Memorizar y cumplir los Mandamientos de la Ley de Dios.', val: 'Obediencia y amor', cita: 'Éxodo 20,1-17', act: 'Elaborar las tablas de la ley con los 10 mandamientos.'},
-      {num: 48, title: 'Los Mandamientos de la Iglesia', sub: ['Participar en Misa domingos y fiestas', 'Confesar los pecados y comulgar', 'Ayudar a la Iglesia en sus necesidades'], obj: 'Conocer las obligaciones del católico.', val: 'Pertenencia eclesial', cita: 'Catecismo', act: 'Hacer un esquema de los 5 mandamientos de la Iglesia.'},
-      {num: 49, title: 'Las Bienaventuranzas', sub: ['El sermón de la montaña', 'Camino de la verdadera felicidad', 'Promesas del Reino'], obj: 'Descubrir la felicidad según Jesús.', val: 'Bienaventuranza', cita: 'Mateo 5,3-12', act: 'Escribir qué significa ser pacífico o misericordioso hoy.'},
-      {num: 50, title: 'Obras de misericordia', sub: ['Obras corporales (dar de comer, vestir al desnudo)', 'Obras espirituales (enseñar, consolar, perdonar)'], obj: 'Practicar la misericordia con obras concretas.', val: 'Caridad activa', cita: 'Mateo 25,40', act: 'Diseñar un plan de ayuda solidaria en la comunidad.'},
-      {num: 51, title: 'Examen de conciencia', sub: ['Revisar nuestras acciones ante Dios', 'Propósito de enmienda', 'Búsqueda de conversión'], obj: 'Aprender a examinar el corazón diariamente.', val: 'Sinceridad y conversión', cita: 'Salmo 139,23-24', act: 'Escribir tres preguntas para un examen de conciencia infantil.'}
-    ]
-  },
-  {
-    title: 'BLOQUE 6 — COMPARTIMOS LA FE',
-    topics: [
-      {num: 52, title: '¿Qué es la Iglesia?', sub: ['Familia de los hijos de Dios', 'Cuerpo Místico de Cristo', 'Comunidad guiada por el Espíritu'], obj: 'Sentirse parte activa de la Iglesia.', val: 'Comunidad', cita: '1 Corintios 12,27', act: 'Dibujar la Iglesia como una gran familia.'},
-      {num: 53, title: '¿Quiénes forman la Iglesia?', sub: ['El Papa, obispos y sacerdotes', 'Los consagrados y los laicos', 'Nuestra labor en la parroquia'], obj: 'Identificar los roles dentro de la Iglesia.', val: 'Colaboración', cita: 'Efesios 4,11-12', act: 'Investigar quién es el Papa actual y nuestro obispo o párroco.'},
-      {num: 54, title: 'Los Santos', sub: ['Amigos de Dios y modelos de vida', 'Santos patronos', 'La santidad a nuestro alcance'], obj: 'Tomar a los santos como guías espirituales.', val: 'Santidad y ejemplo', cita: 'Hebreos 12,1', act: 'Escribir la biografía breve de tu santo favorito.'},
-      {num: 55, title: 'Padrinos y madrinas', sub: ['Guías espirituales en el camino', 'Apoyo en la fe y el testimonio', 'Compromiso familiar'], obj: 'Valorar el rol de los padrinos y madrinas.', val: 'Acompañamiento', cita: 'Proverbios 17,17', act: 'Escribir una dedicatoria a tus padrinos de bautizo o comunión.'},
-      {num: 56, title: 'Después de la Primera Comunión', sub: ['Continuar participando en la Misa dominical', 'Ser luz y sal en el mundo', 'perseverar en la catequesis y la oración'], obj: 'Asumir el compromiso de perseverar en la fe.', val: 'Perseverancia y misión', cita: 'Mateo 5,13-16', act: 'Firmar un compromiso personal de perseverancia cristiana.'}
-    ]
+function abrirPortalComun() {
+  openModal('mise-modal');
+  volverMenuPrincipal();
+  sincronizarConHoja(false);
+}
+function mostrarVista(idVista) {
+  ['menu-herramientas','vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v => { if ($(v)) $(v).style.display = 'none'; });
+  if ($(idVista)) $(idVista).style.display = 'block';
+  if (idVista === 'vista-calendario') renderizarCalendarioModelo();
+  if (idVista === 'vista-asistencia') inicializarAsistenciaModular();
+  if (idVista === 'vista-pagos') renderizarPagos();
+  if (idVista === 'vista-padres') renderizarPadres();
+  if (idVista === 'vista-dashboard') renderizarDashboard();
+}
+function volverMenuPrincipal() {
+  ['vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v => { if ($(v)) $(v).style.display = 'none'; });
+  if ($('menu-herramientas')) $('menu-herramientas').style.display = 'grid';
+}
+function openModal(id) { if ($(id)) $(id).classList.add('show'); }
+function hideModal(id) { if ($(id)) $(id).classList.remove('show'); }
+document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => hideModal(b.closest('.modal-backdrop').id)));
+
+async function sincronizarConHoja(silencioso) {
+  const botones = Array.from(document.querySelectorAll('button[onclick="sincronizarConHoja()"]')).concat($('btnActualizar') ? [$('btnActualizar')] : []);
+  const textos = botones.map(b => b.textContent);
+  botones.forEach(b => { b.disabled = true; b.textContent = '⏳ Sincronizando…'; });
+  try {
+    const respuestas = await Promise.all([
+      apiGet('getSesiones'),
+      apiGet('getCatequizandos'),
+      apiGet('getAsistenciaNotas'),
+      apiGet('getAportes'),
+      apiGet('getPadres'),
+      apiGet('getConfig')
+    ]);
+    const [ses, cat, asist, pagos, padres, config] = respuestas;
+    sesionesPortal = (ses.bloques || []).flatMap(b => (b.sessions || []).map(x => Object.assign({}, x, { bloque: x.bloque || b.title })));
+    clasesPortal = ses.clases || [];
+    catequizandosPortal = cat.datos || [];
+    datosAsistenciaGlobal = asist.datos || [];
+    resumenAsistenciaPortal = asist.resumen || {};
+    datosPagosPortal = pagos.datos || [];
+    datosPadresPortal = padres.datos || [];
+    configPortal = config.datos || {};
+    fechasClasesAsist = clasesPortal.map(c => formatearFecha(c.fechaProgramada, false));
+
+    renderizarSesionesCompletas();
+    renderizarCalendarioModelo();
+    inicializarAsistenciaModular();
+    renderizarPagos();
+    renderizarPadres();
+    renderizarDashboard();
+    const titulo = $('titulo-total-sesiones');
+    if (titulo) titulo.textContent = `${ses.total} temas`;
+    const h = document.querySelector('#vista-clases h3');
+    if (h) h.textContent = `Programa Completo: ${ses.total} temas · ${ses.totalClases} clases`;
+    botones.forEach((b, i) => { b.textContent = '✅ Sincronizado'; });
+    await retraso(900);
+    botones.forEach((b, i) => { b.textContent = textos[i] || '🔄 Sincronizar'; });
+    return true;
+  } catch (error) {
+    console.error('Error al sincronizar con Google Sheets:', error);
+    botones.forEach((b, i) => { b.textContent = textos[i] || '🔄 Sincronizar'; });
+    if (!silencioso) alert('No se pudo sincronizar con Google Sheets.\n' + error.message);
+    return false;
+  } finally {
+    botones.forEach(b => { b.disabled = false; });
   }
-];
+}
 
 function renderizarSesionesCompletas() {
   const contenedor = $('contenedor-56-sesiones');
-  if(!contenedor) return;
+  if (!contenedor) return;
+  if (!sesionesPortal.length) {
+    contenedor.innerHTML = '<p class="sub">No se recibieron temas desde la hoja SESIONES.</p>';
+    return;
+  }
+  const grupos = new Map();
+  sesionesPortal.forEach(t => {
+    const nombre = t.bloque || 'BLOQUE GENERAL';
+    if (!grupos.has(nombre)) grupos.set(nombre, []);
+    grupos.get(nombre).push(t);
+  });
   contenedor.innerHTML = '';
-  bloquesProgramacion.forEach(bloque => {
-    let bloqueDiv = document.createElement('div');
-    bloqueDiv.innerHTML = `<h4 style="color:var(--navy); border-bottom:2px solid var(--gold); padding-bottom:6px; margin:22px 0 14px; font-size:1.15rem;">${bloque.title}</h4>`;
-    
-    bloque.topics.forEach(t => {
-      let subtemasLi = t.sub.map(s => `<li>${s}</li>`).join('');
-      let temaBox = document.createElement('div');
-      temaBox.className = 'tema-box';
-      temaBox.innerHTML = `
-        <div style="font-size:0.75rem; color:var(--gold-deep); font-weight:bold; letter-spacing:0.05em; text-transform:uppercase;">TEMA ${t.num} (CJ-${String(t.num).padStart(3, '0')})</div>
-        <h4 style="margin:4px 0 8px; color:var(--navy); font-size:1.1rem;">${t.title}</h4>
-        <div style="font-size:0.85rem; font-weight:800; color:var(--muted); margin-bottom:4px;">Subtemas:</div>
+  grupos.forEach((temas, bloque) => {
+    const bloqueDiv = document.createElement('div');
+    const titulo = document.createElement('h4');
+    titulo.style.cssText = 'color:var(--navy);border-bottom:2px solid var(--gold);padding-bottom:6px;margin:22px 0 14px;font-size:1.15rem;';
+    titulo.textContent = bloque;
+    bloqueDiv.appendChild(titulo);
+    temas.forEach(t => {
+      const id = String(t.id || '');
+      const numero = Number(t.numeroSesion || t.n || 0);
+      const subt = String(t.subtema || '').split(/\r?\n/).map(x => x.replace(/^\s*[•·\-]\s*/, '').trim()).filter(Boolean);
+      const subtemasLi = subt.length ? subt.map(x => `<li>${escaparHTML(x)}</li>`).join('') : '<li>Sin subtemas registrados.</li>';
+      const box = document.createElement('div');
+      box.className = 'tema-box';
+      box.innerHTML = `
+        <div style="font-size:0.75rem;color:var(--gold-deep);font-weight:bold;letter-spacing:0.05em;text-transform:uppercase;">TEMA ${escaparHTML(numero)} (${escaparHTML(id)})</div>
+        <h4 style="margin:4px 0 8px;color:var(--navy);font-size:1.1rem;">${escaparHTML(t.tema)}</h4>
+        <div style="font-size:0.85rem;font-weight:800;color:var(--muted);margin-bottom:4px;">Subtemas:</div>
         <ul class="subtema-list">${subtemasLi}</ul>
-
-        <div style="background:#fefbf3; border:1px solid #fae8b3; border-radius:10px; padding:12px; margin-bottom:10px; font-size:0.88rem;">
-          <div style="margin-bottom:4px;"><strong style="color:var(--gold-deep);">🎯 Objetivo:</strong> ${t.obj}</div>
-          <div style="margin-bottom:4px;"><strong style="color:var(--navy);">💛 Valor:</strong> ${t.val}</div>
-          <div><strong style="color:var(--blue);">📖 Cita Bíblica:</strong> ${t.cita}</div>
+        <div style="background:#fefbf3;border:1px solid #fae8b3;border-radius:10px;padding:12px;margin-bottom:10px;font-size:0.88rem;">
+          <div style="margin-bottom:4px;"><strong style="color:var(--gold-deep);">🎯 Objetivo:</strong> ${escaparHTML(t.objetivo || '—')}</div>
+          <div style="margin-bottom:4px;"><strong style="color:var(--navy);">💛 Valor:</strong> ${escaparHTML(t.valor || t.val || '—')}</div>
+          <div><strong style="color:var(--blue);">📖 Cita Bíblica:</strong> ${escaparHTML(t.cita || '—')}</div>
         </div>
-        <div style="background:#f0f7f4; border:1px solid #cce8dc; border-radius:10px; padding:10px 12px; margin-bottom:12px; font-size:0.88rem;">
-          <strong style="color:var(--green);">✨ Actividad:</strong> ${t.act}</div>
-
+        <div style="background:#f0f7f4;border:1px solid #cce8dc;border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:0.88rem;">
+          <strong style="color:var(--green);">✨ Actividad:</strong> ${escaparHTML(t.actividad || '—')}
+        </div>
+        <div style="font-size:0.8rem;color:var(--muted);margin:0 0 8px;">Clase ${escaparHTML(t.numeroClase || '—')} · ${escaparHTML(formatearFecha(t.fechaProgramada || t.fecha, false))} · ${escaparHTML(t.horaInicio || '14:00')}–${escaparHTML(t.horaFin || '16:00')} · ${escaparHTML(t.catequista || 'Catequista pendiente')}</div>
         <div class="action-buttons">
-          <button class="btn small btn-practicas" onclick="abrirGestionMaterial(${t.num}, 'Prácticas')">✏️ Prácticas</button>
-          <button class="btn small btn-evaluaciones" onclick="abrirGestionMaterial(${t.num}, 'Evaluaciones')">📋 Evaluaciones</button>
-          <button class="btn small btn-canciones" onclick="abrirGestionMaterial(${t.num}, 'Canciones')">🎵 Canciones</button>
-          <button class="btn small btn-videos" onclick="abrirGestionMaterial(${t.num}, 'Videos')">▶️ Videos</button>
-        </div>
-      `;
-      bloqueDiv.appendChild(temaBox);
+          <button class="btn small btn-practicas" onclick="abrirGestionMaterial('${escaparHTML(id)}','Prácticas')">✏️ Prácticas</button>
+          <button class="btn small btn-evaluaciones" onclick="abrirGestionMaterial('${escaparHTML(id)}','Evaluaciones')">📋 Evaluaciones</button>
+          <button class="btn small btn-canciones" onclick="abrirGestionMaterial('${escaparHTML(id)}','Canciones')">🎵 Canciones</button>
+          <button class="btn small btn-videos" onclick="abrirGestionMaterial('${escaparHTML(id)}','Videos')">▶️ Videos</button>
+        </div>`;
+      bloqueDiv.appendChild(box);
     });
     contenedor.appendChild(bloqueDiv);
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  renderizarSesionesCompletas();
+function abrirGestionMaterial(idSesion, tipo) {
+  idSesionMaterialActual = String(idSesion || '');
+  tipoMaterialActual = String(tipo || '');
+  const tema = sesionesPortal.find(x => x.id === idSesionMaterialActual);
+  $('material-titulo').textContent = `${tipoMaterialActual} — Tema ${tema ? tema.numeroSesion : idSesionMaterialActual}`;
+  $('material-sub').textContent = tema ? `${idSesionMaterialActual} · ${tema.tema}` : `Gestión de recurso para ${idSesionMaterialActual}`;
+  const campo = camposMaterial[tipoMaterialActual];
+  $('input-material-url').value = tema && campo ? (tema[campo] || '') : '';
+  $('input-material-archivo').value = '';
+  $('input-material-notas').value = '';
+  openModal('modal-material');
+}
+
+function leerArchivoComoBase64(archivo) {
+  return new Promise((resolve, reject) => {
+    if (!archivo) return resolve(null);
+    if (archivo.size > 5 * 1024 * 1024) return reject(new Error('El archivo no debe superar 5 MB.'));
+    const lector = new FileReader();
+    lector.onload = () => {
+      const resultado = String(lector.result || '');
+      resolve({ fileName: archivo.name, mimeType: archivo.type || 'application/octet-stream', fileBase64: resultado.split(',')[1] || '' });
+    };
+    lector.onerror = () => reject(new Error('No se pudo leer el archivo seleccionado.'));
+    lector.readAsDataURL(archivo);
+  });
+}
+
+async function guardarMaterialSesion() {
+  const boton = document.querySelector('#modal-material button.primary');
+  const url = $('input-material-url').value.trim();
+  const notas = $('input-material-notas').value.trim();
+  const archivo = $('input-material-archivo').files[0];
+  if (!url && !archivo) { alert('Escribe un enlace o selecciona un archivo.'); return; }
+  if (boton) { boton.disabled = true; boton.textContent = 'Guardando…'; }
+  try {
+    const adjunto = await leerArchivoComoBase64(archivo);
+    const payload = Object.assign({ action: 'guardarMaterialSesion', idSesion: idSesionMaterialActual, tipo: tipoMaterialActual, url, notas }, adjunto || {});
+    await apiPost(payload);
+    await retraso(700);
+    const actualizado = await apiGet('getSesiones');
+    const flat = (actualizado.bloques || []).flatMap(b => b.sessions || []);
+    const tema = flat.find(x => x.id === idSesionMaterialActual);
+    const campo = camposMaterial[tipoMaterialActual];
+    if (!tema || !tema[campo]) throw new Error('Google Sheets no confirmó el guardado del recurso. Verifica el acceso del despliegue y vuelve a intentar.');
+    sesionesPortal = flat;
+    renderizarSesionesCompletas();
+    hideModal('modal-material');
+    alert(`${tipoMaterialActual} guardado en la hoja SESIONES para ${idSesionMaterialActual}.`);
+  } catch (error) {
+    console.error(error);
+    alert('No se pudo guardar el recurso.\n' + error.message);
+  } finally {
+    if (boton) { boton.disabled = false; boton.textContent = '💾 Guardar Información'; }
+  }
+}
+
+function inicializarAsistenciaModular() {
+  const lista = $('lista-catequizandos-asist');
+  if (!lista) return;
+  lista.innerHTML = '';
+  if (!datosAsistenciaGlobal.length) {
+    lista.innerHTML = '<p class="sub">No hay registros de asistencia disponibles.</p>';
+    recalcularTotalesGlobales();
+    return;
+  }
+  let idxActivo = datosAsistenciaGlobal.findIndex(x => x.ID_NINO === window.idCatequizandoActivo);
+  if (idxActivo < 0) idxActivo = Math.min(indiceCatequizandoActivo, datosAsistenciaGlobal.length - 1);
+  indiceCatequizandoActivo = idxActivo;
+  datosAsistenciaGlobal.forEach((est, idx) => {
+    const porc = est.ASISTENCIA_PORCENTAJE == null ? '—' : Number(est.ASISTENCIA_PORCENTAJE).toFixed(1) + '%';
+    const btn = document.createElement('div');
+    btn.className = 'est-item-btn' + (idx === idxActivo ? ' active' : '');
+    const foto = est.FOTO || './assets/insignia.png';
+    btn.innerHTML = `<img src="${escaparHTML(foto)}" alt="${escaparHTML(est.NOMBRE_COMPLETO)}" onerror="this.onerror=null;this.src='./assets/insignia.png';">
+      <div style="overflow:hidden;width:100%;"><div class="info-n">${escaparHTML(est.NOMBRE_COMPLETO)}</div>
+      <div class="info-sub"><span>ID: ${escaparHTML(est.ID_NINO)} · DNI: ${escaparHTML(est.DNI || '—')}</span><strong style="color:var(--navy);">${porc}</strong></div></div>`;
+    btn.onclick = () => {
+      indiceCatequizandoActivo = idx;
+      window.idCatequizandoActivo = est.ID_NINO;
+      document.querySelectorAll('.est-item-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      cargarMatrizEstudiante(idx);
+    };
+    lista.appendChild(btn);
+  });
+  recalcularTotalesGlobales(resumenAsistenciaPortal);
+  cargarMatrizEstudiante(idxActivo);
+}
+
+function calcularPorcentajeLocal(est) {
+  if (est.ASISTENCIA_PORCENTAJE != null && !isNaN(Number(est.ASISTENCIA_PORCENTAJE))) return Number(est.ASISTENCIA_PORCENTAJE);
+  const marcadas = (est.ESTADOS_SESIONES || []).filter(v => ['A','T','F','FJ'].includes(v)).length;
+  const presentes = (est.ESTADOS_SESIONES || []).filter(v => v === 'A').length;
+  return marcadas ? presentes / marcadas * 100 : 0;
+}
+function cargarMatrizEstudiante(idxEst) {
+  const est = datosAsistenciaGlobal[idxEst];
+  if (!est) return;
+  window.idCatequizandoActivo = est.ID_NINO;
+  $('nombre-catequizando-activo').textContent = est.NOMBRE_COMPLETO;
+  $('sub-id-activo').textContent = `ID: ${est.ID_NINO} · DNI: ${est.DNI || '—'}`;
+  $('porcentaje-individual-badge').textContent = `Asistencia: ${calcularPorcentajeLocal(est).toFixed(1)}%`;
+  const tbody = $('tabla-matriz-cuerpo');
+  tbody.innerHTML = '';
+  const estados = est.ESTADOS_SESIONES || [];
+  estados.forEach((val, idx) => {
+    let bg = '#fff', fg = 'var(--muted)', border = 'var(--line)';
+    if (val === 'A') { bg = '#1b4a79'; fg = '#fff'; border = '#1b4a79'; }
+    else if (val === 'T') { bg = '#f3c755'; fg = '#12345b'; border = '#e0b23d'; }
+    else if (val === 'F') { bg = '#b83d43'; fg = '#fff'; border = '#b83d43'; }
+    else if (val === 'FJ') { bg = '#23764c'; fg = '#fff'; border = '#23764c'; }
+    const fecha = fechasClasesAsist[idx] || '—';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td style="text-align:center;font-weight:800;color:var(--navy);">Clase ${idx+1}</td>
+      <td style="color:var(--muted);font-weight:600;">📅 ${escaparHTML(fecha)}</td>
+      <td><select onchange="actualizarEstadoModular(${idxEst},${idx},this.value)" style="font-size:0.85rem;font-weight:800;padding:6px 12px;border-radius:8px;border:1.5px solid ${border};background:${bg};color:${fg};cursor:pointer;width:100%;max-width:240px;">
+        <option value="" ${val===''?'selected':''}>-- Opción --</option>
+        <option value="A" ${val==='A'?'selected':''}>A (Asistencia)</option>
+        <option value="T" ${val==='T'?'selected':''}>T (Tardanza)</option>
+        <option value="F" ${val==='F'?'selected':''}>F (Falta)</option>
+        <option value="FJ" ${val==='FJ'?'selected':''}>FJ (Justificada)</option>
+      </select></td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+async function actualizarEstadoModular(idxEst, idxClase, nuevoVal) {
+  const est = datosAsistenciaGlobal[idxEst];
+  if (!est) return;
+  const anterior = est.ESTADOS_SESIONES[idxClase] || '';
+  est.ESTADOS_SESIONES[idxClase] = nuevoVal;
+  cargarMatrizEstudiante(idxEst);
+  try {
+    await apiPost({ action: 'registrarAsistencia', idEstudiante: est.ID_NINO, sesion: idxClase + 1, estado: nuevoVal });
+    await retraso(700);
+    const respuesta = await apiGet('getAsistenciaNotas');
+    const actualizado = (respuesta.datos || []).find(x => x.ID_NINO === est.ID_NINO);
+    if (!actualizado || (actualizado.ESTADOS_SESIONES || [])[idxClase] !== nuevoVal) {
+      throw new Error('Google Sheets no confirmó el cambio de asistencia.');
+    }
+    datosAsistenciaGlobal = respuesta.datos || [];
+    resumenAsistenciaPortal = respuesta.resumen || {};
+    indiceCatequizandoActivo = Math.max(0, datosAsistenciaGlobal.findIndex(x => x.ID_NINO === est.ID_NINO));
+    recalcularTotalesGlobales(resumenAsistenciaPortal);
+    inicializarAsistenciaModular();
+  } catch (error) {
+    est.ESTADOS_SESIONES[idxClase] = anterior;
+    cargarMatrizEstudiante(idxEst);
+    alert('No se pudo actualizar la asistencia.\n' + error.message);
+  }
+}
+
+function recalcularTotalesGlobales(resumen) {
+  let A = 0, T = 0, F = 0, FJ = 0;
+  datosAsistenciaGlobal.forEach(est => (est.ESTADOS_SESIONES || []).forEach(v => {
+    if (v === 'A') A++; else if (v === 'T') T++; else if (v === 'F') F++; else if (v === 'FJ') FJ++;
+  }));
+  resumen = resumen || {};
+  const porcentaje = resumen.porcentaje != null ? Number(resumen.porcentaje) : null;
+  $('stat-porcentaje-global').textContent = porcentaje != null && !isNaN(porcentaje) ? porcentaje.toFixed(1) + '%' : '—';
+  $('stat-presentes-global').textContent = resumen.presentes != null ? resumen.presentes : A;
+  $('stat-tardanzas-global').textContent = resumen.tardanzas != null ? resumen.tardanzas : T;
+  $('stat-faltas-global').textContent = resumen.faltas != null ? resumen.faltas : F;
+  $('stat-justificadas-global').textContent = resumen.justificadas != null ? resumen.justificadas : FJ;
+}
+
+function renderizarPagos() {
+  const cuerpo = $('tabla-pagos-cuerpo');
+  if (!cuerpo) return;
+  if (!datosPagosPortal.length) { cuerpo.innerHTML = '<tr><td colspan="6">No hay registros en la hoja PAGOS.</td></tr>'; return; }
+  cuerpo.innerHTML = datosPagosPortal.map(p => {
+    const estado = String(p.ESTADO_PAGO || 'Pendiente');
+    const pagado = estado.toUpperCase() === 'PAGADO';
+    const voucher = p.VOUCHER_URL ? `<a href="${escaparHTML(p.VOUCHER_URL)}" target="_blank" rel="noopener">Ver voucher</a><br>` : '';
+    return `<tr><td>${escaparHTML(p.ID)}</td><td>${escaparHTML(p.NOMBRE)}</td><td>${escaparHTML(p.DNI || '—')}</td><td><strong>${escaparHTML(p.MONTO || 'S/. 40.00')}</strong></td>
+      <td><select data-pago-id="${escaparHTML(p.ID)}" data-estado-anterior="${escaparHTML(estado)}" onchange="actualizarPagoEstado(this)" style="border:1px solid var(--line);border-radius:6px;padding:4px;font-weight:bold;color:${pagado?'var(--green)':'var(--gold-deep)'};">
+        <option value="Pendiente" ${!pagado?'selected':''}>Pendiente</option><option value="Pagado" ${pagado?'selected':''}>Pagado</option></select></td>
+      <td>${voucher}<input type="file" accept="image/*,.pdf" onchange="adjuntarVoucher(this,'${escaparHTML(p.ID)}')" style="font-size:0.78rem;max-width:180px;"></td></tr>`;
+  }).join('');
+}
+
+async function actualizarPagoEstado(control) {
+  const id = control.dataset.pagoId;
+  const nuevo = control.value;
+  const anterior = control.dataset.estadoAnterior || 'Pendiente';
+  control.disabled = true;
+  try {
+    await apiPost({ action: 'guardarPago', id, estado: nuevo });
+    await retraso(700);
+    const r = await apiGet('getAportes');
+    const pago = (r.datos || []).find(x => x.ID === id);
+    if (!pago || String(pago.ESTADO_PAGO).toUpperCase() !== nuevo.toUpperCase()) throw new Error('Google Sheets no confirmó el cambio.');
+    datosPagosPortal = r.datos || [];
+    renderizarPagos();
+    renderizarDashboard();
+  } catch (error) {
+    control.value = anterior;
+    alert('No se pudo guardar el estado del pago.\n' + error.message);
+  } finally { control.disabled = false; }
+}
+
+async function adjuntarVoucher(control, id) {
+  const archivo = control.files && control.files[0];
+  if (!archivo) return;
+  const pago = datosPagosPortal.find(x => x.ID === id);
+  control.disabled = true;
+  try {
+    const adjunto = await leerArchivoComoBase64(archivo);
+    await apiPost(Object.assign({ action: 'guardarPago', id, estado: pago ? pago.ESTADO_PAGO : 'Pendiente' }, adjunto));
+    await retraso(700);
+    const r = await apiGet('getAportes');
+    const actualizado = (r.datos || []).find(x => x.ID === id);
+    if (!actualizado || !actualizado.VOUCHER_URL) throw new Error('Google Sheets no confirmó el enlace del voucher.');
+    datosPagosPortal = r.datos || [];
+    renderizarPagos();
+    alert('Voucher guardado en la hoja PAGOS. El archivo se conserva en Drive con acceso restringido.');
+  } catch (error) {
+    alert('No se pudo adjuntar el voucher.\n' + error.message);
+  } finally { control.disabled = false; }
+}
+
+function renderizarPadres() {
+  const cuerpo = $('tabla-padres-cuerpo');
+  if (!cuerpo) return;
+  if (!datosPadresPortal.length) { cuerpo.innerHTML = '<tr><td colspan="6">No hay registros en la hoja PADRES.</td></tr>'; return; }
+  cuerpo.innerHTML = datosPadresPortal.map(p => `<tr>
+    <td>${escaparHTML(p.PADRE_ID)}</td><td>${escaparHTML(p.NOMBRE_COMPLETO || [p.NOMBRES,p.APELLIDOS].filter(Boolean).join(' '))}</td>
+    <td>${escaparHTML(p.PARENTESCO || '—')}</td><td>${escaparHTML(p.DNI || '—')}</td>
+    <td>${escaparHTML(p.TELEFONO || p.WHATSAPP || '—')}</td><td>${escaparHTML(p.AUTORIZA_AVISOS || '—')}</td></tr>`).join('');
+}
+
+function renderizarDashboard() {
+  if ($('dash-catequizandos')) $('dash-catequizandos').textContent = catequizandosPortal.length;
+  if ($('dash-padres')) $('dash-padres').textContent = datosPadresPortal.length;
+  if ($('dash-temas')) $('dash-temas').textContent = sesionesPortal.length;
+  if ($('dash-clases')) $('dash-clases').textContent = clasesPortal.length;
+  if ($('dash-pagos')) $('dash-pagos').textContent = datosPagosPortal.length;
+  if ($('dash-pagos-completados')) $('dash-pagos-completados').textContent = datosPagosPortal.filter(p => String(p.ESTADO_PAGO || '').toUpperCase() === 'PAGADO').length;
+}
+
+function cambiarMes(dir) {
+  mesActual += dir;
+  if (mesActual > 11) { mesActual = 0; anioActual++; }
+  else if (mesActual < 0) { mesActual = 11; anioActual--; }
   renderizarCalendarioModelo();
-  const btnTop = $('btnActualizar');
-  if(btnTop) btnTop.onclick = sincronizarConHoja;
-});
+}
+function renderizarCalendarioModelo() {
+  const lbl = $('cal-mes-anio');
+  const grid = $('cal-grid-dias');
+  if (!lbl || !grid) return;
+  lbl.textContent = `${nombresMeses[mesActual]} ${anioActual}`;
+  grid.innerHTML = '';
+  const porFecha = {};
+  clasesPortal.forEach(c => { if (c.fechaProgramada) { if (!porFecha[c.fechaProgramada]) porFecha[c.fechaProgramada] = []; porFecha[c.fechaProgramada].push(c); } });
+  const primerDia = new Date(anioActual, mesActual, 1).getDay();
+  const inicioLunes = primerDia === 0 ? 6 : primerDia - 1;
+  const diasMes = new Date(anioActual, mesActual + 1, 0).getDate();
+  const diasPrevios = new Date(anioActual, mesActual, 0).getDate();
+  for (let i = inicioLunes - 1; i >= 0; i--) {
+    const celda = document.createElement('div'); celda.className = 'cal-day'; celda.style.color = '#b0c0d0'; celda.textContent = diasPrevios - i; grid.appendChild(celda);
+  }
+  for (let dia = 1; dia <= diasMes; dia++) {
+    const fecha = new Date(anioActual, mesActual, dia, 12, 0, 0);
+    const key = fechaLocalISO(fecha);
+    const hayClase = !!porFecha[key];
+    const celda = document.createElement('div');
+    celda.className = 'cal-day' + (hayClase ? ' has-class' : '') + (key === fechaCalendarioSeleccionada ? ' selected' : '');
+    celda.innerHTML = `<span>${dia}</span>${hayClase ? '<div class="cal-dot"></div>' : ''}`;
+    celda.onclick = () => {
+      document.querySelectorAll('.cal-day').forEach(el => el.classList.remove('selected'));
+      celda.classList.add('selected'); fechaCalendarioSeleccionada = key;
+      actualizarPanelEncuentro(fecha, key, porFecha[key] || []);
+    };
+    grid.appendChild(celda);
+  }
+  const extras = (7 - ((inicioLunes + diasMes) % 7)) % 7;
+  for (let i = 1; i <= extras; i++) { const celda = document.createElement('div'); celda.className = 'cal-day'; celda.style.color = '#b0c0d0'; celda.textContent = i; grid.appendChild(celda); }
+
+  if (!fechaCalendarioSeleccionada || !porFecha[fechaCalendarioSeleccionada]) {
+    const hoy = fechaLocalISO(new Date());
+    const futuras = Object.keys(porFecha).filter(k => k >= hoy).sort();
+    fechaCalendarioSeleccionada = futuras[0] || Object.keys(porFecha).sort().slice(-1)[0] || '';
+  }
+  const sel = fechaDesdeISO(fechaCalendarioSeleccionada);
+  if (sel && sel.getMonth() === mesActual && sel.getFullYear() === anioActual) {
+    const idx = inicioLunes + sel.getDate() - 1;
+    const celda = grid.children[idx]; if (celda) celda.classList.add('selected');
+  }
+  if (sel) actualizarPanelEncuentro(sel, fechaCalendarioSeleccionada, porFecha[fechaCalendarioSeleccionada] || []);
+  else actualizarPanelEncuentro(new Date(anioActual, mesActual, 1), '', []);
+}
+function actualizarPanelEncuentro(fecha, key, clases) {
+  const dia = nombresDiasSemana[fecha.getDay()];
+  const diaMayus = dia.charAt(0).toUpperCase() + dia.slice(1);
+  $('panel-fecha-texto').textContent = `${diaMayus}, ${fecha.getDate()} de ${nombresMeses[fecha.getMonth()]}`;
+  if (!clases || !clases.length) {
+    $('panel-titulo-tema').textContent = 'No hay clase programada';
+    $('panel-sub-encuentro').textContent = 'Consulte la programación oficial de CLASES.';
+    $('card-tema-mini').textContent = 'Sin encuentro programado para esta fecha.';
+    return;
+  }
+  const c = clases[0];
+  const nombres = (c.temas || []).map(t => `Tema ${t.numeroSesion}: ${t.tema}`).join(' · ');
+  $('panel-titulo-tema').textContent = nombres || `Clase ${c.numeroClase}`;
+  $('panel-sub-encuentro').textContent = `Clase ${c.numeroClase} · ${c.horaInicio}–${c.horaFin} · ${c.catequista || 'Catequista pendiente'}`;
+  $('card-tema-mini').textContent = c.bloque || 'Programa de catequesis';
+}
+
+function initPortalCatequistas() {
+  // Estado inicial visible; los datos reales se cargan al abrir el portal común.
+  if ($('btnActualizar')) $('btnActualizar').onclick = () => sincronizarConHoja(false);
+  renderizarCalendarioModelo();
+}
+document.addEventListener('DOMContentLoaded', initPortalCatequistas);
 </script>
 </body>
 </html>
