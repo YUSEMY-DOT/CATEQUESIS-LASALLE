@@ -68,6 +68,39 @@
 .encounter-panel { background: white; border: 1px solid var(--line); border-radius: 18px; padding: 22px; box-shadow: var(--shadow); }
 .encounter-tag { background: #fef3d6; color: #8a6207; font-size: 0.7rem; font-weight: 900; padding: 4px 10px; border-radius: 6px; display: inline-block; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
 .encounter-card { border: 1px solid #fae8b3; background: #fffdf7; border-radius: 12px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
+.cal-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cal-sync-status{font-size:.82rem;color:var(--muted);font-weight:700}
+.cal-stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 18px}
+.cal-stat{background:#fff;border:1px solid var(--line);border-radius:13px;padding:12px 14px;box-shadow:0 3px 12px #173b6808}
+.cal-stat strong{display:block;font-size:1.28rem;line-height:1.2;color:var(--navy)}
+.cal-stat span{display:block;margin-top:4px;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:800}
+.cal-detail-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.cal-class-number{display:inline-flex;align-items:center;border-radius:8px;padding:5px 10px;background:#fff2cf;color:#805b08;font-size:.76rem;font-weight:900;letter-spacing:.04em}
+.cal-ficha-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:14px 0}
+.cal-meta-item{background:#f7f9fc;border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0}
+.cal-meta-item span{display:block;color:var(--muted);font-size:.68rem;font-weight:900;letter-spacing:.05em;text-transform:uppercase}
+.cal-meta-item strong{display:block;margin-top:3px;color:var(--navy);font-size:.9rem;overflow-wrap:anywhere}
+.cal-topics-list{display:grid;gap:9px;margin-top:12px}
+.cal-topic-row{border:1px solid #e5ebf2;border-left:4px solid var(--gold);background:#fff;border-radius:10px;padding:11px 12px}
+.cal-topic-row small{display:block;color:var(--gold-deep);font-weight:900;font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+.cal-topic-row strong{display:block;margin-top:3px;color:var(--navy);font-size:.92rem}
+.cal-programa-panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:20px;box-shadow:var(--shadow)}
+.cal-programa-panel h4{margin:0;color:var(--navy);font-size:1.05rem}
+.cal-programa-panel .sub{margin-bottom:12px}
+.cal-programa-wrap{overflow-x:auto}
+.cal-programa-table{width:100%;border-collapse:collapse;min-width:780px;font-size:.82rem}
+.cal-programa-table th,.cal-programa-table td{padding:10px 11px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.cal-programa-table th{background:var(--blue-soft);color:var(--navy);font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;position:sticky;top:0}
+.cal-programa-table tbody tr:hover{background:#fbfcfe}
+.cal-programa-table .temas-cell{white-space:normal;min-width:250px}
+.cal-programa-table .temas-cell div+div{margin-top:5px}
+.cal-estado-pendiente{display:inline-block;padding:4px 8px;border-radius:7px;background:#fff4dc;color:#8b650b;font-size:.72rem;font-weight:800}
+.cal-estado-asignado{display:inline-block;padding:4px 8px;border-radius:7px;background:var(--green-soft);color:var(--green);font-size:.72rem;font-weight:800}
+.cal-day.has-class{box-shadow:inset 0 0 0 1px #e8bd46}
+.cal-day .cal-numero-clase{font-size:.58rem;color:var(--gold-deep);font-weight:900;line-height:1}
+@media(max-width:900px){.cal-stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.cal-ficha-meta{grid-template-columns:1fr}.cal-stats-grid{gap:7px}.cal-stat{padding:10px}.cal-stat strong{font-size:1.1rem}}
+
 
 /* NUEVA ASISTENCIA MATRICIAL ERGONÓMICA */
 .asist-layout { display: grid; grid-template-columns: 350px 1fr; gap: 24px; align-items: start; }
@@ -278,38 +311,60 @@
       </table>
     </div>
 
-    <!-- 5. VISTA CALENDARIO -->
+    <!-- 5. VISTA CALENDARIO Y HORARIO DE CATEQUISTAS -->
     <div id="vista-calendario" style="display:none; margin-top:15px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:15px;" class="no-print">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
-        <h3 style="color:var(--navy); margin:0;">Calendario de catequesis</h3>
+        <div class="cal-toolbar">
+          <h3 style="color:var(--navy); margin:0;">Calendario y horario de catequistas</h3>
+          <button class="btn small primary" id="btn-cal-sincronizar" onclick="sincronizarCalendario(true)">🔄 Sincronizar desde Google Sheets</button>
+        </div>
+      </div>
+      <div class="cal-sync-status" id="cal-estado-sync" role="status">La programación se carga desde la hoja CLASES.</div>
+      <div class="cal-stats-grid" style="margin-top:12px;">
+        <div class="cal-stat"><strong id="cal-total-clases">—</strong><span>Clases programadas</span></div>
+        <div class="cal-stat"><strong id="cal-horario-general">14:00–16:00</strong><span>Horario de catequesis</span></div>
+        <div class="cal-stat"><strong id="cal-docentes-asignados">—</strong><span>Clases con catequista</span></div>
+        <div class="cal-stat"><strong id="cal-docentes-pendientes">—</strong><span>Pendientes de asignación</span></div>
       </div>
       <div class="cal-container">
         <div class="cal-box">
           <div class="cal-header-bar">
-            <button class="cal-nav-btn" onclick="cambiarMes(-1)">‹</button>
-            <strong id="cal-mes-anio" style="color:var(--navy); font-size:1.05rem;">Noviembre 2026</strong>
-            <button class="cal-nav-btn" onclick="cambiarMes(1)">›</button>
+            <button class="cal-nav-btn" onclick="cambiarMes(-1)" aria-label="Mes anterior">‹</button>
+            <strong id="cal-mes-anio" style="color:var(--navy); font-size:1.05rem;">Junio 2026</strong>
+            <button class="cal-nav-btn" onclick="cambiarMes(1)" aria-label="Mes siguiente">›</button>
           </div>
           <div class="cal-grid">
             <div class="cal-weekday">L</div><div class="cal-weekday">M</div><div class="cal-weekday">X</div><div class="cal-weekday">J</div><div class="cal-weekday">V</div><div class="cal-weekday">S</div><div class="cal-weekday">D</div>
           </div>
           <div class="cal-grid" id="cal-grid-dias" style="margin-top:6px;"></div>
+          <p class="sub" style="margin:12px 0 0;">Los días resaltados tienen clase programada. Seleccione una fecha para consultar su ficha.</p>
         </div>
         <div class="encounter-panel">
-          <span class="encounter-tag">Tu encuentro</span>
-          <h3 id="panel-fecha-texto" style="margin:6px 0 4px; color:var(--navy); font-size:1.25rem;">martes, 3 de Noviembre</h3>
-          <div id="panel-titulo-tema" style="font-weight:900; color:var(--navy); font-size:1.1rem; margin-bottom:4px;">Tema 48: LOS MANDAMIENTOS DE LA IGLESIA</div>
-          <div id="panel-sub-encuentro" class="sub" style="margin-bottom:14px; font-size:0.9rem;">Encuentro 41.</div>
-          <div class="encounter-card">
-            <div id="card-tema-mini" style="font-weight:800; color:var(--navy); font-size:0.9rem;">Tema 48: LOS MANDAMIENTOS DE LA IGLESIA</div>
-            <div style="display:flex; gap:6px; align-items:center;">
-              <span style="font-size:0.8rem; font-weight:bold; color:var(--blue);">Ver</span>
-              <button style="border:0; background:var(--gold); border-radius:50%; width:24px; height:24px; font-weight:bold; color:var(--navy); display:flex; align-items:center; justify-content:center;">+</button>
-            </div>
+          <div class="cal-detail-head">
+            <span class="encounter-tag" style="margin:0;">Ficha del encuentro</span>
+            <span id="cal-numero-clase" class="cal-class-number">SELECCIONE UNA FECHA</span>
           </div>
+          <h3 id="panel-fecha-texto" style="margin:6px 0 4px; color:var(--navy); font-size:1.2rem;">Seleccione una fecha del calendario</h3>
+          <div class="cal-ficha-meta">
+            <div class="cal-meta-item"><span>Horario</span><strong id="cal-horario-clase">14:00–16:00</strong></div>
+            <div class="cal-meta-item"><span>Catequista responsable</span><strong id="cal-catequista-clase">Por asignar</strong></div>
+            <div class="cal-meta-item"><span>Estado de la clase</span><strong id="cal-estado-clase">—</strong></div>
+            <div class="cal-meta-item"><span>Día programado</span><strong id="cal-dia-clase">—</strong></div>
+          </div>
+          <div id="panel-titulo-tema" style="font-weight:900; color:var(--navy); font-size:1rem; margin:5px 0 8px;">Temas del encuentro</div>
+          <div class="cal-topics-list" id="cal-lista-temas"><div class="cal-topic-row"><strong>Seleccione una fecha para ver los temas.</strong></div></div>
+          <div id="panel-sub-encuentro" class="sub" style="margin-top:12px; font-size:0.85rem;">Horario oficial: 14:00 a 16:00.</div>
+          <div id="card-tema-mini" style="display:none;"></div>
         </div>
       </div>
+      <section class="cal-programa-panel">
+        <h4>Programación completa de clases</h4>
+        <p class="sub">Ordenada por número de clase y fecha, con horario de 14:00 a 16:00 y catequista responsable según Google Sheets.</p>
+        <div class="cal-programa-wrap" id="cal-programa-contenido">
+          <p class="sub">Sincronice para cargar el cronograma oficial.</p>
+        </div>
+      </section>
     </div>
 
     <!-- 6. VISTA DASHBOARD -->
@@ -492,7 +547,7 @@ function abrirPortalComun() {
 function mostrarVista(idVista) {
   ['menu-herramientas','vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-dashboard'].forEach(v => { if ($(v)) $(v).style.display = 'none'; });
   if ($(idVista)) $(idVista).style.display = 'block';
-  if (idVista === 'vista-calendario') renderizarCalendarioModelo();
+  if (idVista === 'vista-calendario') { renderizarCalendarioModelo(); sincronizarCalendario(false); }
   if (idVista === 'vista-asistencia') inicializarAsistenciaModular();
   if (idVista === 'vista-pagos') renderizarPagos();
   if (idVista === 'vista-padres') renderizarPadres();
@@ -532,6 +587,8 @@ async function sincronizarConHoja(silencioso) {
 
     renderizarSesionesCompletas();
     renderizarCalendarioModelo();
+    renderizarListaProgramaCalendario();
+    actualizarResumenCalendario();
     inicializarAsistenciaModular();
     renderizarPagos();
     renderizarPadres();
@@ -1005,66 +1062,210 @@ function cambiarMes(dir) {
   else if (mesActual < 0) { mesActual = 11; anioActual--; }
   renderizarCalendarioModelo();
 }
+
+function obtenerDiaRealISO(iso) {
+  const fecha = fechaDesdeISO(iso);
+  return fecha ? nombresDiasSemana[fecha.getDay()] : '';
+}
+
+function obtenerClasesPorFecha() {
+  const mapa = {};
+  (clasesPortal || []).slice().sort((a,b) => Number(a.numeroClase) - Number(b.numeroClase)).forEach(c => {
+    const fecha = String(c.fechaProgramada || '').slice(0,10);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(fecha)) return;
+    if (!mapa[fecha]) mapa[fecha] = [];
+    mapa[fecha].push(c);
+  });
+  return mapa;
+}
+
 function renderizarCalendarioModelo() {
   const lbl = $('cal-mes-anio');
   const grid = $('cal-grid-dias');
   if (!lbl || !grid) return;
   lbl.textContent = `${nombresMeses[mesActual]} ${anioActual}`;
   grid.innerHTML = '';
-  const porFecha = {};
-  clasesPortal.forEach(c => { if (c.fechaProgramada) { if (!porFecha[c.fechaProgramada]) porFecha[c.fechaProgramada] = []; porFecha[c.fechaProgramada].push(c); } });
-  const primerDia = new Date(anioActual, mesActual, 1).getDay();
+  const porFecha = obtenerClasesPorFecha();
+  const primerDia = new Date(anioActual, mesActual, 1, 12).getDay();
   const inicioLunes = primerDia === 0 ? 6 : primerDia - 1;
   const diasMes = new Date(anioActual, mesActual + 1, 0).getDate();
   const diasPrevios = new Date(anioActual, mesActual, 0).getDate();
+
   for (let i = inicioLunes - 1; i >= 0; i--) {
-    const celda = document.createElement('div'); celda.className = 'cal-day'; celda.style.color = '#b0c0d0'; celda.textContent = diasPrevios - i; grid.appendChild(celda);
+    const celda = document.createElement('div');
+    celda.className = 'cal-day';
+    celda.style.color = '#b0c0d0';
+    celda.textContent = diasPrevios - i;
+    grid.appendChild(celda);
   }
+
   for (let dia = 1; dia <= diasMes; dia++) {
     const fecha = new Date(anioActual, mesActual, dia, 12, 0, 0);
     const key = fechaLocalISO(fecha);
-    const hayClase = !!porFecha[key];
-    const celda = document.createElement('div');
+    const clases = porFecha[key] || [];
+    const hayClase = clases.length > 0;
+    const celda = document.createElement('button');
+    celda.type = 'button';
     celda.className = 'cal-day' + (hayClase ? ' has-class' : '') + (key === fechaCalendarioSeleccionada ? ' selected' : '');
-    celda.innerHTML = `<span>${dia}</span>${hayClase ? '<div class="cal-dot"></div>' : ''}`;
+    celda.style.width = '100%';
+    celda.style.font = 'inherit';
+    celda.innerHTML = `<span>${dia}</span>${hayClase ? `<span class="cal-numero-clase">C${escaparHTML(clases[0].numeroClase || '')}</span><div class="cal-dot"></div>` : ''}`;
+    if (hayClase) {
+      const temaTexto = clases.flatMap(c => (c.temas || []).map(t => t.tema)).join(' / ');
+      celda.title = `Clase ${clases[0].numeroClase} · ${temaTexto}`;
+      celda.setAttribute('aria-label', `${obtenerDiaRealISO(key)} ${dia}, clase ${clases[0].numeroClase}`);
+    } else {
+      celda.title = `${dia} de ${nombresMeses[mesActual]}`;
+    }
     celda.onclick = () => {
-      document.querySelectorAll('.cal-day').forEach(el => el.classList.remove('selected'));
-      celda.classList.add('selected'); fechaCalendarioSeleccionada = key;
-      actualizarPanelEncuentro(fecha, key, porFecha[key] || []);
+      document.querySelectorAll('#cal-grid-dias .cal-day').forEach(el => el.classList.remove('selected'));
+      celda.classList.add('selected');
+      fechaCalendarioSeleccionada = key;
+      actualizarPanelEncuentro(fecha, key, clases);
     };
     grid.appendChild(celda);
   }
+
   const extras = (7 - ((inicioLunes + diasMes) % 7)) % 7;
-  for (let i = 1; i <= extras; i++) { const celda = document.createElement('div'); celda.className = 'cal-day'; celda.style.color = '#b0c0d0'; celda.textContent = i; grid.appendChild(celda); }
+  for (let i = 1; i <= extras; i++) {
+    const celda = document.createElement('div');
+    celda.className = 'cal-day';
+    celda.style.color = '#b0c0d0';
+    celda.textContent = i;
+    grid.appendChild(celda);
+  }
 
   if (!fechaCalendarioSeleccionada || !porFecha[fechaCalendarioSeleccionada]) {
     const hoy = fechaLocalISO(new Date());
-    const futuras = Object.keys(porFecha).filter(k => k >= hoy).sort();
-    fechaCalendarioSeleccionada = futuras[0] || Object.keys(porFecha).sort().slice(-1)[0] || '';
+    const fechas = Object.keys(porFecha).sort();
+    fechaCalendarioSeleccionada = fechas.find(k => k >= hoy) || fechas[0] || '';
   }
-  const sel = fechaDesdeISO(fechaCalendarioSeleccionada);
-  if (sel && sel.getMonth() === mesActual && sel.getFullYear() === anioActual) {
-    const idx = inicioLunes + sel.getDate() - 1;
-    const celda = grid.children[idx]; if (celda) celda.classList.add('selected');
+  const seleccion = fechaDesdeISO(fechaCalendarioSeleccionada);
+  if (seleccion) {
+    if (seleccion.getMonth() === mesActual && seleccion.getFullYear() === anioActual) {
+      const indice = inicioLunes + seleccion.getDate() - 1;
+      const celda = grid.children[indice];
+      if (celda) celda.classList.add('selected');
+    }
+    // La navegación mensual no altera la clase seleccionada ni fuerza volver a su mes.
+    actualizarPanelEncuentro(seleccion, fechaCalendarioSeleccionada, porFecha[fechaCalendarioSeleccionada] || []);
+  } else {
+    actualizarPanelEncuentro(new Date(anioActual, mesActual, 1, 12), '', []);
   }
-  if (sel) actualizarPanelEncuentro(sel, fechaCalendarioSeleccionada, porFecha[fechaCalendarioSeleccionada] || []);
-  else actualizarPanelEncuentro(new Date(anioActual, mesActual, 1), '', []);
+  renderizarListaProgramaCalendario();
+  actualizarResumenCalendario();
 }
+
 function actualizarPanelEncuentro(fecha, key, clases) {
-  const dia = nombresDiasSemana[fecha.getDay()];
-  const diaMayus = dia.charAt(0).toUpperCase() + dia.slice(1);
-  $('panel-fecha-texto').textContent = `${diaMayus}, ${fecha.getDate()} de ${nombresMeses[fecha.getMonth()]}`;
+  const fechaTexto = $('panel-fecha-texto');
+  const numero = $('cal-numero-clase');
+  const horario = $('cal-horario-clase');
+  const catequista = $('cal-catequista-clase');
+  const estado = $('cal-estado-clase');
+  const diaEl = $('cal-dia-clase');
+  const titulo = $('panel-titulo-tema');
+  const temasEl = $('cal-lista-temas');
+  const pie = $('panel-sub-encuentro');
+  if (!fechaTexto || !temasEl) return;
+
+  const diaReal = nombresDiasSemana[fecha.getDay()];
+  const diaTexto = diaReal.charAt(0).toUpperCase() + diaReal.slice(1);
+  fechaTexto.textContent = `${diaTexto}, ${fecha.getDate()} de ${nombresMeses[fecha.getMonth()]} de ${fecha.getFullYear()}`;
   if (!clases || !clases.length) {
-    $('panel-titulo-tema').textContent = 'No hay clase programada';
-    $('panel-sub-encuentro').textContent = 'Consulte la programación oficial de CLASES.';
-    $('card-tema-mini').textContent = 'Sin encuentro programado para esta fecha.';
+    if (numero) numero.textContent = 'SIN CLASE';
+    if (horario) horario.textContent = '14:00–16:00';
+    if (catequista) catequista.textContent = '—';
+    if (estado) estado.textContent = 'No programada';
+    if (diaEl) diaEl.textContent = diaTexto;
+    if (titulo) titulo.textContent = 'No hay clase programada';
+    temasEl.innerHTML = '<div class="cal-topic-row"><strong>No existe un encuentro programado para esta fecha en la hoja CLASES.</strong></div>';
+    if (pie) pie.textContent = 'Consulte la programación oficial. Las clases se desarrollan de 14:00 a 16:00.';
     return;
   }
+
   const c = clases[0];
-  const nombres = (c.temas || []).map(t => `Tema ${t.numeroSesion}: ${t.tema}`).join(' · ');
-  $('panel-titulo-tema').textContent = nombres || `Clase ${c.numeroClase}`;
-  $('panel-sub-encuentro').textContent = `Clase ${c.numeroClase} · ${c.horaInicio}–${c.horaFin} · ${c.catequista || 'Catequista pendiente'}`;
-  $('card-tema-mini').textContent = c.bloque || 'Programa de catequesis';
+  const temas = c.temas || [];
+  const responsable = String(c.catequista || '').trim();
+  const horaInicio = c.horaInicio || '14:00';
+  const horaFin = c.horaFin || '16:00';
+  const estadoClase = c.estadoClase || 'PROGRAMADA';
+  if (numero) numero.textContent = `CLASE N.º ${c.numeroClase}`;
+  if (horario) horario.textContent = `${horaInicio}–${horaFin}`;
+  if (catequista) catequista.textContent = responsable || 'Pendiente de asignación';
+  if (estado) estado.textContent = estadoClase;
+  if (diaEl) diaEl.textContent = diaTexto;
+  if (titulo) titulo.textContent = temas.length > 1 ? 'Temas del encuentro' : 'Tema del encuentro';
+  temasEl.innerHTML = temas.length
+    ? temas.map(t => `<article class="cal-topic-row"><small>Tema ${escaparHTML(t.numeroSesion || '—')} · ${escaparHTML(t.id || '')}</small><strong>${escaparHTML(t.tema || 'Tema pendiente')}</strong></article>`).join('')
+    : '<div class="cal-topic-row"><strong>Temas pendientes de asignación.</strong></div>';
+  if (pie) pie.textContent = responsable
+    ? `Responsable: ${responsable}. Horario oficial de catequesis: ${horaInicio} a ${horaFin}.`
+    : `La catequista responsable aún no está consignada en Google Sheets. Horario: ${horaInicio} a ${horaFin}.`;
+}
+
+function actualizarResumenCalendario() {
+  const total = (clasesPortal || []).length;
+  const asignadas = (clasesPortal || []).filter(c => String(c.catequista || '').trim()).length;
+  if ($('cal-total-clases')) $('cal-total-clases').textContent = total;
+  if ($('cal-horario-general')) $('cal-horario-general').textContent = '14:00–16:00';
+  if ($('cal-docentes-asignados')) $('cal-docentes-asignados').textContent = asignadas;
+  if ($('cal-docentes-pendientes')) $('cal-docentes-pendientes').textContent = total - asignadas;
+}
+
+function renderizarListaProgramaCalendario() {
+  const contenedor = $('cal-programa-contenido');
+  if (!contenedor) return;
+  const ordenadas = (clasesPortal || []).slice().sort((a,b) => Number(a.numeroClase) - Number(b.numeroClase));
+  if (!ordenadas.length) {
+    contenedor.innerHTML = '<p class="sub">No se recibieron clases desde la hoja CLASES. Pulse “Sincronizar desde Google Sheets”.</p>';
+    return;
+  }
+  const filas = ordenadas.map(c => {
+    const iso = String(c.fechaProgramada || '').slice(0,10);
+    const fecha = fechaDesdeISO(iso);
+    const fechaTexto = fecha ? `${String(fecha.getDate()).padStart(2,'0')}/${String(fecha.getMonth()+1).padStart(2,'0')}/${fecha.getFullYear()}` : 'Fecha pendiente';
+    const dia = obtenerDiaRealISO(iso);
+    const hora = `${c.horaInicio || '14:00'}–${c.horaFin || '16:00'}`;
+    const docente = String(c.catequista || '').trim();
+    const estadoDocente = docente ? '<span class="cal-estado-asignado">Asignada</span>' : '<span class="cal-estado-pendiente">Pendiente de asignación</span>';
+    const temas = (c.temas || []).map(t => `<div><strong>${escaparHTML(t.numeroSesion || '')}.</strong> ${escaparHTML(t.tema || 'Tema pendiente')}</div>`).join('') || 'Temas pendientes';
+    return `<tr><td><strong>${escaparHTML(c.numeroClase)}</strong></td><td><strong>${escaparHTML(dia)}</strong><br>${escaparHTML(fechaTexto)}</td><td>${escaparHTML(hora)}</td><td class="temas-cell">${temas}</td><td>${escaparHTML(docente || 'Pendiente de asignación')}</td><td>${estadoDocente}</td></tr>`;
+  }).join('');
+  contenedor.innerHTML = `<table class="cal-programa-table"><thead><tr><th>Clase</th><th>Fecha y día</th><th>Horario</th><th>Temas asignados</th><th>Catequista</th><th>Asignación</th></tr></thead><tbody>${filas}</tbody></table>`;
+}
+
+async function sincronizarCalendario(mostrarAlerta) {
+  const boton = $('btn-cal-sincronizar');
+  const estado = $('cal-estado-sync');
+  const textoOriginal = boton ? boton.textContent : '';
+  if (boton) { boton.disabled = true; boton.textContent = '⏳ Consultando hoja CLASES…'; }
+  if (estado) { estado.textContent = 'Consultando la programación oficial en Google Sheets…'; estado.style.color = 'var(--muted)'; }
+  try {
+    const respuesta = await apiGet('getSesiones');
+    if (!respuesta || respuesta.exito === false) throw new Error(respuesta && respuesta.mensaje ? respuesta.mensaje : 'Google Sheets no devolvió la programación.');
+    clasesPortal = respuesta.clases || [];
+    sesionesPortal = (respuesta.bloques || []).flatMap(b => (b.sessions || []).map(x => Object.assign({}, x, { bloque: x.bloque || b.title })));
+    // La fecha ISO es la referencia para mostrar el día correcto; no se modifica la celda DIA de la hoja.
+    const fechas = clasesPortal.map(c => String(c.fechaProgramada || '').slice(0,10)).filter(Boolean).sort();
+    if (!fechaCalendarioSeleccionada || !clasesPortal.some(c => c.fechaProgramada === fechaCalendarioSeleccionada)) {
+      const hoy = fechaLocalISO(new Date());
+      fechaCalendarioSeleccionada = fechas.find(f => f >= hoy) || fechas[0] || '';
+    }
+    const fechaSel = fechaDesdeISO(fechaCalendarioSeleccionada);
+    if (fechaSel) { mesActual = fechaSel.getMonth(); anioActual = fechaSel.getFullYear(); }
+    renderizarCalendarioModelo();
+    renderizarListaProgramaCalendario();
+    actualizarResumenCalendario();
+    if (estado) { estado.textContent = `Sincronizado desde Google Sheets · ${clasesPortal.length} clases · horario 14:00–16:00.`; estado.style.color = 'var(--green)'; }
+    return true;
+  } catch (error) {
+    console.error('Error al sincronizar calendario:', error);
+    if (estado) { estado.textContent = `No se pudo sincronizar: ${error.message}`; estado.style.color = 'var(--red)'; }
+    if (mostrarAlerta) alert('No se pudo sincronizar el calendario con Google Sheets.\n' + error.message);
+    return false;
+  } finally {
+    if (boton) { boton.disabled = false; boton.textContent = textoOriginal || '🔄 Sincronizar desde Google Sheets'; }
+  }
 }
 
 function initPortalCatequistas() {
