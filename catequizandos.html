@@ -1162,16 +1162,98 @@ function abrirBloque(indice) {
       <p><b>Valor:</b> ${escaparHTML(tema.val || tema.valor || '')}</p>
       <p><b>Cita bíblica:</b> ${escaparHTML(tema.cita || tema.cita_biblica || '')}</p>
       <p><b>Actividad:</b> ${escaparHTML(tema.actividad || 'Por definir')}</p></div>
-      <div class="clase"><b>Programación:</b> ${escaparHTML(tema.fecha || 'Fecha pendiente')} · Clase ${escaparHTML(tema.numeroClase || '')} · ${escaparHTML(tema.horaInicio || '')}${tema.horaFin ? ' a ' + escaparHTML(tema.horaFin) : ''}<br><b>Catequista:</b> ${escaparHTML(tema.catequista || 'Por asignar')}</div>
+      <div class="clase"><b>Programación:</b> ${escaparHTML(tema.fecha || 'Fecha pendiente')} · Clase ${escaparHTML(tema.numeroClase || '')} · Horario: ${escaparHTML(tema.horaInicio || '14:00')} a ${escaparHTML(tema.horaFin || '16:00')} horas<br><b>Catequista:</b> ${escaparHTML(tema.catequista || 'Por asignar')}</div>
+      <div class="resource-buttons">
+        <button type="button" onclick="window.opener.abrirEnlaceRecurso('ficha','${escaparHTML(tema.id || '')}')">📄 Fichas</button>
+        <button type="button" onclick="window.opener.abrirEnlaceRecurso('video','${escaparHTML(tema.id || '')}')">▶️ Videos</button>
+        <button type="button" onclick="window.opener.abrirTareasDeSesion('${escaparHTML(tema.id || '')}')">📝 Tareas</button>
+        <button type="button" onclick="window.opener.abrirEnlaceRecurso('cuestionario','${escaparHTML(tema.id || '')}')">✅ Cuestionarios</button>
+      </div>
     </article>`;
   }).join('');
 
   ventana.document.open();
   ventana.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escaparHTML(bloque.title)}</title><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"><style>
-  *{box-sizing:border-box}body{font:14px Nunito,Arial,sans-serif;background:#f4f1ea;color:#193453;max-width:900px;margin:25px auto;padding:0 15px}header{background:#12345a;color:white;padding:22px 24px;border-radius:16px;margin-bottom:20px}h1{margin:0;font:700 24px Fredoka,sans-serif}.sub{color:#ffdf94;font-weight:700;margin:6px 0 0}.tema{border:1px solid #e7d6b8;border-radius:14px;background:white;padding:18px;margin-bottom:16px;box-shadow:0 3px 10px #12345a0d}.numero{font-size:11px;font-weight:900;color:#b27b19}.tema h2{font:700 18px Fredoka,sans-serif;color:#12345a;margin:5px 0 12px}.subtemas{background:#f3f7fc;padding:10px 14px;border-left:4px solid #d99b16;border-radius:9px}.subtemas ol{margin:6px 0 0;padding-left:20px}.subtemas li{margin:4px 0}.datos{background:#fffaf0;border:1px solid #fae8bd;border-radius:10px;padding:10px 12px;margin-top:12px}.datos p{margin:5px 0}.clase{font-size:12px;background:#eef9f2;border:1px solid #98dfb0;border-radius:10px;padding:10px 12px;margin-top:10px}.close{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin:8px 0 25px;color:#12345a}
+  *{box-sizing:border-box}body{font:14px Nunito,Arial,sans-serif;background:#f4f1ea;color:#193453;max-width:900px;margin:25px auto;padding:0 15px}header{background:#12345a;color:white;padding:22px 24px;border-radius:16px;margin-bottom:20px}h1{margin:0;font:700 24px Fredoka,sans-serif}.sub{color:#ffdf94;font-weight:700;margin:6px 0 0}.tema{border:1px solid #e7d6b8;border-radius:14px;background:white;padding:18px;margin-bottom:16px;box-shadow:0 3px 10px #12345a0d}.numero{font-size:11px;font-weight:900;color:#b27b19}.tema h2{font:700 18px Fredoka,sans-serif;color:#12345a;margin:5px 0 12px}.subtemas{background:#f3f7fc;padding:10px 14px;border-left:4px solid #d99b16;border-radius:9px}.subtemas ol{margin:6px 0 0;padding-left:20px}.subtemas li{margin:4px 0}.datos{background:#fffaf0;border:1px solid #fae8bd;border-radius:10px;padding:10px 12px;margin-top:12px}.datos p{margin:5px 0}.clase{font-size:12px;background:#eef9f2;border:1px solid #98dfb0;border-radius:10px;padding:10px 12px;margin-top:10px}.resource-buttons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}.resource-buttons button{border-radius:10px;padding:10px 8px;font:800 12px Nunito,sans-serif;cursor:pointer;text-align:center;background:#fff8e6;border:1px solid #e8cb82;color:#12345a}.resource-buttons button:nth-child(2){background:#f0f4ff;border-color:#a8c2f5;color:#173b7a}.resource-buttons button:nth-child(3){background:#eef9f2;border-color:#98dfb0;color:#156b37}.resource-buttons button:nth-child(4){background:#fff2f0;border-color:#f2a9a0;color:#8a2817}.resource-buttons button:hover{filter:brightness(.97);transform:translateY(-1px)}.close{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin:8px 0 25px;color:#12345a}@media(max-width:560px){.resource-buttons{grid-template-columns:repeat(2,minmax(0,1fr))}}
   </style></head><body><header><h1>${escaparHTML(bloque.title)}</h1><p class="sub">${(bloque.sessions || []).length} temas · Información oficial de Google Sheets</p></header>${tarjetas}<button class="close" onclick="window.close()" type="button">Cerrar ventana</button></body></html>`);
   ventana.document.close();
   ventana.focus();
+}
+
+/** Busca un tema ya cargado desde la hoja SESIONES. */
+function buscarTemaPortalPorId(idSesion) {
+  for (const bloque of bloquesPortal) {
+    const tema = (bloque.sessions || []).find(function(item) {
+      return String(item.id || '').trim() === String(idSesion || '').trim();
+    });
+    if (tema) return tema;
+  }
+  return null;
+}
+
+/** Abre ficha, video o cuestionario usando exclusivamente las URL guardadas en SESIONES. */
+function abrirEnlaceRecurso(tipo, idSesion) {
+  const tema = buscarTemaPortalPorId(idSesion);
+  if (!tema) {
+    alert('No se encontró el tema ' + idSesion + ' en la programación de Google Sheets.');
+    return;
+  }
+
+  const recursos = {
+    ficha: {campo: 'fichaUrl', encabezado: 'FICHA_URL', nombre: 'la ficha'},
+    video: {campo: 'videoUrl', encabezado: 'VIDEO_URL', nombre: 'el video'},
+    cuestionario: {campo: 'cuestionarioUrl', encabezado: 'CUESTIONARIO_URL', nombre: 'el cuestionario'}
+  };
+  const recurso = recursos[tipo];
+  if (!recurso) return;
+
+  const url = String(tema[recurso.campo] || '').trim();
+  if (!url) {
+    alert('Todavía no se ha registrado ' + recurso.nombre + ' del tema ' + idSesion + '. Completa la columna ' + recurso.encabezado + ' en la hoja SESIONES.');
+    return;
+  }
+  if (!/^https?:\/\//i.test(url)) {
+    alert('La dirección guardada en ' + recurso.encabezado + ' no es una URL válida.');
+    return;
+  }
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+/** Consulta las tareas asociadas al ID_SESION y las presenta en una ventana propia. */
+async function abrirTareasDeSesion(idSesion) {
+  const ventana = window.open('', '_blank');
+  if (!ventana) {
+    alert('Permite las ventanas emergentes para consultar las tareas.');
+    return;
+  }
+
+  const escribir = function(titulo, contenido) {
+    ventana.document.open();
+    ventana.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escaparHTML(titulo)}</title><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"><style>*{box-sizing:border-box}body{font:14px Nunito,Arial,sans-serif;background:#f4f1ea;color:#193453;max-width:850px;margin:25px auto;padding:0 15px}header{background:#12345a;color:#fff;padding:20px 24px;border-radius:16px;margin-bottom:18px}h1{font:700 23px Fredoka,sans-serif;margin:0}.sub{color:#ffdf94;font-weight:800;margin:6px 0 0}.task{background:#fff;border:1px solid #e7d6b8;border-radius:13px;padding:15px;margin-bottom:12px}.task h2{font:700 17px Fredoka,sans-serif;color:#12345a;margin:4px 0 8px}.meta{font-size:12px;color:#526882;line-height:1.7}.state{display:inline-block;background:#fff2cf;color:#8a6418;border-radius:20px;padding:4px 10px;font-size:11px;font-weight:900;margin-top:8px}.evidence{display:inline-block;margin-top:10px;color:#1557a0;font-weight:900}.close{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin:8px 0 25px;color:#12345a}</style></head><body><header><h1>${escaparHTML(titulo)}</h1><p class="sub">Datos consultados desde la hoja TAREAS · ${escaparHTML(idSesion)}</p></header><main>${contenido}</main><button class="close" onclick="window.close()" type="button">Cerrar ventana</button></body></html>`);
+    ventana.document.close();
+    ventana.focus();
+  };
+
+  escribir('Cargando tareas…', '<p>Consultando las tareas asociadas a este tema en Google Sheets.</p>');
+  try {
+    const respuesta = await apiGet('getTareas', {idSesion: idSesion});
+    const tareas = Array.isArray(respuesta.datos) ? respuesta.datos : [];
+    if (!tareas.length) {
+      escribir('Tareas del tema', '<div class="task">No hay tareas registradas para este tema en la hoja TAREAS.</div>');
+      return;
+    }
+
+    const contenido = tareas.map(function(tarea) {
+      const evidencia = String(tarea.EVIDENCIA_LINK || '').trim();
+      const enlace = /^https?:\/\//i.test(evidencia)
+        ? `<a class="evidence" href="${escaparHTML(evidencia)}" target="_blank" rel="noopener noreferrer">Abrir evidencia</a>`
+        : '';
+      return `<article class="task"><span class="meta">${escaparHTML(tarea.ID_TAREA || '')}</span><h2>${escaparHTML(tarea.TITULO || 'Tarea')}</h2><p>${escaparHTML(tarea.DESCRIPCION || '')}</p><div class="meta"><b>Asignada:</b> ${escaparHTML(tarea.FECHA_ASIGNACION || '—')}<br><b>Entrega:</b> ${escaparHTML(tarea.FECHA_ENTREGA || '—')}<br><b>Responsable:</b> ${escaparHTML(tarea.RESPONSABLE || '—')}<br><b>Observación:</b> ${escaparHTML(tarea.OBSERVACION || '—')}</div><span class="state">${escaparHTML(tarea.ESTADO || 'Pendiente')}</span>${enlace}</article>`;
+    }).join('');
+    escribir('Tareas del tema', contenido);
+  } catch (error) {
+    escribir('No se pudieron cargar las tareas', `<div class="task">${escaparHTML(error.message || String(error))}</div>`);
+  }
 }
 
 function construirCalendario(sesiones) {
@@ -1187,8 +1269,8 @@ function construirCalendario(sesiones) {
         numeroClase: tema.numeroClase || '',
         fecha: fecha,
         dia: tema.dia || '',
-        horaInicio: tema.horaInicio || '',
-        horaFin: tema.horaFin || '',
+        horaInicio: tema.horaInicio || '14:00',
+        horaFin: tema.horaFin || '16:00',
         catequista: tema.catequista || '',
         topics: []
       });
@@ -1288,7 +1370,7 @@ function seleccionarFecha(fecha) {
     if (descripcionEl) descripcionEl.textContent = entrada.description;
   } else {
     if (tituloEl) tituloEl.textContent = entrada.topics.length + (entrada.topics.length === 1 ? ' tema programado' : ' temas programados');
-    const horario = entrada.horaInicio ? ' · ' + entrada.horaInicio + (entrada.horaFin ? ' a ' + entrada.horaFin : '') : '';
+    const horario = ' · Horario: ' + (entrada.horaInicio || '14:00') + ' a ' + (entrada.horaFin || '16:00') + ' horas';
     if (descripcionEl) descripcionEl.textContent = 'Clase ' + (entrada.numeroClase || '—') + horario + (entrada.catequista ? ' · Catequista: ' + entrada.catequista : '');
     entrada.topics.forEach(function(tema) {
       const detalle = document.createElement('details'); detalle.className = 'calendar-topic-item topic-collapsible';
