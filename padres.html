@@ -1,3 +1,4 @@
+```
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -170,14 +171,14 @@
           <div class="card card-custom p-4 h-100">
             <h5 class="fw-bold text-success mb-3">📝 Tareas y Preguntas en Familia</h5>
             <p class="text-muted small">Revise las actividades semanales y reflexiones que los niños deben desarrollar junto a ustedes en casa.</p>
-            <div class="mt-auto"><button class="btn btn-outline-success btn-sm w-100" onclick="consultarDatos('getSesiones')">Ver Tareas de la Semana</button></div>
+            <div class="mt-auto"><button class="btn btn-outline-success btn-sm w-100" onclick="consultarDatos('getTareas')">Ver Tareas de la Semana</button></div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="card card-custom p-4 h-100">
             <h5 class="fw-bold text-warning mb-3 text-dark">📂 Requisitos y Documentos</h5>
             <p class="text-muted small">Estado de entrega de la Partida de Bautismo, Ficha de Inscripción y autorizaciones requeridas.</p>
-            <div class="mt-auto"><button class="btn btn-outline-warning btn-sm w-100 text-dark" onclick="alert('Verificando documentos...')">Ver Estado de Requisitos</button></div>
+            <div class="mt-auto"><button class="btn btn-outline-warning btn-sm w-100 text-dark" onclick="consultarDatos('getRequisitos')">Ver Estado de Requisitos</button></div>
           </div>
         </div>
         <div class="col-md-6">
@@ -196,169 +197,117 @@
 
   <script>
     const URL_WEB_APP = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
-    let codigoActual = localStorage.getItem('codigoPadre') || '';
-    let fechaActualVista = new Date(2026, 10, 1); // Noviembre 2026
-    let eventosSesiones = [];
-    let eventosCumple = [];
-    let eventosAvisos = [];
+    let tokenPadres = sessionStorage.getItem('tokenPadres') || '';
+    let perfilPadres = JSON.parse(sessionStorage.getItem('perfilPadres') || 'null');
+    let fechaActualVista = new Date(2026, 10, 1);
+    let eventosSesiones = [], eventosCumple = [], eventosAvisos = [];
 
     window.onload = function() {
-      const inputCodigo = document.getElementById('codigoPadre');
-      const inputClave = document.getElementById('clavePadre');
-      if (inputCodigo) inputCodigo.value = '';
-      if (inputClave) inputClave.value = '';
-
-      if (codigoActual) {
-        document.getElementById('loginView').classList.add('d-none');
-        document.getElementById('portalView').classList.remove('d-none');
-        reproducirBienvenida();
-        cargarDatosCompletosCalendario();
-      }
+      // No se restaura acceso por un código guardado: se exige PIN nuevamente.
+      sessionStorage.removeItem('tokenPadres'); sessionStorage.removeItem('perfilPadres');
+      tokenPadres = ''; perfilPadres = null;
+      document.getElementById('loginView').classList.remove('d-none');
+      document.getElementById('portalView').classList.add('d-none');
     };
 
-    function realizarLogin(e) {
+    async function apiGet(action, extra={}) {
+      const params = new URLSearchParams({action, token:tokenPadres, ...extra});
+      const res = await fetch(`${URL_WEB_APP}?${params.toString()}`);
+      return await res.json();
+    }
+
+    async function realizarLogin(e) {
       e.preventDefault();
-      const codigo = document.getElementById('codigoPadre').value.trim();
-      const clave = document.getElementById('clavePadre').value.trim();
-      const errDiv = document.getElementById('loginError');
-      errDiv.classList.add('d-none');
-
-      fetch(`${URL_WEB_APP}?action=validarLogin&codigoPadre=${encodeURIComponent(codigo)}&clave=${encodeURIComponent(clave)}`)
-        .then(res => res.json())
-        .then(data => {
-          if (data.exito) {
-            localStorage.setItem('codigoPadre', codigo);
-            codigoActual = codigo;
-            document.getElementById('loginView').classList.add('d-none');
-            document.getElementById('portalView').classList.remove('d-none');
-            reproducirBienvenida();
-            cargarDatosCompletosCalendario();
-          } else {
-            errDiv.textContent = data.mensaje || 'Código o clave incorrectos.';
-            errDiv.classList.remove('d-none');
-          }
-        })
-        .catch(() => { errDiv.textContent = 'Error de conexión con el servidor.'; errDiv.classList.remove('d-none'); });
+      const codigo=document.getElementById('codigoPadre').value.trim();
+      const clave=document.getElementById('clavePadre').value.trim();
+      const err=document.getElementById('loginError'); err.classList.add('d-none');
+      try {
+        const q=new URLSearchParams({action:'validarLogin',codigoPadre:codigo,clave});
+        const data=await (await fetch(`${URL_WEB_APP}?${q}`)).json();
+        if (!data.exito || !data.token) throw new Error(data.mensaje || 'Código o PIN incorrectos.');
+        tokenPadres=data.token; perfilPadres=data.perfil||{};
+        sessionStorage.setItem('tokenPadres',tokenPadres);
+        sessionStorage.setItem('perfilPadres',JSON.stringify(perfilPadres));
+        document.getElementById('loginView').classList.add('d-none');
+        document.getElementById('portalView').classList.remove('d-none');
+        document.getElementById('saludoUsuario').textContent = perfilPadres.nombre ? `Bienvenido/a, ${perfilPadres.nombre}:` : 'Estimado Padre/Madre:';
+        reproducirBienvenida(); await cargarDatosCompletosCalendario();
+      } catch(error) { err.textContent=error.message||'Error de conexión con el servidor.'; err.classList.remove('d-none'); }
+      finally { document.getElementById('clavePadre').value=''; }
     }
 
-    function cerrarSesion() {
-      localStorage.removeItem('codigoPadre');
-      location.reload();
-    }
-
+    function cerrarSesion() { sessionStorage.removeItem('tokenPadres'); sessionStorage.removeItem('perfilPadres'); tokenPadres=''; location.reload(); }
     function reproducirBienvenida() {
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance("Bienvenidos al calendario interactivo de catequesis.");
-        utterance.lang = 'es-ES';
-        window.speechSynthesis.speak(utterance);
-      }
+      if ('speechSynthesis' in window) { window.speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance('Bienvenidos al portal familiar de catequesis.'); u.lang='es-ES'; window.speechSynthesis.speak(u); }
     }
+    function escapeHtml(v) { return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+    function fechaKey(v) { if(!v)return ''; const s=String(v); const m=s.match(/(\d{4}-\d{2}-\d{2})/); if(m)return m[1]; const d=new Date(v); return isNaN(d)?'':`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
 
-    // Cargar datos tanto de sesiones como de la base general
-    function cargarDatosCompletosCalendario() {
-      fetch(`${URL_WEB_APP}?action=getSesiones`)
-        .then(res => res.json())
-        .then(data => {
-          if (data.exito && Array.isArray(data.datos)) {
-            eventosSesiones = data.datos;
-          }
-          generarCalendarioVisual();
-        })
-        .catch(() => generarCalendarioVisual());
+    async function cargarDatosCompletosCalendario() {
+      try {
+        const [cal,avisos]=await Promise.all([apiGet('getCalendarioPadres'),apiGet('getAvisos')]);
+        eventosSesiones=cal.exito&&Array.isArray(cal.datos)?cal.datos:[];
+        eventosAvisos=avisos.exito&&Array.isArray(avisos.datos)?avisos.datos:[];
+        generarCalendarioVisual();
+        const hoy=new Date(); seleccionarDia(hoy.getDate(),hoy.getMonth(),hoy.getFullYear());
+      } catch(e) { generarCalendarioVisual(); }
     }
-
-    function cambiarMes(direccion) {
-      fechaActualVista.setMonth(fechaActualVista.getMonth() + direccion);
-      generarCalendarioVisual();
-    }
+    function cambiarMes(direccion) { fechaActualVista.setMonth(fechaActualVista.getMonth()+direccion); generarCalendarioVisual(); }
 
     function generarCalendarioVisual() {
-      const mesesNombres = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-      const anio = fechaActualVista.getFullYear();
-      const mes = fechaActualVista.getMonth();
-
-      document.getElementById('mesAnioLabel').textContent = `${mesesNombres[mes]} ${anio}`;
-
-      const primerDiaIndex = (new Date(anio, mes, 1).getDay() + 6) % 7; // Lunes primero
-      const totalDiasMes = new Date(anio, mes + 1, 0).getDate();
-      const grid = document.getElementById('diasCalendarioGrid');
-      let html = '';
-
-      for (let i = 0; i < primerDiaIndex; i++) {
-        html += `<div class="calendar-day border-0 bg-transparent"></div>`;
+      const meses=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+      const anio=fechaActualVista.getFullYear(), mes=fechaActualVista.getMonth();
+      document.getElementById('mesAnioLabel').textContent=`${meses[mes]} ${anio}`;
+      const offset=(new Date(anio,mes,1).getDay()+6)%7, total=new Date(anio,mes+1,0).getDate();
+      const grid=document.getElementById('diasCalendarioGrid'); let out='';
+      for(let i=0;i<offset;i++) out+='<div class="calendar-day border-0 bg-transparent"></div>';
+      for(let dia=1;dia<=total;dia++) {
+        const key=`${anio}-${String(mes+1).padStart(2,'0')}-${String(dia).padStart(2,'0')}`;
+        const clases=eventosSesiones.filter(x=>fechaKey(x.fecha)===key);
+        const avisos=eventosAvisos.filter(x=>fechaKey(x.FECHA)===key);
+        const titulo=clases.map(x=>[x.tema1,x.tema2].filter(Boolean).join(' / ')).filter(Boolean).join(' · ');
+        const cls=clases.length?'has-clase ':''; const aviso=avisos.length?'has-aviso':'';
+        out+=`<button type="button" class="calendar-day ${cls}${aviso}" onclick="seleccionarDia(${dia},${mes},${anio})"><span class="fw-bold text-dark">${dia}</span>${titulo?`<div class="bg-primary text-white p-1 rounded mt-1" style="font-size:.60rem;line-height:1.1;max-height:48px;overflow:hidden;text-align:center">${escapeHtml(titulo)}</div>`:''}${avisos.length?'<small class="text-warning fw-bold">● Aviso</small>':''}</button>`;
       }
-
-      for (let dia = 1; dia <= totalDiasMes; dia++) {
-        const fechaStr = `${anio}-${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
-        
-        const claseEncontrada = eventosSesiones.find(ev => {
-          const fechaEv = String(ev.FECHA || ev.DIA || ev.FECHA_SESION || '');
-          return fechaEv.includes(fechaStr);
-        });
-        
-        const clasesExtra = claseEncontrada ? 'has-clase' : '';
-        const nombreTema = claseEncontrada ? (claseEncontrada.TEMA || claseEncontrada.SESION || claseEncontrada.TITULO || 'Clase') : '';
-
-        html += `
-          <div class="calendar-day ${clasesExtra}" onclick='seleccionarDia(${dia}, ${mes}, ${anio}, ${JSON.stringify(claseEncontrada || null)})'>
-            <span class="fw-bold text-dark">${dia}</span>
-            ${nombreTema ? `<div class="bg-primary text-white p-1 rounded mt-1" style="font-size: 0.60rem; line-height: 1.1; overflow: hidden; max-height: 48px; text-align: center; font-weight: 500;">${nombreTema}</div>` : ''}
-          </div>
-        `;
-      }
-
-      grid.innerHTML = html;
+      grid.innerHTML=out;
     }
 
-    function seleccionarDia(dia, mes, anio, clase) {
-      const mesesNombres = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-      document.getElementById('detalleFecha').textContent = `${dia} de ${mesesNombres[mes]} de ${anio}`;
-
-      if (clase) {
-        const nombreTema = clase.TEMA || clase.SESION || clase.TITULO || clase.CONTENIDO || 'Encuentro Programado';
-        const descripcionTema = clase.DESCRIPCION || clase.OBSERVACIONES || clase.DETALLE || 'Sin descripción adicional.';
-        document.getElementById('detalleClase').innerHTML = `<strong class="text-primary">${nombreTema}</strong><br><span class="text-muted small">${descripcionTema}</span>`;
-      } else {
-        document.getElementById('detalleClase').textContent = 'Sin clase o encuentro programado';
-      }
-
-      document.getElementById('detalleCumple').textContent = '🎂 No hay cumpleaños registrados hoy';
-      document.getElementById('detalleAviso').textContent = '💬 Sin avisos especiales para esta fecha.';
+    function seleccionarDia(dia,mes,anio) {
+      const key=`${anio}-${String(mes+1).padStart(2,'0')}-${String(dia).padStart(2,'0')}`;
+      const meses=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+      document.getElementById('detalleFecha').textContent=`${dia} de ${meses[mes]} de ${anio}`;
+      const clases=eventosSesiones.filter(x=>fechaKey(x.fecha)===key);
+      if(clases.length) {
+        document.getElementById('detalleClase').innerHTML=clases.map(x=>`<div class="mb-2"><strong class="text-primary">Clase ${escapeHtml(x.numeroClase)}: ${escapeHtml([x.tema1,x.tema2].filter(Boolean).join(' / ')||'Encuentro programado')}</strong><br><span class="text-muted small">${escapeHtml(x.horaInicio)} - ${escapeHtml(x.horaFin)} · ${escapeHtml(x.catequista)}</span></div>`).join('');
+      } else document.getElementById('detalleClase').textContent='Sin clase programada para esta fecha.';
+      const avisos=eventosAvisos.filter(x=>fechaKey(x.FECHA)===key);
+      document.getElementById('detalleAviso').innerHTML=avisos.length?avisos.map(x=>`<div class="mb-2"><strong>${escapeHtml(x.TITULO)}</strong><br>${escapeHtml(x.MENSAJE)}</div>`).join(''):'Sin avisos especiales para esta fecha.';
+      document.getElementById('detalleCumple').textContent='Los cumpleaños familiares se mostrarán cuando estén autorizados y registrados para el calendario.';
     }
 
-    function consultarDatos(accion) {
-      const contenedor = document.getElementById('resultadoContenedor');
-      contenedor.innerHTML = `<div class="alert alert-warning text-center">Consultando registros, por favor espere...</div>`;
-
-      fetch(`${URL_WEB_APP}?action=${accion}&codigoPadre=${encodeURIComponent(codigoActual)}`)
-        .then(res => res.json())
-        .then(data => {
-          if (data.exito) {
-            let contenidoHtml = `<div class="card card-custom p-3 bg-light"><h6 class="fw-bold text-success mb-3">✅ Registros encontrados (${data.total})</h6>`;
-            if (Array.isArray(data.datos) && data.datos.length > 0) {
-              contenidoHtml += `<div class="table-responsive"><table class="table table-bordered table-sm bg-white small"><thead><tr>`;
-              const keys = Object.keys(data.datos[0]);
-              keys.forEach(k => contenidoHtml += `<th>${k}</th>`);
-              contenidoHtml += `</tr></thead><tbody>`;
-              data.datos.forEach(row => {
-                contenidoHtml += `<tr>`;
-                keys.forEach(k => contenidoHtml += `<td>${row[k] !== undefined ? row[k] : ''}</td>`);
-                contenidoHtml += `</tr>`;
-              });
-              contenidoHtml += `</tbody></table></div>`;
-            } else {
-              contenidoHtml += `<p class="text-muted">No se encontraron registros asociados.</p>`;
-            }
-            contenedor.innerHTML = contenidoHtml + `</div>`;
-          } else {
-            contenedor.innerHTML = `<div class="alert alert-danger">Error: ${data.mensaje}</div>`;
-          }
-        })
-        .catch(() => contenedor.innerHTML = `<div class="alert alert-danger">Error de conexión con el servidor.</div>`);
+    async function consultarDatos(accion) {
+      const c=document.getElementById('resultadoContenedor');
+      c.innerHTML='<div class="alert alert-warning text-center">Consultando registros, por favor espere...</div>';
+      try {
+        const data=await apiGet(accion);
+        if(!data.exito) throw new Error(data.mensaje||'No se pudo consultar la información.');
+        const datos=Array.isArray(data.datos)?data.datos:[];
+        const titulos={getSesiones:'Programación de Catequesis',getAsistenciaNotas:'Asistencia y notas',getTareas:'Tareas para la familia',getRequisitos:'Requisitos y documentos',getAportes:'Aportes parroquiales',getMateriales:'Materiales entregados',getCalificaciones:'Calificaciones'};
+        let out=`<div class="card card-custom p-3"><h5 class="fw-bold text-primary mb-3">${titulos[accion]||'Información familiar'} (${datos.length})</h5>`;
+        function tablaRegistros(titulo, filas) {
+          if(!Array.isArray(filas) || !filas.length) return `<h6 class="fw-bold mt-3">${escapeHtml(titulo)}</h6><p class="text-muted small">Sin registros disponibles.</p>`;
+          const keys=Object.keys(filas[0]);
+          return `<h6 class="fw-bold mt-3">${escapeHtml(titulo)}</h6><div class="table-responsive"><table class="table table-bordered table-sm bg-white small align-middle"><thead><tr>${keys.map(k=>`<th>${escapeHtml(k)}</th>`).join('')}</tr></thead><tbody>${filas.map(row=>'<tr>'+keys.map(k=>`<td>${escapeHtml(row[k])}</td>`).join('')+'</tr>').join('')}</tbody></table></div>`;
+        }
+        out += tablaRegistros(titulos[accion]||'Información familiar', datos);
+        if(accion==='getAsistenciaNotas') out += tablaRegistros('Calificaciones registradas', data.calificaciones||[]);
+        if(accion==='getRequisitos') out += tablaRegistros('Control de materiales', data.materiales||[]);
+        c.innerHTML=out+'</div>';
+      } catch(error) { c.innerHTML=`<div class="alert alert-danger">${escapeHtml(error.message||'Error de conexión.')}</div>`; }
     }
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+```
