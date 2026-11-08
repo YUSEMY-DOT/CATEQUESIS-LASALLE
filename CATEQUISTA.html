@@ -356,9 +356,6 @@
         <div class="cal-stat"><strong id="cal-total-temas">—</strong><span>Temas del programa</span></div>
         <div class="cal-stat"><strong id="cal-horario-general">14:00–16:00</strong><span>Horario de catequesis</span></div>
       </div>
-      <div class="no-print" style="display:flex;justify-content:flex-end;margin:14px 0 18px;">
-        <button class="btn primary" type="button" onclick="mostrarVista('vista-calificaciones')">📝 Registrar calificaciones</button>
-      </div>
       <div class="cal-container">
         <div class="cal-box">
           <div class="cal-header-bar">
@@ -753,6 +750,7 @@ function renderizarSesionesCompletas() {
           <button class="btn small btn-evaluaciones" onclick="abrirGestionMaterial('${escaparHTML(id)}','Evaluaciones')">📋 Evaluaciones</button>
           <button class="btn small btn-canciones" onclick="abrirGestionMaterial('${escaparHTML(id)}','Canciones')">🎵 Canciones</button>
           <button class="btn small btn-videos" onclick="abrirGestionMaterial('${escaparHTML(id)}','Videos')">▶️ Videos</button>
+          <button class="btn small primary" onclick="abrirCalificacionesDesdeTema('${escaparHTML(id)}')">📝 Registrar calificación</button>
         </div>`;
       bloqueDiv.appendChild(box);
     });
@@ -1143,6 +1141,13 @@ function enviarMensajeCorreoPadre() {
   a.remove();
 }
 
+let temaCalificacionPendiente = '';
+
+function abrirCalificacionesDesdeTema(idSesion) {
+  temaCalificacionPendiente = String(idSesion || '').trim();
+  mostrarVista('vista-calificaciones');
+}
+
 function equivalenciaCalificacion(nota) {
   const n = Number(nota);
   if (!Number.isFinite(n) || n < 0 || n > 20) return '';
@@ -1189,6 +1194,16 @@ async function cargarVistaCalificaciones(mostrarAviso) {
       clasesPortal = respuestas[1].clases || clasesPortal;
     }
     prepararFormularioCalificaciones();
+    if (temaCalificacionPendiente) {
+      const selectorTema = $('calif-tema');
+      if (selectorTema && Array.from(selectorTema.options).some(o => o.value === temaCalificacionPendiente)) {
+        selectorTema.value = temaCalificacionPendiente;
+        const temaSeleccionado = (sesionesPortal || []).find(t => String(t.id || '').trim() === temaCalificacionPendiente);
+        const encabezado = document.querySelector('#vista-calificaciones h3');
+        if (encabezado && temaSeleccionado) encabezado.textContent = `Registro de calificaciones · Tema ${temaSeleccionado.numeroSesion || temaSeleccionado.n || ''}`;
+      }
+      temaCalificacionPendiente = '';
+    }
     const respuesta = await apiGet('getCalificaciones');
     calificacionesPortal = respuesta.datos || [];
     renderizarHistorialCalificaciones();
