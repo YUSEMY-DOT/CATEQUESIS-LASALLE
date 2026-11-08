@@ -93,24 +93,42 @@
 .cal-task-item{padding:9px 10px;border:1px solid #dce8f2;border-radius:9px;background:#f7fbff;font-size:.8rem}
 .cal-task-item strong{display:block;color:var(--navy)}
 .cal-empty-note{font-size:.8rem;color:var(--muted);font-style:italic;margin-top:7px}
-.cal-programa-table{min-width:1080px}
-.cal-programa-table .temas-cell{min-width:330px}
-.cal-programa-table .tareas-cell{min-width:220px;white-space:normal}
 .cal-programa-panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:20px;box-shadow:var(--shadow)}
 .cal-programa-panel h4{margin:0;color:var(--navy);font-size:1.05rem}
 .cal-programa-panel .sub{margin-bottom:12px}
-.cal-programa-wrap{overflow-x:auto}
-.cal-programa-table{width:100%;border-collapse:collapse;min-width:780px;font-size:.82rem}
-.cal-programa-table th,.cal-programa-table td{padding:10px 11px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-.cal-programa-table th{background:var(--blue-soft);color:var(--navy);font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;position:sticky;top:0}
-.cal-programa-table tbody tr:hover{background:#fbfcfe}
-.cal-programa-table .temas-cell{white-space:normal;min-width:250px}
-.cal-programa-table .temas-cell div+div{margin-top:5px}
+.cal-programa-wrap{display:grid;gap:11px;overflow:visible}
+.cal-class-card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 3px 12px #173b6808}
+.cal-class-card[open]{border-color:#e8bd46;box-shadow:0 7px 20px #173b6810}
+.cal-class-summary{list-style:none;display:grid;grid-template-columns:78px minmax(150px,1.15fr) minmax(105px,.7fr) minmax(130px,1fr) auto;gap:12px;align-items:center;padding:13px 15px;cursor:pointer;background:#fff}
+.cal-class-summary::-webkit-details-marker{display:none}
+.cal-class-summary:after{content:'＋';font-weight:900;color:var(--navy);font-size:1.05rem;justify-self:end}
+.cal-class-card[open]>.cal-class-summary:after{content:'−'}
+.cal-class-card[open]>.cal-class-summary{background:#fffdf6;border-bottom:1px solid #f1e2b8}
+.cal-class-chip{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:6px 9px;border-radius:9px;background:var(--navy);color:#fff;font-weight:900;font-size:.78rem;text-align:center}
+.cal-class-summary strong{display:block;color:var(--navy);font-size:.86rem;line-height:1.3}
+.cal-class-summary small{display:block;margin-top:3px;color:var(--muted);font-size:.72rem}
+.cal-class-topic-count{display:inline-flex;align-items:center;justify-content:center;padding:5px 8px;border-radius:8px;background:#fff2cf;color:#805b08;font-size:.72rem;font-weight:900;white-space:nowrap}
+.cal-class-detail{padding:15px 16px 17px}
+.cal-class-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-bottom:12px}
+.cal-class-meta-item{min-width:0;background:#f7f9fc;border:1px solid var(--line);border-radius:9px;padding:9px 10px}
+.cal-class-meta-item span{display:block;color:var(--muted);font-size:.65rem;font-weight:900;text-transform:uppercase;letter-spacing:.04em}
+.cal-class-meta-item strong{display:block;margin-top:3px;color:var(--navy);font-size:.82rem;overflow-wrap:anywhere}
+.cal-class-topic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:start}
+.cal-class-topic-grid .cal-topic-row{height:100%;margin:0}
+.cal-class-section-title{margin:15px 0 7px;color:var(--navy);font-size:.82rem;font-weight:900;text-transform:uppercase;letter-spacing:.04em}
+.cal-class-alert{margin:0 0 11px;padding:8px 10px;border:1px solid #f0d89a;border-radius:9px;background:#fff9e9;color:#79580c;font-size:.78rem}
+.cal-class-alert.ok{border-color:#cfe6d8;background:#f1faf4;color:#236442}
+.cal-class-footer{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;color:var(--muted);font-size:.76rem}
 .cal-estado-pendiente{display:inline-block;padding:4px 8px;border-radius:7px;background:#fff4dc;color:#8b650b;font-size:.72rem;font-weight:800}
 .cal-estado-asignado{display:inline-block;padding:4px 8px;border-radius:7px;background:var(--green-soft);color:var(--green);font-size:.72rem;font-weight:800}
 .cal-day.has-class{box-shadow:inset 0 0 0 1px #e8bd46}
-.cal-day .cal-numero-clase{font-size:.58rem;color:var(--gold-deep);font-weight:900;line-height:1}
-@media(max-width:900px){.cal-stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.cal-day .cal-numero-clase{display:block;font-size:.62rem;color:var(--gold-deep);font-weight:900;line-height:1.15;margin-top:2px}
+.cal-day .cal-temas-dia{display:block;font-size:.56rem;color:var(--muted);font-weight:800;line-height:1.1}
+.cal-dia-observacion{margin:8px 0;padding:8px 10px;border-radius:9px;font-size:.76rem;font-weight:700}
+.cal-dia-observacion.alerta{background:#fff8e7;border:1px solid #f0d89a;color:#805b08}
+.cal-dia-observacion.correcto{background:#f0f8f2;border:1px solid #cee5d6;color:#256341}
+@media(max-width:900px){.cal-stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cal-class-summary{grid-template-columns:68px 1fr 1fr;gap:8px}.cal-class-summary .cal-summary-teacher{grid-column:2/4}.cal-class-summary:after{grid-column:3;grid-row:1;align-self:start}.cal-class-meta{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.cal-container{grid-template-columns:1fr}.cal-class-summary{grid-template-columns:62px 1fr auto;padding:11px 10px}.cal-class-summary .cal-summary-time{grid-column:2}.cal-class-summary .cal-summary-teacher{grid-column:2/3}.cal-class-summary:after{grid-column:3;grid-row:1}.cal-class-topic-grid{grid-template-columns:1fr}.cal-class-meta{grid-template-columns:1fr 1fr}}
 @media(max-width:520px){.cal-ficha-meta{grid-template-columns:1fr}.cal-stats-grid{gap:7px}.cal-stat{padding:10px}.cal-stat strong{font-size:1.1rem}}
 
 
@@ -363,8 +381,9 @@
             <div class="cal-meta-item"><span>Horario</span><strong id="cal-horario-clase">14:00–16:00</strong></div>
             <div class="cal-meta-item"><span>Catequista responsable</span><strong id="cal-catequista-clase">Por asignar</strong></div>
             <div class="cal-meta-item"><span>Estado de la clase</span><strong id="cal-estado-clase">—</strong></div>
-            <div class="cal-meta-item"><span>Día programado</span><strong id="cal-dia-clase">—</strong></div>
+            <div class="cal-meta-item"><span>Día correcto según fecha</span><strong id="cal-dia-clase">—</strong></div>
           </div>
+          <div id="cal-dia-observacion" class="cal-dia-observacion" style="display:none;"></div>
           <div id="panel-titulo-tema" style="font-weight:900; color:var(--navy); font-size:1rem; margin:5px 0 8px;">Temas del encuentro</div>
           <div class="cal-topics-list" id="cal-lista-temas"><div class="cal-topic-row"><strong>Seleccione una fecha para ver los temas.</strong></div></div>
           <div id="panel-sub-encuentro" class="sub" style="margin-top:12px; font-size:0.85rem;">Horario oficial: 14:00 a 16:00.</div>
@@ -1120,9 +1139,12 @@ function renderizarCalendarioModelo() {
     const celda = document.createElement('button');
     celda.type = 'button';
     celda.className = 'cal-day' + (hayClase ? ' has-class' : '') + (key === fechaCalendarioSeleccionada ? ' selected' : '');
+    celda.dataset.fecha = key;
     celda.style.width = '100%';
     celda.style.font = 'inherit';
-    celda.innerHTML = `<span>${dia}</span>${hayClase ? `<span class="cal-numero-clase">C${escaparHTML(clases[0].numeroClase || '')} · ${clases.reduce((n, c) => n + (c.temas || []).length, 0)} temas</span><div class="cal-dot"></div>` : ''}`;
+    const cantidadTemasDia = clases.reduce((n, c) => n + (c.temas || []).length, 0);
+    const clasesDiaLabel = clases.map(c => `C${c.numeroClase || ''}`).join(' / ');
+    celda.innerHTML = `<span>${dia}</span>${hayClase ? `<span class="cal-numero-clase">${escaparHTML(clasesDiaLabel)}</span><span class="cal-temas-dia">${cantidadTemasDia} ${cantidadTemasDia === 1 ? 'tema' : 'temas'}</span><div class="cal-dot"></div>` : ''}`;
     if (hayClase) {
       const temaTexto = clases.flatMap(c => (c.temas || []).map(t => t.tema)).join(' / ');
       celda.title = `Clase ${clases[0].numeroClase} · ${temaTexto}`;
@@ -1236,6 +1258,21 @@ function renderizarTareasCalendario(tareas) {
   }).join('')}</div>`;
 }
 
+function normalizarDiaCalendario(valor) {
+  return String(valor || '').trim().toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+function obtenerAvisoDiaRegistrado(clase, diaReal) {
+  const registrado = String(clase && clase.diaRegistrado || '').trim();
+  if (!registrado) {
+    return { tipo: 'alerta', texto: 'La columna DIA está vacía en Google Sheets. La fecha corresponde a ' + diaReal + '; revisa el dato en CLASES.' };
+  }
+  if (normalizarDiaCalendario(registrado) !== normalizarDiaCalendario(diaReal)) {
+    return { tipo: 'alerta', texto: 'Diferencia en Google Sheets: figura «' + registrado + '», pero la fecha corresponde a «' + diaReal + '». El calendario muestra el día calculado por la fecha.' };
+  }
+  return { tipo: 'correcto', texto: 'El día registrado en Google Sheets coincide con la fecha.' };
+}
+
 function actualizarPanelEncuentro(fecha, key, clases) {
   const fechaTexto = $('panel-fecha-texto');
   const numero = $('cal-numero-clase');
@@ -1243,6 +1280,7 @@ function actualizarPanelEncuentro(fecha, key, clases) {
   const catequista = $('cal-catequista-clase');
   const estado = $('cal-estado-clase');
   const diaEl = $('cal-dia-clase');
+  const diaObservacion = $('cal-dia-observacion');
   const titulo = $('panel-titulo-tema');
   const temasEl = $('cal-lista-temas');
   const pie = $('panel-sub-encuentro');
@@ -1253,10 +1291,11 @@ function actualizarPanelEncuentro(fecha, key, clases) {
   fechaTexto.textContent = `${diaTexto}, ${fecha.getDate()} de ${nombresMeses[fecha.getMonth()]} de ${fecha.getFullYear()}`;
   if (!clases || !clases.length) {
     if (numero) numero.textContent = 'SIN CLASE';
-    if (horario) horario.textContent = '14:00–16:00';
+    if (horario) horario.textContent = 'Sin horario';
     if (catequista) catequista.textContent = '—';
     if (estado) estado.textContent = 'No programada';
     if (diaEl) diaEl.textContent = diaTexto;
+    if (diaObservacion) { diaObservacion.style.display = 'none'; diaObservacion.textContent = ''; }
     if (titulo) titulo.textContent = 'No hay clase programada';
     temasEl.innerHTML = '<div class="cal-topic-row"><strong>No existe un encuentro programado para esta fecha en la hoja CLASES.</strong></div>';
     if (pie) pie.textContent = 'La programación oficial se consulta desde Google Sheets.';
@@ -1266,25 +1305,31 @@ function actualizarPanelEncuentro(fecha, key, clases) {
   const c = clases[0];
   const temas = c.temas || [];
   const responsable = String(c.catequista || '').trim();
-  const horaInicio = c.horaInicio || '14:00';
-  const horaFin = c.horaFin || '16:00';
-  const estadoClase = c.estadoClase || 'PROGRAMADA';
+  const horaInicio = String(c.horaInicio || '').trim();
+  const horaFin = String(c.horaFin || '').trim();
+  const horarioTexto = horaInicio && horaFin ? `${horaInicio}–${horaFin}` : 'Horario pendiente en Google Sheets';
+  const estadoClase = String(c.estadoClase || '').trim() || 'Sin estado registrado';
+  const avisoDia = obtenerAvisoDiaRegistrado(c, diaTexto);
   if (numero) numero.textContent = `CLASE N.º ${c.numeroClase} · ${temas.length} ${temas.length === 1 ? 'TEMA' : 'TEMAS'}`;
-  if (horario) horario.textContent = `${horaInicio}–${horaFin}`;
+  if (horario) horario.textContent = horarioTexto;
   if (catequista) catequista.textContent = responsable || 'Pendiente de asignación';
   if (estado) estado.textContent = estadoClase;
   if (diaEl) diaEl.textContent = diaTexto;
+  if (diaObservacion) {
+    diaObservacion.style.display = 'block';
+    diaObservacion.className = 'cal-dia-observacion ' + avisoDia.tipo;
+    diaObservacion.textContent = avisoDia.texto;
+  }
   if (titulo) titulo.textContent = temas.length > 1 ? `Temas del encuentro (${temas.length})` : 'Tema del encuentro';
 
   const detallesTemas = temas.length
     ? temas.map(renderizarTemaDetalleCalendario).join('')
-    : '<div class="cal-topic-row"><strong>Temas pendientes de asignación.</strong></div>';
+    : '<div class="cal-topic-row"><strong>Esta clase no tiene temas asignados en CLASES.</strong></div>';
   const tareas = renderizarTareasCalendario(c.tareas || []);
   temasEl.innerHTML = `${detallesTemas}
     <section class="cal-topic-row"><small>📌 TAREAS PROGRAMADAS DEL ENCUENTRO</small>${tareas}</section>`;
-  if (pie) pie.textContent = `Encuentro ${c.numeroClase} · ${temas.length} temas vinculados de los 68 del programa · Horario oficial: ${horaInicio} a ${horaFin}. ${responsable ? 'Responsable: ' + responsable + '.' : 'Catequista pendiente de asignación.'}`;
+  if (pie) pie.textContent = `Clase ${c.numeroClase} · ${temas.length} temas vinculados · Horario: ${horarioTexto}. ${responsable ? 'Catequista: ' + responsable + '.' : 'Catequista pendiente de asignación.'}`;
 }
-
 function actualizarResumenCalendario() {
   const total = (clasesPortal || []).length;
   const totalTemas = (sesionesPortal || []).length;
@@ -1299,36 +1344,79 @@ function actualizarResumenCalendario() {
 function renderizarListaProgramaCalendario() {
   const contenedor = $('cal-programa-contenido');
   if (!contenedor) return;
-  const ordenadas = (clasesPortal || []).slice().sort((a,b) => Number(a.numeroClase) - Number(b.numeroClase));
+  const ordenadas = (clasesPortal || []).slice().sort((a, b) => Number(a.numeroClase) - Number(b.numeroClase));
   if (!ordenadas.length) {
     contenedor.innerHTML = '<p class="sub">No se recibieron clases desde la hoja CLASES. Pulse “Sincronizar desde Google Sheets”.</p>';
     return;
   }
-  const filas = ordenadas.map(c => {
-    const iso = String(c.fechaProgramada || '').slice(0,10);
-    const fecha = fechaDesdeISO(iso);
-    const fechaTexto = fecha ? `${String(fecha.getDate()).padStart(2,'0')}/${String(fecha.getMonth()+1).padStart(2,'0')}/${fecha.getFullYear()}` : 'Fecha pendiente';
-    const dia = obtenerDiaRealISO(iso);
-    const hora = `${c.horaInicio || '14:00'}–${c.horaFin || '16:00'}`;
-    const docente = String(c.catequista || '').trim();
-    const estadoDocente = docente ? '<span class="cal-estado-asignado">Asignada</span>' : '<span class="cal-estado-pendiente">Pendiente de asignación</span>';
-    const temas = (c.temas || []).map(t => renderizarTemaDetalleCalendario(t)).join('') || '<div class="cal-empty-note">Temas pendientes</div>';
-    const tareas = renderizarTareasCalendario(c.tareas || []);
-    return `<tr>
-      <td><strong>${escaparHTML(c.numeroClase)}</strong></td>
-      <td><strong>${escaparHTML(dia)}</strong><br>${escaparHTML(fechaTexto)}</td>
-      <td><strong>${escaparHTML(hora)}</strong><br><span class="cal-empty-note">Catequesis</span></td>
-      <td class="temas-cell">${temas}</td>
-      <td class="tareas-cell">${tareas}</td>
-      <td>${escaparHTML(docente || 'Pendiente de asignación')}</td>
-      <td>${estadoDocente}</td>
-    </tr>`;
-  }).join('');
-  const totalTemas = (sesionesPortal || []).length;
-  contenedor.innerHTML = `<div class="cal-sync-status" style="margin-bottom:10px">Programa sincronizado: ${ordenadas.length} clases y ${totalTemas} temas vinculados.</div>
-    <table class="cal-programa-table"><thead><tr><th>Clase</th><th>Fecha y día</th><th>Horario</th><th>Temas, subtemas y recursos</th><th>Tareas programadas</th><th>Catequista</th><th>Asignación</th></tr></thead><tbody>${filas}</tbody></table>`;
-}
 
+  const tarjetas = ordenadas.map(c => {
+    const iso = String(c.fechaProgramada || '').slice(0, 10);
+    const fecha = fechaDesdeISO(iso);
+    const fechaTexto = fecha
+      ? `${String(fecha.getDate()).padStart(2, '0')}/${String(fecha.getMonth() + 1).padStart(2, '0')}/${fecha.getFullYear()}`
+      : 'Fecha pendiente';
+    const diaReal = obtenerDiaRealISO(iso) || 'Día pendiente';
+    const horaInicio = String(c.horaInicio || '').trim();
+    const horaFin = String(c.horaFin || '').trim();
+    const horario = horaInicio && horaFin ? `${horaInicio}–${horaFin}` : 'Horario pendiente';
+    const docente = String(c.catequista || '').trim();
+    const estadoDocente = docente
+      ? '<span class="cal-estado-asignado">Catequista asignada</span>'
+      : '<span class="cal-estado-pendiente">Pendiente de asignación</span>';
+    const temas = Array.isArray(c.temas) ? c.temas : [];
+    const tareas = renderizarTareasCalendario(c.tareas || []);
+    const detalleTemas = temas.length
+      ? temas.map(renderizarTemaDetalleCalendario).join('')
+      : '<div class="cal-empty-note">Esta clase todavía no tiene temas asignados en CLASES.</div>';
+    const avisoDia = obtenerAvisoDiaRegistrado(c, diaReal);
+    const numero = String(c.numeroClase == null ? '' : c.numeroClase).padStart(2, '0');
+    const observaciones = String(c.observaciones || '').trim();
+    const supervision = String(c.estadoSupervision || '').trim();
+
+    return `<details class="cal-class-card">
+      <summary class="cal-class-summary">
+        <span class="cal-class-chip">CLASE ${escaparHTML(numero)}</span>
+        <span><strong>${escaparHTML(diaReal)} · ${escaparHTML(fechaTexto)}</strong><small>Fecha programada en Google Sheets</small></span>
+        <span class="cal-summary-time"><strong>${escaparHTML(horario)}</strong><small>Horario del encuentro</small></span>
+        <span class="cal-summary-teacher"><strong>${escaparHTML(docente || 'Catequista pendiente')}</strong><small>${temas.length} ${temas.length === 1 ? 'tema' : 'temas'} asignados</small></span>
+        <span class="cal-class-topic-count">${temas.length} ${temas.length === 1 ? 'TEMA' : 'TEMAS'}</span>
+      </summary>
+      <div class="cal-class-detail">
+        <div class="cal-class-meta">
+          <div class="cal-class-meta-item"><span>Clase</span><strong>N.º ${escaparHTML(c.numeroClase)}</strong></div>
+          <div class="cal-class-meta-item"><span>Fecha y día</span><strong>${escaparHTML(diaReal)} ${escaparHTML(fechaTexto)}</strong></div>
+          <div class="cal-class-meta-item"><span>Horario</span><strong>${escaparHTML(horario)}</strong></div>
+          <div class="cal-class-meta-item"><span>Estado</span><strong>${escaparHTML(c.estadoClase || 'Sin estado registrado')}</strong></div>
+        </div>
+        <div class="cal-class-alert ${avisoDia.tipo === 'correcto' ? 'ok' : ''}">${escaparHTML(avisoDia.texto)}</div>
+        <div class="cal-class-meta" style="margin-top:0;">
+          <div class="cal-class-meta-item"><span>Catequista responsable</span><strong>${escaparHTML(docente || 'Pendiente de asignación')}</strong></div>
+          <div class="cal-class-meta-item"><span>Asignación</span><strong>${estadoDocente}</strong></div>
+          <div class="cal-class-meta-item"><span>Supervisión</span><strong>${escaparHTML(supervision || 'Sin registro')}</strong></div>
+          <div class="cal-class-meta-item"><span>Temas vinculados</span><strong>${temas.length} de 68 temas del programa</strong></div>
+        </div>
+        <h5 class="cal-class-section-title">Temas, subtemas y recursos del encuentro</h5>
+        <div class="cal-class-topic-grid">${detalleTemas}</div>
+        <h5 class="cal-class-section-title">Tareas programadas para esta clase</h5>
+        ${tareas}
+        ${observaciones ? `<div class="cal-class-footer"><strong>Observaciones:</strong> ${escaparHTML(observaciones)}</div>` : ''}
+        <div class="cal-class-footer">Datos consultados desde las hojas CLASES, SESIONES y TAREAS de Google Sheets.</div>
+      </div>
+    </details>`;
+  }).join('');
+
+  const totalTemas = (sesionesPortal || []).length;
+  const temasEnClases = ordenadas.reduce((total, clase) => total + ((clase.temas || []).length), 0);
+  const dobleTema = ordenadas.filter(c => (c.temas || []).length === 2).length;
+  const unTema = ordenadas.filter(c => (c.temas || []).length === 1).length;
+  const integridad = (totalTemas === 68 && ordenadas.length === 46 && temasEnClases === totalTemas)
+    ? 'La relación entre los 68 temas y las 46 clases está completa.'
+    : `Verificación: ${ordenadas.length} clases, ${totalTemas} temas en SESIONES y ${temasEnClases} temas vinculados desde CLASES. Revisa las asignaciones en Google Sheets.`;
+
+  contenedor.innerHTML = `<div class="cal-sync-status" style="margin-bottom:12px">Programa sincronizado: <strong>${ordenadas.length} clases</strong> · <strong>${totalTemas} temas</strong> · ${dobleTema} clases con dos temas · ${unTema} clases con un tema. ${escaparHTML(integridad)}</div>
+    <div class="cal-programa-wrap">${tarjetas}</div>`;
+}
 async function sincronizarCalendario(mostrarAlerta) {
   const boton = $('btn-cal-sincronizar');
   const estado = $('cal-estado-sync');
@@ -1351,7 +1439,14 @@ async function sincronizarCalendario(mostrarAlerta) {
     renderizarCalendarioModelo();
     renderizarListaProgramaCalendario();
     actualizarResumenCalendario();
-    if (estado) { estado.textContent = `Sincronizado desde Google Sheets · ${clasesPortal.length} clases · ${(sesionesPortal || []).length} temas · horario 14:00–16:00.`; estado.style.color = 'var(--green)'; }
+    const temasVinculados = clasesPortal.reduce((total, clase) => total + ((clase.temas || []).length), 0);
+    const coincideConteo = clasesPortal.length === 46 && sesionesPortal.length === 68 && temasVinculados === 68;
+    if (estado) {
+      estado.textContent = coincideConteo
+        ? 'Sincronizado desde Google Sheets · 46 clases · 68 temas correctamente vinculados.'
+        : `Datos recibidos de Google Sheets: ${clasesPortal.length} clases · ${sesionesPortal.length} temas · ${temasVinculados} temas vinculados. Revisa la correspondencia en CLASES y SESIONES.`;
+      estado.style.color = coincideConteo ? 'var(--green)' : 'var(--gold-deep)';
+    }
     return true;
   } catch (error) {
     console.error('Error al sincronizar calendario:', error);
