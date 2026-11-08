@@ -194,7 +194,7 @@ main {
   text-transform: uppercase;
   display: block;
 }
-.stage-title-wrap h3 {
+  .stage-title-wrap h3 {
   font: 700 17px Fredoka, sans-serif;
   color: var(--navy);
   margin: 2px 0 0;
@@ -245,10 +245,41 @@ main {
   margin: 4px 0;
 }
 .topic-subtema {
-  font-size: 12px;
-  font-weight: 800;
+  margin: 7px 0 9px;
+  padding: 8px 10px;
+  background: #f1f6fc;
+  border-left: 3px solid #d99b16;
+  border-radius: 8px;
   color: var(--blue);
-  margin: 2px 0;
+}
+.topic-subtema strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--navy);
+  font-size: 11px;
+  letter-spacing: .25px;
+}
+.topic-subtema-list {
+  margin: 0;
+  padding-left: 19px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.topic-subtema-list li {
+  padding-left: 2px;
+  font-size: 11px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+.countdown-box.is-finished .countdown-date {
+  color: #ffdf94;
+}
+.countdown-note {
+  margin: 12px 0 0;
+  color: #d7e6f8;
+  font-size: 12px;
+  font-weight: 700;
 }
 .topic-desc {
   font-size: 12px;
@@ -299,7 +330,7 @@ footer strong {
 
 <div class="page-wrap">
   <div class="gold-bar"></div>
-  
+
   <header>
     <div class="header-title">
       <h1>Programa de <span>Catequesis 2026</span></h1>
@@ -316,13 +347,14 @@ footer strong {
   <!-- CUENTA REGRESIVA AL 8 DE DICIEMBRE DE 2026 -->
   <div class="countdown-box">
     <h3>✨ Cuenta Regresiva para la Catequesis / Gran Cierre ✨</h3>
-    <p>8 de Diciembre de 2026</p>
-    <div class="timer-grid">
+    <p class="countdown-date" id="countdownDate">8 de diciembre de 2026</p>
+    <div class="timer-grid" aria-live="off">
       <div class="time-card"><b id="days">--</b><span>Días</span></div>
       <div class="time-card"><b id="hours">--</b><span>Horas</span></div>
       <div class="time-card"><b id="minutes">--</b><span>Minutos</span></div>
       <div class="time-card"><b id="seconds">--</b><span>Segundos</span></div>
     </div>
+    <div class="countdown-note" id="countdownNote">Tiempo restante para el gran cierre.</div>
   </div>
 
   <main>
@@ -337,24 +369,53 @@ footer strong {
 </div>
 
 <script>
-  const URL_API_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
+    const URL_API_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
 
+  // Cuenta regresiva calculada con la hora local del dispositivo.
+  // El objetivo es el inicio del 8 de diciembre de 2026.
   function updateCountdown() {
-    const target = new Date(2026, 11, 8, 0, 0, 0).getTime();
-    const diff = target - Date.now();
-    const values = diff <= 0
-      ? [0, 0, 0, 0]
-      : [
-          Math.floor(diff / 86400000),
-          Math.floor((diff % 86400000) / 3600000),
-          Math.floor((diff % 3600000) / 60000),
-          Math.floor((diff % 60000) / 1000)
-        ];
+    const target = new Date(2026, 11, 8, 0, 0, 0, 0).getTime();
+    const remaining = Math.max(0, target - Date.now());
+    const days = Math.floor(remaining / 86400000);
+    const hours = Math.floor((remaining % 86400000) / 3600000);
+    const minutes = Math.floor((remaining % 3600000) / 60000);
+    const seconds = Math.floor((remaining % 60000) / 1000);
 
-    document.getElementById('days').textContent = String(values[0]);
-    document.getElementById('hours').textContent = String(values[1]).padStart(2, '0');
-    document.getElementById('minutes').textContent = String(values[2]).padStart(2, '0');
-    document.getElementById('seconds').textContent = String(values[3]).padStart(2, '0');
+    document.getElementById('days').textContent = String(days);
+    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+
+    const countdown = document.querySelector('.countdown-box');
+    const note = document.getElementById('countdownNote');
+    if (remaining === 0) {
+      countdown.classList.add('is-finished');
+      note.textContent = '¡Hoy es el día del gran cierre de la catequesis!';
+    } else {
+      countdown.classList.remove('is-finished');
+      note.textContent = 'Tiempo restante para el gran cierre.';
+    }
+  }
+
+  function obtenerListaSubtemas(texto) {
+    if (Array.isArray(texto)) return texto.map(x => String(x).trim()).filter(Boolean);
+    return String(texto == null ? '' : texto)
+      .split(/\s*[•●▪]\s*|\r?\n+/)
+      .map(item => item.replace(/^[-–—\d.)\s]+/, '').trim())
+      .filter(Boolean);
+  }
+
+  function renderizarSubtemas(texto) {
+    const items = obtenerListaSubtemas(texto);
+    if (!items.length) return '';
+    return `
+      <div class="topic-subtema">
+        <strong>SUBTEMAS</strong>
+        <ol class="topic-subtema-list">
+          ${items.map(item => `<li>${escaparHTML(item)}</li>`).join('')}
+        </ol>
+      </div>
+    `;
   }
 
   function escaparHTML(valor) {
@@ -397,7 +458,7 @@ footer strong {
               <span class="topic-id">${escaparHTML(s.id || '')}</span>
             </div>
             <div class="topic-name">${escaparHTML(s.tema || '')}</div>
-            ${s.subtema ? `<div class="topic-subtema">Subtema: ${escaparHTML(s.subtema)}</div>` : ''}
+            ${renderizarSubtemas(s.subtema)}
             <p class="topic-desc"><strong>Objetivo:</strong> ${escaparHTML(objetivo)}</p>
             <div class="topic-meta">
               <div><strong>Valor:</strong> ${escaparHTML(s.val || s.valor || '')}</div>
