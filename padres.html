@@ -40,7 +40,7 @@
 <body>
 
   <!-- Vista de Login por Código y Clave -->
-  <div id="loginView" class="container">
+  <div id="loginView" class="container d-none">
     <div class="login-container">
       <div class="text-center mb-4">
         <span class="badge bg-success text-white mb-2">MÓDULO FAMILIAR</span>
@@ -63,7 +63,7 @@
   </div>
 
   <!-- Vista Principal del Portal (Oculta hasta iniciar sesión) -->
-  <div id="portalView" class="d-none">
+  <div id="portalView">
     <header class="header-padres shadow-sm mb-4">
       <div class="container d-flex justify-content-between align-items-center">
         <div>
@@ -74,14 +74,17 @@
         <div class="d-flex gap-2">
           <button class="btn btn-outline-light btn-sm fw-bold rounded-pill px-3" onclick="reproducirBienvenida()" title="Escuchar Bienvenida">🔊</button>
           <button class="btn btn-outline-light btn-sm fw-bold rounded-pill px-3" onclick="location.reload()">🔄 Actualizar</button>
-          <button class="btn btn-light btn-sm fw-bold rounded-pill px-3 text-danger" onclick="cerrarSesion()">⬅️ Salir</button>
+          <span class="badge bg-warning text-dark align-self-center">PRUEBA INTERNA</span>
         </div>
       </div>
     </header>
 
     <main class="container mb-5">
       <div class="alert alert-info border-0 shadow-sm rounded-4 small mb-4" role="alert">
-        💡 <strong id="saludoUsuario">Estimado Padre/Madre:</strong> Haz clic en cualquier fecha del calendario alegre para ver clases, cumpleaños y mensajes importantes.
+        💡 <strong id="saludoUsuario">Modo de prueba:</strong> Estamos verificando la conexión del portal con Google Sheets. El acceso está limitado temporalmente a una familia de prueba.
+      </div>
+      <div id="diagnosticoPortal" class="card card-custom p-3 mb-4">
+        <div class="d-flex align-items-center gap-2"><span class="spinner-border spinner-border-sm text-primary" role="status"></span><strong>Verificando conexión con Google Sheets…</strong></div>
       </div>
 
       <!-- ========================================================= -->
@@ -197,62 +200,104 @@
 
   <script>
     const URL_WEB_APP = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
-    let tokenPadres = sessionStorage.getItem('tokenPadres') || '';
-    let perfilPadres = JSON.parse(sessionStorage.getItem('perfilPadres') || 'null');
+    // FASE 1: se omite el PIN y las consultas quedan limitadas por el GS a PAD-EST-001.
+    const MODO_PRUEBA = true;
     let fechaActualVista = new Date(2026, 10, 1);
     let eventosSesiones = [], eventosCumple = [], eventosAvisos = [];
 
-    window.onload = function() {
-      // No se restaura acceso por un código guardado: se exige PIN nuevamente.
-      sessionStorage.removeItem('tokenPadres'); sessionStorage.removeItem('perfilPadres');
-      tokenPadres = ''; perfilPadres = null;
-      document.getElementById('loginView').classList.remove('d-none');
-      document.getElementById('portalView').classList.add('d-none');
-    };
+    window.addEventListener('load', async function() {
+      document.getElementById('loginView').classList.add('d-none');
+      document.getElementById('portalView').classList.remove('d-none');
+      document.getElementById('saludoUsuario').textContent = 'Modo de prueba interna:';
+      await cargarDatosCompletosCalendario();
+    });
 
     async function apiGet(action, extra={}) {
-      const params = new URLSearchParams({action, token:tokenPadres, ...extra});
-      const res = await fetch(`${URL_WEB_APP}?${params.toString()}`);
+      const params = new URLSearchParams({action, ...(MODO_PRUEBA ? {modoPrueba:'1'} : {}), ...extra});
+      const res = await fetch(`${URL_WEB_APP}?${params.toString()}`, {method:'GET', cache:'no-store'});
+      if (!res.ok) throw new Error(`El servidor respondió HTTP ${res.status}.`);
       return await res.json();
     }
 
-    async function realizarLogin(e) {
-      e.preventDefault();
-      const codigo=document.getElementById('codigoPadre').value.trim();
-      const clave=document.getElementById('clavePadre').value.trim();
-      const err=document.getElementById('loginError'); err.classList.add('d-none');
-      try {
-        const q=new URLSearchParams({action:'validarLogin',codigoPadre:codigo,clave});
-        const data=await (await fetch(`${URL_WEB_APP}?${q}`)).json();
-        if (!data.exito || !data.token) throw new Error(data.mensaje || 'Código o PIN incorrectos.');
-        tokenPadres=data.token; perfilPadres=data.perfil||{};
-        sessionStorage.setItem('tokenPadres',tokenPadres);
-        sessionStorage.setItem('perfilPadres',JSON.stringify(perfilPadres));
-        document.getElementById('loginView').classList.add('d-none');
-        document.getElementById('portalView').classList.remove('d-none');
-        document.getElementById('saludoUsuario').textContent = perfilPadres.nombre ? `Bienvenido/a, ${perfilPadres.nombre}:` : 'Estimado Padre/Madre:';
-        reproducirBienvenida(); await cargarDatosCompletosCalendario();
-      } catch(error) { err.textContent=error.message||'Error de conexión con el servidor.'; err.classList.remove('d-none'); }
-      finally { document.getElementById('clavePadre').value=''; }
+    function reproducirBienvenida() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance('Bienvenidos al portal familiar de catequesis. Estamos en modo de prueba.');
+        u.lang = 'es-ES'; window.speechSynthesis.speak(u);
+      }
     }
 
-    function cerrarSesion() { sessionStorage.removeItem('tokenPadres'); sessionStorage.removeItem('perfilPadres'); tokenPadres=''; location.reload(); }
-    function reproducirBienvenida() {
-      if ('speechSynthesis' in window) { window.speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance('Bienvenidos al portal familiar de catequesis.'); u.lang='es-ES'; window.speechSynthesis.speak(u); }
+    function escapeHtml(v) {
+      return String(v == null ? '' : v).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     }
-    function escapeHtml(v) { return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-    function fechaKey(v) { if(!v)return ''; const s=String(v); const m=s.match(/(\d{4}-\d{2}-\d{2})/); if(m)return m[1]; const d=new Date(v); return isNaN(d)?'':`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+    function fechaKey(v) {
+      if (!v) return '';
+      const s = String(v), m = s.match(/(\d{4}-\d{2}-\d{2})/);
+      if (m) return m[1];
+      const d = new Date(v);
+      return isNaN(d) ? '' : `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    }
+    function formatDate(v) {
+      const k = fechaKey(v); if (!k) return '—';
+      const [y,m,d] = k.split('-').map(Number);
+      return new Date(y,m-1,d).toLocaleDateString('es-PE',{day:'2-digit',month:'short',year:'numeric'});
+    }
+    function showError(id, message) {
+      const el=document.getElementById(id);
+      if(el) el.innerHTML=`<div class="alert alert-danger mb-0">${escapeHtml(message)}</div>`;
+    }
 
     async function cargarDatosCompletosCalendario() {
+      const diag=document.getElementById('diagnosticoPortal');
+      diag.innerHTML='<div class="d-flex align-items-center gap-2"><span class="spinner-border spinner-border-sm text-primary"></span><strong>Conectando con Google Sheets…</strong></div>';
       try {
-        const [cal,avisos]=await Promise.all([apiGet('getCalendarioPadres'),apiGet('getAvisos')]);
-        eventosSesiones=cal.exito&&Array.isArray(cal.datos)?cal.datos:[];
-        eventosAvisos=avisos.exito&&Array.isArray(avisos.datos)?avisos.datos:[];
+        const [cal,avisos,diagnostico] = await Promise.all([
+          apiGet('getCalendarioPadres'), apiGet('getAvisos'), apiGet('getDiagnosticoPadres')
+        ]);
+        if (!cal.exito) throw new Error(cal.mensaje || 'No se pudo leer CLASES.');
+        if (!avisos.exito) throw new Error(avisos.mensaje || 'No se pudo leer AVISOS.');
+        eventosSesiones = Array.isArray(cal.datos) ? cal.datos : [];
+        eventosAvisos = Array.isArray(avisos.datos) ? avisos.datos : [];
         generarCalendarioVisual();
-        const hoy=new Date(); seleccionarDia(hoy.getDate(),hoy.getMonth(),hoy.getFullYear());
-      } catch(e) { generarCalendarioVisual(); }
+        renderDiagnostico(diagnostico);
+        seleccionarFechaInicial();
+      } catch(e) {
+        diag.innerHTML=`<div class="alert alert-danger mb-0"><strong>No se pudo conectar con Google Sheets.</strong><br>${escapeHtml(e.message || 'Error de conexión.')}</div>`;
+        generarCalendarioVisual();
+      }
     }
-    function cambiarMes(direccion) { fechaActualVista.setMonth(fechaActualVista.getMonth()+direccion); generarCalendarioVisual(); }
+
+    function renderDiagnostico(resp) {
+      const el=document.getElementById('diagnosticoPortal');
+      if (!resp || !resp.exito) {
+        el.innerHTML='<div class="alert alert-warning mb-0">El calendario abrió, pero no se pudo completar el diagnóstico de las demás hojas.</div>';
+        return;
+      }
+      const r=resp.resumen||{};
+      const items=[
+        ['Temas',r.temas],['Fechas de clase',r.clases],['Catequizando de prueba',r.catequizandos],
+        ['Tareas',r.tareas],['Avisos publicados',r.avisos],['Requisitos',r.requisitos],
+        ['Control de materiales',r.materiales],['Aportes',r.aportes],['Calificaciones',r.calificaciones]
+      ];
+      el.innerHTML=`<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2"><strong class="text-primary">✅ Conexión de lectura establecida</strong><small class="text-muted">Resumen de hojas conectadas</small></div><div class="row g-2">${items.map(([k,v])=>`<div class="col-6 col-md-4 col-lg"><div class="border rounded-3 p-2 h-100 text-center"><div class="small text-muted">${escapeHtml(k)}</div><div class="fs-4 fw-bold text-dark">${Number(v||0)}</div></div></div>`).join('')}</div><div class="small text-muted mt-2">La tabla de asistencia contiene ${Number(r.asistenciaSesiones||0)} columnas de sesiones. Los módulos vacíos responden correctamente cuando aún no hay registros cargados.</div>`;
+    }
+
+    function seleccionarFechaInicial() {
+      if (!eventosSesiones.length) {
+        const h=new Date(); seleccionarDia(h.getDate(),h.getMonth(),h.getFullYear()); return;
+      }
+      const hoy=fechaKey(new Date());
+      const elegida=eventosSesiones.find(x=>fechaKey(x.fecha)===hoy) ||
+        eventosSesiones.filter(x=>fechaKey(x.fecha)>=hoy).sort((a,b)=>fechaKey(a.fecha).localeCompare(fechaKey(b.fecha)))[0] || eventosSesiones[0];
+      const k=fechaKey(elegida.fecha), [y,m,d]=k.split('-').map(Number);
+      fechaActualVista=new Date(y,m-1,1);
+      generarCalendarioVisual(); seleccionarDia(d,m-1,y);
+    }
+
+    function cambiarMes(direccion) {
+      fechaActualVista.setMonth(fechaActualVista.getMonth()+direccion);
+      generarCalendarioVisual();
+    }
 
     function generarCalendarioVisual() {
       const meses=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
@@ -266,8 +311,7 @@
         const clases=eventosSesiones.filter(x=>fechaKey(x.fecha)===key);
         const avisos=eventosAvisos.filter(x=>fechaKey(x.FECHA)===key);
         const titulo=clases.map(x=>[x.tema1,x.tema2].filter(Boolean).join(' / ')).filter(Boolean).join(' · ');
-        const cls=clases.length?'has-clase ':''; const aviso=avisos.length?'has-aviso':'';
-        out+=`<button type="button" class="calendar-day ${cls}${aviso}" onclick="seleccionarDia(${dia},${mes},${anio})"><span class="fw-bold text-dark">${dia}</span>${titulo?`<div class="bg-primary text-white p-1 rounded mt-1" style="font-size:.60rem;line-height:1.1;max-height:48px;overflow:hidden;text-align:center">${escapeHtml(titulo)}</div>`:''}${avisos.length?'<small class="text-warning fw-bold">● Aviso</small>':''}</button>`;
+        out+=`<button type="button" class="calendar-day ${clases.length?'has-clase':''} ${avisos.length?'has-aviso':''}" onclick="seleccionarDia(${dia},${mes},${anio})"><span class="fw-bold text-dark">${dia}</span>${titulo?`<div class="bg-primary text-white p-1 rounded mt-1" style="font-size:.60rem;line-height:1.1;max-height:48px;overflow:hidden;text-align:center">${escapeHtml(titulo)}</div>`:''}${avisos.length?'<small class="text-warning fw-bold">● Aviso</small>':''}</button>`;
       }
       grid.innerHTML=out;
     }
@@ -282,29 +326,72 @@
       } else document.getElementById('detalleClase').textContent='Sin clase programada para esta fecha.';
       const avisos=eventosAvisos.filter(x=>fechaKey(x.FECHA)===key);
       document.getElementById('detalleAviso').innerHTML=avisos.length?avisos.map(x=>`<div class="mb-2"><strong>${escapeHtml(x.TITULO)}</strong><br>${escapeHtml(x.MENSAJE)}</div>`).join(''):'Sin avisos especiales para esta fecha.';
-      document.getElementById('detalleCumple').textContent='Los cumpleaños familiares se mostrarán cuando estén autorizados y registrados para el calendario.';
+      document.getElementById('detalleCumple').textContent='Los cumpleaños se incorporarán después de validar el funcionamiento de los módulos principales.';
+    }
+
+    function tableHtml(rows, columns, labels={}) {
+      if(!Array.isArray(rows)||!rows.length) return '<p class="text-muted small mb-0">No hay registros cargados en esta hoja por el momento.</p>';
+      return `<div class="table-responsive"><table class="table table-sm table-bordered align-middle small"><thead><tr>${columns.map(k=>`<th>${escapeHtml(labels[k]||k)}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${columns.map(k=>`<td>${escapeHtml(r[k] == null || r[k] === '' ? '—' : r[k])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+    }
+
+    function renderAsistencia(data) {
+      const filas=data.datos||[], califs=data.calificaciones||[];
+      if(!filas.length) return '<div class="alert alert-warning">No se encontró un registro de asistencia para la familia de prueba.</div>';
+      const fechas=data.fechasSesiones||[];
+      return filas.map(a=>{
+        const pct=a.ASISTENCIA_PORCENTAJE==null?0:Number(a.ASISTENCIA_PORCENTAJE);
+        const timeline=(a.ESTADOS_SESIONES||[]).map((estado,i)=>({fecha:fechas[i],estado}));
+        return `<div class="border rounded-3 p-3 mb-3"><div class="d-flex flex-wrap justify-content-between gap-2"><div><h5 class="text-primary fw-bold mb-1">${escapeHtml(a.NOMBRE_COMPLETO||[a.NOMBRES,a.APELLIDOS].join(' '))}</h5><div class="small text-muted">${escapeHtml(a.GRADO||'Grado no registrado')} · ${escapeHtml(a.ID_NINO)}</div></div><div class="text-end"><div class="fs-3 fw-bold">${pct.toFixed(1)}%</div><small class="text-muted">Asistencia</small></div></div><div class="progress my-3" style="height:10px"><div class="progress-bar" role="progressbar" style="width:${Math.max(0,Math.min(100,pct))}%"></div></div><div class="row g-2 text-center mb-3"><div class="col-3"><div class="bg-light rounded p-2"><strong>${Number(a.TOTAL_PRESENTES||0)}</strong><div class="small text-muted">Presentes</div></div></div><div class="col-3"><div class="bg-light rounded p-2"><strong>${Number(a.TOTAL_TARDANZAS||0)}</strong><div class="small text-muted">Tardanzas</div></div></div><div class="col-3"><div class="bg-light rounded p-2"><strong>${Number(a.TOTAL_FALTAS||0)}</strong><div class="small text-muted">Faltas</div></div></div><div class="col-3"><div class="bg-light rounded p-2"><strong>${Number(a.TOTAL_JUSTIFICADAS||0)}</strong><div class="small text-muted">Justificadas</div></div></div></div><h6 class="fw-bold">Detalle por fecha</h6><div class="d-flex flex-wrap gap-2">${timeline.map(t=>`<span class="badge ${t.estado==='A'?'bg-success':t.estado==='T'?'bg-warning text-dark':t.estado==='F'?'bg-danger':t.estado==='FJ'?'bg-info text-dark':'bg-secondary'}" title="${escapeHtml(formatDate(t.fecha))}">${escapeHtml(formatDate(t.fecha))}: ${escapeHtml(t.estado||'—')}</span>`).join('')}</div></div>`;
+      }).join('')+`<div class="card card-custom p-3"><h6 class="fw-bold text-primary">Calificaciones registradas</h6>${tableHtml(califs,['FECHA_REGISTRO','TEMA','TIPO_ACTIVIDAD','NOTA_NUMERICA','EQUIVALENCIA','OBSERVACIONES'],{'FECHA_REGISTRO':'Fecha','TEMA':'Tema','TIPO_ACTIVIDAD':'Actividad','NOTA_NUMERICA':'Nota (0–20)','EQUIVALENCIA':'Equivalencia','OBSERVACIONES':'Observaciones'})}</div>`;
+    }
+
+    function renderRequisitos(data) {
+      const rows=data.datos||[], mats=data.materiales||[];
+      let out='';
+      if(!rows.length) out+='<div class="alert alert-warning">No hay ficha de requisitos para el catequizando de prueba.</div>';
+      rows.forEach(r=>{
+        const cols=Object.keys(r).filter(k=>/^REQ\d+/i.test(k));
+        const avance=r['% AVANCE']||'0%';
+        out+=`<div class="border rounded-3 p-3 mb-3"><div class="d-flex justify-content-between gap-2"><div><h6 class="fw-bold text-primary mb-1">${escapeHtml(r['APELLIDOS Y NOMBRES']||'Catequizando')}</h6><small class="text-muted">Requisitos cumplidos: ${escapeHtml(r['REQUISITOS CUMPLIDOS']||0)} de ${cols.length}</small></div><strong class="fs-4">${escapeHtml(avance)}</strong></div><div class="progress my-3" style="height:9px"><div class="progress-bar bg-success" style="width:${Math.max(0,Math.min(100,parseFloat(String(avance).replace(',','.'))||0))}%"></div></div><div class="list-group list-group-flush">${cols.map(k=>{const v=r[k];const ok=String(v||'').trim()!=='' && !['NO','PENDIENTE','0','FALSE'].includes(String(v).trim().toUpperCase());return `<div class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="small">${escapeHtml(k.replace(/^REQ\d+:\s*/i,''))}</span><span class="badge ${ok?'bg-success':'bg-secondary'}">${ok?'Registrado':(v||'Pendiente')}</span></div>`;}).join('')}</div></div>`;
+      });
+      if(mats.length) mats.forEach(m=>out+=`<div class="card card-custom p-3"><h6 class="fw-bold text-success">Control de materiales</h6><div><strong>${escapeHtml(m['APELLIDOS Y NOMBRES']||'')}</strong></div><div class="mt-2">Materiales entregados: <strong>${escapeHtml(m['MATERIALES ENTREGADOS']||0)}</strong></div><div>Porcentaje de cumplimiento: <strong>${escapeHtml(m['% CUMPLIMIENTO']||'0%')}</strong></div></div>`);
+      return out||'<p class="text-muted">Sin información disponible.</p>';
+    }
+
+    function renderAportes(data) {
+      const rows=data.datos||[];
+      if(!rows.length) return '<div class="alert alert-info">No se encontraron registros de aportes para la familia de prueba.</div>';
+      return rows.map(r=>`<div class="border rounded-3 p-3 mb-3"><div class="d-flex flex-wrap justify-content-between gap-2"><div><h6 class="fw-bold mb-1">${escapeHtml(r.NOMBRE||'Catequizando')}</h6><span class="small text-muted">Registro de aporte parroquial</span></div><span class="badge ${String(r.ESTADO_PAGO).toLowerCase().includes('pagad')?'bg-success':'bg-warning text-dark'} align-self-start">${escapeHtml(r.ESTADO_PAGO||'Pendiente')}</span></div><div class="row mt-2"><div class="col-6"><small class="text-muted">Monto</small><div class="fw-bold">${escapeHtml(r.MONTO||'—')}</div></div><div class="col-6"><small class="text-muted">Fecha de pago</small><div>${escapeHtml(formatDate(r.FECHA_PAGO))}</div></div></div><div class="small text-muted mt-2">${escapeHtml(r.MEDIO_PAGO||'Medio de pago no registrado')}</div>${r.OBSERVACIONES?`<div class="small mt-2">${escapeHtml(r.OBSERVACIONES)}</div>`:''}</div>`).join('');
     }
 
     async function consultarDatos(accion) {
       const c=document.getElementById('resultadoContenedor');
-      c.innerHTML='<div class="alert alert-warning text-center">Consultando registros, por favor espere...</div>';
+      c.innerHTML='<div class="alert alert-warning text-center">Consultando registros en Google Sheets…</div>';
       try {
         const data=await apiGet(accion);
         if(!data.exito) throw new Error(data.mensaje||'No se pudo consultar la información.');
-        const datos=Array.isArray(data.datos)?data.datos:[];
-        const titulos={getSesiones:'Programación de Catequesis',getAsistenciaNotas:'Asistencia y notas',getTareas:'Tareas para la familia',getRequisitos:'Requisitos y documentos',getAportes:'Aportes parroquiales',getMateriales:'Materiales entregados',getCalificaciones:'Calificaciones'};
-        let out=`<div class="card card-custom p-3"><h5 class="fw-bold text-primary mb-3">${titulos[accion]||'Información familiar'} (${datos.length})</h5>`;
-        function tablaRegistros(titulo, filas) {
-          if(!Array.isArray(filas) || !filas.length) return `<h6 class="fw-bold mt-3">${escapeHtml(titulo)}</h6><p class="text-muted small">Sin registros disponibles.</p>`;
-          const keys=Object.keys(filas[0]);
-          return `<h6 class="fw-bold mt-3">${escapeHtml(titulo)}</h6><div class="table-responsive"><table class="table table-bordered table-sm bg-white small align-middle"><thead><tr>${keys.map(k=>`<th>${escapeHtml(k)}</th>`).join('')}</tr></thead><tbody>${filas.map(row=>'<tr>'+keys.map(k=>`<td>${escapeHtml(row[k])}</td>`).join('')+'</tr>').join('')}</tbody></table></div>`;
+        const titulos={getSesiones:'Programación de Catequesis',getAsistenciaNotas:'Asistencia y calificaciones',getTareas:'Tareas para la familia',getRequisitos:'Requisitos y materiales',getAportes:'Aportes parroquiales',getMateriales:'Materiales entregados',getCalificaciones:'Calificaciones'};
+        let out=`<div class="card card-custom p-3"><div class="d-flex flex-wrap justify-content-between align-items-center"><h5 class="fw-bold text-primary mb-3">${titulos[accion]||'Información familiar'}</h5><span class="badge bg-light text-dark">${Number(data.total||0)} registro(s)</span></div>`;
+        if(accion==='getAsistenciaNotas') out+=renderAsistencia(data);
+        else if(accion==='getRequisitos') out+=renderRequisitos(data);
+        else if(accion==='getAportes') out+=renderAportes(data);
+        else if(accion==='getTareas') {
+          const rows=data.datos||[];
+          out+=rows.length?rows.map(r=>`<div class="border rounded-3 p-3 mb-2"><h6 class="fw-bold">${escapeHtml(r.TITULO||'Actividad')}</h6><p class="small">${escapeHtml(r.DESCRIPCION||'')}</p><div class="small text-muted">Entrega: ${escapeHtml(formatDate(r.FECHA_ENTREGA))} · Estado: ${escapeHtml(r.ESTADO||'Pendiente')}</div></div>`).join(''):'<div class="alert alert-info mb-0">La conexión con la hoja TAREAS funciona. Todavía no hay actividades registradas para esta familia.</div>';
+        } else if(accion==='getSesiones') {
+          const bloques=data.bloques||[];
+          out+=`<p class="text-muted small">${Number(data.totalTemas||data.total||0)} temas distribuidos en ${Number(data.totalClases||0)} fechas.</p>`+bloques.map(b=>`<h6 class="fw-bold mt-3">${escapeHtml(b.title)}</h6><ol>${(b.sessions||[]).map(s=>`<li class="small mb-1">${escapeHtml(s.tema)}</li>`).join('')}</ol>`).join('');
+        } else if(accion==='getMateriales') {
+          out+=renderRequisitos({datos:[],materiales:data.datos||[]});
+        } else if(accion==='getCalificaciones') {
+          out+=tableHtml(data.datos||[],['FECHA_REGISTRO','TEMA','TIPO_ACTIVIDAD','NOTA_NUMERICA','EQUIVALENCIA','OBSERVACIONES'],{'FECHA_REGISTRO':'Fecha','TEMA':'Tema','TIPO_ACTIVIDAD':'Actividad','NOTA_NUMERICA':'Nota (0–20)','EQUIVALENCIA':'Equivalencia','OBSERVACIONES':'Observaciones'});
         }
-        out += tablaRegistros(titulos[accion]||'Información familiar', datos);
-        if(accion==='getAsistenciaNotas') out += tablaRegistros('Calificaciones registradas', data.calificaciones||[]);
-        if(accion==='getRequisitos') out += tablaRegistros('Control de materiales', data.materiales||[]);
         c.innerHTML=out+'</div>';
-      } catch(error) { c.innerHTML=`<div class="alert alert-danger">${escapeHtml(error.message||'Error de conexión.')}</div>`; }
+      } catch(error) {
+        c.innerHTML=`<div class="alert alert-danger"><strong>No se pudo consultar ${escapeHtml(titulosAccion(accion))}.</strong><br>${escapeHtml(error.message||'Error de conexión.')}</div>`;
+      }
     }
+    function titulosAccion(a) { return ({getAsistenciaNotas:'asistencia',getTareas:'tareas',getRequisitos:'requisitos',getAportes:'aportes',getSesiones:'programación',getMateriales:'materiales',getCalificaciones:'calificaciones'})[a]||a; }
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
