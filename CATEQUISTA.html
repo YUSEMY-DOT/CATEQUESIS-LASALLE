@@ -206,12 +206,13 @@
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
         <div style="display:flex; gap:8px;">
           <button class="btn small primary" onclick="sincronizarConHoja()">🔄 Sincronizar</button>
+          <button class="btn small gold" id="btnGuardarAsistencia" onclick="guardarAsistenciaPendiente()" disabled>💾 Guardar asistencia</button>
           <button class="btn small gold" onclick="window.print()">🖨️ Imprimir Reporte</button>
         </div>
       </div>
 
       <h3 style="color:var(--navy); margin-bottom:4px;">Control de Asistencia Matricial • Parroquia San Pedro de Lurín</h3>
-      <p class="sub" style="margin-bottom:15px;">Seleccione un catequizando a la izquierda para visualizar y marcar su asistencia de forma compacta y directa.</p>
+      <p class="sub" style="margin-bottom:15px;">Seleccione un catequizando, marque los estados pendientes y presione Guardar asistencia. Una vez guardado, cada estado quedará bloqueado y no podrá modificarse.</p>
 
       <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:10px; margin-bottom:18px; background:#f8fafc; border:1px solid var(--line); border-radius:14px; padding:14px; text-align:center;">
         <div><div id="stat-porcentaje-global" style="font-size:1.35rem; font-weight:900; color:var(--green);">79.6%</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">% Asistencia</div></div>
@@ -272,8 +273,8 @@
       </div>
       <h3 style="color:var(--navy); margin-bottom:5px;">Directorio de Padres y Apoderados</h3>
       <table class="data-table">
-        <thead><tr><th>ID</th><th>Apellidos y Nombres</th><th>Parentesco</th><th>DNI</th><th>Teléfono</th><th>Autoriza</th></tr></thead>
-        <tbody id="tabla-padres-cuerpo"><tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px;">Cargando directorio desde Google Sheets…</td></tr></tbody>
+        <thead><tr><th>ID</th><th>Apellidos y Nombres</th><th>Parentesco</th><th>DNI</th><th>Teléfono</th><th>WhatsApp</th><th>Correo (Gmail)</th><th>Autoriza avisos</th><th>Mensaje</th></tr></thead>
+        <tbody id="tabla-padres-cuerpo"><tr><td colspan="9" style="text-align:center;color:var(--muted);padding:24px;">Cargando directorio desde Google Sheets…</td></tr></tbody>
       </table>
     </div>
 
@@ -365,6 +366,31 @@
   </section>
 </div>
 
+<!-- MODAL PARA PREPARAR MENSAJES A PADRES -->
+<div class="modal-backdrop" id="modal-mensaje-padre">
+  <section class="modal" role="dialog" aria-modal="true" style="max-width:680px;">
+    <div class="panel-head" style="margin-bottom:10px;">
+      <div>
+        <h2>Mensaje a Padre / Apoderado</h2>
+        <p class="sub" id="padre-mensaje-destinatario">Seleccione el medio de contacto.</p>
+      </div>
+      <button class="xbtn" onclick="hideModal('modal-mensaje-padre')">✕</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div>
+        <label for="texto-mensaje-padre" style="font-weight:800;font-size:.86rem;color:var(--navy);display:block;margin-bottom:5px;">Escriba el mensaje:</label>
+        <textarea id="texto-mensaje-padre" rows="5" placeholder="Escriba aquí el mensaje para la familia…" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;resize:vertical;"></textarea>
+      </div>
+      <p class="sub" style="margin:0;">Se abrirá WhatsApp o su aplicación de correo con el mensaje preparado. Revise el contenido y confirme el envío desde esa aplicación.</p>
+      <div style="display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;">
+        <button class="btn small" onclick="hideModal('modal-mensaje-padre')">Cancelar</button>
+        <button class="btn small primary" id="btnMensajeWhatsApp" onclick="enviarMensajeWhatsAppPadre()">🟢 Abrir WhatsApp</button>
+        <button class="btn small gold" id="btnMensajeCorreo" onclick="enviarMensajeCorreoPadre()">✉️ Abrir correo</button>
+      </div>
+    </div>
+  </section>
+</div>
+
 <script>
 const $ = id => document.getElementById(id);
 const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec";
@@ -379,6 +405,8 @@ let datosPadresPortal = [];
 let configPortal = {};
 let fechasClasesAsist = [];
 let indiceCatequizandoActivo = 0;
+let cambiosAsistenciaPendientes = {};
+let padreActualMensaje = null;
 let idSesionMaterialActual = '';
 let tipoMaterialActual = '';
 let mesActual = new Date().getMonth();
@@ -674,6 +702,21 @@ function calcularPorcentajeLocal(est) {
   const presentes = (est.ESTADOS_SESIONES || []).filter(v => v === 'A').length;
   return marcadas ? presentes / marcadas * 100 : 0;
 }
+function obtenerPendientesAsistencia(idNino) {
+  const id = String(idNino || '');
+  if (!cambiosAsistenciaPendientes[id]) cambiosAsistenciaPendientes[id] = {};
+  return cambiosAsistenciaPendientes[id];
+}
+
+function actualizarBotonGuardarAsistencia() {
+  const boton = $('btnGuardarAsistencia');
+  if (!boton) return;
+  const est = datosAsistenciaGlobal[indiceCatequizandoActivo];
+  const pendientes = est ? Object.keys(obtenerPendientesAsistencia(est.ID_NINO)).length : 0;
+  boton.disabled = pendientes === 0;
+  boton.textContent = pendientes ? `💾 Guardar asistencia (${pendientes})` : '💾 Guardar asistencia';
+}
+
 function cargarMatrizEstudiante(idxEst) {
   const est = datosAsistenciaGlobal[idxEst];
   if (!est) return;
@@ -684,50 +727,120 @@ function cargarMatrizEstudiante(idxEst) {
   const tbody = $('tabla-matriz-cuerpo');
   tbody.innerHTML = '';
   const estados = est.ESTADOS_SESIONES || [];
-  estados.forEach((val, idx) => {
+  const pendientes = obtenerPendientesAsistencia(est.ID_NINO);
+  estados.forEach((valorGuardado, idx) => {
+    const val = String(valorGuardado || '').trim().toUpperCase();
+    const tienePendiente = Object.prototype.hasOwnProperty.call(pendientes, String(idx));
+    const valorVista = tienePendiente ? pendientes[String(idx)] : val;
+    const bloqueado = val !== '';
     let bg = '#fff', fg = 'var(--muted)', border = 'var(--line)';
-    if (val === 'A') { bg = '#1b4a79'; fg = '#fff'; border = '#1b4a79'; }
-    else if (val === 'T') { bg = '#f3c755'; fg = '#12345b'; border = '#e0b23d'; }
-    else if (val === 'F') { bg = '#b83d43'; fg = '#fff'; border = '#b83d43'; }
-    else if (val === 'FJ') { bg = '#23764c'; fg = '#fff'; border = '#23764c'; }
+    if (valorVista === 'A') { bg = '#1b4a79'; fg = '#fff'; border = '#1b4a79'; }
+    else if (valorVista === 'T') { bg = '#f3c755'; fg = '#12345b'; border = '#e0b23d'; }
+    else if (valorVista === 'F') { bg = '#b83d43'; fg = '#fff'; border = '#b83d43'; }
+    else if (valorVista === 'FJ') { bg = '#23764c'; fg = '#fff'; border = '#23764c'; }
     const fecha = fechasClasesAsist[idx] || '—';
     const tr = document.createElement('tr');
+    const estadoTexto = { A: 'A (Asistencia)', T: 'T (Tardanza)', F: 'F (Falta)', FJ: 'FJ (Justificada)' };
+    const avisoEstado = bloqueado
+      ? '<span style="display:inline-block;margin-left:8px;color:var(--green);font-size:.76rem;font-weight:800;">🔒 Guardado</span>'
+      : (tienePendiente ? '<span style="display:inline-block;margin-left:8px;color:var(--gold-deep);font-size:.76rem;font-weight:800;">Pendiente de guardar</span>' : '');
     tr.innerHTML = `<td style="text-align:center;font-weight:800;color:var(--navy);">Clase ${idx+1}</td>
       <td style="color:var(--muted);font-weight:600;">📅 ${escaparHTML(fecha)}</td>
-      <td><select onchange="actualizarEstadoModular(${idxEst},${idx},this.value)" style="font-size:0.85rem;font-weight:800;padding:6px 12px;border-radius:8px;border:1.5px solid ${border};background:${bg};color:${fg};cursor:pointer;width:100%;max-width:240px;">
-        <option value="" ${val===''?'selected':''}>-- Opción --</option>
-        <option value="A" ${val==='A'?'selected':''}>A (Asistencia)</option>
-        <option value="T" ${val==='T'?'selected':''}>T (Tardanza)</option>
-        <option value="F" ${val==='F'?'selected':''}>F (Falta)</option>
-        <option value="FJ" ${val==='FJ'?'selected':''}>FJ (Justificada)</option>
-      </select></td>`;
+      <td><select ${bloqueado ? 'disabled' : ''} onchange="prepararEstadoModular(${idxEst},${idx},this.value)" style="font-size:0.85rem;font-weight:800;padding:6px 12px;border-radius:8px;border:1.5px solid ${border};background:${bg};color:${fg};cursor:${bloqueado?'not-allowed':'pointer'};width:100%;max-width:240px;opacity:${bloqueado?'.85':'1'};">
+        <option value="" ${valorVista===''?'selected':''}>-- Opción --</option>
+        <option value="A" ${valorVista==='A'?'selected':''}>A (Asistencia)</option>
+        <option value="T" ${valorVista==='T'?'selected':''}>T (Tardanza)</option>
+        <option value="F" ${valorVista==='F'?'selected':''}>F (Falta)</option>
+        <option value="FJ" ${valorVista==='FJ'?'selected':''}>FJ (Justificada)</option>
+      </select>${avisoEstado}</td>`;
     tbody.appendChild(tr);
   });
+  actualizarBotonGuardarAsistencia();
 }
 
-async function actualizarEstadoModular(idxEst, idxClase, nuevoVal) {
+function prepararEstadoModular(idxEst, idxClase, nuevoVal) {
   const est = datosAsistenciaGlobal[idxEst];
   if (!est) return;
-  const anterior = est.ESTADOS_SESIONES[idxClase] || '';
-  est.ESTADOS_SESIONES[idxClase] = nuevoVal;
+  const guardado = String((est.ESTADOS_SESIONES || [])[idxClase] || '').trim().toUpperCase();
+  if (guardado) {
+    alert('Esta asistencia ya fue guardada y está bloqueada. No se puede modificar.');
+    cargarMatrizEstudiante(idxEst);
+    return;
+  }
+  const pendientes = obtenerPendientesAsistencia(est.ID_NINO);
+  const valor = String(nuevoVal || '').trim().toUpperCase();
+  if (['A', 'T', 'F', 'FJ'].includes(valor)) pendientes[String(idxClase)] = valor;
+  else delete pendientes[String(idxClase)];
   cargarMatrizEstudiante(idxEst);
+}
+
+async function guardarAsistenciaPendiente() {
+  const est = datosAsistenciaGlobal[indiceCatequizandoActivo];
+  if (!est) { alert('Seleccione un catequizando.'); return; }
+  const pendientes = obtenerPendientesAsistencia(est.ID_NINO);
+  const entradas = Object.keys(pendientes).map(k => [Number(k), pendientes[k]])
+    .filter(x => Number.isInteger(x[0]) && ['A','T','F','FJ'].includes(x[1]))
+    .sort((a,b) => a[0] - b[0]);
+  if (!entradas.length) { alert('No hay asistencias pendientes de guardar.'); return; }
+
+  const boton = $('btnGuardarAsistencia');
+  if (boton) { boton.disabled = true; boton.textContent = '⏳ Guardando…'; }
+  let errorEnvio = null;
   try {
-    await apiPost({ action: 'registrarAsistencia', idEstudiante: est.ID_NINO, sesion: idxClase + 1, estado: nuevoVal });
-    await retraso(700);
+    for (const [idxClase, estado] of entradas) {
+      await apiPost({
+        action: 'registrarAsistencia',
+        idEstudiante: est.ID_NINO,
+        sesion: idxClase + 1,
+        estado: estado
+      });
+    }
+    await retraso(900);
     const respuesta = await apiGet('getAsistenciaNotas');
     const actualizado = (respuesta.datos || []).find(x => x.ID_NINO === est.ID_NINO);
-    if (!actualizado || (actualizado.ESTADOS_SESIONES || [])[idxClase] !== nuevoVal) {
-      throw new Error('Google Sheets no confirmó el cambio de asistencia.');
-    }
+    if (!actualizado) throw new Error('No se encontró al catequizando al verificar el guardado.');
+
+    const confirmadas = [];
+    const noConfirmadas = [];
+    entradas.forEach(([idxClase, estado]) => {
+      const estadoHoja = String((actualizado.ESTADOS_SESIONES || [])[idxClase] || '').trim().toUpperCase();
+      if (estadoHoja === estado) confirmadas.push(idxClase);
+      else noConfirmadas.push(idxClase + 1);
+    });
+    confirmadas.forEach(idx => delete pendientes[String(idx)]);
     datosAsistenciaGlobal = respuesta.datos || [];
     resumenAsistenciaPortal = respuesta.resumen || {};
     indiceCatequizandoActivo = Math.max(0, datosAsistenciaGlobal.findIndex(x => x.ID_NINO === est.ID_NINO));
     recalcularTotalesGlobales(resumenAsistenciaPortal);
     inicializarAsistenciaModular();
+
+    if (noConfirmadas.length) {
+      throw new Error('No se confirmaron las clases: ' + noConfirmadas.join(', ') + '. Las demás asistencias verificadas quedaron guardadas y bloqueadas.');
+    }
+    alert(`Se guardaron y verificaron ${confirmadas.length} asistencia(s). Los estados quedaron bloqueados.`);
   } catch (error) {
-    est.ESTADOS_SESIONES[idxClase] = anterior;
-    cargarMatrizEstudiante(idxEst);
-    alert('No se pudo actualizar la asistencia.\n' + error.message);
+    errorEnvio = error;
+    console.error('Error al guardar asistencia:', error);
+    // Volver a consultar la hoja: una operación pudo guardarse aunque otra fallara.
+    try {
+      const respuesta = await apiGet('getAsistenciaNotas');
+      const actualizado = (respuesta.datos || []).find(x => x.ID_NINO === est.ID_NINO);
+      if (actualizado) {
+        entradas.forEach(([idxClase, estado]) => {
+          if (String((actualizado.ESTADOS_SESIONES || [])[idxClase] || '').trim().toUpperCase() === estado) {
+            delete pendientes[String(idxClase)];
+          }
+        });
+        datosAsistenciaGlobal = respuesta.datos || [];
+        resumenAsistenciaPortal = respuesta.resumen || {};
+        indiceCatequizandoActivo = Math.max(0, datosAsistenciaGlobal.findIndex(x => x.ID_NINO === est.ID_NINO));
+        recalcularTotalesGlobales(resumenAsistenciaPortal);
+        inicializarAsistenciaModular();
+      }
+    } catch (e) { console.warn('No se pudo verificar el estado posterior al error:', e); }
+    alert('No se pudo confirmar el guardado completo. Revisa las asistencias pendientes y vuelve a sincronizar.\n' + error.message);
+  } finally {
+    if (boton) { boton.disabled = false; actualizarBotonGuardarAsistencia(); }
   }
 }
 
@@ -803,11 +916,78 @@ async function adjuntarVoucher(control, id) {
 function renderizarPadres() {
   const cuerpo = $('tabla-padres-cuerpo');
   if (!cuerpo) return;
-  if (!datosPadresPortal.length) { cuerpo.innerHTML = '<tr><td colspan="6">No hay registros en la hoja PADRES.</td></tr>'; return; }
-  cuerpo.innerHTML = datosPadresPortal.map(p => `<tr>
-    <td>${escaparHTML(p.PADRE_ID)}</td><td>${escaparHTML(p.NOMBRE_COMPLETO || [p.NOMBRES,p.APELLIDOS].filter(Boolean).join(' '))}</td>
-    <td>${escaparHTML(p.PARENTESCO || '—')}</td><td>${escaparHTML(p.DNI || '—')}</td>
-    <td>${escaparHTML(p.TELEFONO || p.WHATSAPP || '—')}</td><td>${escaparHTML(p.AUTORIZA_AVISOS || '—')}</td></tr>`).join('');
+  if (!datosPadresPortal.length) { cuerpo.innerHTML = '<tr><td colspan="9">No hay registros en la hoja PADRES.</td></tr>'; return; }
+  cuerpo.innerHTML = datosPadresPortal.map((p, idx) => {
+    const whatsapp = p.WHATSAPP || p.TELEFONO || '';
+    return `<tr>
+      <td>${escaparHTML(p.PADRE_ID)}</td>
+      <td>${escaparHTML(p.NOMBRE_COMPLETO || [p.NOMBRES,p.APELLIDOS].filter(Boolean).join(' '))}</td>
+      <td>${escaparHTML(p.PARENTESCO || '—')}</td>
+      <td>${escaparHTML(p.DNI || '—')}</td>
+      <td>${escaparHTML(p.TELEFONO || '—')}</td>
+      <td>${escaparHTML(whatsapp || '—')}</td>
+      <td>${escaparHTML(p.CORREO || '—')}</td>
+      <td>${escaparHTML(p.AUTORIZA_AVISOS || '—')}</td>
+      <td><button class="btn small primary" onclick="abrirMensajePadre(${idx})">✉️ Mensaje</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function abrirMensajePadre(indice) {
+  padreActualMensaje = datosPadresPortal[indice] || null;
+  if (!padreActualMensaje) return;
+  const nombre = padreActualMensaje.NOMBRE_COMPLETO || [padreActualMensaje.NOMBRES, padreActualMensaje.APELLIDOS].filter(Boolean).join(' ');
+  $('padre-mensaje-destinatario').textContent = `${nombre} · WhatsApp: ${padreActualMensaje.WHATSAPP || padreActualMensaje.TELEFONO || 'No registrado'} · Correo: ${padreActualMensaje.CORREO || 'No registrado'}`;
+  $('texto-mensaje-padre').value = '';
+  $('btnMensajeWhatsApp').disabled = !normalizarTelefonoWhatsApp(padreActualMensaje.WHATSAPP || padreActualMensaje.TELEFONO);
+  $('btnMensajeCorreo').disabled = !String(padreActualMensaje.CORREO || '').trim();
+  openModal('modal-mensaje-padre');
+}
+
+function normalizarTelefonoWhatsApp(valor) {
+  let numero = String(valor || '').replace(/\D/g, '');
+  if (!numero) return '';
+  if (numero.startsWith('00')) numero = numero.slice(2);
+  // En Perú, los celulares locales tienen 9 dígitos y comienzan con 9.
+  if (numero.length === 9 && numero.charAt(0) === '9') numero = '51' + numero;
+  return numero;
+}
+
+function obtenerTextoMensajePadre() {
+  const texto = String($('texto-mensaje-padre').value || '').trim();
+  if (!texto) { alert('Escriba el mensaje antes de continuar.'); return ''; }
+  return texto;
+}
+
+function enviarMensajeWhatsAppPadre() {
+  if (!padreActualMensaje) return;
+  const texto = obtenerTextoMensajePadre();
+  if (!texto) return;
+  const numero = normalizarTelefonoWhatsApp(padreActualMensaje.WHATSAPP || padreActualMensaje.TELEFONO);
+  if (!numero) { alert('Este familiar no tiene un número de WhatsApp registrado.'); return; }
+  const enlace = 'https://wa.me/' + numero + '?text=' + encodeURIComponent(texto);
+  window.open(enlace, '_blank', 'noopener');
+}
+
+function enviarMensajeCorreoPadre() {
+  if (!padreActualMensaje) return;
+  const texto = obtenerTextoMensajePadre();
+  if (!texto) return;
+  const correo = String(padreActualMensaje.CORREO || '').trim();
+  if (!correo || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
+    alert('No hay una dirección de correo válida registrada para este familiar.');
+    return;
+  }
+  const nombre = padreActualMensaje.NOMBRE_COMPLETO || 'Familia';
+  const asunto = 'Mensaje de Catequesis - Colegio La Salle del Sur';
+  const cuerpo = `Estimado(a) ${nombre}:\n\n${texto}\n\nColegio La Salle del Sur · Parroquia San Pedro de Lurín`;
+  const enlace = 'mailto:' + encodeURIComponent(correo) + '?subject=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(cuerpo);
+  const a = document.createElement('a');
+  a.href = enlace;
+  a.style.display = 'none';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
 }
 
 function renderizarDashboard() {
