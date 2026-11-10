@@ -1,0 +1,37 @@
+{
+  "id": "./index.html",
+  "name": "Camino hacia Jesús · Colegio La Salle del Sur",
+  "short_name": "Camino Jesús",
+  "description": "Programa de Catequesis y Primera Comunión del Colegio La Salle del Sur y la Parroquia San Pedro de Lurín.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "any",
+  "background_color": "#071b38",
+  "theme_color": "#071b38",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "./assets/pwa-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/pwa-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/pwa-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
