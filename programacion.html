@@ -342,6 +342,11 @@ footer strong {
   .header-brand { align-items:flex-start; }
   .school-insignia { width:64px; height:64px; flex-basis:64px; }
 }
+.voice-controls { display:flex; justify-content:flex-end; align-items:center; gap:8px; margin:10px 0 18px; }
+.voice-controls button { border:1px solid #d7e1ee; background:#f5f8fc; color:#17365d; border-radius:999px; padding:8px 13px; font:700 12px Nunito, sans-serif; cursor:pointer; }
+.voice-controls button:hover { background:#eaf1fa; }
+.voice-controls button:focus-visible { outline:3px solid #f2c14e; outline-offset:2px; }
+@media(max-width:520px) { .voice-controls { justify-content:center; flex-wrap:wrap; } }
 
 </style>
 </head>
@@ -363,6 +368,11 @@ footer strong {
       <button class="btn-home" onclick="location.href='./index.html'">🏠 Volver al inicio</button>
     </div>
   </header>
+
+  <div class="voice-controls" aria-label="Controles de bienvenida por voz">
+    <button id="btnRepetirBienvenida" type="button" aria-label="Repetir mensaje de bienvenida">🔊 Repetir bienvenida</button>
+    <button id="btnSilenciarVoz" type="button" aria-pressed="false">🔇 Silenciar</button>
+  </div>
 
   <div id="estadoSincronizacion" class="sr-only" aria-live="polite"></div>
 
@@ -550,12 +560,82 @@ footer strong {
     }
   }
 
+  // Bienvenida hablada al ingresar a Programación de Catequesis.
+  const MENSAJE_BIENVENIDA = '¡Bienvenidos a la Programación de Catequesis 2026 de La Salle del Sur! Aquí podrán conocer el camino de formación que acompañará a nuestros niños en su preparación para recibir a Jesús por primera vez. ¡Gracias por ser parte de este camino de fe!';
+  let vozSilenciada = false;
+
+  function reproducirBienvenida() {
+    if (vozSilenciada || !('speechSynthesis' in window)) return;
+
+    window.speechSynthesis.cancel();
+    const mensaje = new SpeechSynthesisUtterance(MENSAJE_BIENVENIDA);
+    mensaje.lang = 'es-PE';
+    mensaje.rate = 0.94;
+    mensaje.pitch = 1;
+    mensaje.volume = 1;
+
+    const voces = window.speechSynthesis.getVoices();
+    const vozEspanol = voces.find(voz => /^es-PE$/i.test(voz.lang))
+      || voces.find(voz => /^es(-|_)/i.test(voz.lang));
+    if (vozEspanol) mensaje.voice = vozEspanol;
+
+    window.speechSynthesis.speak(mensaje);
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     updateCountdown();
     setInterval(updateCountdown, 1000);
     mostrarEstadoEnLista('Cargando la programación oficial desde Google Sheets...');
     sincronizarConGoogleSheets();
     document.getElementById('btnActualizar').addEventListener('click', sincronizarConGoogleSheets);
+
+    const btnRepetir = document.getElementById('btnRepetirBienvenida');
+    const btnSilenciar = document.getElementById('btnSilenciarVoz');
+
+    btnRepetir.addEventListener('click', () => {
+      if (vozSilenciada) {
+        vozSilenciada = false;
+        btnSilenciar.textContent = '🔇 Silenciar';
+        btnSilenciar.setAttribute('aria-pressed', 'false');
+      }
+      reproducirBienvenida();
+    });
+
+    btnSilenciar.addEventListener('click', () => {
+      vozSilenciada = !vozSilenciada;
+      if (vozSilenciada) {
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        btnSilenciar.textContent = '🔊 Activar voz';
+        btnSilenciar.setAttribute('aria-pressed', 'true');
+      } else {
+        btnSilenciar.textContent = '🔇 Silenciar';
+        btnSilenciar.setAttribute('aria-pressed', 'false');
+        reproducirBienvenida();
+      }
+    });
+
+    // La bienvenida automática se activa ÚNICAMENTE cuando esta página
+    // se abre desde la pantalla principal (index.html), al pulsar PROGRAMACIÓN.
+    // Si se abre el HTML directamente o desde otro módulo, no se reproduce sola.
+    function ingresoDesdePantallaPrincipal() {
+      if (!document.referrer) return false;
+      try {
+        const origen = new URL(document.referrer);
+        const ruta = origen.pathname.toLowerCase();
+        const mismoSitio = origen.origin === window.location.origin;
+        const vieneDeInicio = ruta.endsWith('/index.html') || ruta.endsWith('/');
+        return mismoSitio && vieneDeInicio;
+      } catch (error) {
+        return false;
+      }
+    }
+
+    if (ingresoDesdePantallaPrincipal()) {
+      // El clic en PROGRAMACIÓN de la pantalla principal inicia esta bienvenida.
+      // Algunos navegadores pueden exigir interacción adicional; los controles
+      // Repetir bienvenida y Activar voz permanecen disponibles.
+      window.setTimeout(reproducirBienvenida, 900);
+    }
   });
 </script>
 </body>
