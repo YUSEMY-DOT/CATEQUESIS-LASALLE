@@ -1167,17 +1167,70 @@ function abrirBloque(indice) {
         <button type="button" onclick="window.opener.abrirEnlaceRecurso('ficha','${escaparHTML(tema.id || '')}')">📄 Fichas</button>
         <button type="button" onclick="window.opener.abrirEnlaceRecurso('video','${escaparHTML(tema.id || '')}')">▶️ Videos</button>
         <button type="button" onclick="window.opener.abrirTareasDeSesion('${escaparHTML(tema.id || '')}')">📝 Tareas</button>
-        <button type="button" onclick="window.opener.abrirEnlaceRecurso('cuestionario','${escaparHTML(tema.id || '')}')">✅ Cuestionarios</button>
+        <button type="button" class="btn-cuestionario" onclick="window.opener.abrirCuestionarioTema('${escaparHTML(tema.id || '')}')">🎯 Desarrollar cuestionario</button>
       </div>
     </article>`;
   }).join('');
 
   ventana.document.open();
   ventana.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escaparHTML(bloque.title)}</title><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"><style>
-  *{box-sizing:border-box}body{font:14px Nunito,Arial,sans-serif;background:#f4f1ea;color:#193453;max-width:900px;margin:25px auto;padding:0 15px}header{background:#12345a;color:white;padding:22px 24px;border-radius:16px;margin-bottom:20px}h1{margin:0;font:700 24px Fredoka,sans-serif}.sub{color:#ffdf94;font-weight:700;margin:6px 0 0}.tema{border:1px solid #e7d6b8;border-radius:14px;background:white;padding:18px;margin-bottom:16px;box-shadow:0 3px 10px #12345a0d}.numero{font-size:11px;font-weight:900;color:#b27b19}.tema h2{font:700 18px Fredoka,sans-serif;color:#12345a;margin:5px 0 12px}.subtemas{background:#f3f7fc;padding:10px 14px;border-left:4px solid #d99b16;border-radius:9px}.subtemas ol{margin:6px 0 0;padding-left:20px}.subtemas li{margin:4px 0}.datos{background:#fffaf0;border:1px solid #fae8bd;border-radius:10px;padding:10px 12px;margin-top:12px}.datos p{margin:5px 0}.clase{font-size:12px;background:#eef9f2;border:1px solid #98dfb0;border-radius:10px;padding:10px 12px;margin-top:10px}.resource-buttons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}.resource-buttons button{border-radius:10px;padding:10px 8px;font:800 12px Nunito,sans-serif;cursor:pointer;text-align:center;background:#fff8e6;border:1px solid #e8cb82;color:#12345a}.resource-buttons button:nth-child(2){background:#f0f4ff;border-color:#a8c2f5;color:#173b7a}.resource-buttons button:nth-child(3){background:#eef9f2;border-color:#98dfb0;color:#156b37}.resource-buttons button:nth-child(4){background:#fff2f0;border-color:#f2a9a0;color:#8a2817}.resource-buttons button:hover{filter:brightness(.97);transform:translateY(-1px)}.close{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin:8px 0 25px;color:#12345a}@media(max-width:560px){.resource-buttons{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  *{box-sizing:border-box}body{font:14px Nunito,Arial,sans-serif;background:#f4f1ea;color:#193453;max-width:900px;margin:25px auto;padding:0 15px}header{background:#12345a;color:white;padding:22px 24px;border-radius:16px;margin-bottom:20px}h1{margin:0;font:700 24px Fredoka,sans-serif}.sub{color:#ffdf94;font-weight:700;margin:6px 0 0}.tema{border:1px solid #e7d6b8;border-radius:14px;background:white;padding:18px;margin-bottom:16px;box-shadow:0 3px 10px #12345a0d}.numero{font-size:11px;font-weight:900;color:#b27b19}.tema h2{font:700 18px Fredoka,sans-serif;color:#12345a;margin:5px 0 12px}.subtemas{background:#f3f7fc;padding:10px 14px;border-left:4px solid #d99b16;border-radius:9px}.subtemas ol{margin:6px 0 0;padding-left:20px}.subtemas li{margin:4px 0}.datos{background:#fffaf0;border:1px solid #fae8bd;border-radius:10px;padding:10px 12px;margin-top:12px}.datos p{margin:5px 0}.clase{font-size:12px;background:#eef9f2;border:1px solid #98dfb0;border-radius:10px;padding:10px 12px;margin-top:10px}.resource-buttons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}.resource-buttons button{border-radius:10px;padding:10px 8px;font:800 12px Nunito,sans-serif;cursor:pointer;text-align:center;background:#fff8e6;border:1px solid #e8cb82;color:#12345a}.resource-buttons button:nth-child(2){background:#f0f4ff;border-color:#a8c2f5;color:#173b7a}.resource-buttons button:nth-child(3){background:#eef9f2;border-color:#98dfb0;color:#156b37}.resource-buttons button:nth-child(4){background:#fff2f0;border-color:#f2a9a0;color:#8a2817}.resource-buttons button:hover{filter:brightness(.97);transform:translateY(-1px)}.resource-buttons .btn-cuestionario{background:#eaf5ff;border-color:#8bbce8;color:#123b66;font-weight:900}.close{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin:8px 0 25px;color:#12345a}@media(max-width:560px){.resource-buttons{grid-template-columns:repeat(2,minmax(0,1fr))}}
   </style></head><body><header><h1>${escaparHTML(bloque.title)}</h1><p class="sub">${(bloque.sessions || []).length} temas · Información oficial de Google Sheets</p></header>${tarjetas}<button class="close" onclick="window.close()" type="button">Cerrar ventana</button></body></html>`);
   ventana.document.close();
   ventana.focus();
+}
+
+/** Abre el cuestionario individual del tema seleccionado. Los datos y las notas vienen de Google Sheets. */
+function abrirCuestionarioTema(idSesion) {
+  const tema = buscarTemaPortalPorId(idSesion);
+  if (!tema) { alert('No se encontró el tema ' + idSesion + ' en Google Sheets.'); return; }
+  const ventana = window.open('', '_blank');
+  if (!ventana) { alert('Permite las ventanas emergentes para desarrollar el cuestionario.'); return; }
+  const alumnos = (listaAlumnosPortal || []).map(a => ({id:String(a.ID_NINO || ''),nombre:[a.NOMBRES,a.APELLIDOS].filter(Boolean).join(' ')})).filter(a => a.id && a.nombre);
+  const cfg = JSON.stringify({api:API_URL,idSesion:String(idSesion),tema:String(tema.tema || ''),alumnos:alumnos});
+  ventana.document.open();
+  ventana.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cuestionario · ${escaparHTML(tema.tema || '')}</title><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"><style>
+  *{box-sizing:border-box}body{margin:0;background:#f2f6fb;color:#193453;font:15px Nunito,Arial,sans-serif}.quiz-wrap{max-width:760px;margin:24px auto;padding:16px}.quiz-head{background:linear-gradient(135deg,#12345a,#245d89);color:#fff;border-radius:22px;padding:24px;box-shadow:0 8px 24px #12345a20}.quiz-kicker{font-size:12px;color:#ffe19a;font-weight:900;letter-spacing:.08em}.quiz-head h1{font:700 25px Fredoka,sans-serif;margin:7px 0}.quiz-head p{margin:0;color:#e4effa}.quiz-card{background:#fff;border:1px solid #dce7f2;border-radius:20px;padding:22px;margin-top:16px;box-shadow:0 5px 18px #12345a0c}.quiz-label{font-size:12px;color:#52708e;font-weight:900}.quiz-select{width:100%;padding:13px;border:1px solid #cbd9e8;border-radius:12px;background:#f8fbff;font:700 15px Nunito;color:#193453;margin:8px 0 14px}.quiz-btn{border:0;border-radius:13px;padding:13px 18px;background:#f3c95b;color:#183653;font:900 15px Nunito;cursor:pointer}.quiz-btn:disabled{opacity:.5;cursor:not-allowed}.quiz-progress{height:9px;background:#e8eef5;border-radius:20px;overflow:hidden;margin:10px 0 18px}.quiz-progress span{display:block;height:100%;background:linear-gradient(90deg,#6bb6d9,#e9bf50);width:0;transition:width .2s}.quiz-question{font:700 21px Fredoka,sans-serif;line-height:1.35;margin:10px 0 18px}.quiz-option{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:13px;margin:9px 0;border:1.5px solid #dbe6f0;border-radius:14px;background:#f9fbfe;color:#24415e;font:800 14px Nunito;cursor:pointer}.quiz-option.selected{border-color:#4e9acb;background:#eaf5ff;box-shadow:0 0 0 3px #dceefa}.quiz-option b{display:grid;place-items:center;flex:0 0 30px;height:30px;border-radius:10px;background:#e5eef7;color:#24547a}.quiz-actions{display:flex;justify-content:space-between;gap:10px;margin-top:18px}.quiz-status{font-size:13px;font-weight:800;color:#627991;margin-top:12px}.quiz-result{text-align:center;padding:30px}.quiz-score{font:700 54px Fredoka;color:#1d6590;margin:12px}.quiz-symbol{font-size:42px}.quiz-note{background:#f4f8fc;border-radius:12px;padding:12px;color:#4d6680;font-weight:700;margin:15px 0}@media(max-width:560px){.quiz-wrap{margin:0 auto;padding:12px}.quiz-head{padding:19px}.quiz-card{padding:17px}.quiz-question{font-size:19px}}
+  </style></head><body><main class="quiz-wrap"><header class="quiz-head"><div class="quiz-kicker">CAMINO HACIA JESÚS · RETO DE APRENDIZAJE</div><h1>🎯 ${escaparHTML(tema.tema || 'Cuestionario')}</h1><p>${escaparHTML(idSesion)} · 20 preguntas · Nota sobre 20</p></header><section class="quiz-card" id="quizApp"><div class="quiz-label">¿QUIÉN DESARROLLARÁ EL CUESTIONARIO?</div><select class="quiz-select" id="alumno"><option value="">Selecciona tu nombre</option>${alumnos.map(a=>`<option value="${escaparHTML(a.id)}">${escaparHTML(a.nombre)}</option>`).join('')}</select><button class="quiz-btn" id="comenzar">Comenzar mi reto ✨</button><p class="quiz-status" id="estado">Este cuestionario corresponde únicamente al tema ${escaparHTML(idSesion)}.</p></section></main>
+  <script>
+  <script>
+  const CFG=${cfg};
+  let quiz=null,indice=0,respuestas={};
+  const app=document.getElementById('quizApp');
+  function estado(){return document.getElementById('estado');}
+  function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  async function iniciar(){
+    const idNino=document.getElementById('alumno').value;
+    if(!idNino){estado().textContent='Selecciona tu nombre para continuar.';return;}
+    const b=document.getElementById('comenzar');b.disabled=true;b.textContent='Cargando preguntas...';
+    try{
+      const u=new URL(CFG.api);u.searchParams.set('action','getCuestionario');u.searchParams.set('idSesion',CFG.idSesion);u.searchParams.set('idNino',idNino);
+      const r=await fetch(u.toString(),{cache:'no-store'});const j=await r.json();if(!j.exito)throw new Error(j.mensaje||'No se pudo cargar.');
+      quiz=j;quiz.idNino=idNino;mostrarPregunta();
+    }catch(e){estado().textContent=e.message;b.disabled=false;b.textContent='Intentar nuevamente';}
+  }
+  function mostrarPregunta(){
+    const q=quiz.preguntas[indice];const pct=(indice/20)*100;
+    let opciones='';
+    q.opciones.forEach(function(o){opciones+='<button class="quiz-option '+(respuestas[q.idPregunta]===o.valor?'selected':'')+'" data-op="'+o.valor+'" type="button"><b>'+o.valor+'</b><span>'+esc(o.texto)+'</span></button>';});
+    app.innerHTML='<div class="quiz-label">PREGUNTA '+(indice+1)+' DE 20</div><div class="quiz-progress"><span style="width:'+pct+'%"></span></div><div class="quiz-question">'+esc(q.pregunta)+'</div><div id="opciones">'+opciones+'</div><div class="quiz-actions"><button class="quiz-btn" id="anterior" '+(indice===0?'disabled':'')+'>← Anterior</button><button class="quiz-btn" id="siguiente">'+(indice===19?'Terminar y enviar ✓':'Siguiente →')+'</button></div><div class="quiz-status">'+Object.keys(respuestas).length+' de 20 respuestas seleccionadas</div>';
+    app.querySelectorAll('.quiz-option').forEach(function(b){b.addEventListener('click',function(){respuestas[q.idPregunta]=b.dataset.op;mostrarPregunta();});});
+    app.querySelector('#anterior').addEventListener('click',function(){if(indice>0){indice--;mostrarPregunta();}});
+    app.querySelector('#siguiente').addEventListener('click',function(){if(!respuestas[q.idPregunta]){alert('Selecciona una alternativa antes de continuar.');return;}if(indice<19){indice++;mostrarPregunta();}else enviar();});
+  }
+  async function enviar(){
+    if(Object.keys(respuestas).length!==20){alert('Responde las 20 preguntas antes de enviar.');return;}
+    app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">⏳</div><h2>Registrando tus respuestas...</h2><p>Estamos guardando tu resultado en Google Sheets.</p></div>';
+    try{
+      const r=await fetch(CFG.api,{method:'POST',mode:'cors',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'enviarCuestionario',idNino:quiz.idNino,idSesion:CFG.idSesion,respuestas:quiz.preguntas.map(function(q){return {idPregunta:q.idPregunta,opcion:respuestas[q.idPregunta]};})})});
+      if(!r.ok)throw new Error('Error del servidor: '+r.status);const j=await r.json();if(!j.exito)throw new Error(j.mensaje||'No se pudo guardar');
+      const mensaje=j.nota>=18?'¡Excelente trabajo! Sigue aprendiendo con Jesús.':j.nota>=14?'¡Muy bien! Continúa fortaleciendo lo aprendido.':j.nota>=11?'¡Buen esfuerzo! Sigue practicando y aprendiendo.':'Gracias por participar. Sigue aprendiendo paso a paso.';
+      app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">'+(j.nota>=14?'🏆':'🌟')+'</div><h2>¡Reto completado!</h2><div class="quiz-score">'+j.nota+'/20</div><p>'+j.correctas+' respuestas correctas de 20</p><div class="quiz-note">'+mensaje+'</div><p class="quiz-status">Tu resultado quedó guardado en Google Sheets. Este cuestionario ya fue realizado y no se puede repetir.</p></div>';
+    }catch(e){app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">⚠️</div><h2>No se pudo registrar</h2><p>'+esc(e.message)+'</p><p class="quiz-status">Informa a tu catequista para revisar la conexión.</p></div>';}
+  }
+  document.getElementById('comenzar').addEventListener('click',iniciar);
+  <\/script></body></html>`);
+  ventana.document.close();
 }
 
 /** Busca un tema ya cargado desde la hoja SESIONES. */
