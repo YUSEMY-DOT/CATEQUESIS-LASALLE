@@ -1,170 +1,60 @@
-
-/* =========================================================
-   CAMINO HACIA JESÚS
-   Service Worker — Colegio Privado La Salle del Sur
-   ========================================================= */
-
-const CACHE_VERSION = 'camino-hacia-jesus-shell-v3';
-
-/* Archivos esenciales para instalar la aplicación */
-const CORE_FILES = [
-  './',
-  './index.html',
-  './manifest.webmanifest'
+/* Camino hacia Jesús — Service Worker compartido */
+const CACHE_VERSION = 'camino-hacia-jesus-shell-v2';
+const APP_SHELL = [
+  './', './index.html', './manifest.webmanifest',
+  './programacion.html', './catequizandos.html', './CATEQUISTA.html',
+  './padres.html', './GestorPastoral.html',
+  './assets/pwa-icon-192.png', './assets/pwa-icon-512.png', './assets/apple-touch-icon.png'
 ];
-
-/* Recursos adicionales: se almacenan si están disponibles */
-const OPTIONAL_FILES = [
-  './programacion.html',
-  './catequizandos.html',
-  './CATEQUISTA.html',
-  './padres.html',
-  './GestorPastoral.html',
-  './assets/pwa-icon-192.png',
-  './assets/pwa-icon-512.png',
-  './assets/apple-touch-icon.png'
-];
-
-/* =========================================================
-   INSTALACIÓN
-   ========================================================= */
 
 self.addEventListener('install', (event) => {
-  event.waitUntil((async () => {
-    const cache = await caches.open(CACHE_VERSION);
-
-    // Primero se guardan los archivos indispensables.
-    await cache.addAll(CORE_FILES);
-
-    // Los archivos opcionales no bloquean la instalación.
-    await Promise.allSettled(
-      OPTIONAL_FILES.map(async (archivo) => {
-        try {
-          await cache.add(archivo);
-        } catch (error) {
-          console.warn('Recurso pendiente de guardar:', archivo);
-        }
-      })
-    );
-
-    await self.skipWaiting();
-  })());
+  event.waitUntil(caches.open(CACHE_VERSION).then((cache) => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));
 });
-
-/* =========================================================
-   ACTIVACIÓN Y LIMPIEZA DE VERSIONES ANTERIORES
-   ========================================================= */
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil((async () => {
-    const nombres = await caches.keys();
-
-    await Promise.all(
-      nombres
-        .filter((nombre) =>
-          nombre.startsWith('camino-hacia-jesus-shell-') &&
-          nombre !== CACHE_VERSION
-        )
-        .map((nombre) => caches.delete(nombre))
-    );
-
-    await self.clients.claim();
-  })());
+  event.waitUntil(caches.keys().then((keys) => Promise.all(
+    keys.filter((key) => key.startsWith('camino-hacia-jesus-') && key !== CACHE_VERSION)
+      .map((key) => caches.delete(key))
+  )).then(() => self.clients.claim()));
 });
-
-/* =========================================================
-   NAVEGACIÓN: PRIMERO INTERNET, LUEGO CACHÉ
-   ========================================================= */
 
 async function networkFirst(request) {
   const cache = await caches.open(CACHE_VERSION);
-
   try {
     const response = await fetch(request);
-
-    if (response && response.ok) {
-      await cache.put(request, response.clone());
-    }
-
+    if (response && response.ok) cache.put(request, response.clone());
     return response;
-
   } catch (error) {
-    const guardado = await cache.match(request);
-
-    if (guardado) {
-      return guardado;
-    }
-
-    const portada = await cache.match('./index.html');
-
-    if (portada) {
-      return portada;
-    }
-
+    const cached = await cache.match(request);
+    if (cached) return cached;
+    const fallback = await cache.match('./index.html');
+    if (fallback) return fallback;
     throw error;
   }
 }
 
-/* =========================================================
-   IMÁGENES Y RECURSOS: CACHÉ CON ACTUALIZACIÓN
-   ========================================================= */
-
 async function staleWhileRevalidate(request) {
   const cache = await caches.open(CACHE_VERSION);
-  const guardado = await cache.match(request);
-
-  const actualizacion = fetch(request)
-    .then(async (response) => {
-      if (response && response.ok) {
-        await cache.put(request, response.clone());
-      }
-      return response;
-    })
-    .catch(() => null);
-
-  return guardado || await actualizacion || Response.error();
+  const cached = await cache.match(request);
+  const update = fetch(request).then((response) => {
+    if (response && response.ok) cache.put(request, response.clone());
+    return response;
+  }).catch(() => null);
+  return cached || await update || Response.error();
 }
-
-/* =========================================================
-   INTERCEPTAR SOLICITUDES
-   ========================================================= */
 
 self.addEventListener('fetch', (event) => {
   const request = event.request;
-
-  // No intervenir en formularios ni solicitudes POST.
-  if (request.method !== 'GET') {
-    return;
-  }
-
+  if (request.method !== 'GET') return;
   const url = new URL(request.url);
+  // API de Apps Script y recursos externos nunca entran a este caché.
+  if (url.origin !== self.location.origin || url.search) return;
 
-  // Google Apps Script y otros servidores externos
-  // deben responder directamente; no guardar sus datos.
-  if (url.origin !== self.location.origin) {
-    return;
-  }
-
-  // No almacenar solicitudes con parámetros.
-  if (url.search) {
-    return;
-  }
-
-  // Páginas y navegación.
-  if (
-    request.mode === 'navigate' ||
-    /\.html?$/i.test(url.pathname)
-  ) {
+  if (request.mode === 'navigate' || /\.html?$/i.test(url.pathname)) {
     event.respondWith(networkFirst(request));
     return;
   }
-
-  // Recursos estáticos de la aplicación.
-  if (
-    /\.(png|jpe?g|webp|svg|gif|css|js|woff2?|webmanifest|json)$/i.test(
-      url.pathname
-    )
-  ) {
+  if (/\.(png|jpe?g|webp|svg|gif|css|js|woff2?)$/i.test(url.pathname)) {
     event.respondWith(staleWhileRevalidate(request));
   }
 });
