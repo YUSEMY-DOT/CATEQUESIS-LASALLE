@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="auth-required">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -900,9 +900,19 @@ main {
 }
 
 /* INGRESO INDIVIDUAL Y DISEÑO RESPONSIVE */
+/* La pantalla de PIN cubre toda la ventana; el portal permanece oculto hasta autenticar. */
+html.auth-required #portalWrap,
+#portalWrap[hidden],
 .portal-wrap-locked { display:none !important; }
-.login-gate { min-height:100vh; display:grid; place-items:center; padding:22px; background:radial-gradient(circle at 50% 15%, #234f7a, #0a1d35 72%); }
-.login-card { width:min(420px,100%); padding:30px 26px; border-radius:24px; background:#fffdf9; border:1px solid #e7d6b8; box-shadow:0 18px 55px rgba(0,0,0,.24); text-align:center; }
+#loginGate[hidden] { display:none !important; }
+.login-gate {
+  position:fixed; inset:0; z-index:99999;
+  width:100%; min-height:100vh; min-height:100dvh;
+  display:grid; place-items:center; padding:22px;
+  overflow:auto;
+  background:radial-gradient(circle at 50% 15%, #234f7a, #0a1d35 72%);
+}
+.login-card { width:min(440px,calc(100vw - 32px)); padding:clamp(22px,4vw,30px) clamp(18px,3vw,26px); border-radius:24px; background:#fffdf9; border:1px solid #e7d6b8; box-shadow:0 18px 55px rgba(0,0,0,.24); text-align:center; }
 .login-crest { width:82px; height:82px; object-fit:contain; margin-bottom:10px; }
 .login-card h1 { margin:0; color:#12345a; font:700 25px 'Fredoka',sans-serif; }
 .login-card p { margin:5px 0 22px; color:#6a7890; font-size:11px; font-weight:900; letter-spacing:1px; }
@@ -911,6 +921,8 @@ main {
 .login-card input:focus { outline:3px solid #f3d77d66; border-color:#b17b19; }
 .login-card button { width:100%; min-height:50px; margin-top:13px; border-radius:13px; background:#12345a; color:#fff; font:900 14px 'Nunito',sans-serif; letter-spacing:.06em; }
 .login-card button:disabled { opacity:.6; cursor:wait; }
+.login-error { min-height:18px; margin-top:10px; color:#a52222; font:800 12px 'Nunito',sans-serif; line-height:1.35; }
+.login-error:empty { display:none; }
 .sr-only { position:absolute !important; width:1px !important; height:1px !important; padding:0 !important; margin:-1px !important; overflow:hidden !important; clip:rect(0,0,0,0) !important; white-space:nowrap !important; border:0 !important; }
 @media(max-width:900px) {
   .wrap { width:calc(100% - 24px); margin:12px auto; }
@@ -949,13 +961,13 @@ main {
     <p>COLEGIO PRIVADO LA SALLE DEL SUR</p>
     <form id="loginForm" autocomplete="on">
       <label for="pinAlumno">PIN PERSONAL</label>
-      <input id="pinAlumno" name="pin" type="password" inputmode="numeric" pattern="[0-9]{4,10}" minlength="4" maxlength="10" autocomplete="one-time-code" required aria-label="PIN personal">
+      <input id="pinAlumno" name="pin" type="password" inputmode="numeric" pattern="[0-9]{12}" minlength="12" maxlength="12" autocomplete="off" required autofocus aria-label="PIN personal">
       <button id="btnIngresarPIN" type="submit">INGRESAR</button>
-      <div id="loginError" class="sr-only" role="alert" aria-live="assertive"></div>
+      <div id="loginError" class="login-error" role="alert" aria-live="assertive"></div>
     </form>
   </div>
 </section>
-<div class="wrap" id="portalWrap">
+<div class="wrap portal-wrap-locked" id="portalWrap" aria-hidden="true" hidden>
   <div class="goldline"></div>
   <header>
     <div class="topbar">
@@ -1130,8 +1142,14 @@ function mostrarPortalCatequizando(perfil, token, darBienvenida){
   sessionStorage.setItem(CLAVE_PERFIL_CATEQUIZANDO,JSON.stringify(perfil||{}));
   const login=document.getElementById('loginGate');
   const portal=document.getElementById('portalWrap');
-  if(login)login.style.display='none';
-  if(portal)portal.style.display='block';
+  if(login)login.hidden=true;
+  if(portal){
+    portal.hidden=false;
+    portal.classList.remove('portal-wrap-locked');
+    portal.removeAttribute('style');
+    portal.setAttribute('aria-hidden','false');
+  }
+  document.documentElement.classList.remove('auth-required');
   const saludo=document.getElementById('adventure-greeting');
   const nombre=(perfil && (perfil.NOMBRE_COMPLETO || [perfil.NOMBRES,perfil.APELLIDOS].filter(Boolean).join(' '))) || 'pequeño amigo';
   if(saludo)saludo.textContent='¡Hola, '+nombre+'!';
@@ -1146,11 +1164,11 @@ async function ingresarConPIN(event){
   const campo=document.getElementById('pinAlumno');
   const boton=document.getElementById('btnIngresarPIN');
   const pin=String(campo && campo.value || '').trim();
-  if(!/^\d{4,10}$/.test(pin)){mostrarErrorLogin('El PIN debe tener entre cuatro y diez números.');return;}
+  if(!/^\d{12}$/.test(pin)){mostrarErrorLogin('Escribe los doce números de tu PIN.');if(campo)campo.focus();return;}
   boton.disabled=true;
   reproducirBienvenida('Validando tu PIN.');
   try{
-    const resultado=await apiPost({action:'validarLoginCatequizando',pin:pin});
+    const resultado=await validarPINEnGoogleSheets(pin);
     if(!resultado || resultado.exito!==true || !resultado.token){throw new Error((resultado&&resultado.mensaje)||'No se pudo validar el PIN.');}
     if(campo)campo.value='';
     mostrarErrorLogin('');
@@ -1164,10 +1182,11 @@ function cerrarSesionCatequizando(mensaje){
   sesionCatequizando={token:'',perfil:null};
   sessionStorage.removeItem(CLAVE_TOKEN_CATEQUIZANDO);
   sessionStorage.removeItem(CLAVE_PERFIL_CATEQUIZANDO);
+  document.documentElement.classList.add('auth-required');
   const portal=document.getElementById('portalWrap');
   const login=document.getElementById('loginGate');
-  if(portal)portal.style.display='none';
-  if(login)login.style.display='grid';
+  if(portal){portal.hidden=true;portal.classList.add('portal-wrap-locked');portal.setAttribute('aria-hidden','true');}
+  if(login)login.hidden=false;
   if(mensaje)mostrarErrorLogin(mensaje);
   const campo=document.getElementById('pinAlumno');if(campo){campo.value='';campo.focus();}
 }
@@ -1175,7 +1194,9 @@ function cerrarSesionCatequizando(mensaje){
 async function restaurarSesionCatequizando(){
   const token=sessionStorage.getItem(CLAVE_TOKEN_CATEQUIZANDO)||'';
   if(!token){
-    const login=document.getElementById('loginGate');if(login)login.style.display='grid';
+    document.documentElement.classList.add('auth-required');
+    const login=document.getElementById('loginGate');if(login)login.hidden=false;
+    const portal=document.getElementById('portalWrap');if(portal){portal.hidden=true;portal.classList.add('portal-wrap-locked');portal.setAttribute('aria-hidden','true');}
     reproducirBienvenida('Para ingresar al portal, escribe tu PIN personal.');
     return;
   }
@@ -1189,7 +1210,9 @@ async function restaurarSesionCatequizando(){
     sessionStorage.removeItem(CLAVE_TOKEN_CATEQUIZANDO);
     sessionStorage.removeItem(CLAVE_PERFIL_CATEQUIZANDO);
     sesionCatequizando={token:'',perfil:null};
-    const login=document.getElementById('loginGate');if(login)login.style.display='grid';
+    document.documentElement.classList.add('auth-required');
+    const login=document.getElementById('loginGate');if(login)login.hidden=false;
+    const portal=document.getElementById('portalWrap');if(portal){portal.hidden=true;portal.classList.add('portal-wrap-locked');portal.setAttribute('aria-hidden','true');}
     if(error.message!=='Sesión vencida.')mostrarErrorLogin('Ingresa con tu PIN para continuar.');
   }
 }
@@ -1219,6 +1242,41 @@ let sesionCatequizando = {token:'', perfil:null};
 
 function obtenerTokenCatequizando(){
   return sesionCatequizando.token || sessionStorage.getItem(CLAVE_TOKEN_CATEQUIZANDO) || '';
+}
+
+/*
+ * Validación del PIN en Google Sheets.
+ * Se envía como POST simple (text/plain) para evitar CORS preflight.
+ * Se reintenta únicamente esta consulta de lectura si Google devuelve
+ * una respuesta temporal no válida durante la redirección de ContentService.
+ */
+async function validarPINEnGoogleSheets(pin){
+  let ultimoError=null;
+  const payload=JSON.stringify({action:'validarLoginCatequizando',pin:String(pin)});
+  for(let intento=1;intento<=3;intento++){
+    try{
+      const respuesta=await fetch(API_URL,{
+        method:'POST',
+        mode:'cors',
+        redirect:'follow',
+        cache:'no-store',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body:payload
+      });
+      const texto=await respuesta.text();
+      let resultado;
+      try{resultado=JSON.parse(texto);}catch(parseError){
+        const detalle=texto && texto.trim() ? texto.trim().replace(/<[^>]*>/g,' ').slice(0,180) : 'respuesta vacía';
+        throw new Error('Google Apps Script no devolvió una respuesta válida ('+detalle+'). Verifica que Codigo.gs esté implementado como nueva versión y con acceso para todos.');
+      }
+      if(!respuesta.ok)throw new Error('Google Apps Script respondió con estado '+respuesta.status+'.');
+      return resultado;
+    }catch(error){
+      ultimoError=error;
+      if(intento<3)await new Promise(resolve=>setTimeout(resolve,700*intento));
+    }
+  }
+  throw new Error((ultimoError&&ultimoError.message)||'No fue posible conectar con Google Sheets.');
 }
 
 async function apiPost(datos){
@@ -1848,6 +1906,8 @@ function reproducirBienvenida(mensaje) {
 window.addEventListener('DOMContentLoaded', function() {
   const loginForm=document.getElementById('loginForm');
   if(loginForm)loginForm.addEventListener('submit',ingresarConPIN);
+  const pinInput=document.getElementById('pinAlumno');
+  if(pinInput)pinInput.addEventListener('input',function(){this.value=this.value.replace(/\D/g,'').slice(0,12);});
   document.querySelectorAll('.stage').forEach(function(boton,indice){boton.addEventListener('click',function(){abrirBloque(indice);});});
   const prev=document.getElementById('prev-month');if(prev)prev.addEventListener('click',function(){mesActual=new Date(mesActual.getFullYear(),mesActual.getMonth()-1,1,12);renderCalendario();});
   const next=document.getElementById('next-month');if(next)next.addEventListener('click',function(){mesActual=new Date(mesActual.getFullYear(),mesActual.getMonth()+1,1,12);renderCalendario();});
@@ -1855,6 +1915,17 @@ window.addEventListener('DOMContentLoaded', function() {
   const mensaje=document.getElementById('btn-add-alum');if(mensaje)mensaje.addEventListener('click',enviarMensajeCatequista);
   const mute=document.getElementById('mute-toggle');if(mute)mute.addEventListener('click',function(){vozSilenciada=!vozSilenciada;mute.textContent=vozSilenciada?'🔇 Activar':'🔊 Silenciar';mute.setAttribute('aria-pressed',vozSilenciada?'true':'false');if(vozSilenciada&&window.speechSynthesis)window.speechSynthesis.cancel();});
   const home=document.querySelector('.top-actions a.home');if(home)home.addEventListener('click',function(){sessionStorage.removeItem(CLAVE_TOKEN_CATEQUIZANDO);sessionStorage.removeItem(CLAVE_PERFIL_CATEQUIZANDO);});
+  const parametrosIngreso=new URLSearchParams(window.location.search);
+  if(parametrosIngreso.get('ingreso')==='pin'){
+    document.documentElement.classList.add('auth-required');
+    sessionStorage.removeItem(CLAVE_TOKEN_CATEQUIZANDO);
+    sessionStorage.removeItem(CLAVE_PERFIL_CATEQUIZANDO);
+    sesionCatequizando={token:'',perfil:null};
+    const portalBloqueado=document.getElementById('portalWrap');
+    if(portalBloqueado){portalBloqueado.hidden=true;portalBloqueado.classList.add('portal-wrap-locked');portalBloqueado.setAttribute('aria-hidden','true');}
+    const acceso=document.getElementById('loginGate');if(acceso)acceso.hidden=false;
+    if(window.history && window.history.replaceState)window.history.replaceState(null,'',window.location.pathname);
+  }
   actualizarCuentaRegresiva();setInterval(actualizarCuentaRegresiva,1000);
   restaurarSesionCatequizando();
 });
