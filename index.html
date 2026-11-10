@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#02091f">
+  <meta name="theme-color" content="#071b38">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Camino hacia Jesús">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
   <title>Camino hacia Jesús - Colegio La Salle del Sur</title>
   <link rel="preload" as="image" href="./assets/PORTAL%20CATEQUESIS.png">
 
@@ -203,16 +208,34 @@
       .derechos-reservados { width: calc(100% - 110px); font-size: 8px; left: 0; }
       .nombre-opcion { font-size: 7px; }
     }
+
+
+    /* Instalación PWA: control discreto; se oculta después de instalar. */
+    .pwa-install-button {
+      position: fixed; left: 14px; top: 66px; z-index: 30;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 13px; border: 1px solid rgba(245,212,119,.75);
+      border-radius: 999px; color: #071b38;
+      background: linear-gradient(135deg,#fff0b8,#f2d477);
+      box-shadow: 0 4px 14px rgba(0,0,0,.28);
+      font: 800 12px Arial, sans-serif; cursor: pointer;
+    }
+    .pwa-install-button[hidden] { display: none !important; }
+    .pwa-install-button:active { transform: scale(.97); }
+    @media(max-width:600px) { .pwa-install-button { top:62px; left:10px; font-size:11px; padding:8px 10px; } }
   </style>
 </head>
 
 <body>
 
+
+  <button id="pwaInstallButton" class="pwa-install-button" type="button" hidden aria-label="Instalar Camino hacia Jesús">⬇ Instalar aplicación</button>
+
   <!-- PORTADA PRINCIPAL -->
   <main class="portada" aria-label="Camino hacia Jesús">
 
     <!-- MÚSICA -->
-    <audio id="musica" loop preload="auto">
+    <audio id="musica" loop preload="none">
       <source
         src="./alma-misionera-athenas-musica-catolica.mp3"
         type="audio/mpeg">
@@ -237,7 +260,7 @@
         <button class="boton" type="button"
           data-destino="programacion.html"
           aria-label="Nuestra Programación">
-          <img src="./assets/BTN-PROGRAMACION.png" alt="Nuestra Programación">
+          <img src="./assets/BTN-PROGRAMACION.png" alt="Nuestra Programación" loading="eager" decoding="async">
         </button>
         <span class="nombre-opcion">Programación</span>
       </div>
@@ -245,9 +268,9 @@
       <!-- 2. CATEQUIZANDOS -->
       <div class="menu-item">
         <button class="boton" type="button"
-          data-destino="catequizandos.html"
+          data-destino="catequizandos.html?ingreso=pin"
           aria-label="Catequizandos">
-          <img src="./assets/BTN-CATEQUIS.png" alt="Catequizandos">
+          <img src="./assets/BTN-CATEQUIS.png" alt="Catequizandos" loading="eager" decoding="async">
         </button>
         <span class="nombre-opcion">Catequizandos</span>
       </div>
@@ -257,7 +280,7 @@
         <button class="boton" type="button"
           data-destino="CATEQUISTA.html"
           aria-label="Catequistas">
-          <img src="./assets/BTN_CATEQUISTAS.png" alt="Catequistas">
+          <img src="./assets/BTN_CATEQUISTAS.png" alt="Catequistas" loading="eager" decoding="async">
         </button>
         <span class="nombre-opcion">Catequistas</span>
       </div>
@@ -267,7 +290,7 @@
         <button class="boton" type="button"
           data-destino="padres.html"
           aria-label="Padres de familia">
-          <img src="./assets/BTN-PADRES.png" alt="Padres de familia">
+          <img src="./assets/BTN-PADRES.png" alt="Padres de familia" loading="eager" decoding="async">
         </button>
         <span class="nombre-opcion">Padres</span>
       </div>
@@ -277,14 +300,14 @@
   <button class="boton" type="button"
     data-destino="GestorPastoral.html"
     aria-label="GestorPastoral">
-    <img src="./assets/BTN_COORDINADOR.png" alt="GestorPastoral">
+    <img src="./assets/BTN_COORDINADOR.png" alt="GestorPastoral" loading="eager" decoding="async">
   </button>
   <span class="nombre-opcion">GestorPastoral</span>
 </div>
 
   <!-- DERECHOS RESERVADOS -->
   <footer class="derechos-reservados">
-    © Corporación La Salle del Sur. Derechos reservados.
+    © 2026 Colegio Privado La Salle del Sur. Todos los derechos reservados.
   </footer>
 
   <script>
@@ -391,6 +414,90 @@
         }
       }, { once: true });
 
+    })();
+  </script>
+
+
+  <script>
+    // Instalación PWA: al aceptar la instalación o abrir la app instalada,
+    // el control de instalación se oculta y no vuelve a aparecer.
+    (() => {
+      'use strict';
+      const button = document.getElementById('pwaInstallButton');
+      const storageKey = 'camino_hacia_jesus_instalada_v2';
+      const standaloneQuery = window.matchMedia('(display-mode: standalone)');
+      const isStandalone = () => standaloneQuery.matches ||
+        window.matchMedia('(display-mode: minimal-ui)').matches ||
+        navigator.standalone === true;
+
+      let installPrompt = null;
+      const hideInstallControl = () => {
+        if (button) button.hidden = true;
+        try { localStorage.setItem(storageKey, '1'); } catch (e) {}
+      };
+      const alreadyInstalled = () => {
+        try { return localStorage.getItem(storageKey) === '1'; } catch (e) { return false; }
+      };
+      const syncInstallControl = () => {
+        if (!button) return;
+        if (isStandalone() || alreadyInstalled()) hideInstallControl();
+      };
+
+      if (button) {
+        button.hidden = true;
+        syncInstallControl();
+      }
+
+      const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+      window.addEventListener('beforeinstallprompt', (event) => {
+        if (isStandalone() || alreadyInstalled() || !button) return;
+        event.preventDefault();
+        installPrompt = event;
+        button.hidden = false;
+      });
+
+      if (isIOS && !isStandalone() && !alreadyInstalled() && button) {
+        button.hidden = false;
+      }
+
+      if (button) {
+        button.addEventListener('click', async () => {
+          if (installPrompt) {
+            const promptEvent = installPrompt;
+            installPrompt = null;
+            try {
+              await promptEvent.prompt();
+              const choice = await promptEvent.userChoice;
+              if (choice && choice.outcome === 'accepted') hideInstallControl();
+            } catch (error) {
+              console.warn('No se pudo completar la solicitud de instalación:', error);
+            }
+            return;
+          }
+          if (isIOS) {
+            alert('En Safari, pulsa Compartir y selecciona “Agregar a pantalla de inicio”. Abre Camino hacia Jesús desde el nuevo icono.');
+          }
+        });
+      }
+
+      window.addEventListener('appinstalled', () => {
+        installPrompt = null;
+        hideInstallControl();
+      });
+      window.addEventListener('pageshow', syncInstallControl);
+      document.addEventListener('visibilitychange', syncInstallControl);
+      if (standaloneQuery.addEventListener) standaloneQuery.addEventListener('change', syncInstallControl);
+      else if (standaloneQuery.addListener) standaloneQuery.addListener(syncInstallControl);
+
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./service-worker.js', { scope: './' })
+            .then(() => console.info('Camino hacia Jesús está listo para instalarse.'))
+            .catch((error) => console.warn('No se pudo registrar el servicio de instalación:', error));
+        }, { once: true });
+      }
     })();
   </script>
 
