@@ -898,10 +898,64 @@ main {
   .top-actions { width: 100%; justify-content: flex-start; }
   .hero-right { justify-content: center; }
 }
+
+/* INGRESO INDIVIDUAL Y DISEÑO RESPONSIVE */
+.portal-wrap-locked { display:none !important; }
+.login-gate { min-height:100vh; display:grid; place-items:center; padding:22px; background:radial-gradient(circle at 50% 15%, #234f7a, #0a1d35 72%); }
+.login-card { width:min(420px,100%); padding:30px 26px; border-radius:24px; background:#fffdf9; border:1px solid #e7d6b8; box-shadow:0 18px 55px rgba(0,0,0,.24); text-align:center; }
+.login-crest { width:82px; height:82px; object-fit:contain; margin-bottom:10px; }
+.login-card h1 { margin:0; color:#12345a; font:700 25px 'Fredoka',sans-serif; }
+.login-card p { margin:5px 0 22px; color:#6a7890; font-size:11px; font-weight:900; letter-spacing:1px; }
+.login-card label { display:block; margin-bottom:8px; color:#12345a; font-weight:900; font-size:12px; letter-spacing:.08em; }
+.login-card input { width:100%; min-height:52px; border:2px solid #d9c99f; border-radius:13px; padding:12px 16px; text-align:center; font:800 22px 'Nunito',sans-serif; letter-spacing:.28em; color:#12345a; background:#fff; }
+.login-card input:focus { outline:3px solid #f3d77d66; border-color:#b17b19; }
+.login-card button { width:100%; min-height:50px; margin-top:13px; border-radius:13px; background:#12345a; color:#fff; font:900 14px 'Nunito',sans-serif; letter-spacing:.06em; }
+.login-card button:disabled { opacity:.6; cursor:wait; }
+.sr-only { position:absolute !important; width:1px !important; height:1px !important; padding:0 !important; margin:-1px !important; overflow:hidden !important; clip:rect(0,0,0,0) !important; white-space:nowrap !important; border:0 !important; }
+@media(max-width:900px) {
+  .wrap { width:calc(100% - 24px); margin:12px auto; }
+  .hero { grid-template-columns:1fr; }
+  .calendar-layout { grid-template-columns:1fr; }
+  .stages { grid-template-columns:repeat(3,minmax(0,1fr)); }
+}
+@media(max-width:600px) {
+  .wrap { width:100%; margin:0; border-radius:0; border-left:0; border-right:0; }
+  header { padding:20px 16px 26px; }
+  .topbar { align-items:flex-start; flex-direction:column; }
+  .brand { gap:10px; }
+  .crest { width:58px; height:58px; }
+  .brand-text h2 { font-size:16px; }
+  .top-actions { width:100%; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .top-actions > * { justify-content:center; }
+  .hero { gap:16px; }
+  .hero-right { justify-content:center; }
+  .countdown { min-width:0; width:100%; }
+  main { padding:0 14px; }
+  .stages { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+  .stage { padding:14px 9px; }
+  .calendar-card,.calendar-info { padding:14px; }
+  .students-grid,.notifications-layout { grid-template-columns:1fr !important; }
+  .resource-buttons { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+  .footer { padding:16px 12px; }
+}
+
 </style>
 </head>
 <body>
-<div class="wrap">
+<section id="loginGate" class="login-gate" aria-label="Ingreso de catequizandos">
+  <div class="login-card">
+    <img class="login-crest" src="./assets/insignia.png" alt="" onerror="this.style.display='none'">
+    <h1>CAMINO HACIA JESÚS</h1>
+    <p>COLEGIO PRIVADO LA SALLE DEL SUR</p>
+    <form id="loginForm" autocomplete="on">
+      <label for="pinAlumno">PIN PERSONAL</label>
+      <input id="pinAlumno" name="pin" type="password" inputmode="numeric" pattern="[0-9]{4,10}" minlength="4" maxlength="10" autocomplete="one-time-code" required aria-label="PIN personal">
+      <button id="btnIngresarPIN" type="submit">INGRESAR</button>
+      <div id="loginError" class="sr-only" role="alert" aria-live="assertive"></div>
+    </form>
+  </div>
+</section>
+<div class="wrap" id="portalWrap">
   <div class="goldline"></div>
   <header>
     <div class="topbar">
@@ -947,14 +1001,11 @@ main {
     <section class="kid-welcome" aria-label="Bienvenida interactiva">
       <img class="welcome-img" src="./assets/jesus 4.png" alt="Jesús y los niños" onerror="this.style.display='none'">
       <div class="welcome-text">
-        <span class="adventure-kicker">✨ Tu aventura de fe comienza aquí</span>
         <h3 id="adventure-greeting">¡Hola, pequeño amigo de Jesús! 💛</h3>
-        <p>Explora los 6 bloques oficiales y consulta tus temas, subtítulos, objetivos, valores y citas bíblicas organizados para ti.</p>
+        
       </div>
     </section>
-    <div id="estadoPortal" role="status" aria-live="polite" style="margin:-20px 0 24px;color:#5c6f84;font-size:12px;font-weight:800;text-align:right;">Conectando con Google Sheets...</div>
-
-    <section class="section">
+<section class="section">
       <h2>Los 6 Bloques de Catequesis</h2>
       <div class="stages" id="stages">
         <button class="stage" data-stage="0" aria-pressed="false" type="button"><span class="num">1</span><span class="icon">✝️</span><strong>Conociendo a Jesús</strong><small>Temas 1 al 9</small></button>
@@ -1002,9 +1053,7 @@ main {
       <div class="eyebrow">Control de Catequizandos Oficial (Hoja Asistencia)</div>
       <h2>📊 Asistencia, Tareas y Seguimiento por Alumno</h2>
       
-      <div class="students-grid" id="students-grid">
-        <div class="student-card"><p style="margin:0;color:var(--muted);font-weight:800;">Cargando catequizandos desde Google Sheets...</p></div>
-      </div>
+      <div class="students-grid" id="students-grid"></div>
 
       <div class="notifications-layout">
         <div class="notice-card">
@@ -1022,7 +1071,7 @@ main {
         <div class="notice-card">
           <h3>💬 Mensajes de Alumnos a las Catequistas</h3>
           <div class="interactive-form">
-            <input type="text" id="input-alum-nombre" placeholder="Nombre del alumno..." />
+            <input type="text" id="input-alum-nombre" placeholder="Nombre del catequizando" readonly />
             <select id="select-catequista">
               <option value="" disabled selected>Dirigido a catequista...</option>
               <option value="Miss Kiara Morales Elguera">Miss Kiara Morales Elguera</option>
@@ -1037,9 +1086,7 @@ main {
     </section>
 
     <footer class="footer">
-      <strong>Camino hacia Jesús · La Salle del Sur</strong><br>
-      Parroquia San Pedro de Lurín · Zona Sur de Lima ✨
-      <div class="copyright">© 2026 Colegio Privado La Salle del Sur · Programa Camino hacia Jesús. Todos los derechos reservados.</div>
+      <div class="copyright">Colegio Privado La Salle del Sur · Todos los derechos reservados.</div>
     </footer>
   </main>
 </div>
@@ -1071,6 +1118,82 @@ function escaparHTML(valor) {
   });
 }
 
+function mostrarErrorLogin(mensaje){
+  const caja=document.getElementById('loginError');
+  if(caja)caja.textContent=mensaje||'';
+  if(mensaje)reproducirBienvenida(mensaje);
+}
+
+function mostrarPortalCatequizando(perfil, token, darBienvenida){
+  sesionCatequizando={token:token,perfil:perfil};
+  sessionStorage.setItem(CLAVE_TOKEN_CATEQUIZANDO,token);
+  sessionStorage.setItem(CLAVE_PERFIL_CATEQUIZANDO,JSON.stringify(perfil||{}));
+  const login=document.getElementById('loginGate');
+  const portal=document.getElementById('portalWrap');
+  if(login)login.style.display='none';
+  if(portal)portal.style.display='block';
+  const saludo=document.getElementById('adventure-greeting');
+  const nombre=(perfil && (perfil.NOMBRE_COMPLETO || [perfil.NOMBRES,perfil.APELLIDOS].filter(Boolean).join(' '))) || 'pequeño amigo';
+  if(saludo)saludo.textContent='¡Hola, '+nombre+'!';
+  const nombreCampo=document.getElementById('input-alum-nombre');
+  if(nombreCampo){nombreCampo.value=nombre;nombreCampo.readOnly=true;}
+  if(darBienvenida)reproducirBienvenida('¡Hola, '+nombre+'! Bienvenido al portal Camino hacia Jesús. Vamos a aprender y caminar juntos en la fe.');
+  cargarDatosBackend().catch(function(error){console.error('Error al cargar los datos del catequizando:',error);reproducirBienvenida('No se pudo cargar toda la información. Verifica tu conexión e inténtalo nuevamente.');});
+}
+
+async function ingresarConPIN(event){
+  if(event)event.preventDefault();
+  const campo=document.getElementById('pinAlumno');
+  const boton=document.getElementById('btnIngresarPIN');
+  const pin=String(campo && campo.value || '').trim();
+  if(!/^\d{4,10}$/.test(pin)){mostrarErrorLogin('El PIN debe tener entre cuatro y diez números.');return;}
+  boton.disabled=true;
+  reproducirBienvenida('Validando tu PIN.');
+  try{
+    const resultado=await apiPost({action:'validarLoginCatequizando',pin:pin});
+    if(!resultado || resultado.exito!==true || !resultado.token){throw new Error((resultado&&resultado.mensaje)||'No se pudo validar el PIN.');}
+    if(campo)campo.value='';
+    mostrarErrorLogin('');
+    mostrarPortalCatequizando(resultado.perfil,resultado.token,true);
+  }catch(error){mostrarErrorLogin(error.message||'No se pudo validar el PIN.');if(campo){campo.value='';campo.focus();}}
+  finally{boton.disabled=false;}
+}
+
+function cerrarSesionCatequizando(mensaje){
+  if(window.speechSynthesis)window.speechSynthesis.cancel();
+  sesionCatequizando={token:'',perfil:null};
+  sessionStorage.removeItem(CLAVE_TOKEN_CATEQUIZANDO);
+  sessionStorage.removeItem(CLAVE_PERFIL_CATEQUIZANDO);
+  const portal=document.getElementById('portalWrap');
+  const login=document.getElementById('loginGate');
+  if(portal)portal.style.display='none';
+  if(login)login.style.display='grid';
+  if(mensaje)mostrarErrorLogin(mensaje);
+  const campo=document.getElementById('pinAlumno');if(campo){campo.value='';campo.focus();}
+}
+
+async function restaurarSesionCatequizando(){
+  const token=sessionStorage.getItem(CLAVE_TOKEN_CATEQUIZANDO)||'';
+  if(!token){
+    const login=document.getElementById('loginGate');if(login)login.style.display='grid';
+    reproducirBienvenida('Para ingresar al portal, escribe tu PIN personal.');
+    return;
+  }
+  sesionCatequizando.token=token;
+  try{
+    const respuesta=await apiGet('getCatequizandos');
+    const perfil=(respuesta.datos||[])[0];
+    if(!perfil)throw new Error('El perfil no está disponible.');
+    mostrarPortalCatequizando(perfil,token,true);
+  }catch(error){
+    sessionStorage.removeItem(CLAVE_TOKEN_CATEQUIZANDO);
+    sessionStorage.removeItem(CLAVE_PERFIL_CATEQUIZANDO);
+    sesionCatequizando={token:'',perfil:null};
+    const login=document.getElementById('loginGate');if(login)login.style.display='grid';
+    if(error.message!=='Sesión vencida.')mostrarErrorLogin('Ingresa con tu PIN para continuar.');
+  }
+}
+
 function normalizarTexto(valor) {
   return String(valor == null ? '' : valor).trim().toLocaleLowerCase('es');
 }
@@ -1086,23 +1209,42 @@ function claveFecha(fecha) {
 }
 
 function mostrarEstadoPortal(mensaje, tipo) {
-  const elemento = document.getElementById('estadoPortal');
-  if (!elemento) return;
-  elemento.textContent = mensaje;
-  elemento.style.color = tipo === 'error' ? '#a83232' : tipo === 'ok' ? '#247447' : '#5c6f84';
+  if (tipo === 'error') console.error('[Camino hacia Jesús]', mensaje);
+  else console.info('[Camino hacia Jesús]', mensaje);
+}
+
+const CLAVE_TOKEN_CATEQUIZANDO = 'LDS_CATEQUIZANDO_TOKEN';
+const CLAVE_PERFIL_CATEQUIZANDO = 'LDS_CATEQUIZANDO_PERFIL';
+let sesionCatequizando = {token:'', perfil:null};
+
+function obtenerTokenCatequizando(){
+  return sesionCatequizando.token || sessionStorage.getItem(CLAVE_TOKEN_CATEQUIZANDO) || '';
+}
+
+async function apiPost(datos){
+  const respuesta = await fetch(API_URL, {
+    method:'POST', mode:'cors', redirect:'follow',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:JSON.stringify(datos)
+  });
+  if(!respuesta.ok) throw new Error('El servidor respondió con estado '+respuesta.status+'.');
+  return await respuesta.json();
 }
 
 async function apiGet(accion, parametros) {
-  const query = new URLSearchParams(Object.assign({action: accion, _: String(Date.now())}, parametros || {}));
-  const respuesta = await fetch(API_URL + '?' + query.toString(), {
-    method: 'GET',
-    mode: 'cors',
-    cache: 'no-store',
-    redirect: 'follow'
-  });
+  const datos = Object.assign({}, parametros || {});
+  const rutasProtegidas = ['getCatequizandos','getAsistenciaNotas','getTareas','getAvisos','getCuestionario'];
+  if(rutasProtegidas.includes(accion)){
+    const token = obtenerTokenCatequizando();
+    if(!token) throw new Error('Ingresa con tu PIN para continuar.');
+    datos.token = token;
+  }
+  const query = new URLSearchParams(Object.assign({action: accion, _: String(Date.now())}, datos));
+  const respuesta = await fetch(API_URL + '?' + query.toString(), {method:'GET',mode:'cors',cache:'no-store',redirect:'follow'});
   if (!respuesta.ok) throw new Error('El servidor respondió con estado ' + respuesta.status + '.');
   const json = await respuesta.json();
-  if (!json || json.exito !== true) throw new Error((json && json.mensaje) || 'La API no devolvió una respuesta válida.');
+  if (json && json.authRequired) { cerrarSesionCatequizando('Tu sesión terminó. Ingresa nuevamente con tu PIN.'); throw new Error('Sesión vencida.'); }
+  if (!json || json.exito !== true) throw new Error((json && json.mensaje) || 'La consulta no se pudo completar.');
   return json;
 }
 
@@ -1144,12 +1286,25 @@ function actualizarBotonesBloques() {
 
 function abrirTemaHTML(numeroTema) {
   const archivo = ARCHIVOS_TEMAS_HTML[String(Number(numeroTema))];
-  if (!archivo) {
-    alert('No se encontró el archivo HTML del Tema ' + numeroTema + '.');
-    return;
-  }
+  if (!archivo) { reproducirBienvenida('No se encontró el tema solicitado.'); return; }
   const destino = new URL('temas/' + encodeURIComponent(archivo), window.location.href);
-  window.open(destino.href, '_blank', 'noopener,noreferrer');
+  const pagina = window.open(destino.href, '_blank');
+  if (!pagina) { reproducirBienvenida('Permite las ventanas emergentes para abrir el tema.'); return; }
+  const iniciarLectura = function(){
+    try {
+      if (pagina.closed) return;
+      if (typeof pagina.speakLesson === 'function') { pagina.speakLesson(); return; }
+      const area = pagina.document.querySelector('.page:not([hidden])') || pagina.document.querySelector('main') || pagina.document.body;
+      const texto = area ? String(area.innerText || '').trim() : '';
+      if (texto && 'speechSynthesis' in pagina) {
+        pagina.speechSynthesis.cancel();
+        const voz = new pagina.SpeechSynthesisUtterance(texto.slice(0, 9000));
+        voz.lang = 'es-PE'; voz.rate = 0.9; pagina.speechSynthesis.speak(voz);
+      }
+    } catch(e) { console.warn('No se pudo iniciar la lectura del tema:', e); }
+  };
+  pagina.addEventListener('load', iniciarLectura, {once:true});
+  setTimeout(iniciarLectura, 700);
 }
 
 function abrirBloque(indice) {
@@ -1157,7 +1312,7 @@ function abrirBloque(indice) {
   if (!bloque) return;
   const ventana = window.open('', '_blank');
   if (!ventana) {
-    alert('Permite las ventanas emergentes para consultar los temas.');
+    reproducirBienvenida('Permite las ventanas emergentes para consultar los temas.');
     return;
   }
 
@@ -1176,11 +1331,10 @@ function abrirBloque(indice) {
       <p><b>Actividad:</b> ${escaparHTML(tema.actividad || 'Por definir')}</p></div>
       <div class="clase"><b>Programación:</b> ${escaparHTML(tema.fecha || 'Fecha pendiente')} · Clase ${escaparHTML(tema.numeroClase || '')} · Horario: ${escaparHTML(tema.horaInicio || '14:00')} a ${escaparHTML(tema.horaFin || '16:00')} horas<br><b>Catequista:</b> ${escaparHTML(tema.catequista || 'Por asignar')}</div>
       <div class="resource-buttons">
-        <button type="button" onclick="window.opener.abrirEnlaceRecurso('ficha','${escaparHTML(tema.id || '')}')">📄 Fichas</button>
-        <button type="button" onclick="window.opener.abrirEnlaceRecurso('video','${escaparHTML(tema.id || '')}')">▶️ Videos</button>
-        <button type="button" onclick="window.opener.abrirTareasDeSesion('${escaparHTML(tema.id || '')}')">📝 Tareas</button>
         <button type="button" class="btn-cuestionario" onclick="window.opener.abrirCuestionarioTema('${escaparHTML(tema.id || '')}')">🎯 Desarrollar cuestionario</button>
-        <button type="button" class="btn-tema-completo" onclick="window.opener.abrirTemaHTML('${escaparHTML(tema.n || '')}')">📚 Abrir tema completo</button>
+        <button type="button" class="btn-tema-completo" onclick="window.opener.abrirTemaHTML('${escaparHTML(tema.n || '')}')">📚 Desarrollar temas</button>
+        <button type="button" onclick="window.opener.abrirTareasDeSesion('${escaparHTML(tema.id || '')}')">📝 Tareas</button>
+        <button type="button" onclick="window.opener.abrirEnlaceRecurso('video','${escaparHTML(tema.id || '')}')">▶️ Videos</button>
       </div>
     </article>`;
   }).join('');
@@ -1188,7 +1342,14 @@ function abrirBloque(indice) {
   ventana.document.open();
   ventana.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escaparHTML(bloque.title)}</title><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"><style>
   *{box-sizing:border-box}body{font:14px Nunito,Arial,sans-serif;background:#f4f1ea;color:#193453;max-width:900px;margin:25px auto;padding:0 15px}header{background:#12345a;color:white;padding:22px 24px;border-radius:16px;margin-bottom:20px}h1{margin:0;font:700 24px Fredoka,sans-serif}.sub{color:#ffdf94;font-weight:700;margin:6px 0 0}.tema{border:1px solid #e7d6b8;border-radius:14px;background:white;padding:18px;margin-bottom:16px;box-shadow:0 3px 10px #12345a0d}.numero{font-size:11px;font-weight:900;color:#b27b19}.tema h2{font:700 18px Fredoka,sans-serif;color:#12345a;margin:5px 0 12px}.subtemas{background:#f3f7fc;padding:10px 14px;border-left:4px solid #d99b16;border-radius:9px}.subtemas ol{margin:6px 0 0;padding-left:20px}.subtemas li{margin:4px 0}.datos{background:#fffaf0;border:1px solid #fae8bd;border-radius:10px;padding:10px 12px;margin-top:12px}.datos p{margin:5px 0}.clase{font-size:12px;background:#eef9f2;border:1px solid #98dfb0;border-radius:10px;padding:10px 12px;margin-top:10px}.resource-buttons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}.resource-buttons button{border-radius:10px;padding:10px 8px;font:800 12px Nunito,sans-serif;cursor:pointer;text-align:center;background:#fff8e6;border:1px solid #e8cb82;color:#12345a}.resource-buttons button:nth-child(2){background:#f0f4ff;border-color:#a8c2f5;color:#173b7a}.resource-buttons button:nth-child(3){background:#eef9f2;border-color:#98dfb0;color:#156b37}.resource-buttons button:nth-child(4){background:#fff2f0;border-color:#f2a9a0;color:#8a2817}.resource-buttons button:hover{filter:brightness(.97);transform:translateY(-1px)}.resource-buttons .btn-cuestionario{background:#eaf5ff;border-color:#8bbce8;color:#123b66;font-weight:900}.resource-buttons .btn-tema-completo{background:#f1eaff;border-color:#c4a8ef;color:#51327e;font-weight:900}.close{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin:8px 0 25px;color:#12345a}@media(max-width:560px){.resource-buttons{grid-template-columns:repeat(2,minmax(0,1fr))}}
-  </style></head><body><header><h1>${escaparHTML(bloque.title)}</h1><p class="sub">${(bloque.sessions || []).length} temas · Información oficial de Google Sheets</p></header>${tarjetas}<button class="close" onclick="window.close()" type="button">Cerrar ventana</button></body></html>`);
+  </style></head><body><header><h1>${escaparHTML(bloque.title)}</h1><p class="sub">${(bloque.sessions || []).length} temas</p></header>${tarjetas}<button class="close" onclick="window.close()" type="button">Cerrar ventana</button><script>
+  function leer(texto){if(!('speechSynthesis' in window))return;window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(texto);u.lang='es-PE';u.rate=.92;window.speechSynthesis.speak(u);}
+  window.addEventListener('DOMContentLoaded',function(){
+    var titulos=Array.from(document.querySelectorAll('.tema h2')).map(function(x){return x.textContent;});
+    leer('Bloque de catequesis: ${escaparHTML(tituloCortoBloque(bloque.title))}. En este bloque vamos a trabajar los siguientes temas: '+titulos.join('. ')+'. Toca una tarjeta para escuchar su explicación completa.');
+    document.querySelectorAll('.tema').forEach(function(card){card.style.cursor='pointer';card.addEventListener('click',function(e){if(e.target.closest('button'))return;var copia=card.cloneNode(true);copia.querySelectorAll('button').forEach(function(b){b.remove();});leer(copia.innerText);});});
+  });
+  <\/script></body></html>`);
   ventana.document.close();
   ventana.focus();
 }
@@ -1196,95 +1357,61 @@ function abrirBloque(indice) {
 /** Abre el cuestionario individual del tema seleccionado. Los datos y las notas vienen de Google Sheets. */
 function abrirCuestionarioTema(idSesion) {
   const tema = buscarTemaPortalPorId(idSesion);
-  if (!tema) { alert('No se encontró el tema ' + idSesion + ' en Google Sheets.'); return; }
+  if (!tema) { reproducirBienvenida('No se encontró el tema solicitado.'); return; }
+  const token = obtenerTokenCatequizando();
+  const perfil = sesionCatequizando.perfil || JSON.parse(sessionStorage.getItem(CLAVE_PERFIL_CATEQUIZANDO) || '{}');
+  if (!token || !perfil.ID_NINO) { cerrarSesionCatequizando('Ingresa nuevamente con tu PIN.'); return; }
   const ventana = window.open('', '_blank');
-  if (!ventana) { alert('Permite las ventanas emergentes para desarrollar el cuestionario.'); return; }
-  const alumnos = (listaAlumnosPortal || []).map(a => ({id:String(a.ID_NINO || ''),nombre:[a.NOMBRES,a.APELLIDOS].filter(Boolean).join(' ')})).filter(a => a.id && a.nombre);
-  const cfg = JSON.stringify({api:API_URL,idSesion:String(idSesion),tema:String(tema.tema || ''),alumnos:alumnos});
+  if (!ventana) { reproducirBienvenida('Permite las ventanas emergentes para abrir el cuestionario.'); return; }
+  const cfg = JSON.stringify({api:API_URL,idSesion:String(idSesion),tema:String(tema.tema || ''),idNino:String(perfil.ID_NINO),nombre:String(perfil.NOMBRE_COMPLETO || [perfil.NOMBRES,perfil.APELLIDOS].filter(Boolean).join(' ')),token:token});
   ventana.document.open();
   ventana.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cuestionario · ${escaparHTML(tema.tema || '')}</title><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"><style>
-  *{box-sizing:border-box}body{margin:0;background:#f2f6fb;color:#193453;font:15px Nunito,Arial,sans-serif}.quiz-wrap{max-width:760px;margin:24px auto;padding:16px}.quiz-top-actions{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px}.quiz-nav-btn{border:1px solid #cbd9e8;border-radius:12px;padding:10px 14px;background:#fff;color:#17385f;font:900 13px Nunito;cursor:pointer;box-shadow:0 3px 10px #12345a10}.quiz-nav-btn.save{background:#fff3d5;border-color:#e7c66a;color:#805600}.quiz-nav-btn:focus{outline:3px solid #cfe5f7}.quiz-head{background:linear-gradient(135deg,#12345a,#245d89);color:#fff;border-radius:22px;padding:24px;box-shadow:0 8px 24px #12345a20}.quiz-kicker{font-size:12px;color:#ffe19a;font-weight:900;letter-spacing:.08em}.quiz-head h1{font:700 25px Fredoka,sans-serif;margin:7px 0}.quiz-head p{margin:0;color:#e4effa}.quiz-card{background:#fff;border:1px solid #dce7f2;border-radius:20px;padding:22px;margin-top:16px;box-shadow:0 5px 18px #12345a0c}.quiz-label{font-size:12px;color:#52708e;font-weight:900}.quiz-select{width:100%;padding:13px;border:1px solid #cbd9e8;border-radius:12px;background:#f8fbff;font:700 15px Nunito;color:#193453;margin:8px 0 14px}.quiz-btn{border:0;border-radius:13px;padding:13px 18px;background:#f3c95b;color:#183653;font:900 15px Nunito;cursor:pointer}.quiz-btn:disabled{opacity:.5;cursor:not-allowed}.quiz-progress{height:9px;background:#e8eef5;border-radius:20px;overflow:hidden;margin:10px 0 18px}.quiz-progress span{display:block;height:100%;background:linear-gradient(90deg,#6bb6d9,#e9bf50);width:0;transition:width .2s}.quiz-question{font:700 21px Fredoka,sans-serif;line-height:1.35;margin:10px 0 18px}.quiz-option{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:13px;margin:9px 0;border:1.5px solid #dbe6f0;border-radius:14px;background:#f9fbfe;color:#24415e;font:800 14px Nunito;cursor:pointer}.quiz-option.selected{border-color:#4e9acb;background:#eaf5ff;box-shadow:0 0 0 3px #dceefa}.quiz-option b{display:grid;place-items:center;flex:0 0 30px;height:30px;border-radius:10px;background:#e5eef7;color:#24547a}.quiz-actions{display:flex;justify-content:space-between;gap:10px;margin-top:18px}.quiz-status{font-size:13px;font-weight:800;color:#627991;margin-top:12px}.quiz-result{text-align:center;padding:30px}.quiz-score{font:700 54px Fredoka;color:#1d6590;margin:12px}.quiz-symbol{font-size:42px}.quiz-note{background:#f4f8fc;border-radius:12px;padding:12px;color:#4d6680;font-weight:700;margin:15px 0}@media(max-width:560px){.quiz-wrap{margin:0 auto;padding:12px}.quiz-head{padding:19px}.quiz-card{padding:17px}.quiz-question{font-size:19px}}
-  </style></head><body><main class="quiz-wrap"><nav class="quiz-top-actions" aria-label="Navegación del cuestionario"><button class="quiz-nav-btn" id="volverPortal" type="button">← Volver al portal</button><button class="quiz-nav-btn save" id="guardarSalir" type="button">💾 Guardar y salir</button></nav><header class="quiz-head"><div class="quiz-kicker">CAMINO HACIA JESÚS · RETO DE APRENDIZAJE</div><h1>🎯 ${escaparHTML(tema.tema || 'Cuestionario')}</h1><p>${escaparHTML(idSesion)} · 20 preguntas · Nota sobre 20</p></header><section class="quiz-card" id="quizApp"><div class="quiz-label">¿QUIÉN DESARROLLARÁ EL CUESTIONARIO?</div><select class="quiz-select" id="alumno"><option value="">Selecciona tu nombre</option>${alumnos.map(a=>`<option value="${escaparHTML(a.id)}">${escaparHTML(a.nombre)}</option>`).join('')}</select><button class="quiz-btn" id="comenzar">Comenzar mi reto ✨</button><p class="quiz-status" id="estado">Este cuestionario corresponde únicamente al tema ${escaparHTML(idSesion)}.</p></section></main>
+  *{box-sizing:border-box}body{margin:0;background:#f2f6fb;color:#193453;font:15px Nunito,Arial,sans-serif}.quiz-wrap{max-width:760px;margin:24px auto;padding:16px}.quiz-top-actions{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px}.quiz-nav-btn{border:1px solid #cbd9e8;border-radius:12px;padding:10px 14px;background:#fff;color:#17385f;font:900 13px Nunito;cursor:pointer;box-shadow:0 3px 10px #12345a10}.quiz-nav-btn.save{background:#fff3d5;border-color:#e7c66a;color:#805600}.quiz-head{background:linear-gradient(135deg,#12345a,#245d89);color:#fff;border-radius:22px;padding:24px;box-shadow:0 8px 24px #12345a20}.quiz-kicker{font-size:12px;color:#ffe19a;font-weight:900;letter-spacing:.08em}.quiz-head h1{font:700 25px Fredoka,sans-serif;margin:7px 0}.quiz-head p{margin:0;color:#e4effa}.quiz-card{background:#fff;border:1px solid #dce7f2;border-radius:20px;padding:22px;margin-top:16px;box-shadow:0 5px 18px #12345a0c}.quiz-label{font-size:12px;color:#52708e;font-weight:900}.quiz-btn{border:0;border-radius:13px;padding:13px 18px;background:#f3c95b;color:#183653;font:900 15px Nunito;cursor:pointer}.quiz-btn:disabled{opacity:.5;cursor:not-allowed}.quiz-progress{height:9px;background:#e8eef5;border-radius:20px;overflow:hidden;margin:10px 0 18px}.quiz-progress span{display:block;height:100%;background:linear-gradient(90deg,#6bb6d9,#e9bf50);width:0;transition:width .2s}.quiz-question{font:700 21px Fredoka,sans-serif;line-height:1.35;margin:10px 0 18px}.quiz-option{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:13px;margin:9px 0;border:1.5px solid #dbe6f0;border-radius:14px;background:#f9fbfe;color:#24415e;font:800 14px Nunito;cursor:pointer}.quiz-option.selected{border-color:#4e9acb;background:#eaf5ff;box-shadow:0 0 0 3px #dceefa}.quiz-option b{display:grid;place-items:center;flex:0 0 30px;height:30px;border-radius:10px;background:#e5eef7;color:#24547a}.quiz-actions{display:flex;justify-content:space-between;gap:10px;margin-top:18px}.quiz-status{font-size:13px;font-weight:800;color:#627991;margin-top:12px}.quiz-result{text-align:center;padding:30px}.quiz-score{font:700 54px Fredoka;color:#1d6590;margin:12px}.quiz-symbol{font-size:42px}.quiz-note{background:#f4f8fc;border-radius:12px;padding:12px;color:#4d6680;font-weight:700;margin:15px 0}@media(max-width:560px){.quiz-wrap{margin:0 auto;padding:12px}.quiz-head{padding:19px}.quiz-card{padding:17px}.quiz-question{font-size:19px}}
+  </style></head><body><main class="quiz-wrap"><nav class="quiz-top-actions"><button class="quiz-nav-btn" id="volverPortal" type="button">← Volver al portal</button><button class="quiz-nav-btn save" id="guardarSalir" type="button">💾 Guardar y salir</button></nav><header class="quiz-head"><div class="quiz-kicker">CAMINO HACIA JESÚS · RETO DE APRENDIZAJE</div><h1>🎯 ${escaparHTML(tema.tema || 'Cuestionario')}</h1><p>${escaparHTML(idSesion)} · ${escaparHTML(perfil.NOMBRE_COMPLETO || '')}</p></header><section class="quiz-card" id="quizApp"><div class="quiz-result"><div class="quiz-symbol">📖</div><h2>Preparando tu cuestionario</h2></div></section></main>
   <script>
   const CFG=${cfg};
   let quiz=null,indice=0,respuestas={},claveBorrador='',hayBorrador=false,enviando=false,salidaAutorizada=false;
   const app=document.getElementById('quizApp');
-  function cerrarCuestionario(){
-    if(Object.keys(respuestas).length && !enviando){
-      if(!confirm('Tus respuestas están guardadas en este dispositivo. ¿Deseas salir del cuestionario?'))return;
-    } else if(!confirm('¿Deseas volver al portal de Catequizando?')) return;
-    salidaAutorizada=true;
-    salidaAutorizada=true;
-    window.close();
-    setTimeout(function(){if(!window.closed)alert('Puedes cerrar esta pestaña para regresar al portal.');},150);
-  }
-  function guardarBorrador(){
-    if(!quiz || !claveBorrador || enviando)return false;
-    try{
-      localStorage.setItem(claveBorrador,JSON.stringify({idNino:quiz.idNino,idSesion:CFG.idSesion,indice:indice,respuestas:respuestas,actualizado:new Date().toISOString()}));
-      return true;
-    }catch(e){console.warn('No se pudo guardar el avance localmente:',e);return false;}
-  }
-  function recuperarBorrador(idNino){
-    claveBorrador='caminoQuiz:'+CFG.idSesion+':'+idNino;
-    try{
-      const raw=localStorage.getItem(claveBorrador);
-      if(!raw)return false;
-      const b=JSON.parse(raw);
-      if(!b || b.idNino!==idNino || b.idSesion!==CFG.idSesion || !b.respuestas)return false;
-      respuestas=b.respuestas;
-      indice=Math.max(0,Math.min(19,Number(b.indice)||0));
-      return Object.keys(respuestas).length>0;
-    }catch(e){return false;}
-  }
-  function salirGuardando(){
-    const ok=guardarBorrador();
-    if(!ok && Object.keys(respuestas).length){alert('No se pudo guardar el avance en este navegador. Mantén esta pestaña abierta e inténtalo de nuevo.');return;}
-    if(ok)alert('Avance guardado en este dispositivo. Al volver a abrir este tema con el mismo nombre y navegador podrás continuar.');
-    window.close();
-    setTimeout(function(){if(!window.closed)alert('Puedes cerrar esta pestaña para regresar al portal.');},150);
-  }
+  function hablar(texto){if(!('speechSynthesis'in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(texto);u.lang='es-PE';u.rate=.9;window.speechSynthesis.speak(u);}
+  function cerrarCuestionario(){salidaAutorizada=true;if(window.speechSynthesis)window.speechSynthesis.cancel();window.close();}
+  function guardarBorrador(){if(!quiz||!claveBorrador||enviando)return false;try{localStorage.setItem(claveBorrador,JSON.stringify({idNino:quiz.idNino,idSesion:CFG.idSesion,indice:indice,respuestas:respuestas,actualizado:new Date().toISOString()}));return true;}catch(e){return false;}}
+  function recuperarBorrador(){claveBorrador='caminoQuiz:'+CFG.idSesion+':'+CFG.idNino;try{const raw=localStorage.getItem(claveBorrador);if(!raw)return false;const b=JSON.parse(raw);if(!b||b.idNino!==CFG.idNino||b.idSesion!==CFG.idSesion||!b.respuestas)return false;respuestas=b.respuestas;indice=Math.max(0,Math.min(19,Number(b.indice)||0));return Object.keys(respuestas).length>0;}catch(e){return false;}}
+  function salirGuardando(){guardarBorrador();salidaAutorizada=true;window.close();}
   document.getElementById('volverPortal').addEventListener('click',cerrarCuestionario);
   document.getElementById('guardarSalir').addEventListener('click',salirGuardando);
-  window.addEventListener('beforeunload',function(e){
-    if(quiz && Object.keys(respuestas).length && !enviando && !salidaAutorizada){guardarBorrador();e.preventDefault();e.returnValue='';}
-  });
-  function estado(){return document.getElementById('estado');}
+  window.addEventListener('beforeunload',function(e){if(quiz&&Object.keys(respuestas).length&&!enviando&&!salidaAutorizada)guardarBorrador();});
   function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
   async function iniciar(){
-    const idNino=document.getElementById('alumno').value;
-    if(!idNino){estado().textContent='Selecciona tu nombre para continuar.';return;}
-    const b=document.getElementById('comenzar');b.disabled=true;b.textContent='Cargando preguntas...';
     try{
-      const u=new URL(CFG.api);u.searchParams.set('action','getCuestionario');u.searchParams.set('idSesion',CFG.idSesion);u.searchParams.set('idNino',idNino);
-      const r=await fetch(u.toString(),{cache:'no-store'});const j=await r.json();if(!j.exito)throw new Error(j.mensaje||'No se pudo cargar.');
-      quiz=j;quiz.idNino=idNino;hayBorrador=recuperarBorrador(idNino);mostrarPregunta();
-    }catch(e){estado().textContent=e.message;b.disabled=false;b.textContent='Intentar nuevamente';}
+      const r=await fetch(CFG.api,{method:'POST',mode:'cors',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'obtenerCuestionarioCatequizando',idSesion:CFG.idSesion,token:CFG.token})});
+      if(!r.ok)throw new Error('Error del servidor: '+r.status);const j=await r.json();if(!j.exito)throw new Error(j.mensaje||'No se pudo cargar.');
+      quiz=j;quiz.idNino=CFG.idNino;hayBorrador=recuperarBorrador();mostrarPregunta();
+    }catch(e){app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">⚠️</div><h2>No se pudo abrir el cuestionario</h2><p>'+esc(e.message)+'</p><button class="quiz-btn" id="reintentar">Intentar nuevamente</button></div>';document.getElementById('reintentar').addEventListener('click',iniciar);hablar(e.message);}
   }
   function mostrarPregunta(){
     const q=quiz.preguntas[indice];const pct=(indice/20)*100;
-    let opciones='';
-    q.opciones.forEach(function(o){opciones+='<button class="quiz-option '+(respuestas[q.idPregunta]===o.valor?'selected':'')+'" data-op="'+o.valor+'" type="button"><b>'+o.valor+'</b><span>'+esc(o.texto)+'</span></button>';});
-    app.innerHTML=(hayBorrador?'<div class="quiz-note">💾 Hemos recuperado tu avance anterior. Puedes continuar donde lo dejaste.</div>':'')+'<div class="quiz-label">PREGUNTA '+(indice+1)+' DE 20</div><div class="quiz-progress"><span style="width:'+pct+'%"></span></div><div class="quiz-question">'+esc(q.pregunta)+'</div><div id="opciones">'+opciones+'</div><div class="quiz-actions"><button class="quiz-btn" id="anterior" '+(indice===0?'disabled':'')+'>← Anterior</button><button class="quiz-btn" id="siguiente">'+(indice===19?'Terminar y enviar ✓':'Siguiente →')+'</button></div><div class="quiz-status">'+Object.keys(respuestas).length+' de 20 respuestas seleccionadas · Avance guardado automáticamente en este dispositivo</div>';
+    let opciones='';q.opciones.forEach(function(o){opciones+='<button class="quiz-option '+(respuestas[q.idPregunta]===o.valor?'selected':'')+'" data-op="'+o.valor+'" type="button"><b>'+o.valor+'</b><span>'+esc(o.texto)+'</span></button>';});
+    app.innerHTML=(hayBorrador?'<div class="quiz-note">Hemos recuperado tu avance anterior.</div>':'')+'<div class="quiz-label">PREGUNTA '+(indice+1)+' DE 20</div><div class="quiz-progress"><span style="width:'+pct+'%"></span></div><div class="quiz-question">'+esc(q.pregunta)+'</div><div id="opciones">'+opciones+'</div><div class="quiz-actions"><button class="quiz-btn" id="anterior" '+(indice===0?'disabled':'')+'>← Anterior</button><button class="quiz-btn" id="siguiente">'+(indice===19?'Terminar y enviar ✓':'Siguiente →')+'</button></div><div class="quiz-status">'+Object.keys(respuestas).length+' de 20 respuestas seleccionadas</div>';
     hayBorrador=false;
+    hablar('Pregunta '+(indice+1)+'. '+q.pregunta+'. '+q.opciones.map(o=>o.valor+': '+o.texto).join('. '));
     app.querySelectorAll('.quiz-option').forEach(function(b){b.addEventListener('click',function(){respuestas[q.idPregunta]=b.dataset.op;guardarBorrador();mostrarPregunta();});});
     app.querySelector('#anterior').addEventListener('click',function(){if(indice>0){indice--;guardarBorrador();mostrarPregunta();}});
-    app.querySelector('#siguiente').addEventListener('click',function(){if(!respuestas[q.idPregunta]){alert('Selecciona una alternativa antes de continuar.');return;}if(indice<19){indice++;guardarBorrador();mostrarPregunta();}else enviar();});
+    app.querySelector('#siguiente').addEventListener('click',function(){if(!respuestas[q.idPregunta]){hablar('Selecciona una alternativa antes de continuar.');return;}if(indice<19){indice++;guardarBorrador();mostrarPregunta();}else enviar();});
   }
   async function enviar(){
-    if(Object.keys(respuestas).length!==20){alert('Responde las 20 preguntas antes de enviar.');return;}
-    if(!confirm('¿Ya respondiste las 20 preguntas? Al enviar, se registrará tu nota y no podrás repetir este cuestionario.'))return;
-    enviando=true;
-    app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">⏳</div><h2>Registrando tus respuestas...</h2><p>Estamos guardando tu resultado en Google Sheets.</p></div>';
+    if(Object.keys(respuestas).length!==20){hablar('Responde las veinte preguntas antes de enviar.');return;}
+    
+    enviando=true;app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">⏳</div><h2>Registrando tus respuestas...</h2></div>';
     try{
-      const r=await fetch(CFG.api,{method:'POST',mode:'cors',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'enviarCuestionario',idNino:quiz.idNino,idSesion:CFG.idSesion,respuestas:quiz.preguntas.map(function(q){return {idPregunta:q.idPregunta,opcion:respuestas[q.idPregunta]};})})});
+      const r=await fetch(CFG.api,{method:'POST',mode:'cors',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'enviarCuestionario',token:CFG.token,idSesion:CFG.idSesion,respuestas:quiz.preguntas.map(function(q){return {idPregunta:q.idPregunta,opcion:respuestas[q.idPregunta]};})})});
       if(!r.ok)throw new Error('Error del servidor: '+r.status);const j=await r.json();if(!j.exito)throw new Error(j.mensaje||'No se pudo guardar');
       try{localStorage.removeItem(claveBorrador);}catch(_e){}
-      const mensaje=j.nota>=18?'¡Excelente trabajo! Sigue aprendiendo con Jesús.':j.nota>=14?'¡Muy bien! Continúa fortaleciendo lo aprendido.':j.nota>=11?'¡Buen esfuerzo! Sigue practicando y aprendiendo.':'Gracias por participar. Sigue aprendiendo paso a paso.';
-      app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">'+(j.nota>=14?'🏆':'🌟')+'</div><h2>¡Reto completado!</h2><div class="quiz-score">'+j.nota+'/20</div><p>'+j.correctas+' respuestas correctas de 20</p><div class="quiz-note">'+mensaje+'</div><p class="quiz-status">Tu resultado quedó guardado en Google Sheets. Este cuestionario ya fue realizado y no se puede repetir.</p></div>';
-    }catch(e){enviando=false;guardarBorrador();app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">⚠️</div><h2>No se pudo registrar</h2><p>'+esc(e.message)+'</p><p class="quiz-status">Tu avance sigue guardado en este dispositivo. Puedes volver a intentarlo o informar a tu catequista.</p><button class="quiz-btn" id="volverIntentar">Volver al cuestionario</button></div>';document.getElementById('volverIntentar').addEventListener('click',mostrarPregunta);}
+      const mensaje=j.nota>=18?'¡Excelente trabajo! Sigue aprendiendo con Jesús.':j.nota>=14?'¡Muy bien! Continúa fortaleciendo lo aprendido.':j.nota>=11?'¡Buen esfuerzo! Sigue practicando.':'Gracias por participar. Sigue aprendiendo paso a paso.';
+      app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">'+(j.nota>=14?'🏆':'🌟')+'</div><h2>¡Reto completado!</h2><div class="quiz-score">'+j.nota+'/20</div><p>'+j.correctas+' respuestas correctas de 20</p><div class="quiz-note">'+mensaje+'</div></div>';
+      hablar('Reto completado. Obtuviste '+j.nota+' puntos de veinte. '+mensaje);
+    }catch(e){enviando=false;guardarBorrador();app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">⚠️</div><h2>No se pudo registrar</h2><p>'+esc(e.message)+'</p><button class="quiz-btn" id="volverIntentar">Volver al cuestionario</button></div>';document.getElementById('volverIntentar').addEventListener('click',mostrarPregunta);hablar(e.message);}
   }
-  document.getElementById('comenzar').addEventListener('click',iniciar);
+  iniciar();
   <\/script></body></html>`);
   ventana.document.close();
 }
@@ -1332,18 +1459,20 @@ function abrirEnlaceRecurso(tipo, idSesion) {
 async function abrirTareasDeSesion(idSesion) {
   const ventana = window.open('', '_blank');
   if (!ventana) {
-    alert('Permite las ventanas emergentes para consultar las tareas.');
+    reproducirBienvenida('Permite las ventanas emergentes para consultar las tareas.');
     return;
   }
 
   const escribir = function(titulo, contenido) {
     ventana.document.open();
-    ventana.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escaparHTML(titulo)}</title><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"><style>*{box-sizing:border-box}body{font:14px Nunito,Arial,sans-serif;background:#f4f1ea;color:#193453;max-width:850px;margin:25px auto;padding:0 15px}header{background:#12345a;color:#fff;padding:20px 24px;border-radius:16px;margin-bottom:18px}h1{font:700 23px Fredoka,sans-serif;margin:0}.sub{color:#ffdf94;font-weight:800;margin:6px 0 0}.task{background:#fff;border:1px solid #e7d6b8;border-radius:13px;padding:15px;margin-bottom:12px}.task h2{font:700 17px Fredoka,sans-serif;color:#12345a;margin:4px 0 8px}.meta{font-size:12px;color:#526882;line-height:1.7}.state{display:inline-block;background:#fff2cf;color:#8a6418;border-radius:20px;padding:4px 10px;font-size:11px;font-weight:900;margin-top:8px}.evidence{display:inline-block;margin-top:10px;color:#1557a0;font-weight:900}.close{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin:8px 0 25px;color:#12345a}</style></head><body><header><h1>${escaparHTML(titulo)}</h1><p class="sub">Datos consultados desde la hoja TAREAS · ${escaparHTML(idSesion)}</p></header><main>${contenido}</main><button class="close" onclick="window.close()" type="button">Cerrar ventana</button></body></html>`);
+    ventana.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escaparHTML(titulo)}</title><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"><style>*{box-sizing:border-box}body{font:14px Nunito,Arial,sans-serif;background:#f4f1ea;color:#193453;max-width:850px;margin:25px auto;padding:0 15px}header{background:#12345a;color:#fff;padding:20px 24px;border-radius:16px;margin-bottom:18px}h1{font:700 23px Fredoka,sans-serif;margin:0}.sub{color:#ffdf94;font-weight:800;margin:6px 0 0}.task{background:#fff;border:1px solid #e7d6b8;border-radius:13px;padding:15px;margin-bottom:12px}.task h2{font:700 17px Fredoka,sans-serif;color:#12345a;margin:4px 0 8px}.meta{font-size:12px;color:#526882;line-height:1.7}.state{display:inline-block;background:#fff2cf;color:#8a6418;border-radius:20px;padding:4px 10px;font-size:11px;font-weight:900;margin-top:8px}.evidence{display:inline-block;margin-top:10px;color:#1557a0;font-weight:900}.close{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin:8px 0 25px;color:#12345a}</style></head><body><header><h1>${escaparHTML(titulo)}</h1><p class="sub">Datos consultados desde la hoja TAREAS · ${escaparHTML(idSesion)}</p></header><main>${contenido}</main><button class="close" onclick="window.close()" type="button">Cerrar ventana</button><script>
+      window.addEventListener('DOMContentLoaded',function(){var m=document.querySelector('main');var texto=m?m.innerText:'';if(texto&&'speechSynthesis'in window){var u=new SpeechSynthesisUtterance('Tareas de este tema. '+texto);u.lang='es-PE';u.rate=.92;window.speechSynthesis.cancel();window.speechSynthesis.speak(u);}});
+      <\/script></body></html>`);
     ventana.document.close();
     ventana.focus();
   };
 
-  escribir('Cargando tareas…', '<p>Consultando las tareas asociadas a este tema en Google Sheets.</p>');
+  escribir('Tareas del tema', '<p> </p>');
   try {
     const respuesta = await apiGet('getTareas', {idSesion: idSesion});
     const tareas = Array.isArray(respuesta.datos) ? respuesta.datos : [];
@@ -1614,46 +1743,23 @@ function renderizarAvisos(avisos) {
 }
 
 async function cargarDatosBackend() {
+  if (!obtenerTokenCatequizando()) throw new Error('El PIN es necesario para consultar tus datos.');
   const resultados = await Promise.allSettled([
-    apiGet('getSesiones'),
-    apiGet('getCatequizandos'),
-    apiGet('getAsistenciaNotas'),
-    apiGet('getTareas'),
-    apiGet('getAvisos'),
-    apiGet('getConfig')
+    apiGet('getSesiones'), apiGet('getCatequizandos'), apiGet('getAsistenciaNotas'),
+    apiGet('getTareas'), apiGet('getAvisos'), apiGet('getConfig')
   ]);
   const errores = [];
-
   if (resultados[0].status === 'fulfilled') {
-    const dato = resultados[0].value;
-    bloquesPortal = Array.isArray(dato.bloques) ? dato.bloques : [];
-    actualizarBotonesBloques();
-    const todasLasSesiones = bloquesPortal.flatMap(b => Array.isArray(b.sessions) ? b.sessions : []);
-    construirCalendario(todasLasSesiones);
-  } else errores.push('programación: ' + resultados[0].reason.message);
-
-  if (resultados[1].status === 'fulfilled') listaAlumnosPortal = resultados[1].value.datos || [];
-  else errores.push('catequizandos: ' + resultados[1].reason.message);
-
-  if (resultados[2].status === 'fulfilled') listaAsistenciaPortal = resultados[2].value.datos || [];
-  else errores.push('asistencia: ' + resultados[2].reason.message);
-
-  if (resultados[3].status === 'fulfilled') listaTareasPortal = resultados[3].value.datos || [];
-  else errores.push('tareas: ' + resultados[3].reason.message);
-
-  if (resultados[4].status === 'fulfilled') renderizarAvisos(resultados[4].value.datos || []);
-  else errores.push('avisos: ' + resultados[4].reason.message);
-
-  if (resultados[5].status === 'fulfilled') {
-    datosConfig = resultados[5].value.datos || {};
-    actualizarCuentaRegresiva();
-    // La fecha configurada puede cambiar desde CONFIG; si está vacía se conserva el 8/12/2026 acordado.
-    if (bloquesPortal.length) construirCalendario(bloquesPortal.flatMap(b => b.sessions || []));
-  } else errores.push('configuración: ' + resultados[5].reason.message);
-
-  renderizarTarjetasAlumnos(listaAlumnosPortal, listaAsistenciaPortal, listaTareasPortal);
-  if (errores.length) mostrarEstadoPortal('Algunos datos no pudieron cargarse: ' + errores.join(' · '), 'error');
-  else mostrarEstadoPortal('Conectado con Google Sheets · ' + listaAlumnosPortal.length + ' catequizandos · ' + bloquesPortal.reduce((n,b)=>n+(b.sessions||[]).length,0) + ' temas', 'ok');
+    const dato=resultados[0].value; bloquesPortal=Array.isArray(dato.bloques)?dato.bloques:[];
+    actualizarBotonesBloques(); construirCalendario(bloquesPortal.flatMap(b=>Array.isArray(b.sessions)?b.sessions:[]));
+  } else errores.push('programación: '+resultados[0].reason.message);
+  if (resultados[1].status === 'fulfilled') listaAlumnosPortal=resultados[1].value.datos||[]; else errores.push('perfil: '+resultados[1].reason.message);
+  if (resultados[2].status === 'fulfilled') listaAsistenciaPortal=resultados[2].value.datos||[]; else errores.push('asistencia: '+resultados[2].reason.message);
+  if (resultados[3].status === 'fulfilled') listaTareasPortal=resultados[3].value.datos||[]; else errores.push('tareas: '+resultados[3].reason.message);
+  if (resultados[4].status === 'fulfilled') renderizarAvisos(resultados[4].value.datos||[]); else errores.push('avisos: '+resultados[4].reason.message);
+  if (resultados[5].status === 'fulfilled') {datosConfig=resultados[5].value.datos||{};actualizarCuentaRegresiva();if(bloquesPortal.length)construirCalendario(bloquesPortal.flatMap(b=>b.sessions||[]));} else errores.push('configuración: '+resultados[5].reason.message);
+  renderizarTarjetasAlumnos(listaAlumnosPortal,listaAsistenciaPortal,listaTareasPortal);
+  if(errores.length)mostrarEstadoPortal('Datos pendientes: '+errores.join(' · '),'error');
 }
 
 function obtenerFechaCierre() {
@@ -1702,7 +1808,7 @@ async function enviarMensajeCatequista() {
       mode: 'cors',
       redirect: 'follow',
       headers: {'Content-Type': 'text/plain;charset=utf-8'},
-      body: JSON.stringify({action: 'guardarMensaje', nombreAlumno: nombre, catequista: catequista, mensaje: mensaje})
+      body: JSON.stringify({action: 'guardarMensaje', token: obtenerTokenCatequizando(), nombreAlumno: nombre, catequista: catequista, mensaje: mensaje})
     });
     if (!respuesta.ok) throw new Error('El servidor respondió con estado ' + respuesta.status + '.');
     const resultado = await respuesta.json();
@@ -1736,39 +1842,17 @@ function reproducirBienvenida(mensaje) {
 }
 
 window.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.stage').forEach(function(boton, indice) {
-    boton.addEventListener('click', function() { abrirBloque(indice); });
-  });
-  document.getElementById('prev-month').addEventListener('click', function() {
-    mesActual = new Date(mesActual.getFullYear(), mesActual.getMonth() - 1, 1, 12); renderCalendario();
-  });
-  document.getElementById('next-month').addEventListener('click', function() {
-    mesActual = new Date(mesActual.getFullYear(), mesActual.getMonth() + 1, 1, 12); renderCalendario();
-  });
-  document.getElementById('btnActualizar').addEventListener('click', async function() {
-    const boton = this; boton.disabled = true; const original = boton.textContent; boton.textContent = '⏳ Actualizando...';
-    try { await cargarDatosBackend(); }
-    finally { boton.disabled = false; boton.textContent = original; }
-  });
-  document.getElementById('btn-add-alum').addEventListener('click', enviarMensajeCatequista);
-  const mute = document.getElementById('mute-toggle');
-  if (mute) mute.addEventListener('click', function() {
-    vozSilenciada = !vozSilenciada;
-    mute.textContent = vozSilenciada ? '🔇 Activar' : '🔊 Silenciar';
-    mute.setAttribute('aria-pressed', vozSilenciada ? 'true' : 'false');
-    if (vozSilenciada && window.speechSynthesis) window.speechSynthesis.cancel();
-  });
-
-  actualizarCuentaRegresiva();
-  setInterval(actualizarCuentaRegresiva, 1000);
-  mostrarEstadoPortal('Cargando información oficial desde Google Sheets...', 'info');
-  cargarDatosBackend().catch(function(error) {
-    console.error('Error general al cargar Catequizando:', error);
-    mostrarEstadoPortal('No se pudo conectar con Google Sheets: ' + error.message, 'error');
-  });
-  setTimeout(function() {
-    reproducirBienvenida('¡Bienvenidos al portal de catequizandos del Colegio La Salle del Sur y Parroquia San Pedro de Lurín! Camino hacia Jesús.');
-  }, 600);
+  const loginForm=document.getElementById('loginForm');
+  if(loginForm)loginForm.addEventListener('submit',ingresarConPIN);
+  document.querySelectorAll('.stage').forEach(function(boton,indice){boton.addEventListener('click',function(){abrirBloque(indice);});});
+  const prev=document.getElementById('prev-month');if(prev)prev.addEventListener('click',function(){mesActual=new Date(mesActual.getFullYear(),mesActual.getMonth()-1,1,12);renderCalendario();});
+  const next=document.getElementById('next-month');if(next)next.addEventListener('click',function(){mesActual=new Date(mesActual.getFullYear(),mesActual.getMonth()+1,1,12);renderCalendario();});
+  const actualizar=document.getElementById('btnActualizar');if(actualizar)actualizar.addEventListener('click',async function(){const b=this;b.disabled=true;try{await cargarDatosBackend();}catch(e){reproducirBienvenida('No se pudieron actualizar tus datos.');}finally{b.disabled=false;}});
+  const mensaje=document.getElementById('btn-add-alum');if(mensaje)mensaje.addEventListener('click',enviarMensajeCatequista);
+  const mute=document.getElementById('mute-toggle');if(mute)mute.addEventListener('click',function(){vozSilenciada=!vozSilenciada;mute.textContent=vozSilenciada?'🔇 Activar':'🔊 Silenciar';mute.setAttribute('aria-pressed',vozSilenciada?'true':'false');if(vozSilenciada&&window.speechSynthesis)window.speechSynthesis.cancel();});
+  const home=document.querySelector('.top-actions a.home');if(home)home.addEventListener('click',function(){sessionStorage.removeItem(CLAVE_TOKEN_CATEQUIZANDO);sessionStorage.removeItem(CLAVE_PERFIL_CATEQUIZANDO);});
+  actualizarCuentaRegresiva();setInterval(actualizarCuentaRegresiva,1000);
+  restaurarSesionCatequizando();
 });
 </script>
 </body>
