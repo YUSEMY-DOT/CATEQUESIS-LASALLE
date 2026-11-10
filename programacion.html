@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#081c3b">
-<title>Programación de Catequesis 2026 | Colegio La Salle del Sur</title>
+<title>Programación de Catequesis 2026 | Colegio Privado La Salle del Sur</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -324,6 +324,25 @@ footer strong {
   header { flex-direction: column; align-items: flex-start; }
   .stages-grid { grid-template-columns: 1fr; }
 }
+
+.header-brand { display:flex; align-items:center; gap:18px; min-width:0; }
+.school-insignia { width:86px; height:86px; object-fit:contain; flex:0 0 86px; background:transparent; }
+.sr-only { position:absolute !important; width:1px !important; height:1px !important; padding:0 !important; margin:-1px !important; overflow:hidden !important; clip:rect(0,0,0,0) !important; white-space:nowrap !important; border:0 !important; }
+.countdown-place { margin:0 0 16px !important; color:#ffe6a8 !important; font-weight:900; }
+.topic-name { background:#eaf2ff; border-left:4px solid #2563eb; padding:7px 10px; border-radius:7px; }
+.topic-subtema { background:#f1eaff; border-left-color:#8b5cf6; color:#56328b; }
+.topic-subtema strong { color:#56328b; }
+.topic-meta > div { padding:6px 9px; border-radius:7px; border-left:4px solid transparent; }
+.topic-meta .meta-valor { background:#fff7df; border-left-color:#d99b16; color:#76510b; }
+.topic-meta .meta-cita { background:#eaf7ef; border-left-color:#26965b; color:#17633c; }
+.topic-meta .meta-actividad { background:#fff0e8; border-left-color:#e87936; color:#91421b; }
+.topic-meta .meta-catequista { background:#eaf4fb; border-left-color:#2784b9; color:#155778; }
+.stage-title-wrap span { background:#fff2cf; padding:3px 8px; border-radius:6px; width:max-content; }
+@media(max-width:768px) {
+  .header-brand { align-items:flex-start; }
+  .school-insignia { width:64px; height:64px; flex-basis:64px; }
+}
+
 </style>
 </head>
 <body>
@@ -332,9 +351,12 @@ footer strong {
   <div class="gold-bar"></div>
 
   <header>
-    <div class="header-title">
-      <h1>Programa de <span>Catequesis 2026</span></h1>
-      <p>Colegio Privado La Salle del Sur · Camino hacia Jesús</p>
+    <div class="header-brand">
+      <img class="school-insignia" src="assets/logo-la-salle.webp" alt="Insignia del Colegio Privado La Salle del Sur">
+      <div class="header-title">
+        <h1>Programación de <span>Catequesis 2026</span></h1>
+        <p>Colegio Privado La Salle del Sur · Camino hacia Jesús</p>
+      </div>
     </div>
     <div class="header-actions">
       <button id="btnActualizar" class="btn-actualizar">🔄 Actualizar</button>
@@ -342,19 +364,20 @@ footer strong {
     </div>
   </header>
 
-  <div id="estadoSincronizacion">Conectado con el sistema del colegio. Listo para sincronizar.</div>
+  <div id="estadoSincronizacion" class="sr-only" aria-live="polite"></div>
 
-  <!-- CUENTA REGRESIVA AL 8 DE DICIEMBRE DE 2026 -->
+  <!-- CUENTA REGRESIVA A LA PRIMERA COMUNIÓN -->
   <div class="countdown-box">
-    <h3>✨ Cuenta Regresiva para la Catequesis / Gran Cierre ✨</h3>
-    <p class="countdown-date" id="countdownDate">8 de diciembre de 2026</p>
+    <h3>✨ Cuenta regresiva para la Primera Comunión ✨</h3>
+    <p class="countdown-date" id="countdownDate">12 de diciembre de 2026 · 10:00 a. m.</p>
+    <p class="countdown-place">Catedral San Pedro El Viejo</p>
     <div class="timer-grid" aria-live="off">
       <div class="time-card"><b id="days">--</b><span>Días</span></div>
       <div class="time-card"><b id="hours">--</b><span>Horas</span></div>
       <div class="time-card"><b id="minutes">--</b><span>Minutos</span></div>
       <div class="time-card"><b id="seconds">--</b><span>Segundos</span></div>
     </div>
-    <div class="countdown-note" id="countdownNote">Tiempo restante para el gran cierre.</div>
+    <div class="countdown-note" id="countdownNote">Nos preparamos para recibir a Jesús por primera vez.</div>
   </div>
 
   <main>
@@ -362,9 +385,7 @@ footer strong {
   </main>
 
   <footer>
-    <strong>Camino hacia Jesús · La Salle del Sur</strong><br>
-    Con fe, alegría y amor, nos preparamos para recibir a Jesús. ✨
-    <div class="copyright">© 2026 Colegio Privado La Salle del Sur · Programa Camino hacia Jesús. Todos los derechos reservados.</div>
+    <div class="copyright">Colegio Privado La Salle del Sur · Todos los derechos reservados.</div>
   </footer>
 </div>
 
@@ -372,9 +393,9 @@ footer strong {
     const URL_API_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
 
   // Cuenta regresiva calculada con la hora local del dispositivo.
-  // El objetivo es el inicio del 8 de diciembre de 2026.
+  // El objetivo es la Primera Comunión: 12 de diciembre de 2026 a las 10:00 a. m.
   function updateCountdown() {
-    const target = new Date(2026, 11, 8, 0, 0, 0, 0).getTime();
+    const target = new Date(2026, 11, 12, 10, 0, 0, 0).getTime();
     const remaining = Math.max(0, target - Date.now());
     const days = Math.floor(remaining / 86400000);
     const hours = Math.floor((remaining % 86400000) / 3600000);
@@ -390,10 +411,10 @@ footer strong {
     const note = document.getElementById('countdownNote');
     if (remaining === 0) {
       countdown.classList.add('is-finished');
-      note.textContent = '¡Hoy es el día del gran cierre de la catequesis!';
+      note.textContent = '¡Hoy recibimos a Jesús por primera vez!';
     } else {
       countdown.classList.remove('is-finished');
-      note.textContent = 'Tiempo restante para el gran cierre.';
+      note.textContent = 'Nos preparamos para recibir a Jesús por primera vez.';
     }
   }
 
@@ -461,10 +482,10 @@ footer strong {
             ${renderizarSubtemas(s.subtema)}
             <p class="topic-desc"><strong>Objetivo:</strong> ${escaparHTML(objetivo)}</p>
             <div class="topic-meta">
-              <div><strong>Valor:</strong> ${escaparHTML(s.val || s.valor || '')}</div>
-              <div><strong>Cita Bíblica:</strong> ${escaparHTML(s.cita || s.cita_biblica || '')}</div>
-              <div><strong>Actividad:</strong> ${escaparHTML(actividad || 'Por definir')}</div>
-              ${s.catequista ? `<div><strong>Catequista:</strong> ${escaparHTML(s.catequista)}</div>` : ''}
+              <div class="meta-valor"><strong>Valor:</strong> ${escaparHTML(s.val || s.valor || '')}</div>
+              <div class="meta-cita"><strong>Cita Bíblica:</strong> ${escaparHTML(s.cita || s.cita_biblica || '')}</div>
+              <div class="meta-actividad"><strong>Actividad:</strong> ${escaparHTML(actividad || 'Por definir')}</div>
+              ${s.catequista ? `<div class="meta-catequista"><strong>Catequista:</strong> ${escaparHTML(s.catequista)}</div>` : ''}
             </div>
           </div>
         `;
@@ -474,7 +495,7 @@ footer strong {
         <div class="stage-header">
           <div class="stage-icon">${escaparHTML(block.icon || '📖')}</div>
           <div class="stage-title-wrap">
-            <span>Sección ${idx + 1}</span>
+            <span>Bloque ${idx + 1}</span>
             <h3>${escaparHTML(block.title || 'Bloque')}</h3>
           </div>
         </div>
