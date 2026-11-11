@@ -516,6 +516,32 @@ footer strong {
     });
   }
 
+  // JSONP evita CORS y redireccionamientos de Apps Script desde GitHub Pages.
+  function consultarProgramacionJSONP() {
+    return new Promise((resolve, reject) => {
+      const callback = 'ldsProgramacion_' + Date.now() + '_' + Math.floor(Math.random() * 1000000);
+      const script = document.createElement('script');
+      let finalizado = false;
+      const limpiar = () => {
+        if (script.parentNode) script.parentNode.removeChild(script);
+        try { delete window[callback]; } catch (_) { window[callback] = undefined; }
+      };
+      const terminar = (error, respuesta) => {
+        if (finalizado) return;
+        finalizado = true;
+        clearTimeout(temporizador);
+        limpiar();
+        if (error) reject(error); else resolve(respuesta);
+      };
+      const temporizador = setTimeout(() => terminar(new Error('Google Sheets agotó el tiempo de respuesta.')), 20000);
+      window[callback] = respuesta => terminar(null, respuesta);
+      script.onerror = () => terminar(new Error('No se pudo conectar con Google Apps Script.'));
+      const query = new URLSearchParams({ action: 'getSesiones', callback, _: String(Date.now()) });
+      script.src = URL_API_APPS_SCRIPT + '?' + query.toString();
+      document.head.appendChild(script);
+    });
+  }
+
   async function sincronizarConGoogleSheets() {
     const statusEl = document.getElementById('estadoSincronizacion');
     const boton = document.getElementById('btnActualizar');
@@ -523,18 +549,8 @@ footer strong {
     boton.disabled = true;
 
     try {
-      const separador = URL_API_APPS_SCRIPT.includes('?') ? '&' : '?';
-      const response = await fetch(`${URL_API_APPS_SCRIPT}${separador}action=getSesiones`, {
-        method: 'GET',
-        cache: 'no-store',
-        redirect: 'follow'
-      });
+      const resJson = await consultarProgramacionJSONP();
 
-      if (!response.ok) {
-        throw new Error(`El servidor respondió con estado ${response.status}.`);
-      }
-
-      const resJson = await response.json();
       if (!resJson || resJson.exito !== true || !Array.isArray(resJson.bloques) || resJson.bloques.length === 0) {
         throw new Error((resJson && resJson.mensaje) || 'La API no devolvió una programación válida.');
       }
