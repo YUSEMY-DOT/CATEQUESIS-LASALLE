@@ -11,6 +11,7 @@ const APP_SHELL = [
   './programacion.html',
   './CATEQUISTA.html',
   './padres.html',
+  './supervisores.html',
   './GestorPastoral.html',
   './assets/PORTAL CATEQUESIS.png',
   './assets/BTN-PROGRAMACION.png',
