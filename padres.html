@@ -541,11 +541,38 @@
       }
     });
 
+    // Lecturas JSONP: GitHub Pages y Apps Script tienen orígenes distintos.
+    // JSONP evita depender de cabeceras CORS en las respuestas de Apps Script.
+    function solicitarJsonp(params, timeoutMs=20000) {
+      return new Promise((resolve, reject) => {
+        const callback = 'ldsPadres_' + Date.now() + '_' + Math.floor(Math.random()*1e6);
+        const script = document.createElement('script');
+        let finalizado = false;
+        const limpiar = () => {
+          clearTimeout(timer);
+          script.onerror = null;
+          if (script.parentNode) script.parentNode.removeChild(script);
+          try { delete window[callback]; } catch (_) { window[callback] = undefined; }
+        };
+        const terminar = (fn, value) => {
+          if (finalizado) return;
+          finalizado = true; limpiar(); fn(value);
+        };
+        const timer = setTimeout(() => terminar(reject, new Error('La conexión con Google Sheets agotó el tiempo de espera.')), timeoutMs);
+        window[callback] = data => {
+          if (!data || data.exito === false) return terminar(reject, new Error(data && data.mensaje ? data.mensaje : 'Google Apps Script no pudo completar la consulta.'));
+          terminar(resolve, data);
+        };
+        const query = new URLSearchParams({...params, callback, _:Date.now()});
+        script.onerror = () => terminar(reject, new Error('No se pudo conectar con Google Apps Script.'));
+        script.src = `${URL_WEB_APP}?${query.toString()}`;
+        document.head.appendChild(script);
+      });
+    }
+
     async function apiGet(action, extra={}) {
-      const params = new URLSearchParams({action, ...(tokenPadres ? {token:tokenPadres} : {}), ...extra});
-      const res = await fetch(`${URL_WEB_APP}?${params.toString()}`, {method:'GET', cache:'no-store'});
-      if (!res.ok) throw new Error(`El servidor respondió HTTP ${res.status}.`);
-      return await res.json();
+      const params = {action, ...(tokenPadres ? {token:tokenPadres} : {}), ...extra};
+      return await solicitarJsonp(params);
     }
 
     async function realizarLogin(event) {
@@ -557,9 +584,7 @@
       try {
         const codigo=document.getElementById('codigoPadre').value.trim();
         const clave=document.getElementById('clavePadre').value.trim();
-        const params=new URLSearchParams({action:'validarLogin',codigoPadre:codigo,clave:clave});
-        const res=await fetch(`${URL_WEB_APP}?${params.toString()}`,{method:'GET',cache:'no-store'});
-        const data=await res.json();
+        const data=await solicitarJsonp({action:'validarLogin',codigoPadre:codigo,clave:clave});
         if (!data.exito || !data.token) throw new Error(data.mensaje || 'No se pudo validar el acceso.');
         tokenPadres=data.token; perfilPadres=data.perfil || null;
         sessionStorage.setItem(CLAVE_SESION_PADRES,tokenPadres);
