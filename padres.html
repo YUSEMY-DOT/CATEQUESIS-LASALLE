@@ -373,8 +373,8 @@
           <input type="text" id="codigoPadre" class="form-control" placeholder="Ej. PAD-EST-001" value="" autocomplete="off" required>
         </div>
         <div class="mb-3">
-          <label class="form-label small fw-bold text-muted">Clave de Acceso</label>
-          <input type="password" id="clavePadre" class="form-control" placeholder="Ingrese su clave" value="" autocomplete="new-password" required>
+          <label class="form-label small fw-bold text-muted">PIN Familiar</label>
+          <input type="password" id="clavePadre" class="form-control" placeholder="Ingrese el PIN de la columna PIN FAMILIAR" value="" inputmode="numeric" autocomplete="current-password" required>
         </div>
         <button type="submit" class="btn btn-primary w-100 fw-bold py-2 rounded-pill shadow-sm">Ingresar al Portal</button>
       </form>
@@ -397,6 +397,7 @@
           <button id="audioToggle" type="button" class="btn btn-outline-light btn-sm fw-bold rounded-pill sound-toggle" aria-pressed="false" onclick="alternarSilencio()" title="Silenciar voz">🔊 Sonido</button>
           <button type="button" class="btn btn-outline-light btn-sm fw-bold rounded-pill" onclick="volverInicio()" title="Volver al inicio">⌂ Inicio</button>
           <button type="button" class="btn btn-outline-light btn-sm fw-bold rounded-pill" onclick="location.reload()" title="Actualizar portal">↻ Actualizar</button>
+          <button type="button" class="btn btn-outline-light btn-sm fw-bold rounded-pill" onclick="cerrarSesionPadres()" title="Cerrar sesión">Salir</button>
         </div>
       </div>
     </header>
@@ -520,23 +521,64 @@
   <script>
     const URL_WEB_APP = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
     // FASE 1: se omite el PIN y las consultas quedan limitadas por el GS a PAD-EST-001.
-    const MODO_PRUEBA = true;
-    let fechaActualVista = new Date(2026, 10, 1);
+    const MODO_PRUEBA = false;
+    const CLAVE_SESION_PADRES = 'caminoJesusPadresToken';
+    let tokenPadres = sessionStorage.getItem(CLAVE_SESION_PADRES) || '';
+    let perfilPadres = null;
+    let fechaActualVista = new Date();
     let eventosSesiones = [], eventosCumple = [], eventosAvisos = [];
 
     window.addEventListener('load', async function() {
-      document.getElementById('loginView').classList.add('d-none');
-      document.getElementById('portalView').classList.remove('d-none');
       actualizarBotonAudio();
       if (!('speechSynthesis' in window)) { const b=document.getElementById('audioToggle'); b.disabled=true; b.title='Audio no disponible en este navegador'; }
-      await cargarDatosCompletosCalendario();
+      if (tokenPadres) {
+        document.getElementById('loginView').classList.add('d-none');
+        document.getElementById('portalView').classList.remove('d-none');
+        await cargarDatosCompletosCalendario();
+      } else {
+        document.getElementById('portalView').classList.add('d-none');
+        document.getElementById('loginView').classList.remove('d-none');
+      }
     });
 
     async function apiGet(action, extra={}) {
-      const params = new URLSearchParams({action, ...(MODO_PRUEBA ? {modoPrueba:'1'} : {}), ...extra});
+      const params = new URLSearchParams({action, ...(tokenPadres ? {token:tokenPadres} : {}), ...extra});
       const res = await fetch(`${URL_WEB_APP}?${params.toString()}`, {method:'GET', cache:'no-store'});
       if (!res.ok) throw new Error(`El servidor respondió HTTP ${res.status}.`);
       return await res.json();
+    }
+
+    async function realizarLogin(event) {
+      event.preventDefault();
+      const error=document.getElementById('loginError');
+      const boton=event.submitter || document.querySelector('#loginView button[type="submit"]');
+      error.classList.add('d-none');
+      if (boton) { boton.disabled=true; boton.textContent='Verificando…'; }
+      try {
+        const codigo=document.getElementById('codigoPadre').value.trim();
+        const clave=document.getElementById('clavePadre').value.trim();
+        const params=new URLSearchParams({action:'validarLogin',codigoPadre:codigo,clave:clave});
+        const res=await fetch(`${URL_WEB_APP}?${params.toString()}`,{method:'GET',cache:'no-store'});
+        const data=await res.json();
+        if (!data.exito || !data.token) throw new Error(data.mensaje || 'No se pudo validar el acceso.');
+        tokenPadres=data.token; perfilPadres=data.perfil || null;
+        sessionStorage.setItem(CLAVE_SESION_PADRES,tokenPadres);
+        document.getElementById('loginView').classList.add('d-none');
+        document.getElementById('portalView').classList.remove('d-none');
+        document.getElementById('clavePadre').value='';
+        await cargarDatosCompletosCalendario();
+      } catch(e) {
+        error.textContent=e.message || 'Código familiar o PIN incorrecto.';
+        error.classList.remove('d-none');
+      } finally { if (boton) { boton.disabled=false; boton.textContent='Ingresar al Portal'; } }
+    }
+
+    function cerrarSesionPadres() {
+      tokenPadres=''; perfilPadres=null; sessionStorage.removeItem(CLAVE_SESION_PADRES);
+      eventosSesiones=[]; eventosCumple=[]; eventosAvisos=[];
+      document.getElementById('portalView').classList.add('d-none');
+      document.getElementById('loginView').classList.remove('d-none');
+      volverInicio();
     }
 
     let vozSilenciada = false;
@@ -597,17 +639,25 @@
       const diag=document.getElementById('diagnosticoPortal');
       diag.innerHTML='<div class="d-flex align-items-center gap-2"><span class="spinner-border spinner-border-sm text-primary"></span><strong>Conectando con Google Sheets…</strong></div>';
       try {
-        const [cal,avisos,diagnostico] = await Promise.all([
-          apiGet('getCalendarioPadres'), apiGet('getAvisos'), apiGet('getDiagnosticoPadres')
+        const [cal,avisos,cumples,diagnostico] = await Promise.all([
+          apiGet('getCalendarioPadres'), apiGet('getAvisos'), apiGet('getCumpleanosPadres'), apiGet('getDiagnosticoPadres')
         ]);
         if (!cal.exito) throw new Error(cal.mensaje || 'No se pudo leer CLASES.');
         if (!avisos.exito) throw new Error(avisos.mensaje || 'No se pudo leer AVISOS.');
+        if (!cumples.exito) throw new Error(cumples.mensaje || 'No se pudieron leer los cumpleaños.');
+        eventosCumple = Array.isArray(cumples.datos) ? cumples.datos : [];
         eventosSesiones = Array.isArray(cal.datos) ? cal.datos : [];
         eventosAvisos = Array.isArray(avisos.datos) ? avisos.datos : [];
         generarCalendarioVisual();
         renderDiagnostico(diagnostico);
         seleccionarFechaInicial();
       } catch(e) {
+        if (/Ingrese con su código familiar|sesión venció|no está autorizada/i.test(String(e.message||''))) {
+          cerrarSesionPadres();
+          const error=document.getElementById('loginError');
+          if(error){error.textContent='La sesión venció. Ingrese nuevamente con su código familiar y PIN.';error.classList.remove('d-none');}
+          return;
+        }
         diag.innerHTML=`<div class="alert alert-danger mb-0"><strong>No se pudo conectar con Google Sheets.</strong><br>${escapeHtml(e.message || 'Error de conexión.')}</div>`;
         generarCalendarioVisual();
       }
@@ -656,8 +706,9 @@
         const key=`${anio}-${String(mes+1).padStart(2,'0')}-${String(dia).padStart(2,'0')}`;
         const clases=eventosSesiones.filter(x=>fechaKey(x.fecha)===key);
         const avisos=eventosAvisos.filter(x=>fechaKey(x.FECHA)===key);
+        const cumple=eventosCumple.filter(x=>{const v=x.CUMPLEANOS;if(!v)return false;const d=new Date(v);if(!isNaN(d))return d.getDate()===dia && d.getMonth()===mes;const m=String(v).match(/(\\d{1,2})[\\/-](\\d{1,2})/);return !!m && Number(m[1])===dia && Number(m[2])-1===mes;});
         const titulo=clases.map(x=>[x.tema1,x.tema2].filter(Boolean).join(' / ')).filter(Boolean).join(' · ');
-        out+=`<button type="button" class="calendar-day ${clases.length?'has-clase':''} ${avisos.length?'has-aviso':''}" onclick="seleccionarDia(${dia},${mes},${anio})"><span class="calendar-number text-dark">${dia}</span>${titulo?`<div class="calendar-topic bg-primary text-white mt-1">${escapeHtml(titulo)}</div>`:''}${avisos.length?'<small class="text-warning fw-bold">● Aviso</small>':''}</button>`;
+        out+=`<button type="button" class="calendar-day ${clases.length?'has-clase':''} ${avisos.length?'has-aviso':''} ${cumple.length?'has-cumple':''}" onclick="seleccionarDia(${dia},${mes},${anio})"><span class="calendar-number text-dark">${dia}</span>${titulo?`<div class="calendar-topic bg-primary text-white mt-1">${escapeHtml(titulo)}</div>`:''}${avisos.length?'<small class="text-warning fw-bold">● Aviso</small>':''}${cumple.length?'<small class="text-danger fw-bold">● Cumpleaños</small>':''}</button>`;
       }
       grid.innerHTML=out;
     }
@@ -672,7 +723,8 @@
       } else document.getElementById('detalleClase').textContent='Sin clase programada para esta fecha.';
       const avisos=eventosAvisos.filter(x=>fechaKey(x.FECHA)===key);
       document.getElementById('detalleAviso').innerHTML=avisos.length?avisos.map(x=>`<div class="mb-2"><strong>${escapeHtml(x.TITULO)}</strong><br>${escapeHtml(x.MENSAJE)}</div>`).join(''):'Sin avisos especiales para esta fecha.';
-      document.getElementById('detalleCumple').textContent='Los cumpleaños se incorporarán después de validar el funcionamiento de los módulos principales.';
+      const cumple=eventosCumple.filter(x=>{const v=x.CUMPLEANOS;if(!v)return false;const d=new Date(v);if(!isNaN(d))return d.getDate()===dia && d.getMonth()===mes;const m=String(v).match(/(\d{1,2})[\/-](\d{1,2})/);return !!m && Number(m[1])===dia && Number(m[2])-1===mes;});
+      document.getElementById('detalleCumple').innerHTML=cumple.length?cumple.map(x=>`<div><strong>${escapeHtml(x.NOMBRE_COMPLETO)}</strong> <span class="text-muted small">${escapeHtml(x.PARENTESCO||'Familiar')}</span></div>`).join(''):'Sin cumpleaños familiares registrados para esta fecha.';
     }
 
     function tableHtml(rows, columns, labels={}) {
@@ -682,7 +734,7 @@
 
     function renderAsistencia(data) {
       const filas=data.datos||[], califs=data.calificaciones||[];
-      if(!filas.length) return '<div class="alert alert-warning">No se encontró un registro de asistencia para la familia de prueba.</div>';
+      if(!filas.length) return '<div class="alert alert-warning">No se encontró un registro de asistencia para la familia autenticada.</div>';
       const fechas=data.fechasSesiones||[];
       return filas.map(a=>{
         const pct=a.ASISTENCIA_PORCENTAJE==null?0:Number(a.ASISTENCIA_PORCENTAJE);
@@ -694,7 +746,7 @@
     function renderRequisitos(data) {
       const rows=data.datos||[], mats=data.materiales||[];
       let out='';
-      if(!rows.length) out+='<div class="alert alert-warning">No hay ficha de requisitos para el catequizando de prueba.</div>';
+      if(!rows.length) out+='<div class="alert alert-warning">No hay ficha de requisitos para el catequizando de la familia.</div>';
       rows.forEach(r=>{
         const cols=Object.keys(r).filter(k=>/^REQ\d+/i.test(k));
         const avance=r['% AVANCE']||'0%';
@@ -706,7 +758,7 @@
 
     function renderAportes(data) {
       const rows=data.datos||[];
-      if(!rows.length) return '<div class="alert alert-info">No se encontraron registros de aportes para la familia de prueba.</div>';
+      if(!rows.length) return '<div class="alert alert-info">No se encontraron registros de aportes para la familia autenticada.</div>';
       return rows.map(r=>`<div class="border rounded-3 p-3 mb-3"><div class="d-flex flex-wrap justify-content-between gap-2"><div><h6 class="fw-bold mb-1">${escapeHtml(r.NOMBRE||'Catequizando')}</h6><span class="small text-muted">Registro de aporte parroquial</span></div><span class="badge ${String(r.ESTADO_PAGO).toLowerCase().includes('pagad')?'bg-success':'bg-warning text-dark'} align-self-start">${escapeHtml(r.ESTADO_PAGO||'Pendiente')}</span></div><div class="row mt-2"><div class="col-6"><small class="text-muted">Monto</small><div class="fw-bold">${escapeHtml(r.MONTO||'—')}</div></div><div class="col-6"><small class="text-muted">Fecha de pago</small><div>${escapeHtml(formatDate(r.FECHA_PAGO))}</div></div></div><div class="small text-muted mt-2">${escapeHtml(r.MEDIO_PAGO||'Medio de pago no registrado')}</div>${r.OBSERVACIONES?`<div class="small mt-2">${escapeHtml(r.OBSERVACIONES)}</div>`:''}</div>`).join('');
     }
 
