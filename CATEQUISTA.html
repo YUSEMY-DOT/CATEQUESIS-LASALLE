@@ -156,9 +156,43 @@
 
 @media(max-width:900px){.cal-container{grid-template-columns:1fr}.asist-layout{grid-template-columns:1fr}}
 @media print{body *{visibility:hidden}#vista-asistencia, #vista-asistencia * {visibility:visible}#vista-asistencia{position:absolute;left:0;top:0;width:100%}.no-print{display:none!important}}
+
+/* ACCESO PROTEGIDO DEL PORTAL DE CATEQUISTAS */
+.auth-overlay{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:22px;background:linear-gradient(135deg,#edf3f9ee,#e8eef6f5);backdrop-filter:blur(7px)}
+.auth-overlay[hidden]{display:none!important}
+.auth-card{width:min(520px,100%);background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:0 24px 65px #102b4f25}
+.auth-card h2{margin:0;color:var(--navy);font-size:1.7rem}
+.auth-card .auth-sub{color:var(--muted);margin:7px 0 22px}
+.auth-field{display:grid;gap:7px;margin:15px 0}
+.auth-field label{font-size:.9rem;font-weight:850;color:var(--navy)}
+.auth-field input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--ink)}
+.auth-error{display:none;padding:10px 12px;border-radius:10px;background:#fff0f0;border:1px solid #f0c4c4;color:#9d2f36;font-size:.88rem;margin:12px 0}
+.auth-user{font-size:.8rem;color:var(--muted);font-weight:800;margin-right:6px}
+@media(max-width:520px){.auth-card{padding:23px 19px}}
+
 </style>
 </head>
 <body>
+<div class="auth-overlay" id="catequista-login-overlay">
+  <section class="auth-card" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+    <div class="eyebrow" style="color:var(--gold-deep)">Acceso institucional</div>
+    <h2 id="auth-title">Portal de Catequistas</h2>
+    <p class="auth-sub">Camino hacia Jesús 2026 · Colegio La Salle del Sur y Parroquia San Pedro de Lurín</p>
+    <div id="catequista-login-error" class="auth-error" role="alert"></div>
+    <form id="catequista-login-form" autocomplete="off">
+      <div class="auth-field">
+        <label for="catequista-id">Código de catequista</label>
+        <input id="catequista-id" name="idCatequista" type="text" placeholder="Ej. CAT-001" autocomplete="username" required>
+      </div>
+      <div class="auth-field">
+        <label for="catequista-pin">PIN personal</label>
+        <input id="catequista-pin" name="pin" type="password" inputmode="numeric" placeholder="Ingrese su PIN" autocomplete="current-password" required>
+      </div>
+      <button class="btn primary" id="btn-login-catequista" type="submit" style="width:100%;margin-top:9px">Ingresar al portal</button>
+    </form>
+    <p class="sub" style="margin:16px 0 0;font-size:.78rem">El acceso se valida con la pestaña CATEQUISTAS de Google Sheets.</p>
+  </section>
+</div>
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand">
@@ -169,8 +203,10 @@
       </div>
     </div>
     <div class="top-actions">
+      <span id="catequista-sesion-nombre" class="auth-user"></span>
       <button class="btn small primary" id="btnActualizar">🔄 Sincronizar</button>
       <button class="btn small" id="mute-toggle">🔊 Silenciar</button>
+      <button class="btn small" id="btnSalirCatequista" type="button" onclick="cerrarSesionCatequistaPortal()">Cerrar sesión</button>
       <a class="btn small primary" href="./index.html">← Volver a portada</a>
     </div>
   </div>
@@ -540,6 +576,9 @@
 <script>
 const $ = id => document.getElementById(id);
 const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec";
+const CLAVE_SESION_CATEQUISTAS = 'caminoCatequistasToken';
+let tokenCatequistaPortal = sessionStorage.getItem(CLAVE_SESION_CATEQUISTAS) || '';
+let perfilCatequistaPortal = null;
 
 let sesionesPortal = [];
 let clasesPortal = [];
@@ -610,7 +649,9 @@ function apiGet(action, parametros) {
       if (!respuesta || respuesta.exito === false) reject(new Error(respuesta && respuesta.mensaje ? respuesta.mensaje : 'La consulta no se pudo completar.'));
       else resolve(respuesta);
     };
-    const query = new URLSearchParams(Object.assign({}, parametros, { action, callback, _: Date.now() }));
+    const queryData = Object.assign({}, parametros);
+    if (tokenCatequistaPortal && !queryData.token) queryData.token = tokenCatequistaPortal;
+    const query = new URLSearchParams(Object.assign({}, queryData, { action, callback, _: Date.now() }));
     script.onerror = () => {
       if (terminado) return;
       terminado = true; clearTimeout(temporizador); limpiar(); reject(new Error('No se pudo conectar con el servicio de Google Apps Script.'));
@@ -622,16 +663,61 @@ function apiGet(action, parametros) {
 
 // Escritura simple (text/plain) para evitar preflight. Luego se verifica leyendo de nuevo la hoja.
 async function apiPost(payload) {
+  const datos = Object.assign({}, payload || {});
+  if (tokenCatequistaPortal) datos.token = tokenCatequistaPortal;
   const resultado = await fetch(URL_APPS_SCRIPT, {
     method: 'POST',
     mode: 'no-cors',
     headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(datos)
   });
   return resultado;
 }
 
+async function iniciarSesionCatequista(event) {
+  event.preventDefault();
+  const boton = $('btn-login-catequista');
+  const error = $('catequista-login-error');
+  if (error) { error.style.display = 'none'; error.textContent = ''; }
+  const idCatequista = $('catequista-id').value.trim();
+  const pin = $('catequista-pin').value.trim();
+  if (!idCatequista || !pin) {
+    if (error) { error.textContent = 'Ingrese el código y el PIN.'; error.style.display = 'block'; }
+    return;
+  }
+  if (boton) { boton.disabled = true; boton.textContent = 'Verificando acceso…'; }
+  try {
+    const respuesta = await apiGet('validarLoginCatequista', {idCatequista:idCatequista, pin:pin, token:''});
+    if (!respuesta || !respuesta.exito || !respuesta.token) throw new Error(respuesta && respuesta.mensaje ? respuesta.mensaje : 'No se pudo validar el acceso.');
+    tokenCatequistaPortal = respuesta.token;
+    perfilCatequistaPortal = respuesta.perfil || null;
+    sessionStorage.setItem(CLAVE_SESION_CATEQUISTAS, tokenCatequistaPortal);
+    $('catequista-pin').value = '';
+    $('catequista-login-overlay').hidden = true;
+    if ($('catequista-sesion-nombre')) $('catequista-sesion-nombre').textContent = perfilCatequistaPortal ? perfilCatequistaPortal.nombre : idCatequista;
+    abrirPortalComun();
+  } catch (e) {
+    if (error) { error.textContent = e.message || 'Código o PIN incorrecto.'; error.style.display = 'block'; }
+  } finally {
+    if (boton) { boton.disabled = false; boton.textContent = 'Ingresar al portal'; }
+  }
+}
+
+function cerrarSesionCatequistaPortal() {
+  tokenCatequistaPortal = '';
+  perfilCatequistaPortal = null;
+  sessionStorage.removeItem(CLAVE_SESION_CATEQUISTAS);
+  hideModal('mise-modal');
+  if ($('catequista-sesion-nombre')) $('catequista-sesion-nombre').textContent = '';
+  if ($('catequista-login-overlay')) $('catequista-login-overlay').hidden = false;
+  if ($('catequista-id')) $('catequista-id').focus();
+}
+
 function abrirPortalComun() {
+  if (!tokenCatequistaPortal) {
+    if ($('catequista-login-overlay')) $('catequista-login-overlay').hidden = false;
+    return;
+  }
   openModal('mise-modal');
   volverMenuPrincipal();
   sincronizarConHoja(false);
@@ -655,6 +741,10 @@ function hideModal(id) { if ($(id)) $(id).classList.remove('show'); }
 document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => hideModal(b.closest('.modal-backdrop').id)));
 
 async function sincronizarConHoja(silencioso) {
+  if (!tokenCatequistaPortal) {
+    if ($('catequista-login-overlay')) $('catequista-login-overlay').hidden = false;
+    return false;
+  }
   const botones = Array.from(document.querySelectorAll('button[onclick="sincronizarConHoja()"]')).concat($('btnActualizar') ? [$('btnActualizar')] : []);
   const textos = botones.map(b => b.textContent);
   botones.forEach(b => { b.disabled = true; b.textContent = '⏳ Sincronizando…'; });
@@ -697,7 +787,10 @@ async function sincronizarConHoja(silencioso) {
   } catch (error) {
     console.error('Error al sincronizar con Google Sheets:', error);
     botones.forEach((b, i) => { b.textContent = textos[i] || '🔄 Sincronizar'; });
-    if (!silencioso) alert('No se pudo sincronizar con Google Sheets.\n' + error.message);
+    if (/iniciar sesión como catequista|sesión.*venc|no autorizado|token/i.test(String(error.message || ''))) {
+      cerrarSesionCatequistaPortal();
+      if ($('catequista-login-error')) { $('catequista-login-error').textContent = 'La sesión venció. Ingrese nuevamente.'; $('catequista-login-error').style.display = 'block'; }
+    } else if (!silencioso) alert('No se pudo sincronizar con Google Sheets.\n' + error.message);
     return false;
   } finally {
     botones.forEach(b => { b.disabled = false; });
@@ -1661,9 +1754,19 @@ async function sincronizarCalendario(mostrarAlerta) {
 }
 
 function initPortalCatequistas() {
-  // Estado inicial visible; los datos reales se cargan al abrir el portal común.
   if ($('btnActualizar')) $('btnActualizar').onclick = () => sincronizarConHoja(false);
+  if ($('catequista-login-form')) $('catequista-login-form').addEventListener('submit', iniciarSesionCatequista);
   renderizarCalendarioModelo();
+  if (tokenCatequistaPortal) {
+    if ($('catequista-login-overlay')) $('catequista-login-overlay').hidden = true;
+    apiGet('getPerfilCatequista').then(r => {
+      perfilCatequistaPortal = r.perfil || null;
+      if ($('catequista-sesion-nombre')) $('catequista-sesion-nombre').textContent = perfilCatequistaPortal ? perfilCatequistaPortal.nombre : '';
+      abrirPortalComun();
+    }).catch(() => cerrarSesionCatequistaPortal());
+  } else {
+    if ($('catequista-login-overlay')) $('catequista-login-overlay').hidden = false;
+  }
 }
 document.addEventListener('DOMContentLoaded', initPortalCatequistas);
 </script>
