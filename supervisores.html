@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SUPERVISORES | Primera Comunión 2026</title>
+<meta name="theme-color" content="#234a63">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="SUPERVISORES">
+<link rel="manifest" href="./manifest.json">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+:root{--vino:#74151b;--rojo:#a8202b;--oro:#d9b44a;--fondo:#f3f5f8;--tinta:#263445}*{box-sizing:border-box}body{margin:0;background:var(--fondo);color:var(--tinta);font-family:Segoe UI,Arial,sans-serif}.top{background:linear-gradient(115deg,var(--vino),var(--rojo));color:white;padding:18px 0}.wrap{max-width:1180px;margin:auto;padding:0 16px}.brand{font-weight:800;font-size:1.35rem}.muted{color:#697586}.panel{background:white;border:1px solid #e3e7ed;border-radius:18px;padding:20px;box-shadow:0 8px 24px #1822300c}.login{max-width:980px;margin:7vh auto}.profile-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.profile{border:2px solid #e7e9ee;background:#fff;border-radius:18px;padding:16px;text-align:center;cursor:pointer;transition:.2s}.profile:hover,.profile.selected{border-color:var(--oro);transform:translateY(-2px);box-shadow:0 8px 24px #00000012}.photo{width:128px;height:128px;border-radius:50%;object-fit:cover;background:#e9edf2;border:4px solid #f1d98b}.profile h3{font-size:1.02rem;font-weight:800;margin:12px 0 4px}.profile p{font-size:.88rem;color:#667085;margin:0}.btn-main{background:var(--vino);color:#fff;border:0;border-radius:24px;padding:10px 22px;font-weight:700}.btn-main:hover{background:var(--rojo);color:white}.metric{border-left:5px solid var(--oro)}.nav-tabs .nav-link{font-weight:700;color:var(--vino)}.nav-tabs .nav-link.active{color:var(--rojo)}.table thead th{white-space:nowrap;background:#f7f8fa}.tag{display:inline-block;background:#f6edcf;color:#644c0a;padding:3px 9px;border-radius:20px;font-size:.78rem}.hidden{display:none!important}.notice{border-left:4px solid var(--oro);padding:12px;background:#fffdf6;border-radius:8px;margin:8px 0}.small-note{font-size:.85rem;color:#697586}.institution-logo{width:112px;height:120px;object-fit:contain;background:transparent;filter:drop-shadow(0 3px 5px #0005)}
+.team-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:18px}.team-person{background:#fff;border:1px solid #e3e7ed;border-radius:14px;padding:12px 14px;text-align:center}.team-person strong{display:block;color:var(--vino)}.team-person span{font-size:.86rem;color:#667085}
+/* Resumen superior compacto: cuenta regresiva y cuatro indicadores en una sola franja */
+.dashboard-strip{display:grid;grid-template-columns:1.45fr repeat(4,minmax(0,1fr));gap:10px;margin-bottom:18px;align-items:stretch}
+.countdown,.metric-compact{min-width:0;min-height:76px;border-radius:13px;padding:11px 14px;display:flex;flex-direction:column;justify-content:center}
+.countdown{background:linear-gradient(125deg,#263e55 0%,#365a70 100%);color:#fff;border:1px solid #49677c;box-shadow:0 5px 16px #20364a22;position:relative;overflow:hidden}
+.countdown:after{content:"";position:absolute;width:110px;height:110px;border:1px solid #ffffff20;border-radius:50%;right:-32px;top:-48px;pointer-events:none}
+.countdown-kicker{font-size:.67rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f0dcae;line-height:1.2}
+.countdown-title{font-size:clamp(.88rem,1.15vw,1.02rem);font-weight:700;line-height:1.2;margin-top:4px;color:#fff}
+.countdown .digits{font-size:clamp(.84rem,1.05vw,1rem);font-weight:800;letter-spacing:.015em;line-height:1.3;margin-top:7px;color:#fff;white-space:normal}
+.countdown .digits .time-unit{display:inline-block;background:#ffffff18;border:1px solid #ffffff26;border-radius:6px;padding:3px 6px;margin:1px 2px 0 0;font-variant-numeric:tabular-nums}
+.metric-compact{background:#fff;border:1px solid #e3e7ed;box-shadow:0 3px 12px #18223008}
+.metric-compact .small-note{font-size:.72rem;line-height:1.15}
+.metric-compact .metric-value{font-size:1.35rem;line-height:1.15;font-weight:800;color:#34465b;margin-top:5px}
+.nav-tabs{border:0;gap:8px;align-items:center}
+.nav-tabs .nav-link{border:1px solid transparent!important;border-radius:11px!important;padding:9px 14px;font-size:.88rem;font-weight:700;transition:background .18s,border-color .18s,transform .18s}
+.nav-tabs .nav-link:hover{transform:translateY(-1px)}
+.nav-tabs .nav-link.active{box-shadow:0 3px 10px #18223012}
+.nav-tabs .nav-item:nth-child(1) .nav-link{background:#eaf1fb;color:#38577f;border-color:#d7e3f4!important}
+.nav-tabs .nav-item:nth-child(1) .nav-link.active{background:#dce9fa;color:#25466f;border-color:#b9cfea!important}
+.nav-tabs .nav-item:nth-child(2) .nav-link{background:#eaf4ee;color:#3e7053;border-color:#d4e8db!important}
+.nav-tabs .nav-item:nth-child(2) .nav-link.active{background:#d9ecdf;color:#285c3e;border-color:#b8d9c3!important}
+.nav-tabs .nav-item:nth-child(3) .nav-link{background:#fdf2e6;color:#91602e;border-color:#f3dfc8!important}
+.nav-tabs .nav-item:nth-child(3) .nav-link.active{background:#f8e6d1;color:#7a4d20;border-color:#eacda9!important}
+.nav-tabs .nav-item:nth-child(4) .nav-link{background:#f2ecf8;color:#70558d;border-color:#e3d8ef!important}
+.nav-tabs .nav-item:nth-child(4) .nav-link.active{background:#e8dcf3;color:#5c407b;border-color:#d1bee5!important}
+.nav-tabs .nav-item:nth-child(5) .nav-link{background:#e9f4f5;color:#397078;border-color:#d2e8e9!important}
+.nav-tabs .nav-item:nth-child(5) .nav-link.active{background:#d8ecee;color:#285c64;border-color:#b8dadd!important}
+.nav-tabs .nav-item:nth-child(6) .nav-link{background:#fbefef;color:#98545a;border-color:#f0dada!important}
+.nav-tabs .nav-item:nth-child(6) .nav-link.active{background:#f4dede;color:#7e3e45;border-color:#e7c1c4!important}
+.nav-tabs .nav-item:nth-child(7) .nav-link{background:#f5f1e5;color:#806d35;border-color:#eae2c8!important}
+.nav-tabs .nav-item:nth-child(7) .nav-link.active{background:#eee5c9;color:#6d5a25;border-color:#dfd2a6!important}
+.nav-tabs .nav-item:nth-child(8) .nav-link{background:#edf0f4;color:#596779;border-color:#dce2e9!important}
+.nav-tabs .nav-item:nth-child(8) .nav-link.active{background:#dfe5ec;color:#3f4e60;border-color:#c7d1dd!important}
+@media(max-width:900px){.dashboard-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.countdown{grid-column:span 2}}
+@media(max-width:480px){.dashboard-strip{gap:7px}.countdown,.metric-compact{padding:9px 10px;min-height:68px}.countdown .digits{font-size:.9rem;white-space:normal}.metric-compact .metric-value{font-size:1.2rem}.nav-tabs{gap:6px}.nav-tabs .nav-link{padding:8px 10px;font-size:.8rem}}.calendar-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px}.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}.calendar-day,.calendar-head{padding:8px 3px;text-align:center;border-radius:8px;font-size:.82rem}.calendar-head{font-weight:800;color:#fff;background:linear-gradient(135deg,#526b82,#71899b);padding:11px 3px;border:1px solid #506a80;letter-spacing:.02em}.calendar-day{min-height:82px;border:1px solid #e8ebf0;background:#fff}.calendar-day.other{opacity:.35}.calendar-day.has-class{border:2px solid #d9b44a;background:#fff7df;font-weight:800}.calendar-day.has-class.realizada{border-color:#8bb99a;background:#eaf5ed}.calendar-day.has-class.pendiente{border-color:#d8b56c;background:#fff5df}.calendar-day.realizada .day-mark{color:#356b48}.calendar-day.pendiente .day-mark{color:#8a641d}.calendar-day .day-num{display:block}.calendar-day .day-mark{display:block;font-size:.62rem;line-height:1.15;color:#8b6410;white-space:normal;overflow-wrap:anywhere;font-weight:600;margin-top:3px}.calendar-toolbar .btn{border:1px solid #b9c9d5!important;background:#eaf0f5!important;color:#38566c!important;font-weight:700;border-radius:10px;padding:7px 14px}.calendar-toolbar .btn:hover{background:#dce8ef!important;color:#233f55!important}.calendar-toolbar h2{color:#344f65}.class-done{background:#edf6ef!important;border-left:4px solid #83b596}.class-pending{background:#fff8e9!important;border-left:4px solid #dfbd78}.class-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.78rem;margin:8px 0 12px;color:#526070}.class-legend span{display:inline-flex;align-items:center;gap:6px}.legend-dot{width:10px;height:10px;border-radius:3px;display:inline-block}.section-card{background:#fff;border:1px solid #e3e7ed;border-radius:16px;padding:16px}.file-link{display:block;padding:10px 12px;border-bottom:1px solid #edf0f4;color:#7b1c25;text-decoration:none;overflow-wrap:anywhere}.file-link:last-child{border-bottom:0}.readonly-label{font-size:.78rem;color:#6b7280}
+@media(max-width:700px){.institution-logo{width:76px;height:84px}.team-strip{grid-template-columns:1fr}.calendar-day{min-height:48px;padding:5px 1px}.calendar-day .day-mark{font-size:.58rem}}@media(max-width:700px){.profile-grid{grid-template-columns:1fr}.photo{width:110px;height:110px}.login{margin:20px auto}.panel{padding:14px}}
+.institution-footer{margin-top:28px;background:linear-gradient(110deg,#24394d,#344f65);color:#fff;padding:18px 12px;text-align:center;border-top:3px solid #c5a76a}.institution-footer .wrap{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap}.institution-footer .footer-mark{color:#e6d3a4;font-size:1.2rem;font-weight:800}.institution-footer strong{color:#fff;letter-spacing:.02em}.institution-footer small{flex-basis:100%;color:#d5e0e8;font-size:.76rem;margin-top:2px}
+/* Ajustes visuales integrales — identidad La Salle del Sur */
+.team-strip{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.team-person{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:16px 12px;min-height:185px;background:linear-gradient(180deg,#fff,#fbfcfd);border:1px solid #e0e6ed;border-radius:16px}
+.team-photo{width:88px;height:88px;object-fit:cover;border-radius:50%;border:3px solid #a8202b;box-shadow:0 4px 12px #18223018;background:#eef1f5;margin-bottom:4px}
+.team-person strong{font-size:1rem;color:#8f1d28}.team-person span{font-size:.9rem;color:#43566b}
+.dashboard-strip{grid-template-columns:minmax(245px,1.35fr) repeat(4,minmax(118px,1fr));gap:9px}
+.countdown{min-height:104px;padding:13px 15px;background:linear-gradient(120deg,#263f57,#385d75);border-color:#496c83}
+.countdown-kicker{font-size:.66rem;letter-spacing:.1em;color:#f2dba7}
+.countdown-title{font-size:1rem;margin-top:3px}
+.countdown-date{font-size:.73rem;color:#d9e5ec;margin-top:3px}
+.countdown-timer{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;align-items:stretch;margin-top:7px}
+.countdown-unit{display:flex;flex-direction:column;gap:1px;align-items:center;justify-content:center;padding:4px 3px;border-radius:7px;background:#ffffff17;border:1px solid #ffffff2b;min-width:0}
+.countdown-unit strong{font-size:1.08rem;line-height:1.1;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap}
+.countdown-unit small{font-size:.59rem;color:#e7edf1;letter-spacing:.055em}
+.metric-compact{min-height:104px}
+.calendar-head{background:linear-gradient(135deg,#7e2029,#a52c37);border-color:#81202a;color:#fff}
+.calendar-head:nth-child(2),.calendar-head:nth-child(4),.calendar-head:nth-child(6){background:linear-gradient(135deg,#243b58,#405a77);border-color:#243b58}
+.calendar-head:nth-child(3),.calendar-head:nth-child(7){background:linear-gradient(135deg,#68727e,#87919c);border-color:#707d89}
+.calendar-head:nth-child(5){background:linear-gradient(135deg,#a9822b,#c29e4d);border-color:#a9822b;color:#fff}
+.calendar-day.realizada{background:#f7e8ea!important;border:2px solid #a52c37!important}
+.calendar-day.realizada .day-num,.calendar-day.realizada .day-mark{color:#82212b!important}
+.calendar-day.pendiente{background:#eaf0f7!important;border:2px solid #395878!important}
+.calendar-day.pendiente .day-num,.calendar-day.pendiente .day-mark{color:#294866!important}
+.calendar-day.por-confirmar{background:#f0f1f3!important;border:2px solid #9aa3ac!important}
+.calendar-day.por-confirmar .day-num,.calendar-day.por-confirmar .day-mark{color:#58636e!important}
+.class-done{background:#f8e9eb!important;border-left:4px solid #a52c37!important}
+.class-done td{color:#81212b!important}
+.class-pending{background:#eaf0f7!important;border-left:4px solid #395878!important}
+.class-pending td{color:#294866!important}
+.class-confirm{background:#f1f3f5!important;border-left:4px solid #9aa3ac!important}
+.class-confirm td{color:#53606d!important}.topic-line{font-weight:700;line-height:1.35;padding:1px 0}
+.class-legend .legend-done{background:#a52c37}.class-legend .legend-pending{background:#395878}.class-legend .legend-confirm{background:#9aa3ac}
+.student-thumb{width:46px;height:46px;object-fit:cover;border-radius:50%;border:2px solid #d7e0e8;background:#eef1f5;vertical-align:middle}
+.student-cell{display:flex;align-items:center;gap:9px;min-width:180px}.student-cell strong{display:block;color:#263e55}.student-cell small{display:block;color:#6b7785}
+.table-portal{font-size:.88rem;min-width:760px}.table-portal thead th{background:#edf1f5!important;color:#273e55!important;border-bottom:2px solid #c8d2dc!important;font-weight:800}.table-portal tbody td{vertical-align:middle}.table-portal .status-pill{display:inline-block;padding:4px 9px;border-radius:18px;font-size:.73rem;font-weight:800;white-space:nowrap}
+.status-ok{background:#f8e9eb;color:#84232d}.status-pending{background:#eaf0f7;color:#294866}.status-neutral{background:#eef0f2;color:#59636d}.progress-track{height:7px;background:#e8edf2;border-radius:99px;overflow:hidden;min-width:90px;margin-top:4px}.progress-track span{display:block;height:100%;background:#a52c37;border-radius:99px}
+.data-card{background:#fff;border:1px solid #e1e7ed;border-radius:13px;padding:13px;margin:10px 0}.data-card h4{font-size:.94rem;color:#84303a;margin:0 0 7px}.data-meta{font-size:.8rem;color:#68788a}.data-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}.data-field{background:#f6f8fa;border-radius:8px;padding:8px 10px;font-size:.82rem;overflow-wrap:anywhere}.data-field b{color:#41566c;display:block;font-size:.72rem;margin-bottom:2px}.media-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.media-card{border:1px solid #e1e7ed;border-radius:13px;overflow:hidden;background:#fff}.media-card img{width:100%;height:145px;object-fit:cover;background:#eef1f5}.media-card .body{padding:11px}.media-card a{color:#8b2631;font-weight:700;text-decoration:none}.media-card a:hover{text-decoration:underline}.empty-state{padding:18px;text-align:center;color:#667789;background:#f7f9fb;border:1px dashed #cbd5df;border-radius:12px}
+.institution-footer{background:linear-gradient(110deg,#24394d,#344f65);padding:20px 12px;text-align:center;border-top:3px solid #c5a76a}.institution-footer .wrap{display:flex;flex-direction:column;gap:4px}.institution-footer strong{font-size:.94rem;letter-spacing:.045em;color:#fff}.institution-footer span{font-size:.82rem;color:#f0dcae}.institution-footer small{color:#d5e0e8;font-size:.76rem}
+@media(max-width:900px){.dashboard-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.countdown{grid-column:span 2}.team-strip{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){.team-strip{grid-template-columns:1fr}.team-person{min-height:145px}.team-photo{width:76px;height:76px}.dashboard-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.countdown{grid-column:span 2}.countdown-unit{padding:3px 5px}.countdown-unit strong{font-size:.95rem}.countdown-unit small{font-size:.55rem}.calendar-head{font-size:.68rem;padding:8px 1px}.calendar-grid{gap:3px}.calendar-day{min-height:58px;padding:5px 1px}.calendar-day .day-mark{font-size:.55rem}.student-cell{min-width:150px}}
+
+/* AJUSTE DE IDENTIDAD VISUAL: azul, celeste y verde; sin acentos rojos */
+:root{--vino:#21445d;--rojo:#2d7e91;--oro:#7dbb9c;--fondo:#f1f6f8;--tinta:#243848}
+body{background:#f1f6f8;color:#263d4d}
+.top{background:linear-gradient(118deg,#1d3f59 0%,#2d6b82 100%);color:#fff}
+.brand{letter-spacing:.02em}
+.btn-main{background:#285d79;color:#fff;box-shadow:0 4px 12px #285d7924}
+.btn-main:hover{background:#347f8e;color:#fff}
+.profile-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:20px auto;max-width:1040px}
+.profile{display:flex;flex-direction:column;align-items:center;gap:7px;min-width:0;padding:18px 12px;border:1px solid #d7e4ea;border-radius:18px;background:linear-gradient(180deg,#fff,#f8fcfd);box-shadow:0 5px 18px #24475b0a;color:#27455b}
+.profile:hover,.profile.selected{border:2px solid #5da9b3;background:#f0faf7;transform:translateY(-2px);box-shadow:0 9px 24px #23475b17}
+.profile strong{font-size:1.04rem;color:#255a70}
+.profile span{font-size:.9rem;color:#5d7381}
+.photo{width:112px;height:112px;border-radius:50%;object-fit:cover;background:#eaf2f5;border:4px solid #d6ece5;box-shadow:0 3px 12px #173c5020}
+.login{max-width:1080px;margin:4vh auto 6vh}
+.login-heading{text-align:center;margin-bottom:14px}
+.login-heading h1{color:#24475e;font-weight:800;margin:4px 0}
+.login-heading p{color:#607584;margin:0}
+.login-eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.16em;color:#388392}
+.key-panel{max-width:700px;margin:16px auto 0;border-color:#cfe1e7;background:linear-gradient(180deg,#fff,#f7fbfc)}
+.key-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.key-input{max-width:320px;border-radius:12px;border-color:#c9dbe3;letter-spacing:.2em;font-weight:700}
+.key-input:focus{border-color:#4f9baa;box-shadow:0 0 0 .2rem #4f9baa20}
+.access-footnote{text-align:center;color:#71828d;font-size:.82rem;margin:12px 0 0}
+.team-photo{border-color:#76b99b!important}
+.team-person strong{color:#255a70!important}
+.team-person{border-color:#d9e8e8;background:linear-gradient(180deg,#fff,#f7fbfb)}
+.countdown{background:linear-gradient(125deg,#1e435f 0%,#2d7187 100%)!important;border:1px solid #56899a!important;box-shadow:0 7px 18px #1c455b1a}
+.countdown-kicker{color:#b9ead1!important}
+.countdown-title{color:#fff!important;line-height:1.25}
+.countdown-date{color:#e0f1f4!important;font-size:.76rem;line-height:1.3;max-width:340px}
+.countdown-unit{background:#ffffff16!important;border:1px solid #ffffff35!important;border-radius:9px!important}
+.countdown-unit strong{color:#fff!important;font-size:1.12rem!important}
+.countdown-unit small{color:#d5f0e4!important;font-weight:750}
+.calendar-head,.calendar-head:nth-child(n){background:linear-gradient(135deg,#28546f,#3c8091)!important;border:1px solid #36778a!important;color:#fff!important}
+.calendar-day.realizada{background:#e6f4ec!important;border:2px solid #78b99a!important}
+.calendar-day.realizada .day-num,.calendar-day.realizada .day-mark{color:#28684b!important}
+.calendar-day.pendiente{background:#eaf4f9!important;border:2px solid #68a8c0!important}
+.calendar-day.pendiente .day-num,.calendar-day.pendiente .day-mark{color:#285e7b!important}
+.class-done{background:#eaf5ee!important;border-left:4px solid #76b997!important}
+.class-done td{color:#2a6549!important}
+.class-pending{background:#eaf4f9!important;border-left:4px solid #6caec6!important}
+.class-pending td{color:#285e7b!important}
+.class-confirm{background:#f0f4f6!important;border-left:4px solid #a8bac3!important}
+.class-confirm td{color:#536875!important}
+.class-legend .legend-done{background:#76b997!important}
+.class-legend .legend-pending{background:#6caec6!important}
+.class-legend .legend-confirm{background:#a8bac3!important}
+.status-ok{background:#e5f4eb!important;color:#27684b!important}
+.status-pending{background:#e8f3f8!important;color:#275f7a!important}
+.status-neutral{background:#eef2f4!important;color:#596d78!important}
+.progress-track span{background:#56a88c!important}
+.data-card h4{color:#2a6278!important}
+.nav-tabs .nav-item:nth-child(6) .nav-link{background:#eaf4f5;color:#347380;border-color:#cfe5e6!important}
+.nav-tabs .nav-item:nth-child(6) .nav-link.active{background:#d9ecee;color:#285e68;border-color:#b8dadd!important}
+.institution-footer{background:linear-gradient(110deg,#1e435d,#2e6e83)!important;border-top:3px solid #78b99a!important}
+.institution-footer .footer-mark{color:#b9ead1!important}
+@media(max-width:700px){
+ .profile-grid{grid-template-columns:1fr;max-width:420px;gap:10px}
+ .profile{flex-direction:row;justify-content:flex-start;text-align:left;padding:12px 14px;min-height:94px}
+ .profile .photo{width:68px;height:68px;flex:0 0 68px;margin-right:8px}
+ .profile span{display:block}
+ .login-heading{text-align:left;margin:10px 4px}
+ .key-heading{align-items:flex-start;flex-direction:column}
+ .key-input{max-width:none;flex:1 1 100%}
+}
+
+
+/* Pulido de navegación y presencia institucional */
+.secretary-identity{padding:6px 12px 6px 7px;border:1px solid #d6e6e9;background:linear-gradient(110deg,#fff,#f1f8f8);border-radius:14px;min-height:62px}
+.secretary-identity img{width:48px;height:48px;object-fit:cover;border-radius:50%;border:2px solid #78b99a}
+.secretary-identity span{display:flex;flex-direction:column;line-height:1.2}
+.secretary-identity strong{font-size:.86rem;color:#255a70}
+.secretary-identity small{font-size:.72rem;color:#647986;margin-top:3px}
+.nav-tabs{display:flex;flex-wrap:wrap;gap:7px;padding:5px 0}
+.nav-tabs .nav-item{flex:0 0 auto}
+.nav-tabs .nav-link{display:flex;align-items:center;justify-content:center;min-height:40px;padding:9px 13px!important;font-size:.86rem!important;line-height:1.15;font-weight:750;white-space:normal;border-radius:10px!important}
+.photo-fallback{display:inline-flex;align-items:center;justify-content:center;color:#35556b;font-weight:800;background:#e5eef2;border:2px solid #c9dce3;border-radius:50%;flex:0 0 auto}
+@media(max-width:600px){.gestor-heading{align-items:flex-start!important}.secretary-identity{order:3;width:100%;max-width:260px}.nav-tabs .nav-item{flex:1 1 calc(50% - 7px)}.nav-tabs .nav-link{width:100%;min-height:42px;padding:8px 7px!important;font-size:.82rem!important}}
+
+</style></head><body>
+<header class="top"><div class="wrap d-flex justify-content-between align-items-center gap-3"><div class="d-flex align-items-center gap-3"><img class="institution-logo" src="data:image/webp;base64,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" width="112" height="120" decoding="async" fetchpriority="high" alt="Insignia La Salle del Sur"><div><div class="brand">GESTOR PASTORAL</div><div class="small">Colegio La Salle del Sur · Parroquia San Pedro de Lurín</div></div></div><div class="d-flex align-items-center gap-2"><a href="./index.html" class="btn btn-outline-light btn-sm rounded-pill">← Volver a portada</a><button id="btnSalir" class="btn btn-outline-light btn-sm rounded-pill hidden" onclick="cerrarSesion()">Cerrar sesión</button></div></div></header>
+<section id="pantallaAcceso" class="wrap login">
+  <div class="login-heading">
+    <span class="login-eyebrow">CAMINO HACIA JESÚS 2026</span>
+    <h1>Acceso al SUPERVISORES</h1>
+    <p>Seleccione su perfil pastoral e ingrese su clave personal para continuar.</p>
+  </div>
+  <div class="profile-grid" aria-label="Perfiles autorizados">
+    <button class="profile" type="button" data-profile="vicario" onclick="seleccionarPerfilGestor('vicario',this)">
+      <img class="photo" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/vicario-amadeo-raymi.png" alt="Fotografía del Padre Amadeo Raymi" loading="eager">
+      <strong>Vicario</strong><span>Padre Amadeo Raymi</span>
+    </button>
+    <button class="profile" type="button" data-profile="guia" onclick="seleccionarPerfilGestor('guia',this)">
+      <img class="photo" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/padre-carlos-retamoso.png" alt="Fotografía del Padre Carlos Retamoso" loading="eager">
+      <strong>Guía Espiritual</strong><span>Padre Carlos Retamoso</span>
+    </button>
+    <button class="profile" type="button" data-profile="secretaria" onclick="seleccionarPerfilGestor('secretaria',this)">
+      <img class="photo" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/milagros-ramos-landa.png" alt="Fotografía de Milagros Landa" loading="eager">
+      <strong>Secretaria Parroquial</strong><span>Milagros Landa</span>
+    </button>
+  </div>
+  <div id="claveArea" class="panel key-panel hidden">
+    <div class="key-heading">
+      <div>
+        <span class="login-eyebrow">ACCESO PROTEGIDO</span>
+        <h2 id="perfilElegido" class="h5 fw-bold mb-1">Ingrese su clave</h2>
+        <p class="small-note mb-0">Su clave permite consultar el panel de supervisión.</p>
+      </div>
+      <button class="btn btn-outline-secondary btn-sm rounded-pill" type="button" onclick="cambiarPerfilGestor()">Cambiar perfil</button>
+    </div>
+    <label for="claveGestor" class="form-label fw-semibold mt-3">Clave personal</label>
+    <div class="d-flex flex-wrap gap-2">
+      <input id="claveGestor" class="form-control key-input" type="password" inputmode="text" autocomplete="current-password" autocapitalize="off" spellcheck="false" maxlength="64" minlength="8" placeholder="Escriba su clave" onkeydown="if(event.key==='Enter')ingresarGestor()">
+      <button id="btnEntrarGestor" class="btn-main" type="button" onclick="ingresarGestor()">Ingresar</button>
+    </div>
+    <div id="errorLogin" class="small mt-2" role="alert" aria-live="polite"></div>
+  </div>
+  <p class="access-footnote">El contenido de supervisión se mantiene protegido. Cada integrante utiliza su propia clave.</p>
+</section>
+<main id="panelSUPERVISORES" class="wrap py-4 hidden"><div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3 gestor-heading"><div><h1 class="h3 fw-bold mb-1">Panel de seguimiento pastoral</h1><div id="perfilActivo" class="tag"></div></div><div class="d-flex align-items-center gap-2 secretary-identity"><img src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/milagros-ramos-landa.png" alt="Milagros Landa, Secretaria Parroquial" onerror="this.style.display='none'"><span><strong>Milagros Landa</strong><small>Secretaria Parroquial</small></span></div><button class="btn btn-outline-secondary btn-sm rounded-pill" onclick="cargarPanel()">↻ Actualizar información</button></div>
+<section class="dashboard-strip" aria-label="Resumen general del programa">
+<div class="countdown"><div class="countdown-kicker">✦ PRIMERA COMUNIÓN ✦</div><div class="countdown-title">Cuenta regresiva para recibir el sacramento</div><div id="fechaProximaClase" class="countdown-date">12 de diciembre de 2026 · 10:00 a. m. · Primera Comunión</div><div id="cuentaRegresiva" class="countdown-timer" aria-live="polite"><span class="countdown-unit"><strong id="cdDias">—</strong><small>DÍAS</small></span><span class="countdown-unit"><strong id="cdHoras">—</strong><small>HORAS</small></span><span class="countdown-unit"><strong id="cdMinutos">—</strong><small>MINUTOS</small></span><span class="countdown-unit"><strong id="cdSegundos">—</strong><small>SEGUNDOS</small></span></div></div>
+<div class="metric-compact"><div class="small-note">Catequizandos</div><div class="metric-value" id="mNinos">—</div></div>
+<div class="metric-compact"><div class="small-note">Temas programados</div><div class="metric-value" id="mTemas">—</div></div>
+<div class="metric-compact"><div class="small-note">Clases programadas</div><div class="metric-value" id="mClases">—</div></div>
+<div class="metric-compact"><div class="small-note">Notas registradas</div><div class="metric-value" id="mNotas">—</div></div>
+</section>
+<ul class="nav nav-tabs mb-3 flex-wrap" role="tablist">
+<li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tabCalendario">Calendario</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabNinos">Avance de niños</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabAsistencia">Asistencia</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabNotas">Calificaciones</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabDocs">Documentación</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabPagos">Pagos</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabAvisos">Mensajes</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabMedia">Fotos y videos</button></li></ul>
+<div class="tab-content"><section class="tab-pane fade show active panel" id="tabCalendario"><div class="calendar-toolbar mb-3"><button class="btn btn-outline-secondary btn-sm" onclick="cambiarMes(-1)">‹ Anterior</button><h2 class="h5 fw-bold mb-0" id="mesCalendario">Calendario de clases</h2><button class="btn btn-outline-secondary btn-sm" onclick="cambiarMes(1)">Siguiente ›</button></div><div id="calendarioMes" class="calendar-grid mb-4"></div><h3 class="h6 fw-bold">Programación de las 46 clases y sus 68 temas</h3><div class="class-legend"><span><i class="legend-dot legend-done"></i> Clase realizada</span><span><i class="legend-dot legend-pending"></i> Clase pendiente</span></div><div class="table-responsive"><table class="table table-sm align-middle"><thead><tr><th>Clase</th><th>Fecha</th><th>Temas</th><th>Horario</th><th>Catequista</th><th>Estado</th></tr></thead><tbody id="tablaClases"><tr><td colspan="6">Cargando…</td></tr></tbody></table></div></section>
+<section class="tab-pane fade panel" id="tabNinos"><h2 class="h5 fw-bold">Seguimiento de catequizandos</h2><input id="buscarNino" class="form-control mb-3" placeholder="Buscar por nombre o código" oninput="renderNinos()"><div class="table-responsive"><table class="table table-sm"><thead><tr><th>Código</th><th>Catequizando</th><th>Grado</th><th>Asistencia</th><th>Requisitos</th><th>Materiales</th><th>Pago</th><th>Notas</th></tr></thead><tbody id="tablaNinos"></tbody></table></div></section>
+<section class="tab-pane fade panel" id="tabAsistencia"><h2 class="h5 fw-bold">Asistencia de catequizandos</h2><p class="small-note">Consulta de asistencias, tardanzas, faltas y justificadas. No permite editar registros.</p><div class="table-responsive"><table class="table table-sm"><thead><tr><th>Catequizando</th><th>% asistencia</th><th>Presentes</th><th>Tardanzas</th><th>Faltas</th><th>Justificadas</th></tr></thead><tbody id="tablaAsistencia"></tbody></table></div></section>
+<section class="tab-pane fade panel" id="tabNotas"><h2 class="h5 fw-bold">Calificaciones</h2><p class="small-note">Consulta de notas registradas; este panel no permite editarlas.</p><div class="table-responsive"><table class="table table-sm"><thead><tr id="headNotas"></tr></thead><tbody id="tablaNotas"></tbody></table></div></section>
+<section class="tab-pane fade panel" id="tabDocs"><h2 class="h5 fw-bold">Documentación</h2><p class="small-note">Consulta del avance documental y de materiales registrado para cada catequizando.</p><h3 class="h6 fw-bold mt-3">Requisitos</h3><div id="listaRequisitos"></div><h3 class="h6 fw-bold mt-4">Materiales y documentos</h3><div id="listaMateriales"></div></section>
+<section class="tab-pane fade panel" id="tabPagos"><h2 class="h5 fw-bold">Consulta de pagos</h2><p class="small-note">Solo visualización del estado de pago y comprobantes. No se pueden registrar ni modificar pagos.</p><div class="table-responsive"><table class="table table-sm"><thead><tr><th>Catequizando</th><th>Monto</th><th>Estado</th><th>Fecha</th><th>Medio</th><th>Operación</th><th>Comprobante</th></tr></thead><tbody id="tablaPagos"></tbody></table></div></section>
+<section class="tab-pane fade panel" id="tabAvisos"><h2 class="h5 fw-bold">Mensajes y comunicados</h2><p class="small-note">Consulta de mensajes y avisos registrados en Google Sheets.</p><hr><h3 class="h6 fw-bold">Comunicados publicados</h3><div id="listaAvisos"></div></section><section class="tab-pane fade panel" id="tabMedia"><h2 class="h5 fw-bold">Carpeta de fotos y videos</h2><p class="small-note">Material audiovisual asociado a las sesiones. Solo consulta.</p><div id="listaMedia"></div></section></div>
+<div id="estadoPanel" class="small mt-3" role="status"></div></main><footer class="institution-footer"><div class="wrap"><strong>COLEGIO PRIVADO LA SALLE DEL SUR</strong><span>© 2026 · Todos los derechos reservados</span><small>Programa de Catequesis · Camino hacia Jesús · Parroquia San Pedro de Lurín</small></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script><script>
+const API='https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
+let datos={},jsonpCounter=0,countdownTimer=null,tabsBound=false,perfilSeleccionado='',gestorToken='';
+const GESTOR_AUTH_SALT='LDS_GESTOR_PASTORAL_2026_PRIMERA_COMUNION';
+function jsonp(action,params={}){return new Promise((resolve,reject)=>{const callback='gp_'+Date.now()+'_'+(++jsonpCounter),node=document.createElement('script'),query=new URLSearchParams({...params,action,callback});let done=false;const timeout=setTimeout(()=>finish(new Error('Tiempo de espera agotado al consultar Google Sheets.')),25000);function finish(error,result){if(done)return;done=true;clearTimeout(timeout);delete window[callback];node.remove();error?reject(error):resolve(result)}window[callback]=result=>finish(null,result);node.onerror=()=>finish(new Error('No se pudo conectar con Google Sheets.'));node.src=API+'?'+query.toString();document.head.appendChild(node)})}
+function esc(value){return String(value==null?'':value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function safeUrl(value){const url=String(value||'').trim();return /^https?:\/\//i.test(url)?url:''}
+function imageHtml(url,name,css='student-thumb'){const src=safeUrl(url);const alt=esc(name||'Fotografía');const fallback=`<span class="${css} photo-fallback ${src?'d-none':''}" aria-label="Sin fotografía">${esc(initials(name))}</span>`;return src?`<img class="${css}" src="${esc(src)}" alt="${alt}" loading="lazy" onerror="this.onerror=null;this.classList.add('d-none');if(this.nextElementSibling)this.nextElementSibling.classList.remove('d-none')">${fallback}`:fallback}
+function initials(name){return String(name||'').trim().split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase()||'—'}
+function fmtPct(value){if(value===null||value===undefined||value==='')return 'Sin registro';let n;if(typeof value==='number')n=value<=1?value*100:value;else{n=parseFloat(String(value).replace('%','').replace(',','.'));if(isNaN(n))return esc(value)}return `${Math.round(n*10)/10}%`}
+function formatDate(value){if(!value)return '—';const text=String(value);const iso=text.match(/^(\d{4})-(\d{2})-(\d{2})/);if(iso)return `${iso[3]}/${iso[2]}/${iso[1]}`;const date=new Date(text);return isNaN(date.getTime())?esc(text):date.toLocaleDateString('es-PE')}
+function studentCell(photo,name,sub=''){return `<div class="student-cell">${imageHtml(photo,name)}<span><strong>${esc(name||'Sin nombre')}</strong><small>${esc(sub||'')}</small></span></div>`}
+function percentBar(value){let n=0;if(typeof value==='number')n=value<=1?value*100:value;else{n=parseFloat(String(value||'').replace('%','').replace(',','.'));if(isNaN(n))n=0}n=Math.max(0,Math.min(100,n));return `<div>${fmtPct(value)}<div class="progress-track"><span style="width:${n}%"></span></div></div>`}
+function statusPill(value){const s=String(value||'Sin registro').trim(),u=s.toUpperCase();const cls=/PAGAD|CANCELAD|COMPLET|PUBLICAD|ENTREGAD|APROB|REALIZ|SI$/.test(u)?'status-ok':/PENDIENT|NO PAG|NO PUBLIC|FALT|OBSERV/.test(u)?'status-pending':'status-neutral';return `<span class="status-pill ${cls}">${esc(s||'Sin registro')}</span>`}
+function setText(id,value){const el=document.getElementById(id);if(el)el.textContent=value}
+function seleccionarPerfil(){/* acceso sin selección de PIN */}
+
+const perfilesGestor={
+  vicario:{nombre:'Vicario · Padre Amadeo Raymi'},
+  guia:{nombre:'Guía Espiritual · Padre Carlos Retamoso'},
+  secretaria:{nombre:'Secretaria Parroquial · Milagros Landa'}
+};
+function seleccionarPerfilGestor(perfil,boton){
+  perfilSeleccionado=perfil;
+  document.querySelectorAll('.profile').forEach(x=>x.classList.toggle('selected',x===boton));
+  const area=document.getElementById('claveArea');
+  area.classList.remove('hidden');
+  setText('perfilElegido',perfilesGestor[perfil].nombre);
+  setText('errorLogin','');
+  const input=document.getElementById('claveGestor');
+  input.value='';
+  input.focus();
+}
+function cambiarPerfilGestor(){
+  perfilSeleccionado='';
+  document.getElementById('claveArea').classList.add('hidden');
+  document.querySelectorAll('.profile').forEach(x=>x.classList.remove('selected'));
+  setText('errorLogin','');
+}
+async function sha256HexGestor(texto){
+  if(!window.crypto||!crypto.subtle) throw new Error('Este navegador no permite validar la clave de forma segura. Abra el portal en Chrome, Edge o Safari actualizado.');
+  const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(texto));
+  return Array.from(new Uint8Array(digest)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+async function ingresarGestor(){
+  const input=document.getElementById('claveGestor');
+  const clave=String(input.value||'').trim();
+  const error=document.getElementById('errorLogin');
+  const boton=document.getElementById('btnEntrarGestor');
+  if(!perfilSeleccionado){error.textContent='Seleccione primero su perfil.';return}
+  if(clave.length<8||clave.length>64){error.textContent='Ingrese su clave personal completa.';input.focus();return}
+  boton.disabled=true;boton.textContent='Validando…';error.textContent='';
+  try{
+    const desafio=await jsonp('obtenerDesafioGestor',{perfil:perfilSeleccionado});
+    if(!desafio||!desafio.exito||!desafio.nonce) throw new Error(desafio&&desafio.mensaje||'No se pudo iniciar la validación.');
+    const claveHash=await sha256HexGestor(clave);
+    const pruebaHash=await sha256HexGestor(`${claveHash}|${desafio.nonce}`);
+    const respuesta=await jsonp('validarAccesoGestor',{perfil:perfilSeleccionado,nonce:desafio.nonce,pruebaHash});
+    if(!respuesta||!respuesta.exito) throw new Error(respuesta&&respuesta.mensaje||'No se pudo validar el acceso.');
+    gestorToken=respuesta.token;
+    sessionStorage.setItem('GP_TOKEN',gestorToken);
+    document.getElementById('pantallaAcceso').classList.add('hidden');
+    document.getElementById('panelSUPERVISORES').classList.remove('hidden');
+    document.getElementById('btnSalir').classList.remove('hidden');
+    setText('perfilActivo',perfilesGestor[perfilSeleccionado].nombre);
+    await cargarPanel();
+  }catch(e){error.textContent=e.message||'No se pudo ingresar.';input.select()}
+  finally{boton.disabled=false;boton.textContent='Ingresar'}
+}
+
+async function cargarPanel(){const state=document.getElementById('estadoPanel');state.textContent='Consultando registros de Google Sheets…';state.className='small mt-3 text-secondary';try{const response=await jsonp('getPanelGestor',{token:gestorToken||sessionStorage.getItem('GP_TOKEN')||''});if(!response||!response.exito)throw new Error(response&&response.mensaje||'No se pudo cargar el panel.');datos=response;setText('mNinos',response.totalCatequizandos||0);setText('mTemas',response.totalTemas||0);setText('mClases',response.totalClases||0);setText('mNotas',response.totalCalificaciones||0);renderClases();actualizarCuentaRegresiva();renderTabActiva();if(!tabsBound){document.querySelectorAll('[data-bs-toggle="tab"]').forEach(button=>button.addEventListener('shown.bs.tab',renderTabActiva));tabsBound=true}state.textContent='';}catch(error){state.textContent=error.message;state.className='small mt-3 text-danger';if(/sesión venció|no está autorizada/i.test(error.message)){gestorToken='';sessionStorage.removeItem('GP_TOKEN');document.getElementById('panelSUPERVISORES').classList.add('hidden');document.getElementById('pantallaAcceso').classList.remove('hidden');document.getElementById('btnSalir').classList.add('hidden');}}}
+function renderTabActiva(){const active=document.querySelector('[data-bs-toggle="tab"].active');const id=active?(active.getAttribute('data-bs-target')||'').replace('#',''):'tabCalendario';const renders={tabCalendario:renderClases,tabNinos:renderNinos,tabAsistencia:renderAsistencia,tabNotas:renderNotas,tabDocs:renderDocs,tabPagos:renderPagos,tabAvisos:renderAvisos,tabMedia:renderMedia};if(renders[id])renders[id]()}
+function claseEstado(c){const panel=String(c.ESTADO_PANEL||'').trim().toUpperCase();if(panel==='REALIZADA')return 'realizada';if(panel==='CANCELADA')return 'cancelada';if(panel==='PENDIENTE')return 'pendiente';const raw=String(c.ESTADO_CLASE||'').trim().toUpperCase();if(c.FECHA_REALIZACION||/REALIZ|COMPLET|FINALIZ|DICTAD|EJECUT|CULMIN/.test(raw))return 'realizada';if(/CANCELAD|SUSPEND/.test(raw))return 'cancelada';const iso=c.FECHA_ISO||'';const today=new Date();today.setHours(0,0,0,0);const date=localDate(iso,'00:00');if(date&&date<today)return 'por-confirmar';return 'pendiente'}
+function claseEstadoLabel(c){const state=claseEstado(c);return state==='realizada'?'Realizada':state==='cancelada'?'Cancelada':state==='por-confirmar'?'Pendiente de confirmar':'Pendiente'}
+function localDate(iso,time){const m=String(iso||'').match(/^(\d{4})-(\d{2})-(\d{2})$/);if(!m)return null;const t=String(time||'00:00').match(/^(\d{1,2}):(\d{2})/);return new Date(Number(m[1]),Number(m[2])-1,Number(m[3]),t?Number(t[1]):0,t?Number(t[2]):0,0,0)}
+function renderClases(){const classes=datos.clases||[];const body=document.getElementById('tablaClases');body.innerHTML=classes.map(c=>{const state=claseEstado(c),rowClass=state==='realizada'?'class-done':state==='pendiente'?'class-pending':'class-confirm';const topics=(c.TEMAS||[c.TEMA||'']).filter(Boolean).map(t=>`<div class="topic-line">${esc(t)}</div>`).join('');return `<tr class="${rowClass}"><td>${esc(c.NUMERO_CLASE||c.ID_CLASE||'—')}</td><td>${formatDate(c.FECHA_ISO||c.FECHA)}</td><td>${topics||'—'}</td><td>${esc((c.HORA_INICIO||'')+(c.HORA_FIN?' – '+c.HORA_FIN:''))}</td><td>${esc(c.CATEQUISTA||'—')}</td><td>${statusPill(claseEstadoLabel(c))}</td></tr>`}).join('')||'<tr><td colspan="6">No hay clases registradas.</td></tr>';renderCalendario()}
+let mesVisible=new Date(new Date().getFullYear(),new Date().getMonth(),1);
+function renderCalendario(){const classes=datos.clases||[],byDate={};classes.forEach(c=>{const iso=c.FECHA_ISO||'';if(iso)byDate[iso]=c});const y=mesVisible.getFullYear(),m=mesVisible.getMonth(),first=new Date(y,m,1),offset=(first.getDay()+6)%7,total=new Date(y,m+1,0).getDate();setText('mesCalendario',first.toLocaleDateString('es-PE',{month:'long',year:'numeric'}));let html=['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'].map(day=>`<div class="calendar-head">${day}</div>`).join('');for(let i=0;i<42;i++){const d=i-offset+1;if(d<1||d>total){html+='<div class="calendar-day other"></div>';continue}const iso=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`,c=byDate[iso],state=c?claseEstado(c):'';const topics=c?(c.TEMAS||[c.TEMA||`Clase ${c.NUMERO_CLASE||''}`]).filter(Boolean).map(t=>esc(t)).join('<br>'):'';html+=`<div class="calendar-day ${c?'has-class '+(state==='realizada'?'realizada':state==='pendiente'?'pendiente':'por-confirmar'):''}"><span class="day-num">${d}</span>${topics?`<span class="day-mark">${topics}</span>`:''}</div>`}document.getElementById('calendarioMes').innerHTML=html}
+function cambiarMes(delta){mesVisible=new Date(mesVisible.getFullYear(),mesVisible.getMonth()+delta,1);renderCalendario()}
+function actualizarCuentaRegresiva(){
+  if(countdownTimer) clearInterval(countdownTimer);
+  const fechaObjetivo=new Date('2026-12-12T10:00:00-05:00');
+  const label=document.getElementById('fechaProximaClase');
+  label.textContent='12 de diciembre de 2026 · 10:00 a. m. · Primera Comunión';
+  const render=()=>{
+    const ahora=new Date();
+    const restante=fechaObjetivo.getTime()-ahora.getTime();
+    if(restante<=0){
+      ['cdDias','cdHoras','cdMinutos','cdSegundos'].forEach(id=>setText(id,'00'));
+      if(ahora.getFullYear()===2026&&ahora.getMonth()===11&&ahora.getDate()===12){
+        label.textContent='¡Hoy celebramos la Primera Comunión!';
+      }else if(restante<0){
+        label.textContent='La Primera Comunión se celebró el 12 de diciembre de 2026 a las 10:00 a. m.';
+      }
+      if(countdownTimer) clearInterval(countdownTimer);
+      return;
+    }
+    const dias=Math.floor(restante/86400000);
+    const horas=Math.floor((restante%86400000)/3600000);
+    const minutos=Math.floor((restante%3600000)/60000);
+    const segundos=Math.floor((restante%60000)/1000);
+    setText('cdDias',String(dias).padStart(2,'0'));
+    setText('cdHoras',String(horas).padStart(2,'0'));
+    setText('cdMinutos',String(minutos).padStart(2,'0'));
+    setText('cdSegundos',String(segundos).padStart(2,'0'));
+  };
+  render();
+  countdownTimer=setInterval(render,1000);
+}
+function renderNinos(){const query=(document.getElementById('buscarNino').value||'').toLowerCase().trim();const asistencia={};(datos.asistencia||[]).forEach(a=>asistencia[a.ID_NINO]=a);const req={};((datos.documentacion||{}).requisitos||[]).forEach(r=>req[r.ID]=r);const mat={};((datos.documentacion||{}).materiales||[]).forEach(r=>mat[r.ID]=r);const pagos={};(datos.pagos||[]).forEach(p=>pagos[p.ID]=p);const rows=(datos.catequizandos||[]).filter(a=>`${a.ID_NINO} ${a.NOMBRE_COMPLETO} ${a.GRADO}`.toLowerCase().includes(query));document.getElementById('tablaNinos').innerHTML=rows.map(a=>{const as=asistencia[a.ID_NINO]||a,r=req[a.ID_NINO]||{},m=mat[a.ID_NINO]||{},p=pagos[a.ID_NINO]||{};return `<tr><td>${esc(a.ID_NINO)}</td><td>${studentCell(a.FOTO,a.NOMBRE_COMPLETO,a.GRADO||'')}</td><td>${esc(a.GRADO||'—')}</td><td>${fmtPct(as.ASISTENCIA_PORCENTAJE)}</td><td>${percentBar(r['% AVANCE']||a.AVANCE_REQUISITOS)}</td><td>${percentBar(m['% CUMPLIMIENTO']||a.AVANCE_MATERIALES)}</td><td>${statusPill(p.ESTADO_PAGO||a.ESTADO_PAGO||'Sin registro')}</td><td>${Number(a.TOTAL_CALIFICACIONES)||0}</td></tr>`}).join('')||'<tr><td colspan="8">No se encontraron catequizandos.</td></tr>'}
+function renderAsistencia(){const rows=datos.asistencia||[];document.getElementById('tablaAsistencia').innerHTML=rows.map(a=>`<tr><td>${studentCell(a.FOTO,a.NOMBRE_COMPLETO,a.ID_NINO)}</td><td><strong>${fmtPct(a.ASISTENCIA_PORCENTAJE)}</strong></td><td>${Number(a.TOTAL_PRESENTES)||0}</td><td>${Number(a.TOTAL_TARDANZAS)||0}</td><td>${Number(a.TOTAL_FALTAS)||0}</td><td>${Number(a.TOTAL_JUSTIFICADAS)||0}</td></tr>`).join('')||'<tr><td colspan="6">No hay registros de asistencia en la hoja ASISTENCIA.</td></tr>'}
+function renderNotas(){const rows=datos.calificaciones||[],fields=[['FECHA_REGISTRO','Fecha'],['NOMBRE_CATEQUIZANDO','Catequizando'],['TEMA','Tema'],['TIPO_ACTIVIDAD','Actividad'],['DESCRIPCION','Descripción'],['NOTA_NUMERICA','Nota'],['EQUIVALENCIA','Equivalencia'],['CATEQUISTA','Catequista']];document.getElementById('headNotas').innerHTML=fields.map(f=>`<th>${f[1]}</th>`).join('');document.getElementById('tablaNotas').innerHTML=rows.map(a=>`<tr>${fields.map(f=>`<td>${f[0]==='FECHA_REGISTRO'?formatDate(a[f[0]]):esc(a[f[0]]||'—')}</td>`).join('')}</tr>`).join('')||'<tr><td colspan="8">No hay calificaciones registradas en CALIFICACIONES.</td></tr>'}
+function renderDocs(){const d=datos.documentacion||{},students={};(datos.catequizandos||[]).forEach(a=>students[a.ID_NINO]=a);const reqRows=d.requisitos||[],matRows=d.materiales||[];document.getElementById('listaRequisitos').innerHTML=reqRows.map(r=>{const st=students[r.ID]||{},items=Object.keys(r).filter(k=>/^REQ\d+/i.test(k));const details=items.map(k=>`<div class="data-field"><b>${esc(k.split(':')[0])}</b>${esc(r[k]||'Pendiente de registro')}</div>`).join('');return `<article class="data-card"><div class="d-flex align-items-center gap-2 mb-2">${studentCell(st.FOTO,r['APELLIDOS Y NOMBRES']||st.NOMBRE_COMPLETO,r.ID)}</div><div class="data-grid"><div class="data-field"><b>Requisitos cumplidos</b>${esc(r['REQUISITOS CUMPLIDOS']||'Sin registro')}</div><div class="data-field"><b>Avance</b>${percentBar(r['% AVANCE'])}</div></div><div class="data-grid mt-2">${details}</div></article>`}).join('')||'<div class="empty-state">No hay registros de requisitos en REQUISITOS.</div>';document.getElementById('listaMateriales').innerHTML=matRows.map(r=>{const st=students[r.ID]||{},items=Object.keys(r).filter(k=>/^Clase\s*\d+/i.test(k));const detail=items.filter(k=>r[k]!==''&&r[k]!==null&&r[k]!==undefined).map(k=>`<div class="data-field"><b>${esc(k)}</b>${esc(r[k])}</div>`).join('');return `<article class="data-card"><div class="d-flex align-items-center gap-2 mb-2">${studentCell(st.FOTO,r['APELLIDOS Y NOMBRES']||st.NOMBRE_COMPLETO,r.ID)}</div><div class="data-grid"><div class="data-field"><b>Materiales entregados</b>${esc(r['MATERIALES ENTREGADOS']||'Sin registro')}</div><div class="data-field"><b>Cumplimiento</b>${percentBar(r['% CUMPLIMIENTO'])}</div></div>${detail?`<div class="data-grid mt-2">${detail}</div>`:'<div class="data-meta mt-2">Aún no hay entregas por clase registradas.</div>'}</article>`}).join('')||'<div class="empty-state">No hay registros de materiales en MATERIALES.</div>'}
+function renderPagos(){const rows=datos.pagos||[],students={};(datos.catequizandos||[]).forEach(a=>students[a.ID_NINO]=a);document.getElementById('tablaPagos').innerHTML=rows.map(p=>{const st=students[p.ID]||{},who=p.NOMBRE||st.NOMBRE_COMPLETO||p.ID;const voucher=safeUrl(p.VOUCHER_URL);return `<tr><td>${studentCell(p.FOTO_ALUMNO||st.FOTO,who,p.ID)}</td><td>${esc(p.MONTO||'—')}</td><td>${statusPill(p.ESTADO_PAGO||'Pendiente')}</td><td>${formatDate(p.FECHA_PAGO)}</td><td>${esc(p.MEDIO_PAGO||'—')}</td><td>${esc(p.VOUCHER_NUMERO||'—')}</td><td>${voucher?`<a href="${esc(voucher)}" target="_blank" rel="noopener">Ver comprobante</a>`:'—'}</td></tr>`}).join('')||'<tr><td colspan="7">No hay registros de pagos en PAGOS.</td></tr>'}
+function renderAvisos(){const rows=datos.avisos||[];document.getElementById('listaAvisos').innerHTML=rows.map(a=>{const published=/^(SI|SÍ|TRUE|1|PUBLICADO)$/i.test(String(a.PUBLICADO||''));const link=safeUrl(a.WHATSAPP_LINK);return `<article class="data-card"><div class="d-flex justify-content-between align-items-start gap-2 flex-wrap"><h4>${esc(a.TITULO||'Comunicado')}</h4>${statusPill(published?'Publicado':'No publicado')}</div><div class="data-meta mb-2">${formatDate(a.FECHA)} · Destinatarios: ${esc(a.DIRIGIDO_A||'No especificados')}</div><p class="mb-2">${esc(a.MENSAJE||'')}</p>${link?`<a href="${esc(link)}" target="_blank" rel="noopener">Abrir enlace de WhatsApp</a>`:''}</article>`}).join('')||'<div class="empty-state">No hay mensajes registrados en AVISOS.</div>'}
+function renderMedia(){const rows=datos.media||[];document.getElementById('listaMedia').innerHTML=rows.map(x=>{const url=safeUrl(x.url);if(!url)return '';const isImage=/\.(png|jpe?g|gif|webp)(\?|$)/i.test(url),isVideo=/\.(mp4|webm|ogg)(\?|$)/i.test(url);const media=isImage?`<img src="${esc(url)}" alt="${esc(x.tema||x.titulo||'Fotografía')}" loading="lazy">`:isVideo?`<video controls preload="none" src="${esc(url)}" style="width:100%;height:145px;background:#182230"></video>`:'';return `<article class="media-card">${media}<div class="body"><div class="data-meta">${esc(x.tipo||'Recurso')} · ${esc(x.bloque||'')}</div><strong>${esc(x.titulo||x.tema||'Material de catequesis')}</strong><div class="mt-2"><a href="${esc(url)}" target="_blank" rel="noopener">Abrir recurso ↗</a></div></div></article>`}).join('')||'<div class="empty-state">Todavía no hay fotografías o videos con enlaces registrados en SESIONES o MATERIALES.</div>'}
+function cerrarSesion(){const token=gestorToken||sessionStorage.getItem('GP_TOKEN')||'';if(token)jsonp('cerrarSesionGestor',{token}).catch(()=>{});gestorToken='';sessionStorage.removeItem('GP_TOKEN');datos={};if(countdownTimer)clearInterval(countdownTimer);document.getElementById('panelSUPERVISORES').classList.add('hidden');document.getElementById('pantallaAcceso').classList.remove('hidden');document.getElementById('btnSalir').classList.add('hidden');cambiarPerfilGestor()}
+</script></body></html>
