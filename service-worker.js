@@ -1,5 +1,5 @@
 /* Camino hacia Jesús — Service Worker compartido */
-const CACHE_VERSION = 'camino-hacia-jesus-shell-v13';
+const CACHE_VERSION = 'camino-hacia-jesus-shell-v14';
 
 /* Solo se precargan rutas verificadas en el repositorio.
    No incluir catequizandos.html ni iconos inexistentes: addAll() fallaría
