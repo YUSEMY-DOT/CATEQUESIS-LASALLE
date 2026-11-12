@@ -157,8 +157,10 @@
 @media(max-width:900px){.cal-container{grid-template-columns:1fr}.asist-layout{grid-template-columns:1fr}}
 @media print{body *{visibility:hidden}#vista-asistencia, #vista-asistencia * {visibility:visible}#vista-asistencia{position:absolute;left:0;top:0;width:100%}.no-print{display:none!important}}
 
-/* ACCESO: PORTADA INSTITUCIONAL Y SELECTOR DE CATEQUISTA */
-.auth-overlay{position:fixed;inset:0;z-index:1000;display:block;padding:0;overflow:hidden;background:#102b4f url('./assets/Portal%20de%20CATEQUISTAS.png') center center/100% 100% no-repeat}
+/* ACCESO PROTEGIDO: PORTADA INSTITUCIONAL ORIGINAL — OCUPA TODA LA VENTANA */
+html,body{width:100%;height:100%;min-height:100%;margin:0!important;padding:0!important}
+body{overflow-x:hidden}
+.auth-overlay{position:fixed!important;inset:0!important;z-index:1000;display:block;padding:0;margin:0!important;overflow:hidden;width:100vw!important;height:100vh!important;height:100dvh!important;min-width:100vw!important;min-height:100vh!important;box-sizing:border-box;background-color:#102b4f;background-image:url('./assets/Portal%20de%20CATEQUISTAS.png');background-position:center center;background-size:100% 100%;background-repeat:no-repeat}
 .auth-overlay[hidden]{display:none!important}
 .auth-card{position:absolute;left:50%;top:64.5%;transform:translateX(-50%);width:38%;height:28.5%;max-width:680px;padding:0;background:transparent;border:0;border-radius:0;box-shadow:none}
 .auth-card>.eyebrow,.auth-card h2,.auth-card .auth-sub,.auth-card>p.sub{display:none!important}
@@ -167,17 +169,17 @@
 .auth-field:nth-of-type(1){top:9%}
 .auth-field:nth-of-type(2){top:35%}
 .auth-field label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.auth-field input,.auth-field select{width:100%;height:100%;padding:4px 16px;border:2px solid #b7c7df;border-radius:40px;background:#ffffffed;color:#172b48;text-align:center;font-size:clamp(12px,1.45vw,23px);outline:none}
-.auth-field select{cursor:pointer;font-weight:700}
-.auth-field input::placeholder{color:#46505c;opacity:1}
-.auth-field input:focus,.auth-field select:focus{border-color:#173b68;box-shadow:0 0 0 3px #173b6822}
-#btn-login-catequista{position:absolute;left:14%;top:65%;width:72%;height:25%;margin:0!important;padding:0 12px;border:0;border-radius:40px;background:linear-gradient(180deg,#c00024,#a50020);color:#fff;font-size:clamp(14px,1.8vw,27px);font-weight:900;box-shadow:0 3px 0 #740018}
-#btn-login-catequista:hover{filter:brightness(1.06);transform:translateY(-1px)}
-#btn-login-catequista:disabled{opacity:.65;cursor:wait}
+.auth-field input,.auth-field select{width:100%;height:100%;box-sizing:border-box;padding:0 22px;border:0!important;border-radius:40px;background:transparent!important;color:#102b4f;text-align:center;text-align-last:center;font-size:clamp(12px,1.45vw,23px);font-weight:700;outline:none;box-shadow:none!important;appearance:none;-webkit-appearance:none}
+.auth-field input::placeholder{color:#46505f;opacity:1}
+.auth-field select option{color:#102b4f;background:#fff}
+.auth-field input:focus,.auth-field select:focus{outline:2px solid transparent;box-shadow:none!important}
+#btn-login-catequista{position:absolute;left:14%;top:65%;width:72%;height:25%;margin:0!important;padding:0 12px;border:0!important;border-radius:40px;background:transparent!important;color:#fff;font-size:clamp(14px,1.8vw,27px);font-weight:900;box-shadow:none!important;cursor:pointer}
+#btn-login-catequista:hover{filter:brightness(1.08)}
+#btn-login-catequista:disabled{cursor:wait;opacity:.85}
 .auth-error{position:absolute;left:5%;right:5%;bottom:102%;display:none;padding:7px 12px;border-radius:10px;background:#fff0f0;border:1px solid #f0c4c4;color:#9d2f36;font-size:clamp(11px,1vw,15px);margin:0;text-align:center}
 .auth-user{font-size:.8rem;color:var(--muted);font-weight:800;margin-right:6px}
-@media(max-width:700px){.auth-overlay{background-size:auto 100%}.auth-card{top:64.5%;width:min(78vw,430px);height:28.5%}.auth-field input,.auth-field select{font-size:14px}#btn-login-catequista{font-size:16px}}
-@media(max-height:560px) and (min-width:701px){.auth-overlay{background-size:auto 100%}.auth-card{top:64.5%;width:min(38vh,680px);height:28.5%}}
+@media(max-width:700px){.auth-overlay{background-size:100% 100%}.auth-card{top:64.5%;width:min(78vw,430px);height:28.5%}.auth-field input,.auth-field select{font-size:14px}#btn-login-catequista{font-size:16px}}
+@media(max-height:560px) and (min-width:701px){.auth-overlay{background-size:100% 100%}.auth-card{top:64.5%;width:min(38vh,680px);height:28.5%}}
 </style>
 </head>
 <body>
@@ -186,16 +188,14 @@
     <div id="catequista-login-error" class="auth-error" role="alert"></div>
     <form id="catequista-login-form" autocomplete="off">
       <div class="auth-field">
-        <label for="catequista-id">Catequista</label>
-        <select id="catequista-id" name="idCatequista" autocomplete="off" required>
-          <option value="">CATEQUISTAS</option>
-          <option value="CAT-001">Miss Lily</option>
-          <option value="CAT-002">Miss Kiara</option>
+        <label for="catequista-id">Selecciona tu nombre</label>
+        <select id="catequista-id" name="idCatequista" autocomplete="username" required>
+          <option value="">Cargando catequistas registrados…</option>
         </select>
       </div>
       <div class="auth-field">
-        <label for="catequista-pin">Código personal</label>
-        <input id="catequista-pin" name="pin" type="password" placeholder="Ingrese su código personal" autocomplete="current-password" required>
+        <label for="catequista-pin">Contraseña</label>
+        <input id="catequista-pin" name="pin" type="password" placeholder="Ingrese su PIN" autocomplete="current-password" required>
       </div>
       <button class="btn primary" id="btn-login-catequista" type="submit">INGRESAR</button>
     </form>
@@ -228,6 +228,35 @@
   </div>
 </section>
 
+<!-- CATEQUISTAS RESPONSABLES -->
+<section class="view active" id="view-home" style="margin-top:20px;">
+  <div class="panel">
+    <div class="panel-head">
+      <div>
+        <h2>Catequistas Responsables</h2>
+        <p class="sub">Haga clic en cualquiera de las catequistas para ingresar al portal general.</p>
+      </div>
+    </div>
+    <div class="mises-grid">
+      <article class="mise-card" onclick="abrirPortalComun()">
+        <img class="mise-avatar" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/miss%20lily.jpg" alt="Lily Melo" onerror="this.style.display='none'">
+        <div>
+          <h3 style="margin:0 0 4px; color:var(--navy); font-size:1.1rem">Lily Melo Azañero</h3>
+          <p class="small muted" style="margin:0 0 6px">Catequista Responsable</p>
+          <span class="small" style="color:var(--gold-deep); font-weight:900;">Ingresar al Portal ↗</span>
+        </div>
+      </article>
+      <article class="mise-card" onclick="abrirPortalComun()">
+        <img class="mise-avatar" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/miss%20kiara.png" alt="Kiara Morales" onerror="this.style.display='none'">
+        <div>
+          <h3 style="margin:0 0 4px; color:var(--navy); font-size:1.1rem">Kiara Morales Elguera</h3>
+          <p class="small muted" style="margin:0 0 6px">Catequista Responsable</p>
+          <span class="small" style="color:var(--gold-deep); font-weight:900;">Ingresar al Portal ↗</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
 </main>
 
 <!-- MODAL GENERAL -->
@@ -656,83 +685,69 @@ async function apiPost(payload) {
 async function iniciarSesionCatequista(event) {
   event.preventDefault();
   const boton = $('btn-login-catequista');
-  const selector = $('catequista-id');
-  const campoPin = $('catequista-pin');
   const error = $('catequista-login-error');
-
-  if (error) {
-    error.style.display = 'none';
-    error.textContent = '';
-  }
-
+  if (error) { error.style.display = 'none'; error.textContent = ''; }
+  const selector = $('catequista-id');
   const idCatequista = selector ? selector.value.trim() : '';
-  const pin = campoPin ? campoPin.value.trim() : '';
-
-  if (!idCatequista) {
-    if (error) {
-      error.textContent = 'Seleccione Miss Lily o Miss Kiara.';
-      error.style.display = 'block';
-    }
-    if (selector) selector.focus();
+  const pin = $('catequista-pin').value.trim();
+  if (!idCatequista || !pin) {
+    if (error) { error.textContent = 'Selecciona tu nombre e ingresa tu PIN.'; error.style.display = 'block'; }
+    if (!idCatequista && selector) selector.focus();
     return;
   }
-
-  if (!pin) {
-    if (error) {
-      error.textContent = 'Ingrese su código personal.';
-      error.style.display = 'block';
-    }
-    if (campoPin) campoPin.focus();
-    return;
-  }
-
-  if (boton) {
-    boton.disabled = true;
-    boton.textContent = 'Verificando acceso…';
-  }
-
+  if (boton) { boton.disabled = true; boton.textContent = 'Verificando acceso…'; }
   try {
-    // Los identificadores CAT-001 y CAT-002 son los IDs definidos
-    // para Miss Lily y Miss Kiara en configurarCatequistasYPines()
-    // del Código.gs. El PIN se valida contra esa cuenta en CATEQUISTAS.
-    const respuesta = await apiGet('validarLoginCatequista', {
-      idCatequista: idCatequista,
-      pin: pin,
-      token: ''
-    });
-
-    if (!respuesta || !respuesta.exito || !respuesta.token) {
-      throw new Error(
-        respuesta && respuesta.mensaje
-          ? respuesta.mensaje
-          : 'Catequista o código personal incorrecto.'
-      );
-    }
-
+    const respuesta = await apiGet('validarLoginCatequista', {idCatequista:idCatequista, pin:pin, token:''});
+    if (!respuesta || !respuesta.exito || !respuesta.token) throw new Error(respuesta && respuesta.mensaje ? respuesta.mensaje : 'No se pudo validar el acceso.');
     tokenCatequistaPortal = respuesta.token;
     perfilCatequistaPortal = respuesta.perfil || null;
     sessionStorage.setItem(CLAVE_SESION_CATEQUISTAS, tokenCatequistaPortal);
-
-    if (campoPin) campoPin.value = '';
-    if ($('catequista-login-overlay')) $('catequista-login-overlay').hidden = true;
-
-    if ($('catequista-sesion-nombre')) {
-      $('catequista-sesion-nombre').textContent =
-        perfilCatequistaPortal ? perfilCatequistaPortal.nombre : idCatequista;
-    }
-
+    $('catequista-pin').value = '';
+    $('catequista-login-overlay').hidden = true;
+    if ($('catequista-sesion-nombre')) $('catequista-sesion-nombre').textContent = perfilCatequistaPortal ? perfilCatequistaPortal.nombre : idCatequista;
     abrirPortalComun();
-
   } catch (e) {
+    if (error) { error.textContent = e.message || 'Código o PIN incorrecto.'; error.style.display = 'block'; }
+  } finally {
+    if (boton) { boton.disabled = false; boton.textContent = 'INGRESAR'; }
+  }
+}
+
+
+/** Carga el selector desde la pestaña real CATEQUISTAS; no usa IDs escritos a mano. */
+async function cargarCatequistasLogin() {
+  const selector = $('catequista-id');
+  const boton = $('btn-login-catequista');
+  const error = $('catequista-login-error');
+  if (!selector) return;
+  selector.innerHTML = '<option value="">Cargando catequistas…</option>';
+  if (boton) boton.disabled = true;
+  if (error) { error.style.display = 'none'; error.textContent = ''; }
+  try {
+    const respuesta = await apiGet('listarCatequistasActivas');
+    if (!respuesta || respuesta.exito === false) {
+      throw new Error(respuesta && respuesta.mensaje ? respuesta.mensaje : 'No se pudo leer CATEQUISTAS.');
+    }
+    const lista = Array.isArray(respuesta.catequistas) ? respuesta.catequistas : [];
+    selector.innerHTML = '<option value="">Selecciona tu nombre</option>';
+    lista.forEach(c => {
+      const opcion = document.createElement('option');
+      opcion.value = String(c.id || '');
+      opcion.textContent = String(c.nombre || '') + (c.cargo ? ' — ' + String(c.cargo) : '');
+      selector.appendChild(opcion);
+    });
+    if (!lista.length) {
+      selector.innerHTML = '<option value="">No hay catequistas activos</option>';
+      if (error) { error.textContent = 'No hay registros activos en la pestaña CATEQUISTAS.'; error.style.display = 'block'; }
+    }
+  } catch (e) {
+    selector.innerHTML = '<option value="">No se pudo cargar la lista</option>';
     if (error) {
-      error.textContent = e.message || 'No se pudo validar el acceso.';
+      error.textContent = (e && e.message ? e.message : 'No se pudo conectar con Apps Script.') + ' Verifica que la versión actual del GS esté implementada como aplicación web.';
       error.style.display = 'block';
     }
   } finally {
-    if (boton) {
-      boton.disabled = false;
-      boton.textContent = 'INGRESAR';
-    }
+    if (boton) boton.disabled = !selector.options || selector.options.length < 2;
   }
 }
 
@@ -743,10 +758,7 @@ function cerrarSesionCatequistaPortal() {
   hideModal('mise-modal');
   if ($('catequista-sesion-nombre')) $('catequista-sesion-nombre').textContent = '';
   if ($('catequista-login-overlay')) $('catequista-login-overlay').hidden = false;
-  if ($('catequista-id')) {
-    $('catequista-id').value = '';
-    $('catequista-id').focus();
-  }
+  if ($('catequista-id')) { $('catequista-id').value = ''; $('catequista-id').focus(); }
   if ($('catequista-pin')) $('catequista-pin').value = '';
 }
 
@@ -1793,6 +1805,7 @@ async function sincronizarCalendario(mostrarAlerta) {
 function initPortalCatequistas() {
   if ($('btnActualizar')) $('btnActualizar').onclick = () => sincronizarConHoja(false);
   if ($('catequista-login-form')) $('catequista-login-form').addEventListener('submit', iniciarSesionCatequista);
+  cargarCatequistasLogin();
   renderizarCalendarioModelo();
   if (tokenCatequistaPortal) {
     if ($('catequista-login-overlay')) $('catequista-login-overlay').hidden = true;
