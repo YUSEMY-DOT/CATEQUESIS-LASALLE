@@ -205,6 +205,83 @@ body{overflow-x:hidden}
 .lds-copyright-footer{margin-top:24px!important}
 </style>
 
+
+<style id="catequista-login-alignment-fix">
+/* Corrección de superposición: no cambia la imagen ni mueve el formulario. */
+.auth-card .auth-field>label{display:none!important}
+.auth-card .auth-field::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  left:18%;
+  right:5%;
+  top:16%;
+  bottom:16%;
+  border-radius:999px;
+  background:rgba(255,255,255,.96);
+  box-shadow:inset 0 0 0 1px rgba(159,181,211,.13);
+  pointer-events:none;
+}
+.auth-card .auth-field:nth-of-type(2)::before{right:16%}
+.auth-card .auth-field input,
+.auth-card .auth-field select{
+  position:relative;
+  z-index:1;
+  background:transparent!important;
+  color:#102b4f!important;
+  text-align:center!important;
+  text-align-last:center!important;
+  font-size:clamp(11px,1.25vw,20px)!important;
+  font-weight:700!important;
+  line-height:1.2!important;
+  padding-left:17%!important;
+  padding-right:17%!important;
+}
+.auth-card #catequista-pin::placeholder{color:#52647b!important;opacity:1}
+.auth-card #catequista-id option{color:#102b4f;background:#fff}
+.auth-card .auth-eye-hitbox{
+  position:absolute!important;
+  z-index:5!important;
+  right:0!important;
+  top:0!important;
+  width:16%!important;
+  height:100%!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:50%!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  cursor:pointer!important;
+}
+.auth-card .auth-eye-hitbox:focus-visible{
+  outline:2px solid #d5ae52!important;
+  outline-offset:-4px;
+}
+/* El texto del botón lo trae la portada. El botón HTML solo recibe el clic. */
+.auth-card #btn-login-catequista{
+  top:79%!important;
+  left:14%!important;
+  width:72%!important;
+  height:25%!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  color:transparent!important;
+  font-size:0!important;
+  line-height:0!important;
+  text-shadow:none!important;
+  box-shadow:none!important;
+  opacity:1!important;
+}
+.auth-card #btn-login-catequista:disabled{opacity:1!important}
+@media(max-width:700px){
+  .auth-card{width:38vw!important}
+  .auth-card .auth-field input,
+  .auth-card .auth-field select{font-size:10px!important}
+}
+</style>
+
 </head>
 <body>
 <div class="auth-overlay" id="catequista-login-overlay">
@@ -219,7 +296,8 @@ body{overflow-x:hidden}
       </div>
       <div class="auth-field">
         <label for="catequista-pin">Contraseña</label>
-        <input id="catequista-pin" name="pin" type="password" placeholder="" autocomplete="current-password" required>
+        <input id="catequista-pin" name="pin" type="password" placeholder="Ingrese su PIN" autocomplete="current-password" required>
+        <button type="button" id="toggle-catequista-pin" class="auth-eye-hitbox" aria-label="Mostrar PIN" title="Mostrar u ocultar PIN" onclick="toggleCatequistaPinVisibility()"></button>
       </div>
       <button class="btn primary" id="btn-login-catequista" type="submit" aria-label="Ingresar al portal de catequistas" title="Ingresar"></button>
     </form>
@@ -707,6 +785,15 @@ async function apiPost(payload) {
   return resultado;
 }
 
+function toggleCatequistaPinVisibility() {
+  const campo = $('catequista-pin');
+  const boton = $('toggle-catequista-pin');
+  if (!campo) return;
+  const mostrar = campo.type === 'password';
+  campo.type = mostrar ? 'text' : 'password';
+  if (boton) boton.setAttribute('aria-label', mostrar ? 'Ocultar PIN' : 'Mostrar PIN');
+}
+
 async function iniciarSesionCatequista(event) {
   event.preventDefault();
   const boton = $('btn-login-catequista');
@@ -720,7 +807,7 @@ async function iniciarSesionCatequista(event) {
     if (!idCatequista && selector) selector.focus();
     return;
   }
-  if (boton) { boton.disabled = true; boton.textContent = 'Verificando acceso…'; }
+  if (boton) { boton.disabled = true; boton.setAttribute('aria-busy', 'true'); boton.textContent = ''; }
   try {
     const respuesta = await apiGet('validarLoginCatequista', {idCatequista:idCatequista, pin:pin, token:''});
     if (!respuesta || !respuesta.exito || !respuesta.token) throw new Error(respuesta && respuesta.mensaje ? respuesta.mensaje : 'No se pudo validar el acceso.');
@@ -734,7 +821,7 @@ async function iniciarSesionCatequista(event) {
   } catch (e) {
     if (error) { error.textContent = e.message || 'Código o PIN incorrecto.'; error.style.display = 'block'; }
   } finally {
-    if (boton) { boton.disabled = false; boton.textContent = 'INGRESAR'; }
+    if (boton) { boton.disabled = false; boton.removeAttribute('aria-busy'); boton.textContent = ''; }
   }
 }
 
@@ -745,7 +832,7 @@ async function cargarCatequistasLogin() {
   const boton = $('btn-login-catequista');
   const error = $('catequista-login-error');
   if (!selector) return;
-  selector.innerHTML = '<option value=""> </option>';
+  selector.innerHTML = '<option value="">Selecciona tu nombre</option>';
   if (boton) boton.disabled = true;
   if (error) { error.style.display = 'none'; error.textContent = ''; }
   try {
@@ -754,7 +841,7 @@ async function cargarCatequistasLogin() {
       throw new Error(respuesta && respuesta.mensaje ? respuesta.mensaje : 'No se pudo leer CATEQUISTAS.');
     }
     const lista = Array.isArray(respuesta.catequistas) ? respuesta.catequistas : [];
-    selector.innerHTML = '<option value=""> </option>';
+    selector.innerHTML = '<option value="">Selecciona tu nombre</option>';
     lista.forEach(c => {
       const opcion = document.createElement('option');
       opcion.value = String(c.id || '');
@@ -762,11 +849,11 @@ async function cargarCatequistasLogin() {
       selector.appendChild(opcion);
     });
     if (!lista.length) {
-      selector.innerHTML = '<option value=""> </option>';
+      selector.innerHTML = '<option value="">Selecciona tu nombre</option>';
       if (error) { error.textContent = 'No hay registros activos en la pestaña CATEQUISTAS.'; error.style.display = 'block'; }
     }
   } catch (e) {
-    selector.innerHTML = '<option value=""> </option>';
+    selector.innerHTML = '<option value="">Selecciona tu nombre</option>';
     if (error) {
       error.textContent = (e && e.message ? e.message : 'No se pudo conectar con Apps Script.') + ' Verifica que la versión actual del GS esté implementada como aplicación web.';
       error.style.display = 'block';
