@@ -367,6 +367,20 @@ body{overflow-x:hidden}
 }
 </style>
 
+
+<style id="catequista-login-pill-left-extension">
+/* Corrección de dirección: extender 1 cm hacia la catequista SIN lentes (lado izquierdo). */
+/* Se retira la ampliación anterior hacia la derecha. */
+.auth-card .auth-field::before{
+  left:calc(15% - 1cm)!important;
+  right:4%!important;
+}
+.auth-card .auth-field:nth-of-type(2)::before{
+  left:calc(15% - 1cm)!important;
+  right:16%!important;
+}
+</style>
+
 </head>
 <body>
 <div class="auth-overlay" id="catequista-login-overlay">
