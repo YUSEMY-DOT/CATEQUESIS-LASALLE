@@ -162,18 +162,21 @@ html,body{width:100%;height:100%;min-height:100%;margin:0!important;padding:0!im
 body{overflow-x:hidden}
 .auth-overlay{position:fixed!important;inset:0!important;z-index:1000;display:block;padding:0;margin:0!important;overflow:hidden;width:100vw!important;height:100vh!important;height:100dvh!important;min-width:100vw!important;min-height:100vh!important;box-sizing:border-box;background-color:#102b4f;background-image:url('./assets/Portal%20de%20CATEQUISTAS.png');background-position:center center;background-size:100% 100%;background-repeat:no-repeat}
 .auth-overlay[hidden]{display:none!important}
+.auth-overlay::after{content:"© 2026 Colegio Privado La Salle del Sur. Todos los derechos reservados.";position:absolute;left:0;right:0;bottom:8px;z-index:2;text-align:center;color:#fff;font-size:clamp(9px,.8vw,12px);font-weight:700;letter-spacing:.02em;text-shadow:0 1px 3px rgba(0,0,0,.6);pointer-events:none}
 .auth-card{position:absolute;left:50%;top:64.5%;transform:translateX(-50%);width:38%;height:28.5%;max-width:680px;padding:0;background:transparent;border:0;border-radius:0;box-shadow:none}
 .auth-card>.eyebrow,.auth-card h2,.auth-card .auth-sub,.auth-card>p.sub{display:none!important}
 #catequista-login-form{position:absolute;inset:0;margin:0}
 .auth-field{position:absolute;left:9%;width:82%;height:21%;display:block;margin:0}
 .auth-field:nth-of-type(1){top:9%}
 .auth-field:nth-of-type(2){top:35%}
-.auth-field label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.auth-field>label{display:none!important}
 .auth-field input,.auth-field select{width:100%;height:100%;box-sizing:border-box;padding:0 22px;border:0!important;border-radius:40px;background:transparent!important;color:#102b4f;text-align:center;text-align-last:center;font-size:clamp(12px,1.45vw,23px);font-weight:700;outline:none;box-shadow:none!important;appearance:none;-webkit-appearance:none}
 .auth-field input::placeholder{color:#46505f;opacity:1}
 .auth-field select option{color:#102b4f;background:#fff}
 .auth-field input:focus,.auth-field select:focus{outline:2px solid transparent;box-shadow:none!important}
 #btn-login-catequista{position:absolute;left:14%;top:65%;width:72%;height:25%;margin:0!important;padding:0 12px;border:0!important;border-radius:40px;background:transparent!important;color:#fff;font-size:clamp(14px,1.8vw,27px);font-weight:900;box-shadow:none!important;cursor:pointer}
+#btn-login-catequista{font-size:0!important;color:transparent!important;text-shadow:none!important}
+#btn-login-catequista::before,#btn-login-catequista::after{content:none!important;display:none!important}
 #btn-login-catequista:hover{filter:brightness(1.08)}
 #btn-login-catequista:disabled{cursor:wait;opacity:.85}
 .auth-error{position:absolute;left:5%;right:5%;bottom:102%;display:none;padding:7px 12px;border-radius:10px;background:#fff0f0;border:1px solid #f0c4c4;color:#9d2f36;font-size:clamp(11px,1vw,15px);margin:0;text-align:center}
@@ -181,6 +184,27 @@ body{overflow-x:hidden}
 @media(max-width:700px){.auth-overlay{background-size:100% 100%}.auth-card{top:64.5%;width:min(78vw,430px);height:28.5%}.auth-field input,.auth-field select{font-size:14px}#btn-login-catequista{font-size:16px}}
 @media(max-height:560px) and (min-width:701px){.auth-overlay{background-size:100% 100%}.auth-card{top:64.5%;width:min(38vh,680px);height:28.5%}}
 </style>
+
+<style id="lds-copyright-standard">
+.lds-copyright-footer,.lds-copyright-line{
+  display:block!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+  margin:12px 0 0!important;
+  padding:11px 16px!important;
+  text-align:center!important;
+  color:#fff!important;
+  background:linear-gradient(105deg,#0a1c39,#18395f)!important;
+  border-top:2px solid #d4ae55!important;
+  font-family:inherit!important;
+  font-size:12px!important;
+  font-weight:700!important;
+  line-height:1.5!important;
+  letter-spacing:.02em!important;
+}
+.lds-copyright-footer{margin-top:24px!important}
+</style>
+
 </head>
 <body>
 <div class="auth-overlay" id="catequista-login-overlay">
@@ -195,9 +219,9 @@ body{overflow-x:hidden}
       </div>
       <div class="auth-field">
         <label for="catequista-pin">Contraseña</label>
-        <input id="catequista-pin" name="pin" type="password" placeholder="Ingrese su PIN" autocomplete="current-password" required>
+        <input id="catequista-pin" name="pin" type="password" placeholder="" autocomplete="current-password" required>
       </div>
-      <button class="btn primary" id="btn-login-catequista" type="submit">INGRESAR</button>
+      <button class="btn primary" id="btn-login-catequista" type="submit" aria-label="Ingresar al portal de catequistas" title="Ingresar"></button>
     </form>
   </section>
 </div>
@@ -257,6 +281,7 @@ body{overflow-x:hidden}
     </div>
   </div>
 </section>
+<footer class="lds-copyright-footer">© 2026 Colegio Privado La Salle del Sur. Todos los derechos reservados.</footer>
 </main>
 
 <!-- MODAL GENERAL -->
@@ -720,7 +745,7 @@ async function cargarCatequistasLogin() {
   const boton = $('btn-login-catequista');
   const error = $('catequista-login-error');
   if (!selector) return;
-  selector.innerHTML = '<option value="">Cargando catequistas…</option>';
+  selector.innerHTML = '<option value=""> </option>';
   if (boton) boton.disabled = true;
   if (error) { error.style.display = 'none'; error.textContent = ''; }
   try {
@@ -729,7 +754,7 @@ async function cargarCatequistasLogin() {
       throw new Error(respuesta && respuesta.mensaje ? respuesta.mensaje : 'No se pudo leer CATEQUISTAS.');
     }
     const lista = Array.isArray(respuesta.catequistas) ? respuesta.catequistas : [];
-    selector.innerHTML = '<option value="">Selecciona tu nombre</option>';
+    selector.innerHTML = '<option value=""> </option>';
     lista.forEach(c => {
       const opcion = document.createElement('option');
       opcion.value = String(c.id || '');
@@ -737,11 +762,11 @@ async function cargarCatequistasLogin() {
       selector.appendChild(opcion);
     });
     if (!lista.length) {
-      selector.innerHTML = '<option value="">No hay catequistas activos</option>';
+      selector.innerHTML = '<option value=""> </option>';
       if (error) { error.textContent = 'No hay registros activos en la pestaña CATEQUISTAS.'; error.style.display = 'block'; }
     }
   } catch (e) {
-    selector.innerHTML = '<option value="">No se pudo cargar la lista</option>';
+    selector.innerHTML = '<option value=""> </option>';
     if (error) {
       error.textContent = (e && e.message ? e.message : 'No se pudo conectar con Apps Script.') + ' Verifica que la versión actual del GS esté implementada como aplicación web.';
       error.style.display = 'block';
