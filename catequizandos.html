@@ -899,73 +899,57 @@ main {
   .hero-right { justify-content: center; }
 }
 
-/* INGRESO INDIVIDUAL Y DISEÑO RESPONSIVE */
-/* La pantalla de PIN cubre toda la ventana; el portal permanece oculto hasta autenticar. */
-html.auth-required #portalWrap,
-#portalWrap[hidden],
-.portal-wrap-locked { display:none !important; }
-#loginGate[hidden] { display:none !important; }
-.login-gate {
-  position:fixed; inset:0; z-index:99999;
-  width:100%; min-height:100vh; min-height:100dvh;
-  display:grid; place-items:center; padding:22px;
-  overflow:auto;
-  background:radial-gradient(circle at 50% 15%, #234f7a, #0a1d35 72%);
-}
-.login-card { width:min(440px,calc(100vw - 32px)); padding:clamp(22px,4vw,30px) clamp(18px,3vw,26px); border-radius:24px; background:#fffdf9; border:1px solid #e7d6b8; box-shadow:0 18px 55px rgba(0,0,0,.24); text-align:center; }
-.login-crest { width:82px; height:82px; object-fit:contain; margin-bottom:10px; }
-.login-card h1 { margin:0; color:#12345a; font:700 25px 'Fredoka',sans-serif; }
-.login-card p { margin:5px 0 22px; color:#6a7890; font-size:11px; font-weight:900; letter-spacing:1px; }
-.login-card label { display:block; margin-bottom:8px; color:#12345a; font-weight:900; font-size:12px; letter-spacing:.08em; }
-.login-card input { width:100%; min-height:52px; border:2px solid #d9c99f; border-radius:13px; padding:12px 16px; text-align:center; font:800 22px 'Nunito',sans-serif; letter-spacing:.28em; color:#12345a; background:#fff; }
-.login-card input:focus { outline:3px solid #f3d77d66; border-color:#b17b19; }
-.login-card button { width:100%; min-height:50px; margin-top:13px; border-radius:13px; background:#12345a; color:#fff; font:900 14px 'Nunito',sans-serif; letter-spacing:.06em; }
-.login-card button:disabled { opacity:.6; cursor:wait; }
-.login-error { min-height:18px; margin-top:10px; color:#a52222; font:800 12px 'Nunito',sans-serif; line-height:1.35; }
-.login-error:empty { display:none; }
-.sr-only { position:absolute !important; width:1px !important; height:1px !important; padding:0 !important; margin:-1px !important; overflow:hidden !important; clip:rect(0,0,0,0) !important; white-space:nowrap !important; border:0 !important; }
-@media(max-width:900px) {
-  .wrap { width:calc(100% - 24px); margin:12px auto; }
-  .hero { grid-template-columns:1fr; }
-  .calendar-layout { grid-template-columns:1fr; }
-  .stages { grid-template-columns:repeat(3,minmax(0,1fr)); }
-}
-@media(max-width:600px) {
-  .wrap { width:100%; margin:0; border-radius:0; border-left:0; border-right:0; }
-  header { padding:20px 16px 26px; }
-  .topbar { align-items:flex-start; flex-direction:column; }
-  .brand { gap:10px; }
-  .crest { width:58px; height:58px; }
-  .brand-text h2 { font-size:16px; }
-  .top-actions { width:100%; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
-  .top-actions > * { justify-content:center; }
-  .hero { gap:16px; }
-  .hero-right { justify-content:center; }
-  .countdown { min-width:0; width:100%; }
-  main { padding:0 14px; }
-  .stages { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
-  .stage { padding:14px 9px; }
-  .calendar-card,.calendar-info { padding:14px; }
-  .students-grid,.notifications-layout { grid-template-columns:1fr !important; }
-  .resource-buttons { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
-  .footer { padding:16px 12px; }
-}
+
+/* Portada institucional de acceso para catequizandos */
+html.auth-required #portalWrap,#portalWrap[hidden],.portal-wrap-locked{display:none!important}
+#loginGate[hidden]{display:none!important}
+.login-gate{position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;overflow:auto;background:#f7f8fc;color:#10254e}
+.login-top-decoration{width:100%;height:58px;flex:0 0 58px;background:#b0002d;border-bottom:7px solid #10254e;box-shadow:0 4px 0 #dfb326}
+.login-inner{width:min(100%,1500px);padding:0 clamp(14px,4vw,55px) 20px;display:flex;flex-direction:column;align-items:center}
+.login-brand{display:flex;align-items:center;justify-content:center;gap:20px;margin:-25px auto 8px;position:relative;z-index:1}
+.login-crest{width:100px;height:100px;object-fit:contain;flex:0 0 auto}
+.login-brand-copy{text-align:left;border-bottom:3px solid #dfb326;padding-bottom:10px}
+.login-brand-copy .school-small{display:block;color:#10254e;font:800 clamp(16px,2vw,24px) Arial,sans-serif}
+.login-brand-copy .school-name{display:block;color:#10254e;font:400 clamp(26px,3.3vw,46px) Georgia,serif;white-space:nowrap}
+.login-program{display:inline-block;margin:4px 0;padding:7px 18px;border-radius:24px;background:#b0002d;color:#fff;font:900 clamp(13px,1.7vw,19px) Arial,sans-serif}
+.login-title{margin:0 0 20px;text-align:center;color:#10254e;font:400 clamp(34px,4.4vw,56px) Georgia,serif;line-height:1.08}
+.login-form-panel{width:min(740px,100%);padding:17px 24px 23px;border:2px solid #bdcce4;border-radius:25px;background:#fff;box-shadow:0 8px 22px #10254e12;margin-bottom:30px}
+.login-form-panel label{display:block;margin:0 0 7px;color:#40516f;font:800 12px Arial,sans-serif;letter-spacing:.08em;text-align:left}
+.login-form-panel input{display:block;width:100%;height:47px;margin:0 0 9px;padding:8px 20px;border:1.5px solid #9db4df;border-radius:28px;background:#fbfcff;color:#10254e;font:600 19px Arial,sans-serif;letter-spacing:.16em;text-align:center}
+.login-form-panel input:focus{outline:3px solid #dfb32655;border-color:#b0002d}
+.login-form-panel button{display:block;min-width:215px;height:44px;margin:-4px auto -38px;padding:0 28px;border:2px solid #dfb326;border-radius:25px;background:#b0002d;color:#fff;font:900 17px Arial,sans-serif}
+.login-form-panel button:disabled{opacity:.6;cursor:wait}
+.login-error{min-height:18px;margin:11px 0 0;color:#a52222;font:800 12px Arial,sans-serif}
+.login-error:empty{display:none}
+.login-kids-strip{width:min(100%,1360px);height:auto;aspect-ratio:7.2/1;object-fit:fill;border:2px solid #dfb326;border-radius:13px;background:#fff;box-shadow:0 5px 13px #10254e24;margin:4px 0 24px}
+.login-motto{width:100%;min-height:84px;margin-top:auto;padding:24px 12px;display:flex;justify-content:center;align-items:center;text-align:center;background:#10254e;border-top:7px solid #dfb326;color:#fff;font:900 clamp(13px,1.8vw,21px) Arial,sans-serif;letter-spacing:.02em}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+@media(max-width:760px){.login-top-decoration{height:35px;flex-basis:35px}.login-brand{gap:9px;margin-top:-15px;align-self:flex-start}.login-crest{width:65px;height:65px}.login-brand-copy .school-small{font-size:12px}.login-brand-copy .school-name{font-size:clamp(18px,4.5vw,28px);white-space:normal}.login-title{margin-bottom:15px}.login-form-panel{padding:14px 14px 22px;margin-bottom:25px}.login-form-panel input{height:43px;font-size:16px}.login-form-panel button{min-width:175px;height:40px;font-size:15px}.login-kids-strip{aspect-ratio:7.2/1;margin-bottom:18px}.login-motto{min-height:68px;padding:18px 10px}}
+@media(max-width:420px){.login-inner{padding-left:10px;padding-right:10px}.login-crest{width:55px;height:55px}.login-brand-copy .school-small{font-size:10px}.login-brand-copy .school-name{font-size:19px}.login-title{font-size:30px}}
 
 </style>
 </head>
 <body>
 <section id="loginGate" class="login-gate" aria-label="Ingreso de catequizandos">
-  <div class="login-card">
-    <img class="login-crest" src="./assets/insignia.png" alt="" onerror="this.style.display='none'">
-    <h1>CAMINO HACIA JESÚS</h1>
-    <p>COLEGIO PRIVADO LA SALLE DEL SUR</p>
-    <form id="loginForm" autocomplete="on">
-      <label for="pinAlumno">PIN PERSONAL</label>
-      <input id="pinAlumno" name="pin" type="password" inputmode="numeric" pattern="[0-9]{12}" minlength="12" maxlength="12" autocomplete="off" required autofocus aria-label="PIN personal">
-      <button id="btnIngresarPIN" type="submit">INGRESAR</button>
-      <div id="loginError" class="login-error" role="alert" aria-live="assertive"></div>
-    </form>
+  <div class="login-top-decoration" aria-hidden="true"></div>
+  <div class="login-inner">
+    <div class="login-brand">
+      <img class="login-crest" src="./assets/insignia.png" alt="Insignia del Colegio La Salle del Sur" onerror="this.style.display='none'">
+      <div class="login-brand-copy"><span class="school-small">COLEGIO PRIVADO</span><span class="school-name">LA SALLE DEL SUR</span></div>
+    </div>
+    <div class="login-program">PROGRAMA DE CATEQUESIS</div>
+    <h1 class="login-title">Camino hacia Jesús</h1>
+    <div class="login-form-panel">
+      <form id="loginForm" autocomplete="on">
+        <label for="pinAlumno">INGRESA TU CLAVE PERSONAL</label>
+        <input id="pinAlumno" name="pin" type="password" inputmode="numeric" pattern="[0-9]{12}" minlength="12" maxlength="12" autocomplete="off" required autofocus aria-label="PIN personal de 12 dígitos" placeholder="••••••••••••">
+        <button id="btnIngresarPIN" type="submit">INGRESAR</button>
+        <div id="loginError" class="login-error" role="alert" aria-live="assertive"></div>
+      </form>
+    </div>
+    <img class="login-kids-strip" src="data:image/jpeg;base64,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" alt="Los siete catequizandos del Colegio La Salle del Sur">
   </div>
+  <div class="login-motto">CON JESÚS APRENDEMOS, SERVIMOS Y CRECEMOS EN EL AMOR</div>
 </section>
 <div class="wrap portal-wrap-locked" id="portalWrap" aria-hidden="true" hidden>
   <div class="goldline"></div>
