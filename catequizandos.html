@@ -1194,8 +1194,9 @@ async function cargarNombresCatequizandosLogin(){
       select.disabled=false;
     });
   }catch(error){
-    selects.forEach(function(select){select.innerHTML='<option value="">No se pudo cargar la lista</option>';select.disabled=true;});
-    mostrarErrorLogin('No se pudo cargar la lista de nombres. '+(error.message||''));
+    console.error('No se pudo cargar la lista de catequizandos desde Apps Script:',error);
+    selects.forEach(function(select){select.innerHTML='<option value="">Lista temporalmente no disponible</option>';select.disabled=true;});
+    mostrarErrorLogin('No se pudo conectar con la lista. Avísale a tu catequista para que habilite el acceso.');
   }
 }
 
