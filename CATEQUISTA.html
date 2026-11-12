@@ -45,6 +45,7 @@
 .tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:16px}
 .tool-card{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;transition:all .2s}
 .tool-card:hover{border-color:var(--blue);background:#fff;box-shadow:0 4px 12px #173b680c}
+.admin-only[hidden]{display:none!important}
 .tool-card h4{margin:0 0 4px;color:var(--navy);font-size:1.02rem}
 .tool-card p{margin:0 0 12px;color:var(--muted);font-size:.84rem}
 
@@ -491,6 +492,10 @@ body{overflow-x:hidden}
         <div><div style="font-size:1.5rem;margin-bottom:8px;">📊</div><h4>Dashboard</h4><p>Estadísticas generales de la parroquia.</p></div>
         <button class="btn small" onclick="mostrarVista('vista-dashboard')">Ver Estadísticas</button>
       </div>
+      <div class="tool-card admin-only" id="tarjeta-administrador" hidden>
+        <div><div style="font-size:1.5rem;margin-bottom:8px;">🛡️</div><h4>Administrador</h4><p>Gestión de catequistas, estado de cuentas y supervisión de accesos.</p></div>
+        <button class="btn small gold" type="button" onclick="abrirAdministradorCatequistas()">Abrir Administración</button>
+      </div>
     </div>
 
     <!-- 1. VISTA SESIONES -->
@@ -694,6 +699,36 @@ body{overflow-x:hidden}
             <tbody id="tabla-calificaciones-cuerpo"><tr><td colspan="7" style="text-align:center;padding:20px;">Cargando calificaciones…</td></tr></tbody>
           </table>
         </div>
+      </div>
+    </div>
+
+    <!-- PANEL ADMINISTRADOR: datos leídos desde Google Sheets -->
+    <div id="vista-administrador" style="display:none; margin-top:15px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:15px;">
+        <button class="btn small" type="button" onclick="volverMenuPrincipal()">← Volver al menú</button>
+        <h3 style="color:var(--navy);margin:0;">Administración de Catequistas</h3>
+        <button class="btn small primary" type="button" id="btnActualizarAdmin" onclick="cargarAdministracionCatequistas()">🔄 Actualizar desde Sheets</button>
+      </div>
+      <div class="tool-card" style="margin-bottom:14px;">
+        <h4>Acceso administrativo autorizado</h4>
+        <p class="sub" id="admin-identidad">Verificando permisos…</p>
+        <p class="sub">Los nombres, cargos e indicadores se consultan en la pestaña CATEQUISTAS. Los PIN nunca se muestran. Las dos administradoras principales no pueden ser desactivadas desde este panel.</p>
+      </div>
+      <div id="admin-resumen" class="cal-stats-grid" style="grid-template-columns:repeat(3,minmax(0,1fr));">
+        <div class="cal-stat"><strong id="admin-total">—</strong><span>Registros</span></div>
+        <div class="cal-stat"><strong id="admin-activos">—</strong><span>Cuentas activas</span></div>
+        <div class="cal-stat"><strong id="admin-inactivos">—</strong><span>Cuentas inactivas</span></div>
+      </div>
+      <div class="tool-card">
+        <h4>Directorio y control de acceso</h4>
+        <p class="sub">Activar o desactivar el acceso de catequistas no administradoras. El cambio se guarda en la columna ACTIVO de Google Sheets.</p>
+        <div style="overflow-x:auto;">
+          <table class="data-table" style="min-width:650px;">
+            <thead><tr><th>ID</th><th>Catequista</th><th>Cargo</th><th>Estado</th><th>Acción</th></tr></thead>
+            <tbody id="tabla-admin-catequistas"><tr><td colspan="5" style="text-align:center;padding:20px;">Cargando desde Google Sheets…</td></tr></tbody>
+          </table>
+        </div>
+        <p id="admin-mensaje" class="sub" role="status" aria-live="polite"></p>
       </div>
     </div>
 
@@ -907,10 +942,12 @@ async function iniciarSesionCatequista(event) {
     if (!respuesta || !respuesta.exito || !respuesta.token) throw new Error(respuesta && respuesta.mensaje ? respuesta.mensaje : 'No se pudo validar el acceso.');
     tokenCatequistaPortal = respuesta.token;
     perfilCatequistaPortal = respuesta.perfil || null;
+    actualizarInterfazAdministrador();
     sessionStorage.setItem(CLAVE_SESION_CATEQUISTAS, tokenCatequistaPortal);
     $('catequista-pin').value = '';
     $('catequista-login-overlay').hidden = true;
     if ($('catequista-sesion-nombre')) $('catequista-sesion-nombre').textContent = perfilCatequistaPortal ? perfilCatequistaPortal.nombre : idCatequista;
+    actualizarInterfazAdministrador();
     abrirPortalComun();
   } catch (e) {
     if (error) { error.textContent = e.message || 'Código o PIN incorrecto.'; error.style.display = 'block'; }
@@ -1050,6 +1087,77 @@ function cerrarSesionCatequistaPortal() {
 }
 
 
+let administracionCatequistasCache = [];
+function esAdministradoraPortal() {
+  return !!(perfilCatequistaPortal && perfilCatequistaPortal.administradora === true);
+}
+function actualizarInterfazAdministrador() {
+  const tarjeta = $('tarjeta-administrador');
+  if (tarjeta) tarjeta.hidden = !esAdministradoraPortal();
+  const identidad = $('admin-identidad');
+  if (identidad) identidad.textContent = esAdministradoraPortal() ? 'Sesión administrativa: ' + (perfilCatequistaPortal.nombre || perfilCatequistaPortal.id) : 'Acceso restringido.';
+}
+async function abrirAdministradorCatequistas() {
+  if (!esAdministradoraPortal()) { alert('Este módulo está reservado para Lily y Kiara.'); return; }
+  mostrarVista('vista-administrador');
+  await cargarAdministracionCatequistas();
+}
+async function cargarAdministracionCatequistas() {
+  if (!esAdministradoraPortal()) { alert('No tiene autorización para administrar cuentas.'); return; }
+  const cuerpo = $('tabla-admin-catequistas');
+  const mensaje = $('admin-mensaje');
+  const boton = $('btnActualizarAdmin');
+  if (cuerpo) cuerpo.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:20px;">Consultando CATEQUISTAS en Google Sheets…</td></tr>';
+  if (mensaje) mensaje.textContent = '';
+  if (boton) { boton.disabled = true; boton.textContent = '⏳ Consultando…'; }
+  try {
+    const r = await apiGet('getAdminCatequistas');
+    administracionCatequistasCache = Array.isArray(r.catequistas) ? r.catequistas : [];
+    const activos = administracionCatequistasCache.filter(x => x.activo).length;
+    if ($('admin-total')) $('admin-total').textContent = administracionCatequistasCache.length;
+    if ($('admin-activos')) $('admin-activos').textContent = activos;
+    if ($('admin-inactivos')) $('admin-inactivos').textContent = administracionCatequistasCache.length - activos;
+    if (!cuerpo) return;
+    cuerpo.innerHTML = '';
+    if (!administracionCatequistasCache.length) { cuerpo.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:20px;">No hay catequistas registrados.</td></tr>'; return; }
+    administracionCatequistasCache.forEach(c => {
+      const tr = document.createElement('tr');
+      const valores = [c.id, c.nombre, c.cargo, c.activo ? 'ACTIVO' : 'INACTIVO'];
+      valores.forEach(v => { const td = document.createElement('td'); td.textContent = v || '—'; tr.appendChild(td); });
+      const tdAccion = document.createElement('td');
+      if (c.administradora) { tdAccion.textContent = 'Administradora principal'; }
+      else {
+        const b = document.createElement('button');
+        b.type = 'button'; b.className = 'btn small ' + (c.activo ? '' : 'primary');
+        b.textContent = c.activo ? 'Desactivar' : 'Activar';
+        b.addEventListener('click', () => cambiarEstadoCatequistaAdmin(c.id, !c.activo));
+        tdAccion.appendChild(b);
+      }
+      tr.appendChild(tdAccion); cuerpo.appendChild(tr);
+    });
+  } catch (e) {
+    if (cuerpo) cuerpo.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--red);padding:20px;">' + escaparHTML(e.message || 'No se pudo consultar Google Sheets.') + '</td></tr>';
+    if (mensaje) mensaje.textContent = e.message || String(e);
+  } finally { if (boton) { boton.disabled = false; boton.textContent = '🔄 Actualizar desde Sheets'; } }
+}
+async function cambiarEstadoCatequistaAdmin(id, activo) {
+  if (!esAdministradoraPortal()) { alert('Acceso no autorizado.'); return; }
+  const c = administracionCatequistasCache.find(x => x.id === id);
+  if (!c || c.administradora) { alert('No se puede modificar una cuenta administradora principal.'); return; }
+  const accion = activo ? 'activar' : 'desactivar';
+  if (!confirm('¿Desea ' + accion + ' el acceso de ' + c.nombre + '? El cambio se guardará en Google Sheets.')) return;
+  const mensaje = $('admin-mensaje');
+  if (mensaje) mensaje.textContent = 'Guardando cambio en Google Sheets…';
+  try {
+    await apiPost({action:'actualizarEstadoCatequistaAdmin', idCatequista:id, activo:activo});
+    await retraso(1200);
+    await cargarAdministracionCatequistas();
+    const verificado = administracionCatequistasCache.find(x => x.id === id);
+    if (!verificado || verificado.activo !== activo) throw new Error('Google Sheets no confirmó el cambio. Verifique permisos y vuelva a intentar.');
+    if (mensaje) mensaje.textContent = 'Cambio confirmado en Google Sheets.';
+  } catch (e) { if (mensaje) mensaje.textContent = 'No se pudo enviar el cambio: ' + (e.message || e); }
+}
+
 function abrirPortalComun() {
   if (!tokenCatequistaPortal) {
     if ($('catequista-login-overlay')) $('catequista-login-overlay').hidden = false;
@@ -1060,7 +1168,7 @@ function abrirPortalComun() {
   sincronizarConHoja(false);
 }
 function mostrarVista(idVista) {
-  ['menu-herramientas','vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-calificaciones','vista-dashboard'].forEach(v => { if ($(v)) $(v).style.display = 'none'; });
+  ['menu-herramientas','vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-calificaciones','vista-dashboard','vista-administrador'].forEach(v => { if ($(v)) $(v).style.display = 'none'; });
   if ($(idVista)) $(idVista).style.display = 'block';
   if (idVista === 'vista-calendario') { renderizarCalendarioModelo(); sincronizarCalendario(false); }
   if (idVista === 'vista-calificaciones') cargarVistaCalificaciones(false);
@@ -1070,7 +1178,7 @@ function mostrarVista(idVista) {
   if (idVista === 'vista-dashboard') renderizarDashboard();
 }
 function volverMenuPrincipal() {
-  ['vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-calificaciones','vista-dashboard'].forEach(v => { if ($(v)) $(v).style.display = 'none'; });
+  ['vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-calificaciones','vista-dashboard','vista-administrador'].forEach(v => { if ($(v)) $(v).style.display = 'none'; });
   if ($('menu-herramientas')) $('menu-herramientas').style.display = 'grid';
 }
 function openModal(id) { if ($(id)) $(id).classList.add('show'); }
@@ -2110,6 +2218,7 @@ function initPortalCatequistas() {
     if ($('catequista-login-overlay')) $('catequista-login-overlay').hidden = true;
     apiGet('getPerfilCatequista').then(r => {
       perfilCatequistaPortal = r.perfil || null;
+      actualizarInterfazAdministrador();
       if ($('catequista-sesion-nombre')) $('catequista-sesion-nombre').textContent = perfilCatequistaPortal ? perfilCatequistaPortal.nombre : '';
       abrirPortalComun();
     }).catch(() => cerrarSesionCatequistaPortal());
