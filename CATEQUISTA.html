@@ -435,20 +435,6 @@ body{overflow-x:hidden}
   </div>
 </section>
 
-<!-- CATEQUISTAS RESPONSABLES -->
-<section class="view active" id="view-home" style="margin-top:20px;">
-  <div class="panel">
-    <div class="panel-head">
-      <div>
-        <h2>Catequistas Responsables</h2>
-        <p class="sub">Haga clic en cualquiera de las catequistas para ingresar al portal general.</p>
-      </div>
-    </div>
-    <div class="mises-grid" id="mises-grid-datos">
-      <p class="small muted">Consultando catequistas registrados en Google Sheets…</p>
-    </div>
-  </div>
-</section>
 <footer class="lds-copyright-footer">© 2026 Colegio Privado La Salle del Sur. Todos los derechos reservados.</footer>
 </main>
 
@@ -493,7 +479,7 @@ body{overflow-x:hidden}
         <button class="btn small" onclick="mostrarVista('vista-dashboard')">Ver Estadísticas</button>
       </div>
       <div class="tool-card admin-only" id="tarjeta-administrador" hidden>
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">🛡️</div><h4>Administrador</h4><p>Gestión de catequistas, estado de cuentas y supervisión de accesos.</p></div>
+        <div><div style="font-size:1.5rem;margin-bottom:8px;">🛡️</div><h4>ADMINISTRADOR</h4><p>Acceso administrativo de Lily y Kiara. Gestión de catequistas y supervisión de accesos desde Google Sheets.</p></div>
         <button class="btn small gold" type="button" onclick="abrirAdministradorCatequistas()">Abrir Administración</button>
       </div>
     </div>
@@ -957,77 +943,6 @@ async function iniciarSesionCatequista(event) {
 }
 
 
-/** Carga el selector desde la pestaña real CATEQUISTAS; no usa IDs escritos a mano. */
-function renderizarTarjetasCatequistas(catequistas) {
-  const contenedor = $('mises-grid-datos');
-  if (!contenedor) return;
-  contenedor.innerHTML = '';
-
-  if (!Array.isArray(catequistas) || !catequistas.length) {
-    const aviso = document.createElement('p');
-    aviso.className = 'small muted';
-    aviso.textContent = 'No hay catequistas activos registrados en Google Sheets.';
-    contenedor.appendChild(aviso);
-    return;
-  }
-
-  // Las fotografías son archivos existentes. Nombres, cargos e IDs provienen de CATEQUISTAS.
-  const fotosPorId = {
-    'LDS-CAT-001': './assets/miss%20lily.jpg',
-    'LDS-CAT-002': './assets/miss%20kiara.png'
-  };
-
-  catequistas.forEach(c => {
-    const id = String(c.id || '').trim().toUpperCase();
-    const nombre = String(c.nombre || '').trim();
-    if (!id || !nombre) return;
-
-    const tarjeta = document.createElement('article');
-    tarjeta.className = 'mise-card';
-    tarjeta.tabIndex = 0;
-    tarjeta.setAttribute('role', 'button');
-    tarjeta.setAttribute('aria-label', 'Ingresar al portal como ' + nombre);
-    tarjeta.addEventListener('click', abrirPortalComun);
-    tarjeta.addEventListener('keydown', evento => {
-      if (evento.key === 'Enter' || evento.key === ' ') {
-        evento.preventDefault();
-        abrirPortalComun();
-      }
-    });
-
-    const foto = document.createElement('img');
-    foto.className = 'mise-avatar';
-    foto.src = fotosPorId[id] || './assets/insignia.png';
-    foto.alt = 'Fotografía institucional de ' + nombre;
-    foto.onerror = function() {
-      this.onerror = null;
-      this.src = './assets/insignia.png';
-    };
-
-    const contenido = document.createElement('div');
-    const titulo = document.createElement('h3');
-    titulo.style.cssText = 'margin:0 0 4px;color:var(--navy);font-size:1.1rem';
-    titulo.textContent = nombre;
-
-    const cargo = document.createElement('p');
-    cargo.className = 'small muted';
-    cargo.style.margin = '0 0 6px';
-    cargo.textContent = String(c.cargo || 'Catequista');
-
-    const acceso = document.createElement('span');
-    acceso.className = 'small';
-    acceso.style.cssText = 'color:var(--gold-deep);font-weight:900;';
-    acceso.textContent = 'Ingresar al Portal ↗';
-
-    contenido.appendChild(titulo);
-    contenido.appendChild(cargo);
-    contenido.appendChild(acceso);
-    tarjeta.appendChild(foto);
-    tarjeta.appendChild(contenido);
-    contenedor.appendChild(tarjeta);
-  });
-}
-
 /** Selector y tarjetas consumen la misma lista de CATEQUISTAS en Google Sheets. */
 async function cargarCatequistasLogin() {
   const selector = $('catequista-id');
@@ -1058,13 +973,11 @@ async function cargarCatequistasLogin() {
       selector.appendChild(opcion);
     });
 
-    renderizarTarjetasCatequistas(lista);
     if (!lista.length && error) {
       error.textContent = 'No hay catequistas activos en la pestaña CATEQUISTAS de Google Sheets.';
       error.style.display = 'block';
     }
   } catch (e) {
-    renderizarTarjetasCatequistas([]);
     if (error) {
       error.textContent = (e && e.message ? e.message : 'No se pudo conectar con Google Sheets.') +
         ' Debe implementarse la versión de Código.gs que incluye listarCatequistasActivas.';
