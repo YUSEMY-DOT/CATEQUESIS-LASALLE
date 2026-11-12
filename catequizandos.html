@@ -1445,7 +1445,7 @@ function abrirBloque(indice) {
       <p><b>Actividad:</b> ${escaparHTML(tema.actividad || 'Por definir')}</p></div>
       <div class="clase"><b>Programación:</b> ${escaparHTML(tema.fecha || 'Fecha pendiente')} · Clase ${escaparHTML(tema.numeroClase || '')} · Horario: ${escaparHTML(tema.horaInicio || '14:00')} a ${escaparHTML(tema.horaFin || '16:00')} horas<br><b>Catequista:</b> ${escaparHTML(tema.catequista || 'Por asignar')}</div>
       <div class="resource-buttons">
-        <button type="button" class="btn-cuestionario" onclick="window.opener.abrirCuestionarioTema('${escaparHTML(tema.id || '')}')">🎯 Desarrollar cuestionario</button>
+        <button type="button" class="btn-cuestionario" onclick="if(window.opener && typeof window.opener.abrirCuestionarioTema === 'function'){window.opener.abrirCuestionarioTema('${escaparHTML(tema.id || '')}', window);}else{alert('No se pudo comunicar con el portal. Cierra esta ventana y vuelve a ingresar.');}">🎯 Desarrollar cuestionario</button>
         <!-- Recursos complementarios desactivados temporalmente. -->
       </div>
     </article>`;
@@ -1468,14 +1468,22 @@ function abrirBloque(indice) {
 }
 
 /** Abre el cuestionario individual del tema seleccionado. Los datos y las notas vienen de Google Sheets. */
-function abrirCuestionarioTema(idSesion) {
+function abrirCuestionarioTema(idSesion, ventanaExistente) {
   const tema = buscarTemaPortalPorId(idSesion);
   if (!tema) { reproducirBienvenida('No se encontró el tema solicitado.'); return; }
   const token = obtenerTokenCatequizando();
   const perfil = sesionCatequizando.perfil || JSON.parse(sessionStorage.getItem(CLAVE_PERFIL_CATEQUIZANDO) || '{}');
   if (!token || !perfil.ID_NINO) { cerrarSesionCatequizando('Ingresa nuevamente con tu PIN.'); return; }
-  const ventana = window.open('', '_blank');
-  if (!ventana) { reproducirBienvenida('Permite las ventanas emergentes para abrir el cuestionario.'); return; }
+  // Reutiliza la ventana del bloque que ya abrió el usuario. Así el navegador
+  // no tiene que autorizar una segunda ventana emergente para mostrar el examen.
+  let ventana = null;
+  try {
+    ventana = ventanaExistente && !ventanaExistente.closed ? ventanaExistente : null;
+  } catch (error) {
+    ventana = null;
+  }
+  if (!ventana) ventana = window.open('', '_blank');
+  if (!ventana) { reproducirBienvenida('No se pudo abrir el cuestionario. Vuelve a abrir el bloque e inténtalo otra vez.'); return; }
   const cfg = JSON.stringify({api:API_URL,idSesion:String(idSesion),tema:String(tema.tema || ''),idNino:String(perfil.ID_NINO),nombre:String(perfil.NOMBRE_COMPLETO || [perfil.NOMBRES,perfil.APELLIDOS].filter(Boolean).join(' ')),token:token});
   ventana.document.open();
   ventana.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cuestionario · ${escaparHTML(tema.tema || '')}</title><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"><style>
@@ -1527,6 +1535,7 @@ function abrirCuestionarioTema(idSesion) {
   iniciar();
   <\/script></body></html>`);
   ventana.document.close();
+  try { ventana.focus(); } catch (error) {}
 }
 
 /** Busca un tema ya cargado desde la hoja SESIONES. */
