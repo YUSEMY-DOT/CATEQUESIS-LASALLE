@@ -1098,7 +1098,7 @@ html.auth-required #portalWrap,
     </section>
 
     <footer class="footer">
-      <div class="copyright">Colegio Privado La Salle del Sur · Todos los derechos reservados.</div>
+      <div class="copyright lds-copyright-line">© 2026 Colegio Privado La Salle del Sur. Todos los derechos reservados.</div>
     </footer>
   </main>
 </div>
@@ -1526,7 +1526,28 @@ async function abrirTareasDeSesion(idSesion) {
 
   const escribir = function(titulo, contenido) {
     ventana.document.open();
-    ventana.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escaparHTML(titulo)}</title><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"><style>*{box-sizing:border-box}body{font:14px Nunito,Arial,sans-serif;background:#f4f1ea;color:#193453;max-width:850px;margin:25px auto;padding:0 15px}header{background:#12345a;color:#fff;padding:20px 24px;border-radius:16px;margin-bottom:18px}h1{font:700 23px Fredoka,sans-serif;margin:0}.sub{color:#ffdf94;font-weight:800;margin:6px 0 0}.task{background:#fff;border:1px solid #e7d6b8;border-radius:13px;padding:15px;margin-bottom:12px}.task h2{font:700 17px Fredoka,sans-serif;color:#12345a;margin:4px 0 8px}.meta{font-size:12px;color:#526882;line-height:1.7}.state{display:inline-block;background:#fff2cf;color:#8a6418;border-radius:20px;padding:4px 10px;font-size:11px;font-weight:900;margin-top:8px}.evidence{display:inline-block;margin-top:10px;color:#1557a0;font-weight:900}.close{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin:8px 0 25px;color:#12345a}</style></head><body><header><h1>${escaparHTML(titulo)}</h1><p class="sub">Datos consultados desde la hoja TAREAS · ${escaparHTML(idSesion)}</p></header><main>${contenido}</main><button class="close" onclick="window.close()" type="button">Cerrar ventana</button><script>
+    ventana.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escaparHTML(titulo)}</title><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"><style>*{box-sizing:border-box}body{font:14px Nunito,Arial,sans-serif;background:#f4f1ea;color:#193453;max-width:850px;margin:25px auto;padding:0 15px}header{background:#12345a;color:#fff;padding:20px 24px;border-radius:16px;margin-bottom:18px}h1{font:700 23px Fredoka,sans-serif;margin:0}.sub{color:#ffdf94;font-weight:800;margin:6px 0 0}.task{background:#fff;border:1px solid #e7d6b8;border-radius:13px;padding:15px;margin-bottom:12px}.task h2{font:700 17px Fredoka,sans-serif;color:#12345a;margin:4px 0 8px}.meta{font-size:12px;color:#526882;line-height:1.7}.state{display:inline-block;background:#fff2cf;color:#8a6418;border-radius:20px;padding:4px 10px;font-size:11px;font-weight:900;margin-top:8px}.evidence{display:inline-block;margin-top:10px;color:#1557a0;font-weight:900}.close{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin:8px 0 25px;color:#12345a}</style>
+<style id="lds-copyright-standard">
+.lds-copyright-footer,.lds-copyright-line{
+  display:block!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+  margin:12px 0 0!important;
+  padding:11px 16px!important;
+  text-align:center!important;
+  color:#fff!important;
+  background:linear-gradient(105deg,#0a1c39,#18395f)!important;
+  border-top:2px solid #d4ae55!important;
+  font-family:inherit!important;
+  font-size:12px!important;
+  font-weight:700!important;
+  line-height:1.5!important;
+  letter-spacing:.02em!important;
+}
+.lds-copyright-footer{margin-top:24px!important}
+</style>
+
+</head><body><header><h1>${escaparHTML(titulo)}</h1><p class="sub">Datos consultados desde la hoja TAREAS · ${escaparHTML(idSesion)}</p></header><main>${contenido}</main><button class="close" onclick="window.close()" type="button">Cerrar ventana</button><script>
       window.addEventListener('DOMContentLoaded',function(){var m=document.querySelector('main');var texto=m?m.innerText:'';if(texto&&'speechSynthesis'in window){var u=new SpeechSynthesisUtterance('Tareas de este tema. '+texto);u.lang='es-PE';u.rate=.92;window.speechSynthesis.cancel();window.speechSynthesis.speak(u);}});
       <\/script></body></html>`);
     ventana.document.close();
