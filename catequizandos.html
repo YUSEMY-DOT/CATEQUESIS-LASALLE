@@ -901,21 +901,21 @@ main {
 
 
 
-/* ACCESO CATEQUIZANDOS — portada original nítida, sin estirar ni comprimir */
+/* ACCESO CATEQUIZANDOS — campos limpios sobre el espacio de acceso de la portada */
 html.auth-required #portalWrap,#portalWrap[hidden],.portal-wrap-locked{display:none!important}
 #loginGate[hidden]{display:none!important}
 .login-gate{position:fixed;inset:0;z-index:99999;width:100%;height:100vh;height:100dvh;overflow:auto;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;background:#f7f8fc;color:#10254e}
 .login-scene{position:relative;width:min(100%,1640px);flex:0 0 auto;line-height:0}
 .login-art{display:block;width:100%;height:auto;max-width:100%;object-fit:contain}
-.login-form-overlay{position:absolute;left:24.8%;top:31.4%;width:41.9%;height:13.3%;margin:0;line-height:normal}
-.login-instruction{position:absolute;left:24.8%;top:28.5%;width:41.9%;text-align:center;color:#10254e;font:800 clamp(10px,1vw,15px)/1.15 Arial,sans-serif;letter-spacing:.01em}
-.login-form-overlay select,.login-form-overlay input{position:absolute;left:0;width:100%;height:31.5%;border:1.4px solid #9db4df;border-radius:30px;background:#fbfcff;color:#40516f;padding:0 4%;font:600 clamp(11px,1.25vw,20px) Arial,sans-serif;box-shadow:0 1px 2px #10254e0d}
-.login-form-overlay select{top:0;cursor:pointer}
-.login-form-overlay input{top:38.5%;text-align:left;letter-spacing:.15em;color:#10254e}
+.login-instruction{position:absolute;left:24.6%;top:29.3%;width:50%;text-align:center;color:#10254e;font:800 clamp(11px,1.05vw,16px)/1.15 Arial,sans-serif;letter-spacing:.01em;line-height:1.2}
+.login-form-overlay{position:absolute;left:24.5%;top:32.5%;width:50%;height:17.4%;margin:0;padding:9px 24px 8px;border:2px solid #bdcce4;border-radius:25px;background:#f8f9fc;box-shadow:0 5px 15px rgba(16,37,78,.10);display:flex;flex-direction:column;justify-content:space-between;gap:6px;line-height:normal;z-index:2}
+.login-form-overlay select,.login-form-overlay input{position:static;display:block;flex:1 1 0;min-height:30px;width:100%;height:auto;margin:0;padding:0 22px;border:1.5px solid #9db4df;border-radius:28px;background:#fff;color:#40516f;font:600 clamp(12px,1.25vw,19px) Arial,sans-serif;letter-spacing:.02em;box-shadow:0 1px 2px rgba(16,37,78,.05)}
+.login-form-overlay select{cursor:pointer}
+.login-form-overlay input{color:#10254e;letter-spacing:.17em}
 .login-form-overlay select:focus,.login-form-overlay input:focus{outline:3px solid #dfb32655;border-color:#b0002d}
-.login-form-overlay button{position:absolute;top:71.5%;left:34%;width:32%;height:27%;min-height:24px;border:2px solid #dfb326;border-radius:26px;background:#b0002d;color:#fff;font:900 clamp(11px,1.35vw,19px) Arial,sans-serif;box-shadow:0 3px 8px #10254e22}
+.login-form-overlay button{position:static;display:block;flex:0 0 clamp(31px,3vw,42px);width:min(34%,230px);min-height:31px;height:auto;margin:0 auto;border:2px solid #dfb326;border-radius:26px;background:#b0002d;color:#fff;font:900 clamp(12px,1.35vw,19px) Arial,sans-serif;box-shadow:0 3px 8px rgba(16,37,78,.16)}
 .login-form-overlay button:disabled{opacity:.6;cursor:wait}
-.login-error{position:absolute;top:105%;left:0;width:100%;min-height:15px;text-align:center;color:#a52222;font:800 11px Arial,sans-serif;line-height:1.25}
+.login-error{position:static;display:block;flex:0 0 auto;width:100%;min-height:0;margin:0;text-align:center;color:#a52222;font:800 11px/1.2 Arial,sans-serif}
 .login-error:empty{display:none}
 .login-mobile{display:none}
 .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
@@ -936,28 +936,15 @@ html.auth-required #portalWrap,#portalWrap[hidden],.portal-wrap-locked{display:n
   .login-mobile-form input{color:#10254e;letter-spacing:.18em}
   .login-mobile-form select:focus,.login-mobile-form input:focus{outline:3px solid #dfb32655;border-color:#b0002d}
   .login-mobile-form button{height:45px;border:2px solid #dfb326;border-radius:24px;background:#b0002d;color:#fff;font:900 16px Arial,sans-serif}
-  .login-mobile-form .login-error{position:static;width:auto;min-height:16px}
+  .login-mobile-form .login-error{position:static;width:auto;min-height:16px;margin:0}
   .login-mobile-kids{width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:5px 0 16px}
   .login-mobile-kid{aspect-ratio:3/4;border:2px solid #dfb326;border-radius:10px;background-image:url('./assets/PORTADA%20CATEQUIZANDO.png');background-repeat:no-repeat;background-size:700% auto;background-color:#fff;box-shadow:0 3px 9px #10254e1c}
-  .login-mobile-kid:nth-child(1){background-position:0% 61%}
-  .login-mobile-kid:nth-child(2){background-position:16.6667% 61%}
-  .login-mobile-kid:nth-child(3){background-position:33.3333% 61%}
-  .login-mobile-kid:nth-child(4){background-position:50% 61%}
-  .login-mobile-kid:nth-child(5){background-position:66.6667% 61%}
-  .login-mobile-kid:nth-child(6){background-position:83.3333% 61%}
-  .login-mobile-kid:nth-child(7){background-position:100% 61%}
+  .login-mobile-kid:nth-child(1){background-position:0% 61%}.login-mobile-kid:nth-child(2){background-position:16.6667% 61%}.login-mobile-kid:nth-child(3){background-position:33.3333% 61%}.login-mobile-kid:nth-child(4){background-position:50% 61%}.login-mobile-kid:nth-child(5){background-position:66.6667% 61%}.login-mobile-kid:nth-child(6){background-position:83.3333% 61%}.login-mobile-kid:nth-child(7){background-position:100% 61%}
   .login-mobile-motto{width:calc(100% + 32px);margin-top:auto;padding:17px 12px;border-top:6px solid #dfb326;background:#10254e;color:#fff;text-align:center;font:900 12px/1.4 Arial,sans-serif}
 }
 @media(max-width:390px){
-  .login-mobile{padding:14px 12px 0;gap:9px}
-  .login-mobile-brand img{width:54px;height:54px}
-  .login-mobile-brand-copy b{font-size:10px}
-  .login-mobile-brand-copy span{font-size:19px}
-  .login-mobile-title{font-size:30px}
-  .login-mobile-kids{gap:6px}
-  .login-mobile-motto{width:calc(100% + 24px)}
+  .login-mobile{padding:14px 12px 0;gap:9px}.login-mobile-brand img{width:54px;height:54px}.login-mobile-brand-copy b{font-size:10px}.login-mobile-brand-copy span{font-size:19px}.login-mobile-title{font-size:30px}.login-mobile-kids{gap:6px}.login-mobile-motto{width:calc(100% + 24px)}
 }
-
 </style>
 </head>
 <body>
