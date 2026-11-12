@@ -157,40 +157,42 @@
 @media(max-width:900px){.cal-container{grid-template-columns:1fr}.asist-layout{grid-template-columns:1fr}}
 @media print{body *{visibility:hidden}#vista-asistencia, #vista-asistencia * {visibility:visible}#vista-asistencia{position:absolute;left:0;top:0;width:100%}.no-print{display:none!important}}
 
-/* ACCESO PROTEGIDO DEL PORTAL DE CATEQUISTAS */
-.auth-overlay{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:22px;background:linear-gradient(135deg,#edf3f9ee,#e8eef6f5);backdrop-filter:blur(7px)}
+/* ACCESO PROTEGIDO: PORTADA INSTITUCIONAL ORIGINAL */
+.auth-overlay{position:fixed;inset:0;z-index:1000;display:block;padding:0;overflow:hidden;background:#102b4f url('./assets/Portal%20de%20CATEQUISTAS.png') center center/100% 100% no-repeat}
 .auth-overlay[hidden]{display:none!important}
-.auth-card{width:min(520px,100%);background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:0 24px 65px #102b4f25}
-.auth-card h2{margin:0;color:var(--navy);font-size:1.7rem}
-.auth-card .auth-sub{color:var(--muted);margin:7px 0 22px}
-.auth-field{display:grid;gap:7px;margin:15px 0}
-.auth-field label{font-size:.9rem;font-weight:850;color:var(--navy)}
-.auth-field input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--ink)}
-.auth-error{display:none;padding:10px 12px;border-radius:10px;background:#fff0f0;border:1px solid #f0c4c4;color:#9d2f36;font-size:.88rem;margin:12px 0}
+.auth-card{position:absolute;left:50%;top:64.5%;transform:translateX(-50%);width:38%;height:28.5%;max-width:680px;padding:0;background:transparent;border:0;border-radius:0;box-shadow:none}
+.auth-card>.eyebrow,.auth-card h2,.auth-card .auth-sub,.auth-card>p.sub{display:none!important}
+#catequista-login-form{position:absolute;inset:0;margin:0}
+.auth-field{position:absolute;left:9%;width:82%;height:21%;display:block;margin:0}
+.auth-field:nth-of-type(1){top:9%}
+.auth-field:nth-of-type(2){top:35%}
+.auth-field label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.auth-field input{width:100%;height:100%;padding:4px 16px;border:2px solid #b7c7df;border-radius:40px;background:#ffffffd9;color:#172b48;text-align:center;font-size:clamp(12px,1.45vw,23px);outline:none}
+.auth-field input::placeholder{color:#46505c;opacity:1}
+.auth-field input:focus{border-color:#173b68;box-shadow:0 0 0 3px #173b6822}
+#btn-login-catequista{position:absolute;left:14%;top:65%;width:72%;height:25%;margin:0!important;padding:0 12px;border:0;border-radius:40px;background:linear-gradient(180deg,#c00024,#a50020);color:#fff;font-size:clamp(14px,1.8vw,27px);font-weight:900;box-shadow:0 3px 0 #740018}
+#btn-login-catequista:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.auth-error{position:absolute;left:5%;right:5%;bottom:102%;display:none;padding:7px 12px;border-radius:10px;background:#fff0f0;border:1px solid #f0c4c4;color:#9d2f36;font-size:clamp(11px,1vw,15px);margin:0;text-align:center}
 .auth-user{font-size:.8rem;color:var(--muted);font-weight:800;margin-right:6px}
-@media(max-width:520px){.auth-card{padding:23px 19px}}
-
+@media(max-width:700px){.auth-overlay{background-size:auto 100%}.auth-card{top:64.5%;width:min(78vw,430px);height:28.5%}.auth-field input{font-size:14px}#btn-login-catequista{font-size:16px}}
+@media(max-height:560px) and (min-width:701px){.auth-overlay{background-size:auto 100%}.auth-card{top:64.5%;width:min(38vh,680px);height:28.5%}}
 </style>
 </head>
 <body>
 <div class="auth-overlay" id="catequista-login-overlay">
-  <section class="auth-card" role="dialog" aria-modal="true" aria-labelledby="auth-title">
-    <div class="eyebrow" style="color:var(--gold-deep)">Acceso institucional</div>
-    <h2 id="auth-title">Portal de Catequistas</h2>
-    <p class="auth-sub">Camino hacia Jesús 2026 · Colegio La Salle del Sur y Parroquia San Pedro de Lurín</p>
+  <section class="auth-card" role="dialog" aria-modal="true" aria-label="Acceso al Portal de Catequistas">
     <div id="catequista-login-error" class="auth-error" role="alert"></div>
     <form id="catequista-login-form" autocomplete="off">
       <div class="auth-field">
-        <label for="catequista-id">Código de catequista</label>
-        <input id="catequista-id" name="idCatequista" type="text" placeholder="Ej. CAT-001" autocomplete="username" required>
+        <label for="catequista-id">Usuario o código de catequista</label>
+        <input id="catequista-id" name="idCatequista" type="text" placeholder="Usuario / Código" autocomplete="username" required>
       </div>
       <div class="auth-field">
-        <label for="catequista-pin">PIN personal</label>
-        <input id="catequista-pin" name="pin" type="password" inputmode="numeric" placeholder="Ingrese su PIN" autocomplete="current-password" required>
+        <label for="catequista-pin">Contraseña</label>
+        <input id="catequista-pin" name="pin" type="password" placeholder="Contraseña" autocomplete="current-password" required>
       </div>
-      <button class="btn primary" id="btn-login-catequista" type="submit" style="width:100%;margin-top:9px">Ingresar al portal</button>
+      <button class="btn primary" id="btn-login-catequista" type="submit">Ingresar</button>
     </form>
-    <p class="sub" style="margin:16px 0 0;font-size:.78rem">El acceso se valida con la pestaña CATEQUISTAS de Google Sheets.</p>
   </section>
 </div>
 <header class="topbar">
