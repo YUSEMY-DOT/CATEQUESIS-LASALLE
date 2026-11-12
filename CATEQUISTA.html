@@ -371,15 +371,7 @@ body{overflow-x:hidden}
 </style>
 
 
-<style id="bienvenida-catequista-portada-css">
-.bienvenida-catequista-portada{display:block;width:100%;margin:0 auto 20px;overflow:hidden;border:1px solid #dce5ef;border-radius:18px;background:#fff;box-shadow:0 10px 28px rgba(15,42,76,.09)}
-.bienvenida-catequista-portada img{display:block;width:100%;height:auto;max-height:clamp(150px,24vw,300px);object-fit:contain;object-position:center;background:#fff}
-.bienvenida-catequista-texto{display:flex;align-items:center;justify-content:center;gap:8px 12px;flex-wrap:wrap;padding:11px 16px 13px;color:#15385e;text-align:center;border-top:1px solid #e7edf4;background:linear-gradient(100deg,#fff,#f7f9fc)}
-.bienvenida-catequista-texto span{font-size:.92rem;color:#64748b;font-weight:600}
-.bienvenida-catequista-texto strong{font-size:1.08rem;color:#12365e;font-weight:900}
-.bienvenida-catequista-texto small{flex-basis:100%;font-size:.75rem;color:#7a8798}
-@media(max-width:700px){.bienvenida-catequista-portada{border-radius:12px;margin-bottom:14px}.bienvenida-catequista-portada img{max-height:180px}.bienvenida-catequista-texto{gap:4px 8px;padding:9px 10px}.bienvenida-catequista-texto span{font-size:.8rem}.bienvenida-catequista-texto strong{font-size:.95rem}}
-</style>
+
 
 </head>
 <body>
@@ -465,14 +457,7 @@ body{overflow-x:hidden}
 <div class="modal-backdrop" id="mise-modal">
   <section class="modal" role="dialog" aria-modal="true">
 
-    <section id="bienvenida-catequista-portada" class="bienvenida-catequista-portada" aria-label="Bienvenida al programa de Catequesis">
-      <img src="./assets/PORTAL%20CATEQUESIS.png" alt="Portada de Catequesis Camino hacia Jesús del Colegio Privado La Salle del Sur" loading="eager" decoding="async">
-      <div class="bienvenida-catequista-texto">
-        <span>Bienvenida al portal</span>
-        <strong id="bienvenida-catequista-nombre">Catequista</strong>
-        <small>Camino hacia Jesús · Colegio Privado La Salle del Sur</small>
-      </div>
-    </section>
+    
 
     <div class="panel-head" style="margin-bottom:10px">
       <div>
@@ -983,20 +968,12 @@ function cerrarSesionCatequistaPortal() {
   if ($('catequista-pin')) $('catequista-pin').value = '';
 }
 
-function actualizarBienvenidaCatequista() {
-  const nombre = perfilCatequistaPortal && perfilCatequistaPortal.nombre
-    ? String(perfilCatequistaPortal.nombre).trim()
-    : 'Catequista';
-  const destino = $('bienvenida-catequista-nombre');
-  if (destino) destino.textContent = nombre;
-}
 
 function abrirPortalComun() {
   if (!tokenCatequistaPortal) {
     if ($('catequista-login-overlay')) $('catequista-login-overlay').hidden = false;
     return;
   }
-  actualizarBienvenidaCatequista();
   openModal('mise-modal');
   volverMenuPrincipal();
   sincronizarConHoja(false);
