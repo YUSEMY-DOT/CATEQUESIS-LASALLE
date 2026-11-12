@@ -1185,12 +1185,21 @@ async function cargarNombresCatequizandosLogin(){
   const selects=[document.getElementById('nombreCatequizando'),document.getElementById('nombreCatequizandoMobile')].filter(Boolean);
   try{
     const respuesta=await apiGet('listarNombresCatequizandosLogin');
-    const nombres=(respuesta.datos||[]).map(function(item){return String(item.NOMBRE_COMPLETO||'').trim();}).filter(Boolean);
-    const unicos=Array.from(new Set(nombres)).sort(function(a,b){return a.localeCompare(b,'es');});
-    if(!unicos.length)throw new Error('No hay catequizandos vigentes registrados.');
+    const alumnos=(respuesta.datos||[]).map(function(item){
+      return {id:String(item.ID_NINO||'').trim(),nombre:String(item.NOMBRE_COMPLETO||'').trim()};
+    }).filter(function(item){return item.id&&item.nombre;});
+    const porId=new Map();
+    alumnos.forEach(function(item){if(!porId.has(item.id))porId.set(item.id,item);});
+    const lista=Array.from(porId.values()).sort(function(a,b){return a.nombre.localeCompare(b.nombre,'es');});
+    if(!lista.length)throw new Error('No hay catequizandos vigentes registrados en la hoja CATEQUIZANDOS.');
     selects.forEach(function(select){
       select.innerHTML='<option value="">Selecciona tu nombre</option>';
-      unicos.forEach(function(nombre){const opcion=document.createElement('option');opcion.value=nombre;opcion.textContent=nombre;select.appendChild(opcion);});
+      lista.forEach(function(item){
+        const opcion=document.createElement('option');
+        opcion.value=item.id;
+        opcion.textContent=item.nombre;
+        select.appendChild(opcion);
+      });
       select.disabled=false;
     });
   }catch(error){
@@ -1202,23 +1211,22 @@ async function cargarNombresCatequizandosLogin(){
 
 async function ingresarConPIN(event){
   if(event)event.preventDefault();
-  const esMobile=event && event.currentTarget && event.currentTarget.id==='loginFormMobile';
+  const esMobile=event&&event.currentTarget&&event.currentTarget.id==='loginFormMobile';
   const sufijo=esMobile?'Mobile':'';
   const campo=document.getElementById('pinAlumno'+sufijo);
   const selector=document.getElementById('nombreCatequizando'+sufijo);
   const boton=document.getElementById('btnIngresarPIN'+sufijo);
-  const nombreSeleccionado=String(selector && selector.value || '').trim();
-  const pin=String(campo && campo.value || '').trim();
-  if(!nombreSeleccionado){mostrarErrorLogin('Primero selecciona tu nombre.');if(selector)selector.focus();return;}
-  if(!/^\\d{12}$/.test(pin)){mostrarErrorLogin('Escribe los doce números de tu PIN.');if(campo)campo.focus();return;}
+  const idNinoSeleccionado=String(selector&&selector.value||'').trim();
+  const pin=String(campo&&campo.value||'').trim();
+  if(!idNinoSeleccionado){mostrarErrorLogin('Primero selecciona tu nombre.');if(selector)selector.focus();return;}
+  if(!/^\d{12}$/.test(pin)){mostrarErrorLogin('Escribe los doce números de tu PIN.');if(campo)campo.focus();return;}
   if(boton)boton.disabled=true;
   if(window.speechSynthesis)window.speechSynthesis.cancel();
   try{
-    const resultado=await validarPINEnGoogleSheets(pin);
-    if(!resultado || resultado.exito!==true || !resultado.token)throw new Error((resultado&&resultado.mensaje)||'No se pudo validar el PIN.');
+    const resultado=await validarPINEnGoogleSheets(pin,idNinoSeleccionado);
+    if(!resultado||resultado.exito!==true||!resultado.token)throw new Error((resultado&&resultado.mensaje)||'No se pudo validar el PIN.');
     const perfil=resultado.perfil||{};
-    const nombrePerfil=perfil.NOMBRE_COMPLETO||[perfil.NOMBRES,perfil.APELLIDOS].filter(Boolean).join(' ');
-    if(normalizarNombreLogin(nombrePerfil)!==normalizarNombreLogin(nombreSeleccionado))throw new Error('El PIN no corresponde al nombre seleccionado. Verifica tu nombre y tu clave.');
+    if(String(perfil.ID_NINO||'').trim()!==idNinoSeleccionado)throw new Error('El PIN no corresponde al nombre seleccionado. Verifica tu nombre y tu clave.');
     if(campo)campo.value='';
     mostrarErrorLogin('');
     mostrarPortalCatequizando(perfil,resultado.token,true);
@@ -1227,6 +1235,7 @@ async function ingresarConPIN(event){
     if(campo){campo.value='';campo.focus();}
   }finally{if(boton)boton.disabled=false;}
 }
+
 function cerrarSesionCatequizando(mensaje){
   if(window.speechSynthesis)window.speechSynthesis.cancel();
   sesionCatequizando={token:'',perfil:null};
@@ -1300,23 +1309,16 @@ function obtenerTokenCatequizando(){
  * Se reintenta únicamente esta consulta de lectura si Google devuelve
  * una respuesta temporal no válida durante la redirección de ContentService.
  */
-async function validarPINEnGoogleSheets(pin){
+async function validarPINEnGoogleSheets(pin,idNino){
   let ultimoError=null;
-  const payload=JSON.stringify({action:'validarLoginCatequizando',pin:String(pin)});
+  const payload=JSON.stringify({action:'validarLoginCatequizando',pin:String(pin),idNino:String(idNino||'')});
   for(let intento=1;intento<=3;intento++){
     try{
-      const respuesta=await fetch(API_URL,{
-        method:'POST',
-        mode:'cors',
-        redirect:'follow',
-        cache:'no-store',
-        headers:{'Content-Type':'text/plain;charset=utf-8'},
-        body:payload
-      });
+      const respuesta=await fetch(API_URL,{method:'POST',mode:'cors',redirect:'follow',cache:'no-store',headers:{'Content-Type':'text/plain;charset=utf-8'},body:payload});
       const texto=await respuesta.text();
       let resultado;
       try{resultado=JSON.parse(texto);}catch(parseError){
-        const detalle=texto && texto.trim() ? texto.trim().replace(/<[^>]*>/g,' ').slice(0,180) : 'respuesta vacía';
+        const detalle=texto&&texto.trim()?texto.trim().replace(/<[^>]*>/g,' ').slice(0,180):'respuesta vacía';
         throw new Error('Google Apps Script no devolvió una respuesta válida ('+detalle+'). Verifica que Codigo.gs esté implementado como nueva versión y con acceso para todos.');
       }
       if(!respuesta.ok)throw new Error('Google Apps Script respondió con estado '+respuesta.status+'.');
