@@ -373,6 +373,19 @@ body{overflow-x:hidden}
 
 
 
+
+<style id="catequista-selector-shorter-half-cm">
+/* Acortar únicamente el selector de nombres 0.5 cm por cada lado. */
+.auth-card .auth-field:nth-of-type(1)::before{
+  left:calc(15% - .5cm)!important;
+  right:calc(4% + .5cm)!important;
+}
+.auth-card .auth-field:nth-of-type(1) select{
+  width:calc(100% - 1cm)!important;
+  margin-left:.5cm!important;
+}
+</style>
+
 </head>
 <body>
 <div class="auth-overlay" id="catequista-login-overlay">
