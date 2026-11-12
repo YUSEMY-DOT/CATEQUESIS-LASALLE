@@ -430,23 +430,8 @@ body{overflow-x:hidden}
         <p class="sub">Haga clic en cualquiera de las catequistas para ingresar al portal general.</p>
       </div>
     </div>
-    <div class="mises-grid">
-      <article class="mise-card" onclick="abrirPortalComun()">
-        <img class="mise-avatar" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/miss%20lily.jpg" alt="Lily Melo" onerror="this.style.display='none'">
-        <div>
-          <h3 style="margin:0 0 4px; color:var(--navy); font-size:1.1rem">Lily Melo Azañero</h3>
-          <p class="small muted" style="margin:0 0 6px">Catequista Responsable</p>
-          <span class="small" style="color:var(--gold-deep); font-weight:900;">Ingresar al Portal ↗</span>
-        </div>
-      </article>
-      <article class="mise-card" onclick="abrirPortalComun()">
-        <img class="mise-avatar" src="https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/miss%20kiara.png" alt="Kiara Morales" onerror="this.style.display='none'">
-        <div>
-          <h3 style="margin:0 0 4px; color:var(--navy); font-size:1.1rem">Kiara Morales Elguera</h3>
-          <p class="small muted" style="margin:0 0 6px">Catequista Responsable</p>
-          <span class="small" style="color:var(--gold-deep); font-weight:900;">Ingresar al Portal ↗</span>
-        </div>
-      </article>
+    <div class="mises-grid" id="mises-grid-datos">
+      <p class="small muted">Consultando catequistas registrados en Google Sheets…</p>
     </div>
   </div>
 </section>
@@ -846,8 +831,10 @@ function apiGet(action, parametros) {
     };
     const temporizador = setTimeout(() => {
       if (terminado) return;
-      terminado = true; limpiar(); reject(new Error('La consulta a Google Sheets agotó el tiempo de espera.'));
-    }, 20000);
+      terminado = true;
+      limpiar();
+      reject(new Error('La acción "' + action + '" de Google Sheets superó los 35 segundos de espera.'));
+    }, 35000);
     window[callback] = respuesta => {
       if (terminado) return;
       terminado = true; clearTimeout(temporizador); limpiar();
@@ -921,35 +908,116 @@ async function iniciarSesionCatequista(event) {
 
 
 /** Carga el selector desde la pestaña real CATEQUISTAS; no usa IDs escritos a mano. */
+function renderizarTarjetasCatequistas(catequistas) {
+  const contenedor = $('mises-grid-datos');
+  if (!contenedor) return;
+  contenedor.innerHTML = '';
+
+  if (!Array.isArray(catequistas) || !catequistas.length) {
+    const aviso = document.createElement('p');
+    aviso.className = 'small muted';
+    aviso.textContent = 'No hay catequistas activos registrados en Google Sheets.';
+    contenedor.appendChild(aviso);
+    return;
+  }
+
+  // Las fotografías son archivos existentes. Nombres, cargos e IDs provienen de CATEQUISTAS.
+  const fotosPorId = {
+    'LDS-CAT-001': './assets/miss%20lily.jpg',
+    'LDS-CAT-002': './assets/miss%20kiara.png'
+  };
+
+  catequistas.forEach(c => {
+    const id = String(c.id || '').trim().toUpperCase();
+    const nombre = String(c.nombre || '').trim();
+    if (!id || !nombre) return;
+
+    const tarjeta = document.createElement('article');
+    tarjeta.className = 'mise-card';
+    tarjeta.tabIndex = 0;
+    tarjeta.setAttribute('role', 'button');
+    tarjeta.setAttribute('aria-label', 'Ingresar al portal como ' + nombre);
+    tarjeta.addEventListener('click', abrirPortalComun);
+    tarjeta.addEventListener('keydown', evento => {
+      if (evento.key === 'Enter' || evento.key === ' ') {
+        evento.preventDefault();
+        abrirPortalComun();
+      }
+    });
+
+    const foto = document.createElement('img');
+    foto.className = 'mise-avatar';
+    foto.src = fotosPorId[id] || './assets/insignia.png';
+    foto.alt = 'Fotografía institucional de ' + nombre;
+    foto.onerror = function() {
+      this.onerror = null;
+      this.src = './assets/insignia.png';
+    };
+
+    const contenido = document.createElement('div');
+    const titulo = document.createElement('h3');
+    titulo.style.cssText = 'margin:0 0 4px;color:var(--navy);font-size:1.1rem';
+    titulo.textContent = nombre;
+
+    const cargo = document.createElement('p');
+    cargo.className = 'small muted';
+    cargo.style.margin = '0 0 6px';
+    cargo.textContent = String(c.cargo || 'Catequista');
+
+    const acceso = document.createElement('span');
+    acceso.className = 'small';
+    acceso.style.cssText = 'color:var(--gold-deep);font-weight:900;';
+    acceso.textContent = 'Ingresar al Portal ↗';
+
+    contenido.appendChild(titulo);
+    contenido.appendChild(cargo);
+    contenido.appendChild(acceso);
+    tarjeta.appendChild(foto);
+    tarjeta.appendChild(contenido);
+    contenedor.appendChild(tarjeta);
+  });
+}
+
+/** Selector y tarjetas consumen la misma lista de CATEQUISTAS en Google Sheets. */
 async function cargarCatequistasLogin() {
   const selector = $('catequista-id');
   const boton = $('btn-login-catequista');
   const error = $('catequista-login-error');
   if (!selector) return;
+
   selector.innerHTML = '<option value="">Selecciona tu nombre</option>';
   if (boton) boton.disabled = true;
   if (error) { error.style.display = 'none'; error.textContent = ''; }
+
   try {
     const respuesta = await apiGet('listarCatequistasActivas');
     if (!respuesta || respuesta.exito === false) {
-      throw new Error(respuesta && respuesta.mensaje ? respuesta.mensaje : 'No se pudo leer CATEQUISTAS.');
+      throw new Error(respuesta && respuesta.mensaje ? respuesta.mensaje : 'No se pudo leer la pestaña CATEQUISTAS.');
     }
+
     const lista = Array.isArray(respuesta.catequistas) ? respuesta.catequistas : [];
     selector.innerHTML = '<option value="">Selecciona tu nombre</option>';
+
     lista.forEach(c => {
+      const id = String(c.id || '').trim();
+      const nombre = String(c.nombre || '').trim();
+      if (!id || !nombre) return;
       const opcion = document.createElement('option');
-      opcion.value = String(c.id || '');
-      opcion.textContent = String(c.nombre || '') + (c.cargo ? ' — ' + String(c.cargo) : '');
+      opcion.value = id;
+      opcion.textContent = nombre;
       selector.appendChild(opcion);
     });
-    if (!lista.length) {
-      selector.innerHTML = '<option value="">Selecciona tu nombre</option>';
-      if (error) { error.textContent = 'No hay registros activos en la pestaña CATEQUISTAS.'; error.style.display = 'block'; }
+
+    renderizarTarjetasCatequistas(lista);
+    if (!lista.length && error) {
+      error.textContent = 'No hay catequistas activos en la pestaña CATEQUISTAS de Google Sheets.';
+      error.style.display = 'block';
     }
   } catch (e) {
-    selector.innerHTML = '<option value="">Selecciona tu nombre</option>';
+    renderizarTarjetasCatequistas([]);
     if (error) {
-      error.textContent = (e && e.message ? e.message : 'No se pudo conectar con Apps Script.') + ' Verifica que la versión actual del GS esté implementada como aplicación web.';
+      error.textContent = (e && e.message ? e.message : 'No se pudo conectar con Google Sheets.') +
+        ' Debe implementarse la versión de Código.gs que incluye listarCatequistasActivas.';
       error.style.display = 'block';
     }
   } finally {
@@ -1005,14 +1073,25 @@ async function sincronizarConHoja(silencioso) {
   const textos = botones.map(b => b.textContent);
   botones.forEach(b => { b.disabled = true; b.textContent = '⏳ Sincronizando…'; });
   try {
-    const respuestas = await Promise.all([
-      apiGet('getSesiones'),
-      apiGet('getCatequizandos'),
-      apiGet('getAsistenciaNotas'),
-      apiGet('getAportes'),
-      apiGet('getPadres'),
-      apiGet('getConfig')
-    ]);
+    const accionesIniciales = [
+      'getSesiones',
+      'getCatequizandos',
+      'getAsistenciaNotas',
+      'getAportes',
+      'getPadres',
+      'getConfig'
+    ];
+    const respuestas = await Promise.all(accionesIniciales.map(async accion => {
+      const inicio = Date.now();
+      try {
+        const resultado = await apiGet(accion);
+        console.info('[Google Sheets] ' + accion + ': ' + (Date.now() - inicio) + ' ms');
+        return resultado;
+      } catch (error) {
+        console.error('[Google Sheets] Falló ' + accion + ':', error);
+        throw new Error(accion + ': ' + (error && error.message ? error.message : String(error)));
+      }
+    }));
     const [ses, cat, asist, pagos, padres, config] = respuestas;
     sesionesPortal = (ses.bloques || []).flatMap(b => (b.sessions || []).map(x => Object.assign({}, x, { bloque: x.bloque || b.title })));
     clasesPortal = ses.clases || [];
