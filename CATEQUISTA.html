@@ -1,4 +1,7 @@
 <!doctype html>
+<!-- REGLA DE INTEGRIDAD: este portal comparte la base maestra Google Sheets del sistema.
+     No eliminar ni renombrar módulos, IDs, acciones API, pestañas ni encabezados. -->
+
 <html lang="es">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#173B68">
@@ -764,13 +767,10 @@ body{overflow-x:hidden}
         <button class="btn small gold" onclick="window.print()">🖨️ Imprimir Reporte de Pagos</button>
       </div>
       <h3 style="color:var(--navy); margin-bottom:5px;">Control de Pago Único (S/. 40.00 Soles)</h3>
-      <div style="overflow-x:auto;width:100%;">
-        <table class="data-table" style="min-width:1450px;">
-          <thead><tr><th>ID</th><th>Foto</th><th>Apellidos y Nombres</th><th>DNI</th><th>Monto</th><th>Estado</th><th>Fecha de pago</th><th>N.º operación</th><th>Banco / medio</th><th>Observaciones</th><th>Voucher / imagen</th></tr></thead>
-          <tbody id="tabla-pagos-cuerpo"><tr><td colspan="11" style="text-align:center;color:var(--muted);padding:24px;">Cargando información de pagos desde Google Sheets…</td></tr></tbody>
-        </table>
-      </div>
-      <p id="pagos-permisos-info" class="sub" style="margin-top:8px;"></p>
+      <table class="data-table">
+        <thead><tr><th>ID</th><th>Apellidos y Nombres</th><th>DNI Alumno</th><th>Monto</th><th>Estado Editable</th><th>Voucher</th></tr></thead>
+        <tbody id="tabla-pagos-cuerpo"><tr><td colspan="6" style="text-align:center;color:var(--muted);padding:24px;">Cargando información de pagos desde Google Sheets…</td></tr></tbody>
+      </table>
     </div>
 
     <!-- 4. VISTA PADRES -->
@@ -1231,7 +1231,7 @@ function actualizarInterfazAdministrador() {
   if (identidad) identidad.textContent = esAdministradoraPortal() ? 'Sesión administrativa: ' + (perfilCatequistaPortal.nombre || perfilCatequistaPortal.id) : 'Acceso restringido.';
 }
 async function abrirAdministradorCatequistas() {
-  if (!esAdministradoraPortal()) { alert('Este módulo está reservado para LILY MELO AZAÑERO y KIARA MORALES ELGUERA.'); return; }
+  if (!esAdministradoraPortal()) { alert('Este módulo está reservado para Lily y Kiara.'); return; }
   mostrarVista('vista-administrador');
   await cargarAdministracionCatequistas();
 }
@@ -1803,167 +1803,59 @@ function recalcularTotalesGlobales(resumen) {
   $('stat-justificadas-global').textContent = resumen.justificadas != null ? resumen.justificadas : FJ;
 }
 
-function urlMiniaturaVoucher(url) {
-  const texto = String(url || '');
-  const m = texto.match(/\/d\/([a-zA-Z0-9_-]+)/) || texto.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-  return m ? 'https://drive.google.com/thumbnail?id=' + encodeURIComponent(m[1]) + '&sz=w180' : '';
-}
-
 function renderizarPagos() {
   const cuerpo = $('tabla-pagos-cuerpo');
   if (!cuerpo) return;
-  const puedeEditar = esAdministradoraPortal();
-  const info = $('pagos-permisos-info');
-  if (info) info.textContent = puedeEditar
-    ? 'Sesión administrativa: puedes registrar y actualizar pagos. Los cambios se guardan en Google Sheets.'
-    : 'Modo consulta: puedes revisar los pagos y comprobantes. Solo LILY MELO AZAÑERO y KIARA MORALES ELGUERA pueden modificarlos.';
-  if (!datosPagosPortal.length) { cuerpo.innerHTML = '<tr><td colspan="11">No hay registros en la hoja PAGOS.</td></tr>'; return; }
-
-  const medios = ['', 'BCP', 'Yape', 'Plin', 'Transferencia', 'Efectivo'];
+  if (!datosPagosPortal.length) { cuerpo.innerHTML = '<tr><td colspan="6">No hay registros en la hoja PAGOS.</td></tr>'; return; }
   cuerpo.innerHTML = datosPagosPortal.map(p => {
-    const id = escaparHTML(p.ID || '');
     const estado = String(p.ESTADO_PAGO || 'Pendiente');
-    const foto = p.FOTO_ALUMNO ? `<img src="${escaparHTML(p.FOTO_ALUMNO)}" alt="Foto de ${escaparHTML(p.NOMBRE || id)}" style="width:42px;height:42px;object-fit:cover;border-radius:8px;">` : '—';
-    const opcionesEstado = ['Pendiente','Pagado','Observado'].map(v => `<option value="${v}" ${estado.toUpperCase()===v.toUpperCase()?'selected':''}>${v}</option>`).join('');
-    const opcionesMedio = medios.map(v => `<option value="${escaparHTML(v)}" ${String(p.MEDIO_PAGO||'').toUpperCase()===v.toUpperCase()?'selected':''}>${v || 'Seleccionar medio'}</option>`).join('');
-    const miniatura = p.VOUCHER_URL ? urlMiniaturaVoucher(p.VOUCHER_URL) : '';
-    const voucher = p.VOUCHER_URL
-      ? `<a href="${escaparHTML(p.VOUCHER_URL)}" target="_blank" rel="noopener">Abrir voucher</a>${miniatura ? `<div style="margin-top:5px;"><a href="${escaparHTML(p.VOUCHER_URL)}" target="_blank" rel="noopener"><img src="${escaparHTML(miniatura)}" alt="Vista previa del voucher" loading="lazy" style="max-width:110px;max-height:90px;object-fit:contain;border:1px solid var(--line);border-radius:6px;"></a></div>` : ''}`
-      : '<span style="color:var(--muted);">Sin voucher</span>';
-    const deshabilitado = puedeEditar ? '' : 'disabled';
-    return `<tr data-pago-fila="${id}">
-      <td>${id}</td><td>${foto}</td><td>${escaparHTML(p.NOMBRE || '—')}</td><td>${escaparHTML(p.DNI || '—')}</td><td><strong>${escaparHTML(p.MONTO || 'S/. 40.00')}</strong></td>
-      <td><select ${deshabilitado} data-pago-id="${id}" data-pago-campo="estado" style="min-width:105px;"><option value="Pendiente" ${estado.toUpperCase()==='PENDIENTE'?'selected':''}>Pendiente</option><option value="Pagado" ${estado.toUpperCase()==='PAGADO'?'selected':''}>Pagado</option><option value="Observado" ${estado.toUpperCase()==='OBSERVADO'?'selected':''}>Observado</option></select></td>
-      <td>${escaparHTML(p.FECHA_PAGO || '—')}</td>
-      <td><input ${deshabilitado} type="text" value="${escaparHTML(p.VOUCHER_NUMERO || '')}" placeholder="N.º operación" data-pago-id="${id}" data-pago-campo="numeroVoucher" style="width:130px;"></td>
-      <td><select ${deshabilitado} data-pago-id="${id}" data-pago-campo="medioPago" style="min-width:145px;">${opcionesMedio}</select></td>
-      <td><input ${deshabilitado} type="text" value="${escaparHTML(p.OBSERVACIONES || '')}" placeholder="Observaciones" data-pago-id="${id}" data-pago-campo="observaciones" style="width:150px;"></td>
-      <td>${voucher}<div style="margin-top:6px;">${puedeEditar ? `<input type="file" accept="image/jpeg,image/png,image/webp,application/pdf" data-pago-id="${id}" data-pago-voucher-file="1" style="font-size:0.75rem;max-width:190px;"><div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;"><button type="button" class="btn small primary" onclick="guardarPagoFila('${id}',this)">💾 Guardar</button>${p.VOUCHER_URL ? `<button type="button" class="btn small" style="background:#a83232;color:#fff;" onclick="eliminarVoucherPago('${id}',this)">🗑 Eliminar voucher</button>` : ''}</div><small data-pago-mensaje="${id}" style="display:block;margin-top:4px;"></small>` : ''}</div></td>
-    </tr>`;
+    const pagado = estado.toUpperCase() === 'PAGADO';
+    const voucher = p.VOUCHER_URL ? `<a href="${escaparHTML(p.VOUCHER_URL)}" target="_blank" rel="noopener">Ver voucher</a><br>` : '';
+    return `<tr><td>${escaparHTML(p.ID)}</td><td>${escaparHTML(p.NOMBRE)}</td><td>${escaparHTML(p.DNI || '—')}</td><td><strong>${escaparHTML(p.MONTO || 'S/. 40.00')}</strong></td>
+      <td><select data-pago-id="${escaparHTML(p.ID)}" data-estado-anterior="${escaparHTML(estado)}" onchange="actualizarPagoEstado(this)" style="border:1px solid var(--line);border-radius:6px;padding:4px;font-weight:bold;color:${pagado?'var(--green)':'var(--gold-deep)'};">
+        <option value="Pendiente" ${!pagado?'selected':''}>Pendiente</option><option value="Pagado" ${pagado?'selected':''}>Pagado</option></select></td>
+      <td>${voucher}<input type="file" accept="image/*,.pdf" onchange="adjuntarVoucher(this,'${escaparHTML(p.ID)}')" style="font-size:0.78rem;max-width:180px;"></td></tr>`;
   }).join('');
 }
 
-async function esperarConfirmacionPago(id, verificacion, tiempoMaximo) {
-  const limite = Date.now() + (tiempoMaximo || 15000);
-  let ultimoError = null;
-  while (Date.now() < limite) {
-    await retraso(600);
-    try {
-      const r = await apiGet('getAportes');
-      const pago = (r.datos || []).find(x => String(x.ID) === String(id));
-      if (pago && verificacion(pago)) {
-        datosPagosPortal = r.datos || [];
-        return pago;
-      }
-    } catch (e) { ultimoError = e; }
-  }
-  throw new Error('No se pudo confirmar el cambio en Google Sheets dentro del tiempo esperado.' + (ultimoError ? ' ' + ultimoError.message : ''));
-}
-
-async function actualizarPagoCampo(control, campo) {
-  if (!esAdministradoraPortal()) { alert('Solo las administradoras autorizadas pueden modificar pagos.'); return; }
+async function actualizarPagoEstado(control) {
   const id = control.dataset.pagoId;
-  const pago = datosPagosPortal.find(x => String(x.ID) === String(id));
-  if (!pago) { alert('No se encontró el pago en la lista actual.'); return; }
-  const valor = control.value;
-  const anterior = campo === 'estado' ? (control.dataset.estadoAnterior || pago.ESTADO_PAGO || 'Pendiente') : (campo === 'medioPago' ? pago.MEDIO_PAGO : campo === 'numeroVoucher' ? pago.VOUCHER_NUMERO : pago.OBSERVACIONES);
-  if (campo === 'estado' && valor === 'Pagado' && !String(pago.MEDIO_PAGO || '').trim()) {
-    alert('Selecciona primero el banco o medio de pago.'); control.value = anterior; return;
-  }
-  const payload = { action:'guardarPago', id:id, estado:campo === 'estado' ? valor : (pago.ESTADO_PAGO || 'Pendiente') };
-  if (campo === 'medioPago') payload.medioPago = valor;
-  if (campo === 'numeroVoucher') payload.numeroVoucher = valor;
-  if (campo === 'observaciones') payload.observaciones = valor;
+  const nuevo = control.value;
+  const anterior = control.dataset.estadoAnterior || 'Pendiente';
   control.disabled = true;
   try {
-    await apiPost(payload);
-    await esperarConfirmacionPago(id, p => {
-      if (campo === 'estado') return String(p.ESTADO_PAGO).toUpperCase() === valor.toUpperCase();
-      if (campo === 'medioPago') return String(p.MEDIO_PAGO || '') === valor;
-      if (campo === 'numeroVoucher') return String(p.VOUCHER_NUMERO || '') === valor;
-      return String(p.OBSERVACIONES || '') === valor;
-    });
+    await apiPost({ action: 'guardarPago', id, estado: nuevo });
+    await retraso(700);
+    const r = await apiGet('getAportes');
+    const pago = (r.datos || []).find(x => x.ID === id);
+    if (!pago || String(pago.ESTADO_PAGO).toUpperCase() !== nuevo.toUpperCase()) throw new Error('Google Sheets no confirmó el cambio.');
+    datosPagosPortal = r.datos || [];
     renderizarPagos();
     renderizarDashboard();
   } catch (error) {
-    alert('No se pudo guardar el cambio. ' + error.message);
-    const r = await apiGet('getAportes').catch(() => null);
-    if (r) { datosPagosPortal = r.datos || []; renderizarPagos(); }
-    else if (campo === 'estado') control.value = anterior;
-  } finally { if (control.isConnected) control.disabled = !esAdministradoraPortal(); }
+    control.value = anterior;
+    alert('No se pudo guardar el estado del pago.\n' + error.message);
+  } finally { control.disabled = false; }
 }
 
-async function actualizarPagoEstado(control) { return actualizarPagoCampo(control, 'estado'); }
-
-async function guardarPagoFila(id, boton) {
-  if (!esAdministradoraPortal()) { alert('Solo LILY MELO AZAÑERO y KIARA MORALES ELGUERA pueden guardar pagos.'); return; }
-  const fila = document.querySelector('tr[data-pago-fila="' + CSS.escape(String(id)) + '"]');
-  if (!fila) { alert('No se encontró la fila del pago.'); return; }
-  const campo = nombre => fila.querySelector('[data-pago-campo="' + nombre + '"]');
-  const estado = campo('estado').value;
-  const medioPago = campo('medioPago').value;
-  const numeroVoucher = campo('numeroVoucher').value.trim();
-  const observaciones = campo('observaciones').value.trim();
-  const inputArchivo = fila.querySelector('[data-pago-voucher-file]');
-  const archivo = inputArchivo && inputArchivo.files ? inputArchivo.files[0] : null;
-  if (estado === 'Pagado' && !medioPago) { alert('Selecciona el banco o medio de pago antes de guardar como Pagado.'); campo('medioPago').focus(); return; }
-  if (archivo) {
-    if (archivo.size > 5 * 1024 * 1024) { alert('El voucher no debe superar 5 MB.'); return; }
-    if (['image/jpeg','image/png','image/webp','application/pdf'].indexOf(archivo.type) < 0) { alert('Selecciona JPG, PNG, WEBP o PDF.'); return; }
-  }
-  const mensaje = fila.querySelector('[data-pago-mensaje]');
-  if (boton) { boton.disabled = true; boton.textContent = 'Guardando…'; }
-  if (mensaje) mensaje.textContent = 'Guardando en Google Sheets…';
+async function adjuntarVoucher(control, id) {
+  const archivo = control.files && control.files[0];
+  if (!archivo) return;
+  const pago = datosPagosPortal.find(x => x.ID === id);
+  control.disabled = true;
   try {
-    const adjunto = archivo ? await leerArchivoComoBase64(archivo) : {};
-    await apiPost(Object.assign({
-      action:'guardarPago', id:String(id), estado:estado, medioPago:medioPago,
-      numeroVoucher:numeroVoucher, observaciones:observaciones
-    }, adjunto || {}));
-    const anterior = datosPagosPortal.find(x => String(x.ID) === String(id)) || {};
-    const fichaAlumno = (catequizandosPortal || []).find(x => String(x.ID_NINO || '') === String(id)) || {};
-    const nombreFuente = [String(fichaAlumno.APELLIDOS || '').trim(), String(fichaAlumno.NOMBRES || '').trim()].filter(Boolean).join(', ');
-    const dniFuente = String(fichaAlumno.DNI || '').trim();
-    await esperarConfirmacionPago(id, p =>
-      String(p.ID || '') === String(id) &&
-      (!nombreFuente || String(p.NOMBRE || '').trim() === nombreFuente) &&
-      (!dniFuente || String(p.DNI || '').trim() === dniFuente) &&
-      String(p.MONTO || '').trim() !== '' &&
-      String(p.ESTADO_PAGO || '').toUpperCase() === estado.toUpperCase() &&
-      String(p.MEDIO_PAGO || '') === medioPago &&
-      String(p.VOUCHER_NUMERO || '') === numeroVoucher &&
-      String(p.OBSERVACIONES || '') === observaciones &&
-      (!archivo || (!!p.VOUCHER_URL && p.VOUCHER_URL !== String(anterior.VOUCHER_URL || '')))
-    );
+    const adjunto = await leerArchivoComoBase64(archivo);
+    await apiPost(Object.assign({ action: 'guardarPago', id, estado: pago ? pago.ESTADO_PAGO : 'Pendiente' }, adjunto));
+    await retraso(700);
+    const r = await apiGet('getAportes');
+    const actualizado = (r.datos || []).find(x => x.ID === id);
+    if (!actualizado || !actualizado.VOUCHER_URL) throw new Error('Google Sheets no confirmó el enlace del voucher.');
+    datosPagosPortal = r.datos || [];
     renderizarPagos();
-    renderizarDashboard();
-    alert('Fila completa del estudiante guardada y confirmada en Google Sheets.');
+    alert('Voucher guardado en la hoja PAGOS. El archivo se conserva en Drive con acceso restringido.');
   } catch (error) {
-    if (mensaje) mensaje.textContent = 'No se pudo confirmar el guardado.';
-    alert('No se pudo guardar el pago. ' + (error && error.message ? error.message : error));
-    const r = await apiGet('getAportes').catch(() => null);
-    if (r) { datosPagosPortal = r.datos || []; renderizarPagos(); }
-  } finally {
-    if (boton && boton.isConnected) { boton.disabled = !esAdministradoraPortal(); boton.textContent = '💾 Guardar'; }
-  }
-}
-
-async function eliminarVoucherPago(id, boton) {
-  if (!esAdministradoraPortal()) { alert('Solo las administradoras autorizadas pueden eliminar vouchers.'); return; }
-  const pago = datosPagosPortal.find(x => String(x.ID) === String(id));
-  if (!pago || !pago.VOUCHER_URL) { alert('Este registro no tiene un voucher guardado.'); return; }
-  if (!confirm('¿Eliminar el voucher de ' + (pago.NOMBRE || id) + '? El archivo se enviará a la papelera de Google Drive y se quitará su enlace de PAGOS.')) return;
-  if (boton) { boton.disabled = true; boton.textContent = 'Eliminando…'; }
-  try {
-    await apiPost({action:'eliminarVoucherPago', id:String(id), voucherUrl:pago.VOUCHER_URL});
-    await esperarConfirmacionPago(id, p => !p.VOUCHER_URL);
-    renderizarPagos();
-    alert('Voucher eliminado. La fila de pago y los demás datos se conservaron.');
-  } catch (error) {
-    alert('No se pudo eliminar el voucher. ' + (error && error.message ? error.message : error));
-    const r = await apiGet('getAportes').catch(() => null);
-    if (r) { datosPagosPortal = r.datos || []; renderizarPagos(); }
-  } finally { if (boton && boton.isConnected) boton.disabled = !esAdministradoraPortal(); }
+    alert('No se pudo adjuntar el voucher.\n' + error.message);
+  } finally { control.disabled = false; }
 }
 
 function renderizarPadres() {
