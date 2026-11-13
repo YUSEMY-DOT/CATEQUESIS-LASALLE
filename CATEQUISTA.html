@@ -1916,66 +1916,128 @@ function renderizarPagos() {
   if (!admin) mostrarMensajePagos('Vista de consulta. Solo las administradoras autorizadas pueden registrar o eliminar comprobantes.');
 }
 function imprimirReportePagos() {
+  // Imprime en una ventana independiente: el módulo PAGOS puede estar oculto
+  // por el menú del portal y eso dejaba la vista previa completamente en blanco.
   if (!Array.isArray(datosPagosPortal) || !datosPagosPortal.length) {
-    alert('No hay alumnos cargados para imprimir. Actualiza primero la información de PAGOS.');
+    alert('Todavía no hay alumnos cargados. Espera a que termine la consulta de PAGOS y vuelve a imprimir.');
     return;
   }
-  const contenedor = $('pagos-reporte-impresion');
-  if (!contenedor) { alert('No se encontró el área de impresión del reporte.'); return; }
+
   const total = datosPagosPortal.reduce((s,p) => {
     if (String(p.ESTADO_PAGO || '').toUpperCase() !== 'PAGADO') return s;
     const n = Number(String(p.MONTO || '40').replace(/[^\d.,]/g,'').replace(',','.'));
     return s + (Number.isFinite(n) && n > 0 ? n : 40);
   }, 0);
   const pagados = datosPagosPortal.filter(p => String(p.ESTADO_PAGO || '').toUpperCase() === 'PAGADO').length;
+  const escapar = v => escaparHTML(v == null || v === '' ? '—' : String(v));
+
   const filas = datosPagosPortal.map(p => {
     const foto = p.FOTO_ALUMNO
-      ? `<img class="pagos-print-foto" src="${escaparHTML(p.FOTO_ALUMNO)}" alt="Foto del alumno">`
-      : '<span>Sin foto</span>';
+      ? `<img class="foto" src="${escaparHTML(p.FOTO_ALUMNO)}" alt="Foto de ${escaparHTML(p.NOMBRE || 'alumno')}">`
+      : '<span class="sin-foto">Sin foto</span>';
     const voucher = p.VOUCHER_URL
-      ? `<a class="pagos-print-voucher" href="${escaparHTML(p.VOUCHER_URL)}" target="_blank">Ver comprobante</a>`
+      ? `<a href="${escaparHTML(p.VOUCHER_URL)}">Ver comprobante</a>`
       : 'Sin voucher';
     return `<tr>
-      <td>${escaparHTML(p.ID || '—')}</td>
-      <td>${foto}</td>
-      <td>${escaparHTML(p.NOMBRE || '—')}</td>
-      <td>${escaparHTML(p.DNI || '—')}</td>
-      <td>${escaparHTML(p.MONTO || 'S/ 40.00')}</td>
-      <td>${escaparHTML(p.ESTADO_PAGO || 'Pendiente')}</td>
-      <td>${escaparHTML(p.FECHA_PAGO || '—')}</td>
-      <td>${escaparHTML(p.VOUCHER_NUMERO || '—')}</td>
-      <td>${escaparHTML(p.MEDIO_PAGO || '—')}</td>
-      <td>${escaparHTML(p.OBSERVACIONES || '—')}</td>
+      <td>${escapar(p.ID)}</td>
+      <td class="celda-foto">${foto}</td>
+      <td>${escapar(p.NOMBRE)}</td>
+      <td>${escapar(p.DNI)}</td>
+      <td>${escapar(p.MONTO || 'S/ 40.00')}</td>
+      <td>${escapar(p.ESTADO_PAGO || 'Pendiente')}</td>
+      <td>${escapar(p.FECHA_PAGO)}</td>
+      <td>${escapar(p.VOUCHER_NUMERO)}</td>
+      <td>${escapar(p.MEDIO_PAGO)}</td>
+      <td>${escapar(p.OBSERVACIONES)}</td>
       <td>${voucher}</td>
     </tr>`;
   }).join('');
-  const fechaEmision = new Date().toLocaleString('es-PE', {dateStyle:'long', timeStyle:'short'});
-  contenedor.innerHTML = `
-    <header class="pagos-print-cabecera">
-      <img class="pagos-print-logo" src="./assets/insignia.png" alt="Insignia del colegio" onerror="this.style.display='none'">
-      <div class="pagos-print-institucion">
-        <h1>COLEGIO PRIVADO LA SALLE DEL SUR</h1>
-        <h2>CAMINO HACIA JESÚS 2026</h2>
-        <p>CONTROL DE PAGO ÚNICO · REGISTRO DE ALUMNOS Y COMPROBANTES</p>
-      </div>
-    </header>
-    <div class="pagos-print-resumen">
-      <span>Total recaudado: S/ ${total.toFixed(2)}</span>
-      <span>Pagados: ${pagados} de ${datosPagosPortal.length}</span>
-      <span>Pendientes: ${datosPagosPortal.length-pagados}</span>
-    </div>
-    <table class="pagos-print-tabla">
-      <thead><tr><th style="width:7%">ID</th><th style="width:6%">Foto</th><th style="width:15%">Apellidos y nombres</th><th style="width:8%">DNI</th><th style="width:7%">Monto</th><th style="width:7%">Estado</th><th style="width:8%">Fecha</th><th style="width:8%">N.º operación</th><th style="width:8%">Medio</th><th style="width:12%">Observaciones</th><th style="width:8%">Voucher</th></tr></thead>
-      <tbody>${filas}</tbody>
-    </table>
-    <p class="pagos-print-pie">Emitido el ${escaparHTML(fechaEmision)} · Colegio Privado La Salle del Sur</p>`;
-  const imagenes = Array.from(contenedor.querySelectorAll('img'));
-  Promise.all(imagenes.map(img => img.complete ? Promise.resolve() : new Promise(resolve => {
-    img.onload = resolve; img.onerror = resolve;
-    setTimeout(resolve, 2500);
-  }))).then(() => window.print());
-}
 
+  const fechaEmision = new Date().toLocaleString('es-PE', {dateStyle:'long', timeStyle:'short'});
+  const logoUrl = new URL('./assets/insignia.png', window.location.href).href;
+  const ventana = window.open('', '_blank');
+  if (!ventana) {
+    alert('El navegador bloqueó la ventana de impresión. Permite las ventanas emergentes para este sitio y vuelve a pulsar Imprimir.');
+    return;
+  }
+
+  const documento = `<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Control de Pagos - La Salle del Sur</title>
+<style>
+  @page { size: A4 landscape; margin: 10mm; }
+  * { box-sizing: border-box; }
+  body { margin: 0; color: #172b48; font-family: Arial, Helvetica, sans-serif; font-size: 9pt; }
+  .cabecera { display:flex; align-items:center; gap:16px; border-bottom:3px solid #d6ad3c; padding:0 0 10px; margin-bottom:12px; }
+  .logo { width:76px; height:76px; object-fit:contain; }
+  .institucion { flex:1; text-align:center; }
+  h1 { font-size:17pt; margin:0; color:#12345b; }
+  h2 { font-size:12pt; margin:4px 0; color:#214e78; }
+  .institucion p { font-size:8pt; margin:2px 0; color:#53657a; }
+  .resumen { display:flex; justify-content:space-between; gap:12px; font-size:9pt; font-weight:bold; margin:10px 0; }
+  table { width:100%; border-collapse:collapse; table-layout:fixed; font-size:7.5pt; }
+  th { background:#214e78; color:#fff; padding:6px 4px; border:1px solid #9aaabd; text-align:center; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  td { border:1px solid #b8c4d1; padding:4px; vertical-align:middle; overflow-wrap:anywhere; }
+  tr { break-inside:avoid; page-break-inside:avoid; }
+  .celda-foto { text-align:center; }
+  .foto { width:48px; height:54px; object-fit:cover; display:block; margin:auto; border:1px solid #cbd5e1; border-radius:4px; }
+  .sin-foto { color:#64748b; font-size:7pt; }
+  a { color:#15558c; text-decoration:underline; }
+  .pie { font-size:7pt; color:#64748b; margin-top:10px; text-align:right; }
+  @media screen { body { padding:18px; } .acciones { position:sticky; top:0; display:flex; justify-content:flex-end; margin-bottom:14px; } .acciones button { border:0; border-radius:8px; padding:10px 16px; background:#12345b; color:white; font-weight:bold; cursor:pointer; } }
+  @media print { .acciones { display:none; } }
+</style>
+</head>
+<body>
+<div class="acciones"><button onclick="window.print()">Imprimir reporte</button></div>
+<header class="cabecera">
+  <img class="logo" src="${logoUrl}" alt="Insignia del colegio" onerror="this.style.display='none'">
+  <div class="institucion">
+    <h1>COLEGIO PRIVADO LA SALLE DEL SUR</h1>
+    <h2>CAMINO HACIA JESÚS 2026</h2>
+    <p>CONTROL DE PAGO ÚNICO · REGISTRO DE ALUMNOS Y COMPROBANTES</p>
+  </div>
+</header>
+<div class="resumen">
+  <span>Total recaudado: S/ ${total.toFixed(2)}</span>
+  <span>Pagados: ${pagados} de ${datosPagosPortal.length}</span>
+  <span>Pendientes: ${datosPagosPortal.length-pagados}</span>
+</div>
+<table>
+<thead><tr>
+  <th style="width:7%">ID</th><th style="width:6%">Foto</th><th style="width:15%">Apellidos y nombres</th>
+  <th style="width:8%">DNI</th><th style="width:7%">Monto</th><th style="width:7%">Estado</th>
+  <th style="width:8%">Fecha</th><th style="width:8%">N.º operación</th><th style="width:8%">Medio</th>
+  <th style="width:12%">Observaciones</th><th style="width:8%">Voucher</th>
+</tr></thead>
+<tbody>${filas}</tbody>
+</table>
+<p class="pie">Emitido el ${escaparHTML(fechaEmision)} · Colegio Privado La Salle del Sur</p>
+<script>
+(function(){
+  const imgs = Array.from(document.images);
+  Promise.all(imgs.map(img => {
+    if (img.complete) return Promise.resolve();
+    return new Promise(resolve => {
+      img.onload = resolve;
+      img.onerror = resolve;
+      setTimeout(resolve, 5000);
+    });
+  })).then(() => {
+    setTimeout(() => { window.focus(); window.print(); }, 350);
+  });
+})();
+<\/script>
+</body>
+</html>`;
+
+  ventana.document.open();
+  ventana.document.write(documento);
+  ventana.document.close();
+}
 async function cargarControlPagos() {
   const boton = $('btnRecargarPagos');
   if (!esAdminControlPagos()) {
