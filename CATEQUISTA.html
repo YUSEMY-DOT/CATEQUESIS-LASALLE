@@ -570,6 +570,29 @@ body{overflow-x:hidden}
 .pago-file{display:block;width:190px;max-width:100%;font-size:.7rem;margin-bottom:7px}.pago-acciones{min-width:180px}.pago-link-voucher{display:inline-block;color:#15558c;text-decoration:underline;font-weight:800;font-size:.75rem;margin:0 0 6px}.pago-guardado{display:block;color:var(--green);font-size:.7rem;font-weight:800;margin-top:5px}.btn.danger{background:#fff1f1;border-color:#efcaca;color:#a42d35}.pago-delete{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;min-width:30px;padding:0;margin:6px 0 0;border-radius:50%;font-size:1rem;font-weight:900;line-height:1}
 @media(max-width:700px){.pagos-heading{align-items:flex-start}.pagos-resumen{align-items:flex-start}.pagos-toolbar{align-items:stretch}.pagos-toolbar-actions{width:100%}.pagos-toolbar-actions .btn{flex:1}}
 @media print{.pagos-toolbar,.pagos-mensaje,.pago-file,.pago-delete,.pagos-table button{display:none!important}.pagos-tabla-wrap{overflow:visible;border:0}.pagos-table{min-width:0;font-size:8pt}.pagos-table th,.pagos-table td{padding:4px}}
+/* IMPRESIÓN EXCLUSIVA DEL REPORTE DE PAGOS: encabezado institucional y ficha de cada alumno */
+.pagos-reporte-impresion{display:none}
+@media print{
+  @page{size:A4 landscape;margin:12mm}
+  body *{visibility:hidden!important}
+  #vista-pagos,#vista-pagos *{visibility:hidden!important}
+  #pagos-reporte-impresion,#pagos-reporte-impresion *{visibility:visible!important}
+  #pagos-reporte-impresion{display:block!important;position:absolute!important;left:0!important;top:0!important;width:100%!important;color:#172b48!important;background:#fff!important;font-family:Arial,sans-serif!important}
+  .pagos-print-cabecera{display:flex;align-items:center;gap:16px;border-bottom:3px solid #d6ad3c;padding:0 0 10px;margin-bottom:12px}
+  .pagos-print-logo{width:76px;height:76px;object-fit:contain}
+  .pagos-print-institucion{flex:1;text-align:center}
+  .pagos-print-institucion h1{font-size:17pt;margin:0;color:#12345b}
+  .pagos-print-institucion h2{font-size:12pt;margin:4px 0;color:#214e78}
+  .pagos-print-institucion p{font-size:8pt;margin:2px 0;color:#53657a}
+  .pagos-print-resumen{display:flex;justify-content:space-between;gap:12px;font-size:9pt;font-weight:bold;margin:10px 0}
+  .pagos-print-tabla{width:100%;border-collapse:collapse;font-size:8pt;table-layout:fixed}
+  .pagos-print-tabla th{background:#214e78!important;color:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:7px 5px;border:1px solid #9aaabd;text-align:center}
+  .pagos-print-tabla td{border:1px solid #b8c4d1;padding:5px;vertical-align:middle;overflow-wrap:anywhere}
+  .pagos-print-foto{width:52px;height:58px;object-fit:cover;display:block;margin:auto;border:1px solid #cbd5e1;border-radius:4px}
+  .pagos-print-voucher{font-size:7pt;overflow-wrap:anywhere}
+  .pagos-print-pie{font-size:7pt;color:#64748b;margin-top:10px;text-align:right}
+  .pagos-print-tabla tr{break-inside:avoid;page-break-inside:avoid}
+}
 
 </style>
 </head>
@@ -783,7 +806,7 @@ body{overflow-x:hidden}
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
         <div class="pagos-toolbar-actions">
           <button class="btn small" id="btnRecargarPagos" onclick="cargarControlPagos()">↻ Actualizar pagos</button>
-          <button class="btn small gold" onclick="window.print()">🖨️ Imprimir Reporte</button>
+          <button class="btn small gold" type="button" onclick="imprimirReportePagos()">🖨️ Imprimir Reporte</button>
         </div>
       </div>
       <div class="pagos-heading">
@@ -791,6 +814,7 @@ body{overflow-x:hidden}
         <div class="pagos-resumen"><strong id="pagos-total-recaudado">S/ 0.00</strong><span id="pagos-resumen-estados">0 de 0 pagados</span></div>
       </div>
       <div id="pagos-mensaje" class="pagos-mensaje no-print" role="status">Los registros se consultan desde la pestaña PAGOS de Google Sheets.</div>
+      <section id="pagos-reporte-impresion" class="pagos-reporte-impresion" aria-hidden="true"></section>
       <div class="pagos-tabla-wrap">
         <table class="data-table pagos-table">
           <thead><tr>
@@ -1891,6 +1915,67 @@ function renderizarPagos() {
   }).join('');
   if (!admin) mostrarMensajePagos('Vista de consulta. Solo las administradoras autorizadas pueden registrar o eliminar comprobantes.');
 }
+function imprimirReportePagos() {
+  if (!Array.isArray(datosPagosPortal) || !datosPagosPortal.length) {
+    alert('No hay alumnos cargados para imprimir. Actualiza primero la información de PAGOS.');
+    return;
+  }
+  const contenedor = $('pagos-reporte-impresion');
+  if (!contenedor) { alert('No se encontró el área de impresión del reporte.'); return; }
+  const total = datosPagosPortal.reduce((s,p) => {
+    if (String(p.ESTADO_PAGO || '').toUpperCase() !== 'PAGADO') return s;
+    const n = Number(String(p.MONTO || '40').replace(/[^\d.,]/g,'').replace(',','.'));
+    return s + (Number.isFinite(n) && n > 0 ? n : 40);
+  }, 0);
+  const pagados = datosPagosPortal.filter(p => String(p.ESTADO_PAGO || '').toUpperCase() === 'PAGADO').length;
+  const filas = datosPagosPortal.map(p => {
+    const foto = p.FOTO_ALUMNO
+      ? `<img class="pagos-print-foto" src="${escaparHTML(p.FOTO_ALUMNO)}" alt="Foto del alumno">`
+      : '<span>Sin foto</span>';
+    const voucher = p.VOUCHER_URL
+      ? `<a class="pagos-print-voucher" href="${escaparHTML(p.VOUCHER_URL)}" target="_blank">Ver comprobante</a>`
+      : 'Sin voucher';
+    return `<tr>
+      <td>${escaparHTML(p.ID || '—')}</td>
+      <td>${foto}</td>
+      <td>${escaparHTML(p.NOMBRE || '—')}</td>
+      <td>${escaparHTML(p.DNI || '—')}</td>
+      <td>${escaparHTML(p.MONTO || 'S/ 40.00')}</td>
+      <td>${escaparHTML(p.ESTADO_PAGO || 'Pendiente')}</td>
+      <td>${escaparHTML(p.FECHA_PAGO || '—')}</td>
+      <td>${escaparHTML(p.VOUCHER_NUMERO || '—')}</td>
+      <td>${escaparHTML(p.MEDIO_PAGO || '—')}</td>
+      <td>${escaparHTML(p.OBSERVACIONES || '—')}</td>
+      <td>${voucher}</td>
+    </tr>`;
+  }).join('');
+  const fechaEmision = new Date().toLocaleString('es-PE', {dateStyle:'long', timeStyle:'short'});
+  contenedor.innerHTML = `
+    <header class="pagos-print-cabecera">
+      <img class="pagos-print-logo" src="./assets/insignia.png" alt="Insignia del colegio" onerror="this.style.display='none'">
+      <div class="pagos-print-institucion">
+        <h1>COLEGIO PRIVADO LA SALLE DEL SUR</h1>
+        <h2>CAMINO HACIA JESÚS 2026</h2>
+        <p>CONTROL DE PAGO ÚNICO · REGISTRO DE ALUMNOS Y COMPROBANTES</p>
+      </div>
+    </header>
+    <div class="pagos-print-resumen">
+      <span>Total recaudado: S/ ${total.toFixed(2)}</span>
+      <span>Pagados: ${pagados} de ${datosPagosPortal.length}</span>
+      <span>Pendientes: ${datosPagosPortal.length-pagados}</span>
+    </div>
+    <table class="pagos-print-tabla">
+      <thead><tr><th style="width:7%">ID</th><th style="width:6%">Foto</th><th style="width:15%">Apellidos y nombres</th><th style="width:8%">DNI</th><th style="width:7%">Monto</th><th style="width:7%">Estado</th><th style="width:8%">Fecha</th><th style="width:8%">N.º operación</th><th style="width:8%">Medio</th><th style="width:12%">Observaciones</th><th style="width:8%">Voucher</th></tr></thead>
+      <tbody>${filas}</tbody>
+    </table>
+    <p class="pagos-print-pie">Emitido el ${escaparHTML(fechaEmision)} · Colegio Privado La Salle del Sur</p>`;
+  const imagenes = Array.from(contenedor.querySelectorAll('img'));
+  Promise.all(imagenes.map(img => img.complete ? Promise.resolve() : new Promise(resolve => {
+    img.onload = resolve; img.onerror = resolve;
+    setTimeout(resolve, 2500);
+  }))).then(() => window.print());
+}
+
 async function cargarControlPagos() {
   const boton = $('btnRecargarPagos');
   if (!esAdminControlPagos()) {
