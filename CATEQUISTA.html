@@ -25,6 +25,12 @@
 .btn-videos { background: #edf7f2; border-color: #c4e4d4; color: #1b5e3c; }
 
 /* PRESENTACIÓN INSTITUCIONAL ÚNICA: insignia, título y controles en una sola franja */
+.portal-intro{position:relative;padding-top:30px;padding-right:30px}
+.portal-intro-quick-actions{position:absolute;top:14px;right:16px;display:flex;align-items:center;gap:8px;z-index:3}
+.portal-quick-btn{width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.48);border-radius:50%;background:rgba(255,255,255,.13);color:#fff;font-size:1.12rem;font-weight:800;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.12);transition:background .18s ease,transform .18s ease}
+.portal-quick-btn:hover{background:rgba(255,255,255,.25);transform:translateY(-1px)}
+.portal-quick-btn:focus-visible{outline:3px solid #ffdf79;outline-offset:2px}
+.portal-quick-btn:disabled{opacity:.55;cursor:wait;transform:none}
 .portal-intro{
   width:calc(100% - 44px);max-width:1400px;margin:22px auto 0;
   padding:26px 30px;background:linear-gradient(115deg,#102b4f 0%,#1e4e7f 100%);
@@ -47,7 +53,9 @@
 .portal-intro-actions .btn{min-height:42px}
 .portal-intro-actions .btn:not(.primary):not(.gold){background:#fff;color:#173b68;border-color:#dce5ef}
 @media(max-width:760px){
-  .portal-intro{width:calc(100% - 24px);margin:12px auto 0;padding:20px 17px;border-radius:17px;gap:17px}
+  .portal-intro{width:calc(100% - 24px);margin:12px auto 0;padding:62px 17px 20px;border-radius:17px;gap:17px}
+  .portal-intro-quick-actions{top:12px;right:13px}
+  .portal-quick-btn{width:35px;height:35px}
   .portal-intro-main{align-items:flex-start;gap:13px}
   .portal-intro-crest{width:66px;height:66px;border-radius:15px;padding:5px}
   .portal-intro .eyebrow{font-size:.64rem;letter-spacing:.1em}
@@ -531,11 +539,13 @@ body{overflow-x:hidden}
       <div class="portal-intro-school">Colegio Privado La Salle del Sur · Parroquia San Pedro de Lurín</div>
     </div>
   </div>
+  <div class="portal-intro-quick-actions" aria-label="Herramientas rápidas">
+    <button class="portal-quick-btn" id="btnActualizar" type="button" title="Sincronizar con Google Sheets" aria-label="Sincronizar con Google Sheets">⟳</button>
+    <button class="portal-quick-btn" id="mute-toggle" type="button" title="Silenciar o activar audio" aria-label="Silenciar o activar audio">🔊</button>
+  </div>
   <div class="portal-intro-actions">
     <span id="catequista-sesion-nombre" class="auth-user"></span>
     <button class="btn small gold" type="button" onclick="mostrarVista('vista-mensajes')" aria-label="Abrir mensajes y notificaciones">🔔 <span id="badge-mensajes-catequista">0</span> Mensajes</button>
-    <button class="btn small primary" id="btnActualizar">🔄 Sincronizar</button>
-    <button class="btn small" id="mute-toggle">🔊 Silenciar</button>
     <button class="btn small" id="btnSalirCatequista" type="button" onclick="cerrarSesionCatequistaPortal()">Cerrar sesión</button>
     <a class="btn small primary" href="./index.html">← Volver a portada</a>
   </div>
@@ -548,16 +558,11 @@ body{overflow-x:hidden}
     
 
     <nav class="portal-history-nav no-print" aria-label="Navegación del portal">
-      <div class="portal-history-group">
+      <div class="portal-history-group portal-history-main">
         <button class="btn small" id="portal-nav-back" type="button" onclick="navegarPortalAtras()" disabled>← Atrás</button>
         <button class="btn small" id="portal-nav-home" type="button" onclick="volverMenuPrincipal()">⌂ Menú principal</button>
         <button class="btn small" id="portal-nav-forward" type="button" onclick="navegarPortalAdelante()" disabled>Adelante →</button>
       </div>
-      <div class="portal-history-group">
-        <button class="btn small portal-scroll-btn" type="button" onclick="desplazarPortal(-0.72)" aria-label="Subir una sección">↑ Subir</button>
-        <button class="btn small portal-scroll-btn" type="button" onclick="desplazarPortal(0.72)" aria-label="Bajar una sección">↓ Bajar</button>
-      </div>
-      <span id="portal-nav-location" class="portal-nav-location">Menú principal</span>
     </nav>
 
     <!-- MENÚ DE OPCIONES -->
