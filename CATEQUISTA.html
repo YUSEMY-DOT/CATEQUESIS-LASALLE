@@ -184,6 +184,15 @@ body{overflow-x:hidden}
 .auth-user{font-size:.8rem;color:var(--muted);font-weight:800;margin-right:6px}
 @media(max-width:700px){.auth-overlay{background-size:100% 100%}.auth-card{top:64.5%;width:min(78vw,430px);height:28.5%}.auth-field input,.auth-field select{font-size:14px}#btn-login-catequista{font-size:16px}}
 @media(max-height:560px) and (min-width:701px){.auth-overlay{background-size:100% 100%}.auth-card{top:64.5%;width:min(38vh,680px);height:28.5%}}
+
+/* Navegación interna: atrás/adelante entre módulos y desplazamiento por secciones. */
+.portal-history-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 16px;padding:11px 13px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 3px 12px #173b6808}
+.portal-history-group{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.portal-history-nav .btn{border-radius:10px;padding:8px 13px}
+.portal-history-nav .btn:disabled{opacity:.42;cursor:not-allowed;transform:none}
+.portal-scroll-btn{background:#f7f9fc}
+.portal-nav-location{margin-left:auto;color:var(--muted);font-size:.78rem;font-weight:800}
+@media(max-width:650px){.portal-history-nav{align-items:stretch}.portal-history-group{width:100%;justify-content:space-between}.portal-history-group .btn{flex:1;padding:8px 7px;font-size:.78rem}.portal-nav-location{width:100%;margin:0;text-align:center}}
 </style>
 
 <style id="lds-copyright-standard">
@@ -475,6 +484,19 @@ body{overflow-x:hidden}
         <p class="sub">Control de sesiones, catequizandos con DNI y matriz de asistencia sincronizada</p>
       </div>
     </div>
+
+    <nav class="portal-history-nav no-print" aria-label="Navegación del portal">
+      <div class="portal-history-group">
+        <button class="btn small" id="portal-nav-back" type="button" onclick="navegarPortalAtras()" disabled>← Atrás</button>
+        <button class="btn small" id="portal-nav-home" type="button" onclick="volverMenuPrincipal()">⌂ Menú principal</button>
+        <button class="btn small" id="portal-nav-forward" type="button" onclick="navegarPortalAdelante()" disabled>Adelante →</button>
+      </div>
+      <div class="portal-history-group">
+        <button class="btn small portal-scroll-btn" type="button" onclick="desplazarPortal(-0.72)" aria-label="Subir una sección">↑ Subir</button>
+        <button class="btn small portal-scroll-btn" type="button" onclick="desplazarPortal(0.72)" aria-label="Bajar una sección">↓ Bajar</button>
+      </div>
+      <span id="portal-nav-location" class="portal-nav-location">Menú principal</span>
+    </nav>
 
     <!-- MENÚ DE OPCIONES -->
     <div class="tools-grid" id="menu-herramientas">
@@ -883,6 +905,9 @@ const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnj
 const CLAVE_SESION_CATEQUISTAS = 'caminoCatequistasToken';
 let tokenCatequistaPortal = sessionStorage.getItem(CLAVE_SESION_CATEQUISTAS) || '';
 let perfilCatequistaPortal = null;
+let historialVistasPortal = ['menu-herramientas'];
+let indiceHistorialPortal = 0;
+let vistaActualPortal = 'menu-herramientas';
 
 let sesionesPortal = [];
 let clasesPortal = [];
@@ -1159,12 +1184,35 @@ function abrirPortalComun() {
   const panel = $('mise-modal');
   if (panel) panel.classList.add('active');
   actualizarInterfazAdministrador();
-  volverMenuPrincipal();
+  historialVistasPortal = ['menu-herramientas'];
+  indiceHistorialPortal = 0;
+  mostrarVistaInternaPortal('menu-herramientas', false);
   sincronizarConHoja(false);
 }
-function mostrarVista(idVista) {
-  ['menu-herramientas','vista-mensajes','vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-calificaciones','vista-dashboard','vista-administrador'].forEach(v => { if ($(v)) $(v).style.display = 'none'; });
-  if ($(idVista)) $(idVista).style.display = 'block';
+const VISTAS_PORTAL = ['menu-herramientas','vista-mensajes','vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-calificaciones','vista-dashboard','vista-administrador'];
+const ETIQUETAS_VISTAS_PORTAL = {
+  'menu-herramientas':'Menú principal', 'vista-mensajes':'Mensajes y notificaciones',
+  'vista-clases':'Programación de temas', 'vista-asistencia':'Asistencia modular',
+  'vista-pagos':'Control de pagos', 'vista-padres':'Padres de familia',
+  'vista-calendario':'Calendario de catequesis', 'vista-calificaciones':'Registro de calificaciones',
+  'vista-dashboard':'Dashboard', 'vista-administrador':'Administrador'
+};
+function actualizarControlesHistorialPortal() {
+  const atras = $('portal-nav-back'), adelante = $('portal-nav-forward'), ubicacion = $('portal-nav-location');
+  if (atras) atras.disabled = indiceHistorialPortal <= 0;
+  if (adelante) adelante.disabled = indiceHistorialPortal >= historialVistasPortal.length - 1;
+  if (ubicacion) ubicacion.textContent = ETIQUETAS_VISTAS_PORTAL[vistaActualPortal] || 'Portal de Catequistas';
+}
+function mostrarVistaInternaPortal(idVista, registrarHistorial) {
+  if (!VISTAS_PORTAL.includes(idVista) || !$(idVista)) return;
+  VISTAS_PORTAL.forEach(v => { if ($(v)) $(v).style.display = v === idVista ? (v === 'menu-herramientas' ? 'grid' : 'block') : 'none'; });
+  vistaActualPortal = idVista;
+  if (registrarHistorial) {
+    historialVistasPortal = historialVistasPortal.slice(0, indiceHistorialPortal + 1);
+    if (historialVistasPortal[historialVistasPortal.length - 1] !== idVista) historialVistasPortal.push(idVista);
+    indiceHistorialPortal = historialVistasPortal.length - 1;
+  }
+  actualizarControlesHistorialPortal();
   if (idVista === 'vista-mensajes') cargarMensajesCatequista(false);
   if (idVista === 'vista-calendario') { renderizarCalendarioModelo(); sincronizarCalendario(false); }
   if (idVista === 'vista-calificaciones') cargarVistaCalificaciones(false);
@@ -1173,13 +1221,26 @@ function mostrarVista(idVista) {
   if (idVista === 'vista-padres') renderizarPadres();
   if (idVista === 'vista-dashboard') renderizarDashboard();
 }
-function volverMenuPrincipal() {
-  ['vista-mensajes','vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-calificaciones','vista-dashboard','vista-administrador'].forEach(v => { if ($(v)) $(v).style.display = 'none'; });
-  if ($('menu-herramientas')) $('menu-herramientas').style.display = 'grid';
+function mostrarVista(idVista) { mostrarVistaInternaPortal(idVista, true); }
+function navegarPortalAtras() {
+  if (indiceHistorialPortal <= 0) return;
+  indiceHistorialPortal--;
+  mostrarVistaInternaPortal(historialVistasPortal[indiceHistorialPortal], false);
 }
+function navegarPortalAdelante() {
+  if (indiceHistorialPortal >= historialVistasPortal.length - 1) return;
+  indiceHistorialPortal++;
+  mostrarVistaInternaPortal(historialVistasPortal[indiceHistorialPortal], false);
+}
+function desplazarPortal(fraccion) {
+  const alto = Math.max(360, Math.floor(window.innerHeight * Math.abs(Number(fraccion) || .7)));
+  window.scrollBy({top: Number(fraccion) < 0 ? -alto : alto, behavior:'smooth'});
+}
+function volverMenuPrincipal() { mostrarVista('menu-herramientas'); }
 function openModal(id) { if ($(id)) $(id).classList.add('show'); }
 function hideModal(id) { if ($(id)) $(id).classList.remove(id === 'mise-modal' ? 'active' : 'show'); }
 document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => hideModal(b.closest('.modal-backdrop').id)));
+actualizarControlesHistorialPortal();
 
 async function sincronizarConHoja(silencioso) {
   if (!tokenCatequistaPortal) {
@@ -1353,13 +1414,7 @@ function renderizarSesionesCompletas() {
           <strong style="color:var(--green);">✨ Actividad:</strong> ${escaparHTML(t.actividad || '—')}
         </div>
         <div style="font-size:0.8rem;color:var(--muted);margin:0 0 8px;">Clase ${escaparHTML(t.numeroClase || '—')} · ${escaparHTML(formatearFecha(t.fechaProgramada || t.fecha, false))} · ${escaparHTML(t.horaInicio || '14:00')}–${escaparHTML(t.horaFin || '16:00')} · ${escaparHTML(t.catequista || 'Catequista pendiente')}</div>
-        <div class="action-buttons">
-          <button class="btn small btn-practicas" onclick="abrirGestionMaterial('${escaparHTML(id)}','Prácticas')">✏️ Prácticas</button>
-          <button class="btn small btn-evaluaciones" onclick="abrirGestionMaterial('${escaparHTML(id)}','Evaluaciones')">📋 Evaluaciones</button>
-          <button class="btn small btn-canciones" onclick="abrirGestionMaterial('${escaparHTML(id)}','Canciones')">🎵 Canciones</button>
-          <button class="btn small btn-videos" onclick="abrirGestionMaterial('${escaparHTML(id)}','Videos')">▶️ Videos</button>
-          <button class="btn small primary" onclick="abrirCalificacionesDesdeTema('${escaparHTML(id)}')">📝 Registrar calificación</button>
-        </div>`;
+        <!-- Esta vista es exclusivamente de programación: sin acciones de recursos ni calificaciones por tema. -->`;
       bloqueDiv.appendChild(box);
     });
     contenedor.appendChild(bloqueDiv);
