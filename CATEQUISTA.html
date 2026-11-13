@@ -1706,10 +1706,12 @@ async function guardarAsistenciaPendiente() {
   if (!tokenCatequistaPortal) { alert('La sesión de catequista venció. Ingrese nuevamente.'); cerrarSesionCatequistaPortal(); return; }
 
   const pendientes = obtenerPendientesAsistencia(est.ID_NINO);
+  const totalSesionesAlumno = Array.isArray(est.ESTADOS_SESIONES) ? est.ESTADOS_SESIONES.length : 0;
+  if (!totalSesionesAlumno) { alert('No se cargaron las sesiones de la matriz. Presione Sincronizar antes de guardar.'); return; }
   const entradas = Object.keys(pendientes).map(k => [Number(k), String(pendientes[k] || '').trim().toUpperCase()])
-    .filter(x => Number.isInteger(x[0]) && x[0] >= 0 && ['A','T','F','FJ'].includes(x[1]))
+    .filter(x => Number.isInteger(x[0]) && x[0] >= 0 && x[0] < totalSesionesAlumno && ['A','T','F','FJ'].includes(x[1]))
     .sort((a,b) => a[0] - b[0]);
-  if (!entradas.length) { alert('No hay asistencias pendientes de guardar.'); return; }
+  if (!entradas.length) { alert('No hay asistencias válidas pendientes de guardar. Verifique la selección de A, T, F o FJ.'); return; }
 
   const boton = $('btnGuardarAsistencia');
   if (boton) { boton.disabled = true; boton.textContent = '⏳ Guardando…'; }
@@ -1726,8 +1728,9 @@ async function guardarAsistenciaPendiente() {
     // real siempre se hace leyendo de nuevo la matriz oficial en Google Sheets.
     await retraso(1200);
     const respuesta = await apiGet('getAsistenciaNotas');
-    const actualizado = (respuesta.datos || []).find(x => String(x.ID_NINO) === String(est.ID_NINO));
+    const actualizado = (respuesta.datos || []).find(x => String(x.ID_NINO).trim() === String(est.ID_NINO).trim());
     if (!actualizado) throw new Error('Google Sheets no devolvió al catequizando seleccionado para verificar el guardado.');
+    if (!Array.isArray(actualizado.ESTADOS_SESIONES)) throw new Error('Google Sheets devolvió el alumno, pero no devolvió la matriz de sesiones para verificar.');
 
     const confirmadas = [];
     const noConfirmadas = [];
