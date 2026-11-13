@@ -16,6 +16,11 @@
 .btn:hover{filter:brightness(.97);transform:translateY(-1px)}
 .btn.primary{background:var(--navy);border-color:var(--navy);color:white}
 .btn.gold{background:linear-gradient(135deg,#ffe68c,#f5bd37);border-color:#efc34c;color:#152c4d}
+.btn.attendance-sync{background:linear-gradient(135deg,#214d7d,#12345b);border-color:#12345b;color:#fff}
+.btn.attendance-save{background:linear-gradient(135deg,#f2a24f,#dc762c);border-color:#cf6824;color:#fff}
+.btn.attendance-print{background:linear-gradient(135deg,#36a394,#197b70);border-color:#197b70;color:#fff}
+.btn.attendance-sync:hover,.btn.attendance-save:hover,.btn.attendance-print:hover{filter:brightness(1.06);box-shadow:0 4px 12px #173b6820}
+.btn.attendance-sync:disabled,.btn.attendance-save:disabled,.btn.attendance-print:disabled{opacity:.55;cursor:not-allowed;transform:none}
 .btn.small{padding:8px 12px;font-size:.84rem}
 
 /* BOTONES DE RECURSOS */
@@ -705,9 +710,9 @@ body{overflow-x:hidden}
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
         <div style="display:flex; gap:8px;">
-          <button class="btn small primary" onclick="sincronizarConHoja()">🔄 Sincronizar</button>
-          <button class="btn small gold" id="btnGuardarAsistencia" onclick="guardarAsistenciaPendiente()" disabled>💾 Guardar asistencia</button>
-          <button class="btn small gold" onclick="window.print()">🖨️ Imprimir Reporte</button>
+          <button class="btn small attendance-sync" type="button" onclick="sincronizarConHoja()">🔄 Sincronizar</button>
+          <button class="btn small attendance-save" type="button" id="btnGuardarAsistencia" onclick="guardarAsistenciaPendiente()" disabled>💾 Guardar asistencia</button>
+          <button class="btn small attendance-print" type="button" onclick="window.print()">🖨️ Imprimir reporte</button>
         </div>
       </div>
 
@@ -1698,54 +1703,64 @@ function prepararEstadoModular(idxEst, idxClase, nuevoVal) {
 async function guardarAsistenciaPendiente() {
   const est = datosAsistenciaGlobal[indiceCatequizandoActivo];
   if (!est) { alert('Seleccione un catequizando.'); return; }
+  if (!tokenCatequistaPortal) { alert('La sesión de catequista venció. Ingrese nuevamente.'); cerrarSesionCatequistaPortal(); return; }
+
   const pendientes = obtenerPendientesAsistencia(est.ID_NINO);
-  const entradas = Object.keys(pendientes).map(k => [Number(k), pendientes[k]])
-    .filter(x => Number.isInteger(x[0]) && ['A','T','F','FJ'].includes(x[1]))
+  const entradas = Object.keys(pendientes).map(k => [Number(k), String(pendientes[k] || '').trim().toUpperCase()])
+    .filter(x => Number.isInteger(x[0]) && x[0] >= 0 && ['A','T','F','FJ'].includes(x[1]))
     .sort((a,b) => a[0] - b[0]);
   if (!entradas.length) { alert('No hay asistencias pendientes de guardar.'); return; }
 
   const boton = $('btnGuardarAsistencia');
   if (boton) { boton.disabled = true; boton.textContent = '⏳ Guardando…'; }
-  let errorEnvio = null;
   try {
-    for (const [idxClase, estado] of entradas) {
-      await apiPost({
-        action: 'registrarAsistencia',
-        idEstudiante: est.ID_NINO,
-        sesion: idxClase + 1,
-        estado: estado
-      });
-    }
-    await retraso(900);
+    // Una sola solicitud reduce fallos intermitentes entre escrituras consecutivas.
+    // Google Apps Script recibe el token de la catequista desde apiPost().
+    await apiPost({
+      action: 'registrarAsistenciasLote',
+      idEstudiante: est.ID_NINO,
+      asistencias: entradas.map(([idxClase, estado]) => ({ sesion: idxClase + 1, estado }))
+    });
+
+    // El POST usa no-cors por el despliegue de Apps Script; por eso la confirmación
+    // real siempre se hace leyendo de nuevo la matriz oficial en Google Sheets.
+    await retraso(1200);
     const respuesta = await apiGet('getAsistenciaNotas');
-    const actualizado = (respuesta.datos || []).find(x => x.ID_NINO === est.ID_NINO);
-    if (!actualizado) throw new Error('No se encontró al catequizando al verificar el guardado.');
+    const actualizado = (respuesta.datos || []).find(x => String(x.ID_NINO) === String(est.ID_NINO));
+    if (!actualizado) throw new Error('Google Sheets no devolvió al catequizando seleccionado para verificar el guardado.');
 
     const confirmadas = [];
     const noConfirmadas = [];
     entradas.forEach(([idxClase, estado]) => {
       const estadoHoja = String((actualizado.ESTADOS_SESIONES || [])[idxClase] || '').trim().toUpperCase();
-      if (estadoHoja === estado) confirmadas.push(idxClase);
-      else noConfirmadas.push(idxClase + 1);
+      if (estadoHoja === estado) {
+        confirmadas.push(idxClase + 1);
+        delete pendientes[String(idxClase)];
+      } else {
+        noConfirmadas.push(idxClase + 1);
+      }
     });
-    confirmadas.forEach(idx => delete pendientes[String(idx)]);
+
     datosAsistenciaGlobal = respuesta.datos || [];
     resumenAsistenciaPortal = respuesta.resumen || {};
-    indiceCatequizandoActivo = Math.max(0, datosAsistenciaGlobal.findIndex(x => x.ID_NINO === est.ID_NINO));
+    indiceCatequizandoActivo = Math.max(0, datosAsistenciaGlobal.findIndex(x => String(x.ID_NINO) === String(est.ID_NINO)));
     recalcularTotalesGlobales(resumenAsistenciaPortal);
     inicializarAsistenciaModular();
 
     if (noConfirmadas.length) {
-      throw new Error('No se confirmaron las clases: ' + noConfirmadas.join(', ') + '. Las demás asistencias verificadas quedaron guardadas y bloqueadas.');
+      alert('Guardado parcial confirmado.\n\nClases guardadas y bloqueadas: ' + (confirmadas.join(', ') || 'ninguna') +
+        '.\nClases que siguen pendientes: ' + noConfirmadas.join(', ') +
+        '.\n\nNo vuelvas a marcar las clases confirmadas. Revisa la pestaña ASISTENCIA en Google Sheets.');
+      return;
     }
-    alert(`Se guardaron y verificaron ${confirmadas.length} asistencia(s). Los estados quedaron bloqueados.`);
+    alert('Se guardaron y verificaron ' + confirmadas.length + ' asistencia(s) en Google Sheets. Los estados quedaron bloqueados.');
   } catch (error) {
-    errorEnvio = error;
     console.error('Error al guardar asistencia:', error);
-    // Volver a consultar la hoja: una operación pudo guardarse aunque otra fallara.
+    // Recupera cualquier escritura que sí haya llegado a la hoja, sin perder pendientes.
     try {
+      await retraso(500);
       const respuesta = await apiGet('getAsistenciaNotas');
-      const actualizado = (respuesta.datos || []).find(x => x.ID_NINO === est.ID_NINO);
+      const actualizado = (respuesta.datos || []).find(x => String(x.ID_NINO) === String(est.ID_NINO));
       if (actualizado) {
         entradas.forEach(([idxClase, estado]) => {
           if (String((actualizado.ESTADOS_SESIONES || [])[idxClase] || '').trim().toUpperCase() === estado) {
@@ -1754,12 +1769,15 @@ async function guardarAsistenciaPendiente() {
         });
         datosAsistenciaGlobal = respuesta.datos || [];
         resumenAsistenciaPortal = respuesta.resumen || {};
-        indiceCatequizandoActivo = Math.max(0, datosAsistenciaGlobal.findIndex(x => x.ID_NINO === est.ID_NINO));
+        indiceCatequizandoActivo = Math.max(0, datosAsistenciaGlobal.findIndex(x => String(x.ID_NINO) === String(est.ID_NINO)));
         recalcularTotalesGlobales(resumenAsistenciaPortal);
         inicializarAsistenciaModular();
       }
-    } catch (e) { console.warn('No se pudo verificar el estado posterior al error:', e); }
-    alert('No se pudo confirmar el guardado completo. Revisa las asistencias pendientes y vuelve a sincronizar.\n' + error.message);
+    } catch (verificacionError) {
+      console.error('No se pudo verificar el estado posterior al error:', verificacionError);
+    }
+    alert('No se pudo confirmar el guardado completo.\n' + (error && error.message ? error.message : String(error)) +
+      '\n\nLas asistencias que no se confirmaron permanecen pendientes. No se eliminaron los registros ya guardados.');
   } finally {
     if (boton) { boton.disabled = false; actualizarBotonGuardarAsistencia(); }
   }
