@@ -423,6 +423,44 @@ body{overflow-x:hidden}
 .badge-count{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 6px;border-radius:99px;background:#fff0c2;color:#765000;font-size:.75rem;font-weight:900;vertical-align:middle}
 @media(max-width:700px){.messages-columns{grid-template-columns:1fr!important}}
 </style>
+
+<style id="portal-card-palette">
+/* Paleta pastel institucional: cada módulo se distingue sin perder unidad visual. */
+.portal-workspace #menu-herramientas > .tool-card{position:relative;overflow:hidden;border-radius:16px;padding:19px 20px;background:var(--card-bg,#fff);border:1px solid var(--card-border,#dce5ef);box-shadow:0 3px 12px rgba(22,48,79,.055)}
+.portal-workspace #menu-herramientas > .tool-card::before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--card-accent,#456)}
+.portal-workspace #menu-herramientas > .tool-card:hover{transform:translateY(-3px);border-color:var(--card-accent);box-shadow:0 9px 20px rgba(22,48,79,.11)}
+.portal-workspace #menu-herramientas > .tool-card h4{color:var(--card-title,#17365d)}
+.portal-workspace #menu-herramientas > .tool-card p{color:#586b82}
+.portal-workspace #menu-herramientas > .tool-card .btn{background:var(--btn-bg,#fff);border:1px solid var(--btn-border,var(--card-accent));color:var(--btn-text,var(--card-title));border-radius:10px;min-height:40px;font-weight:800}
+.portal-workspace #menu-herramientas > .tool-card .btn:hover{background:var(--btn-hover,var(--card-bg));border-color:var(--card-accent);filter:none}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(1){--card-bg:#eef5ff;--card-border:#cbdcf5;--card-accent:#5684c5;--card-title:#244d80;--btn-bg:#dceaff;--btn-border:#a9c5eb;--btn-text:#244d80;--btn-hover:#cfe1fb}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(2){--card-bg:#edf8f2;--card-border:#c8e7d5;--card-accent:#4b9a70;--card-title:#286344;--btn-bg:#d9f0e2;--btn-border:#a9d7bb;--btn-text:#245c3e;--btn-hover:#c9e9d5}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(3){--card-bg:#fff7e8;--card-border:#f0dfb7;--card-accent:#d39a32;--card-title:#805819;--btn-bg:#ffedc7;--btn-border:#e9c77c;--btn-text:#765016;--btn-hover:#ffe5ae}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(4){--card-bg:#fff1ee;--card-border:#f1d1c9;--card-accent:#d47d68;--card-title:#8c493d;--btn-bg:#ffe1da;--btn-border:#eab4a8;--btn-text:#824337;--btn-hover:#ffd5cb}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(5){--card-bg:#f2f0ff;--card-border:#d9d3f5;--card-accent:#8274c6;--card-title:#51468a;--btn-bg:#e5e0ff;--btn-border:#c2b9ed;--btn-text:#51468a;--btn-hover:#dcd5ff}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(6){--card-bg:#edf7fb;--card-border:#cce5ef;--card-accent:#4d98b5;--card-title:#28647c;--btn-bg:#d9eff7;--btn-border:#acd6e5;--btn-text:#28647c;--btn-hover:#cce9f3}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(7){--card-bg:#fff1f6;--card-border:#f0d1df;--card-accent:#c56b91;--card-title:#85415f;--btn-bg:#fbe0eb;--btn-border:#e7b5cb;--btn-text:#85415f;--btn-hover:#f7d2e2}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(8){--card-bg:#f2f4ff;--card-border:#d5dcf5;--card-accent:#657fc1;--card-title:#354e88;--btn-bg:#e0e7ff;--btn-border:#b9c7ed;--btn-text:#354e88;--btn-hover:#d3ddff}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(9){--card-bg:#eef8f7;--card-border:#c9e6e2;--card-accent:#4a9b91;--card-title:#28665f;--btn-bg:#d9efec;--btn-border:#a9d7d1;--btn-text:#28665f;--btn-hover:#c9e8e3}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(10){--card-bg:#f2f7ed;--card-border:#d8e7c8;--card-accent:#7c9c55;--card-title:#4b6731;--btn-bg:#e4efd8;--btn-border:#c0d7a7;--btn-text:#4b6731;--btn-hover:#d9e9c9}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(11){--card-bg:#fff5ed;--card-border:#f1ddca;--card-accent:#cf8a51;--card-title:#86552e;--btn-bg:#fbe7d5;--btn-border:#e8c29f;--btn-text:#86552e;--btn-hover:#f7dcc3}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(12){--card-bg:#f5eff9;--card-border:#e1d2ed;--card-accent:#9270aa;--card-title:#5d4274;--btn-bg:#eadff2;--btn-border:#ceb8df;--btn-text:#5d4274;--btn-hover:#e2d3ed}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(13){--card-bg:#f4f5f7;--card-border:#dfe3e8;--card-accent:#7c8795;--card-title:#465260;--btn-bg:#e8ebef;--btn-border:#cbd2da;--btn-text:#465260;--btn-hover:#dfe4e9}
+.portal-workspace #menu-herramientas > .tool-card .btn.primary,
+.portal-workspace #menu-herramientas > .tool-card .btn.gold{background:var(--btn-bg);border-color:var(--btn-border);color:var(--btn-text)}
+@media(max-width:600px){.portal-workspace #menu-herramientas > .tool-card{padding:16px 17px}}
+</style>
+
+
+<style id="logo-institucional-la-salle">
+/* Presentación del escudo oficial: se conserva la imagen institucional existente. */
+.topbar-inner .brand{gap:14px;letter-spacing:.035em}
+.topbar-inner .brand img.crest{width:64px;height:64px;object-fit:contain;display:block;padding:4px;background:#fff;border:2px solid #e7c45c;border-radius:16px;box-shadow:0 3px 10px rgba(18,52,91,.14),0 0 0 3px rgba(231,196,92,.14);filter:drop-shadow(0 2px 2px rgba(18,52,91,.08))}
+.topbar-inner .brand>div{font-size:1.02rem;font-weight:900;color:#102f54;line-height:1.25}
+.topbar-inner .brand small{margin-top:4px;font-size:.78rem;color:#62748c;font-weight:600}
+@media(max-width:600px){.topbar-inner .brand img.crest{width:56px;height:56px;border-radius:14px}.topbar-inner .brand{gap:10px}}
+</style>
+
 </head>
 <body>
 <div class="auth-overlay" id="catequista-login-overlay">
@@ -477,13 +515,6 @@ body{overflow-x:hidden}
   <div class="portal-workspace-inner">
 
     
-
-    <div class="panel-head" style="margin-bottom:10px">
-      <div>
-        <h2>Portal Pastoral Unificado</h2>
-        <p class="sub">Control de sesiones, catequizandos con DNI y matriz de asistencia sincronizada</p>
-      </div>
-    </div>
 
     <nav class="portal-history-nav no-print" aria-label="Navegación del portal">
       <div class="portal-history-group">
