@@ -1119,17 +1119,15 @@ function apiGet(action, parametros) {
   });
 }
 
-// Escritura simple (text/plain) para evitar preflight. Luego se verifica leyendo de nuevo la hoja.
+// Las escrituras del Centro de Mensajes usan JSONP para recibir la respuesta
+// real de Apps Script. No se usa fetch(no-cors), porque oculta los errores del servidor.
 async function apiPost(payload) {
   const datos = Object.assign({}, payload || {});
-  if (tokenCatequistaPortal) datos.token = tokenCatequistaPortal;
-  const resultado = await fetch(URL_APPS_SCRIPT, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
-    body: JSON.stringify(datos)
-  });
-  return resultado;
+  const accion = String(datos.action || '').trim();
+  delete datos.action;
+  if (!tokenCatequistaPortal) throw new Error('La sesión venció. Ingresa nuevamente.');
+  datos.token = tokenCatequistaPortal;
+  return apiGet(accion, datos);
 }
 
 function toggleCatequistaPinVisibility() {
@@ -1474,8 +1472,8 @@ async function enviarMensajeCatequista() {
   const payload={action:'enviarMensajePortal',tipoDestinatario:$('msg-tipo-destino').value,destinatario:$('msg-destinatario').value.trim(),tipoMensaje:$('msg-tipo').value,asunto:$('msg-asunto').value.trim(),mensaje:$('msg-contenido').value.trim()};
   if(!payload.destinatario||!payload.asunto||!payload.mensaje){if(estado)estado.textContent='Completa destinatario, asunto y mensaje.';return;}
   if(estado)estado.textContent='Enviando…';
-  try{await apiPost(payload);if(estado)estado.textContent='Solicitud enviada. Actualiza la bandeja para verificar el registro.';$('msg-asunto').value='';$('msg-contenido').value='';await new Promise(r=>setTimeout(r,700));await cargarMensajesCatequista(false);}
-  catch(e){if(estado)estado.textContent='No se pudo enviar: '+(e.message||e);}
+  try{const respuesta=await apiPost(payload);if(!respuesta||respuesta.exito!==true)throw new Error((respuesta&&respuesta.mensaje)||'Google Apps Script no confirmó el registro.');if(estado)estado.textContent='Mensaje guardado en AVISOS. Código: '+(respuesta.id||'OK')+'. La entrega al portal destinatario requiere que ese portal tenga activa su bandeja de mensajes.';$('msg-asunto').value='';$('msg-contenido').value='';await cargarMensajesCatequista(false);}
+  catch(e){if(estado)estado.textContent='NO SE GUARDÓ: '+(e.message||e);}
 }
 
 function renderizarMensajesCatequista(avisos) {
