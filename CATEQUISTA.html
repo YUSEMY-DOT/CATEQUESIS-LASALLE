@@ -675,7 +675,7 @@ body{overflow-x:hidden}
         </div>
       </div>
       <h3 style="color:var(--navy);margin-bottom:5px;">🔔 Centro de mensajes y notificaciones</h3>
-      <p class="sub">Aquí se reúnen los comunicados publicados para la comunidad y los mensajes que los catequizandos envían directamente a las catequistas. La información se consulta desde la hoja AVISOS de Google Sheets.</p>
+      <p class="sub">Aquí se reúnen los mensajes entre catequistas, los mensajes de catequizandos y los comunicados publicados. La información se consulta desde la hoja AVISOS de Google Sheets.</p>
       <div class="messages-summary-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:14px 0;">
         <div class="tool-card"><strong id="mensajes-total-publicados" style="font-size:1.5rem;color:var(--navy);">0</strong><span class="sub">Comunicados publicados</span></div>
         <div class="tool-card"><strong id="mensajes-total-recibidos" style="font-size:1.5rem;color:var(--navy);">0</strong><span class="sub">Mensajes de catequizandos</span></div>
@@ -692,6 +692,11 @@ body{overflow-x:hidden}
         <label style="display:block;margin-top:10px;">Mensaje<textarea id="msg-contenido" class="btn" style="width:100%;min-height:100px;text-align:left;" maxlength="4000" placeholder="Escribe el mensaje..."></textarea></label>
         <button class="btn primary" type="button" style="margin-top:10px;" onclick="enviarMensajeCatequista()">Enviar mensaje</button>
         <p id="msg-envio-estado" class="sub" role="status"></p>
+      </section>
+      <section class="tool-card" style="margin:14px 0;">
+        <h4 style="color:var(--navy);margin-top:0;">💌 Mensajes entre Mises</h4>
+        <p class="sub">Aquí aparecen los mensajes que enviaste y los que recibiste de otras catequistas.</p>
+        <div id="lista-mensajes-mises"><p class="sub">Cargando mensajes…</p></div>
       </section>
       <div class="messages-columns" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start;">
         <section class="tool-card" style="min-width:0;">
@@ -1031,6 +1036,7 @@ const $ = id => document.getElementById(id);
 const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec";
 const CLAVE_SESION_CATEQUISTAS = 'caminoCatequistasToken';
 let tokenCatequistaPortal = sessionStorage.getItem(CLAVE_SESION_CATEQUISTAS) || '';
+let respuestaPerfilCatequista = null;
 let perfilCatequistaPortal = null;
 let historialVistasPortal = ['menu-herramientas'];
 let indiceHistorialPortal = 0;
@@ -1119,8 +1125,8 @@ function apiGet(action, parametros) {
   });
 }
 
-// Las escrituras del Centro de Mensajes usan JSONP para recibir la respuesta
-// real de Apps Script. No se usa fetch(no-cors), porque oculta los errores del servidor.
+// El envío usa la ruta JSONP protegida por token; Apps Script valida y guarda en AVISOS
+// antes de devolver la confirmación al portal.
 async function apiPost(payload) {
   const datos = Object.assign({}, payload || {});
   const accion = String(datos.action || '').trim();
@@ -1472,7 +1478,7 @@ async function enviarMensajeCatequista() {
   const payload={action:'enviarMensajePortal',tipoDestinatario:$('msg-tipo-destino').value,destinatario:$('msg-destinatario').value.trim(),tipoMensaje:$('msg-tipo').value,asunto:$('msg-asunto').value.trim(),mensaje:$('msg-contenido').value.trim()};
   if(!payload.destinatario||!payload.asunto||!payload.mensaje){if(estado)estado.textContent='Completa destinatario, asunto y mensaje.';return;}
   if(estado)estado.textContent='Enviando…';
-  try{const respuesta=await apiPost(payload);if(!respuesta||respuesta.exito!==true)throw new Error((respuesta&&respuesta.mensaje)||'Google Apps Script no confirmó el registro.');if(estado)estado.textContent='Mensaje guardado en AVISOS. Código: '+(respuesta.id||'OK')+'. La entrega al portal destinatario requiere que ese portal tenga activa su bandeja de mensajes.';$('msg-asunto').value='';$('msg-contenido').value='';await cargarMensajesCatequista(false);}
+  try{const respuesta=await apiPost(payload);if(!respuesta||respuesta.exito!==true)throw new Error((respuesta&&respuesta.mensaje)||'Google Apps Script no confirmó el registro.');if(estado)estado.textContent='Mensaje guardado y entregado a la bandeja de la catequista destinataria. Código: '+(respuesta.id||'OK')+'.';$('msg-asunto').value='';$('msg-contenido').value='';await cargarMensajesCatequista(false);}
   catch(e){if(estado)estado.textContent='NO SE GUARDÓ: '+(e.message||e);}
 }
 
@@ -1487,6 +1493,21 @@ function renderizarMensajesCatequista(avisos) {
   if ($('mensajes-total-publicados')) $('mensajes-total-publicados').textContent = String(publicados.length);
   if ($('mensajes-total-recibidos')) $('mensajes-total-recibidos').textContent = String(recibidos.length);
   if ($('mensajes-total-coordinacion')) $('mensajes-total-coordinacion').textContent = String(coordinacion.length);
+  const internos = (avisos || []).filter(a => a.TIPO_INTERNO === 'CATEQUISTAS');
+  const contMises = $('lista-mensajes-mises');
+  if (contMises) {
+    contMises.replaceChildren();
+    if (!internos.length) contMises.textContent = 'Todavía no hay mensajes entre catequistas.';
+    else internos.forEach(a => {
+      const tarjeta = document.createElement('article');
+      tarjeta.className = 'tool-card'; tarjeta.style.margin = '8px 0';
+      const meta = document.createElement('p'); meta.className = 'sub';
+      meta.textContent = (a.REMITENTE_ID === (respuestaPerfilCatequista && respuestaPerfilCatequista.id) ? 'Enviado a: ' : 'De: ') + (a.REMITENTE_ID === (respuestaPerfilCatequista && respuestaPerfilCatequista.id) ? (a.DESTINATARIO || a.DIRIGIDO_A) : (a.REMITENTE || 'Catequista')) + ' · ' + fechaMensajeLegible(a.FECHA);
+      const titulo = document.createElement('strong'); titulo.textContent = a.TITULO || 'Mensaje';
+      const cuerpo = document.createElement('p'); cuerpo.textContent = a.MENSAJE || '';
+      tarjeta.append(titulo, meta, cuerpo); contMises.appendChild(tarjeta);
+    });
+  }
   const contRec = $('lista-mensajes-recibidos');
   const contPub = $('lista-comunicados-catequista');
   if (contRec) { contRec.replaceChildren(); if (!recibidos.length) contRec.textContent = 'No hay mensajes recibidos de catequizandos.'; else recibidos.forEach(a => contRec.appendChild(crearTarjetaMensaje(a,'recibido'))); }
@@ -1499,6 +1520,7 @@ async function cargarMensajesCatequista(mostrarEstado) {
   if (estado && mostrarEstado) estado.textContent = 'Consultando la hoja AVISOS…';
   try {
     const respuesta = await apiGet('getAvisosCatequista');
+    respuestaPerfilCatequista = respuesta.perfil || respuestaPerfilCatequista;
     renderizarMensajesCatequista(respuesta.datos || []);
     return true;
   } catch (error) {
