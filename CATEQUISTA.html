@@ -1833,12 +1833,12 @@ function renderizarPagos() {
     const deshabilitado = puedeEditar ? '' : 'disabled';
     return `<tr data-pago-fila="${id}">
       <td>${id}</td><td>${foto}</td><td>${escaparHTML(p.NOMBRE || '—')}</td><td>${escaparHTML(p.DNI || '—')}</td><td><strong>${escaparHTML(p.MONTO || 'S/. 40.00')}</strong></td>
-      <td><select ${deshabilitado} data-pago-id="${id}" data-estado-anterior="${escaparHTML(estado)}" onchange="actualizarPagoCampo(this,'estado')" style="min-width:105px;"><option value="Pendiente" ${estado.toUpperCase()==='PENDIENTE'?'selected':''}>Pendiente</option><option value="Pagado" ${estado.toUpperCase()==='PAGADO'?'selected':''}>Pagado</option><option value="Observado" ${estado.toUpperCase()==='OBSERVADO'?'selected':''}>Observado</option></select></td>
+      <td><select ${deshabilitado} data-pago-id="${id}" data-pago-campo="estado" style="min-width:105px;"><option value="Pendiente" ${estado.toUpperCase()==='PENDIENTE'?'selected':''}>Pendiente</option><option value="Pagado" ${estado.toUpperCase()==='PAGADO'?'selected':''}>Pagado</option><option value="Observado" ${estado.toUpperCase()==='OBSERVADO'?'selected':''}>Observado</option></select></td>
       <td>${escaparHTML(p.FECHA_PAGO || '—')}</td>
-      <td><input ${deshabilitado} type="text" value="${escaparHTML(p.VOUCHER_NUMERO || '')}" placeholder="N.º operación" data-pago-id="${id}" data-pago-campo="numeroVoucher" onchange="actualizarPagoCampo(this,'numeroVoucher')" style="width:130px;"></td>
-      <td><select ${deshabilitado} data-pago-id="${id}" data-pago-campo="medioPago" onchange="actualizarPagoCampo(this,'medioPago')" style="min-width:145px;">${opcionesMedio}</select></td>
-      <td><input ${deshabilitado} type="text" value="${escaparHTML(p.OBSERVACIONES || '')}" placeholder="Observaciones" data-pago-id="${id}" data-pago-campo="observaciones" onchange="actualizarPagoCampo(this,'observaciones')" style="width:150px;"></td>
-      <td>${voucher}<div style="margin-top:6px;">${puedeEditar ? `<input type="file" accept="image/jpeg,image/png,image/webp,application/pdf" data-pago-id="${id}" onchange="adjuntarVoucher(this,'${id}')" style="font-size:0.75rem;max-width:190px;">` : ''}</div></td>
+      <td><input ${deshabilitado} type="text" value="${escaparHTML(p.VOUCHER_NUMERO || '')}" placeholder="N.º operación" data-pago-id="${id}" data-pago-campo="numeroVoucher" style="width:130px;"></td>
+      <td><select ${deshabilitado} data-pago-id="${id}" data-pago-campo="medioPago" style="min-width:145px;">${opcionesMedio}</select></td>
+      <td><input ${deshabilitado} type="text" value="${escaparHTML(p.OBSERVACIONES || '')}" placeholder="Observaciones" data-pago-id="${id}" data-pago-campo="observaciones" style="width:150px;"></td>
+      <td>${voucher}<div style="margin-top:6px;">${puedeEditar ? `<input type="file" accept="image/jpeg,image/png,image/webp,application/pdf" data-pago-id="${id}" data-pago-voucher-file="1" style="font-size:0.75rem;max-width:190px;"><div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;"><button type="button" class="btn small primary" onclick="guardarPagoFila('${id}',this)">💾 Guardar</button>${p.VOUCHER_URL ? `<button type="button" class="btn small" style="background:#a83232;color:#fff;" onclick="eliminarVoucherPago('${id}',this)">🗑 Eliminar voucher</button>` : ''}</div><small data-pago-mensaje="${id}" style="display:block;margin-top:4px;"></small>` : ''}</div></td>
     </tr>`;
   }).join('');
 }
@@ -1895,25 +1895,75 @@ async function actualizarPagoCampo(control, campo) {
 
 async function actualizarPagoEstado(control) { return actualizarPagoCampo(control, 'estado'); }
 
-async function adjuntarVoucher(control, id) {
-  if (!esAdministradoraPortal()) { alert('Solo las administradoras autorizadas pueden subir vouchers.'); return; }
-  const archivo = control.files && control.files[0];
-  if (!archivo) return;
-  if (archivo.size > 5 * 1024 * 1024) { alert('El voucher no debe superar 5 MB.'); control.value=''; return; }
-  const tipos = ['image/jpeg','image/png','image/webp','application/pdf'];
-  if (tipos.indexOf(archivo.type) < 0) { alert('Selecciona una imagen JPG, PNG, WEBP o un archivo PDF.'); control.value=''; return; }
-  const pago = datosPagosPortal.find(x => String(x.ID) === String(id));
-  if (!pago) { alert('No se encontró el pago seleccionado.'); return; }
-  control.disabled = true;
+async function guardarPagoFila(id, boton) {
+  if (!esAdministradoraPortal()) { alert('Solo LILY MELO AZAÑERO y KIARA MORALES ELGUERA pueden guardar pagos.'); return; }
+  const fila = document.querySelector('tr[data-pago-fila="' + CSS.escape(String(id)) + '"]');
+  if (!fila) { alert('No se encontró la fila del pago.'); return; }
+  const campo = nombre => fila.querySelector('[data-pago-campo="' + nombre + '"]');
+  const estado = campo('estado').value;
+  const medioPago = campo('medioPago').value;
+  const numeroVoucher = campo('numeroVoucher').value.trim();
+  const observaciones = campo('observaciones').value.trim();
+  const inputArchivo = fila.querySelector('[data-pago-voucher-file]');
+  const archivo = inputArchivo && inputArchivo.files ? inputArchivo.files[0] : null;
+  if (estado === 'Pagado' && !medioPago) { alert('Selecciona el banco o medio de pago antes de guardar como Pagado.'); campo('medioPago').focus(); return; }
+  if (archivo) {
+    if (archivo.size > 5 * 1024 * 1024) { alert('El voucher no debe superar 5 MB.'); return; }
+    if (['image/jpeg','image/png','image/webp','application/pdf'].indexOf(archivo.type) < 0) { alert('Selecciona JPG, PNG, WEBP o PDF.'); return; }
+  }
+  const mensaje = fila.querySelector('[data-pago-mensaje]');
+  if (boton) { boton.disabled = true; boton.textContent = 'Guardando…'; }
+  if (mensaje) mensaje.textContent = 'Guardando en Google Sheets…';
   try {
-    const adjunto = await leerArchivoComoBase64(archivo);
-    await apiPost(Object.assign({ action:'guardarPago', id:id, estado:pago.ESTADO_PAGO || 'Pendiente' }, adjunto));
-    await esperarConfirmacionPago(id, p => !!p.VOUCHER_URL && p.VOUCHER_URL !== (pago.VOUCHER_URL || ''));
+    const adjunto = archivo ? await leerArchivoComoBase64(archivo) : {};
+    await apiPost(Object.assign({
+      action:'guardarPago', id:String(id), estado:estado, medioPago:medioPago,
+      numeroVoucher:numeroVoucher, observaciones:observaciones
+    }, adjunto || {}));
+    const anterior = datosPagosPortal.find(x => String(x.ID) === String(id)) || {};
+    const fichaAlumno = (catequizandosPortal || []).find(x => String(x.ID_NINO || '') === String(id)) || {};
+    const nombreFuente = [String(fichaAlumno.APELLIDOS || '').trim(), String(fichaAlumno.NOMBRES || '').trim()].filter(Boolean).join(', ');
+    const dniFuente = String(fichaAlumno.DNI || '').trim();
+    await esperarConfirmacionPago(id, p =>
+      String(p.ID || '') === String(id) &&
+      (!nombreFuente || String(p.NOMBRE || '').trim() === nombreFuente) &&
+      (!dniFuente || String(p.DNI || '').trim() === dniFuente) &&
+      String(p.MONTO || '').trim() !== '' &&
+      String(p.ESTADO_PAGO || '').toUpperCase() === estado.toUpperCase() &&
+      String(p.MEDIO_PAGO || '') === medioPago &&
+      String(p.VOUCHER_NUMERO || '') === numeroVoucher &&
+      String(p.OBSERVACIONES || '') === observaciones &&
+      (!archivo || (!!p.VOUCHER_URL && p.VOUCHER_URL !== String(anterior.VOUCHER_URL || '')))
+    );
     renderizarPagos();
-    alert('Voucher guardado en Google Drive y enlace registrado en Google Sheets.');
+    renderizarDashboard();
+    alert('Fila completa del estudiante guardada y confirmada en Google Sheets.');
   } catch (error) {
-    alert('No se pudo guardar el voucher. ' + error.message);
-  } finally { if (control.isConnected) control.disabled = !esAdministradoraPortal(); }
+    if (mensaje) mensaje.textContent = 'No se pudo confirmar el guardado.';
+    alert('No se pudo guardar el pago. ' + (error && error.message ? error.message : error));
+    const r = await apiGet('getAportes').catch(() => null);
+    if (r) { datosPagosPortal = r.datos || []; renderizarPagos(); }
+  } finally {
+    if (boton && boton.isConnected) { boton.disabled = !esAdministradoraPortal(); boton.textContent = '💾 Guardar'; }
+  }
+}
+
+async function eliminarVoucherPago(id, boton) {
+  if (!esAdministradoraPortal()) { alert('Solo las administradoras autorizadas pueden eliminar vouchers.'); return; }
+  const pago = datosPagosPortal.find(x => String(x.ID) === String(id));
+  if (!pago || !pago.VOUCHER_URL) { alert('Este registro no tiene un voucher guardado.'); return; }
+  if (!confirm('¿Eliminar el voucher de ' + (pago.NOMBRE || id) + '? El archivo se enviará a la papelera de Google Drive y se quitará su enlace de PAGOS.')) return;
+  if (boton) { boton.disabled = true; boton.textContent = 'Eliminando…'; }
+  try {
+    await apiPost({action:'eliminarVoucherPago', id:String(id), voucherUrl:pago.VOUCHER_URL});
+    await esperarConfirmacionPago(id, p => !p.VOUCHER_URL);
+    renderizarPagos();
+    alert('Voucher eliminado. La fila de pago y los demás datos se conservaron.');
+  } catch (error) {
+    alert('No se pudo eliminar el voucher. ' + (error && error.message ? error.message : error));
+    const r = await apiGet('getAportes').catch(() => null);
+    if (r) { datosPagosPortal = r.datos || []; renderizarPagos(); }
+  } finally { if (boton && boton.isConnected) boton.disabled = !esAdministradoraPortal(); }
 }
 
 function renderizarPadres() {
