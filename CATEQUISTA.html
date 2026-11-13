@@ -39,9 +39,9 @@
 }
 .portal-intro-main{display:flex;align-items:center;gap:22px;min-width:0}
 .portal-intro-crest{
-  flex:0 0 auto;width:92px;height:92px;object-fit:contain;padding:7px;
-  background:#fff;border:3px solid #f3c755;border-radius:20px;
-  box-shadow:0 5px 15px #061a3338;
+  flex:0 0 auto;width:124px;height:124px;object-fit:contain;padding:0;
+  background:transparent;border:0;border-radius:0;
+  box-shadow:none;
 }
 .portal-intro-copy{min-width:0}
 .portal-intro .eyebrow{color:#ffe39a;font-size:.78rem;letter-spacing:.16em}
@@ -49,7 +49,7 @@
 .portal-intro p{margin:0;color:#f0f5fb;font-size:clamp(.95rem,1.5vw,1.12rem)}
 .portal-intro-school{margin-top:8px;color:#d8e5f4;font-size:.86rem;font-weight:600}
 .portal-intro-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap}
-.portal-intro-actions .auth-user{color:#fff;font-weight:850;margin-right:auto}
+.portal-user-return{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:4px;margin-left:8px}.portal-user-return .auth-user{display:block;color:#fff;font-size:1.18rem;font-weight:950;letter-spacing:.025em;line-height:1.15;text-align:right;margin:0}.portal-user-return .btn{white-space:nowrap}
 .portal-intro-actions .btn{min-height:42px}
 .portal-intro-actions .btn:not(.primary):not(.gold){background:#fff;color:#173b68;border-color:#dce5ef}
 @media(max-width:760px){
@@ -57,18 +57,18 @@
   .portal-intro-quick-actions{top:12px;right:13px}
   .portal-quick-btn{width:35px;height:35px}
   .portal-intro-main{align-items:flex-start;gap:13px}
-  .portal-intro-crest{width:66px;height:66px;border-radius:15px;padding:5px}
+  .portal-intro-crest{width:84px;height:84px;border-radius:0;padding:0}
   .portal-intro .eyebrow{font-size:.64rem;letter-spacing:.1em}
   .portal-intro h1{font-size:1.65rem}
   .portal-intro p{font-size:.88rem;line-height:1.4}
   .portal-intro-school{font-size:.75rem}
   .portal-intro-actions{justify-content:flex-start}
-  .portal-intro-actions .auth-user{width:100%;margin:0 0 2px}
+  .portal-user-return{align-items:flex-start;width:100%;margin:4px 0 0}.portal-user-return .auth-user{text-align:left;font-size:1.05rem}
   .portal-intro-actions .btn{flex:1 1 auto;padding:9px 10px;font-size:.78rem}
 }
 @media(max-width:420px){
   .portal-intro-main{flex-direction:column}
-  .portal-intro-crest{width:60px;height:60px}
+  .portal-intro-crest{width:76px;height:76px}
   .portal-intro-actions .btn{flex:1 1 calc(50% - 8px)}
 }
 .container{max-width:1400px;margin:auto;padding:22px}
@@ -508,6 +508,21 @@ body{overflow-x:hidden}
 @media(max-width:600px){.topbar-inner .brand img.crest{width:56px;height:56px;border-radius:14px}.topbar-inner .brand{gap:10px}}
 </style>
 
+
+<style id="portal-logo-name-cartoon-adjustments">
+/* Insignia sin marco blanco: imagen limpia y ampliada. */
+.portal-intro-crest{width:124px!important;height:124px!important;padding:0!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;filter:none!important}
+/* Nombre de la catequista destacado encima del acceso de retorno. */
+.portal-user-return{display:flex;flex-direction:column;align-items:flex-end;gap:5px;margin-left:8px}
+.portal-user-return .auth-user{display:block;color:#fff;font-size:1.18rem;font-weight:950;letter-spacing:.025em;line-height:1.15;text-align:right;margin:0}
+.portal-user-return .btn{white-space:nowrap}
+/* Iconografía alegre, ilustrada y consistente para todas las tarjetas. */
+.module-cartoon-icon{display:flex;align-items:center;min-height:48px;margin:0 0 9px;font-size:2.15rem;line-height:1;letter-spacing:2px;filter:drop-shadow(0 3px 2px rgba(23,43,72,.12));transform-origin:left center;transition:transform .2s ease}
+.tool-card:hover .module-cartoon-icon{transform:translateY(-2px) rotate(-3deg) scale(1.06)}
+@media(max-width:760px){.portal-intro-crest{width:84px!important;height:84px!important}.portal-user-return{align-items:flex-start;width:100%;margin:5px 0 0}.portal-user-return .auth-user{text-align:left;font-size:1.05rem}.module-cartoon-icon{font-size:1.9rem;min-height:42px}}
+@media(max-width:420px){.portal-intro-crest{width:76px!important;height:76px!important}}
+</style>
+
 </head>
 <body>
 <div class="auth-overlay" id="catequista-login-overlay">
@@ -544,10 +559,12 @@ body{overflow-x:hidden}
     <button class="portal-quick-btn" id="mute-toggle" type="button" title="Silenciar o activar audio" aria-label="Silenciar o activar audio">🔊</button>
   </div>
   <div class="portal-intro-actions">
-    <span id="catequista-sesion-nombre" class="auth-user"></span>
     <button class="btn small gold" type="button" onclick="mostrarVista('vista-mensajes')" aria-label="Abrir mensajes y notificaciones">🔔 <span id="badge-mensajes-catequista">0</span> Mensajes</button>
     <button class="btn small" id="btnSalirCatequista" type="button" onclick="cerrarSesionCatequistaPortal()">Cerrar sesión</button>
-    <a class="btn small primary" href="./index.html">← Volver a portada</a>
+    <div class="portal-user-return">
+      <span id="catequista-sesion-nombre" class="auth-user"></span>
+      <a class="btn small primary" href="./index.html">← Volver a portada</a>
+    </div>
   </div>
 </header>
 
@@ -568,55 +585,55 @@ body{overflow-x:hidden}
     <!-- MENÚ DE OPCIONES -->
     <div class="tools-grid" id="menu-herramientas">
       <div class="tool-card">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">📚</div><h4 id="titulo-total-sesiones">Programa de sesiones</h4><p>Programa completo y materiales organizados.</p></div>
+        <div><div class="module-cartoon-icon" aria-hidden="true">📚✨</div><h4 id="titulo-total-sesiones">Programa de sesiones</h4><p>Programa completo y materiales organizados.</p></div>
         <button class="btn small primary" onclick="mostrarVista('vista-clases')">Abrir Sesiones</button>
       </div>
       <div class="tool-card">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">✅</div><h4>Asistencia Modular</h4><p>Control matricial ergonómico conectado a Google Sheet.</p></div>
+        <div><div class="module-cartoon-icon" aria-hidden="true">📝🌟</div><h4>Asistencia Modular</h4><p>Control matricial ergonómico conectado a Google Sheet.</p></div>
         <button class="btn small primary" onclick="mostrarVista('vista-asistencia')">Ver Asistencia</button>
       </div>
       <div class="tool-card">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">💵</div><h4>Control de Pagos</h4><p>Registro único de S/. 40.00 con vouchers.</p></div>
+        <div><div class="module-cartoon-icon" aria-hidden="true">💰🪙</div><h4>Control de Pagos</h4><p>Registro único de S/. 40.00 con vouchers.</p></div>
         <button class="btn small gold" onclick="mostrarVista('vista-pagos')">Ver Pagos (S/ 40)</button>
       </div>
       <div class="tool-card">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">👨‍👩‍👧‍👦</div><h4>Padres de Familia</h4><p>Directorio editable con DNI y teléfono.</p></div>
+        <div><div class="module-cartoon-icon" aria-hidden="true">👨‍👩‍👧💞‍👦💗</div><h4>Padres de Familia</h4><p>Directorio editable con DNI y teléfono.</p></div>
         <button class="btn small gold" onclick="mostrarVista('vista-padres')">Ver Padres</button>
       </div>
       <div class="tool-card">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">📅</div><h4>Calendario de catequesis</h4><p>Horarios oficiales: Martes y Jueves.</p></div>
+        <div><div class="module-cartoon-icon" aria-hidden="true">📆🌼🌈</div><h4>Calendario de catequesis</h4><p>Horarios oficiales: Martes y Jueves.</p></div>
         <button class="btn small" onclick="mostrarVista('vista-calendario')">Ver Calendario</button>
       </div>
       <div class="tool-card">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">📊</div><h4>Dashboard</h4><p>Estadísticas generales de la parroquia.</p></div>
+        <div><div class="module-cartoon-icon" aria-hidden="true">📊⭐</div><h4>Dashboard</h4><p>Estadísticas generales de la parroquia.</p></div>
         <button class="btn small" onclick="mostrarVista('vista-dashboard')">Ver Estadísticas</button>
       </div>
       <div class="tool-card" id="tarjeta-mensajes">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">🔔</div><h4>Mensajes y notificaciones <span id="contador-mensajes-menu" class="badge-count">0</span></h4><p>Comunicados oficiales, mensajes recibidos de catequizandos y avisos de coordinación.</p></div>
+        <div><div class="module-cartoon-icon" aria-hidden="true">💌🔔</div><h4>Mensajes y notificaciones <span id="contador-mensajes-menu" class="badge-count">0</span></h4><p>Comunicados oficiales, mensajes recibidos de catequizandos y avisos de coordinación.</p></div>
         <button class="btn small gold" type="button" onclick="mostrarVista('vista-mensajes')">Abrir mensajes</button>
       </div>
       <div class="tool-card admin-only" id="tarjeta-administrador" hidden>
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">🛡️</div><h4>ADMINISTRADOR</h4><p>Acceso administrativo de Lily y Kiara. Gestión de catequistas y supervisión de accesos desde Google Sheets.</p></div>
+        <div><div class="module-cartoon-icon" aria-hidden="true">👑🛡️</div><h4>ADMINISTRADOR</h4><p>Acceso administrativo de Lily y Kiara. Gestión de catequistas y supervisión de accesos desde Google Sheets.</p></div>
         <button class="btn small gold" type="button" onclick="abrirAdministradorCatequistas()">Abrir Administración</button>
       </div>
       <div class="tool-card module-link-card">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">🧒</div><h4>Portal Catequizando</h4><p>Acceso al espacio de los alumnos: fichas, videos, tareas y cuestionarios.</p></div>
+        <div><div class="module-cartoon-icon" aria-hidden="true">🧒🎒</div><h4>Portal Catequizando</h4><p>Acceso al espacio de los alumnos: fichas, videos, tareas y cuestionarios.</p></div>
         <a class="btn small primary" href="./catequizandos.html">Abrir Catequizando</a>
       </div>
       <div class="tool-card module-link-card">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">⛪</div><h4>Gestor Pastoral</h4><p>Panel de coordinación y supervisión parroquial con su acceso autorizado.</p></div>
+        <div><div class="module-cartoon-icon" aria-hidden="true">⛪✨</div><h4>Gestor Pastoral</h4><p>Panel de coordinación y supervisión parroquial con su acceso autorizado.</p></div>
         <a class="btn small primary" href="./GestorPastoral.html">Abrir Gestor Pastoral</a>
       </div>
       <div class="tool-card module-link-card">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">👨‍👩‍👧</div><h4>Portal de Padres</h4><p>Acceso familiar a avisos, asistencia, avances y datos del catequizando.</p></div>
+        <div><div class="module-cartoon-icon" aria-hidden="true">👨‍👩‍👧💞</div><h4>Portal de Padres</h4><p>Acceso familiar a avisos, asistencia, avances y datos del catequizando.</p></div>
         <a class="btn small gold" href="./padres.html">Abrir Portal de Padres</a>
       </div>
       <div class="tool-card module-link-card">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">🗓️</div><h4>Programación</h4><p>Consulta de la programación general y calendario de catequesis.</p></div>
+        <div><div class="module-cartoon-icon" aria-hidden="true">📆🌼</div><h4>Programación</h4><p>Consulta de la programación general y calendario de catequesis.</p></div>
         <a class="btn small" href="./programacion.html">Abrir Programación</a>
       </div>
       <div class="tool-card module-link-card">
-        <div><div style="font-size:1.5rem;margin-bottom:8px;">🛡️</div><h4>Supervisores</h4><p>Acceso al módulo de supervisión institucional.</p></div>
+        <div><div class="module-cartoon-icon" aria-hidden="true">👑🛡️</div><h4>Supervisores</h4><p>Acceso al módulo de supervisión institucional.</p></div>
         <a class="btn small" href="./supervisores.html">Abrir Supervisores</a>
       </div>
     </div>
