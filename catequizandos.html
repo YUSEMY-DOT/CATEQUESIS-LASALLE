@@ -1824,7 +1824,7 @@ function renderizarPagos() {
   const puedeEditar = esAdministradoraPortal();
   const info = $('pagos-permisos-info');
   if (info) info.textContent = puedeEditar
-    ? 'Sesión administrativa: completa los datos y adjunta el voucher. Nada se registra ni se sube hasta pulsar Guardar. Tras guardar, el registro queda cerrado y solo aparece la X para retirar el voucher.'
+    ? 'Sesión administrativa: completa DNI, fecha, número de operación y medio de pago; selecciona el voucher y pulsa Guardar. El archivo no se sube antes de pulsar Guardar. Después queda visible el comprobante y la X para eliminarlo.'
     : 'Modo consulta: puedes revisar los pagos y comprobantes. Solo LILY MELO AZAÑERO y KIARA MORALES ELGUERA pueden modificarlos.';
   if (!datosPagosPortal.length) { cuerpo.innerHTML = '<tr><td colspan="11">No hay registros en la hoja PAGOS.</td></tr>'; return; }
 
@@ -1839,12 +1839,11 @@ function renderizarPagos() {
     const voucher = p.VOUCHER_URL
       ? `<a href="${escaparHTML(p.VOUCHER_URL)}" target="_blank" rel="noopener">Abrir voucher</a>${miniatura ? `<div style="margin-top:5px;"><a href="${escaparHTML(p.VOUCHER_URL)}" target="_blank" rel="noopener"><img src="${escaparHTML(miniatura)}" alt="Vista previa del voucher" loading="lazy" style="max-width:110px;max-height:90px;object-fit:contain;border:1px solid var(--line);border-radius:6px;"></a></div>` : ''}`
       : '<span style="color:var(--muted);">Sin voucher</span>';
-    // Un voucher ya guardado cierra el registro: no se permiten cambios
-    // silenciosos; la administradora debe quitarlo con la X para habilitar Guardar.
-    const registroCerrado = !!p.VOUCHER_URL;
+    // Un voucher guardado cierra el registro. Para reemplazarlo, primero se retira con la X.
+    const registroCerrado = !!String(p.VOUCHER_URL || '').trim();
     const deshabilitado = (puedeEditar && !registroCerrado) ? '' : 'disabled';
     return `<tr data-pago-fila="${id}">
-      <td>${id}</td><td>${foto}</td><td>${escaparHTML(p.NOMBRE || '—')}</td><td>${escaparHTML(p.DNI || '—')}</td><td><strong>${escaparHTML(p.MONTO || 'S/. 40.00')}</strong></td>
+      <td>${id}</td><td>${foto}</td><td>${escaparHTML(p.NOMBRE || '—')}</td><td><span title="DNI del alumno">${escaparHTML(p.DNI || '—')}</span></td><td><strong>${escaparHTML(p.MONTO || 'S/. 40.00')}</strong></td>
       <td><select ${deshabilitado} data-pago-id="${id}" data-pago-campo="estado" style="min-width:105px;"><option value="Pendiente" ${estado.toUpperCase()==='PENDIENTE'?'selected':''}>Pendiente</option><option value="Pagado" ${estado.toUpperCase()==='PAGADO'?'selected':''}>Pagado</option><option value="Observado" ${estado.toUpperCase()==='OBSERVADO'?'selected':''}>Observado</option></select></td>
       <td><input ${deshabilitado} type="date" value="${escaparHTML(fechaPagoParaInput(p.FECHA_PAGO))}" data-pago-id="${id}" data-pago-campo="fechaPago" style="width:145px;"></td>
       <td><input ${deshabilitado} type="text" value="${escaparHTML(p.VOUCHER_NUMERO || '')}" placeholder="N.º operación" data-pago-id="${id}" data-pago-campo="numeroVoucher" style="width:130px;"></td>
@@ -1922,7 +1921,7 @@ async function guardarPagoFila(id, boton) {
   if (estado === 'Pagado' && !medioPago) { alert('Selecciona el medio de pago antes de guardar como Pagado.'); campo('medioPago').focus(); return; }
   if (estado === 'Pagado' && !fechaPago) { alert('Ingresa la fecha del pago.'); campo('fechaPago').focus(); return; }
   if (estado === 'Pagado' && !archivo) {
-    alert('Adjunta el voucher antes de guardar. El archivo no se subirá hasta que pulses Guardar.');
+    alert('Selecciona el voucher antes de guardar. No se subirá hasta que pulses Guardar.');
     if (inputArchivo) inputArchivo.focus();
     return;
   }
