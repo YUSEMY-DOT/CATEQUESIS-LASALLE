@@ -523,6 +523,30 @@ body{overflow-x:hidden}
 @media(max-width:420px){.portal-intro-crest{width:76px!important;height:76px!important}}
 </style>
 
+
+<style id="portal-intro-nav-inside-blue-refinement">
+/* Navegación integrada dentro de la franja azul institucional */
+.portal-intro{position:relative;padding-bottom:18px;gap:18px}
+.portal-intro-actions{padding-top:28px}
+.portal-user-name-top{position:absolute;right:30px;top:54px;max-width:48%;text-align:right;z-index:2}
+.portal-user-name-top .auth-user{display:block;margin:0;color:#fff;font-size:clamp(1rem,1.35vw,1.3rem);font-weight:950;letter-spacing:.035em;line-height:1.2;text-align:right}
+.portal-history-nav{width:100%;margin:0!important;padding:10px 12px!important;background:rgba(255,255,255,.09)!important;border:1px solid rgba(255,255,255,.25)!important;border-radius:14px!important;box-shadow:none!important}
+.portal-history-nav .btn{min-height:40px;padding:9px 17px;border-radius:11px;background:rgba(255,255,255,.96);border:1px solid rgba(255,255,255,.75);color:#17365d;font-weight:850}
+.portal-history-nav .btn:hover:not(:disabled){background:#ffe49a;border-color:#f3c755;color:#17365d}
+.portal-history-nav .btn:disabled{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.18);color:rgba(255,255,255,.68);opacity:1}
+.portal-history-nav .portal-history-group{width:100%;justify-content:center;gap:12px}
+.portal-history-nav .portal-history-group .btn{min-width:150px}
+@media(max-width:760px){
+ .portal-intro{padding-top:62px;padding-bottom:14px;gap:15px}
+ .portal-user-name-top{top:15px;right:105px;max-width:calc(100% - 135px)}
+ .portal-user-name-top .auth-user{font-size:.9rem}
+ .portal-intro-actions{padding-top:0}
+ .portal-history-nav{padding:8px!important}
+ .portal-history-nav .portal-history-group{gap:6px}
+ .portal-history-nav .portal-history-group .btn{min-width:0;flex:1;padding:8px 6px;font-size:.76rem}
+}
+@media(max-width:420px){.portal-user-name-top{right:98px;max-width:calc(100% - 125px)}.portal-user-name-top .auth-user{font-size:.78rem}}
+</style>
 </head>
 <body>
 <div class="auth-overlay" id="catequista-login-overlay">
@@ -561,11 +585,16 @@ body{overflow-x:hidden}
   <div class="portal-intro-actions">
     <button class="btn small gold" type="button" onclick="mostrarVista('vista-mensajes')" aria-label="Abrir mensajes y notificaciones">🔔 <span id="badge-mensajes-catequista">0</span> Mensajes</button>
     <button class="btn small" id="btnSalirCatequista" type="button" onclick="cerrarSesionCatequistaPortal()">Cerrar sesión</button>
-    <div class="portal-user-return">
-      <span id="catequista-sesion-nombre" class="auth-user"></span>
-      <a class="btn small primary" href="./index.html">← Volver a portada</a>
-    </div>
+    <a class="btn small primary" href="./index.html">← Volver a portada</a>
   </div>
+  <div class="portal-user-name-top"><span id="catequista-sesion-nombre" class="auth-user"></span></div>
+      <nav class="portal-history-nav no-print" aria-label="Navegación del portal">
+      <div class="portal-history-group portal-history-main">
+        <button class="btn small" id="portal-nav-back" type="button" onclick="navegarPortalAtras()" disabled>← Atrás</button>
+        <button class="btn small" id="portal-nav-home" type="button" onclick="volverMenuPrincipal()">⌂ Menú principal</button>
+        <button class="btn small" id="portal-nav-forward" type="button" onclick="navegarPortalAdelante()" disabled>Adelante →</button>
+      </div>
+    </nav>
 </header>
 
 <!-- PANEL CENTRAL: se muestra directamente al iniciar sesión -->
@@ -574,13 +603,7 @@ body{overflow-x:hidden}
 
     
 
-    <nav class="portal-history-nav no-print" aria-label="Navegación del portal">
-      <div class="portal-history-group portal-history-main">
-        <button class="btn small" id="portal-nav-back" type="button" onclick="navegarPortalAtras()" disabled>← Atrás</button>
-        <button class="btn small" id="portal-nav-home" type="button" onclick="volverMenuPrincipal()">⌂ Menú principal</button>
-        <button class="btn small" id="portal-nav-forward" type="button" onclick="navegarPortalAdelante()" disabled>Adelante →</button>
-      </div>
-    </nav>
+
 
     <!-- MENÚ DE OPCIONES -->
     <div class="tools-grid" id="menu-herramientas">
