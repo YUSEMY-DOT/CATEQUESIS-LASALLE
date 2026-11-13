@@ -24,6 +24,45 @@
 .btn-canciones { background: #f0f4fc; border-color: #cbdcf4; color: #204a82; }
 .btn-videos { background: #edf7f2; border-color: #c4e4d4; color: #1b5e3c; }
 
+/* PRESENTACIÓN INSTITUCIONAL ÚNICA: insignia, título y controles en una sola franja */
+.portal-intro{
+  width:calc(100% - 44px);max-width:1400px;margin:22px auto 0;
+  padding:26px 30px;background:linear-gradient(115deg,#102b4f 0%,#1e4e7f 100%);
+  color:#fff;border:1px solid #d8b64d;border-radius:22px;
+  box-shadow:0 12px 30px #173b6818;display:flex;flex-direction:column;gap:22px;
+}
+.portal-intro-main{display:flex;align-items:center;gap:22px;min-width:0}
+.portal-intro-crest{
+  flex:0 0 auto;width:92px;height:92px;object-fit:contain;padding:7px;
+  background:#fff;border:3px solid #f3c755;border-radius:20px;
+  box-shadow:0 5px 15px #061a3338;
+}
+.portal-intro-copy{min-width:0}
+.portal-intro .eyebrow{color:#ffe39a;font-size:.78rem;letter-spacing:.16em}
+.portal-intro h1{margin:5px 0 7px;color:#fff;font-size:clamp(1.8rem,3.4vw,2.65rem);line-height:1.08}
+.portal-intro p{margin:0;color:#f0f5fb;font-size:clamp(.95rem,1.5vw,1.12rem)}
+.portal-intro-school{margin-top:8px;color:#d8e5f4;font-size:.86rem;font-weight:600}
+.portal-intro-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap}
+.portal-intro-actions .auth-user{color:#fff;font-weight:850;margin-right:auto}
+.portal-intro-actions .btn{min-height:42px}
+.portal-intro-actions .btn:not(.primary):not(.gold){background:#fff;color:#173b68;border-color:#dce5ef}
+@media(max-width:760px){
+  .portal-intro{width:calc(100% - 24px);margin:12px auto 0;padding:20px 17px;border-radius:17px;gap:17px}
+  .portal-intro-main{align-items:flex-start;gap:13px}
+  .portal-intro-crest{width:66px;height:66px;border-radius:15px;padding:5px}
+  .portal-intro .eyebrow{font-size:.64rem;letter-spacing:.1em}
+  .portal-intro h1{font-size:1.65rem}
+  .portal-intro p{font-size:.88rem;line-height:1.4}
+  .portal-intro-school{font-size:.75rem}
+  .portal-intro-actions{justify-content:flex-start}
+  .portal-intro-actions .auth-user{width:100%;margin:0 0 2px}
+  .portal-intro-actions .btn{flex:1 1 auto;padding:9px 10px;font-size:.78rem}
+}
+@media(max-width:420px){
+  .portal-intro-main{flex-direction:column}
+  .portal-intro-crest{width:60px;height:60px}
+  .portal-intro-actions .btn{flex:1 1 calc(50% - 8px)}
+}
 .container{max-width:1400px;margin:auto;padding:22px}
 .hero{background:linear-gradient(115deg,#102b4f,#1e4e7f);color:white;border-radius:20px;padding:25px 30px;display:flex;justify-content:space-between;align-items:center;gap:25px;box-shadow:var(--shadow)}
 .eyebrow{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:#ffe39a;font-weight:900}
@@ -482,33 +521,25 @@ body{overflow-x:hidden}
     </form>
   </section>
 </div>
-<header class="topbar">
-  <div class="topbar-inner">
-    <div class="brand">
-      <img class="crest" src="./assets/insignia.png" alt="Insignia" onerror="this.style.display='none'">
-      <div>
-        CAMINANDO HACIA JESÚS 2026
-        <small>Colegio La Salle del Sur · Parroquia San Pedro de Lurín</small>
-      </div>
+<header class="portal-intro" aria-label="Presentación del Portal de Catequistas">
+  <div class="portal-intro-main">
+    <img class="portal-intro-crest" src="./assets/insignia.png" alt="Insignia oficial del Colegio La Salle del Sur" onerror="this.style.display='none'">
+    <div class="portal-intro-copy">
+      <div class="eyebrow">Programa de Catequesis · Primera Comunión 2026</div>
+      <h1>Portal de Catequistas</h1>
+      <p>Gestión pastoral unificada: Clases, Catequizandos, Asistencia, Pagos y Padres.</p>
+      <div class="portal-intro-school">Colegio Privado La Salle del Sur · Parroquia San Pedro de Lurín</div>
     </div>
-    <div class="top-actions">
-      <span id="catequista-sesion-nombre" class="auth-user"></span>
-      <button class="btn small gold" type="button" onclick="mostrarVista('vista-mensajes')" aria-label="Abrir mensajes y notificaciones">🔔 <span id="badge-mensajes-catequista">0</span> Mensajes</button>
-      <button class="btn small primary" id="btnActualizar">🔄 Sincronizar</button>
-      <button class="btn small" id="mute-toggle">🔊 Silenciar</button>
-      <button class="btn small" id="btnSalirCatequista" type="button" onclick="cerrarSesionCatequistaPortal()">Cerrar sesión</button>
-      <a class="btn small primary" href="./index.html">← Volver a portada</a>
-    </div>
+  </div>
+  <div class="portal-intro-actions">
+    <span id="catequista-sesion-nombre" class="auth-user"></span>
+    <button class="btn small gold" type="button" onclick="mostrarVista('vista-mensajes')" aria-label="Abrir mensajes y notificaciones">🔔 <span id="badge-mensajes-catequista">0</span> Mensajes</button>
+    <button class="btn small primary" id="btnActualizar">🔄 Sincronizar</button>
+    <button class="btn small" id="mute-toggle">🔊 Silenciar</button>
+    <button class="btn small" id="btnSalirCatequista" type="button" onclick="cerrarSesionCatequistaPortal()">Cerrar sesión</button>
+    <a class="btn small primary" href="./index.html">← Volver a portada</a>
   </div>
 </header>
-<main class="container">
-<section class="hero">
-  <div>
-    <div class="eyebrow">Programa de Catequesis · Primera Comunión 2026</div>
-    <h1>Portal de Catequistas</h1>
-    <p>Gestión pastoral unificada: Clases, Catequizandos, Asistencia, Pagos y Padres.</p>
-  </div>
-</section>
 
 <!-- PANEL CENTRAL: se muestra directamente al iniciar sesión -->
 <section class="portal-workspace" id="mise-modal" aria-label="Panel central del Portal de Catequistas">
