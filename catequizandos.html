@@ -945,6 +945,33 @@ html.auth-required #portalWrap,#portalWrap[hidden],.portal-wrap-locked{display:n
 @media(max-width:390px){
   .login-mobile{padding:14px 12px 0;gap:9px}.login-mobile-brand img{width:54px;height:54px}.login-mobile-brand-copy b{font-size:10px}.login-mobile-brand-copy span{font-size:19px}.login-mobile-title{font-size:30px}.login-mobile-kids{gap:6px}.login-mobile-motto{width:calc(100% + 24px)}
 }
+
+/* PANEL DE AVANCE Y RÉCORD DE APRENDIZAJE DEL CATEQUIZANDO */
+.learning-dashboard{margin:30px 0 38px;padding:22px;background:linear-gradient(135deg,#fff 0%,#f8fbff 100%);border:1px solid #dce6f1;border-radius:20px;box-shadow:0 6px 22px rgba(18,52,90,.07)}
+.learning-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:17px}
+.learning-head h2{font:700 25px 'Fredoka',sans-serif;color:#12345a;margin:0}
+.learning-head p{margin:4px 0 0;color:#5a6f86;font-size:13px;font-weight:700}
+.learning-kicker{display:block;color:#a4720e;font:800 11px 'Fredoka',sans-serif;letter-spacing:1.3px;text-transform:uppercase;margin-bottom:4px}
+.learning-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.learning-stat{padding:14px;border:1px solid #e2eaf2;border-radius:14px;background:#fff;min-width:0}
+.learning-stat strong{display:block;color:#12345a;font:700 25px 'Fredoka',sans-serif;line-height:1.2}
+.learning-stat span{display:block;margin-top:4px;color:#65778b;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.04em}
+.learning-progress-wrap{margin-top:14px;padding:15px 16px;background:#f4f8fc;border:1px solid #e0eaf4;border-radius:14px}
+.learning-progress-caption{display:flex;justify-content:space-between;gap:10px;align-items:center;color:#284968;font-weight:900;font-size:13px;margin-bottom:9px}
+.learning-progress-track{height:13px;border-radius:20px;background:#e1e9f1;overflow:hidden}
+.learning-progress-fill{height:100%;width:0;border-radius:20px;background:linear-gradient(90deg,#1e7890,#e1b642);transition:width .35s ease}
+.learning-next{margin-top:9px;color:#526981;font-size:12px;font-weight:800}
+.learning-history{margin-top:17px;background:#fff;border:1px solid #e2eaf2;border-radius:15px;padding:15px}
+.learning-history h3{margin:0 0 10px;color:#12345a;font:700 18px 'Fredoka',sans-serif}
+.learning-history-list{display:grid;gap:8px}
+.learning-grade{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 11px;border:1px solid #e7edf4;border-radius:11px;background:#fbfdff}
+.learning-grade-title{color:#183a5d;font-weight:900;font-size:13px}
+.learning-grade-meta{display:block;margin-top:3px;color:#718197;font-size:11px;font-weight:700}
+.learning-grade-score{min-width:64px;text-align:center;padding:7px 9px;border-radius:10px;background:#fff4d7;color:#805a07;font:900 16px 'Fredoka',sans-serif}
+.learning-empty{padding:13px;border:1px dashed #cbd8e6;border-radius:11px;color:#687b90;font-size:12px;font-weight:800;text-align:center;background:#fbfdff}
+.btn-cuestionario.btn-completado{background:#e8f6ed!important;border-color:#93d3a9!important;color:#17643a!important;cursor:not-allowed!important;opacity:1!important;transform:none!important}
+.btn-cuestionario:disabled{cursor:not-allowed!important;opacity:.72}
+@media(max-width:600px){.learning-dashboard{padding:15px;margin:22px 0 30px}.learning-head h2{font-size:22px}.learning-stats{gap:7px}.learning-stat{padding:10px}.learning-stat strong{font-size:21px}.learning-stat span{font-size:9px}.learning-progress-wrap,.learning-history{padding:12px}.learning-grade{grid-template-columns:minmax(0,1fr) auto}}
 </style>
 </head>
 <body>
@@ -1036,6 +1063,31 @@ html.auth-required #portalWrap,#portalWrap[hidden],.portal-wrap-locked{display:n
         
       </div>
     </section>
+
+    <section class="learning-dashboard" id="learningDashboard" aria-label="Mi progreso de aprendizaje">
+      <div class="learning-head">
+        <div>
+          <span class="learning-kicker">Tu esfuerzo cuenta</span>
+          <h2>🏆 Mi progreso y récord de aprendizaje</h2>
+          <p>Cada cuestionario completado queda registrado. ¡Sigue avanzando tema por tema!</p>
+        </div>
+      </div>
+      <div class="learning-stats">
+        <div class="learning-stat"><strong id="learningPercent">0%</strong><span>Avance total</span></div>
+        <div class="learning-stat"><strong id="learningCompleted">0</strong><span>Temas completados</span></div>
+        <div class="learning-stat"><strong id="learningRemaining">0</strong><span>Temas por completar</span></div>
+      </div>
+      <div class="learning-progress-wrap">
+        <div class="learning-progress-caption"><span>Mi camino de aprendizaje</span><span id="learningProgressCount">0 de 0 temas</span></div>
+        <div class="learning-progress-track" role="progressbar" aria-label="Porcentaje de temas completados" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="learningProgressBar"><div class="learning-progress-fill" id="learningProgressFill"></div></div>
+        <div class="learning-next" id="learningNext">Cargando tu próximo reto...</div>
+      </div>
+      <div class="learning-history">
+        <h3>⭐ Mi récord de notas</h3>
+        <div class="learning-history-list" id="learningHistoryList"><div class="learning-empty">Cargando tus calificaciones...</div></div>
+      </div>
+    </section>
+
 <section class="section">
       <h2>Los 6 Bloques de Catequesis</h2>
       <div class="stages" id="stages">
@@ -1139,6 +1191,8 @@ let datosConfig = {};
 let listaAlumnosPortal = [];
 let listaAsistenciaPortal = [];
 let listaTareasPortal = [];
+let listaCuestionariosCompletadosPortal = [];
+let listaCalificacionesPortal = [];
 
 const nombresMeses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 const diasSemana = ['L','M','X','J','V','S','D'];
@@ -1448,6 +1502,133 @@ function abrirTemaHTML(numeroTema) {
   setTimeout(iniciarLectura, 700);
 }
 
+function sincronizarCuestionariosDesdeCalificacionesPortal(calificaciones, cuestionariosServidor) {
+  const resultado = new Map();
+  // Se respeta primero cualquier lista específica que entregue el servidor.
+  (Array.isArray(cuestionariosServidor) ? cuestionariosServidor : []).forEach(function(item) {
+    const id = String(item.idSesion || item.ID_SESION || '').trim();
+    if (!id || resultado.has(id)) return;
+    resultado.set(id, {
+      idSesion: id,
+      tema: String(item.tema || item.TEMA || 'Cuestionario'),
+      nota: Number(item.nota != null ? item.nota : (item.NOTA_NUMERICA != null ? item.NOTA_NUMERICA : 0)),
+      fecha: item.fecha || item.FECHA_REGISTRO || '',
+      correctas: Number(item.correctas != null ? item.correctas : item.CORRECTAS || 0),
+      total: Number(item.total != null ? item.total : item.TOTAL_PREGUNTAS || 20)
+    });
+  });
+  // El GS actual registra cada cuestionario en CALIFICACIONES con TIPO_ACTIVIDAD=CUESTIONARIO.
+  // Se usa esa hoja existente como fuente de verdad; no se crea otra tabla ni se duplican notas.
+  (Array.isArray(calificaciones) ? calificaciones : []).forEach(function(item) {
+    const tipo = String(item.TIPO_ACTIVIDAD || item.tipoActividad || '').trim().toUpperCase();
+    const id = String(item.ID_SESION || item.idSesion || '').trim();
+    if (tipo !== 'CUESTIONARIO' || !id || resultado.has(id)) return;
+    const observaciones = String(item.OBSERVACIONES || item.observaciones || '');
+    const coincidencia = observaciones.match(/(\d+)\s+respuestas?\s+correctas?\s+de\s+(\d+)/i);
+    const notaValor = item.NOTA_NUMERICA != null ? item.NOTA_NUMERICA : (item.NOTA_SOBRE_20 != null ? item.NOTA_SOBRE_20 : item.NOTA);
+    resultado.set(id, {
+      idSesion: id,
+      tema: String(item.TEMA || item.tema || 'Cuestionario'),
+      nota: Number(notaValor || 0),
+      fecha: item.FECHA_REGISTRO || item.FECHA || item.fecha || '',
+      correctas: coincidencia ? Number(coincidencia[1]) : Number(notaValor || 0),
+      total: coincidencia ? Number(coincidencia[2]) : 20
+    });
+  });
+  return Array.from(resultado.values());
+}
+
+function obtenerIntentoCuestionarioPortal(idSesion) {
+  const id = String(idSesion || '').trim();
+  return listaCuestionariosCompletadosPortal.find(function(item) {
+    return String(item.idSesion || '').trim() === id;
+  }) || null;
+}
+
+function formatearFechaNotaPortal(valor) {
+  if (!valor) return 'Fecha no disponible';
+  const fecha = new Date(valor);
+  if (Number.isNaN(fecha.getTime())) return String(valor);
+  return fecha.toLocaleDateString('es-PE', {day:'2-digit', month:'short', year:'numeric'});
+}
+
+function renderizarProgresoYNotasPortal() {
+  const sesiones = [];
+  const vistos = new Set();
+  bloquesPortal.forEach(function(bloque) {
+    (bloque.sessions || []).forEach(function(tema) {
+      const id = String(tema.id || '').trim();
+      if (id && !vistos.has(id)) { vistos.add(id); sesiones.push(tema); }
+    });
+  });
+  const mapaIntentos = new Map();
+  listaCuestionariosCompletadosPortal.forEach(function(item) {
+    const id = String(item.idSesion || '').trim();
+    if (id && !mapaIntentos.has(id)) mapaIntentos.set(id, item);
+  });
+  const completados = sesiones.filter(function(tema) { return mapaIntentos.has(String(tema.id || '').trim()); });
+  const total = sesiones.length;
+  const cantidad = completados.length;
+  const pendientes = Math.max(0, total - cantidad);
+  const porcentaje = total ? Math.round((cantidad / total) * 100) : 0;
+  const poner = function(id, texto) { const nodo = document.getElementById(id); if (nodo) nodo.textContent = texto; };
+  poner('learningPercent', porcentaje + '%');
+  poner('learningCompleted', cantidad);
+  poner('learningRemaining', pendientes);
+  poner('learningProgressCount', cantidad + ' de ' + total + ' temas');
+  const barra = document.getElementById('learningProgressFill');
+  if (barra) barra.style.width = porcentaje + '%';
+  const progressBar = document.getElementById('learningProgressBar');
+  if (progressBar) progressBar.setAttribute('aria-valuenow', String(porcentaje));
+  const siguiente = sesiones.find(function(tema) { return !mapaIntentos.has(String(tema.id || '').trim()); });
+  poner('learningNext', siguiente
+    ? '🎯 Tu siguiente reto: Tema ' + String(siguiente.n || siguiente.numeroSesion || '') + ' · ' + String(siguiente.tema || 'Tema pendiente')
+    : (total ? '🎉 ¡Completaste todos los cuestionarios disponibles del programa!' : 'La programación todavía no está disponible.'));
+
+  let notas = (listaCalificacionesPortal || []).map(function(item) {
+    return {
+      tema: String(item.TEMA || item.tema || 'Actividad de catequesis'),
+      tipo: String(item.TIPO_ACTIVIDAD || item.tipoActividad || 'Actividad'),
+      nota: Number(item.NOTA_NUMERICA != null ? item.NOTA_NUMERICA : (item.NOTA_SOBRE_20 != null ? item.NOTA_SOBRE_20 : item.NOTA)),
+      equivalencia: String(item.EQUIVALENCIA || item.equivalencia || ''),
+      fecha: item.FECHA_REGISTRO || item.FECHA || item.fecha || '',
+      observaciones: String(item.OBSERVACIONES || item.observaciones || '')
+    };
+  }).filter(function(item) { return Number.isFinite(item.nota); });
+  if (!notas.length && listaCuestionariosCompletadosPortal.length) {
+    notas = listaCuestionariosCompletadosPortal.map(function(item) {
+      return {tema:String(item.tema || 'Cuestionario'),tipo:'CUESTIONARIO',nota:Number(item.nota || 0),equivalencia:'',fecha:item.fecha || '',observaciones:Number(item.correctas || 0) + ' respuestas correctas de ' + Number(item.total || 20)};
+    });
+  }
+  notas.sort(function(a,b) { return new Date(b.fecha || 0).getTime() - new Date(a.fecha || 0).getTime(); });
+  const historial = document.getElementById('learningHistoryList');
+  if (!historial) return;
+  if (!notas.length) {
+    historial.innerHTML = '<div class="learning-empty">Todavía no tienes notas registradas. ¡Desarrolla tu primer cuestionario y comienza tu récord! 🌟</div>';
+    return;
+  }
+  historial.innerHTML = notas.map(function(item) {
+    const nota = Number(item.nota);
+    const color = nota >= 18 ? '🏆' : nota >= 14 ? '⭐' : nota >= 11 ? '👏' : '💪';
+    const detalle = [item.tipo, formatearFechaNotaPortal(item.fecha), item.equivalencia, item.observaciones].filter(Boolean).join(' · ');
+    return '<article class="learning-grade"><div><div class="learning-grade-title">' + escaparHTML(item.tema) + '</div><small class="learning-grade-meta">' + escaparHTML(detalle) + '</small></div><div class="learning-grade-score">' + color + ' ' + (Number.isInteger(nota) ? nota : nota.toFixed(2)) + '/20</div></article>';
+  }).join('');
+}
+
+async function actualizarAprendizajeDesdeCuestionario() {
+  try {
+    const respuesta = await apiGet('getAsistenciaNotas');
+    listaCalificacionesPortal = respuesta.calificaciones || [];
+    listaCuestionariosCompletadosPortal = sincronizarCuestionariosDesdeCalificacionesPortal(
+      listaCalificacionesPortal, respuesta.cuestionarios
+    );
+    listaAsistenciaPortal = respuesta.datos || listaAsistenciaPortal;
+    renderizarProgresoYNotasPortal();
+  } catch (error) {
+    console.error('No se pudo actualizar el récord de aprendizaje:', error);
+  }
+}
+
 function abrirBloque(indice) {
   const bloque = bloquesPortal[indice];
   if (!bloque) return;
@@ -1476,7 +1657,7 @@ function abrirBloque(indice) {
       <p><b>Actividad:</b> ${escaparHTML(tema.actividad || 'Por definir')}</p></div>
       <div class="clase"><b>Programación:</b> ${escaparHTML(tema.fecha || 'Fecha pendiente')} · Clase ${escaparHTML(tema.numeroClase || '')} · Horario: ${escaparHTML(tema.horaInicio || '14:00')} a ${escaparHTML(tema.horaFin || '16:00')} horas<br><b>Catequista:</b> ${escaparHTML(tema.catequista || 'Por asignar')}</div>
       <div class="resource-buttons">
-        <button type="button" class="btn-cuestionario" onclick="if(window.opener && typeof window.opener.abrirCuestionarioTema === 'function'){window.opener.abrirCuestionarioTema('${escaparHTML(tema.id || '')}', window);}else{alert('No se pudo comunicar con el portal. Cierra esta ventana y vuelve a ingresar.');}">🎯 Desarrollar cuestionario</button>
+        ${obtenerIntentoCuestionarioPortal(tema.id) ? '<span class="btn-cuestionario estado-completado" role="status">COMPLETADO</span>' : '<button type="button" class="btn-cuestionario" onclick="if(window.opener && typeof window.opener.abrirCuestionarioTema === \'function\'){window.opener.abrirCuestionarioTema(\'' + escaparHTML(tema.id || '') + '\', window);}else{alert(\'No se pudo comunicar con el portal. Cierra esta ventana y vuelve a ingresar.\');}">🎯 Desarrollar cuestionario</button>'}
         <!-- Recursos complementarios desactivados temporalmente. -->
       </div>
     </article>`;
@@ -1485,7 +1666,7 @@ function abrirBloque(indice) {
   ventana.document.open();
   ventana.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escaparHTML(bloque.title)}</title><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"><style>
   *{box-sizing:border-box}body{font:14px Nunito,Arial,sans-serif;background:#f4f1ea;color:#193453;max-width:900px;margin:25px auto;padding:0 15px}header{background:#12345a;color:white;padding:22px 24px;border-radius:16px;margin-bottom:20px}h1{margin:0;font:700 24px Fredoka,sans-serif}.sub{color:#ffdf94;font-weight:700;margin:6px 0 0}.tema{border:1px solid #e7d6b8;border-radius:14px;background:white;padding:18px;margin-bottom:16px;box-shadow:0 3px 10px #12345a0d}.numero{font-size:11px;font-weight:900;color:#b27b19}.tema h2{font:700 18px Fredoka,sans-serif;color:#12345a;margin:5px 0 12px}.subtemas{background:#f3f7fc;padding:10px 14px;border-left:4px solid #d99b16;border-radius:9px}.subtemas ol{margin:6px 0 0;padding-left:20px}.subtemas li{margin:4px 0}.datos{background:#fffaf0;border:1px solid #fae8bd;border-radius:10px;padding:10px 12px;margin-top:12px}.datos p{margin:5px 0}.clase{font-size:12px;background:#eef9f2;border:1px solid #98dfb0;border-radius:10px;padding:10px 12px;margin-top:10px}.resource-buttons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}.resource-buttons button,.resource-buttons a{display:block;text-decoration:none;border-radius:10px;padding:10px 8px;font:800 12px Nunito,sans-serif;cursor:pointer;text-align:center;background:#fff8e6;border:1px solid #e8cb82;color:#12345a}.resource-buttons button:nth-child(2),.resource-buttons a:nth-child(2){background:#f0f4ff;border-color:#a8c2f5;color:#173b7a}.resource-buttons button:nth-child(3){background:#eef9f2;border-color:#98dfb0;color:#156b37}.resource-buttons button:nth-child(4){background:#fff2f0;border-color:#f2a9a0;color:#8a2817}.resource-buttons button:hover,.resource-buttons a:hover{filter:brightness(.97);transform:translateY(-1px)}.resource-buttons > :not(.btn-cuestionario){display:none!important}
-  .resource-buttons .btn-cuestionario{background:#eaf5ff;border-color:#8bbce8;color:#123b66;font-weight:900}.resource-buttons .btn-tema-completo{background:#f1eaff;border-color:#c4a8ef;color:#51327e;font-weight:900}.close{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin:8px 0 25px;color:#12345a}@media(max-width:560px){.resource-buttons{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .resource-buttons .btn-cuestionario{background:#eaf5ff;border-color:#8bbce8;color:#123b66;font-weight:900}.resource-buttons .estado-completado{display:block;padding:10px 8px;border:1px solid #98dfb0;border-radius:10px;background:#eef9f2;color:#17643a;font:900 12px Nunito,sans-serif;text-align:center;cursor:default}.resource-buttons .btn-tema-completo{background:#f1eaff;border-color:#c4a8ef;color:#51327e;font-weight:900}.close{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin:8px 0 25px;color:#12345a}@media(max-width:560px){.resource-buttons{grid-template-columns:repeat(2,minmax(0,1fr))}}
   </style></head><body><header><h1>${escaparHTML(bloque.title)}</h1><p class="sub">${(bloque.sessions || []).length} temas</p></header>${tarjetas}<button class="close" onclick="window.close()" type="button">Cerrar ventana</button><script>
   function leer(texto){if(!('speechSynthesis' in window))return;window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(texto);u.lang='es-PE';u.rate=.92;window.speechSynthesis.speak(u);}
   window.addEventListener('DOMContentLoaded',function(){
@@ -1559,7 +1740,8 @@ function abrirCuestionarioTema(idSesion, ventanaExistente) {
       if(!r.ok)throw new Error('Error del servidor: '+r.status);const j=await r.json();if(!j.exito)throw new Error(j.mensaje||'No se pudo guardar');
       try{localStorage.removeItem(claveBorrador);}catch(_e){}
       const mensaje=j.nota>=18?'¡Excelente trabajo! Sigue aprendiendo con Jesús.':j.nota>=14?'¡Muy bien! Continúa fortaleciendo lo aprendido.':j.nota>=11?'¡Buen esfuerzo! Sigue practicando.':'Gracias por participar. Sigue aprendiendo paso a paso.';
-      app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">'+(j.nota>=14?'🏆':'🌟')+'</div><h2>¡Reto completado!</h2><div class="quiz-score">'+j.nota+'/20</div><p>'+j.correctas+' respuestas correctas de 20</p><div class="quiz-note">'+mensaje+'</div></div>';
+      app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">'+(j.nota>=14?'🏆':'🌟')+'</div><h2>¡Reto completado!</h2><div class="quiz-score">'+j.nota+'/20</div><p>'+j.correctas+' respuestas correctas de 20</p><div class="quiz-note">'+mensaje+'</div><p>Tu nota quedó guardada en tu récord. Este cuestionario ya aparece como COMPLETADO.</p></div>';
+      try { if(window.opener && typeof window.opener.actualizarAprendizajeDesdeCuestionario === 'function') await window.opener.actualizarAprendizajeDesdeCuestionario(); } catch(_e) {}
       hablar('Reto completado. Obtuviste '+j.nota+' puntos de veinte. '+mensaje);
     }catch(e){enviando=false;guardarBorrador();app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">⚠️</div><h2>No se pudo registrar</h2><p>'+esc(e.message)+'</p><button class="quiz-btn" id="volverIntentar">Volver al cuestionario</button></div>';document.getElementById('volverIntentar').addEventListener('click',mostrarPregunta);hablar(e.message);}
   }
@@ -1928,11 +2110,18 @@ async function cargarDatosBackend() {
     actualizarBotonesBloques(); construirCalendario(bloquesPortal.flatMap(b=>Array.isArray(b.sessions)?b.sessions:[]));
   } else errores.push('programación: '+resultados[0].reason.message);
   if (resultados[1].status === 'fulfilled') listaAlumnosPortal=resultados[1].value.datos||[]; else errores.push('perfil: '+resultados[1].reason.message);
-  if (resultados[2].status === 'fulfilled') listaAsistenciaPortal=resultados[2].value.datos||[]; else errores.push('asistencia: '+resultados[2].reason.message);
+  if (resultados[2].status === 'fulfilled') {
+    listaAsistenciaPortal=resultados[2].value.datos||[];
+    listaCalificacionesPortal=resultados[2].value.calificaciones||[];
+    listaCuestionariosCompletadosPortal=sincronizarCuestionariosDesdeCalificacionesPortal(
+      listaCalificacionesPortal, resultados[2].value.cuestionarios
+    );
+  } else errores.push('asistencia: '+resultados[2].reason.message);
   if (resultados[3].status === 'fulfilled') listaTareasPortal=resultados[3].value.datos||[]; else errores.push('tareas: '+resultados[3].reason.message);
   if (resultados[4].status === 'fulfilled') renderizarAvisos(resultados[4].value.datos||[]); else errores.push('avisos: '+resultados[4].reason.message);
   if (resultados[5].status === 'fulfilled') {datosConfig=resultados[5].value.datos||{};actualizarCuentaRegresiva();if(bloquesPortal.length)construirCalendario(bloquesPortal.flatMap(b=>b.sessions||[]));} else errores.push('configuración: '+resultados[5].reason.message);
   renderizarTarjetasAlumnos(listaAlumnosPortal,listaAsistenciaPortal,listaTareasPortal);
+  renderizarProgresoYNotasPortal();
   if(errores.length)mostrarEstadoPortal('Datos pendientes: '+errores.join(' · '),'error');
 }
 
