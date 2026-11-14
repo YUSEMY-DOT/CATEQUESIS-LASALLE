@@ -685,7 +685,7 @@ body{overflow-x:hidden}
         <h4 style="color:var(--navy);margin-top:0;">✉️ Redactar y enviar mensaje</h4>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;">
           <label>Destinatario<select id="msg-tipo-destino" class="btn" style="width:100%;"><option value="CATEQUISTA">Catequistas</option><option value="ALUMNO">Catequizandos</option><option value="PADRE">Padres de familia</option><option value="GESTOR">Gestores</option><option value="TODOS">Todos</option></select></label>
-          <label>Nombre o grupo<input id="msg-destinatario" class="btn" style="width:100%;" placeholder="Ej.: Miss Kiara / TODOS"></label>
+          <label>Otra catequista activa<select id="msg-destinatario" class="btn" style="width:100%;"><option value="">Consultando CATEQUISTAS…</option></select></label>
           <label>Tipo de mensaje<select id="msg-tipo" class="btn" style="width:100%;"><option value="INDIVIDUAL">Individual</option><option value="GRUPAL">Grupal</option><option value="COMUNICADO">Comunicado</option></select></label>
         </div>
         <label style="display:block;margin-top:10px;">Asunto<input id="msg-asunto" class="btn" style="width:100%;text-align:left;" maxlength="160" placeholder="Asunto del mensaje"></label>
@@ -1315,6 +1315,7 @@ function abrirPortalComun() {
   const panel = $('mise-modal');
   if (panel) panel.classList.add('active');
   actualizarInterfazAdministrador();
+  cargarDestinatariosMensajesMises();
   historialVistasPortal = ['menu-herramientas'];
   indiceHistorialPortal = 0;
   mostrarVistaInternaPortal('menu-herramientas', false);
@@ -1473,13 +1474,76 @@ function crearTarjetaMensaje(aviso, tipo) {
   }
   return tarjeta;
 }
+/**
+ * Carga destinatarias directamente de CATEQUISTAS en Google Sheets.
+ * No contiene nombres ni IDs escritos manualmente en el HTML.
+ */
+async function cargarDestinatariosMensajesMises() {
+  const selector = $('msg-destinatario');
+  if (!selector) return;
+  const valorAnterior = selector.value;
+  selector.innerHTML = '<option value="">Consultando CATEQUISTAS…</option>';
+  selector.disabled = true;
+  try {
+    const respuesta = await apiGet('listarCatequistasActivas');
+    const lista = Array.isArray(respuesta.catequistas) ? respuesta.catequistas : [];
+    const idActual = String((perfilCatequistaPortal && perfilCatequistaPortal.id) || '').trim().toUpperCase();
+    const destinatarias = lista.filter(function (c) {
+      return String(c.id || '').trim() && String(c.id || '').trim().toUpperCase() !== idActual;
+    });
+
+    selector.innerHTML = '<option value="">Selecciona a otra catequista</option>';
+    destinatarias.forEach(function (c) {
+      const opcion = document.createElement('option');
+      opcion.value = String(c.id || '').trim();
+      opcion.textContent = String(c.nombre || '').trim() + (c.cargo ? ' · ' + String(c.cargo).trim() : '');
+      selector.appendChild(opcion);
+    });
+
+    if (!destinatarias.length) {
+      selector.innerHTML = '<option value="">No hay otra catequista activa</option>';
+      const estado = $('msg-envio-estado');
+      if (estado) estado.textContent = 'No hay otra cuenta activa disponible en CATEQUISTAS.';
+    } else if (valorAnterior && destinatarias.some(c => String(c.id).trim() === valorAnterior)) {
+      selector.value = valorAnterior;
+    }
+  } catch (error) {
+    selector.innerHTML = '<option value="">No se pudo cargar la lista</option>';
+    const estado = $('msg-envio-estado');
+    if (estado) estado.textContent = 'No se pudo consultar CATEQUISTAS: ' + (error.message || error);
+  } finally {
+    selector.disabled = false;
+  }
+}
+
 async function enviarMensajeCatequista() {
-  const estado=$('msg-envio-estado');
-  const payload={action:'enviarMensajePortal',tipoDestinatario:$('msg-tipo-destino').value,destinatario:$('msg-destinatario').value.trim(),tipoMensaje:$('msg-tipo').value,asunto:$('msg-asunto').value.trim(),mensaje:$('msg-contenido').value.trim()};
-  if(!payload.destinatario||!payload.asunto||!payload.mensaje){if(estado)estado.textContent='Completa destinatario, asunto y mensaje.';return;}
-  if(estado)estado.textContent='Enviando…';
-  try{const respuesta=await apiPost(payload);if(!respuesta||respuesta.exito!==true)throw new Error((respuesta&&respuesta.mensaje)||'Google Apps Script no confirmó el registro.');if(estado)estado.textContent='Mensaje guardado y entregado a la bandeja de la catequista destinataria. Código: '+(respuesta.id||'OK')+'.';$('msg-asunto').value='';$('msg-contenido').value='';await cargarMensajesCatequista(false);}
-  catch(e){if(estado)estado.textContent='NO SE GUARDÓ: '+(e.message||e);}
+  const estado = $('msg-envio-estado');
+  const payload = {
+    action: 'enviarMensajePortal',
+    tipoDestinatario: $('msg-tipo-destino').value,
+    destinatario: $('msg-destinatario').value.trim(),
+    tipoMensaje: $('msg-tipo').value,
+    asunto: $('msg-asunto').value.trim(),
+    mensaje: $('msg-contenido').value.trim()
+  };
+  if (!payload.destinatario || !payload.asunto || !payload.mensaje) {
+    if (estado) estado.textContent = 'Selecciona una destinataria e ingresa asunto y mensaje.';
+    return;
+  }
+  if (estado) estado.textContent = 'Enviando y guardando en AVISOS…';
+  try {
+    const respuesta = await apiPost(payload);
+    if (!respuesta || respuesta.exito !== true) {
+      throw new Error((respuesta && respuesta.mensaje) || 'Google Sheets no confirmó el registro.');
+    }
+    if (estado) estado.textContent = 'GUARDADO: mensaje registrado en AVISOS para ' + (respuesta.destinatario || 'la catequista seleccionada') + '. Código: ' + (respuesta.id || 'OK') + '.';
+    $('msg-asunto').value = '';
+    $('msg-contenido').value = '';
+    await cargarMensajesCatequista(false);
+    await cargarDestinatariosMensajesMises();
+  } catch (e) {
+    if (estado) estado.textContent = 'NO SE GUARDÓ: ' + (e.message || e);
+  }
 }
 
 function renderizarMensajesCatequista(avisos) {
