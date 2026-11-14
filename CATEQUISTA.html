@@ -245,6 +245,31 @@ body{overflow-x:hidden}
 .portal-scroll-btn{background:#f7f9fc}
 .portal-nav-location{margin-left:auto;color:var(--muted);font-size:.78rem;font-weight:800}
 @media(max-width:650px){.portal-history-nav{align-items:stretch}.portal-history-group{width:100%;justify-content:space-between}.portal-history-group .btn{flex:1;padding:8px 7px;font-size:.78rem}.portal-nav-location{width:100%;margin:0;text-align:center}}
+
+/* Centro de mensajes: alertas, no leídos y acciones */
+.msg-unread-card{border:1px solid #e45b5b!important;border-left:6px solid #c62828!important;background:#fff7f7!important;box-shadow:0 5px 16px rgba(160,25,25,.10)!important}
+.msg-read-card{border:1px solid var(--line);border-left:5px solid #a8b4c3}
+.msg-new-pill{display:inline-flex;align-items:center;gap:5px;background:#b42318;color:#fff;border-radius:999px;padding:4px 9px;font-size:.70rem;font-weight:900;letter-spacing:.03em;margin:0 0 8px}
+.msg-actions{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
+.msg-read-btn{border:1px solid #cbd5e1;background:#f8fafc;color:#17365d;border-radius:8px;padding:6px 10px;font-weight:800;cursor:pointer}
+.msg-delete-btn{width:34px;height:34px;border:0;border-radius:50%;background:#b42318;color:#fff;font-size:20px;font-weight:900;line-height:1;cursor:pointer;box-shadow:0 2px 7px rgba(0,0,0,.16)}
+.msg-delete-btn:hover{background:#861a13;transform:scale(1.04)}
+.msg-alert-banner{display:flex;align-items:center;gap:10px;background:#fff1f1;border:1px solid #ef9a9a;border-left:6px solid #c62828;color:#7f1d1d;border-radius:12px;padding:11px 14px;margin:10px 0;font-weight:800}
+.msg-alert-banner .msg-count{min-width:30px;height:30px;display:inline-grid;place-items:center;background:#b42318;color:#fff;border-radius:50%;font-weight:900}
+.msg-toast{position:fixed;z-index:999999;right:18px;top:18px;width:min(520px,calc(100vw - 36px));padding:18px 18px 16px;background:linear-gradient(135deg,#fff 0%,#fff7f7 100%);border:2px solid #d83a3a;border-left:10px solid #b42318;border-radius:18px;box-shadow:0 18px 48px rgba(20,35,55,.32);display:none;color:#17365d}
+.msg-toast.show{display:block;animation:msgToastIn .28s ease-out,msgToastPulse 1.7s ease-in-out 2}
+.msg-toast-title{font-weight:950;color:#9f1d1d;font-size:1.18rem;margin:0 28px 8px 0;letter-spacing:.01em}
+.msg-toast-text{font-size:.98rem;font-weight:650;margin:0 0 14px;line-height:1.55;white-space:pre-line;overflow-wrap:anywhere}
+.msg-toast-actions{display:flex;justify-content:flex-end;gap:9px;flex-wrap:wrap}
+.msg-toast-actions button{border:0;border-radius:10px;padding:10px 14px;font-weight:900;cursor:pointer}
+.msg-toast-view{background:#17365d;color:white}.msg-toast-close{background:#eef2f7;color:#17365d}
+.msg-nav-alert{animation:msgNavPulse 1.15s ease-in-out infinite;box-shadow:0 0 0 3px rgba(180,35,24,.16)!important}
+.msg-nav-alert #badge-mensajes-catequista{background:#b42318!important;color:#fff!important}
+@keyframes msgToastIn{from{opacity:0;transform:translateY(-12px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes msgToastPulse{0%,100%{box-shadow:0 18px 48px rgba(20,35,55,.32)}50%{box-shadow:0 18px 48px rgba(180,35,24,.38)}}
+@keyframes msgNavPulse{0%,100%{filter:none}50%{filter:brightness(1.12)}}
+@media(max-width:600px){.msg-toast{right:10px;top:10px;width:calc(100vw - 20px);padding:15px}.msg-toast-title{font-size:1.05rem}.msg-actions{justify-content:space-between}}
+
 </style>
 
 <style id="lds-copyright-standard">
@@ -671,6 +696,7 @@ body{overflow-x:hidden}
       <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:15px;">
         <button class="btn small" type="button" onclick="volverMenuPrincipal()">← Volver al menú</button>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn small" id="btn-activar-alertas-navegador" type="button" onclick="activarNotificacionesNavegadorCatequista()">🔔 Activar alertas en pantalla</button>
           <button class="btn small primary" type="button" onclick="cargarMensajesCatequista(true)">🔄 Actualizar mensajes</button>
         </div>
       </div>
@@ -695,7 +721,7 @@ body{overflow-x:hidden}
       </section>
       <section class="tool-card" style="margin:14px 0;">
         <h4 style="color:var(--navy);margin-top:0;">💌 Mensajes entre Mises</h4>
-        <p class="sub">Aquí aparecen los mensajes que enviaste y los que recibiste de otras catequistas.</p>
+        <p class="sub">Aquí aparecen los mensajes que enviaste y recibiste. Los mensajes nuevos se resaltan en rojo. La X aparece solo en los mensajes que tú enviaste y permite anular su envío para ambas partes.</p>
         <div id="lista-mensajes-mises"><p class="sub">Cargando mensajes…</p></div>
       </section>
       <div class="messages-columns" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start;">
@@ -1041,6 +1067,13 @@ let perfilCatequistaPortal = null;
 let historialVistasPortal = ['menu-herramientas'];
 let indiceHistorialPortal = 0;
 let vistaActualPortal = 'menu-herramientas';
+let intervaloMensajesCatequista = null;
+let consultaMensajesCatequistaActiva = false;
+let idsMensajesNotificados = new Set();
+let primerChequeoMensajes = true;
+let audioAlertasMensajesActivo = true;
+let contextoAudioMensajes = null;
+let temporizadorToastMensajes = null;
 
 let sesionesPortal = [];
 let clasesPortal = [];
@@ -1225,6 +1258,11 @@ async function cargarCatequistasLogin() {
 }
 
 function cerrarSesionCatequistaPortal() {
+  if (intervaloMensajesCatequista) clearInterval(intervaloMensajesCatequista);
+  intervaloMensajesCatequista = null;
+  idsMensajesNotificados.clear();
+  primerChequeoMensajes = true;
+  ocultarToastMensajes();
   tokenCatequistaPortal = '';
   perfilCatequistaPortal = null;
   sessionStorage.removeItem(CLAVE_SESION_CATEQUISTAS);
@@ -1319,7 +1357,7 @@ function abrirPortalComun() {
   historialVistasPortal = ['menu-herramientas'];
   indiceHistorialPortal = 0;
   mostrarVistaInternaPortal('menu-herramientas', false);
-  sincronizarConHoja(false);
+  sincronizarConHoja(false).then(function() { iniciarMonitoreoMensajesCatequista(); });
 }
 const VISTAS_PORTAL = ['menu-herramientas','vista-mensajes','vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-calificaciones','vista-dashboard','vista-administrador'];
 const ETIQUETAS_VISTAS_PORTAL = {
@@ -1446,38 +1484,258 @@ async function sincronizarConHoja(silencioso) {
 
 function esMensajeEntranteCatequizando(aviso) {
   const obs = String(aviso && aviso.OBSERVACIONES || '').toUpperCase();
-  const titulo = String(aviso && aviso.TITULO || '').toUpperCase();
-  return obs.includes('MENSAJE_CATEQUIZANDO') || titulo.includes('MENSAJE RECIBIDO DE CATEQUIZANDO');
+  const titulo = String(aviso && (aviso.TITULO || aviso.ASUNTO) || '').toUpperCase();
+  const tipo = String(aviso && aviso.TIPO_REMITENTE || '').toUpperCase();
+  return ['CATEQUIZANDO','ALUMNO','ESTUDIANTE'].includes(tipo) || obs.includes('MENSAJE_CATEQUIZANDO') || titulo.includes('MENSAJE RECIBIDO DE CATEQUIZANDO');
 }
 function fechaMensajeLegible(valor) {
   if (!valor) return 'Fecha no registrada';
   const f = new Date(valor);
   return isNaN(f.getTime()) ? String(valor) : f.toLocaleString('es-PE', {dateStyle:'medium',timeStyle:'short'});
 }
+function idCatequistaActualMensajes() {
+  return String((perfilCatequistaPortal && perfilCatequistaPortal.id) || (respuestaPerfilCatequista && respuestaPerfilCatequista.id) || '').trim().toUpperCase();
+}
+function nombreRemitenteMensaje(aviso) {
+  const tipo = String(aviso && aviso.TIPO_REMITENTE || '').trim().toUpperCase();
+  const observaciones = String(aviso && aviso.OBSERVACIONES || '').toUpperCase();
+  const nombre = String(aviso && aviso.REMITENTE || '').trim();
+  const primerNombre = nombre.split(/\s+/)[0] || '';
+  if (/CATEQUISTA/.test(tipo)) return /^miss\b/i.test(nombre) ? nombre : ('Miss ' + (primerNombre || 'Catequista'));
+  if (/COORD/.test(tipo) || /COORDINACION|COORDINADOR/.test(observaciones)) return nombre ? 'Coordinación · ' + nombre : 'Coordinación';
+  if (/GESTOR/.test(tipo) || /GESTOR/.test(observaciones)) return nombre ? 'Gestor · ' + nombre : 'Gestor';
+  if (/CATEQUIZ|ALUMNO|ESTUDIANTE/.test(tipo) || observaciones.includes('MENSAJE_CATEQUIZANDO')) return nombre ? 'Alumno · ' + nombre : 'Alumno';
+  if (/PADRE|APODERADO|FAMILIA/.test(tipo)) return nombre ? 'Familia · ' + nombre : 'Padre de familia';
+  return nombre || 'Nuevo mensaje';
+}
+function activarAudioMensajes() {
+  try {
+    const AudioContextDisponible = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextDisponible) return;
+    if (!contextoAudioMensajes) contextoAudioMensajes = new AudioContextDisponible();
+    if (contextoAudioMensajes.state === 'suspended') contextoAudioMensajes.resume();
+  } catch (e) { /* El sonido es complementario; las alertas visuales siguen activas. */ }
+}
+// Desbloquea el audio durante la primera interacción real del usuario (política del navegador).
+document.addEventListener('pointerdown', activarAudioMensajes, {once:true, passive:true});
+document.addEventListener('keydown', activarAudioMensajes, {once:true});
+function emitirAlertaSonoraMensajes() {
+  if (!audioAlertasMensajesActivo) return;
+  try {
+    activarAudioMensajes();
+    if (!contextoAudioMensajes || contextoAudioMensajes.state !== 'running') return;
+    const ahora = contextoAudioMensajes.currentTime;
+    [0, .22].forEach(function(offset, index) {
+      const osc = contextoAudioMensajes.createOscillator();
+      const ganancia = contextoAudioMensajes.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = index === 0 ? 880 : 1046;
+      ganancia.gain.setValueAtTime(.0001, ahora + offset);
+      ganancia.gain.exponentialRampToValueAtTime(.12, ahora + offset + .025);
+      ganancia.gain.exponentialRampToValueAtTime(.0001, ahora + offset + .16);
+      osc.connect(ganancia); ganancia.connect(contextoAudioMensajes.destination);
+      osc.start(ahora + offset); osc.stop(ahora + offset + .18);
+    });
+  } catch (e) { /* No interrumpir el portal si el navegador bloquea el audio. */ }
+}
+function asegurarToastMensajes() {
+  let toast = $('toast-mensajes-portal');
+  if (toast) return toast;
+  toast = document.createElement('aside');
+  toast.id = 'toast-mensajes-portal';
+  toast.className = 'msg-toast';
+  toast.setAttribute('role','alert');
+  toast.setAttribute('aria-live','assertive');
+  const titulo = document.createElement('p'); titulo.className = 'msg-toast-title'; titulo.id = 'toast-mensajes-titulo';
+  const texto = document.createElement('p'); texto.className = 'msg-toast-text'; texto.id = 'toast-mensajes-texto';
+  const acciones = document.createElement('div'); acciones.className = 'msg-toast-actions';
+  const cerrar = document.createElement('button'); cerrar.type = 'button'; cerrar.className = 'msg-toast-close'; cerrar.textContent = 'Entendido'; cerrar.addEventListener('click', ocultarToastMensajes);
+  const ver = document.createElement('button'); ver.type = 'button'; ver.className = 'msg-toast-view'; ver.textContent = '📩 Abrir bandeja'; ver.addEventListener('click', function() { ocultarToastMensajes(); mostrarVista('vista-mensajes'); });
+  acciones.append(cerrar,ver); toast.append(titulo,texto,acciones); document.body.appendChild(toast);
+  return toast;
+}
+function ocultarToastMensajes() {
+  const toast = $('toast-mensajes-portal');
+  if (toast) toast.classList.remove('show');
+  if (temporizadorToastMensajes) clearTimeout(temporizadorToastMensajes);
+  temporizadorToastMensajes = null;
+}
+function activarNotificacionesNavegadorCatequista() {
+  const boton = $('btn-activar-alertas-navegador');
+  if (!('Notification' in window)) {
+    if (boton) { boton.textContent = '⚠️ Alertas del navegador no disponibles'; boton.disabled = true; }
+    alert('Este navegador no permite notificaciones del sistema. Las alertas dentro del portal seguirán funcionando.');
+    return;
+  }
+  const actualizar = function(permiso) {
+    if (!boton) return;
+    if (permiso === 'granted') { boton.textContent = '🔔 Alertas activadas'; boton.classList.add('msg-nav-alert'); boton.title = 'Las notificaciones del navegador están activadas'; }
+    else if (permiso === 'denied') { boton.textContent = '🔕 Alertas bloqueadas'; boton.classList.remove('msg-nav-alert'); boton.title = 'Permite las notificaciones desde la configuración del navegador'; }
+    else { boton.textContent = '🔔 Activar alertas en pantalla'; boton.classList.remove('msg-nav-alert'); }
+  };
+  if (Notification.permission === 'granted') { actualizar('granted'); alert('Las alertas del navegador ya están activadas.'); return; }
+  Notification.requestPermission().then(function(permiso) {
+    actualizar(permiso);
+    if (permiso === 'granted') alert('¡Listo! Recibirás avisos del navegador cuando llegue un mensaje nuevo, incluso si estás en otra pestaña.');
+    else alert('No se autorizó la notificación del navegador. El portal seguirá mostrando sus alertas cuando esté abierto.');
+  }).catch(function() { actualizar(Notification.permission); });
+}
+function sincronizarEstadoBotonAlertas() {
+  const boton = $('btn-activar-alertas-navegador');
+  if (!boton) return;
+  if (!('Notification' in window)) { boton.textContent = '⚠️ Alertas del navegador no disponibles'; boton.disabled = true; return; }
+  if (Notification.permission === 'granted') { boton.textContent = '🔔 Alertas activadas'; boton.title = 'Las notificaciones del navegador están activadas'; }
+  else if (Notification.permission === 'denied') { boton.textContent = '🔕 Alertas bloqueadas'; boton.title = 'Permite las notificaciones desde la configuración del navegador'; }
+}
+function notificacionSistemaMensaje(aviso) {
+  if (!('Notification' in window) || Notification.permission !== 'granted') return;
+  const id = String(aviso.ID_MENSAJE || aviso.ID_AVISO || '').trim();
+  const asunto = String(aviso.ASUNTO || aviso.TITULO || 'Mensaje nuevo').trim();
+  const texto = String(aviso.MENSAJE || '').trim().replace(/\s+/g,' ');
+  const remitente = nombreRemitenteMensaje(aviso);
+  try {
+    const notificacion = new Notification('📩 Mensaje de ' + remitente, {
+      body: asunto + (texto ? '\n' + texto.slice(0,150) : ''),
+      tag: 'lds-mensaje-' + (id || Date.now()),
+      renotify: true
+    });
+    notificacion.onclick = function() { window.focus(); mostrarVista('vista-mensajes'); notificacion.close(); };
+  } catch (e) { /* La alerta dentro del portal permanece disponible. */ }
+}
+function mostrarToastMensajes(mensajes) {
+  if (!mensajes || !mensajes.length) return;
+  const toast = asegurarToastMensajes();
+  const titulo = $('toast-mensajes-titulo');
+  const texto = $('toast-mensajes-texto');
+  if (titulo) titulo.textContent = mensajes.length === 1 ? '🚨 ¡TIENES UN MENSAJE NUEVO!' : '🚨 ¡TIENES ' + mensajes.length + ' MENSAJES NUEVOS!';
+  if (texto) {
+    texto.textContent = mensajes.slice(0,4).map(function(m) {
+      const quien = nombreRemitenteMensaje(m);
+      const asunto = String(m.ASUNTO || m.TITULO || 'Sin asunto').trim();
+      const extracto = String(m.MENSAJE || '').trim().replace(/\s+/g,' ');
+      return '📩 ' + quien + '\n' + asunto + (extracto ? '\n' + extracto.slice(0,110) + (extracto.length > 110 ? '…' : '') : '');
+    }).join('\n\n') + (mensajes.length > 4 ? '\n\nY ' + (mensajes.length - 4) + ' mensaje(s) más.' : '');
+  }
+  toast.classList.add('show');
+  emitirAlertaSonoraMensajes();
+  // La alerta no desaparece sola: permanece hasta que la usuaria la cierre o abra la bandeja.
+}
+function notificarMensajesNuevos(avisos) {
+  const noLeidos = (avisos || []).filter(function(a) { return !!a.ES_NO_LEIDO; });
+  const nuevos = noLeidos.filter(function(a) {
+    const id = String(a.ID_MENSAJE || a.ID_AVISO || '').trim();
+    return id && !idsMensajesNotificados.has(id);
+  });
+  noLeidos.forEach(function(a) { const id = String(a.ID_MENSAJE || a.ID_AVISO || '').trim(); if (id) idsMensajesNotificados.add(id); });
+  if (nuevos.length) {
+    mostrarToastMensajes(nuevos.slice(0,4));
+    if (document.hidden) nuevos.forEach(notificacionSistemaMensaje);
+  }
+  primerChequeoMensajes = false;
+}
+function actualizarBannerMensajes(noLeidos) {
+  const vista = $('vista-mensajes');
+  if (!vista) return;
+  let banner = $('banner-alerta-mensajes');
+  if (!banner) {
+    banner = document.createElement('div'); banner.id = 'banner-alerta-mensajes'; banner.className = 'msg-alert-banner';
+    const encabezado = vista.querySelector('h3');
+    if (encabezado && encabezado.parentNode) encabezado.parentNode.insertBefore(banner, encabezado.nextSibling);
+  }
+  banner.replaceChildren();
+  const numero = document.createElement('span'); numero.className = 'msg-count'; numero.textContent = String(noLeidos);
+  const texto = document.createElement('span'); texto.textContent = noLeidos ? (noLeidos === 1 ? 'Tienes 1 mensaje nuevo pendiente de leer.' : 'Tienes ' + noLeidos + ' mensajes nuevos pendientes de leer.') : 'Estás al día. No tienes mensajes nuevos pendientes.';
+  banner.append(numero,texto);
+  banner.style.display = 'flex';
+  banner.style.background = noLeidos ? '#fff1f1' : '#f0fdf4';
+  banner.style.borderColor = noLeidos ? '#ef9a9a' : '#86c99a';
+  banner.style.borderLeftColor = noLeidos ? '#b42318' : '#238348';
+  texto.style.color = noLeidos ? '#7f1d1d' : '#176238';
+  numero.style.background = noLeidos ? '#b42318' : '#238348';
+}
+async function marcarMensajeLeidoPortal(idMensaje, boton) {
+  if (!idMensaje) return;
+  if (boton) { boton.disabled = true; boton.textContent = 'Marcando…'; }
+  try {
+    await apiGet('marcarMensajeLeido', {idMensaje:idMensaje});
+    await cargarMensajesCatequista(false);
+  } catch (e) {
+    if (boton) { boton.disabled = false; boton.textContent = '✓ Marcar leído'; }
+    alert('No se pudo marcar el mensaje como leído: ' + (e.message || e));
+  }
+}
+async function eliminarMensajePortal(idMensaje, boton) {
+  if (!idMensaje) return;
+  if (!confirm('¿Eliminar el mensaje que TÚ ENVIASTE? Se retirará también de la bandeja de la destinataria.')) return;
+  if (boton) { boton.disabled = true; boton.textContent = '…'; }
+  try {
+    const respuesta = await apiGet('eliminarMensajeCatequista', {idMensaje:idMensaje});
+    if (!respuesta || respuesta.exito !== true) throw new Error((respuesta && respuesta.mensaje) || 'No se confirmó la eliminación.');
+    await cargarMensajesCatequista(false);
+    const estado = $('estado-mensajes-catequista');
+    if (estado) estado.textContent = 'Mensaje eliminado de tus enviados y retirado de la bandeja de la destinataria.';
+  } catch (e) {
+    if (boton) { boton.disabled = false; boton.textContent = '×'; }
+    alert('No se pudo eliminar el mensaje: ' + (e.message || e));
+  }
+}
+function agregarAccionesMensaje(tarjeta, aviso) {
+  const acciones = document.createElement('div'); acciones.className = 'msg-actions';
+  const esRemitente = String(aviso.REMITENTE_ID || '').trim().toUpperCase() === idCatequistaActualMensajes();
+  if (aviso.ES_NO_LEIDO && !esRemitente) {
+    const leido = document.createElement('button'); leido.type = 'button'; leido.className = 'msg-read-btn'; leido.textContent = '✓ Marcar leído';
+    leido.addEventListener('click',function(){ marcarMensajeLeidoPortal(aviso.ID_MENSAJE || aviso.ID_AVISO,leido); });
+    acciones.appendChild(leido);
+  }
+  // La X solo aparece en mensajes enviados por la cuenta activa.
+  if (esRemitente) {
+    const eliminar = document.createElement('button'); eliminar.type = 'button'; eliminar.className = 'msg-delete-btn'; eliminar.textContent = '×';
+    eliminar.title = 'Eliminar mensaje que enviaste'; eliminar.setAttribute('aria-label','Eliminar mensaje enviado');
+    eliminar.addEventListener('click',function(){ eliminarMensajePortal(aviso.ID_MENSAJE || aviso.ID_AVISO,eliminar); });
+    acciones.appendChild(eliminar);
+  }
+  if (acciones.childElementCount) tarjeta.appendChild(acciones);
+}
 function crearTarjetaMensaje(aviso, tipo) {
+  const noLeido = !!aviso.ES_NO_LEIDO;
   const tarjeta = document.createElement('article');
-  tarjeta.style.cssText = 'border:1px solid var(--line);border-radius:12px;padding:12px;margin:9px 0;background:#fff;';
+  tarjeta.className = noLeido ? 'msg-unread-card' : 'msg-read-card';
+  tarjeta.style.cssText = 'border-radius:13px;padding:13px;margin:10px 0;background:#fff;';
+  if (noLeido) { const pill = document.createElement('span'); pill.className = 'msg-new-pill'; pill.textContent = '● NUEVO · SIN LEER'; tarjeta.appendChild(pill); }
+  const fuente = document.createElement('span');
+  fuente.style.cssText = 'display:inline-flex;align-items:center;border-radius:999px;padding:4px 9px;margin:0 0 8px;background:#eaf0f8;color:#17365d;font-size:.72rem;font-weight:900;';
+  fuente.textContent = nombreRemitenteMensaje(aviso);
   const titulo = document.createElement('strong');
-  titulo.style.cssText = 'display:block;color:var(--navy);margin-bottom:5px;';
-  titulo.textContent = aviso.TITULO || (tipo === 'recibido' ? 'Mensaje de catequizando' : 'Comunicado');
+  titulo.style.cssText = 'display:block;color:var(--navy);margin-bottom:5px;font-size:1rem;';
+  titulo.textContent = aviso.TITULO || aviso.ASUNTO || (tipo === 'recibido' ? 'Mensaje recibido' : 'Comunicado');
   const texto = document.createElement('p');
-  texto.style.cssText = 'margin:0 0 8px;white-space:pre-wrap;overflow-wrap:anywhere;';
+  texto.style.cssText = 'margin:0 0 8px;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5;';
   texto.textContent = aviso.MENSAJE || 'Sin contenido.';
   const meta = document.createElement('small');
-  meta.style.cssText = 'display:block;color:var(--muted);font-size:.78rem;';
-  const remitente = String(aviso.REMITENTE || '').trim();
-  const destino = String(aviso.DIRIGIDO_A || '').trim();
-  meta.textContent = [tipo === 'recibido' ? (remitente ? 'De: ' + remitente : 'De: Catequizando') : 'Publicado', destino ? 'Para: ' + destino : '', fechaMensajeLegible(aviso.FECHA)].filter(Boolean).join(' · ');
-  tarjeta.append(titulo, texto, meta);
+  meta.style.cssText = 'display:block;color:var(--muted);font-size:.78rem;line-height:1.5;';
+  const tipoInterno = tipo === 'interno';
+  const esMio = String(aviso.REMITENTE_ID || '').trim().toUpperCase() === idCatequistaActualMensajes();
+  const direccion = esMio ? 'ENVIADO A: ' + (aviso.DESTINATARIO || aviso.DIRIGIDO_A || 'Destinatario') : 'DE: ' + nombreRemitenteMensaje(aviso);
+  if (esMio) {
+    tarjeta.style.border = '1px solid #c8d9ef';
+    tarjeta.style.borderLeft = '5px solid #17365d';
+    const enviado = document.createElement('span');
+    enviado.textContent = '✉ TU MENSAJE · ENVIADO';
+    enviado.style.cssText = 'display:inline-block;margin:0 0 7px 8px;padding:4px 8px;border-radius:999px;background:#eaf1fb;color:#17365d;font-size:.7rem;font-weight:900;';
+    tarjeta.appendChild(enviado);
+  } else if (noLeido) {
+    tarjeta.style.border = '1px solid #efaaaa';
+    tarjeta.style.borderLeft = '5px solid #b42318';
+  }
+  meta.textContent = [direccion, fechaMensajeLegible(aviso.FECHA || aviso.FECHA_ENVIO)].filter(Boolean).join(' · ');
+  tarjeta.append(fuente,titulo,texto,meta);
   if (aviso.WHATSAPP_LINK && /^https?:\/\//i.test(String(aviso.WHATSAPP_LINK))) {
     const enlace = document.createElement('a'); enlace.href = aviso.WHATSAPP_LINK; enlace.target = '_blank'; enlace.rel = 'noopener noreferrer'; enlace.textContent = 'Abrir enlace relacionado'; enlace.style.cssText = 'display:inline-block;margin-top:8px;font-weight:700;color:var(--navy);'; tarjeta.appendChild(enlace);
   }
+  agregarAccionesMensaje(tarjeta,aviso);
   return tarjeta;
 }
-/**
- * Carga destinatarias directamente de CATEQUISTAS en Google Sheets.
- * No contiene nombres ni IDs escritos manualmente en el HTML.
- */
+/** Destinatarias cargadas desde la pestaña CATEQUISTAS, nunca desde nombres escritos. */
 async function cargarDestinatariosMensajesMises() {
   const selector = $('msg-destinatario');
   if (!selector) return;
@@ -1488,96 +1746,74 @@ async function cargarDestinatariosMensajesMises() {
     const respuesta = await apiGet('listarCatequistasActivas');
     const lista = Array.isArray(respuesta.catequistas) ? respuesta.catequistas : [];
     const idActual = String((perfilCatequistaPortal && perfilCatequistaPortal.id) || '').trim().toUpperCase();
-    const destinatarias = lista.filter(function (c) {
+    const destinatarias = lista.filter(function(c) {
       return String(c.id || '').trim() && String(c.id || '').trim().toUpperCase() !== idActual;
     });
-
     selector.innerHTML = '<option value="">Selecciona a otra catequista</option>';
-    destinatarias.forEach(function (c) {
-      const opcion = document.createElement('option');
-      opcion.value = String(c.id || '').trim();
-      opcion.textContent = String(c.nombre || '').trim() + (c.cargo ? ' · ' + String(c.cargo).trim() : '');
-      selector.appendChild(opcion);
+    destinatarias.forEach(function(c) {
+      const opcion = document.createElement('option'); opcion.value = String(c.id || '').trim();
+      opcion.textContent = String(c.nombre || '').trim() + (c.cargo ? ' · ' + String(c.cargo).trim() : ''); selector.appendChild(opcion);
     });
-
     if (!destinatarias.length) {
       selector.innerHTML = '<option value="">No hay otra catequista activa</option>';
-      const estado = $('msg-envio-estado');
-      if (estado) estado.textContent = 'No hay otra cuenta activa disponible en CATEQUISTAS.';
-    } else if (valorAnterior && destinatarias.some(c => String(c.id).trim() === valorAnterior)) {
-      selector.value = valorAnterior;
-    }
+      const estado = $('msg-envio-estado'); if (estado) estado.textContent = 'No hay otra cuenta activa disponible en CATEQUISTAS.';
+    } else if (valorAnterior && destinatarias.some(c => String(c.id).trim() === valorAnterior)) selector.value = valorAnterior;
   } catch (error) {
     selector.innerHTML = '<option value="">No se pudo cargar la lista</option>';
-    const estado = $('msg-envio-estado');
-    if (estado) estado.textContent = 'No se pudo consultar CATEQUISTAS: ' + (error.message || error);
-  } finally {
-    selector.disabled = false;
-  }
+    const estado = $('msg-envio-estado'); if (estado) estado.textContent = 'No se pudo consultar CATEQUISTAS: ' + (error.message || error);
+  } finally { selector.disabled = false; }
 }
-
 async function enviarMensajeCatequista() {
   const estado = $('msg-envio-estado');
   const payload = {
-    action: 'enviarMensajePortal',
-    tipoDestinatario: $('msg-tipo-destino').value,
-    destinatario: $('msg-destinatario').value.trim(),
-    tipoMensaje: $('msg-tipo').value,
-    asunto: $('msg-asunto').value.trim(),
-    mensaje: $('msg-contenido').value.trim()
+    action:'enviarMensajePortal', tipoDestinatario:$('msg-tipo-destino').value,
+    destinatario:$('msg-destinatario').value.trim(), tipoMensaje:$('msg-tipo').value,
+    asunto:$('msg-asunto').value.trim(), mensaje:$('msg-contenido').value.trim()
   };
-  if (!payload.destinatario || !payload.asunto || !payload.mensaje) {
-    if (estado) estado.textContent = 'Selecciona una destinataria e ingresa asunto y mensaje.';
-    return;
-  }
+  if (!payload.destinatario || !payload.asunto || !payload.mensaje) { if (estado) estado.textContent = 'Selecciona una destinataria e ingresa asunto y mensaje.'; return; }
   if (estado) estado.textContent = 'Enviando y guardando en AVISOS…';
   try {
     const respuesta = await apiPost(payload);
-    if (!respuesta || respuesta.exito !== true) {
-      throw new Error((respuesta && respuesta.mensaje) || 'Google Sheets no confirmó el registro.');
-    }
+    if (!respuesta || respuesta.exito !== true) throw new Error((respuesta && respuesta.mensaje) || 'Google Sheets no confirmó el registro.');
     if (estado) estado.textContent = 'GUARDADO: mensaje registrado en AVISOS para ' + (respuesta.destinatario || 'la catequista seleccionada') + '. Código: ' + (respuesta.id || 'OK') + '.';
-    $('msg-asunto').value = '';
-    $('msg-contenido').value = '';
-    await cargarMensajesCatequista(false);
-    await cargarDestinatariosMensajesMises();
-  } catch (e) {
-    if (estado) estado.textContent = 'NO SE GUARDÓ: ' + (e.message || e);
-  }
+    $('msg-asunto').value = ''; $('msg-contenido').value = '';
+    await cargarMensajesCatequista(false); await cargarDestinatariosMensajesMises();
+  } catch (e) { if (estado) estado.textContent = 'NO SE GUARDÓ: ' + (e.message || e); }
 }
-
 function renderizarMensajesCatequista(avisos) {
-  const recibidos = (avisos || []).filter(esMensajeEntranteCatequizando);
-  const publicados = (avisos || []).filter(a => !esMensajeEntranteCatequizando(a) && ['SI','SÍ','TRUE','1','PUBLICADO'].includes(String(a.PUBLICADO || '').trim().toUpperCase()));
-  const coordinacion = publicados.filter(a => /COORD|PARROQUIA|SUPERVIS/i.test(String(a.DIRIGIDO_A || '') + ' ' + String(a.TITULO || '')));
-  const generales = publicados.filter(a => !coordinacion.includes(a));
-  const pendientes = recibidos.filter(a => !/RESPONDIDO|ATENDIDO|CERRADO/i.test(String(a.ESTADO || '') + ' ' + String(a.OBSERVACIONES || '')));
-  const totalNotificaciones = recibidos.length + publicados.length;
-  ['badge-mensajes-catequista','contador-mensajes-menu'].forEach(id => { const el = $(id); if (el) el.textContent = String(totalNotificaciones); });
+  avisos = Array.isArray(avisos) ? avisos : [];
+  notificarMensajesNuevos(avisos);
+  const internos = avisos.filter(a => a.TIPO_INTERNO === 'CATEQUISTAS');
+  const publicados = avisos.filter(a => a.TIPO_INTERNO !== 'CATEQUISTAS' && ['SI','SÍ','TRUE','1','PUBLICADO'].includes(String(a.PUBLICADO || '').trim().toUpperCase()));
+  const recibidos = avisos.filter(function(a) {
+    if (a.TIPO_INTERNO === 'CATEQUISTAS') return false;
+    const destinoActual = String(a.ID_DESTINATARIO || a.DESTINATARIO_ID || '').trim().toUpperCase() === idCatequistaActualMensajes();
+    const tipoDestino = String(a.TIPO_DESTINATARIO || '').trim().toUpperCase();
+    const paraGrupoCatequistas = ['CATEQUISTA','CATEQUISTAS','TODOS','GENERAL'].includes(tipoDestino);
+    return esMensajeEntranteCatequizando(a) || (destinoActual && String(a.REMITENTE_ID || '').trim().toUpperCase() !== idCatequistaActualMensajes()) || (paraGrupoCatequistas && !a.TIPO_INTERNO);
+  });
+  const coordinacion = publicados.filter(a => /COORD|PARROQUIA|SUPERVIS/i.test(String(a.TIPO_REMITENTE || '') + ' ' + String(a.DIRIGIDO_A || '') + ' ' + String(a.TITULO || '')));
+  const noLeidos = avisos.filter(function(a) { return !!a.ES_NO_LEIDO; });
+  const pendientes = recibidos.filter(a => !/RESPONDIDO|ATENDIDO|CERRADO|LEIDO/i.test(String(a.ESTADO || '') + ' ' + String(a.OBSERVACIONES || '')));
+  ['badge-mensajes-catequista','contador-mensajes-menu'].forEach(id => { const el = $(id); if (el) { el.textContent = String(noLeidos.length); el.classList.toggle('msg-new-pill',noLeidos.length>0); } });
+  const botonMensajes = $('badge-mensajes-catequista') && $('badge-mensajes-catequista').closest('button');
+  if (botonMensajes) { botonMensajes.classList.toggle('msg-nav-alert', noLeidos.length > 0); botonMensajes.title = noLeidos.length ? 'Tienes ' + noLeidos.length + ' mensaje(s) sin leer. Pulsa para revisar.' : 'Mensajes y notificaciones'; }
   if ($('mensajes-total-publicados')) $('mensajes-total-publicados').textContent = String(publicados.length);
   if ($('mensajes-total-recibidos')) $('mensajes-total-recibidos').textContent = String(recibidos.length);
   if ($('mensajes-total-coordinacion')) $('mensajes-total-coordinacion').textContent = String(coordinacion.length);
-  const internos = (avisos || []).filter(a => a.TIPO_INTERNO === 'CATEQUISTAS');
+  actualizarBannerMensajes(noLeidos.length);
   const contMises = $('lista-mensajes-mises');
   if (contMises) {
     contMises.replaceChildren();
     if (!internos.length) contMises.textContent = 'Todavía no hay mensajes entre catequistas.';
-    else internos.forEach(a => {
-      const tarjeta = document.createElement('article');
-      tarjeta.className = 'tool-card'; tarjeta.style.margin = '8px 0';
-      const meta = document.createElement('p'); meta.className = 'sub';
-      meta.textContent = (a.REMITENTE_ID === (respuestaPerfilCatequista && respuestaPerfilCatequista.id) ? 'Enviado a: ' : 'De: ') + (a.REMITENTE_ID === (respuestaPerfilCatequista && respuestaPerfilCatequista.id) ? (a.DESTINATARIO || a.DIRIGIDO_A) : (a.REMITENTE || 'Catequista')) + ' · ' + fechaMensajeLegible(a.FECHA);
-      const titulo = document.createElement('strong'); titulo.textContent = a.TITULO || 'Mensaje';
-      const cuerpo = document.createElement('p'); cuerpo.textContent = a.MENSAJE || '';
-      tarjeta.append(titulo, meta, cuerpo); contMises.appendChild(tarjeta);
-    });
+    else internos.forEach(a => contMises.appendChild(crearTarjetaMensaje(a,'interno')));
   }
   const contRec = $('lista-mensajes-recibidos');
   const contPub = $('lista-comunicados-catequista');
-  if (contRec) { contRec.replaceChildren(); if (!recibidos.length) contRec.textContent = 'No hay mensajes recibidos de catequizandos.'; else recibidos.forEach(a => contRec.appendChild(crearTarjetaMensaje(a,'recibido'))); }
+  if (contRec) { contRec.replaceChildren(); if (!recibidos.length) contRec.textContent = 'No hay mensajes recibidos.'; else recibidos.forEach(a => contRec.appendChild(crearTarjetaMensaje(a,'recibido'))); }
   if (contPub) { contPub.replaceChildren(); if (!publicados.length) contPub.textContent = 'No hay comunicados publicados.'; else publicados.forEach(a => contPub.appendChild(crearTarjetaMensaje(a,'publicado'))); }
   const estado = $('estado-mensajes-catequista');
-  if (estado) estado.textContent = recibidos.length + ' mensaje(s) recibido(s), ' + publicados.length + ' comunicado(s) publicado(s), ' + pendientes.length + ' mensaje(s) pendiente(s) de atención.';
+  if (estado) estado.textContent = noLeidos.length + ' mensaje(s) nuevo(s) sin leer · ' + recibidos.length + ' recibido(s) · ' + internos.length + ' entre Mises · ' + publicados.length + ' comunicado(s).';
 }
 async function cargarMensajesCatequista(mostrarEstado) {
   const estado = $('estado-mensajes-catequista');
@@ -1591,6 +1827,16 @@ async function cargarMensajesCatequista(mostrarEstado) {
     if (estado) estado.textContent = 'No se pudieron cargar los mensajes: ' + (error.message || error);
     return false;
   }
+}
+function iniciarMonitoreoMensajesCatequista() {
+  if (intervaloMensajesCatequista) clearInterval(intervaloMensajesCatequista);
+  cargarMensajesCatequista(false);
+  intervaloMensajesCatequista = setInterval(async function() {
+    if (!tokenCatequistaPortal || consultaMensajesCatequistaActiva) return;
+    consultaMensajesCatequistaActiva = true;
+    try { await cargarMensajesCatequista(false); }
+    finally { consultaMensajesCatequistaActiva = false; }
+  }, 15000);
 }
 
 function renderizarSesionesCompletas() {
@@ -2680,6 +2926,16 @@ async function sincronizarCalendario(mostrarAlerta) {
 }
 
 function initPortalCatequistas() {
+  document.addEventListener('click', activarAudioMensajes, { once:true });
+  const botonSilencio = $('mute-toggle');
+  if (botonSilencio) botonSilencio.addEventListener('click', function() {
+    audioAlertasMensajesActivo = !audioAlertasMensajesActivo;
+    botonSilencio.textContent = audioAlertasMensajesActivo ? '🔊' : '🔇';
+    botonSilencio.title = audioAlertasMensajesActivo ? 'Silenciar alertas de mensajes' : 'Activar alertas de mensajes';
+    if (audioAlertasMensajesActivo) activarAudioMensajes();
+  });
+  asegurarToastMensajes();
+  sincronizarEstadoBotonAlertas();
   if ($('btnActualizar')) $('btnActualizar').onclick = () => sincronizarConHoja(false);
   if ($('catequista-login-form')) $('catequista-login-form').addEventListener('submit', iniciarSesionCatequista);
   cargarCatequistasLogin();
