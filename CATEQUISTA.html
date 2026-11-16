@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -666,7 +667,7 @@ body{overflow-x:hidden}
         <button class="btn small gold" type="button" onclick="mostrarVista('vista-mensajes')">Abrir mensajes</button>
       </div>
       <div class="tool-card admin-only" id="tarjeta-administrador" hidden>
-        <div><div class="module-cartoon-icon" aria-hidden="true">👑🛡️</div><h4>ADMINISTRADOR</h4><p>Acceso administrativo de Lily y Kiara. Gestión de catequistas y supervisión de accesos desde Google Sheets.</p></div>
+        <div><div class="module-cartoon-icon" aria-hidden="true">👑🛡️</div><h4>ADMINISTRADOR</h4><p>Acceso administrativo de Lily y Kiara. Gestión de catequistas y control de accesos desde Google Sheets.</p></div>
         <button class="btn small gold" type="button" onclick="abrirAdministradorCatequistas()">Abrir Administración</button>
       </div>
       <div class="tool-card module-link-card">
@@ -674,7 +675,7 @@ body{overflow-x:hidden}
         <a class="btn small primary" href="./catequizandos.html">Abrir Catequizando</a>
       </div>
       <div class="tool-card module-link-card">
-        <div><div class="module-cartoon-icon" aria-hidden="true">⛪✨</div><h4>Gestor Pastoral</h4><p>Panel de coordinación y supervisión parroquial con su acceso autorizado.</p></div>
+        <div><div class="module-cartoon-icon" aria-hidden="true">⛪✨</div><h4>Gestor Pastoral</h4><p>Panel de gestión y coordinación parroquial con su acceso autorizado.</p></div>
         <a class="btn small primary" href="./GestorPastoral.html">Abrir Gestor Pastoral</a>
       </div>
       <div class="tool-card module-link-card">
@@ -684,10 +685,6 @@ body{overflow-x:hidden}
       <div class="tool-card module-link-card">
         <div><div class="module-cartoon-icon" aria-hidden="true">📆🌼</div><h4>Programación</h4><p>Consulta de la programación general y calendario de catequesis.</p></div>
         <a class="btn small" href="./programacion.html">Abrir Programación</a>
-      </div>
-      <div class="tool-card module-link-card">
-        <div><div class="module-cartoon-icon" aria-hidden="true">👑🛡️</div><h4>Supervisores</h4><p>Acceso al módulo de supervisión institucional.</p></div>
-        <a class="btn small" href="./supervisores.html">Abrir Supervisores</a>
       </div>
     </div>
 
@@ -2945,7 +2942,7 @@ function renderizarListaProgramaCalendario() {
         <div class="cal-class-meta" style="margin-top:0;">
           <div class="cal-class-meta-item"><span>Catequista responsable</span><strong>${escaparHTML(docente || 'Pendiente de asignación')}</strong></div>
           <div class="cal-class-meta-item"><span>Asignación</span><strong>${estadoDocente}</strong></div>
-          <div class="cal-class-meta-item"><span>Supervisión</span><strong>${escaparHTML(supervision || 'Sin registro')}</strong></div>
+          <div class="cal-class-meta-item"><span>Gestión</span><strong>${escaparHTML(supervision || 'Sin registro')}</strong></div>
           <div class="cal-class-meta-item"><span>Temas vinculados</span><strong>${temas.length} de 68 temas del programa</strong></div>
         </div>
         <h5 class="cal-class-section-title">Temas, subtemas y recursos del encuentro</h5>
