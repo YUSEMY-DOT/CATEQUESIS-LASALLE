@@ -1363,7 +1363,7 @@ async function iniciarModoAdministradoraCatequista(){
   }
   try{
     // La lista completa confirma en el servidor que el token pertenece a Lily o Kiara.
-    const validacion=await apiGetJsonp('getCatequizandosAdmin',{token:TOKEN_ADMIN_CATEQUISTA});
+    const validacion=await apiGetJsonp('getCatequizandos',{token:TOKEN_ADMIN_CATEQUISTA});
     if(!validacion || validacion.exito!==true)throw new Error((validacion&&validacion.mensaje)||'La sesión administrativa no está autorizada.');
     const perfil={NOMBRES:'Administración',APELLIDOS:'Catequistas',NOMBRE_COMPLETO:'Administración de Catequesis',ADMINISTRADORA:true};
     mostrarPortalCatequizando(perfil,TOKEN_ADMIN_CATEQUISTA,false);
@@ -1475,15 +1475,10 @@ async function apiGet(accion, parametros) {
   const rutasProtegidas = ['getCatequizandos','getAsistenciaNotas','getTareas','getAvisos','getCuestionario'];
   if (MODO_ADMIN_CATEQUISTA && rutasProtegidas.includes(accion)) {
     if (!TOKEN_ADMIN_CATEQUISTA) throw new Error('Inicia sesión como administradora desde el Portal de Catequistas.');
-    const rutasAdmin = {
-      getCatequizandos:'getCatequizandosAdmin',
-      getAsistenciaNotas:'getAsistenciaNotasAdmin',
-      getTareas:'getTareasAdmin',
-      getAvisos:'getAvisosAdmin'
-    };
-    const accionAdmin = rutasAdmin[accion] || accion;
+    // No existen endpoints paralelos *_Admin: el panel central conserva
+    // las acciones estándar y el GS autoriza según el token de Catequistas.
     datos.token = TOKEN_ADMIN_CATEQUISTA;
-    const respuestaAdmin = await apiGetJsonp(accionAdmin, datos);
+    const respuestaAdmin = await apiGetJsonp(accion, datos);
     if (!respuestaAdmin || respuestaAdmin.authRequired || respuestaAdmin.exito !== true) {
       throw new Error((respuestaAdmin && respuestaAdmin.mensaje) || 'La sesión de Administradora venció. Vuelve al Portal de Catequistas.');
     }
