@@ -480,6 +480,9 @@ body{overflow-x:hidden}
 .portal-workspace-inner{width:100%;max-width:none;max-height:none;overflow:visible;padding:0;background:transparent;border-radius:0;box-shadow:none;}
 .portal-workspace .panel-head{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:18px!important;}
 .portal-workspace .tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;}
+#tarjeta-portal-padres[hidden]{display:none!important;}
+.portal-workspace #menu-herramientas > .menu-step-title{grid-column:1/-1;margin:12px 0 0;padding:8px 12px;border-left:4px solid #d8ad3c;border-radius:8px;background:#f4f7fb;color:#17365d;font-size:.83rem;font-weight:850;letter-spacing:.045em;}
+
 .portal-workspace .tool-card{min-width:0;background:#fff;border:1px solid #dce4ef;border-radius:18px;padding:20px;box-shadow:0 4px 14px rgba(16,42,76,.045);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;}
 .portal-workspace .tool-card:hover{transform:translateY(-2px);border-color:#b9c9df;box-shadow:0 9px 22px rgba(16,42,76,.09);}
 .portal-workspace .tool-card h4{color:#17365d;font-size:1.04rem;letter-spacing:.005em;margin:0 0 6px;}
@@ -604,7 +607,7 @@ body{overflow-x:hidden}
     <div class="portal-intro-copy">
       <div class="eyebrow">Programa de Catequesis · Primera Comunión 2026</div>
       <h1>Portal de Catequistas</h1>
-      <p>Gestión pastoral unificada: Clases, Catequizandos, Asistencia, Pagos y Padres.</p>
+      <p id="portal-descripcion">Panel central de Catequistas: programación, seguimiento y coordinación pastoral.</p>
       <div class="portal-intro-school">Colegio Privado La Salle del Sur · Parroquia San Pedro de Lurín</div>
     </div>
   </div>
@@ -613,6 +616,7 @@ body{overflow-x:hidden}
     <button class="portal-quick-btn" id="mute-toggle" type="button" title="Silenciar o activar audio" aria-label="Silenciar o activar audio">🔊</button>
   </div>
   <div class="portal-intro-actions">
+    <button class="btn small gold" id="btnAdministracionCuentas" type="button" hidden onclick="abrirAdministradorCatequistas()" aria-label="Administrar cuentas de catequistas">⚙ Administrar cuentas</button>
     <button class="btn small gold" type="button" onclick="mostrarVista('vista-mensajes')" aria-label="Abrir mensajes y notificaciones">🔔 <span id="badge-mensajes-catequista">0</span> Mensajes</button>
     <button class="btn small" id="btnSalirCatequista" type="button" onclick="cerrarSesionCatequistaPortal()">Cerrar sesión</button>
     <a class="btn small primary" href="./index.html">← Volver a portada</a>
@@ -637,54 +641,56 @@ body{overflow-x:hidden}
 
     <!-- MENÚ DE OPCIONES -->
     <div class="tools-grid" id="menu-herramientas">
-      <div class="tool-card">
+      <div class="menu-step-title">PASO 1 · PLANIFICACIÓN Y PROGRAMACIÓN</div>
+<div class="tool-card">
         <div><div class="module-cartoon-icon" aria-hidden="true">📚✨</div><h4 id="titulo-total-sesiones">Programa de sesiones</h4><p>Programa completo y materiales organizados.</p></div>
         <button class="btn small primary" onclick="mostrarVista('vista-clases')">Abrir Sesiones</button>
       </div>
-      <div class="tool-card">
-        <div><div class="module-cartoon-icon" aria-hidden="true">📝🌟</div><h4>Asistencia Modular</h4><p>Control matricial ergonómico conectado a Google Sheet.</p></div>
-        <button class="btn small primary" onclick="mostrarVista('vista-asistencia')">Ver Asistencia</button>
-      </div>
-      <div class="tool-card">
-        <div><div class="module-cartoon-icon" aria-hidden="true">💰🪙</div><h4>Control de Pagos</h4><p>Registro único de S/. 40.00 con vouchers.</p></div>
-        <button class="btn small gold" onclick="mostrarVista('vista-pagos')">Ver Pagos (S/ 40)</button>
-      </div>
-      <div class="tool-card">
-        <div><div class="module-cartoon-icon" aria-hidden="true">👨‍👩‍👧💞‍👦💗</div><h4>Padres de Familia</h4><p>Directorio editable con DNI y teléfono.</p></div>
-        <button class="btn small gold" onclick="mostrarVista('vista-padres')">Ver Padres</button>
-      </div>
-      <div class="tool-card">
+<div class="tool-card">
         <div><div class="module-cartoon-icon" aria-hidden="true">📆🌼🌈</div><h4>Calendario de catequesis</h4><p>Horarios oficiales: Martes y Jueves.</p></div>
         <button class="btn small" onclick="mostrarVista('vista-calendario')">Ver Calendario</button>
       </div>
-      <div class="tool-card">
-        <div><div class="module-cartoon-icon" aria-hidden="true">📊⭐</div><h4>Dashboard</h4><p>Estadísticas generales de la parroquia.</p></div>
-        <button class="btn small" onclick="mostrarVista('vista-dashboard')">Ver Estadísticas</button>
-      </div>
-      <div class="tool-card" id="tarjeta-mensajes">
-        <div><div class="module-cartoon-icon" aria-hidden="true">💌🔔</div><h4>Mensajes y notificaciones <span id="contador-mensajes-menu" class="badge-count">0</span></h4><p>Comunicados oficiales, mensajes recibidos de catequizandos y avisos de coordinación.</p></div>
-        <button class="btn small gold" type="button" onclick="mostrarVista('vista-mensajes')">Abrir mensajes</button>
-      </div>
-      <div class="tool-card admin-only" id="tarjeta-administrador" hidden>
-        <div><div class="module-cartoon-icon" aria-hidden="true">👑🛡️</div><h4>ADMINISTRADOR</h4><p>Acceso administrativo de Lily y Kiara. Gestión general de catequistas y control de accesos desde Google Sheets.</p></div>
-        <button class="btn small gold" type="button" onclick="abrirAdministradorCatequistas()">Abrir Administración</button>
-      </div>
-      <div class="tool-card module-link-card">
-        <div><div class="module-cartoon-icon" aria-hidden="true">🧒🎒</div><h4>Portal Catequizando</h4><p>Acceso al espacio de los alumnos: fichas, videos, tareas y cuestionarios.</p></div>
-        <a class="btn small primary" href="./catequizandos.html" onclick="return abrirPortalCatequizandoDesdeCatequista(event)">Abrir Catequizando</a>
-      </div>
-      <div class="tool-card module-link-card">
-        <div><div class="module-cartoon-icon" aria-hidden="true">⛪✨</div><h4>Gestor Pastoral</h4><p>Panel de coordinación y gestión parroquial con su acceso autorizado.</p></div>
-        <a class="btn small primary" href="./GestorPastoral.html" onclick="return abrirGestorPastoralDesdeCatequista(event)">Abrir Gestor Pastoral</a>
-      </div>
-      <div class="tool-card module-link-card">
-        <div><div class="module-cartoon-icon" aria-hidden="true">👨‍👩‍👧💞</div><h4>Portal de Padres</h4><p>Acceso familiar a avisos, asistencia, avances y datos del catequizando.</p></div>
-        <a class="btn small gold" href="./padres.html">Abrir Portal de Padres</a>
-      </div>
-      <div class="tool-card module-link-card">
+<div class="tool-card module-link-card">
         <div><div class="module-cartoon-icon" aria-hidden="true">📆🌼</div><h4>Programación</h4><p>Consulta de la programación general y calendario de catequesis.</p></div>
         <a class="btn small" href="./programacion.html">Abrir Programación</a>
       </div>
+      <div class="menu-step-title">PASO 2 · SEGUIMIENTO DE CATEQUIZANDOS</div>
+<div class="tool-card">
+        <div><div class="module-cartoon-icon" aria-hidden="true">📝🌟</div><h4>Asistencia Modular</h4><p>Control matricial ergonómico conectado a Google Sheet.</p></div>
+        <button class="btn small primary" onclick="mostrarVista('vista-asistencia')">Ver Asistencia</button>
+      </div>
+<div class="tool-card">
+        <div><div class="module-cartoon-icon" aria-hidden="true">📊⭐</div><h4>Dashboard</h4><p>Estadísticas generales de la parroquia.</p></div>
+        <button class="btn small" onclick="mostrarVista('vista-dashboard')">Ver Estadísticas</button>
+      </div>
+<div class="tool-card module-link-card admin-only" id="tarjeta-portal-catequizandos" hidden>
+        <div><div class="module-cartoon-icon" aria-hidden="true">🧒🎒</div><h4>Portal Catequizando</h4><p>Vista administrativa general de alumnos, fichas, tareas, asistencia y avances. No suplanta el ingreso individual del alumno.</p></div>
+        <a class="btn small primary" href="./catequizandos.html?modo=administradora" onclick="return abrirPortalCatequizandoDesdeCatequista(event)">Consultar Catequizandos</a>
+      </div>
+      <div class="menu-step-title">PASO 3 · ADMINISTRACIÓN Y ATENCIÓN A FAMILIAS</div>
+<div class="tool-card">
+        <div><div class="module-cartoon-icon" aria-hidden="true">💰🪙</div><h4>Control de Pagos</h4><p>Registro único de S/. 40.00 con vouchers.</p></div>
+        <button class="btn small gold" onclick="mostrarVista('vista-pagos')">Ver Pagos (S/ 40)</button>
+      </div>
+<div class="tool-card">
+        <div><div class="module-cartoon-icon" aria-hidden="true">👨‍👩‍👧💞‍👦💗</div><h4>Padres de Familia</h4><p>Directorio editable con DNI y teléfono.</p></div>
+        <button class="btn small gold" onclick="mostrarVista('vista-padres')">Ver Padres</button>
+      </div>
+<div class="tool-card module-link-card" id="tarjeta-portal-padres">
+        <div><div class="module-cartoon-icon" aria-hidden="true">👨‍👩‍👧💞</div><h4>Portal de Padres</h4><p>Acceso familiar a avisos, asistencia, avances y datos del catequizando.</p></div>
+        <a class="btn small gold" href="./padres.html" onclick="return abrirPortalPadresDesdeCatequista(event)">Abrir Portal de Padres</a>
+      </div>
+      <div class="menu-step-title">PASO 4 · COMUNICACIÓN Y NOTIFICACIONES</div>
+<div class="tool-card" id="tarjeta-mensajes">
+        <div><div class="module-cartoon-icon" aria-hidden="true">💌🔔</div><h4>Mensajes y notificaciones <span id="contador-mensajes-menu" class="badge-count">0</span></h4><p>Comunicados oficiales, mensajes recibidos de catequizandos y avisos de coordinación.</p></div>
+        <button class="btn small gold" type="button" onclick="mostrarVista('vista-mensajes')">Abrir mensajes</button>
+      </div>
+      <div class="menu-step-title">PASO 5 · COORDINACIÓN Y SUPERVISIÓN</div>
+<div class="tool-card module-link-card admin-only" id="tarjeta-portal-gestor" hidden>
+        <div><div class="module-cartoon-icon" aria-hidden="true">⛪✨</div><h4>Supervisión Pastoral</h4><p>Consulta general de clases, catequizandos, padres, asistencia, calificaciones y documentación. Este módulo es de solo lectura.</p></div>
+        <a class="btn small primary" href="./GestorPastoral.html?modo=administradora" onclick="return abrirGestorPastoralDesdeCatequista(event)">Abrir Supervisión</a>
+      </div>
+
     </div>
 
     <!-- VISTA MENSAJES Y NOTIFICACIONES -->
@@ -1159,15 +1165,33 @@ function apiGet(action, parametros) {
   });
 }
 
-// El envío usa la ruta JSONP protegida por token; Apps Script valida y guarda en AVISOS
-// antes de devolver la confirmación al portal.
+// Las operaciones que modifican información se envían al doPost del GS.
+// Las lecturas continúan usando JSONP en apiGet(); así no se confunden rutas GET y POST.
 async function apiPost(payload) {
   const datos = Object.assign({}, payload || {});
   const accion = String(datos.action || '').trim();
-  delete datos.action;
+  if (!accion) throw new Error('La operación no contiene una acción válida.');
   if (!tokenCatequistaPortal) throw new Error('La sesión venció. Ingresa nuevamente.');
   datos.token = tokenCatequistaPortal;
-  return apiGet(accion, datos);
+  const respuesta = await fetch(URL_APPS_SCRIPT, {
+    method: 'POST',
+    mode: 'cors',
+    redirect: 'follow',
+    cache: 'no-store',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(datos)
+  });
+  const texto = await respuesta.text();
+  let resultado;
+  try {
+    resultado = JSON.parse(texto);
+  } catch (errorParseo) {
+    const detalle = texto && texto.trim() ? texto.trim().replace(/<[^>]*>/g, ' ').slice(0, 180) : 'respuesta vacía';
+    throw new Error('Google Apps Script no devolvió una respuesta válida (' + detalle + '). Verifica que Codigo.gs esté publicado como nueva versión.');
+  }
+  if (!respuesta.ok) throw new Error('Google Apps Script respondió con estado ' + respuesta.status + '.');
+  if (!resultado || resultado.exito !== true) throw new Error((resultado && resultado.mensaje) || 'Google Sheets no confirmó la operación.');
+  return resultado;
 }
 
 function toggleCatequistaPinVisibility() {
@@ -1280,10 +1304,23 @@ function esAdministradoraPortal() {
   return !!(perfilCatequistaPortal && perfilCatequistaPortal.administradora === true);
 }
 function actualizarInterfazAdministrador() {
-  const tarjeta = $('tarjeta-administrador');
-  if (tarjeta) tarjeta.hidden = !esAdministradoraPortal();
+  const esAdmin = esAdministradoraPortal();
+  const botonCuentas = $('btnAdministracionCuentas');
+  if (botonCuentas) botonCuentas.hidden = !esAdmin;
+  const tarjetaCatequizandos = $('tarjeta-portal-catequizandos');
+  if (tarjetaCatequizandos) tarjetaCatequizandos.hidden = !esAdmin;
+  const tarjetaGestor = $('tarjeta-portal-gestor');
+  if (tarjetaGestor) tarjetaGestor.hidden = !esAdmin;
+  // Padres se consulta desde el directorio interno del panel administrativo.
+  // La tarjeta externa conserva el acceso familiar independiente y su PIN.
+  const tarjetaPortalPadres = $('tarjeta-portal-padres');
+  if (tarjetaPortalPadres) tarjetaPortalPadres.hidden = esAdmin;
+  const descripcion = $('portal-descripcion');
+  if (descripcion) descripcion.textContent = esAdmin
+    ? 'Panel administrativo central: dirige la programación, catequistas, catequizandos, familias y seguimiento pastoral.'
+    : 'Espacio de trabajo de Catequistas: sesiones, asistencia, seguimiento y comunicación del programa.';
   const identidad = $('admin-identidad');
-  if (identidad) identidad.textContent = esAdministradoraPortal() ? 'Sesión administrativa: ' + (perfilCatequistaPortal.nombre || perfilCatequistaPortal.id) : 'Acceso restringido.';
+  if (identidad) identidad.textContent = esAdmin ? 'Administración central: ' + (perfilCatequistaPortal.nombre || perfilCatequistaPortal.id) : 'Acceso restringido.';
 }
 async function abrirAdministradorCatequistas() {
   if (!esAdministradoraPortal()) { alert('Este módulo está reservado para LILY MELO AZAÑERO y KIARA MORALES ELGUERA.'); return; }
@@ -2159,8 +2196,8 @@ async function guardarAsistenciaPendiente() {
       asistencias: entradas.map(([idxClase, estado]) => ({ sesion: idxClase + 1, estado }))
     });
 
-    // El POST usa no-cors por el despliegue de Apps Script; por eso la confirmación
-    // real siempre se hace leyendo de nuevo la matriz oficial en Google Sheets.
+    // La respuesta del POST se valida y después se confirma leyendo de nuevo
+    // la matriz oficial en Google Sheets.
     await retraso(1200);
     const respuesta = await apiGet('getAsistenciaNotas');
     const actualizado = (respuesta.datos || []).find(x => String(x.ID_NINO).trim() === String(est.ID_NINO).trim());
@@ -3046,6 +3083,17 @@ function abrirGestorPastoralDesdeCatequista(event) {
   if (esAdministradoraPortal() && tokenCatequistaPortal) {
     if (event) event.preventDefault();
     window.location.href = './GestorPastoral.html?modo=administradora';
+    return false;
+  }
+  return true;
+}
+
+function abrirPortalPadresDesdeCatequista(event) {
+  // La administración consulta PADRES desde el panel central; no necesita
+  // entrar al módulo familiar ni solicitar el PIN individual de una familia.
+  if (esAdministradoraPortal() && tokenCatequistaPortal) {
+    if (event) event.preventDefault();
+    mostrarVista('vista-padres');
     return false;
   }
   return true;
