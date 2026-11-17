@@ -1777,7 +1777,7 @@ function abrirCuestionarioTema(idSesion, ventanaExistente) {
   function hablar(texto){if(!('speechSynthesis'in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(texto);u.lang='es-PE';u.rate=.9;window.speechSynthesis.speak(u);}
   function cerrarCuestionario(){salidaAutorizada=true;if(window.speechSynthesis)window.speechSynthesis.cancel();window.close();}
   function guardarBorrador(){if(!quiz||!claveBorrador||enviando)return false;try{localStorage.setItem(claveBorrador,JSON.stringify({idNino:quiz.idNino,idSesion:CFG.idSesion,indice:indice,respuestas:respuestas,actualizado:new Date().toISOString()}));return true;}catch(e){return false;}}
-  function recuperarBorrador(){claveBorrador='caminoQuiz:'+CFG.idSesion+':'+CFG.idNino;try{const raw=localStorage.getItem(claveBorrador);if(!raw)return false;const b=JSON.parse(raw);if(!b||b.idNino!==CFG.idNino||b.idSesion!==CFG.idSesion||!b.respuestas)return false;respuestas=b.respuestas;indice=Math.max(0,Math.min(19,Number(b.indice)||0));return Object.keys(respuestas).length>0;}catch(e){return false;}}
+  function recuperarBorrador(){claveBorrador='caminoQuiz:'+CFG.idSesion+':'+CFG.idNino;try{const raw=localStorage.getItem(claveBorrador);if(!raw)return false;const b=JSON.parse(raw);if(!b||b.idNino!==CFG.idNino||b.idSesion!==CFG.idSesion||!b.respuestas)return false;respuestas={};Object.keys(b.respuestas).forEach(function(id){const pregunta=quiz.preguntas.find(function(q){return String(q.idPregunta)===String(id);});const opcion=String(b.respuestas[id]||'').trim().toUpperCase();if(pregunta&&pregunta.opciones.some(function(o){return o.valor===opcion;}))respuestas[id]=opcion;});indice=Math.max(0,Math.min(quiz.preguntas.length-1,Number(b.indice)||0));return Object.keys(respuestas).length>0;}catch(e){return false;}}
   function salirGuardando(){guardarBorrador();salidaAutorizada=true;window.close();}
   document.getElementById('volverPortal').addEventListener('click',cerrarCuestionario);
   document.getElementById('guardarSalir').addEventListener('click',salirGuardando);
@@ -1787,21 +1787,21 @@ function abrirCuestionarioTema(idSesion, ventanaExistente) {
     try{
       const r=await fetch(CFG.api,{method:'POST',mode:'cors',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'obtenerCuestionarioCatequizando',idSesion:CFG.idSesion,token:CFG.token})});
       if(!r.ok)throw new Error('Error del servidor: '+r.status);const j=await r.json();if(!j.exito)throw new Error(j.mensaje||'No se pudo cargar.');
-      quiz=j;quiz.idNino=CFG.idNino;hayBorrador=recuperarBorrador();mostrarPregunta();
+      quiz=j;quiz.idNino=CFG.idNino;quiz.total=Array.isArray(j.preguntas)?j.preguntas.length:Number(j.total||0);if(!quiz.total)throw new Error('El servidor no devolvió preguntas para este tema.');hayBorrador=recuperarBorrador();indice=Math.min(indice,quiz.total-1);mostrarPregunta();
     }catch(e){app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">⚠️</div><h2>No se pudo abrir el cuestionario</h2><p>'+esc(e.message)+'</p><button class="quiz-btn" id="reintentar">Intentar nuevamente</button></div>';document.getElementById('reintentar').addEventListener('click',iniciar);hablar(e.message);}
   }
   function mostrarPregunta(){
-    const q=quiz.preguntas[indice];const pct=(indice/20)*100;
+    const q=quiz.preguntas[indice];const total=quiz.total||quiz.preguntas.length;const pct=(indice/total)*100;
     let opciones='';q.opciones.forEach(function(o){opciones+='<button class="quiz-option '+(respuestas[q.idPregunta]===o.valor?'selected':'')+'" data-op="'+o.valor+'" type="button"><b>'+o.valor+'</b><span>'+esc(o.texto)+'</span></button>';});
-    app.innerHTML=(hayBorrador?'<div class="quiz-note">Hemos recuperado tu avance anterior.</div>':'')+'<div class="quiz-label">PREGUNTA '+(indice+1)+' DE 20</div><div class="quiz-progress"><span style="width:'+pct+'%"></span></div><div class="quiz-question">'+esc(q.pregunta)+'</div><div id="opciones">'+opciones+'</div><div class="quiz-actions"><button class="quiz-btn" id="anterior" '+(indice===0?'disabled':'')+'>← Anterior</button><button class="quiz-btn" id="siguiente">'+(indice===19?'Terminar y enviar ✓':'Siguiente →')+'</button></div><div class="quiz-status">'+Object.keys(respuestas).length+' de 20 respuestas seleccionadas</div>';
+    app.innerHTML=(hayBorrador?'<div class="quiz-note">Hemos recuperado tu avance anterior.</div>':'')+'<div class="quiz-label">PREGUNTA '+(indice+1)+' DE '+total+'</div><div class="quiz-progress"><span style="width:'+pct+'%"></span></div><div class="quiz-question">'+esc(q.pregunta)+'</div><div id="opciones">'+opciones+'</div><div class="quiz-actions"><button class="quiz-btn" id="anterior" '+(indice===0?'disabled':'')+'>← Anterior</button><button class="quiz-btn" id="siguiente">'+(indice===quiz.preguntas.length-1?'Terminar y enviar ✓':'Siguiente →')+'</button></div><div class="quiz-status">'+Object.keys(respuestas).length+' de '+total+' respuestas seleccionadas</div>';
     hayBorrador=false;
     hablar('Pregunta '+(indice+1)+'. '+q.pregunta+'. '+q.opciones.map(o=>o.valor+': '+o.texto).join('. '));
     app.querySelectorAll('.quiz-option').forEach(function(b){b.addEventListener('click',function(){respuestas[q.idPregunta]=b.dataset.op;guardarBorrador();mostrarPregunta();});});
     app.querySelector('#anterior').addEventListener('click',function(){if(indice>0){indice--;guardarBorrador();mostrarPregunta();}});
-    app.querySelector('#siguiente').addEventListener('click',function(){if(!respuestas[q.idPregunta]){hablar('Selecciona una alternativa antes de continuar.');return;}if(indice<19){indice++;guardarBorrador();mostrarPregunta();}else enviar();});
+    app.querySelector('#siguiente').addEventListener('click',function(){if(!respuestas[q.idPregunta]){hablar('Selecciona una alternativa antes de continuar.');return;}if(indice<quiz.preguntas.length-1){indice++;guardarBorrador();mostrarPregunta();}else enviar();});
   }
   async function enviar(){
-    if(Object.keys(respuestas).length!==20){hablar('Responde las veinte preguntas antes de enviar.');return;}
+    if(Object.keys(respuestas).length!==quiz.preguntas.length){hablar('Responde todas las preguntas antes de enviar.');return;}
     
     enviando=true;app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">⏳</div><h2>Registrando tus respuestas...</h2></div>';
     try{
@@ -1809,7 +1809,7 @@ function abrirCuestionarioTema(idSesion, ventanaExistente) {
       if(!r.ok)throw new Error('Error del servidor: '+r.status);const j=await r.json();if(!j.exito)throw new Error(j.mensaje||'No se pudo guardar');
       try{localStorage.removeItem(claveBorrador);}catch(_e){}
       const mensaje=j.nota>=18?'¡Excelente trabajo! Sigue aprendiendo con Jesús.':j.nota>=14?'¡Muy bien! Continúa fortaleciendo lo aprendido.':j.nota>=11?'¡Buen esfuerzo! Sigue practicando.':'Gracias por participar. Sigue aprendiendo paso a paso.';
-      app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">'+(j.nota>=14?'🏆':'🌟')+'</div><h2>¡Reto completado!</h2><div class="quiz-score">'+j.nota+'/20</div><p>'+j.correctas+' respuestas correctas de 20</p><div class="quiz-note">'+mensaje+'</div><p>Tu nota quedó guardada en tu récord. Este cuestionario ya aparece como COMPLETADO.</p></div>';
+      app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">'+(j.nota>=14?'🏆':'🌟')+'</div><h2>¡Reto completado!</h2><div class="quiz-score">'+j.nota+'/20</div><p>'+j.correctas+' respuestas correctas de '+j.total+'</p><div class="quiz-note">'+mensaje+'</div><p>Tu nota quedó guardada en tu récord. Este cuestionario ya aparece como COMPLETADO.</p></div>';
       try { if(window.opener && typeof window.opener.actualizarAprendizajeDesdeCuestionario === 'function') await window.opener.actualizarAprendizajeDesdeCuestionario(); } catch(_e) {}
       hablar('Reto completado. Obtuviste '+j.nota+' puntos de veinte. '+mensaje);
     }catch(e){enviando=false;guardarBorrador();app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">⚠️</div><h2>No se pudo registrar</h2><p>'+esc(e.message)+'</p><button class="quiz-btn" id="volverIntentar">Volver al cuestionario</button></div>';document.getElementById('volverIntentar').addEventListener('click',mostrarPregunta);hablar(e.message);}
