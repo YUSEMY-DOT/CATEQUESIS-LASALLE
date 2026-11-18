@@ -527,7 +527,7 @@ main {
   background: #12345a;
   color: #fff;
   border: 2px solid #e8bd3d;
-  box-shadow: 0 0 0 2px #fff6dc, 0 4px 10px rgba(10,43,78,0.25);
+  box-shadow: 0 0 0 2px #fff6dc, 0 4px 10px rgba(18,52,90,0.25);
 }
 
 .day.selected::after { background: #ffdc70; }
@@ -1497,41 +1497,130 @@ function renderizarProgresoYNotasPortal() {
   }
 }
 
-function abrirBloque(indice) {
-  const bloque = bloquesPortal[indice];
-  if (!bloque) return;
-  const ventana = window.open('', '_blank');
-  if (!ventana) {
-    reproducirBienvenida('Permite las ventanas emergentes para consultar los temas.');
+// Función interactiva para abrir el cuestionario del bloque seleccionado
+async function abrirCuestionarioBloque(bloqueId) {
+  const token = obtenerTokenCatequizando();
+  if (!token) {
+    alert('Por favor, ingresa con tu PIN primero.');
     return;
   }
 
-  const tarjetas = (bloque.sessions || []).map(function(tema) {
-    const subtemas = separarSubtemas(tema.subtema);
-    const subtemasHTML = subtemas.length
-      ? '<strong>Subtemas:</strong><ol>' + subtemas.map(x => '<li>' + escaparHTML(x) + '</li>').join('') + '</ol>'
-      : '<strong>Subtemas:</strong><p>Sin subtemas registrados.</p>';
-    return `<article class="tema">
-      <span class="numero">TEMA ${escaparHTML(tema.n || '')} · ${escaparHTML(tema.id || '')}</span>
-      <h2>${escaparHTML(tema.tema || '')}</h2>
-      <div class="subtemas">${subtemasHTML}</div>
-      <div class="datos"><p><b>Objetivo:</b> ${escaparHTML(tema.objetivo || '')}</p>
-      <p><b>Valor:</b> ${escaparHTML(tema.val || tema.valor || '')}</p>
-      <p><b>Cita bíblica:</b> ${escaparHTML(tema.cita || tema.cita_biblica || '')}</p>
-      <p><b>Actividad:</b> ${escaparHTML(tema.actividad || 'Por definir')}</p></div>
-      <div class="clase"><b>Programación:</b> ${escaparHTML(tema.fecha || 'Fecha pendiente')} · Clase ${escaparHTML(tema.numeroClase || '')} · Horario: ${escaparHTML(tema.horaInicio || '14:00')} a ${escaparHTML(tema.horaFin || '16:00')} horas<br><b>Catequista:</b> ${escaparHTML(tema.catequista || 'Por asignar')}</div>
-      <div class="resource-buttons" style="margin-top:12px;">
-        ${tema.fichaUrl ? '<a class="btn-ficha" href="'+escaparHTML(tema.fichaUrl)+'" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:10px 16px;background:#eef9f2;border:1px solid #98dfb0;border-radius:10px;color:#156b37;font-weight:900;text-decoration:none;">📄 Abrir Ficha</a>' : ''}
-      </div>
-    </article>`;
-  }).join('');
+  const ventanaEval = window.open('', '_blank', 'width=800,height=700');
+  if (!ventanaEval) {
+    reproducirBienvenida('Permite las ventanas emergentes para abrir el cuestionario.');
+    return;
+  }
 
-  ventana.document.open();
-  ventana.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escaparHTML(bloque.title)}</title><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"><style>
-  *{box-sizing:border-box}body{font:14px Nunito,Arial,sans-serif;background:#f4f1ea;color:#193453;max-width:900px;margin:25px auto;padding:0 15px}header{background:#12345a;color:white;padding:22px 24px;border-radius:16px;margin-bottom:20px}h1{margin:0;font:700 24px Fredoka,sans-serif}.sub{color:#ffdf94;font-weight:700;margin:6px 0 0}.tema{border:1px solid #e7d6b8;border-radius:14px;background:white;padding:18px;margin-bottom:16px;box-shadow:0 3px 10px #12345a0d}.numero{font-size:11px;font-weight:900;color:#b27b19}.tema h2{font:700 18px Fredoka,sans-serif;color:#12345a;margin:5px 0 12px}.subtemas{background:#f3f7fc;padding:10px 14px;border-left:4px solid #d99b16;border-radius:9px}.subtemas ol{margin:6px 0 0;padding-left:20px}.subtemas li{margin:4px 0}.datos{background:#fffaf0;border:1px solid #fae8bd;border-radius:10px;padding:10px 12px;margin-top:12px}.datos p{margin:5px 0}.clase{font-size:12px;background:#eef9f2;border:1px solid #98dfb0;border-radius:10px;padding:10px 12px;margin-top:10px}.close{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin:8px 0 25px;color:#12345a}
-  </style></head><body><header><h1>${escaparHTML(bloque.title)}</h1><p class="sub">${(bloque.sessions || []).length} temas</p></header>${tarjetas}<button class="close" onclick="window.close()" type="button">Cerrar ventana</button></body></html>`);
-  ventana.document.close();
-  ventana.focus();
+  ventanaEval.document.open();
+  ventanaEval.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Evaluación de Catequesis - Bloque ${bloqueId}</title>
+  <style>
+    body{font-family:Arial,sans-serif;background:#f4f1ea;color:#12345a;padding:20px;max-width:700px;margin:auto;}
+    .card{background:#fff;padding:20px;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,0.1);margin-bottom:15px;}
+    button{background:#12345a;color:#fff;border:none;padding:10px 20px;border-radius:10px;cursor:pointer;font-weight:bold;font-size:14px;}
+    button:hover{background:#1b4f84;}
+    .opcion{display:block;background:#f9f9f9;border:1px solid #ddd;padding:10px 14px;border-radius:8px;margin:8px 0;cursor:pointer;}
+    .opcion:hover{background:#f0f5fd;}
+  </style></head>
+  <body>
+    <div class="card">
+      <h2>Cargando preguntas del Bloque ${bloqueId}...</h2>
+      <p>Por favor espera un momento mientras preparamos tu cuestionario.</p>
+    </div>
+  </body></html>`);
+
+  try {
+    const respuesta = await fetch(API_URL + '?action=obtenerPreguntasBloque&bloque=' + bloqueId + '&token=' + encodeURIComponent(token), {
+      method: 'GET', mode: 'cors', cache: 'no-store'
+    });
+    const datos = await respuesta.json();
+
+    if (!datos || datos.exito !== true || !datos.preguntas || !datos.preguntas.length) {
+      ventanaEval.document.body.innerHTML = '<div class="card"><h2>Aviso</h2><p>No se encontraron preguntas para este bloque en este momento.</p><button onclick="window.close()">Cerrar</button></div>';
+      return;
+    }
+
+    let preguntaActual = 0;
+    let aciertos = 0;
+    const preguntas = datos.preguntas;
+
+    function mostrarPregunta() {
+      if (preguntaActual >= preguntas.length) {
+        finalizarEvaluacion();
+        return;
+      }
+      const p = preguntas[preguntaActual];
+      ventanaEval.document.body.innerHTML = `
+        <div class="card">
+          <span style="font-size:12px;font-weight:bold;color:#b27b19;">PREGUNTA ${preguntaActual + 1} DE ${preguntas.length}</span>
+          <h3>${escaparHTML(p.pregunta)}</h3>
+          <div style="margin-top:15px;">
+            <label class="opcion"><input type="radio" name="resp" value="A"> A) ${escaparHTML(p.opciones.A)}</label>
+            <label class="opcion"><input type="radio" name="resp" value="B"> B) ${escaparHTML(p.opciones.B)}</label>
+            <label class="opcion"><input type="radio" name="resp" value="C"> C) ${escaparHTML(p.opciones.C)}</label>
+          </div>
+          <div style="margin-top:20px;text-align:right;">
+            <button id="btnSiguiente">Siguiente ➔</button>
+          </div>
+        </div>
+      `;
+
+      ventanaEval.document.getElementById('btnSiguiente').onclick = function() {
+        const seleccionada = ventanaEval.document.querySelector('input[name="resp"]:checked');
+        if (!seleccionada) {
+          alert('Selecciona una alternativa antes de continuar.');
+          return;
+        }
+        if (seleccionada.value === p.respuestaCorrecta) {
+          aciertos++;
+        }
+        preguntaActual++;
+        mostrarPregunta();
+      };
+    }
+
+    async function finalizarEvaluacion() {
+      ventanaEval.document.body.innerHTML = `<div class="card"><h2>Guardando tu resultado...</h2></div>`;
+      try {
+        const resGuardar = await fetch(API_URL, {
+          method: 'POST', mode: 'cors', headers: {'Content-Type': 'text/plain;charset=utf-8'},
+          body: JSON.stringify({
+            action: 'guardarCalificacionCuestionario',
+            token: token,
+            bloqueId: bloqueId,
+            correctas: aciertos,
+            totalPreguntas: preguntas.length
+          })
+        });
+        const jsonGuardar = await resGuardar.json();
+        const notaFinal = jsonGuardar.exito ? jsonGuardar.nota : (aciertos * 2);
+        const equivalencia = jsonGuardar.exito ? jsonGuardar.equivalencia : (notaFinal >= 14 ? 'LOGRADO' : 'EN PROCESO');
+
+        ventanaEval.document.body.innerHTML = `
+          <div class="card" style="text-align:center;">
+            <h2>🎉 ¡Felicitaciones por completar el bloque!</h2>
+            <p>Tus aciertos: <b>${aciertos} de ${preguntas.length}</b></p>
+            <div style="font-size:36px;font-weight:bold;color:#12345a;margin:15px 0;">Nota: ${notaFinal} / 20</div>
+            <p style="font-weight:bold;color:#b27b19;">Nivel: ${equivalencia}</p>
+            <p style="font-size:13px;color:#555;">Tu calificación ha sido guardada automáticamente en el sistema del colegio.</p>
+            <button onclick="window.close()" style="margin-top:15px;">Cerrar y volver al portal</button>
+          </div>
+        `;
+        if (typeof cargarDatosBackend === 'function') cargarDatosBackend();
+      } catch (err) {
+        ventanaEval.document.body.innerHTML = `
+          <div class="card">
+            <h2>Evaluación finalizada</h2>
+            <p>Aciertos: ${aciertos}/${preguntas.length} (Nota estimada: ${aciertos * 2}/20)</p>
+            <button onclick="window.close()">Cerrar</button>
+          </div>
+        `;
+      }
+    }
+
+    mostrarPregunta();
+  } catch (error) {
+    ventanaEval.document.body.innerHTML = '<div class="card"><h2>Error</h2><p>No se pudieron cargar las preguntas del bloque.</p><button onclick="window.close()">Cerrar</button></div>';
+  }
 }
 
 function construirCalendario(sesiones) {
@@ -1619,7 +1708,7 @@ function renderCalendario() {
     if (entrada) {
       boton.classList.add(entrada.type === 'event' ? 'communion-day' : 'classday');
       if (entrada.type === 'lesson' && entrada.topics && entrada.topics.length > 1) boton.classList.add('double-session');
-      if (fechaSeleccionada && key === claveFecha(fechaSeleccionada)) boton.classList.add('selected');
+      if (fechaSeleccionada && key === claveFecha(fecha)) boton.classList.add('selected');
       boton.addEventListener('click', function() { seleccionarFecha(fecha); });
     } else {
       boton.disabled = true;
@@ -1819,7 +1908,15 @@ window.addEventListener('DOMContentLoaded', function() {
   ['pinAlumno','pinAlumnoMobile'].forEach(function(id){const campo=document.getElementById(id);if(campo)campo.addEventListener('input',function(){this.value=this.value.replace(/\D/g,'').slice(0,12);});});
   ['nombreCatequizando','nombreCatequizandoMobile'].forEach(function(id){const select=document.getElementById(id);if(select)select.addEventListener('change',function(){const otro=document.getElementById(id==='nombreCatequizando'?'nombreCatequizandoMobile':'nombreCatequizando');if(otro)otro.value=this.value;});});
   if (!MODO_ADMIN_CATEQUISTA) cargarNombresCatequizandosLogin();
-  document.querySelectorAll('.stage').forEach(function(boton,indice){boton.addEventListener('click',function(){abrirBloque(indice);});});
+  
+  // Conexión de los 6 bloques para abrir el cuestionario interactivo
+  document.querySelectorAll('.stage').forEach(function(boton,indice){
+    const bloqueId = indice + 1;
+    boton.addEventListener('click', function(){
+      abrirCuestionarioBloque(bloqueId);
+    });
+  });
+
   const prev=document.getElementById('prev-month');if(prev)prev.addEventListener('click',function(){mesActual=new Date(mesActual.getFullYear(),mesActual.getMonth()-1,1,12);renderCalendario();});
   const next=document.getElementById('next-month');if(next)next.addEventListener('click',function(){mesActual=new Date(mesActual.getFullYear(),mesActual.getMonth()+1,1,12);renderCalendario();});
   const actualizar=document.getElementById('btnActualizar');if(actualizar)actualizar.addEventListener('click',async function(){try{await cargarDatosBackend();}catch(e){}});
