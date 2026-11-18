@@ -1194,7 +1194,7 @@ function guardarCalificacionCuestionario_(data) {
     let hojaAvance = ss.getSheetByName('FICHAS_AVANCE');
     if (!hojaAvance) {
       hojaAvance = ss.insertSheet('FICHAS_AVANCE');
-      hojaAvance.appendRow(['IDNINO', 'IDSESION', 'TEMA', 'RESPUESTASCORRECTAS', 'TOTALPREGUNTAS', 'NOTASOBRE20', 'EQUIVALENCIA', 'ESTADO', 'FECHA']);
+      hojaAvance.appendRow(['IDNINO', 'IDSESION', 'TEMA', 'RESPUESTASCORRECTAS', 'TOTALPREGUNTAS', 'NOTASOBRE20', 'EQUIVALENCIA', 'ESTADO', 'FECHAV']);
     }
     hojaAvance.appendRow([
       idNino,
