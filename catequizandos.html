@@ -1066,12 +1066,12 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden], .portal-
     <section class="section">
       <h2>Los 6 Bloques de Catequesis</h2>
       <div class="stages" id="stages">
-        <button class="stage" data-stage="0" aria-pressed="false" type="button"><span class="num">1</span><span class="icon">✝️</span><strong>Conociendo a Jesús</strong><small>Temas 1 al 9</small></button>
-        <button class="stage" data-stage="1" aria-pressed="false" type="button"><span class="num">2</span><span class="icon">🕊️</span><strong>Aprendemos a Orar</strong><small>Temas 10 al 22</small></button>
-        <button class="stage" data-stage="2" aria-pressed="false" type="button"><span class="num">3</span><span class="icon">📖</span><strong>Los Sacramentos</strong><small>Temas 23 al 31</small></button>
-        <button class="stage" data-stage="3" aria-pressed="false" type="button"><span class="num">4</span><span class="icon">✨</span><strong>La Eucaristía</strong><small>Temas 32 al 42</small></button>
-        <button class="stage" data-stage="4" aria-pressed="false" type="button"><span class="num">5</span><span class="icon">🙏</span><strong>Valores Cristianos</strong><small>Temas 43 al 60</small></button>
-        <button class="stage" data-stage="5" aria-pressed="false" type="button"><span class="num">6</span><span class="icon">🍞</span><strong>Compartimos la Fe</strong><small>Temas 61 al 68</small></button>
+        <button class="stage" data-stage="1" aria-pressed="false" type="button"><span class="num">1</span><span class="icon">✝️</span><strong>Conociendo a Jesús</strong><small>Temas 1 al 9</small></button>
+        <button class="stage" data-stage="2" aria-pressed="false" type="button"><span class="num">2</span><span class="icon">🕊️</span><strong>Aprendemos a Orar</strong><small>Temas 10 al 22</small></button>
+        <button class="stage" data-stage="3" aria-pressed="false" type="button"><span class="num">3</span><span class="icon">📖</span><strong>Los Sacramentos</strong><small>Temas 23 al 31</small></button>
+        <button class="stage" data-stage="4" aria-pressed="false" type="button"><span class="num">4</span><span class="icon">✨</span><strong>La Eucaristía</strong><small>Temas 32 al 42</small></button>
+        <button class="stage" data-stage="5" aria-pressed="false" type="button"><span class="num">5</span><span class="icon">🙏</span><strong>Valores Cristianos</strong><small>Temas 43 al 60</small></button>
+        <button class="stage" data-stage="6" aria-pressed="false" type="button"><span class="num">6</span><span class="icon">🍞</span><strong>Compartimos la Fe</strong><small>Temas 61 al 68</small></button>
       </div>
     </section>
 
@@ -1489,7 +1489,7 @@ function renderizarProgresoYNotasPortal() {
   }
 }
 
-// Función interactiva para abrir el cuestionario del bloque seleccionado
+// Función interactiva para abrir el cuestionario del bloque seleccionado (compatible con número o nombre de bloque)
 async function abrirCuestionarioBloque(bloqueId) {
   const token = obtenerTokenCatequizando();
   if (!token) {
@@ -1521,7 +1521,7 @@ async function abrirCuestionarioBloque(bloqueId) {
   </body></html>`);
 
   try {
-    const respuesta = await fetch(API_URL + '?action=obtenerPreguntasBloque&bloque=' + bloqueId + '&token=' + encodeURIComponent(token), {
+    const respuesta = await fetch(API_URL + '?action=obtenerPreguntasBloque&bloque=' + encodeURIComponent(bloqueId) + '&token=' + encodeURIComponent(token), {
       method: 'GET', mode: 'cors', cache: 'no-store'
     });
     const datos = await respuesta.json();
@@ -1901,8 +1901,8 @@ window.addEventListener('DOMContentLoaded', function() {
   ['nombreCatequizando','nombreCatequizandoMobile'].forEach(function(id){const select=document.getElementById(id);if(select)select.addEventListener('change',function(){const otro=document.getElementById(id==='nombreCatequizando'?'nombreCatequizandoMobile':'nombreCatequizando');if(otro)otro.value=this.value;});});
   if (!MODO_ADMIN_CATEQUISTA) cargarNombresCatequizandosLogin();
   
-  document.querySelectorAll('.stage').forEach(function(boton,indice){
-    const bloqueId = indice + 1;
+  document.querySelectorAll('.stage').forEach(function(boton){
+    const bloqueId = boton.getAttribute('data-stage') || '1';
     boton.addEventListener('click', function(){
       abrirCuestionarioBloque(bloqueId);
     });
