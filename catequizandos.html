@@ -1,1221 +1,363 @@
-/***************************************************************
-- CAMINO HACIA JESÚS 2026 — Código.gs (Backend API unificado)
-- Colegio Privado La Salle del Sur & Parroquia San Pedro de Lurín
- ***************************************************************/
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal de Catequizandos — Camino hacia Jesús 2026</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; background-color: #f8fafc; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between text-slate-800">
 
-const FASE1_MODO_PRUEBA_ACTIVO = false;
-const FASE1_CODIGO_FAMILIA = 'PAD-EST-001';
-const COORDINACION_MODO_PRUEBA_ACTIVO = false;
-const IDS_ADMINISTRADORAS_CATEQUISTAS = Object.freeze(['LDS-CAT-001', 'LDS-CAT-002']);
+  <!-- ENCABEZADO INSTITUCIONAL -->
+  <header class="bg-amber-600 text-white shadow-md py-4 px-6 flex flex-col sm:flex-row justify-between items-center">
+    <div>
+      <h1 class="text-xl font-bold">Colegio Privado La Salle del Sur & Parroquia San Pedro de Lurín</h1>
+      <p class="text-xs text-amber-100">Camino hacia Jesús 2026 · Primera Comunión</p>
+    </div>
+    <div class="mt-3 sm:mt-0 flex items-center gap-3">
+      <span id="lblNombreUsuario" class="text-sm font-medium bg-amber-700 px-3 py-1 rounded-full">Cargando perfil...</span>
+      <button onclick="cerrarSesion()" class="bg-white text-amber-700 text-xs font-bold px-3 py-1.5 rounded shadow hover:bg-amber-50 transition">Salir</button>
+    </div>
+  </header>
 
-const CONFIG = Object.freeze({
-  SPREADSHEET_ID: '1QTvIQydI8qyuG3Tpo0SBmbNHjyVXn_IT6mvIwfSttvI',
-  SHEET_CONFIG: 'CONFIG',
-  SHEET_CATEQUIZANDOS: 'CATEQUIZANDOS',
-  SHEET_CATEQUISTAS: 'CATEQUISTAS',
-  SHEET_PADRES: 'PADRES',
-  SHEET_GESTORES: 'GESTORES',
-  SHEET_COLEGIOS: 'COLEGIOS',
-  SHEET_SESIONES: 'SESIONES',
-  SHEET_CLASES: 'CLASES',
-  SHEET_ASISTENCIA: 'ASISTENCIA',
-  SHEET_TAREAS: 'TAREAS',
-  SHEET_AVISOS: 'AVISOS',
-  SHEET_REQUISITOS: 'REQUISITOS',
-  SHEET_MATERIALES: 'MATERIALES',
-  SHEET_PAGOS: 'PAGOS'
-});
+  <!-- CONTENEDOR PRINCIPAL -->
+  <main class="max-w-5xl w-full mx-auto p-4 sm:p-6 my-6 flex-grow">
 
-function doGet(e) {
-  const params = (e && e.parameter) || {};
-  const accion = String(params.action || '').trim();
+    <!-- SECCIÓN DE LOGIN (Si no hay sesión activa) -->
+    <div id="seccionLogin" class="bg-white rounded-xl shadow-lg p-6 sm:p-8 max-w-md mx-auto border border-amber-100">
+      <div class="text-center mb-6">
+        <h2 class="text-2xl font-bold text-amber-700">¡Bienvenido, Catequizando!</h2>
+        <p class="text-sm text-slate-500">Ingresa tu selección y tu PIN de 12 dígitos</p>
+      </div>
+      <form id="formLogin" onsubmit="realizarLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Selecciona tu nombre:</label>
+          <select id="selectAlumnoLogin" required class="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            <option value="">-- Cargando lista de alumnos --</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase text-slate-600 mb-1">PIN Secreto (12 números):</label>
+          <input type="password" id="inputPinLogin" maxlength="12" required placeholder="••••••••••••" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm tracking-widest text-center focus:ring-2 focus:ring-amber-500 focus:outline-none">
+        </div>
+        <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-lg shadow transition text-sm">
+          Ingresar al Portal
+        </button>
+        <div id="mensajeLogin" class="text-center text-xs font-medium text-red-500 mt-2"></div>
+      </form>
+    </div>
 
-  let salida;
-  if (accion === 'obtenerPreguntasBloque') {
-    salida = obtenerPreguntasBloque_(params);
-  } else if (accion) {
-    salida = manejarGetApi_(params);
-  } else {
-    salida = { exito: true, mensaje: 'API Backend - Camino hacia Jesús 2026 operativa' };
-  }
+    <!-- SECCIÓN DEL PORTAL (Oculta hasta iniciar sesión) -->
+    <div id="seccionPortal" class="hidden space-y-8">
+      
+      <!-- BIENVENIDA Y CUENTA REGRESIVA AL 8 DE DICIEMBRE DE 2026 -->
+      <div class="bg-gradient-to-r from-amber-500 to-amber-600 rounded-2xl shadow-lg p-6 text-white flex flex-col md:flex-row justify-between items-center gap-6">
+        <div>
+          <h2 id="tituloBienvenida" class="text-2xl font-bold">¡Hola!</h2>
+          <p class="text-amber-100 text-sm mt-1">Prepárate con alegría para nuestra consagración y fiesta central.</p>
+        </div>
+        <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 text-center border border-white/20">
+          <p class="text-xs uppercase tracking-wider text-amber-100 font-semibold mb-1">Cuenta Regresiva (8 Dic 2026)</p>
+          <div id="cuentaRegresiva" class="text-xl font-extrabold tracking-tight">Calculando...</div>
+        </div>
+      </div>
 
-  const callback = String(params.callback || '').trim();
-  if (callback && /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(callback)) {
-    return ContentService
-      .createTextOutput(callback + '(' + JSON.stringify(salida) + ');')
-      .setMimeType(ContentService.MimeType.JAVASCRIPT);
-  }
-  return respuestaJson_(salida);
-}
+      <!-- SECCIÓN DE LOS 6 BLOQUES DE CUESTIONARIOS -->
+      <div class="bg-white rounded-2xl shadow-md p-6 border border-slate-100">
+        <h3 class="text-lg font-bold text-amber-700 mb-4 flex items-center gap-2">
+          <span>📖</span> Evaluaciones de los 6 Bloques de Catequesis
+        </h3>
+        <p class="text-xs text-slate-500 mb-6">Selecciona un bloque para iniciar tu cuestionario interactivo de 10 preguntas automáticas.</p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Bloque 1 -->
+          <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-bold text-amber-700 uppercase">Bloque 1</span>
+              <h4 class="font-bold text-slate-800 text-sm mt-1">Conociendo a Jesús</h4>
+            </div>
+            <button onclick="cargarCuestionario(1)" class="mt-4 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold py-2 px-4 rounded-lg transition shadow">Iniciar Cuestionario</button>
+          </div>
+          <!-- Bloque 2 -->
+          <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-bold text-amber-700 uppercase">Bloque 2</span>
+              <h4 class="font-bold text-slate-800 text-sm mt-1">Aprendemos a orar</h4>
+            </div>
+            <button onclick="cargarCuestionario(2)" class="mt-4 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold py-2 px-4 rounded-lg transition shadow">Iniciar Cuestionario</button>
+          </div>
+          <!-- Bloque 3 -->
+          <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-bold text-amber-700 uppercase">Bloque 3</span>
+              <h4 class="font-bold text-slate-800 text-sm mt-1">Los sacramentos</h4>
+            </div>
+            <button onclick="cargarCuestionario(3)" class="mt-4 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold py-2 px-4 rounded-lg transition shadow">Iniciar Cuestionario</button>
+          </div>
+          <!-- Bloque 4 -->
+          <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-bold text-amber-700 uppercase">Bloque 4</span>
+              <h4 class="font-bold text-slate-800 text-sm mt-1">La Eucaristía</h4>
+            </div>
+            <button onclick="cargarCuestionario(4)" class="mt-4 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold py-2 px-4 rounded-lg transition shadow">Iniciar Cuestionario</button>
+          </div>
+          <!-- Bloque 5 -->
+          <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-bold text-amber-700 uppercase">Bloque 5</span>
+              <h4 class="font-bold text-slate-800 text-sm mt-1">Valores cristianos</h4>
+            </div>
+            <button onclick="cargarCuestionario(5)" class="mt-4 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold py-2 px-4 rounded-lg transition shadow">Iniciar Cuestionario</button>
+          </div>
+          <!-- Bloque 6 -->
+          <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-bold text-amber-700 uppercase">Bloque 6</span>
+              <h4 class="font-bold text-slate-800 text-sm mt-1">Preparación Primera Comunión</h4>
+            </div>
+            <button onclick="cargarCuestionario(6)" class="mt-4 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold py-2 px-4 rounded-lg transition shadow">Iniciar Cuestionario</button>
+          </div>
+        </div>
+      </div>
 
-function doPost(e) {
-  try {
-    if (!e || !e.postData || !e.postData.contents) {
-      throw new Error('No se recibió información en la solicitud.');
-    }
+    </div>
 
-    const data = JSON.parse(e.postData.contents);
-    const accion = String(data.action || '').trim();
+    <!-- MODAL DE CUESTIONARIO -->
+    <div id="modalCuestionario" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+          <h3 id="modalTituloBloque" class="text-lg font-bold text-amber-700">Cuestionario</h3>
+          <button onclick="cerrarCuestionario()" class="text-slate-400 hover:text-slate-600 font-bold text-lg">✕</button>
+        </div>
+        <div id="cuerpoCuestionario" class="py-6">
+          <!-- Preguntas cargadas dinámicamente -->
+        </div>
+        <div id="pieCuestionario" class="pt-4 border-t border-slate-100 flex justify-end">
+          <button id="btnEnviarCuestionario" onclick="enviarCuestionario()" class="hidden bg-amber-600 hover:bg-amber-700 text-white font-bold py-2.5 px-6 rounded-lg text-sm shadow transition">Enviar Respuestas</button>
+        </div>
+      </div>
+    </div>
 
-    if (accion === 'validarLoginCatequizando') {
-      return respuestaJson_(validarLoginCatequizando_(data.pin, data.idNino));
-    }
-    if (accion === 'guardarCalificacionCuestionario') {
-      return respuestaJson_(guardarCalificacionCuestionario_(data));
-    }
-    if (accion === 'enviarMensajePortal') {
-      const idCatequista = validarTokenCatequistaPortal_(data.token);
-      if (!idCatequista) throw new Error('La sesión venció. Ingresa nuevamente al Portal de Catequistas.');
-      return respuestaJson_(enviarMensajeCatequista_(data, idCatequista));
-    }
-    if (accion === 'guardarMensaje' || accion === 'guardarMensajeCatequizando') {
-      const idNinoAutorizado = validarTokenCatequizando_(data.token);
-      if (!idNinoAutorizado) throw new Error('La sesión del catequizando venció. Ingresa nuevamente con tu PIN.');
-      const alumnoAutorizado = _obtenerAlumnoActivoPorId_(idNinoAutorizado);
-      if (!alumnoAutorizado) throw new Error('El catequizando ya no está habilitado.');
-      data.idNino = idNinoAutorizado;
-      data.nombreAlumno = [alumnoAutorizado.NOMBRES, alumnoAutorizado.APELLIDOS].filter(Boolean).join(' ');
-      return respuestaJson_(guardarMensajeCatequizando_(data));
-    }
-    if (accion === 'registrarFichaCompletada') {
-      const idNinoAutorizado = validarTokenCatequizando_(data.token);
-      if (!idNinoAutorizado) throw new Error('La sesión del catequizando venció.');
-      return respuestaJson_(registrarFichaCompletada_(data, idNinoAutorizado));
-    }
-    if (accion === 'registrarAsistencia' || accion === 'sincronizarAsistencia') {
-      const idCatequista = validarTokenCatequistaPortal_(data.token);
-      if (!idCatequista) throw new Error('Debe iniciar sesión como catequista para registrar asistencia.');
-      data.idCatequistaAutorizado = idCatequista;
-      return respuestaJson_(registrarAsistenciaEnMatriz_(data));
-    }
-    if (accion === 'registrarAsistenciasLote') {
-      const idCatequista = validarTokenCatequistaPortal_(data.token);
-      if (!idCatequista) throw new Error('Debe iniciar sesión como catequista para registrar asistencia.');
-      data.idCatequistaAutorizado = idCatequista;
-      return respuestaJson_(registrarAsistenciasEnLote_(data));
-    }
-    if (accion === 'guardarMaterialSesion') {
-      const idCatequista = validarTokenCatequistaPortal_(data.token);
-      if (!idCatequista) throw new Error('Debe iniciar sesión como catequista para guardar materiales.');
-      data.idCatequistaAutorizado = idCatequista;
-      return respuestaJson_(guardarMaterialSesion_(data));
-    }
-    if (accion === 'guardarPago') {
-      const idCatequista = validarTokenCatequistaPortal_(data.token);
-      if (!idCatequista) throw new Error('La sesión venció. Ingresa nuevamente al Portal de Catequistas.');
-      if (!esAdministradoraCatequista_(idCatequista)) {
-        throw new Error('Acceso denegado: solo administradoras autorizadas pueden modificar Control de Pagos.');
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="bg-slate-800 text-slate-400 py-6 px-6 text-center text-xs">
+    <p>Camino hacia Jesús · Colegio Privado La Salle del Sur & Parroquia San Pedro de Lurín</p>
+    <p class="mt-1">Lurín, Lima · Zona Sur</p>
+  </footer>
+
+  <!-- SCRIPT DE CONEXIÓN CON APPS SCRIPT -->
+  <script>
+    // CAMBIA ESTA URL POR LA DE TU IMPLEMENTACIÓN WEB DE GOOGLE APPS SCRIPT
+    const URL_API_GS = "https://script.google.com/macros/s/AKfycb.../exec";
+
+    let tokenSesion = localStorage.getItem("token_catequizando") || "";
+    let datosPreguntasActuales = [];
+    let bloqueActualId = null;
+
+    window.onload = function() {
+      iniciarCuentaRegresiva();
+      if (tokenSesion) {
+        verificarSesionActiva();
+      } else {
+        cargarListaAlumnosLogin();
       }
-      data.idCatequistaAutorizado = idCatequista;
-      return respuestaJson_(guardarPago_(data));
-    }
-    if (accion === 'eliminarVoucherPago') {
-      const idCatequista = validarTokenCatequistaPortal_(data.token);
-      if (!idCatequista || !esAdministradoraCatequista_(idCatequista)) {
-        throw new Error('Acceso denegado: solo las administradoras autorizadas pueden eliminar vouchers.');
-      }
-      data.idCatequistaAutorizado = idCatequista;
-      return respuestaJson_(eliminarVoucherPago_(data));
-    }
-    if (accion === 'actualizarEstadoCatequistaAdmin') {
-      const idAdmin = validarTokenCatequistaPortal_(data.token);
-      if (!idAdmin || !esAdministradoraCatequista_(idAdmin)) throw new Error('Acceso administrativo no autorizado.');
-      return respuestaJson_(actualizarEstadoCatequistaAdmin_(idAdmin, data.idCatequista, data.activo));
-    }
-    if (accion === 'guardarCalificacion') {
-      const idCatequista = validarTokenCatequistaPortal_(data.token);
-      if (!idCatequista) throw new Error('Debe iniciar sesión como catequista para guardar calificaciones.');
-      data.catequista = getPerfilCatequista_(idCatequista).perfil.nombre;
-      return respuestaJson_(guardarCalificacion_(data));
-    }
-
-    if (!accion && (data.idEstudiante || data.idNino) && data.sesion !== undefined) {
-      return respuestaJson_(registrarAsistenciaEnMatriz_(data));
-    }
-
-    throw new Error(accion ? 'Acción POST no reconocida: ' + accion : 'La solicitud no contiene una acción válida.');
-  } catch (error) {
-    return respuestaJson_({ exito: false, mensaje: error && error.message ? error.message : String(error) });
-  }
-}
-
-function manejarGetApi_(params) {
-  try {
-    const accion = String(params.action || '').trim();
-    if (accion === 'validarLogin') return validarLoginPadre(params.codigoPadre, params.clave);
-    if (accion === 'listarNombresCatequizandosLogin') return listarNombresCatequizandosLogin_();
-    if (accion === 'listarOpcionesLoginPadres') return listarOpcionesLoginPadres_();
-    if (accion === 'validarLoginPadreSeleccion') return validarLoginPadreSeleccion_(params.selector, params.clave);
-    if (accion === 'listarCatequistasActivas') return listarCatequistasActivas_();
-    if (accion === 'validarLoginCatequista') return validarLoginCatequista_(params.idCatequista, params.pin);
-
-    const idCatequista = validarTokenCatequistaPortal_(params.token);
-
-    if (idCatequista) {
-      switch (accion) {
-        case 'getPerfilCatequista': return getPerfilCatequista_(idCatequista);
-        case 'getAvisosCatequista': return getAvisosCatequista_(idCatequista);
-        case 'listarDestinatariosMensajes': return listarDestinatariosMensajes_(params.tipo);
-        case 'enviarMensajePortal': return enviarMensajeCatequista_(params, idCatequista);
-        case 'marcarMensajeLeido': return marcarMensajeCatequistaLeido_(params.idMensaje, idCatequista);
-        case 'eliminarMensajeCatequista': return eliminarMensajeCatequista_(params.idMensaje, idCatequista);
-        case 'getCatequizandos': return getCatequizandos('');
-        case 'getAsistenciaNotas': return getAsistenciaNotasCatequizandos('');
-        case 'getTareas': {
-          if (!esAdministradoraCatequista_(idCatequista)) {
-            return { exito:false, authRequired:true, mensaje:'Esta consulta completa está reservada a la administración del Portal de Catequistas.' };
-          }
-          return getTareasAdministradoras_(params.idSesion || '');
-        }
-        case 'getAvisos': {
-          return esAdministradoraCatequista_(idCatequista)
-            ? getAvisosAdministradoras_()
-            : getAvisosCatequista_(idCatequista);
-        }
-        case 'getAportes': return getAportes('');
-        case 'getPadres': return getPadres();
-        case 'getCalificaciones': return getCalificaciones();
-      }
-    }
-
-    if (accion === 'getAdminCatequistas') {
-      if (!idCatequista || !esAdministradoraCatequista_(idCatequista)) {
-        return { exito:false, authRequired:true, mensaje:'Este panel está reservado para las administradoras autorizadas.' };
-      }
-      return getAdminCatequistas_();
-    }
-
-    if (accion === 'obtenerDesafioGestor') return obtenerDesafioGestor_(params.perfil);
-    if (accion === 'validarAccesoGestor') return validarAccesoGestor_(params.perfil, params.nonce, params.pruebaHash);
-    if (accion === 'cerrarSesionGestor') return cerrarSesionGestor_(params.token);
-    if (accion === 'getMensajesGestor') {
-      var perfilMensajesGestor = validarTokenGestor_(params.token);
-      if (!perfilMensajesGestor) return { exito:false, authRequired:true, mensaje:'La sesión venció o no está autorizada. Ingrese nuevamente.' };
-      return getMensajesGestor_(perfilMensajesGestor);
-    }
-    if (accion === 'getPanelGestor' || accion === 'getGestorPastoral') {
-      if (idCatequista) {
-        if (!esAdministradoraCatequista_(idCatequista)) {
-          return { exito:false, authRequired:true, mensaje:'El panel general de Gestor Pastoral está reservado a las administradoras del Portal de Catequistas.' };
-        }
-        var panelAdminCentral = getGestorPastoral_();
-        if (panelAdminCentral && panelAdminCentral.exito) {
-          panelAdminCentral.perfilAutorizado = 'ADMINISTRADORA';
-          panelAdminCentral.mensajes = [];
-        }
-        return panelAdminCentral;
-      }
-      var perfilAutorizado = validarTokenGestor_(params.token);
-      if (!perfilAutorizado) return { exito: false, authRequired: true, mensaje: 'La sesión venció o no está autorizada. Ingrese nuevamente.' };
-      var panel = getGestorPastoral_();
-      if (panel && panel.exito) {
-        panel.perfilAutorizado = perfilAutorizado;
-        panel.mensajes = getMensajesGestor_(perfilAutorizado).datos;
-      }
-      return panel;
-    }
-
-    switch (accion) {
-      case 'getSesiones': return getSesiones();
-      case 'getConfig': return getConfiguracionPortal();
-
-      case 'getCalendarioPadres': {
-        const codigo = validarTokenPadre_(params.token);
-        if (!codigo) return { exito:false, authRequired:true, mensaje:'Ingrese con su código familiar y PIN.' };
-        return getCalendarioPadres_();
-      }
-      case 'getCumpleanosPadres': {
-        const codigo = validarTokenPadre_(params.token);
-        if (!codigo) return { exito:false, authRequired:true, mensaje:'Ingrese con su código familiar y PIN.' };
-        return getCumpleanosPadres_(codigo);
-      }
-      case 'getAvisos':
-      case 'getAvisosPadres': {
-        const codigo = validarTokenPadre_(params.token);
-        if (codigo) return getAvisosFamilia_(codigo);
-        const idNino = validarTokenCatequizando_(params.token);
-        if (idNino) return getAvisosNino_(idNino);
-        return { exito:false, authRequired:true, mensaje:'La sesión venció. Ingrese nuevamente.' };
-      }
-      case 'getTareas': {
-        const codigo = validarTokenPadre_(params.token);
-        if (codigo) return getTareasFamilia_(codigo, params.idSesion || '');
-        const idNino = validarTokenCatequizando_(params.token);
-        if (idNino) return getTareasNino_(idNino, params.idSesion || '');
-        return { exito:false, authRequired:true, mensaje:'La sesión venció. Ingrese nuevamente.' };
-      }
-      case 'getAsistenciaNotas': {
-        const codigo = validarTokenPadre_(params.token);
-        if (codigo) {
-          const ids = getCatequizandos(codigo).datos.map(a=>String(a.ID_NINO));
-          const resp = getAsistenciaNotasCatequizandos(codigo);
-          resp.datos = (resp.datos || []).filter(a=>ids.indexOf(String(a.ID_NINO))>=0);
-          resp.calificaciones = (resp.calificaciones || []).filter(a=>ids.indexOf(String(a.ID_NINO))>=0);
-          resp.total = resp.datos.length;
-          return resp;
-        }
-        const idNino = validarTokenCatequizando_(params.token);
-        if (idNino) return getAsistenciaNotasNino_(idNino);
-        return { exito:false, authRequired:true, mensaje:'La sesión venció. Ingrese nuevamente.' };
-      }
-      case 'getCatequizandos': {
-        const idNino = validarTokenCatequizando_(params.token);
-        if (!idNino) return { exito:false, authRequired:true, mensaje:'Ingresa con tu PIN para continuar.' };
-        return getMiPerfilCatequizando_(idNino);
-      }
-      case 'getAvanceFichas': {
-        const idNino = validarTokenCatequizando_(params.token);
-        if (!idNino) return { exito:false, authRequired:true, mensaje:'Ingresa con tu PIN para continuar.' };
-        return getAvanceFichasNino_(idNino);
-      }
-      case 'getAportes':
-      case 'getRequisitos':
-      case 'getMateriales':
-      case 'getCalificaciones':
-      case 'getDiagnosticoPadres': {
-        const codigo = validarTokenPadre_(params.token);
-        if (!codigo) return { exito:false, authRequired:true, mensaje:'Ingrese con su código familiar y PIN.' };
-        if (accion === 'getAportes') return getAportes(codigo);
-        if (accion === 'getRequisitos') return getRequisitosFamilia_(codigo);
-        if (accion === 'getMateriales') return getMaterialesFamilia_(codigo);
-        if (accion === 'getCalificaciones') return getCalificacionesFamilia_(codigo);
-        return getDiagnosticoPadres_(codigo);
-      }
-      default: return { exito:false, mensaje:'Acción no reconocida.' };
-    }
-  } catch (error) {
-    return { exito: false, mensaje: error && error.message ? error.message : String(error) };
-  }
-}
-
-const GESTOR_PASTORAL_PIN_HASHES_INICIALES = Object.freeze({
-  vicario: '5a3650a4d020ef24d5f91e63bfbf715e44fb102a8d4538b50945fa43d4fb72d9',
-  guia: '9c41532d06524549121b9a6e315c1338bc1676d4d8125227647af0d202303ea6',
-  secretaria: 'f25c50fe75a802aad8e7fa2354b0eed173614a05629c6a3d2b1a97b034fbda40'
-});
-const GESTOR_PASTORAL_PERFILES_INICIALES = Object.freeze({
-  vicario: {nombres:'Amadeo', apellidos:'Raymi', cargo:'Vicario'},
-  guia: {nombres:'Carlos', apellidos:'Retamoso', cargo:'Guía Espiritual'},
-  secretaria: {nombres:'Milagros', apellidos:'Landa', cargo:'Secretaria Parroquial'}
-});
-const GESTOR_AUTH_SALT_GS = 'LDS_GESTOR_PASTORAL_2026_PRIMERA_COMUNION';
-
-function _estadoGestorActivo_(valor) {
-  return ['SI','SÍ','TRUE','1','ACTIVO','VIGENTE'].indexOf(String(valor == null ? '' : valor).trim().toUpperCase()) >= 0;
-}
-
-function _obtenerGestorActivoDesdeSheets_(idGestor) {
-  const id = String(idGestor || '').trim().toLowerCase();
-  if (!id) throw new Error('No se recibió el ID_GESTOR.');
-  const hoja = getSpreadsheet().getSheetByName(CONFIG.SHEET_GESTORES);
-  if (!hoja) throw new Error('No existe la pestaña GESTORES.');
-  const filas = getSheetData(CONFIG.SHEET_GESTORES);
-  const coincidencias = filas.filter(function(f) {
-    return String(f.ID_GESTOR || '').trim().toLowerCase() === id;
-  });
-  if (coincidencias.length !== 1) {
-    throw new Error(coincidencias.length ? 'El ID_GESTOR está duplicado.' : 'El gestor no está registrado en GESTORES.');
-  }
-  const f = coincidencias[0];
-  if (!_estadoGestorActivo_(f.ACTIVO)) throw new Error('Este gestor está inactivo.');
-  const pin = String(f.PIN || '').trim();
-  if (!pin) throw new Error('La columna PIN está vacía para este gestor.');
-  const nombre = [String(f.NOMBRES || '').trim(), String(f.APELLIDOS || '').trim()].filter(Boolean).join(' ').trim();
-  return {
-    id: id,
-    nombres: String(f.NOMBRES || '').trim(),
-    apellidos: String(f.APELLIDOS || '').trim(),
-    nombre: nombre,
-    cargo: String(f.CARGO || '').trim(),
-    correo: String(f.CORREO || '').trim(),
-    pin: pin
-  };
-}
-
-function _obtenerHashPinGestorDesdeSheets_(gestor) {
-  const valor = String(gestor && gestor.pin || '').trim();
-  if (/^[a-f0-9]{64}$/i.test(valor)) return valor.toLowerCase();
-  return _sha256HexGestor_(GESTOR_AUTH_SALT_GS + '|' + gestor.id + '|' + valor);
-}
-
-function _nombreVisibleGestor_(gestor) {
-  const cargo = String(gestor.cargo || 'Gestor').trim();
-  return cargo + ' · ' + gestor.nombre;
-}
-
-function obtenerDesafioGestor_(perfil) {
-  try {
-    const rol = String(perfil || '').trim().toLowerCase();
-    const gestor = _obtenerGestorActivoDesdeSheets_(rol);
-    _obtenerHashPinGestorDesdeSheets_(gestor);
-    const nonce = Utilities.getUuid().replace(/-/g, '') + Utilities.getUuid().replace(/-/g, '');
-    CacheService.getScriptCache().put('GP_CHALLENGE_' + nonce, rol, 180);
-    return { exito: true, nonce: nonce };
-  } catch (error) {
-    return { exito: false, mensaje: error && error.message ? error.message : String(error) };
-  }
-}
-
-function _sha256HexGestor_(texto) {
-  var bytes = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, String(texto), Utilities.Charset.UTF_8);
-  return bytes.map(function(b) {
-    var v = (b + 256) % 256;
-    return ('0' + v.toString(16)).slice(-2);
-  }).join('');
-}
-
-function validarAccesoGestor_(perfil, nonce, pruebaHash) {
-  var rol = String(perfil || '').trim().toLowerCase();
-  var nonceLimpio = String(nonce || '').trim();
-  var prueba = String(pruebaHash || '').trim().toLowerCase();
-  var cache = CacheService.getScriptCache();
-  var rolDesafio = nonceLimpio ? cache.get('GP_CHALLENGE_' + nonceLimpio) : '';
-  if (!rol || !nonceLimpio || rolDesafio !== rol) {
-    return { exito: false, mensaje: 'La solicitud de acceso venció. Intente nuevamente.' };
-  }
-  cache.remove('GP_CHALLENGE_' + nonceLimpio);
-  try {
-    const gestor = _obtenerGestorActivoDesdeSheets_(rol);
-    const pinHash = _obtenerHashPinGestorDesdeSheets_(gestor);
-    const esperado = _sha256HexGestor_(pinHash + '|' + nonceLimpio);
-    if (prueba !== esperado) {
-      return { exito: false, mensaje: 'Clave incorrecta. Verifique el PIN registrado.' };
-    }
-    var token = Utilities.getUuid().replace(/-/g, '') + Utilities.getUuid().replace(/-/g, '');
-    cache.put('GP_AUTH_' + token, rol, 21600);
-    return {
-      exito: true,
-      token: token,
-      perfil: rol,
-      perfilNombre: _nombreVisibleGestor_(gestor),
-      duracionSegundos: 21600
     };
-  } catch (error) {
-    return { exito: false, mensaje: error && error.message ? error.message : String(error) };
-  }
-}
 
-function validarTokenGestor_(token) {
-  var valor = String(token || '').trim();
-  if (!valor) return '';
-  var id = CacheService.getScriptCache().get('GP_AUTH_' + valor) || '';
-  if (!id) return '';
-  try {
-    _obtenerGestorActivoDesdeSheets_(id);
-    return id;
-  } catch (error) {
-    CacheService.getScriptCache().remove('GP_AUTH_' + valor);
-    return '';
-  }
-}
+    function iniciarCuentaRegresiva() {
+      const fechaMeta = new Date("2026-12-08T00:00:00").getTime();
+      setInterval(() => {
+        const ahora = new Date().getTime();
+        const diferencia = fechaMeta - ahora;
+        if (diferencia > 0) {
+          const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+          const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const mins = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+          document.getElementById("cuentaRegresiva").innerText = `${dias} días, ${horas}h, ${mins}m`;
+        } else {
+          document.getElementById("cuentaRegresiva").innerText = "¡Día Central!";
+        }
+      }, 1000);
+    }
 
-function cerrarSesionGestor_(token) {
-  var valor = String(token || '').trim();
-  if (valor) CacheService.getScriptCache().remove('GP_AUTH_' + valor);
-  return { exito: true, mensaje: 'Sesión cerrada.' };
-}
+    async function cargarListaAlumnosLogin() {
+      try {
+        const res = await fetch(`${URL_API_GS}?action=listarNombresCatequizandosLogin`);
+        const json = await res.json();
+        const select = document.getElementById("selectAlumnoLogin");
+        select.innerHTML = '<option value="">-- Selecciona tu nombre --</option>';
+        if (json.exito && json.datos) {
+          json.datos.forEach(alumno => {
+            const opt = document.createElement("option");
+            opt.value = alumno.ID_NINO;
+            opt.textContent = alumno.NOMBRE_COMPLETO;
+            select.appendChild(opt);
+          });
+        }
+      } catch (err) {
+        console.error("Error al cargar alumnos:", err);
+      }
+    }
 
-function getGestorPastoral_() {
-  try {
-    const ss = getSpreadsheet();
-    const hojaClases = ss.getSheetByName(CONFIG.SHEET_CLASES);
-    const hojaNinos = ss.getSheetByName(CONFIG.SHEET_CATEQUIZANDOS);
-    const hojaSesiones = ss.getSheetByName(CONFIG.SHEET_SESIONES);
-    if (!hojaClases || !hojaNinos || !hojaSesiones) throw new Error('Faltan hojas principales en Google Sheets.');
+    async function realizarLogin(e) {
+      e.preventDefault();
+      const idNino = document.getElementById("selectAlumnoLogin").value;
+      const pin = document.getElementById("inputPinLogin").value;
+      const msg = document.getElementById("mensajeLogin");
+      msg.textContent = "Validando acceso...";
 
-    const filasClases = _leerTablaPrograma_(hojaClases);
-    const filasNinos = _leerTablaPrograma_(hojaNinos);
-    const filasSesiones = _leerTablaPrograma_(hojaSesiones);
-    const hojaTareas = ss.getSheetByName(CONFIG.SHEET_TAREAS);
-    const filasTareas = hojaTareas ? _leerTablaPrograma_(hojaTareas) : [];
+      try {
+        const res = await fetch(URL_API_GS, {
+          method: "POST",
+          body: JSON.stringify({ action: "validarLoginCatequizando", idNino: idNino, pin: pin })
+        });
+        const json = await res.json();
+        if (json.exito) {
+          tokenSesion = json.token;
+          localStorage.setItem("token_catequizando", tokenSesion);
+          mostrarPortal(json.perfil);
+        } else {
+          msg.textContent = json.mensaje || "PIN incorrecto.";
+        }
+      } catch (err) {
+        msg.textContent = "Error de conexión con el servidor.";
+      }
+    }
 
-    const sesionesPorId = Object.create(null);
-    filasSesiones.forEach(function(f) {
-      const id = String(f.IDSESION || '').trim();
-      if (!id) return;
-      sesionesPorId[id] = {
-        id: id,
-        tema: String(f.TEMA || '').trim(),
-        bloque: String(f.BLOQUE || '').trim(),
-        subtema: String(f.SUBTEMA || '').trim(),
-        objetivo: String(f.OBJETIVO || '').trim(),
-        valor: String(f.VALOR || '').trim(),
-        cita: String(f.CITABIBLICA || '').trim(),
-        actividad: String(f.ACTIVIDAD || '').trim(),
-        fichaUrl: normalizarUrlFotoPortal_(f.FICHAURL || ''),
-        videoUrl: normalizarUrlFotoPortal_(f.VIDEOURL || ''),
-        cancionUrl: normalizarUrlFotoPortal_(f.CANCIONURL || ''),
-        recursosNotas: String(f.RECURSOSNOTAS || '').trim(),
-        estado: String(f.ESTADO || '').trim()
-      };
-    });
+    async function verificarSesionActiva() {
+      try {
+        const res = await fetch(`${URL_API_GS}?action=getCatequizandos&token=${tokenSesion}`);
+        const json = await res.json();
+        if (json.exito && json.datos && json.datos.length > 0) {
+          mostrarPortal(json.datos[0]);
+        } else {
+          cerrarSesion();
+        }
+      } catch (err) {
+        cerrarSesion();
+      }
+    }
 
-    const idsAsignados = Object.create(null);
-    const clases = filasClases.filter(function(f) {
-      return f.NCLASE !== '' && f.NCLASE !== null && f.NCLASE !== undefined;
-    }).map(function(f) {
-      const numero = Number(f.NCLASE);
-      const numeroClase = isNaN(numero) ? String(f.NCLASE).trim() : numero;
-      const id1 = String(f.IDSESION1 || '').trim();
-      const id2 = String(f.IDSESION2 || '').trim();
-      [id1, id2].filter(Boolean).forEach(function(id) { idsAsignados[id] = true; });
-      const tema1 = (sesionesPorId[id1] && sesionesPorId[id1].tema) || String(f.TEMA1 || '').trim();
-      const tema2 = (sesionesPorId[id2] && sesionesPorId[id2].tema) || String(f.TEMA2 || '').trim();
-      const temas = [tema1, tema2].filter(Boolean);
-      const fechaISO = _fechaISOPrograma_(f.FECHAPROGRAMADA);
-      const fechaRealizacionISO = _fechaISOPrograma_(f.FECHAREALIZACION);
-      const sesion1 = sesionesPorId[id1] || {};
-      const sesion2 = sesionesPorId[id2] || {};
-      return {
-        ID_CLASE: String(numeroClase),
-        NUMERO_CLASE: numeroClase,
-        ID_SESION_1: id1,
-        ID_SESION_2: id2,
-        TEMA: temas.length ? temas.join(' / ') : 'Sin tema asignado',
-        TEMAS: temas,
-        FECHA: fechaISO ? _fechaTextoCoordinacion_(fechaISO) : '',
-        FECHA_ISO: fechaISO || '',
-        FECHA_REALIZACION: fechaRealizacionISO || '',
-        DIA: String(f.DIA || '').trim(),
-        HORA_INICIO: _horaTextoPrograma_(f.HORAINICIO),
-        HORA_FIN: _horaTextoPrograma_(f.HORAFIN),
-        BLOQUE: String(f.BLOQUE || sesion1.bloque || sesion2.bloque || '').trim(),
-        CATEQUISTA: String(f.CATEQUISTA || '').trim(),
-        ESTADO_CLASE: String(f.ESTADOCLASE || '').trim(),
-        ESTADO_SUPERVISION: String(f.ESTADOSUPERVISION || '').trim() || 'Pendiente',
-        OBSERVACIONES: String(f.OBSERVACIONES || '').trim()
-      };
-    }).sort(function(a, b) { return Number(a.NUMERO_CLASE) - Number(b.NUMERO_CLASE); });
+    function mostrarPortal(perfil) {
+      document.getElementById("seccionLogin").classList.add("hidden");
+      document.getElementById("seccionPortal").classList.remove("hidden");
+      document.getElementById("lblNombreUsuario").textContent = perfil.NOMBRE_COMPLETO || "Catequizando";
+      document.getElementById("tituloBienvenida").textContent = `¡Bienvenido, ${perfil.NOMBRES || "Amigo"}!`;
+    }
 
-    const catequizandosBase = filasNinos.filter(function(f) {
-      const id = String(f.IDNINO || '').trim();
-      const vigente = String(f.VIGENTE || '').trim().toUpperCase();
-      return id && (!vigente || ['SI', 'SÍ', 'ACTIVO', 'VIGENTE', 'TRUE', '1'].indexOf(vigente) >= 0);
-    }).map(function(f) {
-      return {
-        ID_NINO: String(f.IDNINO || '').trim(),
-        NOMBRES: String(f.NOMBRES || '').trim(),
-        APELLIDOS: String(f.APELLIDOS || '').trim(),
-        NOMBRE_COMPLETO: [String(f.NOMBRES || '').trim(), String(f.APELLIDOS || '').trim()].filter(Boolean).join(' '),
-        FOTO: normalizarUrlFotoPortal_(f.FOTO || ''),
-        GRADO: String(f.GRADO || '').trim(),
-        EDAD: f.EDAD || '',
-        BAUTISMO: String(f.BAUTISMO || '').trim(),
-        PARROQUIA_BAUTISMO: String(f.PARROQUIA_BAUTISMO || '').trim(),
-        ESTADO: String(f.ESTADO || '').trim()
-      };
-    });
+    function cerrarSesion() {
+      localStorage.removeItem("token_catequizando");
+      tokenSesion = "";
+      document.getElementById("seccionPortal").classList.add("hidden");
+      document.getElementById("seccionLogin").classList.remove("hidden");
+      cargarListaAlumnosLogin();
+    }
 
-    const asistenciaResp = getAsistenciaNotasCatequizandos('');
-    const asistencia = asistenciaResp && asistenciaResp.datos ? asistenciaResp.datos : [];
-    clases.forEach(function(clase) {
-      const numero = Number(clase.NUMERO_CLASE);
-      const indiceSesion = numero - 1;
-      const registros = indiceSesion >= 0 ? asistencia.reduce(function(total, alumno) {
-        const estado = alumno.ESTADOS_SESIONES && alumno.ESTADOS_SESIONES[indiceSesion];
-        return total + (['A', 'T', 'F', 'FJ'].indexOf(String(estado || '').toUpperCase()) >= 0 ? 1 : 0);
-      }, 0) : 0;
-      const estadoTexto = String(clase.ESTADO_CLASE || '').toUpperCase();
-      const cancelada = /CANCELAD|SUSPEND/.test(estadoTexto);
-      const realizada = !!clase.FECHA_REALIZACION || /REALIZ|COMPLET|FINALIZ|DICTAD|EJECUT|CULMIN/.test(estadoTexto) || registros > 0;
-      clase.REGISTROS_ASISTENCIA = registros;
-      clase.ESTADO_PANEL = cancelada ? 'CANCELADA' : (realizada ? 'REALIZADA' : 'PENDIENTE');
-    });
+    async function cargarCuestionario(bloqueId) {
+      bloqueActualId = bloqueId;
+      const modal = document.getElementById("modalCuestionario");
+      const cuerpo = document.getElementById("cuerpoCuestionario");
+      document.getElementById("modalTituloBloque").textContent = `Evaluación - Bloque ${bloqueId}`;
+      cuerpo.innerHTML = '<p class="text-center text-slate-500 py-8">Cargando 10 preguntas aleatorias...</p>';
+      document.getElementById("btnEnviarCuestionario").classList.add("hidden");
+      modal.classList.remove("hidden");
 
-    const calificacionesResp = getCalificaciones();
-    const calificaciones = calificacionesResp && calificacionesResp.datos ? calificacionesResp.datos.slice() : [];
+      try {
+        const res = await fetch(`${URL_API_GS}?action=obtenerPreguntasBloque&bloque=${bloqueId}&token=${tokenSesion}`);
+        const json = await res.json();
+        if (json.exito && json.preguntas) {
+          datosPreguntasActuales = json.preguntas;
+          renderizarPreguntas(json.preguntas);
+          document.getElementById("btnEnviarCuestionario").classList.remove("hidden");
+        } else {
+          cuerpo.innerHTML = `<p class="text-center text-red-500">${json.mensaje || "No se pudieron cargar las preguntas."}</p>`;
+        }
+      } catch (err) {
+        cuerpo.innerHTML = `<p class="text-center text-red-500">Error al conectar con el servidor.</p>`;
+      }
+    }
 
-    const requisitosResp = getRequisitosFamilia_('');
-    const materialesResp = getMaterialesFamilia_('');
-    const pagosResp = getAportes('');
-    const padresResp = getPadres();
+    function renderizarPreguntas(preguntas) {
+      const cuerpo = document.getElementById("cuerpoCuestionario");
+      let html = "";
+      preguntas.forEach((p, idx) => {
+        html += `
+          <div class="mb-6 p-4 bg-slate-50 rounded-xl border border-slate-200" data-id="${p.idPregunta}" data-correcta="${p.respuestaCorrecta}">
+            <p class="font-bold text-sm text-slate-800 mb-2">P${idx + 1}. ${p.pregunta}</p>
+            <div class="space-y-2 text-xs">
+              <label class="flex items-center gap-2 p-2 bg-white rounded border border-slate-200 cursor-pointer hover:bg-amber-50">
+                <input type="radio" name="p_${idx}" value="A" class="text-amber-600"> ${p.opciones.A}
+              </label>
+              <label class="flex items-center gap-2 p-2 bg-white rounded border border-slate-200 cursor-pointer hover:bg-amber-50">
+                <input type="radio" name="p_${idx}" value="B" class="text-amber-600"> ${p.opciones.B}
+              </label>
+              <label class="flex items-center gap-2 p-2 bg-white rounded border border-slate-200 cursor-pointer hover:bg-amber-50">
+                <input type="radio" name="p_${idx}" value="C" class="text-amber-600"> ${p.opciones.C}
+              </label>
+            </div>
+          </div>
+        `;
+      });
+      cuerpo.innerHTML = html;
+    }
 
-    const catequizandosPorCodigoFamiliar = Object.create(null);
-    filasNinos.forEach(function(nino) {
-      const idNino = String(nino.IDNINO || '').trim();
-      const vigenteNino = String(nino.VIGENTE || '').trim().toUpperCase();
-      if (!idNino || (vigenteNino && ['SI', 'SÍ', 'ACTIVO', 'VIGENTE', 'TRUE', '1'].indexOf(vigenteNino) < 0)) return;
-      const nombreNino = [String(nino.NOMBRES || '').trim(), String(nino.APELLIDOS || '').trim()].filter(Boolean).join(' ');
-      if (!nombreNino) return;
-      const codigos = [nino.PADREID, nino.IDPADRE, nino.MADREID, nino.IDMADRE]
-        .map(function(valor) { return String(valor || '').trim(); })
-        .filter(Boolean);
-      codigos.forEach(function(codigo) {
-        if (!catequizandosPorCodigoFamiliar[codigo]) catequizandosPorCodigoFamiliar[codigo] = [];
-        if (catequizandosPorCodigoFamiliar[codigo].indexOf(nombreNino) < 0) {
-          catequizandosPorCodigoFamiliar[codigo].push(nombreNino);
+    async function enviarCuestionario() {
+      const contenedores = document.querySelectorAll("#cuerpoCuestionario > div");
+      let correctas = 0;
+      let total = contenedores.length;
+
+      contenedores.forEach((cont, idx) => {
+        const correcta = cont.getAttribute("data-correcta").trim().toUpperCase();
+        const seleccionada = cont.querySelector(`input[name="p_${idx}"]:checked`);
+        if (seleccionada && seleccionada.value.trim().toUpperCase() === correcta) {
+          correctas++;
         }
       });
-    });
 
-    const padresBase = (padresResp && padresResp.datos ? padresResp.datos : []).map(function(padre) {
-      const idPadre = String(padre.PADRE_ID || padre.ID_PADRE || '').trim();
-      const relacionados = catequizandosPorCodigoFamiliar[idPadre] || [];
-      return {
-        PADRE_ID: idPadre,
-        NOMBRE_COMPLETO: String(padre.NOMBRE_COMPLETO || '').trim(),
-        PARENTESCO: String(padre.PARENTESCO || '').trim(),
-        TELEFONO: String(padre.TELEFONO || '').trim(),
-        WHATSAPP: String(padre.WHATSAPP || '').trim(),
-        CORREO: String(padre.CORREO || '').trim(),
-        CATEQUIZANDOS: relacionados
-      };
-    });
+      const cuerpo = document.getElementById("cuerpoCuestionario");
+      cuerpo.innerHTML = '<p class="text-center text-slate-500 py-8">Guardando calificación en Google Sheets...</p>';
+      document.getElementById("btnEnviarCuestionario").classList.add("hidden");
 
-    const avisosHoja = getSheetData(CONFIG.SHEET_AVISOS);
-    const asistenciaPorId = Object.create(null);
-    asistencia.forEach(function(a) { asistenciaPorId[String(a.ID_NINO || '').trim()] = a; });
-    const requisitosPorId = Object.create(null);
-    (requisitosResp.datos || []).forEach(function(r) { requisitosPorId[String(r.ID || '').trim()] = r; });
-    const materialesPorId = Object.create(null);
-    (materialesResp.datos || []).forEach(function(r) { materialesPorId[String(r.ID || '').trim()] = r; });
-    const pagosPorId = Object.create(null);
-    (pagosResp.datos || []).forEach(function(p) { pagosPorId[String(p.ID || '').trim()] = p; });
-    const conteoNotasPorId = Object.create(null);
-    calificaciones.forEach(function(n) {
-      const id = String(n.ID_NINO || '').trim();
-      if (id) conteoNotasPorId[id] = (conteoNotasPorId[id] || 0) + 1;
-    });
-
-    const catequizandos = catequizandosBase.map(function(a) {
-      const id = a.ID_NINO;
-      const as = asistenciaPorId[id] || {};
-      const req = requisitosPorId[id] || {};
-      const mat = materialesPorId[id] || {};
-      const pago = pagosPorId[id] || {};
-      return Object.assign({}, a, {
-        ASISTENCIA_PORCENTAJE: as.ASISTENCIA_PORCENTAJE == null ? null : as.ASISTENCIA_PORCENTAJE,
-        TOTAL_PRESENTES: Number(as.TOTAL_PRESENTES) || 0,
-        TOTAL_TARDANZAS: Number(as.TOTAL_TARDANZAS) || 0,
-        TOTAL_FALTAS: Number(as.TOTAL_FALTAS) || 0,
-        TOTAL_JUSTIFICADAS: Number(as.TOTAL_JUSTIFICADAS) || 0,
-        REQUISITOS_CUMPLIDOS: req['REQUISITOS CUMPLIDOS'] || '',
-        AVANCE_REQUISITOS: req['% AVANCE'] || '',
-        MATERIALES_ENTREGADOS: mat['MATERIALES ENTREGADOS'] || '',
-        AVANCE_MATERIALES: mat['% CUMPLIMIENTO'] || '',
-        ESTADO_PAGO: pago.ESTADO_PAGO || 'Sin registro',
-        MONTO_PAGO: pago.MONTO || '',
-        TOTAL_CALIFICACIONES: conteoNotasPorId[id] || 0
-      });
-    });
-
-    const avisos = (avisosHoja || []).filter(function(a) {
-      return String(a.ID_AVISO || a.TITULO || a.MENSAJE || '').trim() !== '';
-    }).map(function(a) {
-      return {
-        ID_AVISO: a.ID_AVISO || '', FECHA: a.FECHA || '', TITULO: a.TITULO || '',
-        MENSAJE: a.MENSAJE || '', DIRIGIDO_A: a.DIRIGIDO_A || '', ID_CLASE: a.ID_CLASE || '',
-        WHATSAPP_LINK: normalizarUrlFotoPortal_(a.WHATSAPP_LINK || ''),
-        PUBLICADO: a.PUBLICADO || '', OBSERVACIONES: a.OBSERVACIONES || ''
-      };
-    }).sort(function(a, b) { return String(b.FECHA).localeCompare(String(a.FECHA)); });
-
-    return {
-      exito: true,
-      catequizandos: catequizandos,
-      totalCatequizandos: catequizandos.length,
-      clases: clases,
-      totalClases: clases.length,
-      asistencia: asistencia,
-      calificaciones: calificaciones,
-      pagos: pagosResp.datos || [],
-      padres: padresBase,
-      avisos: avisos,
-      mensaje: 'Panel pastoral sincronizado correctamente.'
-    };
-  } catch (error) {
-    return {
-      exito: false, catequizandos: [], clases: [], asistencia: [], calificaciones: [],
-      pagos: [], padres: [], avisos: [],
-      mensaje: error && error.message ? error.message : String(error)
-    };
-  }
-}
-
-function getSpreadsheet() {
-  return SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
-}
-
-function getSheetData(sheetName) {
-  const sheet = getSpreadsheet().getSheetByName(sheetName);
-  if (!sheet) return [];
-  const lastRow = sheet.getLastRow();
-  const lastCol = sheet.getLastColumn();
-  if (lastRow < 2 || lastCol < 1) return [];
-
-  const rango = sheet.getRange(1, 1, lastRow, lastCol);
-  const values = rango.getValues();
-  const richLinks = rango.getRichTextValues();
-  const formulasLinks = rango.getFormulas();
-  const headers = values[0].map(h => String(h == null ? '' : h).trim());
-
-  return values.slice(1)
-    .map((row, r) => ({ row: row, r: r }))
-    .filter(item => item.row.some(cell => cell !== '' && cell !== null))
-    .map(item => {
-      const row = item.row, r = item.r;
-      const obj = {};
-      headers.forEach((header, index) => {
-        if (header) {
-          const raw = _esColumnaDeEnlace_(header) ? _obtenerEnlaceCelda_(row[index], richLinks[r + 1] && richLinks[r + 1][index], formulasLinks[r + 1] && formulasLinks[r + 1][index]) : row[index];
-          obj[header] = normalizarValor_(raw);
+      try {
+        const res = await fetch(URL_API_GS, {
+          method: "POST",
+          body: JSON.stringify({
+            action: "guardarCalificacionCuestionario",
+            token: tokenSesion,
+            bloqueId: bloqueActualId,
+            correctas: correctas,
+            totalPreguntas: total
+          })
+        });
+        const json = await res.json();
+        if (json.exito) {
+          cuerpo.innerHTML = `
+            <div class="text-center py-6">
+              <h4 class="text-2xl font-bold text-amber-600 mb-2">¡Cuestionario Completado!</h4>
+              <p class="text-sm text-slate-600">Aciertos: <span class="font-bold text-slate-800">${correctas} / ${total}</span></p>
+              <p class="text-sm text-slate-600">Nota Final: <span class="font-bold text-amber-700 text-lg">${json.nota} / 20</span></p>
+              <p class="text-xs font-bold uppercase text-amber-800 mt-2 bg-amber-100 inline-block px-3 py-1 rounded-full">Nivel: ${json.equivalencia}</p>
+              <div class="mt-6">
+                <button onclick="cerrarCuestionario()" class="bg-amber-600 text-white font-bold py-2 px-6 rounded-lg text-xs shadow hover:bg-amber-700 transition">Aceptar</button>
+              </div>
+            </div>
+          `;
+        } else {
+          cuerpo.innerHTML = `<p class="text-center text-red-500 py-6">${json.mensaje || "Error al guardar la calificación."}</p>`;
         }
-      });
-      if (String(sheetName).toUpperCase() === 'AVISOS') {
-        obj.ID_AVISO = obj.ID_MENSAJE || obj.ID_AVISO || '';
-        obj.FECHA = obj.FECHA_ENVIO || obj.FECHA || '';
-        obj.TITULO = obj.ASUNTO || obj.TITULO || '';
-        obj.DIRIGIDO_A = obj.DESTINATARIO || obj.DIRIGIDO_A || '';
-        obj.PUBLICADO = obj.PUBLICADO || ((/^(PUBLICADO|SI|SÍ|TRUE|1)$/i).test(String(obj.ESTADO || '')) ? 'SI' : 'NO');
+      } catch (err) {
+        cuerpo.innerHTML = `<p class="text-center text-red-500 py-6">Error de red al guardar la calificación.</p>`;
       }
-      return obj;
-    });
-}
-
-function _obtenerEnlaceCelda_(valor, richText, formula) {
-  try {
-    if (richText && typeof richText.getLinkUrl === 'function') {
-      const enlace = richText.getLinkUrl();
-      if (enlace) return String(enlace).trim();
-    }
-  } catch (e) {}
-  const f = String(formula || '');
-  const m = f.match(/=HYPERLINK\s*\(\s*"([^"]+)"/i);
-  if (m && m[1]) return m[1].trim();
-  const texto = String(valor == null ? '' : valor).trim();
-  return /^https?:\/\//i.test(texto) ? texto : valor;
-}
-
-function _esColumnaDeEnlace_(encabezado) {
-  return /(URL|LINK|ENLACE|ARCHIVO|DOCUMENTO|ADJUNTO|EVIDENCIA)/i.test(String(encabezado || ''));
-}
-
-function normalizarValor_(value) {
-  if (value instanceof Date) {
-    return Utilities.formatDate(value, Session.getScriptTimeZone(), "yyyy-MM-dd'T'HH:mm:ss");
-  }
-  return value;
-}
-
-function _obtenerDatosPINHojaCatequizandos_() {
-  const hoja = getSpreadsheet().getSheetByName(CONFIG.SHEET_CATEQUIZANDOS);
-  if (!hoja) throw new Error('No existe la pestaña CATEQUIZANDOS.');
-  const ultimaFila = hoja.getLastRow();
-  const ultimaColumna = hoja.getLastColumn();
-  if (ultimaFila < 2 || ultimaColumna < 1) throw new Error('La pestaña CATEQUIZANDOS no tiene niños registrados.');
-
-  const valores = hoja.getRange(1, 1, ultimaFila, ultimaColumna).getDisplayValues();
-  const encabezados = valores[0].map(_normalizarEncabezadoPrograma_);
-  const indice = function(nombre) { return encabezados.indexOf(_normalizarEncabezadoPrograma_(nombre)); };
-  return {
-    filas: valores.slice(1),
-    columnas: {
-      id: indice('ID_NINO'),
-      pin: indice('PIN'),
-      nombres: indice('NOMBRES'),
-      apellidos: indice('APELLIDOS'),
-      grado: indice('GRADO'),
-      foto: indice('FOTO'),
-      vigente: indice('VIGENTE')
-    }
-  };
-}
-
-function listarNombresCatequizandosLogin_() {
-  const datos = _obtenerDatosPINHojaCatequizandos_();
-  const c = datos.columnas;
-  const activos = datos.filas.map(function(fila) {
-    const id = String(fila[c.id] || '').trim();
-    const vigente = c.vigente < 0 ? '' : String(fila[c.vigente] || '').trim().toUpperCase();
-    const estadoActivo = !vigente || ['SI', 'SÍ', 'TRUE', '1', 'ACTIVO', 'VIGENTE'].indexOf(vigente) >= 0;
-    const nombres = String(fila[c.nombres] || '').trim();
-    const apellidos = String(fila[c.apellidos] || '').trim();
-    return id && estadoActivo && (nombres || apellidos) ? { ID_NINO: id, NOMBRE_COMPLETO: [nombres, apellidos].filter(Boolean).join(' ') } : null;
-  }).filter(Boolean);
-  const unicos = new Map();
-  activos.forEach(function(alumno) { if (!unicos.has(alumno.ID_NINO)) unicos.set(alumno.ID_NINO, alumno); });
-  return { exito: true, datos: Array.from(unicos.values()).sort(function(a, b) { return a.NOMBRE_COMPLETO.localeCompare(b.NOMBRE_COMPLETO, 'es'); }) };
-}
-
-function normalizarPINCatequizando_(valor) {
-  return String(valor == null ? '' : valor).replace(/\D/g, '');
-}
-
-function validarLoginCatequizando_(pinIngresado, idNinoSeleccionado) {
-  const pin = normalizarPINCatequizando_(pinIngresado);
-  if (!/^\d{12}$/.test(pin)) {
-    return { exito: false, mensaje: 'El PIN debe contener exactamente doce números.' };
-  }
-  const idSeleccionado = String(idNinoSeleccionado == null ? '' : idNinoSeleccionado).trim();
-  if (!idSeleccionado) return { exito: false, mensaje: 'Selecciona tu nombre antes de ingresar.' };
-
-  const datos = _obtenerDatosPINHojaCatequizandos_();
-  const c = datos.columnas;
-  const activos = datos.filas.filter(function(fila) {
-    const id = String(fila[c.id] || '').trim();
-    const vigente = c.vigente < 0 ? '' : String(fila[c.vigente] || '').trim().toUpperCase();
-    return !!id && (!vigente || ['SI', 'SÍ', 'TRUE', '1', 'ACTIVO', 'VIGENTE'].indexOf(vigente) >= 0);
-  });
-  const coincidencias = activos.filter(function(fila) {
-    return String(fila[c.id] || '').trim() === idSeleccionado && normalizarPINCatequizando_(fila[c.pin]) === pin;
-  });
-
-  if (coincidencias.length === 0) {
-    return { exito: false, mensaje: 'El PIN no corresponde al catequizando seleccionado.' };
-  }
-  const fila = coincidencias[0];
-  const alumno = {
-    ID_NINO: String(fila[c.id] || '').trim(),
-    NOMBRES: c.nombres < 0 ? '' : String(fila[c.nombres] || '').trim(),
-    APELLIDOS: c.apellidos < 0 ? '' : String(fila[c.apellidos] || '').trim(),
-    GRADO: c.grado < 0 ? '' : String(fila[c.grado] || '').trim(),
-    FOTO: c.foto < 0 ? '' : String(fila[c.foto] || '').trim()
-  };
-  return {
-    exito: true,
-    token: crearTokenCatequizando_(alumno.ID_NINO),
-    perfil: {
-      ID_NINO: alumno.ID_NINO,
-      NOMBRES: alumno.NOMBRES,
-      APELLIDOS: alumno.APELLIDOS,
-      NOMBRE_COMPLETO: [alumno.NOMBRES, alumno.APELLIDOS].filter(Boolean).join(' '),
-      GRADO: alumno.GRADO
-    }
-  };
-}
-
-function crearTokenCatequizando_(idNino) {
-  const props = PropertiesService.getScriptProperties();
-  let secreto = props.getProperty('CATEQUIZANDO_TOKEN_SECRET');
-  if (!secreto) {
-    secreto = Utilities.getUuid() + Utilities.getUuid();
-    props.setProperty('CATEQUIZANDO_TOKEN_SECRET', secreto);
-  }
-  const payload = Utilities.base64EncodeWebSafe(JSON.stringify({ id: String(idNino), exp: Date.now() + 12 * 3600000 }));
-  const firma = Utilities.base64EncodeWebSafe(Utilities.computeHmacSha256Signature(payload, secreto));
-  return payload + '.' + firma;
-}
-
-function validarTokenCatequizando_(token) {
-  try {
-    const partes = String(token || '').split('.');
-    if (partes.length !== 2) return '';
-    const secreto = PropertiesService.getScriptProperties().getProperty('CATEQUIZANDO_TOKEN_SECRET');
-    if (!secreto) return '';
-    const firma = Utilities.base64EncodeWebSafe(Utilities.computeHmacSha256Signature(partes[0], secreto));
-    if (firma !== partes[1]) return '';
-    const datos = JSON.parse(Utilities.newBlob(Utilities.base64DecodeWebSafe(partes[0])).getDataAsString());
-    if (Date.now() > Number(datos.exp)) return '';
-    return String(datos.id);
-  } catch (e) {
-    return '';
-  }
-}
-
-function _obtenerAlumnoActivoPorId_(idNino) {
-  const id = String(idNino || '').trim();
-  if (!id) return null;
-  const alumnos = getSheetData(CONFIG.SHEET_CATEQUIZANDOS);
-  return alumnos.find(a => String(a.ID_NINO || '').trim() === id) || null;
-}
-
-function getSesiones() {
-  try {
-    const ss = getSpreadsheet();
-    const hojaSesiones = ss.getSheetByName(CONFIG.SHEET_SESIONES);
-    const hojaClases = ss.getSheetByName(CONFIG.SHEET_CLASES);
-    if (!hojaSesiones || !hojaClases) throw new Error('Faltan hojas de sesiones o clases.');
-
-    const datosSesiones = _leerTablaPrograma_(hojaSesiones);
-    const datosClases = _leerTablaPrograma_(hojaClases);
-    const sesionesPorId = {};
-    const ordenIds = [];
-
-    datosSesiones.forEach(function(fila, indice) {
-      const id = String(fila.IDSESION || '').trim();
-      if (!id) return;
-      sesionesPorId[id] = {
-        n: fila.NDESESION || indice + 1,
-        id: id,
-        bloque: String(fila.BLOQUE || '').trim(),
-        tema: String(fila.TEMA || '').trim(),
-        subtema: String(fila.SUBTEMA || '').trim(),
-        objetivo: String(fila.OBJETIVO || '').trim(),
-        valor: String(fila.VALOR || '').trim(),
-        cita: String(fila.CITABIBLICA || '').trim(),
-        actividad: String(fila.ACTIVIDAD || '').trim(),
-        fichaUrl: String(fila.FICHAURL || fila.FICHA_URL || '').trim(),
-        videoUrl: String(fila.VIDEOURL || fila.VIDEO_URL || '').trim(),
-        cancionUrl: String(fila.CANCIONURL || '').trim(),
-        recursosNotas: String(fila.RECURSOSNOTAS || '').trim()
-      };
-      ordenIds.push(id);
-    });
-
-    const clases = datosClases.map(function(clase) {
-      const id1 = String(clase.IDSESION1 || '').trim();
-      const id2 = String(clase.IDSESION2 || '').trim();
-      const ids = [id1, id2].filter(Boolean);
-      const fechaISO = _fechaISOPrograma_(clase.FECHAPROGRAMADA);
-      const temas = ids.map(id => sesionesPorId[id]).filter(Boolean);
-      return {
-        numeroClase: Number(clase.NCLASE) || clase.NCLASE || 1,
-        fechaProgramada: fechaISO,
-        horaInicio: _horaTextoPrograma_(clase.HORAINICIO),
-        horaFin: _horaTextoPrograma_(clase.HORAFIN),
-        bloque: String(clase.BLOQUE || '').trim(),
-        catequista: String(clase.CATEQUISTA || '').trim(),
-        temas: temas
-      };
-    });
-
-    const bloquesMap = {};
-    ordenIds.forEach(function(id) {
-      const sesion = sesionesPorId[id];
-      const nombreBloque = sesion.bloque || 'BLOQUE GENERAL';
-      if (!bloquesMap[nombreBloque]) {
-        bloquesMap[nombreBloque] = { title: nombreBloque, sessions: [] };
-      }
-      bloquesMap[nombreBloque].sessions.push(sesion);
-    });
-
-    return { exito: true, bloques: Object.values(bloquesMap), clases: clases };
-  } catch (error) {
-    return { exito: false, bloques: [], clases: [], mensaje: error.message };
-  }
-}
-
-function _leerTablaPrograma_(hoja) {
-  const ultimaFila = hoja.getLastRow();
-  const ultimaColumna = hoja.getLastColumn();
-  if (ultimaFila < 2 || ultimaColumna < 1) return [];
-  const valores = hoja.getRange(1, 1, ultimaFila, ultimaColumna).getValues();
-  const encabezados = valores[0].map(v => _normalizarEncabezadoPrograma_(v));
-  return valores.slice(1).map(fila => {
-    const obj = {};
-    encabezados.forEach((h, i) => { if (h) obj[h] = fila[i]; });
-    return obj;
-  }).filter(obj => Object.values(obj).some(v => v !== ''));
-}
-
-function _normalizarEncabezadoPrograma_(valor) {
-  return String(valor == null ? '' : valor).toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^A-Z0-9]/g, '');
-}
-
-function _fechaISOPrograma_(valor) {
-  if (!valor) return '';
-  if (valor instanceof Date) return Utilities.formatDate(valor, Session.getScriptTimeZone(), 'yyyy-MM-dd');
-  const d = new Date(valor);
-  return isNaN(d.getTime()) ? String(valor) : Utilities.formatDate(d, Session.getScriptTimeZone(), 'yyyy-MM-dd');
-}
-
-function _horaTextoPrograma_(valor) {
-  if (!valor) return '';
-  if (valor instanceof Date) return Utilities.formatDate(valor, Session.getScriptTimeZone(), 'HH:mm');
-  return String(valor);
-}
-
-function _fechaTextoCoordinacion_(fechaISO) {
-  const p = String(fechaISO || '').slice(0, 10).split('-');
-  return p.length === 3 ? p[2] + '/' + p[1] + '/' + p[0] : String(fechaISO || '');
-}
-
-function normalizarUrlFotoPortal_(url) {
-  let texto = String(url || '').trim();
-  if (!texto) return '';
-  texto = texto.replace(/^https:\/\/github\.com\/([^/]+)\/([^/]+)\/blob\//i, 'https://raw.githubusercontent.com/$1/$2/');
-  let match = texto.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?.*?id=)([A-Za-z0-9_-]+)/i);
-  if (match && match[1]) texto = 'https://drive.google.com/uc?export=view&id=' + match[1];
-  return texto;
-}
-
-function getConfiguracionPortal() {
-  const filas = getSheetData(CONFIG.SHEET_CONFIG);
-  const config = {};
-  filas.forEach(f => { const c = String(f.CLAVE || '').trim(); if (c) config[c] = normalizarValor_(f.VALOR); });
-  return { exito: true, datos: config };
-}
-
-function getMiPerfilCatequizando_(idNino) {
-  const respuesta = getCatequizandos('');
-  const alumno = (respuesta.datos || []).find(a => String(a.ID_NINO || '').trim() === String(idNino).trim());
-  return alumno ? { exito: true, total: 1, datos: [alumno] } : { exito: false, mensaje: 'No encontrado' };
-}
-
-function getAvanceFichasNino_(idNino) {
-  const hoja = getSpreadsheet().getSheetByName('FICHAS_AVANCE');
-  if (!hoja || hoja.getLastRow() < 2) return { exito: true, avance: [] };
-  const avance = _leerTablaPrograma_(hoja)
-    .filter(f => String(f.IDNINO || '').trim() === String(idNino).trim())
-    .map(f => ({
-      idSesion: String(f.IDSESION || ''),
-      tema: String(f.TEMA || ''),
-      correctas: Number(f.RESPUESTASCORRECTAS || 0),
-      total: Number(f.TOTALPREGUNTAS || 0),
-      nota: Number(f.NOTASOBRE20 || 0),
-      equivalencia: String(f.EQUIVALENCIA || ''),
-      estado: String(f.ESTADO || '')
-    }));
-  return { exito: true, avance: avance };
-}
-
-function getAvisosNino_(idNino) {
-  const datos = getSheetData(CONFIG.SHEET_AVISOS).map(_mapearAvisoParaPortal_);
-  return { exito: true, total: datos.length, datos: datos };
-}
-
-function _mapearAvisoParaPortal_(item) {
-  return {
-    ID_AVISO: item.ID_MENSAJE || item.ID_AVISO || '',
-    FECHA: item.FECHA_ENVIO || item.FECHA || '',
-    TITULO: item.ASUNTO || item.TITULO || '',
-    MENSAJE: item.MENSAJE || '',
-    DIRIGIDO_A: item.DESTINATARIO || item.DIRIGIDO_A || ''
-  };
-}
-
-function registrarFichaCompletada_(data, idNinoAutorizado) {
-  return { exito: true, mensaje: 'Ficha registrada.' };
-}
-
-function guardarMensajeCatequizando_(data) {
-  return { exito: true, mensaje: 'Mensaje guardado.' };
-}
-
-function getCatequizandos(codigoPadre) {
-  const datos = getSheetData(CONFIG.SHEET_CATEQUIZANDOS);
-  const salida = datos.map(item => ({
-    ID_NINO: String(item.ID_NINO || '').trim(),
-    APELLIDOS: String(item.APELLIDOS || '').trim(),
-    NOMBRES: String(item.NOMBRES || '').trim(),
-    NOMBRE_COMPLETO: [String(item.NOMBRES || '').trim(), String(item.APELLIDOS || '').trim()].filter(Boolean).join(' '),
-    FOTO: normalizarUrlFotoPortal_(item.FOTO || ''),
-    DNI: String(item.DNI || '').trim(),
-    GRADO: String(item.GRADO || '').trim(),
-    PADRE_ID: String(item.PADRE_ID || '').trim(),
-    MADRE_ID: String(item.MADRE_ID || '').trim()
-  })).filter(x => x.ID_NINO);
-  return { exito: true, total: salida.length, datos: salida };
-}
-
-function getPadres() {
-  const filas = getSheetData(CONFIG.SHEET_PADRES);
-  const datos = filas.filter(p => String(p.PADRE_ID || '').trim() !== '').map(p => ({
-    PADRE_ID: String(p.PADRE_ID || '').trim(),
-    NOMBRE_COMPLETO: [String(p.NOMBRES || '').trim(), String(p.APELLIDOS || '').trim()].filter(Boolean).join(' '),
-    PARENTESCO: String(p.PARENTESCO || '').trim(),
-    TELEFONO: String(p.TELEFONO || '').trim(),
-    CORREO: String(p.CORREO || '').trim()
-  }));
-  return { exito: true, total: datos.length, datos: datos };
-}
-
-function getAportes(codigoPadre) {
-  return { exito: true, total: 0, datos: [] };
-}
-
-function getAsistenciaNotasCatequizandos(codigoPadre) {
-  return { exito: true, total: 0, datos: [], calificaciones: [] };
-}
-
-function getRequisitosFamilia_(codigoPadre) {
-  return { exito: true, total: 0, datos: [] };
-}
-
-function getMaterialesFamilia_(codigoPadre) {
-  return { exito: true, total: 0, datos: [] };
-}
-
-function getCalificaciones() {
-  return { exito: true, total: 0, datos: [] };
-}
-
-function getCalendarioPadres_() {
-  return { exito: true, total: 0, datos: [] };
-}
-
-function getAvisosFamilia_(codigoPadre) {
-  return { exito: true, total: 0, datos: [] };
-}
-
-function getTareasFamilia_(codigoPadre, idSesion) {
-  return { exito: true, total: 0, datos: [] };
-}
-
-function getTareasNino_(idNino, idSesion) {
-  return { exito: true, total: 0, datos: [] };
-}
-
-function getCumpleanosPadres_(codigoPadre) {
-  return { exito: true, total: 0, datos: [] };
-}
-
-function getDiagnosticoPadres_(codigoPadre) {
-  return { exito: true, total: 0 };
-}
-
-function respuestaJson_(objeto) {
-  return ContentService.createTextOutput(JSON.stringify(objeto)).setMimeType(ContentService.MimeType.JSON);
-}
-
-/***************************************************************
-- MÓDULO INTEGRADO: CUESTIONARIOS Y CALIFICACIONES AUTOMÁTICAS
- ***************************************************************/
-function obtenerPreguntasBloque_(params) {
-  try {
-    const bloqueId = parseInt(params.bloque, 10);
-    const token = params.token;
-    
-    const idNino = validarTokenCatequizando_(token);
-    if (!idNino) {
-      return { exito: false, mensaje: 'Sesión vencida. Ingresa nuevamente con tu PIN.' };
     }
 
-    const alumno = _obtenerAlumnoActivoPorId_(idNino);
-    if (!alumno) {
-      return { exito: false, mensaje: 'Catequizando no encontrado o inactivo.' };
+    function cerrarCuestionario() {
+      document.getElementById("modalCuestionario").classList.add("hidden");
     }
-
-    const ss = getSpreadsheet();
-    const hojaBanco = ss.getSheetByName('BANCO_PREGUNTAS');
-    if (!hojaBanco) throw new Error('No existe la pestaña BANCO_PREGUNTAS.');
-
-    const rangosBloques = {
-      1: { inicio: 2, fin: 521, nombre: 'Conociendo a Jesús' },
-      2: { inicio: 522, fin: 1200, nombre: 'Aprendemos a orar' },
-      3: { inicio: 1201, fin: 1720, nombre: 'Los sacramentos' },
-      4: { inicio: 1721, fin: 2167, nombre: 'La Eucaristía' },
-      5: { inicio: 2168, fin: 2426, nombre: 'Valores cristianos' },
-      6: { inicio: 2427, fin: 2949, nombre: 'Preparación para primera comunión' }
-    };
-
-    const configBloque = rangosBloques[bloqueId];
-    if (!configBloque) {
-      return { exito: false, mensaje: 'Bloque no válido.' };
-    }
-
-    const numFilas = configBloque.fin - configBloque.inicio + 1;
-    const valores = hojaBanco.getRange(configBloque.inicio, 1, numFilas, 11).getValues();
-
-    const preguntasDisponibles = valores.map(function(fila) {
-      return {
-        idPregunta: fila[0],
-        idSesion: fila[1],
-        bloqueTexto: fila[2],
-        tema: fila[3],
-        pregunta: fila[4],
-        opcionA: fila[5],
-        opcionB: fila[6],
-        opcionC: fila[7],
-        respuestaCorrecta: String(fila[8]).trim().toUpperCase(),
-        explicacion: fila[9],
-        activo: String(fila[10]).trim().toUpperCase()
-      };
-    }).filter(function(p) {
-      return p.pregunta && (p.activo === 'SI' || p.activo === 'SÍ' || p.activo === '');
-    });
-
-    preguntasDisponibles.sort(function() { return 0.5 - Math.random(); });
-    const seleccionadas = preguntasDisponibles.slice(0, 10).map(function(p) {
-      return {
-        idPregunta: p.idPregunta,
-        tema: p.tema,
-        pregunta: p.pregunta,
-        opciones: { A: p.opcionA, B: p.opcionB, C: p.opcionC },
-        respuestaCorrecta: p.respuestaCorrecta,
-        explicacion: p.explicacion
-      };
-    });
-
-    return {
-      exito: true,
-      bloqueId: bloqueId,
-      nombreBloque: configBloque.nombre,
-      preguntas: seleccionadas
-    };
-
-  } catch (error) {
-    return { exito: false, mensaje: error && error.message ? error.message : String(error) };
-  }
-}
-
-function guardarCalificacionCuestionario_(data) {
-  try {
-    const token = data.token;
-    const idNino = validarTokenCatequizando_(token);
-    if (!idNino) {
-      return { exito: false, mensaje: 'Sesión vencida.' };
-    }
-
-    const alumno = _obtenerAlumnoActivoPorId_(idNino);
-    if (!alumno) {
-      return { exito: false, mensaje: 'Catequizando no encontrado.' };
-    }
-
-    const bloqueId = data.bloqueId;
-    const correctas = parseInt(data.correctas, 10) || 0;
-    const totalPreguntas = parseInt(data.totalPreguntas, 10) || 10;
-    
-    const notaNumerica = Math.round((correctas / totalPreguntas) * 20);
-    const equivalencia = notaNumerica >= 14 ? 'LOGRADO' : (notaNumerica >= 11 ? 'EN PROCESO' : 'INICIO');
-    const fechaRegistro = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd HH:mm:ss');
-
-    const ss = getSpreadsheet();
-    
-    let hojaCalif = ss.getSheetByName('CALIFICACIONES');
-    if (!hojaCalif) {
-      hojaCalif = ss.insertSheet('CALIFICACIONES');
-      hojaCalif.appendRow([
-        'ID_CALIFICACION', 'FECHA_REGISTRO', 'ID_NINO', 'NOMBRE_CATEQUIZANDO', 
-        'ID_SESION', 'TEMA', 'TIPO_ACTIVIDAD', 'DESCRIPCION', 
-        'NOTA_NUMERICA', 'EQUIVALENCIA', 'OBSERVACIONES', 'CATEQUISTA'
-      ]);
-    }
-
-    const idCalificacion = 'CAL-' + Utilities.getUuid().slice(0, 8).toUpperCase();
-    const nombreCatequizando = [String(alumno.NOMBRES || '').trim(), String(alumno.APELLIDOS || '').trim()].filter(Boolean).join(' ');
-    const descripcion = 'Cuestionario Bloque ' + bloqueId + ' (' + correctas + '/' + totalPreguntas + ' aciertos)';
-
-    hojaCalif.appendRow([
-      idCalificacion,
-      fechaRegistro,
-      idNino,
-      nombreCatequizando,
-      'BLOQUE-' + bloqueId,
-      'Evaluación Bloque ' + bloqueId,
-      'CUESTIONARIO INTERACTIVO',
-      descripcion,
-      notaNumerica,
-      equivalencia,
-      'Completado correctamente en el portal',
-      'Sistema Automático LDS'
-    ]);
-
-    let hojaAvance = ss.getSheetByName('FICHAS_AVANCE');
-    if (!hojaAvance) {
-      hojaAvance = ss.insertSheet('FICHAS_AVANCE');
-      hojaAvance.appendRow(['IDNINO', 'IDSESION', 'TEMA', 'RESPUESTASCORRECTAS', 'TOTALPREGUNTAS', 'NOTASOBRE20', 'EQUIVALENCIA', 'ESTADO', 'FECHAV']);
-    }
-    hojaAvance.appendRow([
-      idNino,
-      'BLOQUE-' + bloqueId,
-      'Bloque ' + bloqueId,
-      correctas,
-      totalPreguntas,
-      notaNumerica,
-      equivalencia,
-      'COMPLETADO',
-      fechaRegistro
-    ]);
-
-    return {
-      exito: true,
-      mensaje: 'Calificación guardada y sincronizada con éxito en Google Sheets.',
-      nota: notaNumerica,
-      equivalencia: equivalencia
-    };
-
-  } catch (error) {
-    return { exito: false, mensaje: error && error.message ? error.message : String(error) };
-  }
-}
+  </script>
+</body>
+</html>
