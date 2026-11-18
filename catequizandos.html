@@ -746,12 +746,6 @@ main {
   border-radius: 8px;
 }
 
-.progress-fill-tasks {
-  background: linear-gradient(90deg, #f1b731, #d49a0e);
-  height: 100%;
-  border-radius: 8px;
-}
-
 .notifications-layout {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -952,8 +946,8 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden], .portal-
     <form id="loginForm" class="login-form-overlay" autocomplete="off">
       <label class="sr-only" for="nombreCatequizando">Selecciona tu nombre</label>
       <select id="nombreCatequizando" name="nombre" required disabled><option value="">Cargando nombres...</option></select>
-      <label class="sr-only" for="pinAlumno">Ingresa tu PIN personal de 12 dígitos</label>
-      <input id="pinAlumno" name="pin" type="password" inputmode="numeric" pattern="[0-9]{12}" minlength="12" maxlength="12" autocomplete="off" required placeholder="Ingresa tu PIN" aria-label="PIN personal de 12 dígitos">
+      <label class="sr-only" for="pinAlumno">Ingresa tu PIN personal</label>
+      <input id="pinAlumno" name="pin" type="password" inputmode="numeric" maxlength="12" autocomplete="off" required placeholder="Ingresa tu PIN" aria-label="PIN personal">
       <button id="btnIngresarPIN" type="submit">INGRESAR</button>
       <div id="loginError" class="login-error" role="alert" aria-live="assertive"></div>
     </form>
@@ -969,8 +963,8 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden], .portal-
     <form id="loginFormMobile" class="login-mobile-form" autocomplete="off">
       <label class="sr-only" for="nombreCatequizandoMobile">Selecciona tu nombre</label>
       <select id="nombreCatequizandoMobile" name="nombre" required disabled><option value="">Cargando nombres...</option></select>
-      <label class="sr-only" for="pinAlumnoMobile">PIN personal de 12 dígitos</label>
-      <input id="pinAlumnoMobile" name="pin" type="password" inputmode="numeric" pattern="[0-9]{12}" minlength="12" maxlength="12" required placeholder="Ingresa tu PIN personal">
+      <label class="sr-only" for="pinAlumnoMobile">PIN personal</label>
+      <input id="pinAlumnoMobile" name="pin" type="password" inputmode="numeric" maxlength="12" required placeholder="Ingresa tu PIN personal">
       <button id="btnIngresarPINMobile" type="submit">INGRESAR</button>
       <div id="loginErrorMobile" class="login-error" role="alert" aria-live="assertive"></div>
     </form>
@@ -1253,7 +1247,7 @@ async function ingresarConPIN(event){
   const idNinoSeleccionado=String(selector&&selector.value||'').trim();
   const pin=String(campo&&campo.value||'').trim();
   if(!idNinoSeleccionado){mostrarErrorLogin('Primero selecciona tu nombre.');if(selector)selector.focus();return;}
-  if(!/^\d{12}$/.test(pin)){mostrarErrorLogin('Escribe los doce números de tu PIN.');if(campo)campo.focus();return;}
+  if(!pin){mostrarErrorLogin('Escribe tu PIN.');if(campo)campo.focus();return;}
   if(boton)boton.disabled=true;
   if(window.speechSynthesis)window.speechSynthesis.cancel();
   try{
