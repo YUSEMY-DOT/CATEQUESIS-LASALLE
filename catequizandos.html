@@ -1246,6 +1246,18 @@ header{padding-top:14px;padding-bottom:12px}
  .tareas-details-content-v8{padding:11px}
 }
 
+
+/* V9 — botón de video junto al cuestionario, usando VIDEO_URL de SESIONES */
+.tema-card-acciones-v9{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px}
+.tema-card-acciones-v9 .btn-quiz-tema{margin:0;flex:1 1 145px}
+.btn-video-tema-v9{flex:1 1 145px;min-height:38px;padding:9px 12px;border:1px solid #a8d8bd;border-radius:10px;background:#eaf8ef;color:#176b42;font:900 12px 'Nunito',sans-serif;cursor:pointer;transition:transform .15s,background .15s}
+.btn-video-tema-v9:hover{background:#d9f2e2;transform:translateY(-1px)}
+.btn-video-tema-v9:active{transform:scale(.98)}
+.tema-video-status-v9{margin:8px 0 0;padding:8px 10px;border-radius:9px;background:#fff5dc;border:1px solid #efd79c;color:#83560c;font-size:11px;line-height:1.4;font-weight:800}
+.tema-video-status-v9[hidden]{display:none}
+.tema-video-status-v9 a{color:#165da1;text-decoration:underline;font-weight:900}
+@media(max-width:520px){.tema-card-acciones-v9{display:grid;grid-template-columns:1fr}.tema-card-acciones-v9 button{width:100%}}
+
 </style>
 </head>
 <body>
@@ -1923,6 +1935,7 @@ function portalAplicarProgramacionV7(data) {
     VALOR: s.valor || s.val || '',
     CITA_BIBLICA: s.cita_biblica || s.cita || '',
     ACTIVIDAD: s.actividad || '',
+    VIDEO_URL: s.videoUrl || s.VIDEO_URL || '',
     ESTADO: s.estado || ''
   })));
   clasesSheet = (Array.isArray(data && data.clases) ? data.clases : []).map(c => {
@@ -2310,7 +2323,9 @@ async function abrirBloque(numBloque) {
 
   grid.innerHTML = sesionesDelBloque.map((s, idx) => {
     const idSes = String(s.ID_SESION || '').trim();
+    const idSesJs = idSes.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
     const tema = String(s.TEMA || `Sesión ${idx + 1}`).trim();
+    const temaJs = tema.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
     const subtema = String(s.SUBTEMA || '').trim();
     const objetivo = String(s.OBJETIVO || '').trim();
     const valor = String(s.VALOR || '').trim();
@@ -2325,12 +2340,14 @@ async function abrirBloque(numBloque) {
             ${valor ? `<span class="tema-badge">💛 ${escapeQuizHtml(valor)}</span>` : ''}
           </div>
           <h4 style="margin-top:8px;">${escapeQuizHtml(s['N.º DE SESIÓN'] || (idx + 1))}. ${escapeQuizHtml(tema)}</h4>
-          ${subtema ? `<div class="tema-subtema">Subtema: ${escapeQuizHtml(subtema).replace(/\n/g, '<br>')}</div>` : ''}
+          ${subtema ? `<div class="tema-subtema">Subtema: ${escapeQuizHtml(subtema).replace(/\\n/g, '<br>')}</div>` : ''}
           ${objetivo ? `<p style="margin-top:6px;">${escapeQuizHtml(objetivo)}</p>` : ''}
         </div>
-        <button type="button" class="btn-quiz-tema" onclick="abrirCuestionarioTema('${idSes.replace(/'/g, "\\'")}', '${tema.replace(/'/g, "\\'")}')">
-          🎮 Aprender jugando
-        </button>
+        <div class="tema-card-acciones-v9">
+          <button type="button" class="btn-video-tema-v9" onclick="abrirVideoTema('${idSesJs}')">🎬 Ver video del tema</button>
+          <button type="button" class="btn-quiz-tema" onclick="abrirCuestionarioTema('${idSesJs}', '${temaJs}')">🎮 Aprender jugando</button>
+        </div>
+        <p class="tema-video-status-v9" id="estadoVideoTema_${idSes.replace(/[^a-zA-Z0-9_-]/g, '_') || idx}" role="status" aria-live="polite" hidden></p>
       </div>
     `;
   }).join('');
@@ -2341,6 +2358,63 @@ async function abrirBloque(numBloque) {
 
 // Cada tema contiene todas sus preguntas activas. Se juega de una en una;
 // el avance visible se calcula sobre todas las preguntas del bloque completo.
+function abrirVideoTema(idSesion) {
+  const normalizar = valor => String(valor || '').trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+  const sesion = sesionesSheet.find(s => normalizar(s.ID_SESION) === normalizar(idSesion));
+  const estadoId = 'estadoVideoTema_' + String(idSesion || '').replace(/[^a-zA-Z0-9_-]/g, '_');
+  const estado = document.getElementById(estadoId);
+  const mostrarMensaje = texto => {
+    if (estado) {
+      estado.hidden = false;
+      estado.textContent = texto;
+    } else {
+      alert(texto);
+    }
+  };
+
+  if (!sesion) {
+    mostrarMensaje('No encontramos este tema en la programación. Actualiza el portal e inténtalo nuevamente.');
+    return;
+  }
+
+  const enlace = String(sesion.VIDEO_URL || '').trim();
+  if (!enlace) {
+    mostrarMensaje('🎬 El video de este tema aún no está disponible. Tu catequista o gestor debe registrar su enlace. Mientras tanto, puedes continuar con «Aprender jugando».');
+    return;
+  }
+
+  let url;
+  try {
+    url = new URL(enlace);
+  } catch (e) {
+    mostrarMensaje('El enlace del video de este tema no tiene un formato válido. Solicita que lo revisen.');
+    return;
+  }
+  if (url.protocol !== 'https:' && url.protocol !== 'http:') {
+    mostrarMensaje('Por seguridad, solo se pueden abrir enlaces web de videos.');
+    return;
+  }
+
+  const ventana = window.open(url.href, '_blank', 'noopener,noreferrer');
+  if (!ventana) {
+    if (estado) {
+      estado.hidden = false;
+      estado.textContent = 'El navegador bloqueó la ventana del video. Abre este enlace: ';
+      const link = document.createElement('a');
+      link.href = url.href;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = 'Ver video';
+      estado.appendChild(link);
+    } else {
+      mostrarMensaje('El navegador bloqueó la ventana del video. Permite las ventanas emergentes para este sitio.');
+    }
+  } else if (estado) {
+    estado.hidden = false;
+    estado.textContent = '🎬 Video abierto en una nueva pestaña.';
+  }
+}
+
 async function abrirCuestionarioTema(idSesion, nombreTema) {
   const backdrop = document.getElementById('quizModalBackdrop');
   const title = document.getElementById('quizModalTitle');
