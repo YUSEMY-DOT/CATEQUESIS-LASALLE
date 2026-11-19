@@ -251,7 +251,7 @@
 <body>
 
 
-  <button id="pwaInstallButton" class="pwa-install-button" type="button" hidden aria-label="Instalar Camino hacia Jesús">⬇ Instalar aplicación</button>
+  <button id="pwaInstallButton" class="pwa-install-button" type="button" hidden aria-label="Descargar aplicación Camino hacia Jesús">⬇ Descargar aplicación</button>
 
   <!-- PORTADA PRINCIPAL -->
   <main class="portada" aria-label="Camino hacia Jesús">
@@ -441,78 +441,114 @@
 
 
   <script>
-    // Instalación PWA: al aceptar la instalación o abrir la app instalada,
-    // el control de instalación se oculta y no vuelve a aparecer.
+    // Instalación PWA: el botón permanece visible hasta que la app esté instalada.
     (() => {
       'use strict';
       const button = document.getElementById('pwaInstallButton');
-      const storageKey = 'camino_hacia_jesus_instalada_v2';
+      // Nueva clave para no heredar marcas antiguas que podrían ocultar el botón por error.
+      const storageKey = 'camino_hacia_jesus_instalada_v3';
       const standaloneQuery = window.matchMedia('(display-mode: standalone)');
-      const isStandalone = () => standaloneQuery.matches ||
+      const isStandalone = () =>
+        standaloneQuery.matches ||
         window.matchMedia('(display-mode: minimal-ui)').matches ||
+        window.matchMedia('(display-mode: fullscreen)').matches ||
         navigator.standalone === true;
 
       let installPrompt = null;
-      const hideInstallControl = () => {
-        if (button) button.hidden = true;
-        try { localStorage.setItem(storageKey, '1'); } catch (e) {}
-      };
-      const alreadyInstalled = () => {
-        try { return localStorage.getItem(storageKey) === '1'; } catch (e) { return false; }
-      };
-      const syncInstallControl = () => {
+
+      const hideInstallControl = (installed) => {
         if (!button) return;
-        if (isStandalone() || alreadyInstalled()) hideInstallControl();
+        button.hidden = true;
+        if (installed) {
+          try { localStorage.setItem(storageKey, '1'); } catch (e) {}
+        }
       };
 
-      if (button) {
-        button.hidden = true;
-        syncInstallControl();
-      }
+      const alreadyInstalled = () => {
+        try { return localStorage.getItem(storageKey) === '1'; }
+        catch (e) { return false; }
+      };
 
-      const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) ||
-        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      const showInstallControl = () => {
+        if (!button) return;
+        if (isStandalone() || alreadyInstalled()) {
+          hideInstallControl(false);
+          return;
+        }
+        button.hidden = false;
+        button.textContent = '⬇ Descargar aplicación';
+        button.setAttribute('aria-label', 'Descargar aplicación Camino hacia Jesús');
+        button.title = 'Instala Camino hacia Jesús en tu dispositivo';
+      };
+
+      if (button) showInstallControl();
 
       window.addEventListener('beforeinstallprompt', (event) => {
-        if (isStandalone() || alreadyInstalled() || !button) return;
+        if (!button || isStandalone() || alreadyInstalled()) return;
         event.preventDefault();
         installPrompt = event;
-        button.hidden = false;
+        showInstallControl();
       });
-
-      if (isIOS && !isStandalone() && !alreadyInstalled() && button) {
-        button.hidden = false;
-      }
 
       if (button) {
         button.addEventListener('click', async () => {
+          if (isStandalone() || alreadyInstalled()) {
+            hideInstallControl(false);
+            return;
+          }
+
           if (installPrompt) {
             const promptEvent = installPrompt;
             installPrompt = null;
             try {
               await promptEvent.prompt();
               const choice = await promptEvent.userChoice;
-              if (choice && choice.outcome === 'accepted') hideInstallControl();
+              if (choice && choice.outcome === 'accepted') {
+                // El usuario aceptó la instalación: no volver a mostrar el botón.
+                hideInstallControl(true);
+              } else {
+                // Si cancela, el botón permanece para que pueda intentarlo después.
+                showInstallControl();
+              }
             } catch (error) {
               console.warn('No se pudo completar la solicitud de instalación:', error);
+              showInstallControl();
             }
             return;
           }
+
+          // Instrucciones para navegadores que no exponen beforeinstallprompt.
+          const ua = navigator.userAgent || '';
+          const isIOS = /iphone|ipad|ipod/i.test(ua) ||
+            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+          const isAndroid = /android/i.test(ua);
+
           if (isIOS) {
-            alert('En Safari, pulsa Compartir y selecciona “Agregar a pantalla de inicio”. Abre Camino hacia Jesús desde el nuevo icono.');
+            alert('Para descargar Camino hacia Jesús: pulsa Compartir en Safari y elige “Añadir a pantalla de inicio”. Luego abre la aplicación desde el nuevo icono.');
+          } else if (isAndroid) {
+            alert('Para descargar Camino hacia Jesús: abre el menú ⋮ de Chrome y selecciona “Instalar aplicación” o “Añadir a pantalla de inicio”.');
+          } else {
+            alert('Para instalar Camino hacia Jesús: en Chrome o Edge abre el menú del navegador y selecciona “Instalar aplicación” o “Instalar este sitio como aplicación”.');
           }
         });
       }
 
       window.addEventListener('appinstalled', () => {
         installPrompt = null;
-        hideInstallControl();
+        hideInstallControl(true);
       });
-      window.addEventListener('pageshow', syncInstallControl);
-      document.addEventListener('visibilitychange', syncInstallControl);
-      if (standaloneQuery.addEventListener) standaloneQuery.addEventListener('change', syncInstallControl);
-      else if (standaloneQuery.addListener) standaloneQuery.addListener(syncInstallControl);
 
+      window.addEventListener('pageshow', showInstallControl);
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) showInstallControl();
+      });
+      if (standaloneQuery.addEventListener) {
+        standaloneQuery.addEventListener('change', showInstallControl);
+      } else if (standaloneQuery.addListener) {
+        standaloneQuery.addListener(showInstallControl);
+      }
+
+      // Registrar el Service Worker al terminar el parseo, sin esperar imágenes grandes.
       if ('serviceWorker' in navigator) {
         const registrarSW = () => {
           navigator.serviceWorker.register('./service-worker.js', { scope: './' })
