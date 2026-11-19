@@ -533,6 +533,16 @@ main#inicioPortal{max-width:1120px!important;padding:8px 20px 30px!important;dis
 .lds-guide-card .guide-challenge{background:#fff8df;border-radius:9px;padding:8px;color:#765b1b;font-size:.78rem}
 @media(max-width:900px){.lds-guide-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:540px){.lds-guide-grid{grid-template-columns:1fr}.lds-guide-heading h3{font-size:1.08rem}.lds-guide-heading p{font-size:.82rem}.lds-guide-card .guide-art{height:62px}.lds-guide-card>p{min-height:0}}
+
+/* Guía práctica: tarjetas en disposición vertical */
+.lds-guide-grid{grid-template-columns:1fr!important;gap:14px!important}
+.lds-guide-card{width:100%!important;display:grid!important;grid-template-columns:100px minmax(0,1fr)!important;grid-template-rows:auto auto auto!important;align-items:center!important;column-gap:14px!important;padding:15px 17px!important}
+.lds-guide-card .guide-art{grid-column:1;grid-row:1 / span 3;height:100px!important;min-height:100px!important}
+.lds-guide-card .guide-card-title{grid-column:2;grid-row:1}
+.lds-guide-card>p{grid-column:2;grid-row:2;min-height:0!important}
+.lds-guide-card .guide-action{grid-column:2;grid-row:3;justify-self:start;width:auto!important;min-width:190px}
+.lds-guide-card .collapse{grid-column:1 / -1;grid-row:4;width:100%}
+@media(max-width:540px){.lds-guide-card{grid-template-columns:72px minmax(0,1fr)!important;column-gap:10px!important;padding:12px!important}.lds-guide-card .guide-art{height:76px!important;min-height:76px!important;font-size:1.6rem!important}.lds-guide-card .guide-action{min-width:0!important;width:100%!important}}
 </style>
 
 </head>
