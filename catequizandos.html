@@ -1212,6 +1212,40 @@ header{padding-top:14px;padding-bottom:12px}
 .tareas-cargando-v7,.tareas-vacias-v7{padding:16px;border:1px dashed #d7e0e9;border-radius:13px;background:#f8fafc;color:#63748a;font-size:12px;font-weight:800}
 @media(max-width:620px){.tareas-wrapper-v7{padding:14px}.tareas-controles-v7{grid-template-columns:1fr}.tarjeta-tarea-v7{padding:13px}.tarjeta-tarea-v7 h4{font-size:18px}.btn-tarea-voz-v7,.btn-tarea-evidencia-v7{flex-basis:100%}}
 
+
+/* V8: orden visual y paneles plegados */
+.portal-sync-status{display:none!important}
+#calGrid .day.today{outline:3px solid #e4a62e;outline-offset:1px;background:#fff2c9;color:#7a4a00;font-weight:1000;box-shadow:0 0 0 2px #fff}
+#calGrid .day.today.selected{background:#17395e;color:#fff;outline-color:#e4a62e}
+.tareas-details-v8{border:0}
+.tareas-summary-v8{display:flex;align-items:center;justify-content:space-between;gap:14px;list-style:none;cursor:pointer;padding:16px 17px;border:1px solid #e5d4b5;border-radius:15px;background:#fff7e6}
+.tareas-summary-v8::-webkit-details-marker{display:none}
+.tareas-summary-copy{display:flex;flex-direction:column;gap:4px;min-width:0}
+.tareas-summary-copy .eyebrow{margin:0}
+.tareas-summary-copy strong{color:#12345a;font:700 19px 'Fredoka',sans-serif}
+.tareas-summary-copy small{color:#68788d;font-size:11px;font-weight:800}
+.tareas-summary-action-v8{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;padding:9px 13px;border-radius:999px;background:#17395e;color:#fff;font-size:11px;font-weight:900}
+.tareas-details-v8[open] .tareas-summary-v8{border-color:#e6bd61;border-radius:15px 15px 0 0}
+.tareas-details-v8[open] .tareas-summary-action-v8 b{transform:rotate(180deg)}
+.tareas-summary-action-v8 b{display:inline-block;transition:transform .18s}
+.tareas-details-content-v8{padding:16px;border:1px solid #e5d4b5;border-top:0;border-radius:0 0 15px 15px;background:#fff}
+.tareas-wrapper-v7{padding:12px;background:#fffdf7}
+.tareas-wrapper-v7 .tareas-header-v7 h3{display:none}
+.tareas-wrapper-v7 .regla-foto-v7{margin-bottom:13px}
+.followup-task-shortcut{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.followup-task-shortcut p{margin:0;color:#64758b;font-size:12px;line-height:1.45}
+.followup-task-shortcut-count{color:#8a5b0b;font-size:11px;font-weight:900}
+.btn-abrir-tareas-v8{margin-top:2px;padding:9px 13px;border:0;border-radius:10px;background:#17395e;color:#fff;font:900 11px 'Nunito',sans-serif;cursor:pointer}
+.notice-welcome-v8{background:#f0f7ff!important;border-left-color:#4385c5!important}
+.notice-gestores-v8{background:#fff7e8!important;border-left-color:#dc9c26!important}
+.notice-welcome-v8 p,.notice-gestores-v8 p{line-height:1.5}
+@media(max-width:600px){
+ .tareas-summary-v8{align-items:flex-start;padding:13px}
+ .tareas-summary-copy strong{font-size:17px}
+ .tareas-summary-action-v8{padding:8px 10px}
+ .tareas-details-content-v8{padding:11px}
+}
+
 </style>
 </head>
 <body>
@@ -1316,7 +1350,6 @@ header{padding-top:14px;padding-bottom:12px}
         <p id="welcomeStudentMeta">Explora los 6 bloques oficiales y consulta tus temas, subtítulos, objetivos, valores y citas bíblicas desde tu hoja de catequesis.</p>
       </div>
     </div>
-    <div id="portalSyncStatus" class="portal-sync-status" role="status" aria-live="polite">Conectando con Google Sheets...</div>
 
     <section class="section">
       <div class="eyebrow">Itinerario Oficial · Google Sheet</div>
@@ -1387,7 +1420,7 @@ header{padding-top:14px;padding-bottom:12px}
             <h3>Calendario</h3>
             <div class="cal-controls">
               <button type="button" id="calPrev" aria-label="Mes anterior">‹</button>
-              <strong id="calMonthLabel">Junio 2026</strong>
+              <strong id="calMonthLabel">Mes actual</strong>
               <button type="button" id="calNext" aria-label="Mes siguiente">›</button>
             </div>
           </div>
@@ -1416,21 +1449,31 @@ header{padding-top:14px;padding-bottom:12px}
       <div id="studentsGrid" class="students-grid"><div class="followup-loading">🌟 Cargando tu seguimiento desde Google Sheets...</div></div>
 
       <section id="seccion-tareas-familia" class="tareas-wrapper-v7" aria-labelledby="titulo-tareas-familia">
-        <div class="tareas-header-v7">
-          <div class="eyebrow">Aprendemos también en casa</div>
-          <h3 id="titulo-tareas-familia">🏠 Tarea didáctica en familia</h3>
-          <p class="regla-foto-v7">📸 Realiza la actividad con tu familia y toma una fotografía que muestre la acción indicada. La evidencia se guardará en Google Drive y el envío se registrará en Google Sheets.</p>
-          <div class="tareas-controles-v7">
-            <select id="selector-tema-tarea" class="select-grande-v7" aria-label="Elegir tema de tarea">
-              <option value="">Cargando las 68 tareas...</option>
-            </select>
-            <input type="search" id="buscador-tema-tarea" class="input-grande-v7" placeholder="🔍 Buscar tema o número..." aria-label="Buscar tarea por tema">
+        <details id="panelTareasFamiliaV7" class="tareas-details-v8">
+          <summary class="tareas-summary-v8">
+            <span class="tareas-summary-copy">
+              <span class="eyebrow">Aprendemos también en casa</span>
+              <strong id="titulo-tareas-familia">🏠 Tarea didáctica en familia</strong>
+              <small id="tareas-summary-count-v8">68 actividades disponibles · abre para elegir tu tema y enviar evidencias</small>
+            </span>
+            <span class="tareas-summary-action-v8">Ver tareas <b>⌄</b></span>
+          </summary>
+          <div class="tareas-details-content-v8">
+            <div class="tareas-header-v7">
+              <p class="regla-foto-v7">📸 Realiza la actividad con tu familia y toma una fotografía que muestre la acción indicada. La evidencia se guardará en Google Drive y el envío se registrará en Google Sheets.</p>
+              <div class="tareas-controles-v7">
+                <select id="selector-tema-tarea" class="select-grande-v7" aria-label="Elegir tema de tarea">
+                  <option value="">Cargando las 68 tareas...</option>
+                </select>
+                <input type="search" id="buscador-tema-tarea" class="input-grande-v7" placeholder="🔍 Buscar tema o número..." aria-label="Buscar tarea por tema">
+              </div>
+              <div id="resumen-tareas-v7" class="resumen-tareas-v7" aria-live="polite">Las tareas se cargan desde Google Sheets.</div>
+            </div>
+            <div id="contenedor-tarjetas-tareas" class="tarjetas-grid-v7">
+              <div class="tareas-cargando-v7">🌱 Cargando tareas desde Google Sheets...</div>
+            </div>
           </div>
-          <div id="resumen-tareas-v7" class="resumen-tareas-v7" aria-live="polite">Las tareas se cargan desde Google Sheets.</div>
-        </div>
-        <div id="contenedor-tarjetas-tareas" class="tarjetas-grid-v7">
-          <div class="tareas-cargando-v7">🌱 Cargando tareas desde Google Sheets...</div>
-        </div>
+        </details>
       </section>
       <div class="communications-panel">
         <div class="communications-heading">
@@ -1444,7 +1487,7 @@ header{padding-top:14px;padding-bottom:12px}
             <div id="catequistasNotices" class="dynamic-items-container"><div class="notice-empty">Cargando comunicados...</div></div>
           </section>
           <section class="communication-column notice-coordination">
-            <h4>📢 Mensajes de coordinación</h4>
+            <h4>📢 Mensajes de los Gestores</h4>
             <div id="coordinadoresNotices" class="dynamic-items-container"><div class="notice-empty">Cargando comunicados...</div></div>
           </section>
           <section class="communication-column notice-family">
@@ -1640,8 +1683,9 @@ let asistenciaPorAlumno = {};
 let tareasPorAlumno = {};
 let resumenPortalCatequizando = null;
 let vozActiva = true;
-let mesActualCal = 5; // Junio 2026
-const anioCal = 2026;
+const FECHA_HOY_CAL = new Date();
+let mesActualCal = FECHA_HOY_CAL.getMonth();
+let anioCal = FECHA_HOY_CAL.getFullYear();
 
 function normalizarUrlFotoGitHub(url) {
   if (!url) return RUTAS_INSIGNIA[0];
@@ -1790,13 +1834,6 @@ function renderizarTarjetasAlumnos(idActivo) {
   const foto = normalizarUrlFotoGitHub(alumno.FOTO || perfil.FOTO || '');
   const hechas = tareas.filter(t => ['ENVIADA','REVISADA'].includes(String(t.ESTADO_ENTREGA || '').toUpperCase())).length;
   const pendientes = Math.max(0,tareas.length-hechas);
-  const listaTareas = tareas.length ? tareas.map(t => {
-    const titulo=escapeQuizHtml(t.TITULO||'Tarea asignada');
-    const desc=escapeQuizHtml(t.DESCRIPCION||'');
-    const fecha=t.FECHA_ENTREGA?escapeQuizHtml(formatearFechaSeguimiento(t.FECHA_ENTREGA)):'Sin fecha de entrega';
-    const estado=escapeQuizHtml(t.ESTADO||'Pendiente');
-    return '<article class="followup-task"><b>'+titulo+'</b>'+(desc?'<p>'+desc+'</p>':'')+'<small>Entrega: '+fecha+' · '+estado+'</small></article>';
-  }).join(''):'<div class="followup-empty">Todavía no tienes tareas asignadas. Cuando tu catequista publique una, aparecerá aquí. ✨</div>';
   const listaBloques = bloques.length ? bloques.map(b => {
     const pct=Math.max(0,Math.min(100,Number(b.porcentaje||0)));
     const nombre=String(b.nombre||('Bloque '+b.numero)).replace(/BLOQUE\s*\d+\s*[—–-]?/i,'').trim()||('Bloque '+b.numero);
@@ -1808,7 +1845,7 @@ function renderizarTarjetasAlumnos(idActivo) {
   '<div class="followup-metrics"><div class="followup-metric metric-attendance"><h4>📅 Asistencia</h4><strong>'+pctText+'</strong><div class="followup-mini-track"><div class="followup-mini-fill" style="width:'+(pctAsistencia==null?0:pctAsistencia)+'%"></div></div><p>'+(asistencia.exito?(Number(asistencia.presentes||0)+' presentes · '+Number(asistencia.tardanzas||0)+' tardanzas · '+Number(asistencia.faltas||0)+' faltas'):escapeQuizHtml(asistencia.mensaje||'Esperando datos de asistencia.'))+'</p></div>'+
   '<div class="followup-metric metric-tasks"><h4>📝 Mis tareas</h4><strong>'+tareas.length+'</strong><p>'+(resumen.tareas&&resumen.tareas.exito?(pendientes+' pendientes · '+hechas+' evidencias enviadas'):escapeQuizHtml((resumen.tareas&&resumen.tareas.mensaje)||'Esperando tareas.'))+'</p></div>'+
   '<div class="followup-metric metric-quizzes"><h4>🎮 Cuestionarios</h4><strong>'+promedio+'</strong><p>Promedio de avance de los seis bloques. Cada bloque muestra su propio porcentaje.</p></div></div>'+
-  '<div class="followup-lower"><section class="followup-subpanel"><h4>📚 Tareas asignadas</h4><div class="followup-task-list">'+listaTareas+'</div></section><section class="followup-subpanel"><h4>🌱 Avance de cuestionarios por bloque</h4><div class="followup-blocks">'+listaBloques+'</div><p class="followup-footnote">El porcentaje refleja las preguntas respondidas del bloque completo. No se muestran cantidades de preguntas al catequizando.</p></section></div></article>';
+  '<div class="followup-lower"><section class="followup-subpanel followup-task-shortcut"><h4>📚 Tareas asignadas</h4><p>Consulta la actividad familiar y envía tu evidencia desde un solo lugar.</p><div class="followup-task-shortcut-count">'+pendientes+' pendientes · '+hechas+' evidencias enviadas</div><button type="button" class="btn-abrir-tareas-v8" onclick="abrirPanelTareasFamiliaV8()">Ver mis tareas y evidencias →</button></section><section class="followup-subpanel"><h4>🌱 Avance de cuestionarios por bloque</h4><div class="followup-blocks">'+listaBloques+'</div><p class="followup-footnote">El porcentaje refleja las preguntas respondidas del bloque completo. No se muestran cantidades de preguntas al catequizando.</p></section></div></article>';
 }
 function formatearFechaSeguimiento(valor) {
   if(!valor)return '—';
@@ -2022,7 +2059,7 @@ function renderizarAvisos(avisos) {
   const esFamilia = a => /PADRE|MADRE|FAMILIA|TUTOR/.test(tipo(a) + ' ' + remitente(a));
   const catequistas = lista.filter(esCatequista);
   const familia = lista.filter(a => !esCatequista(a) && esFamilia(a));
-  const coordinacion = lista.filter(a => !esCatequista(a) && !esFamilia(a));
+  const gestores = lista.filter(a => !esCatequista(a) && !esFamilia(a));
 
   const noLeido = a => a.ES_NO_LEIDO === true ||
     (!a.ES_NO_LEIDO && !/LEID[OA]|ATENDIDO|RESPONDIDO/i.test(String(a.ESTADO || '')) &&
@@ -2039,9 +2076,9 @@ function renderizarAvisos(avisos) {
       '<p>' + mensaje + '</p>' + fecha + '</article>';
   };
   contCat.innerHTML = catequistas.length ? catequistas.map(a => tarjeta(a, '📝', 'teacher')).join('') :
-    '<div class="notice-empty">No hay mensajes publicados de tus catequistas por ahora.</div>';
-  contCoord.innerHTML = coordinacion.length ? coordinacion.map(a => tarjeta(a, '📢', 'coord')).join('') :
-    '<div class="notice-empty">No hay comunicados de coordinación dirigidos a ti.</div>';
+    '<article class="notice-item teacher notice-welcome-v8"><strong>💛 ¡Bienvenido(a) a Camino hacia Jesús!</strong><p>Nos alegra acompañarte en este camino de fe. Participa con alegría, realiza tus actividades y sigue aprendiendo cada día. Tus catequistas estamos aquí para orientarte y caminar contigo. ¡Dios te bendiga!</p><small>Con cariño, tus catequistas</small></article>';
+  contCoord.innerHTML = gestores.length ? gestores.map(a => tarjeta(a, '📢', 'coord')).join('') :
+    '<article class="notice-item coord notice-gestores-v8"><strong>📢 Comunicado de los Gestores · Regularización de documentos</strong><p>Estimadas familias: les recordamos revisar y regularizar los documentos que se encuentren pendientes en el expediente del catequizando. Por favor, comuníquense con los Gestores para completar la documentación correspondiente. Agradecemos su apoyo y compromiso.</p><small>Atentamente, los Gestores</small></article>';
   if (contFamilia) {
     contFamilia.innerHTML = familia.length ? familia.map(a => tarjeta(a, '💛', 'family')).join('') :
       '<div class="notice-empty">No hay mensajes familiares dirigidos a tu cuenta.</div>';
@@ -2061,6 +2098,12 @@ let tareasCatequesisAlumnoV7 = [];
 let tareaSeleccionadaV7 = '';
 let envioEvidenciaOcupadoV7 = false;
 
+function abrirPanelTareasFamiliaV8() {
+  const panel=document.getElementById('panelTareasFamiliaV7');
+  const seccion=document.getElementById('seccion-tareas-familia');
+  if(panel)panel.open=true;
+  if(seccion)seccion.scrollIntoView({behavior:'smooth',block:'start'});
+}
 function normalizarTextoTareaV7(valor) {
   return String(valor || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
 }
@@ -2078,6 +2121,8 @@ function renderizarTareasFamiliaV7(lista) {
   const pendientes=tareasCatequesisAlumnoV7.length-enviadas;
   if(resumen)resumen.innerHTML='<strong>'+tareasCatequesisAlumnoV7.length+'</strong> tareas disponibles · <strong>'+enviadas+
     '</strong> evidencias enviadas · <strong>'+pendientes+'</strong> pendientes';
+  const resumenPlegado=document.getElementById('tareas-summary-count-v8');
+  if(resumenPlegado)resumenPlegado.textContent=tareasCatequesisAlumnoV7.length+' actividades disponibles · '+pendientes+' pendientes · '+enviadas+' evidencias enviadas';
   if(!tareasCatequesisAlumnoV7.length){
     contenedor.innerHTML='<div class="tareas-vacias-v7">Todavía no se han activado las 68 tareas. La catequista debe ejecutar la preparación inicial del módulo.</div>';
     tareaSeleccionadaV7='';return;
@@ -2317,7 +2362,7 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
     // No depende del CORS de fetch POST ni detiene el juego por una respuesta vacía.
     if (!quizVersionV5Verificada) {
       const versionData = await solicitarJSONP(`${API_URL}?action=verificarVersionCuestionarios`);
-      const versionEsperada = 'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V7-TAREAS-EVIDENCIAS';
+      const versionEsperada = 'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V8-ORDEN-FECHAS-MENSAJES';
       if (!versionData || !versionData.exito || versionData.version !== versionEsperada) {
         const detalle = versionData && (versionData.version || versionData.mensaje)
           ? String(versionData.version || versionData.mensaje)
@@ -2523,6 +2568,8 @@ function obtenerClasesDelDia(dia, mes) {
     const texto = String(c.FECHA_PROGRAMADA || '').toLowerCase().trim();
     const matchDia = texto.match(/\b(\d{1,2})\b/);
     if (!matchDia || Number(matchDia[1]) !== dia) return false;
+    const matchAnio = texto.match(/\b(19\d{2}|20\d{2})\b/);
+    if (matchAnio && Number(matchAnio[1]) !== anioCal) return false;
     const mesNombre = MESES_NOMBRE[mes].toLowerCase();
     return texto.includes(mesNombre) || texto.includes(`/${String(mesNum).padStart(2, '0')}`) || texto.includes(`-${String(mesNum).padStart(2, '0')}`);
   });
@@ -2544,19 +2591,23 @@ function renderizarCalendario() {
 
   for (let dia = 1; dia <= diasMes; dia++) {
     const clasesDia = obtenerClasesDelDia(dia, mesActualCal);
-    const esCelebracion = (mesActualCal === 11 && dia === 12);
+    const esCelebracion = (anioCal === 2026 && mesActualCal === 11 && dia === 12);
     const tieneClase = clasesDia.length > 0;
-
+    const esHoy = anioCal === FECHA_HOY_CAL.getFullYear() && mesActualCal === FECHA_HOY_CAL.getMonth() && dia === FECHA_HOY_CAL.getDate();
     let clasesBtn = 'day';
+    if (esHoy) clasesBtn += ' today';
     if (esCelebracion) clasesBtn += ' communion-day';
     else if (tieneClase) {
       clasesBtn += ' classday';
       if (clasesDia[0].TEMA_2) clasesBtn += ' double-session';
     }
-
-    html += `<button type="button" class="${clasesBtn}" ${(!tieneClase && !esCelebracion) ? 'disabled' : ''} onclick="seleccionarDiaCalendario(${dia}, ${mesActualCal}, this)">${dia}</button>`;
+    html += `<button type="button" class="${clasesBtn}" ${(!tieneClase && !esCelebracion && !esHoy) ? 'disabled' : ''} onclick="seleccionarDiaCalendario(${dia}, ${mesActualCal}, this)">${dia}</button>`;
   }
   grid.innerHTML = html;
+  if (anioCal === FECHA_HOY_CAL.getFullYear() && mesActualCal === FECHA_HOY_CAL.getMonth()) {
+    const botonHoy = grid.querySelector('.day.today');
+    if (botonHoy) seleccionarDiaCalendario(FECHA_HOY_CAL.getDate(), mesActualCal, botonHoy);
+  }
 }
 
 function renderizarTarjetaTemaCalendarioV7(tema, clase, indice) {
@@ -2611,7 +2662,10 @@ function seleccionarDiaCalendario(dia, mes, btn) {
   }
   const clasesDia = obtenerClasesDelDia(dia, mes);
   if (!clasesDia.length) {
-    document.getElementById('calSelectedDesc').textContent = 'No hay temas registrados en el Google Sheet para esta fecha.';
+    const esHoy = dia === FECHA_HOY_CAL.getDate() && mes === FECHA_HOY_CAL.getMonth() && anioCal === FECHA_HOY_CAL.getFullYear();
+    document.getElementById('calSelectedDesc').textContent = esHoy
+      ? 'Hoy no hay clase programada. Aquí aparecerán los temas cuando exista un encuentro registrado para esta fecha.'
+      : 'No hay temas registrados en el Google Sheet para esta fecha.';
     document.getElementById('calTopicsList').innerHTML = '';
     return;
   }
@@ -2670,11 +2724,15 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('calPrev').addEventListener('click', () => {
-    if (mesActualCal > 5) { mesActualCal--; renderizarCalendario(); }
+    mesActualCal--;
+    if (mesActualCal < 0) { mesActualCal = 11; anioCal--; }
+    renderizarCalendario();
   });
 
   document.getElementById('calNext').addEventListener('click', () => {
-    if (mesActualCal < 11) { mesActualCal++; renderizarCalendario(); }
+    mesActualCal++;
+    if (mesActualCal > 11) { mesActualCal = 0; anioCal++; }
+    renderizarCalendario();
   });
 
   document.getElementById('btnToggleVoice').addEventListener('click', function() {
