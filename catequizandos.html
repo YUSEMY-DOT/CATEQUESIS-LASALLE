@@ -1010,6 +1010,83 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
   .login-mobile-kid:nth-child(1){background-position:0% 61%}.login-mobile-kid:nth-child(2){background-position:16.6667% 61%}.login-mobile-kid:nth-child(3){background-position:33.3333% 61%}.login-mobile-kid:nth-child(4){background-position:50% 61%}.login-mobile-kid:nth-child(5){background-position:66.6667% 61%}.login-mobile-kid:nth-child(6){background-position:83.3333% 61%}.login-mobile-kid:nth-child(7){background-position:100% 61%}
   .login-mobile-motto { width: calc(100% + 32px); margin-top: auto; padding: 17px 12px; border-top: 6px solid #dfb326; background: #10254e; color: #fff; text-align: center; font: 900 12px/1.4 Arial, sans-serif; }
 }
+
+/* V6 — cabecera organizada */
+header{padding:22px clamp(18px,3.6vw,44px) 30px}
+.topbar{justify-content:flex-start;margin-bottom:10px}
+.brand{min-width:0}
+.crest{width:78px;height:78px;flex:0 0 78px}
+.hero{grid-template-columns:minmax(0,1.08fr) minmax(390px,.92fr);align-items:start;gap:28px}
+.hero-copy{min-width:0;padding-top:12px}
+.hero-copy p{max-width:680px}
+.hero-copy .top-actions{margin-top:18px;justify-content:flex-start;gap:9px}
+.top-actions{width:auto;display:flex;flex-wrap:wrap;align-items:center}
+.top-actions .btn-action{min-height:39px;padding:9px 14px;justify-content:center;white-space:nowrap}
+.hero-right{width:100%;justify-content:flex-end;align-items:flex-start}
+.countdown{width:100%;max-width:560px;padding:20px 22px;border-radius:20px}
+.countdown-main-title{margin-bottom:12px}
+.countdown-main-title b{font-size:clamp(17px,1.7vw,22px)}
+.timer{gap:9px}.timebox{min-height:66px;justify-content:center}
+@media(max-width:1024px){.hero{grid-template-columns:1fr;gap:18px}.hero-copy{padding-top:4px}.hero-right{justify-content:flex-start}.countdown{max-width:none}}
+@media(max-width:600px){
+ header{padding:18px 15px 22px}.topbar{margin-bottom:8px}.brand{gap:11px}.crest{width:58px;height:58px;flex-basis:58px}
+ .brand-text h2{font-size:16px}.brand-text small{font-size:9px;letter-spacing:.35px}
+ .hero-copy h1{font-size:clamp(27px,8vw,36px)}.hero-copy .top-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;margin-top:16px;gap:8px}
+ .top-actions .btn-action{width:100%;min-width:0;font-size:12px;padding:9px 7px}.countdown{padding:17px 14px}
+ .countdown-subdetail,.countdown-note{font-size:10px}
+}
+/* V6 — tarjeta privada de seguimiento */
+.post-calendar-section{margin-top:42px;padding-top:32px}
+.followup-heading{margin-bottom:7px!important}
+.followup-intro{margin:0 0 18px;color:var(--muted);font-size:14px;font-weight:700}
+.students-grid{display:block;margin:0 0 26px}
+.followup-loading,.followup-error{padding:18px;border-radius:16px;background:#fff;border:1px dashed #d9cba9;color:#52677f;font-weight:800}
+.followup-panel{background:#fff;border:1px solid #e5d5b8;border-radius:22px;padding:20px;box-shadow:0 7px 22px rgba(18,52,90,.06)}
+.followup-panel-head{display:flex;align-items:center;gap:14px;padding-bottom:16px;border-bottom:1px solid #f0e6d2}
+.followup-avatar{width:58px;height:58px;flex:0 0 58px;border:2px solid #f0c95c;border-radius:50%;object-fit:cover;background:#fff7dc}
+.followup-name{min-width:0;flex:1}.followup-name h3{margin:0;font:700 19px 'Fredoka',sans-serif;color:#12345a}
+.followup-name p{margin:2px 0 0;color:#65768b;font-size:12px;font-weight:800}
+.followup-synced{background:#eefaf2;color:#17663a;border:1px solid #c7e8d0;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:900;white-space:nowrap}
+.followup-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:16px}
+.followup-metric{min-width:0;background:#fffcf6;border:1px solid #efdfbf;border-radius:16px;padding:15px}
+.followup-metric h4{margin:0 0 8px;color:#6b7788;font:900 11px 'Nunito',sans-serif;text-transform:uppercase;letter-spacing:.7px}
+.followup-metric strong{display:block;color:#12345a;font:700 28px/1.1 'Fredoka',sans-serif}
+.followup-metric p{margin:7px 0 0;color:#64758b;font-size:11px;font-weight:800}
+.followup-mini-track{height:8px;border-radius:99px;background:#e8edf2;overflow:hidden;margin-top:10px}
+.followup-mini-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#25a56b,#8ccf57);transition:width .35s ease}
+.followup-lower{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:14px;margin-top:15px}
+.followup-subpanel{min-width:0;border:1px solid #e8dfce;background:#fff;border-radius:16px;padding:15px}
+.followup-subpanel h4{margin:0 0 11px;font:700 16px 'Fredoka',sans-serif;color:#12345a}
+.followup-task-list{display:grid;gap:8px}
+.followup-task{padding:10px 11px;background:#fffaf0;border:1px solid #f0e2c5;border-radius:11px}
+.followup-task b{display:block;color:#193453;font-size:13px}.followup-task p{margin:3px 0;color:#607086;font-size:11px;line-height:1.45}
+.followup-task small{color:#8a6419;font-weight:900;font-size:10px}
+.followup-empty{color:#718095;background:#f7f9fc;border:1px dashed #d5deea;border-radius:11px;padding:12px;font-size:12px;font-weight:800}
+.followup-blocks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px}
+.followup-block{min-width:0}.followup-block-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:5px}
+.followup-block-head span{color:#334b67;font-size:11px;font-weight:900;line-height:1.25}
+.followup-block-head b{color:#12345a;font:700 13px 'Fredoka',sans-serif;white-space:nowrap}
+.followup-block .followup-mini-track{margin-top:0;height:7px}
+.followup-footnote{margin:12px 0 0;color:#7a8797;font-size:10px;font-weight:700}
+@media(max-width:760px){.followup-metrics{grid-template-columns:1fr}.followup-lower{grid-template-columns:1fr}.followup-blocks{grid-template-columns:1fr}.followup-synced{display:none}.followup-panel{padding:14px}}
+/* V6 — panel único de comunicaciones */
+.communications-panel{background:#fff;border:1px solid #e5d5b8;border-radius:22px;padding:20px;box-shadow:0 7px 22px rgba(18,52,90,.06)}
+.communications-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-bottom:14px;border-bottom:1px solid #f0e6d2;margin-bottom:14px}
+.communications-heading h3{margin:0;color:#12345a;font:700 22px 'Fredoka',sans-serif}
+.communications-tag{border-radius:999px;background:#fff4d1;color:#8c5c00;padding:6px 11px;font-size:10px;font-weight:900;white-space:nowrap}
+.communications-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.communication-column{min-width:0;padding:14px;background:#fffcf7;border:1px solid #eee2cc;border-radius:16px;display:flex;flex-direction:column;gap:10px}
+.communication-column h4{color:#12345a;font:700 16px 'Fredoka',sans-serif;margin:0}
+.communication-column .dynamic-items-container{max-height:280px;overflow-y:auto}.communication-column .notice-item{overflow-wrap:anywhere}
+.notice-empty{border:1px dashed #d8dfeb;border-radius:11px;background:#f8fafc;color:#68788d;padding:12px;font-size:12px;font-weight:800}
+.communication-help{margin:-3px 0 0;font-size:11px;color:#69798e;font-weight:700}
+.communication-column .interactive-form{gap:7px}.communication-column .interactive-form label{color:#435a75;font-size:11px;font-weight:900;margin-top:2px}
+.communication-column .interactive-form input,.communication-column .interactive-form textarea,.communication-column .interactive-form select{font-size:12px;padding:9px 11px;background:#fff}
+.communication-column .btn-docente-submit{align-self:stretch;min-height:38px}
+.message-status{min-height:18px;font-size:11px;line-height:1.4;font-weight:900;color:#12345a}
+@media(max-width:900px){.communications-grid{grid-template-columns:1fr 1fr}.communication-form-column{grid-column:1/-1}}
+@media(max-width:600px){.communications-panel{padding:14px}.communications-grid{grid-template-columns:1fr}.communication-form-column{grid-column:auto}.communications-heading{align-items:flex-start}.communications-heading h3{font-size:19px}.communications-tag{display:none}}
+
 </style>
 </head>
 <body>
@@ -1030,7 +1107,7 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
 
   <div class="login-mobile">
     <div class="login-mobile-brand">
-      <img src="./assets/LOGO%20LASALLE.png" alt="Insignia La Salle" class="js-logo-img">
+      <img src="./assets/insignia.png" alt="Insignia La Salle" class="js-logo-img">
       <div class="login-mobile-brand-copy">
         <b>COLEGIO PRIVADO LA SALLE DEL SUR</b>
         <span>Camino hacia Jesús</span>
@@ -1065,24 +1142,25 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
   <header>
     <div class="topbar">
       <div class="brand">
-        <img src="./assets/LOGO%20LASALLE.png" alt="Colegio La Salle del Sur" class="crest js-logo-img">
+        <img src="./assets/insignia.png" alt="Colegio La Salle del Sur" class="crest js-logo-img">
         <div class="brand-text">
           <h2>COLEGIO LA SALLE DEL SUR</h2>
           <small>Programa de Catequesis · Parroquia San Pedro de Lurín</small>
         </div>
       </div>
-      <div class="top-actions">
-        <button type="button" class="btn-action btn-actualizar" id="btnRefreshPortal">🔄 Actualizar</button>
-        <button type="button" class="btn-action mute-toggle" id="btnToggleVoice">🔊 Voz Activa</button>
-        <a href="index.html" class="btn-action home">🏠 Inicio</a>
-        <button type="button" class="btn-action btn-logout" id="btnLogout">🚪 Salir</button>
-      </div>
+      
     </div>
 
     <div class="hero">
       <div class="hero-copy">
         <h1>¡Portal de <span>Catequizandos</span>! 💛</h1>
         <p>Sembrando fe, cultivando valores y construyendo amistad con Jesús.</p>
+        <div class="top-actions">
+        <button type="button" class="btn-action btn-actualizar" id="btnRefreshPortal">🔄 Actualizar</button>
+        <button type="button" class="btn-action mute-toggle" id="btnToggleVoice">🔊 Voz Activa</button>
+        <a href="index.html" class="btn-action home">🏠 Inicio</a>
+        <button type="button" class="btn-action btn-logout" id="btnLogout">🚪 Salir</button>
+      </div>
       </div>
       <div class="hero-right">
         <div class="countdown">
@@ -1106,7 +1184,7 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
 
   <main>
     <div class="kid-welcome">
-      <img id="welcomeStudentAvatar" src="./assets/LOGO%20LASALLE.png" alt="Foto Catequizando" class="welcome-img js-logo-img">
+      <img id="welcomeStudentAvatar" src="./assets/insignia.png" alt="Foto Catequizando" class="welcome-img js-logo-img">
       <div class="welcome-text">
         <div class="eyebrow">✨ Tu aventura de fe comienza aquí</div>
         <h3>¡Hola, <span id="welcomeStudentName">pequeño amigo de Jesús</span>! 💛</h3>
@@ -1206,40 +1284,42 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
     </section>
 
     <section class="post-calendar-section">
-      <div class="eyebrow">Control de Catequizandos Oficial</div>
-      <h2 style="font:700 28px 'Fredoka',sans-serif; color:#12345a; margin:0 0 20px;">📊 Asistencia, Tareas y Seguimiento por Alumno</h2>
-      <div id="studentsGrid" class="students-grid"></div>
-
-      <div class="notifications-layout">
-        <div class="notice-card">
-          <h3>📝 Mensajes de las Catequistas</h3>
-          <p style="margin:0; font-size:13px; color:var(--muted); font-weight:700;">Comunicados oficiales publicados por las catequistas.</p>
-          <div id="catequistasNotices" class="dynamic-items-container">
-            <div class="notice-item">📝 <strong>Miss Lily & Miss Kiara:</strong> Bienvenidos al portal de preparación. Recuerden revisar el calendario de encuentros y completar sus fichas a tiempo. ✨</div>
-          </div>
+      <div class="eyebrow">Tu espacio personal</div>
+      <h2 class="followup-heading">📊 Mi seguimiento de catequesis</h2>
+      <p class="followup-intro">Consulta tus asistencias, tareas y cuánto has avanzado en los seis bloques. Esta información corresponde únicamente a tu cuenta.</p>
+      <div id="studentsGrid" class="students-grid"><div class="followup-loading">🌟 Cargando tu seguimiento desde Google Sheets...</div></div>
+      <div class="communications-panel">
+        <div class="communications-heading">
+          <div><div class="eyebrow">Estamos en contacto</div><h3>💌 Comunicaciones y mensajes</h3></div>
+          <span class="communications-tag">La Salle del Sur</span>
         </div>
-
-        <div class="notice-card">
-          <h3>📢 Mensajes de los Coordinadores</h3>
-          <p style="margin:0; font-size:13px; color:var(--muted); font-weight:700;">Avisos oficiales de la coordinación y parroquia.</p>
-          <div id="coordinadoresNotices" class="dynamic-items-container">
-            <div class="notice-item coord">📢 <strong>Coordinación Parroquial:</strong> Presentar las constancias y fichas de Bautismo actualizadas para el expediente general. 🙏</div>
-          </div>
-        </div>
-
-        <div class="notice-card">
-          <h3>💬 Mensajes de Alumnos a las Catequistas</h3>
-          <form id="studentMessageForm" class="interactive-form">
-            <select id="msgDestinatario" required>
-              <option value="">Dirigido a catequista...</option>
-              <option value="LDS-CAT-002">Kiara Morales Elguera</option>
-              <option value="LDS-CAT-001">Lily Melo Azañero</option>
-            </select>
-            <input type="text" id="msgAsunto" placeholder="Asunto de tu mensaje" required>
-            <textarea id="msgTexto" rows="3" placeholder="Escribe aquí tu consulta o mensaje..." required></textarea>
-            <button type="submit" class="btn-docente-submit">✉️ Enviar a Catequista</button>
-            <div id="msgStatus" style="font-size:12px; font-weight:800; color:#12345a;"></div>
-          </form>
+        <div class="communications-grid">
+          <section class="communication-column">
+            <h4>📝 Mensajes de tus catequistas</h4>
+            <div id="catequistasNotices" class="dynamic-items-container"><div class="notice-empty">Cargando comunicados...</div></div>
+          </section>
+          <section class="communication-column">
+            <h4>📢 Mensajes de coordinación</h4>
+            <div id="coordinadoresNotices" class="dynamic-items-container"><div class="notice-empty">Cargando comunicados...</div></div>
+          </section>
+          <section class="communication-column communication-form-column">
+            <h4>💬 Escribe a tu catequista</h4>
+            <p class="communication-help">Envía una consulta o comparte una duda. Tu mensaje llegará a la catequista que selecciones.</p>
+            <form id="studentMessageForm" class="interactive-form">
+              <label for="msgDestinatario">Enviar a</label>
+              <select id="msgDestinatario" required>
+                <option value="">Selecciona una catequista...</option>
+                <option value="LDS-CAT-002">Kiara Morales Elguera</option>
+                <option value="LDS-CAT-001">Lily Melo Azañero</option>
+              </select>
+              <label for="msgAsunto">Asunto</label>
+              <input type="text" id="msgAsunto" maxlength="120" placeholder="¿Sobre qué deseas consultar?" required>
+              <label for="msgTexto">Tu mensaje</label>
+              <textarea id="msgTexto" rows="4" maxlength="1500" placeholder="Escribe aquí tu consulta o mensaje..." required></textarea>
+              <button type="submit" class="btn-docente-submit" id="btnEnviarMensajeAlumno">✉️ Enviar mensaje</button>
+              <div id="msgStatus" class="message-status" role="status" aria-live="polite"></div>
+            </form>
+          </section>
         </div>
       </div>
     </section>
@@ -1345,13 +1425,38 @@ function _quizEfectoRespuestaV5(correcta) {
 }
 
 
+let quizVozTokenV6=0,quizVozFinalizarV6=null,quizVozRespaldoV6=null;
+function quizCancelarVozV6(continuar){
+  quizVozTokenV6++;
+  if(quizVozRespaldoV6){clearTimeout(quizVozRespaldoV6);quizVozRespaldoV6=null;}
+  const fin=quizVozFinalizarV6;quizVozFinalizarV6=null;
+  if('speechSynthesis'in window){try{window.speechSynthesis.cancel();}catch(e){}}
+  if(continuar&&typeof fin==='function')setTimeout(fin,0);
+}
+function quizHablarV6(texto,alTerminar){
+  const frase=String(texto||'').trim();quizCancelarVozV6(false);
+  if(!frase||!vozActiva||!('speechSynthesis'in window)||typeof SpeechSynthesisUtterance==='undefined'){if(typeof alTerminar==='function')setTimeout(alTerminar,120);return;}
+  const token=++quizVozTokenV6,utter=new SpeechSynthesisUtterance(frase);
+  utter.lang='es-PE';utter.rate=1.12;utter.pitch=1.03;utter.volume=1;
+  try{const voces=window.speechSynthesis.getVoices()||[];const esp=voces.find(v=>/^es-PE$/i.test(v.lang))||voces.find(v=>/^es-(MX|US|CO|AR|CL|ES)/i.test(v.lang))||voces.find(v=>/^es\\b/i.test(v.lang));if(esp)utter.voice=esp;}catch(e){}
+  let done=false;
+  const finish=()=>{if(done||token!==quizVozTokenV6)return;done=true;if(quizVozRespaldoV6){clearTimeout(quizVozRespaldoV6);quizVozRespaldoV6=null;}quizVozFinalizarV6=null;if(typeof alTerminar==='function')alTerminar();};
+  quizVozFinalizarV6=finish;utter.onend=finish;utter.onerror=finish;
+  quizVozRespaldoV6=setTimeout(finish,Math.min(40000,Math.max(5000,frase.length*75+2200)));
+  try{window.speechSynthesis.speak(utter);}catch(e){finish();}
+}
+function quizAnimacionesV6(){
+  if(document.getElementById('quizAnimacionesV6'))return;
+  const st=document.createElement('style');st.id='quizAnimacionesV6';
+  st.textContent='@keyframes quizEntradaV6{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes quizShakeV6{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px)}}@keyframes quizPopV6{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}.quiz-panel-entrada-v6{animation:quizEntradaV6 .28s ease-out both}.quiz-option-correct-v6{animation:quizPopV6 .45s ease-out}.quiz-option-wrong-v6{animation:quizShakeV6 .38s ease-out}.quiz-feedback-v6{animation:quizEntradaV6 .25s ease-out both}@media(prefers-reduced-motion:reduce){.quiz-panel-entrada-v6,.quiz-option-correct-v6,.quiz-option-wrong-v6,.quiz-feedback-v6{animation:none!important}}';
+  document.head.appendChild(st);
+}
+
 // Rutas candidatas de la insignia en assets/ para evitar imagen rota
 const RUTAS_INSIGNIA = [
-  './assets/LOGO%20LASALLE.png',
-  './assets/logo.png',
-  './assets/LOGO.png',
   './assets/insignia.png',
-  'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/LOGO%20LASALLE.png'
+  './assets/logo-la-salle.webp',
+  'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/insignia.png'
 ];
 
 function configurarInsignias() {
@@ -1384,6 +1489,7 @@ let sesionesSheet = [];
 let clasesSheet = [];
 let asistenciaPorAlumno = {};
 let tareasPorAlumno = {};
+let resumenPortalCatequizando = null;
 let vozActiva = true;
 let mesActualCal = 5; // Junio 2026
 const anioCal = 2026;
@@ -1521,45 +1627,44 @@ function desbloquearPortal(perfil) {
 function renderizarTarjetasAlumnos(idActivo) {
   const grid = document.getElementById('studentsGrid');
   if (!grid) return;
-
-  grid.innerHTML = listaCatequizandos.map(st => {
-    const esActual = st.ID_NINO === idActivo;
-    const datoAsist = asistenciaPorAlumno[st.ID_NINO] || {};
-    const datoTarea = tareasPorAlumno[st.ID_NINO] || {};
-    const asistenciaTexto = datoAsist.porcentaje || st.ASISTENCIA || '—';
-    const tareasTexto = datoTarea.resumen || datoAsist.tareas || '—';
-    const porcentajeNum = parseFloat(String(asistenciaTexto).replace(',', '.')) || 0;
-    const fotoUrl = normalizarUrlFotoGitHub(st.FOTO);
-
-    return `
-      <article class="student-card ${esActual ? 'current-student' : ''}">
-        <div class="student-header">
-          <img src="${fotoUrl}" alt="${st.NOMBRE_COMPLETO}" class="student-avatar" onerror="this.src='${RUTAS_INSIGNIA[0]}'">
-          <div class="student-info">
-            <h4>${st.NOMBRE_COMPLETO}</h4>
-            <small>ID: ${st.ID_NINO}${st.GRADO ? ' · ' + st.GRADO : ''}</small>
-          </div>
-        </div>
-        <div class="metrics-box">
-          <div class="metric-row">
-            <div class="metric-label">
-              <span>Asistencia (Sheet)</span>
-              <span>${asistenciaTexto}</span>
-            </div>
-            <div class="progress-track">
-              <div class="progress-fill-attendance" style="width:${Math.min(100, Math.max(0, porcentajeNum))}%"></div>
-            </div>
-          </div>
-          <div class="metric-row">
-            <div class="metric-label">
-              <span>Tareas (Sheet)</span>
-              <span>${tareasTexto}</span>
-            </div>
-          </div>
-        </div>
-      </article>
-    `;
-  }).join('');
+  const perfil = JSON.parse(localStorage.getItem('lds_cat_perfil') || '{}');
+  const alumno = listaCatequizandos.find(x => String(x.ID_NINO) === String(idActivo)) || perfil;
+  if (!alumno || !alumno.ID_NINO) {
+    grid.innerHTML = '<div class="followup-empty">No se pudo identificar tu cuenta para mostrar el seguimiento.</div>';
+    return;
+  }
+  const resumen = resumenPortalCatequizando || {};
+  const asistencia = resumen.asistencia || {};
+  const pctAsistencia = asistencia.porcentaje == null ? null : Math.max(0,Math.min(100,Number(asistencia.porcentaje)||0));
+  const tareas = Array.isArray(resumen.tareas && resumen.tareas.datos) ? resumen.tareas.datos : [];
+  const bloques = Array.isArray(resumen.bloques) ? resumen.bloques : [];
+  const foto = normalizarUrlFotoGitHub(alumno.FOTO || perfil.FOTO || '');
+  const hechas = tareas.filter(t => /COMPLET|ENTREG|REALIZ|CUMPL|APROB/i.test(String(t.ESTADO||''))).length;
+  const pendientes = Math.max(0,tareas.length-hechas);
+  const listaTareas = tareas.length ? tareas.map(t => {
+    const titulo=escapeQuizHtml(t.TITULO||'Tarea asignada');
+    const desc=escapeQuizHtml(t.DESCRIPCION||'');
+    const fecha=t.FECHA_ENTREGA?escapeQuizHtml(formatearFechaSeguimiento(t.FECHA_ENTREGA)):'Sin fecha de entrega';
+    const estado=escapeQuizHtml(t.ESTADO||'Pendiente');
+    return '<article class="followup-task"><b>'+titulo+'</b>'+(desc?'<p>'+desc+'</p>':'')+'<small>Entrega: '+fecha+' · '+estado+'</small></article>';
+  }).join(''):'<div class="followup-empty">Todavía no tienes tareas asignadas. Cuando tu catequista publique una, aparecerá aquí. ✨</div>';
+  const listaBloques = bloques.length ? bloques.map(b => {
+    const pct=Math.max(0,Math.min(100,Number(b.porcentaje||0)));
+    const nombre=String(b.nombre||('Bloque '+b.numero)).replace(/BLOQUE\s*\d+\s*[—–-]?/i,'').trim()||('Bloque '+b.numero);
+    return '<div class="followup-block"><div class="followup-block-head"><span>'+escapeQuizHtml('Bloque '+b.numero+' · '+nombre)+'</span><b>'+pct.toFixed(1).replace(/\.0$/,'')+'%</b></div><div class="followup-mini-track"><div class="followup-mini-fill" style="width:'+pct+'%"></div></div></div>';
+  }).join(''):'<div class="followup-empty">No se pudo cargar el porcentaje de los bloques. '+escapeQuizHtml(resumen.bloquesError||'')+'</div>';
+  const pctText=pctAsistencia==null?'—':pctAsistencia.toFixed(1).replace(/\.0$/,'')+'%';
+  const promedio=bloques.length?(bloques.reduce((s,b)=>s+Number(b.porcentaje||0),0)/bloques.length).toFixed(1).replace(/\.0$/,'')+'%':'—';
+  grid.innerHTML='<article class="followup-panel"><div class="followup-panel-head"><img class="followup-avatar" src="'+escapeQuizHtml(foto)+'" alt="Foto del catequizando" onerror="this.src=\''+RUTAS_INSIGNIA[0]+'\'"><div class="followup-name"><h3>'+escapeQuizHtml(alumno.NOMBRE_COMPLETO||((alumno.NOMBRES||'')+' '+(alumno.APELLIDOS||'')))+'</h3><p>'+escapeQuizHtml(alumno.ID_NINO)+(alumno.GRADO?' · '+escapeQuizHtml(alumno.GRADO):'')+'</p></div><span class="followup-synced">🔒 Seguimiento personal</span></div>'+
+  '<div class="followup-metrics"><div class="followup-metric"><h4>📅 Asistencia</h4><strong>'+pctText+'</strong><div class="followup-mini-track"><div class="followup-mini-fill" style="width:'+(pctAsistencia==null?0:pctAsistencia)+'%"></div></div><p>'+(asistencia.exito?(Number(asistencia.presentes||0)+' presentes · '+Number(asistencia.tardanzas||0)+' tardanzas · '+Number(asistencia.faltas||0)+' faltas'):escapeQuizHtml(asistencia.mensaje||'Esperando datos de asistencia.'))+'</p></div>'+
+  '<div class="followup-metric"><h4>📝 Mis tareas</h4><strong>'+tareas.length+'</strong><p>'+(resumen.tareas&&resumen.tareas.exito?(pendientes+' pendientes · '+hechas+' completadas'):escapeQuizHtml((resumen.tareas&&resumen.tareas.mensaje)||'Esperando tareas.'))+'</p></div>'+
+  '<div class="followup-metric"><h4>🎮 Cuestionarios</h4><strong>'+promedio+'</strong><p>Promedio de avance de los seis bloques. Cada bloque muestra su propio porcentaje.</p></div></div>'+
+  '<div class="followup-lower"><section class="followup-subpanel"><h4>📚 Tareas asignadas</h4><div class="followup-task-list">'+listaTareas+'</div></section><section class="followup-subpanel"><h4>🌱 Avance de cuestionarios por bloque</h4><div class="followup-blocks">'+listaBloques+'</div><p class="followup-footnote">El porcentaje refleja las preguntas respondidas del bloque completo. No se muestran cantidades de preguntas al catequizando.</p></section></div></article>';
+}
+function formatearFechaSeguimiento(valor) {
+  if(!valor)return '—';
+  const fecha=new Date(valor);
+  return isNaN(fecha.getTime())?String(valor):fecha.toLocaleDateString('es-PE',{day:'2-digit',month:'short',year:'numeric'});
 }
 
 // Lectura de programación mediante JSONP: evita el bloqueo CORS de Apps Script
@@ -1593,81 +1698,65 @@ function fechaCalendarioDesdeISO(iso) {
 
 async function cargarDatosPortal() {
   const perfil = JSON.parse(localStorage.getItem('lds_cat_perfil') || '{}');
+  const resumenPromise = cargarResumenSeguimientoPortal(perfil).catch(error => {
+    console.error('Error cargando resumen del catequizando:',error);
+    const grid=document.getElementById('studentsGrid');
+    if(grid)grid.innerHTML='<div class="followup-error">No se pudo sincronizar tu seguimiento. Pulsa Actualizar para intentarlo de nuevo.</div>';
+  });
   try {
-    const data = await solicitarJSONP(`${API_URL}?action=getSesiones`);
-    if (!data || !data.exito) throw new Error((data && data.mensaje) || 'El backend no devolvió la programación.');
-
-    // El backend entrega bloques.sessions y clases.temas. Se adaptan al formato
-    // que ya utiliza este HTML, sin modificar la estructura visual.
-    sesionesSheet = (data.bloques || []).flatMap(b => (b.sessions || []).map(s => ({
-      'N.º DE SESIÓN': s.numeroSesion || s.n || '',
-      ID_SESION: s.id || s.ID_SESION || '',
-      BLOQUE: s.bloque || b.title || '',
-      TEMA: s.tema || '',
-      SUBTEMA: s.subtema || s.desc || '',
-      OBJETIVO: s.objetivo || '',
-      VALOR: s.valor || s.val || '',
-      CITA_BIBLICA: s.cita_biblica || s.cita || '',
-      ACTIVIDAD: s.actividad || '',
-      ESTADO: s.estado || ''
+    const data=await solicitarJSONP(`${API_URL}?action=getSesiones`);
+    if(!data||!data.exito)throw new Error((data&&data.mensaje)||'El backend no devolvió la programación.');
+    sesionesSheet=(data.bloques||[]).flatMap(b=>(b.sessions||[]).map(s=>({
+      'N.º DE SESIÓN':s.numeroSesion||s.n||'',ID_SESION:s.id||s.ID_SESION||'',BLOQUE:s.bloque||b.title||'',
+      TEMA:s.tema||'',SUBTEMA:s.subtema||s.desc||'',OBJETIVO:s.objetivo||'',VALOR:s.valor||s.val||'',
+      CITA_BIBLICA:s.cita_biblica||s.cita||'',ACTIVIDAD:s.actividad||'',ESTADO:s.estado||''
     })));
-
-    clasesSheet = (data.clases || []).map(c => {
-      const temas = c.temas || [];
-      const t1 = temas[0] || {};
-      const t2 = temas[1] || {};
-      const fecha = fechaCalendarioDesdeISO(c.fechaProgramada || c.fecha || '');
+    clasesSheet=(data.clases||[]).map(c=>{
+      const temas=c.temas||[],t1=temas[0]||{},t2=temas[1]||{};
       return {
-        NUMERO_CLASE: c.numeroClase || '',
-        FECHA_PROGRAMADA: fecha,
-        DIA: c.dia || c.diaRegistrado || '',
-        HORA_INICIO: c.horaInicio || '',
-        HORA_FIN: c.horaFin || '',
-        ID_SESION_1: t1.id || '',
-        TEMA_1: t1.tema || '',
-        ID_SESION_2: t2.id || '',
-        TEMA_2: t2.tema || '',
-        SUB_TEMAS: [t1.subtema, t2.subtema].filter(Boolean).join(' · '),
-        BLOQUE: c.bloque || '',
-        CATEQUISTA: c.catequista || ''
+        NUMERO_CLASE:c.numeroClase||'',FECHA_PROGRAMADA:fechaCalendarioDesdeISO(c.fechaProgramada||c.fecha||''),
+        DIA:c.dia||c.diaRegistrado||'',HORA_INICIO:c.horaInicio||'',HORA_FIN:c.horaFin||'',
+        ID_SESION_1:t1.id||'',TEMA_1:t1.tema||'',ID_SESION_2:t2.id||'',TEMA_2:t2.tema||'',
+        SUB_TEMAS:[t1.subtema,t2.subtema].filter(Boolean).join(' · '),BLOQUE:c.bloque||'',CATEQUISTA:c.catequista||''
       };
     });
-
-    console.info('Programación Google Sheets cargada:', sesionesSheet.length, 'temas y', clasesSheet.length, 'clases.');
-  } catch (e) {
-    console.error('Error sincronizando programación de Google Sheets:', e);
-    sesionesSheet = [];
-    clasesSheet = [];
-    const panel = document.getElementById('bloqueDetallePanel');
-    const grid = document.getElementById('temasBloqueGrid');
-    if (panel && grid) {
-      panel.hidden = false;
-      grid.innerHTML = `<p style="font-weight:700;color:#b42318;">No se pudo cargar la programación desde Google Sheets: ${escapeQuizHtml(e.message || e)}. Verifica que el GS esté implementado y publicado.</p>`;
-    }
+    console.info('Programación Google Sheets cargada:',sesionesSheet.length,'temas y',clasesSheet.length,'clases.');
+  } catch(e) {
+    console.error('Error sincronizando programación de Google Sheets:',e);
+    sesionesSheet=[];clasesSheet=[];
+    const panel=document.getElementById('bloqueDetallePanel'),grid=document.getElementById('temasBloqueGrid');
+    if(panel&&grid){panel.hidden=false;grid.innerHTML='<p style="font-weight:700;color:#b42318;">No se pudo cargar la programación desde Google Sheets: '+escapeQuizHtml(e.message||e)+'. Verifica que el GS esté publicado.</p>';}
   }
-
-  renderizarTarjetasAlumnos(perfil.ID_NINO || '');
   renderizarCalendario();
+  await resumenPromise;
+}
+async function cargarResumenSeguimientoPortal(perfil) {
+  const grid=document.getElementById('studentsGrid');
+  if(grid)grid.innerHTML='<div class="followup-loading">🌟 Sincronizando tu asistencia, tareas y cuestionarios...</div>';
+  const token=localStorage.getItem('lds_cat_token')||'';
+  const data=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'obtenerResumenPortalCatequizando',token:token})}).then(r=>r.json());
+  if(!data||!data.exito)throw new Error(data&&data.mensaje?data.mensaje:'No se pudo leer tu seguimiento.');
+  resumenPortalCatequizando=data;
+  const id=(perfil&&perfil.ID_NINO)||(data.alumno&&data.alumno.id)||'';
+  asistenciaPorAlumno={[id]:data.asistencia||{}};
+  tareasPorAlumno={[id]:data.tareas||{}};
+  renderizarTarjetasAlumnos(id);
+  renderizarAvisos(data.avisos&&data.avisos.datos||[]);
 }
 
 function renderizarAvisos(avisos) {
-  const contCat = document.getElementById('catequistasNotices');
-  const contCoord = document.getElementById('coordinadoresNotices');
-  if (!contCat || !contCoord) return;
-
-  const deCatequistas = avisos.filter(a => String(a.TIPO_REMITENTE || '').toUpperCase().includes('CATEQUISTA'));
-  const deCoordinadores = avisos.filter(a => !String(a.TIPO_REMITENTE || '').toUpperCase().includes('CATEQUISTA'));
-
-  if (deCatequistas.length > 0) {
-    contCat.innerHTML = deCatequistas.map(a =>
-      `<div class="notice-item">📝 <strong>${a.REMITENTE || 'Catequista'}:</strong> ${a.MENSAJE}</div>`
-    ).join('');
-  }
-  if (deCoordinadores.length > 0) {
-    contCoord.innerHTML = deCoordinadores.map(a =>
-      `<div class="notice-item coord">📢 <strong>${a.REMITENTE || 'Coordinación'}:</strong> ${a.MENSAJE}</div>`
-    ).join('');
-  }
+  const contCat=document.getElementById('catequistasNotices'),contCoord=document.getElementById('coordinadoresNotices');
+  if(!contCat||!contCoord)return;
+  const lista=Array.isArray(avisos)?avisos:[];
+  const cat=lista.filter(a=>/CATEQUISTA/i.test(String(a.TIPO_REMITENTE||'')));
+  const coord=lista.filter(a=>/COORD|PARROQUIA|SUPERVIS/i.test(String(a.TIPO_REMITENTE||'')+' '+String(a.REMITENTE||'')+' '+String(a.TITULO||a.ASUNTO||'')));
+  const card=(a,icon)=>{
+    const title=escapeQuizHtml(a.TITULO||a.ASUNTO||'Comunicado'),from=escapeQuizHtml(a.REMITENTE||(icon==='📢'?'Coordinación':'Catequista'));
+    const msg=escapeQuizHtml(a.MENSAJE||''),date=a.FECHA?'<small>'+escapeQuizHtml(formatearFechaSeguimiento(a.FECHA))+'</small>':'';
+    return '<article class="notice-item '+(icon==='📢'?'coord':'')+'"><strong>'+icon+' '+from+' · '+title+'</strong><p>'+msg+'</p>'+date+'</article>';
+  };
+  contCat.innerHTML=cat.length?cat.map(a=>card(a,'📝')).join(''):'<div class="notice-empty">No hay mensajes publicados de tus catequistas por ahora.</div>';
+  contCoord.innerHTML=coord.length?coord.map(a=>card(a,'📢')).join(''):'<div class="notice-empty">No hay comunicados de coordinación dirigidos a ti.</div>';
 }
 
 // BLOQUES FILTRADOS DESDE LA PESTAÑA SESIONES DEL GOOGLE SHEET
@@ -1780,13 +1869,14 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
   const title = document.getElementById('quizModalTitle');
   const body = document.getElementById('quizModalBody');
   const token = localStorage.getItem('lds_cat_token') || '';
-  body.innerHTML = '<p style="font-weight:700;text-align:center;padding:20px;">Preparando tu aventura… 🌟</p>';
+  quizCancelarVozV6(false);
+  body.innerHTML = preguntaPrecargada ? '' : '<p style="font-weight:700;text-align:center;padding:12px;">🌟 Preparando la primera pregunta...</p>';
   try {
     // Usa JSONP porque este portal ya consulta getSesiones por JSONP desde GitHub Pages.
     // No depende del CORS de fetch POST ni detiene el juego por una respuesta vacía.
     if (!quizVersionV5Verificada) {
       const versionData = await solicitarJSONP(`${API_URL}?action=verificarVersionCuestionarios`);
-      const versionEsperada = 'LDS-CATEQUIZANDO-JUEGO-AGIL-V5';
+      const versionEsperada = 'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V6';
       if (!versionData || !versionData.exito || versionData.version !== versionEsperada) {
         const detalle = versionData && (versionData.version || versionData.mensaje)
           ? String(versionData.version || versionData.mensaje)
@@ -1835,8 +1925,8 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
         </div>
         <small style="color:#52677f;">¡Cada respuesta te acerca a completar el bloque! ✨</small>
       </div>
-      <div style="padding:18px;border:1px solid #e7cf82;border-radius:17px;background:#fffdf7;">
-        <div style="font-size:13px;font-weight:900;color:#b47a00;margin-bottom:9px;">⭐ RETO DE APRENDIZAJE</div>
+      <div class="quiz-panel-entrada-v6" style="padding:18px;border:1px solid #e7cf82;border-radius:17px;background:#fffdf7;">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:13px;font-weight:900;color:#b47a00;margin-bottom:9px;"><span>⭐ RETO DE APRENDIZAJE</span><button type="button" id="btnRepetirPreguntaV6" style="border:1px solid #dce4ee;border-radius:999px;padding:6px 11px;background:#f3f8ff;color:#12345a;font-weight:900;">🔊 Escuchar</button></div>
         <div id="quizPreguntaTexto" style="font-size:19px;line-height:1.45;font-weight:800;color:#12345a;margin-bottom:15px;"></div>
         <div id="quizOpcionesJuego" style="display:grid;gap:10px;"></div>
       </div>
@@ -1849,10 +1939,13 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
     p.opciones.forEach(o => {
       const btn = document.createElement('button');
       btn.type = 'button';
+      quizAnimacionesV6();
       btn.className = 'quiz-opcion-juego';
-      btn.style.cssText = 'width:100%;text-align:left;padding:13px 15px;border:2px solid #e3e9f0;border-radius:13px;background:#fff;color:#17395e;font-size:15px;font-weight:700;cursor:pointer;transition:all .15s;';
+      btn.style.cssText = 'width:100%;text-align:left;padding:13px 15px;border:2px solid #e3e9f0;border-radius:13px;background:#fff;color:#17395e;font-size:15px;font-weight:700;cursor:pointer;transition:all .15s;animation:quizEntradaV6 .25s ease-out both;animation-delay:' + (p.opciones.indexOf(o) * 70) + 'ms;'
       btn.textContent = `${o.valor}) ${o.texto}`;
       btn.addEventListener('click', () => {
+        if (btn.disabled) return;
+        quizCancelarVozV6(false);
         opcionElegida = o.valor;
         Array.from(opcionesEl.children).forEach(el => {
           el.style.borderColor = '#e3e9f0';
@@ -1867,6 +1960,11 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
       });
       opcionesEl.appendChild(btn);
     });
+
+    const textoLecturaPreguntaV6 = 'Pregunta. ' + p.pregunta + '. ' + p.opciones.map(o => 'Alternativa ' + o.valor + '. ' + o.texto).join('. ');
+    const botonRepetirV6 = document.getElementById('btnRepetirPreguntaV6');
+    if (botonRepetirV6) botonRepetirV6.addEventListener('click', () => quizHablarV6(textoLecturaPreguntaV6));
+    quizHablarV6(textoLecturaPreguntaV6);
 
     const comprobar = document.getElementById('btnComprobarRespuesta');
     comprobar.addEventListener('click', async () => {
@@ -1902,10 +2000,12 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
         Array.from(opcionesEl.children).forEach(el => {
           const valorOpcion = String(el.textContent || '').trim().charAt(0);
           if (valorOpcion === claveCorrectaJuego) {
+            el.classList.add('quiz-option-correct-v6');
             el.style.borderColor = '#20a66a';
             el.style.background = '#edfff3';
             el.style.boxShadow = '0 0 0 2px rgba(32,166,106,.16)';
           } else if (valorOpcion === opcionElegida && !saved.correcta) {
+            el.classList.add('quiz-option-wrong-v6');
             el.style.borderColor = '#d64747';
             el.style.background = '#fff0ef';
           }
@@ -1914,37 +2014,35 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
         const correctoHtml = saved.correcta
           ? '<h3 style="margin:0 0 6px;color:#168454;">🎉 ¡Muy bien! Respuesta correcta</h3><p style="margin:0 0 8px;">Ganaste <strong>2 puntos</strong> ⭐</p>'
           : `<h3 style="margin:0 0 6px;color:#a52222;">💛 ¡Buen intento! Vamos a aprender</h3><p style="margin:0 0 8px;">La respuesta correcta era: <strong>${escapeQuizHtml(saved.respuestaCorrecta)}) ${escapeQuizHtml(saved.textoRespuestaCorrecta || '')}</strong></p>`;
-        result.innerHTML = `<div style="padding:15px;border-radius:14px;background:${saved.correcta ? "#effaf2" : "#fff2f0"};border:1px solid ${saved.correcta ? "#a8dfb5" : "#f2b9b2"};">${correctoHtml}${saved.explicacion ? `<p style="color:#25415d;margin:8px 0 0;">${escapeQuizHtml(saved.explicacion)}</p>` : ''}<p style="margin:10px 0 0;color:#52677f;font-weight:800;">Avance del bloque: ${nuevoProgreso.toFixed(1).replace(/\.0$/, '')}%</p></div>`;
+        result.innerHTML = `<div class="quiz-feedback-v6" style="padding:15px;border-radius:14px;background:${saved.correcta ? "#effaf2" : "#fff2f0"};border:1px solid ${saved.correcta ? "#a8dfb5" : "#f2b9b2"};">${correctoHtml}${saved.explicacion ? `<p style="color:#25415d;margin:8px 0 0;">${escapeQuizHtml(saved.explicacion)}</p>` : ''}<p style="margin:10px 0 0;color:#52677f;font-weight:800;">Avance del bloque: ${nuevoProgreso.toFixed(1).replace(/\.0$/, '')}%</p></div>`;
         // Los efectos sonoros sustituyen la narración para que la pregunta siguiente llegue sin demora.
 
         comprobar.style.display = 'none';
-        if (saved.siguientePregunta && saved.siguientePregunta.idPregunta) {
-          const espera = saved.correcta ? 850 : 1450;
-          quizTimerSiguienteV5 = setTimeout(() => {
-            if (quizTemaActivoV5 !== String(idSesion) || document.getElementById('quizModalBackdrop').hidden) return;
-            cargarPreguntaJuego(idSesion, nombreTema, saved.siguientePregunta, nuevoProgreso);
-          }, espera);
-        } else if (saved.completadoTema) {
-          const espera = saved.correcta ? 850 : 1450;
-          quizTimerSiguienteV5 = setTimeout(() => {
-            if (quizTemaActivoV5 !== String(idSesion) || document.getElementById('quizModalBackdrop').hidden) return;
+        const retroalimentacionV6 = saved.correcta
+          ? '¡Excelente! Respuesta correcta. Ganaste dos puntos. ' + String(saved.explicacion || '')
+          : 'Buen intento. La respuesta correcta es ' + String(saved.textoRespuestaCorrecta || '') + '. ' + String(saved.explicacion || '');
+        const avanzarAlTerminarVozV6 = () => {
+          if (quizTemaActivoV5 !== String(idSesion) || document.getElementById('quizModalBackdrop').hidden) return;
+          if (saved.siguientePregunta && saved.siguientePregunta.idPregunta) {
+            quizTimerSiguienteV5 = setTimeout(() => {
+              if (quizTemaActivoV5 !== String(idSesion) || document.getElementById('quizModalBackdrop').hidden) return;
+              cargarPreguntaJuego(idSesion,nombreTema,saved.siguientePregunta,nuevoProgreso);
+            },180);
+          } else if (saved.completadoTema) {
             if (saved.completadoBloque) {
               _quizEfectoRespuestaV5(true);
-              body.innerHTML = `<div style="text-align:center;padding:22px"><div style="font-size:48px">🏆</div><h2 style="color:#12345a">¡Bloque completado!</h2><p>¡Terminaste todos los retos de este bloque!</p><div style="font-size:30px;color:#168454;font-weight:900">100%</div><button type="button" id="btnVolverBloqueV5" class="btn-docente-submit">Volver a los temas</button></div>`;
-              document.getElementById('btnVolverBloqueV5').onclick = () => { document.getElementById('quizModalBackdrop').hidden = true; };
+              body.innerHTML = '<div class="quiz-panel-entrada-v6" style="text-align:center;padding:22px"><div style="font-size:48px">🏆</div><h2 style="color:#12345a">¡Bloque completado!</h2><p>¡Terminaste todos los retos de este bloque!</p><div style="font-size:30px;color:#168454;font-weight:900">100%</div><button type="button" id="btnVolverBloqueV6" class="btn-docente-submit">Volver a los temas</button></div>';
+              quizHablarV6('¡Felicitaciones! Has completado todas las preguntas del bloque.');
+              document.getElementById('btnVolverBloqueV6').onclick=()=>{quizCancelarVozV6(false);document.getElementById('quizModalBackdrop').hidden=true;};
             } else {
-              result.innerHTML += `<p style="text-align:center;font-weight:800;color:#12345a;margin-top:10px;">🏅 ¡Tema completado! Elige otro tema para continuar.</p><button type="button" id="btnVolverTemasV5" class="btn-docente-submit" style="width:100%;margin-top:10px;">Volver a los temas</button>`;
-              document.getElementById('btnVolverTemasV5').onclick = () => { document.getElementById('quizModalBackdrop').hidden = true; };
+              result.innerHTML += '<p style="text-align:center;font-weight:800;color:#12345a;margin-top:10px;">🏅 ¡Tema completado! Elige otro tema para continuar.</p><button type="button" id="btnVolverTemasV6" class="btn-docente-submit" style="width:100%;margin-top:10px;">Volver a los temas</button>';
+              document.getElementById('btnVolverTemasV6').onclick=()=>{quizCancelarVozV6(false);document.getElementById('quizModalBackdrop').hidden=true;};
             }
-          }, espera);
-        } else {
-          const espera = saved.correcta ? 850 : 1450;
-          quizTimerSiguienteV5 = setTimeout(() => {
-            if (quizTemaActivoV5 === String(idSesion) && !document.getElementById('quizModalBackdrop').hidden) {
-              cargarPreguntaJuego(idSesion, nombreTema);
-            }
-          }, espera);
-        }
+          } else {
+            quizTimerSiguienteV5=setTimeout(()=>{if(quizTemaActivoV5===String(idSesion)&&!document.getElementById('quizModalBackdrop').hidden)cargarPreguntaJuego(idSesion,nombreTema);},180);
+          }
+        };
+        quizHablarV6(retroalimentacionV6,avanzarAlTerminarVozV6);
       } catch (error) {
         const result = document.getElementById('quizResultadoJuego');
         result.innerHTML = `<p style="color:#a52222;font-weight:800;">${escapeQuizHtml(error.message || 'Error al guardar la respuesta.')}</p>`;
@@ -2111,7 +2209,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btnToggleVoice').addEventListener('click', function() {
     vozActiva = !vozActiva;
     this.textContent = vozActiva ? '🔊 Voz Activa' : '🔇 Silenciado';
-    if (!vozActiva && 'speechSynthesis' in window) window.speechSynthesis.cancel();
+    if (!vozActiva) quizCancelarVozV6(true);
   });
 
   document.getElementById('btnRefreshPortal').addEventListener('click', () => {
@@ -2125,32 +2223,27 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('btnCloseQuizModal').addEventListener('click', () => {
+    quizCancelarVozV6(false);
+    if (quizTimerSiguienteV5) clearTimeout(quizTimerSiguienteV5);
     document.getElementById('quizModalBackdrop').hidden = true;
   });
 
-  document.getElementById('studentMessageForm').addEventListener('submit', async e => {
+  document.getElementById('studentMessageForm').addEventListener('submit',async e=>{
     e.preventDefault();
-    const status = document.getElementById('msgStatus');
-    const perfil = JSON.parse(localStorage.getItem('lds_cat_perfil') || '{}');
-    status.textContent = 'Enviando mensaje...';
-    try {
-      const resp = await fetch(API_URL, {
-        method: 'POST',
-        body: JSON.stringify({
-          action: 'enviarMensajeAlumnoCatequista',
-          remitente: perfil.NOMBRE_COMPLETO || 'Catequizando',
-          idRemitente: perfil.ID_NINO || '',
-          idDestinatario: document.getElementById('msgDestinatario').value,
-          asunto: document.getElementById('msgAsunto').value,
-          mensaje: document.getElementById('msgTexto').value
-        })
-      });
-      const res = await resp.json();
-      status.textContent = (res && res.exito) ? '✅ Mensaje enviado correctamente a tu catequista.' : '⚠️ No se pudo enviar el mensaje.';
-      if (res && res.exito) e.target.reset();
-    } catch (err) {
-      status.textContent = '⚠️ Error de conexión al enviar el mensaje.';
-    }
+    const form=e.currentTarget,status=document.getElementById('msgStatus'),btn=document.getElementById('btnEnviarMensajeAlumno');
+    const perfil=JSON.parse(localStorage.getItem('lds_cat_perfil')||'{}'),token=localStorage.getItem('lds_cat_token')||'';
+    btn.disabled=true;status.textContent='Enviando tu mensaje...';
+    try{
+      const resp=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({
+        action:'guardarMensaje',token:token,nombreAlumno:perfil.NOMBRE_COMPLETO||'',idNino:perfil.ID_NINO||'',
+        catequista:document.getElementById('msgDestinatario').value,
+        asunto:document.getElementById('msgAsunto').value,mensaje:document.getElementById('msgTexto').value
+      })});
+      const res=await resp.json();
+      if(!res||!res.exito)throw new Error(res&&res.mensaje?res.mensaje:'No se pudo enviar el mensaje.');
+      status.textContent='✅ '+(res.mensaje||'Mensaje enviado correctamente.');form.reset();
+    }catch(err){status.textContent='⚠️ '+(err&&err.message?err.message:'Error de conexión al enviar el mensaje.');}
+    finally{btn.disabled=false;}
   });
 
   const tokenGuardado = localStorage.getItem('lds_cat_token');
