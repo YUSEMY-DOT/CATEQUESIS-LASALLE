@@ -1161,6 +1161,15 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
           <h3 id="bloqueDetalleTitulo">Temas del Bloque</h3>
           <button type="button" class="btn-docente-submit" id="btnCerrarBloque">Cerrar lista ✕</button>
         </div>
+        <div id="progresoBloquePanel" style="margin:12px 0 18px;padding:13px 15px;border:1px solid #e8d7bb;border-radius:14px;background:#fffaf0;">
+          <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;font-weight:800;color:#12345a;">
+            <span>🌱 Tu avance en este bloque</span><strong id="progresoBloquePanelTexto">—%</strong>
+          </div>
+          <div style="height:11px;background:#e8edf3;border-radius:99px;overflow:hidden;margin-top:9px;">
+            <div id="progresoBloquePanelBarra" style="height:100%;width:0%;background:linear-gradient(90deg,#27a56b,#8ccc53);border-radius:99px;transition:width .3s;"></div>
+          </div>
+          <p id="progresoBloquePanelMensaje" style="font-size:12px;color:#52677f;margin:7px 0 0;">Cada respuesta te ayuda a avanzar. ✨</p>
+        </div>
         <div id="temasBloqueGrid" class="temas-grid"></div>
       </div>
     </section>
@@ -1582,7 +1591,42 @@ function renderizarAvisos(avisos) {
 }
 
 // BLOQUES FILTRADOS DESDE LA PESTAÑA SESIONES DEL GOOGLE SHEET
-function abrirBloque(numBloque) {
+let bloqueActualSeleccionado = 0;
+
+function mostrarProgresoBloqueUI(porcentaje, completado) {
+  const valor = Math.max(0, Math.min(100, Number(porcentaje || 0)));
+  const texto = document.getElementById('progresoBloquePanelTexto');
+  const barra = document.getElementById('progresoBloquePanelBarra');
+  const mensaje = document.getElementById('progresoBloquePanelMensaje');
+  if (texto) texto.textContent = `${valor.toFixed(1).replace(/\.0$/, '')}%`;
+  if (barra) barra.style.width = `${valor}%`;
+  if (mensaje) mensaje.textContent = completado
+    ? '🏆 ¡Has completado todas las preguntas de este bloque!'
+    : 'Sigue jugando y aprendiendo. Tu avance se guarda automáticamente. ✨';
+}
+
+async function actualizarProgresoBloquePortal(numeroBloque) {
+  const texto = document.getElementById('progresoBloquePanelTexto');
+  const mensaje = document.getElementById('progresoBloquePanelMensaje');
+  if (texto) texto.textContent = '…';
+  if (mensaje) mensaje.textContent = 'Consultando tu avance guardado…';
+  try {
+    const token = localStorage.getItem('lds_cat_token') || '';
+    const data = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'obtenerProgresoBloqueCatequizando', bloque: numeroBloque, token: token })
+    }).then(r => r.json());
+    if (!data || !data.exito) throw new Error(data && data.mensaje ? data.mensaje : 'No se pudo consultar el avance.');
+    if (bloqueActualSeleccionado === numeroBloque) mostrarProgresoBloqueUI(data.porcentajeBloque, data.completadoBloque);
+  } catch (error) {
+    if (texto) texto.textContent = '—%';
+    if (mensaje) mensaje.textContent = 'No se pudo sincronizar el avance. Verifica tu conexión e inténtalo de nuevo.';
+  }
+}
+
+async function abrirBloque(numBloque) {
+  bloqueActualSeleccionado = Number(numBloque);
   document.querySelectorAll('.stage').forEach(btn => {
     btn.classList.toggle('active-stage', Number(btn.dataset.bloque) === numBloque);
   });
@@ -1604,7 +1648,8 @@ function abrirBloque(numBloque) {
   hablarTexto(titulo.textContent);
 
   if (sesionesDelBloque.length === 0) {
-    grid.innerHTML = '<p style="font-weight:700; color:var(--muted);">No se encontraron sesiones registradas para este bloque en el Google Sheet.</p>';
+    grid.innerHTML = '<p style="font-weight:700;color:var(--muted);">No se encontraron sesiones registradas para este bloque en Google Sheets.</p>';
+    actualizarProgresoBloquePortal(numBloque);
     return;
   }
 
@@ -1620,118 +1665,201 @@ function abrirBloque(numBloque) {
       <div class="tema-card">
         <div>
           <div class="tema-meta">
-            ${idSes ? `<span class="tema-badge">${idSes}</span>` : ''}
-            ${cita ? `<span class="tema-badge">📖 ${cita}</span>` : ''}
-            ${valor ? `<span class="tema-badge">💛 ${valor}</span>` : ''}
+            ${idSes ? `<span class="tema-badge">${escapeQuizHtml(idSes)}</span>` : ''}
+            ${cita ? `<span class="tema-badge">📖 ${escapeQuizHtml(cita)}</span>` : ''}
+            ${valor ? `<span class="tema-badge">💛 ${escapeQuizHtml(valor)}</span>` : ''}
           </div>
-          <h4 style="margin-top:8px;">${s['N.º DE SESIÓN'] || (idx + 1)}. ${tema}</h4>
-          ${subtema ? `<div class="tema-subtema">Subtema: ${subtema}</div>` : ''}
-          ${objetivo ? `<p style="margin-top:6px;">${objetivo}</p>` : ''}
+          <h4 style="margin-top:8px;">${escapeQuizHtml(s['N.º DE SESIÓN'] || (idx + 1))}. ${escapeQuizHtml(tema)}</h4>
+          ${subtema ? `<div class="tema-subtema">Subtema: ${escapeQuizHtml(subtema).replace(/\n/g, '<br>')}</div>` : ''}
+          ${objetivo ? `<p style="margin-top:6px;">${escapeQuizHtml(objetivo)}</p>` : ''}
         </div>
         <button type="button" class="btn-quiz-tema" onclick="abrirCuestionarioTema('${idSes.replace(/'/g, "\\'")}', '${tema.replace(/'/g, "\\'")}')">
-          🎯 Cuestionario del Tema
+          🎮 Aprender jugando
         </button>
       </div>
     `;
   }).join('');
 
   panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  actualizarProgresoBloquePortal(numBloque);
 }
 
-// CUESTIONARIO DISTRIBUIDO DE ACUERDO AL TEMA / SUBTEMA / SESIÓN (BANCO_PREGUNTAS)
-// Cuestionarios progresivos: misiones cortas de 10 preguntas, 3 alternativas.
+// Cada tema contiene todas sus preguntas activas. Se juega de una en una;
+// el avance visible se calcula sobre todas las preguntas del bloque completo.
 async function abrirCuestionarioTema(idSesion, nombreTema) {
   const backdrop = document.getElementById('quizModalBackdrop');
   const title = document.getElementById('quizModalTitle');
   const body = document.getElementById('quizModalBody');
-  title.textContent = `🌟 Misión de aprendizaje: ${nombreTema}`;
+  title.textContent = `🎮 Aventura de aprendizaje: ${nombreTema}`;
   backdrop.hidden = false;
-  await cargarMisionQuiz(idSesion, nombreTema);
+  await cargarPreguntaJuego(idSesion, nombreTema);
 }
 
-async function cargarMisionQuiz(idSesion, nombreTema) {
-  const backdrop = document.getElementById('quizModalBackdrop');
+async function cargarPreguntaJuego(idSesion, nombreTema) {
   const title = document.getElementById('quizModalTitle');
   const body = document.getElementById('quizModalBody');
   const token = localStorage.getItem('lds_cat_token') || '';
-  body.innerHTML = '<p style="font-weight:700;">Preparando tu misión… 🌟</p>';
+  body.innerHTML = '<p style="font-weight:700;text-align:center;padding:20px;">Preparando tu aventura… 🌟</p>';
   try {
-    const resp = await fetch(API_URL, {
-      method:'POST',
-      headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body:JSON.stringify({action:'obtenerCuestionarioCatequizando', idSesion:idSesion, token:token})
-    });
-    const data = await resp.json();
-    if (!data || !data.exito) {
-      body.innerHTML = `<p style="color:#a52222;font-weight:700;">${escapeQuizHtml(data && data.mensaje ? data.mensaje : 'No se pudo cargar la misión.')}</p>`;
+    const versionData = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'verificarVersionCuestionarios' })
+    }).then(r => r.json());
+    const versionEsperada = 'LDS-CATEQUIZANDO-BLOQUE-PORCENTAJE-V3';
+    if (!versionData || !versionData.exito || versionData.version !== versionEsperada) {
+      body.innerHTML = '<div style="padding:16px;border-radius:12px;background:#fff1f0;color:#922b21"><strong>⚠️ El servidor aún no tiene la versión nueva del juego.</strong><p>Actualiza el código GS y publica una nueva versión de la implementación web existente. Después vuelve a entrar al portal.</p></div>';
       return;
     }
-    if (data.sinPreguntas || Number(data.totalBanco || 0) === 0) {
-      body.innerHTML = `<div style="padding:14px;border-radius:12px;background:#fff7e6;color:#7a4b00"><strong>📚 Este tema aún no tiene preguntas vinculadas.</strong><p>${escapeQuizHtml(data.mensaje || 'No se encontraron preguntas activas para este tema en BANCO_PREGUNTAS. No se marcará como completado.')}</p><p>El resto de los temas permanece disponible.</p></div>`;
+
+    const data = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'obtenerCuestionarioCatequizando', idSesion: idSesion, token: token })
+    }).then(r => r.json());
+    if (!data || !data.exito) throw new Error(data && data.mensaje ? data.mensaje : 'No se pudo cargar la pregunta.');
+
+    const progreso = Math.max(0, Math.min(100, Number(data.porcentajeBloque || 0)));
+    if (bloqueActualSeleccionado && _quizBloqueNumeroUI(data.bloque) === bloqueActualSeleccionado) {
+      mostrarProgresoBloqueUI(progreso, data.completadoBloque);
+    }
+
+    if (data.sinPreguntas) {
+      body.innerHTML = `<div style="padding:16px;border-radius:14px;background:#fff7e6;color:#7a4b00"><strong>📚 Este tema todavía no tiene preguntas registradas.</strong><p>${escapeQuizHtml(data.mensaje || 'No se encontraron preguntas activas para este tema.')}</p></div>`;
       return;
     }
-    if (data.completado) {
-      body.innerHTML = `<div style="text-align:center;padding:20px"><h2>🏆 ¡Tema completado!</h2><p>Has recorrido todas las misiones de <strong>${escapeQuizHtml(data.tema || nombreTema)}</strong>.</p><div style="font-size:24px;color:#168454;font-weight:900">100% 🌟</div><p>¡Felicitaciones! Sigue aprendiendo y creciendo en tu camino hacia Jesús.</p></div>`;
+
+    if (data.completadoTema) {
+      body.innerHTML = `<div style="text-align:center;padding:22px"><div style="font-size:42px">🏅</div><h2 style="color:#12345a">¡Tema completado!</h2><p>Has respondido todas las preguntas de <strong>${escapeQuizHtml(data.tema || nombreTema)}</strong>.</p><div style="font-size:28px;color:#168454;font-weight:900;margin:12px 0">${progreso.toFixed(1).replace(/\.0$/, '')}%</div><p>Este es tu avance en el bloque. ¡Sigue aprendiendo con el siguiente tema!</p>${data.completadoBloque ? '<h3>🏆 ¡Bloque completado!</h3>' : ''}<button type="button" id="btnVolverBloque" class="btn-docente-submit">Volver a los temas</button></div>`;
+      document.getElementById('btnVolverBloque').onclick = () => { document.getElementById('quizModalBackdrop').hidden = true; };
       return;
     }
-    const progreso = Math.max(0, Math.min(100, Number(data.porcentaje || 0)));
-    const numeroMision = Number(data.numeroMision || 1);
-    const totalMisiones = Number(data.totalMisiones || 1);
-    body.innerHTML = `<div style="margin-bottom:14px;padding:12px;border-radius:12px;background:#f3f8ff">
-      <div style="font-weight:800;color:#12345a">🌱 Tu avance en este tema</div>
-      <div style="height:10px;background:#dce5ef;border-radius:99px;overflow:hidden;margin:8px 0"><div style="height:100%;width:${progreso}%;background:#35a66f"></div></div>
-      <strong>${progreso}% completado</strong><span style="margin-left:10px;color:#52677f;font-weight:800">Misión ${numeroMision} de ${totalMisiones}</span>
-      <p style="margin:5px 0 0">¡Responde esta pequeña misión y sigue avanzando!</p></div>`;
-    const preguntas = data.preguntas || [];
-    preguntas.forEach((p,idx) => {
-      const card=document.createElement('div');
-      card.style.cssText='margin:12px 0;padding:14px;border:1px solid #e5eaf0;border-radius:14px';
-      card.innerHTML=`<p style="font-weight:800;color:#12345a;margin:0 0 10px">${idx+1}. ${escapeQuizHtml(p.pregunta)}</p>`;
-      (p.opciones||[]).forEach(o=>{
-        const label=document.createElement('label');
-        label.style.cssText='display:block;margin:8px 0;padding:9px;border-radius:10px;background:#f7f9fc;cursor:pointer';
-        label.innerHTML=`<input type="radio" name="quiz_${escapeQuizHtml(p.idPregunta)}" value="${o.valor}"> <strong>${o.valor})</strong> ${escapeQuizHtml(o.texto)}`;
-        card.appendChild(label);
-      });
-      body.appendChild(card);
-    });
-    const submit=document.createElement('button');
-    submit.type='button'; submit.className='btn-docente-submit'; submit.textContent='✨ Revisar mi misión';
-    const result=document.createElement('div'); result.id='quizResultBox'; result.style.cssText='margin-top:14px;font-weight:700';
-    body.append(submit,result);
-    submit.onclick=async()=>{
-      const respuestas=[];
-      preguntas.forEach(p=>{
-        const checked=body.querySelector(`input[name="quiz_${CSS.escape(p.idPregunta)}"]:checked`);
-        if(checked) respuestas.push({idPregunta:p.idPregunta,opcion:checked.value});
-      });
-      if(respuestas.length!==preguntas.length){result.innerHTML='<p style="color:#a52222">¡Responde todas las preguntas de esta misión antes de enviarla!</p>';return;}
-      submit.disabled=true; submit.textContent='Guardando…';
-      try{
-        const saved=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'enviarCuestionario',idSesion:idSesion,respuestas:respuestas,token:token})}).then(r=>r.json());
-        if(!saved || !saved.exito) throw new Error(saved && saved.mensaje ? saved.mensaje : 'No se pudo guardar.');
-        let feedback='<div style="padding:12px;border-radius:12px;background:#f3f8ff"><h3>🎉 ¡Misión terminada!</h3>';
-        feedback+=`<p>Acertaste <strong>${saved.correctas} de ${saved.total}</strong>.</p><p>Ganaste <strong>${saved.puntos} de ${saved.puntosMaximos} puntos</strong> ⭐</p>`;
-        feedback+=`<p>Tu avance en el tema: <strong>${saved.porcentajeTema}%</strong></p>`;
-        (saved.detalle||[]).forEach((d,i)=>{
-          feedback+=`<div style="margin:10px 0;padding:9px;background:white;border-radius:8px"><strong>Pregunta ${i+1}: ${d.correcta?'✅ ¡Muy bien!':'💡 Vamos a aprender'}</strong>`;
-          if(!d.correcta) feedback+=`<p>Respuesta correcta: <strong>${escapeQuizHtml(d.respuestaCorrecta)}) ${escapeQuizHtml(d.textoRespuestaCorrecta || '')}</strong></p>`;
-          if(d.explicacion) feedback+=`<p>${escapeQuizHtml(d.explicacion)}</p>`;
-          feedback+='</div>';
+
+    const p = data.pregunta;
+    if (!p || !Array.isArray(p.opciones) || p.opciones.length !== 3) throw new Error('La pregunta recibida no tiene sus tres alternativas A, B y C.');
+
+    body.innerHTML = `
+      <div style="margin-bottom:17px;padding:13px 15px;border-radius:14px;background:#f3f8ff;border:1px solid #dce7f3;">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;color:#12345a;font-weight:800;">
+          <span>🌱 Tu avance en el bloque</span><strong id="quizPorcentajeBloque">${progreso.toFixed(1).replace(/\.0$/, '')}%</strong>
+        </div>
+        <div style="height:11px;background:#dce5ef;border-radius:99px;overflow:hidden;margin:9px 0 5px;">
+          <div id="quizBarraBloque" style="height:100%;width:${progreso}%;background:linear-gradient(90deg,#27a56b,#8ccc53);border-radius:99px;transition:width .3s;"></div>
+        </div>
+        <small style="color:#52677f;">¡Cada respuesta te acerca a completar el bloque! ✨</small>
+      </div>
+      <div style="padding:18px;border:1px solid #e7cf82;border-radius:17px;background:#fffdf7;">
+        <div style="font-size:13px;font-weight:900;color:#b47a00;margin-bottom:9px;">⭐ RETO DE APRENDIZAJE</div>
+        <div id="quizPreguntaTexto" style="font-size:19px;line-height:1.45;font-weight:800;color:#12345a;margin-bottom:15px;"></div>
+        <div id="quizOpcionesJuego" style="display:grid;gap:10px;"></div>
+      </div>
+      <button type="button" id="btnComprobarRespuesta" class="btn-docente-submit" style="margin-top:15px;width:100%;padding:13px;" disabled>Comprobar mi respuesta ✨</button>
+      <div id="quizResultadoJuego" style="margin-top:14px;"></div>
+    `;
+    document.getElementById('quizPreguntaTexto').textContent = p.pregunta;
+    const opcionesEl = document.getElementById('quizOpcionesJuego');
+    let opcionElegida = '';
+    p.opciones.forEach(o => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'quiz-opcion-juego';
+      btn.style.cssText = 'width:100%;text-align:left;padding:13px 15px;border:2px solid #e3e9f0;border-radius:13px;background:#fff;color:#17395e;font-size:15px;font-weight:700;cursor:pointer;transition:all .15s;';
+      btn.textContent = `${o.valor}) ${o.texto}`;
+      btn.addEventListener('click', () => {
+        opcionElegida = o.valor;
+        Array.from(opcionesEl.children).forEach(el => {
+          el.style.borderColor = '#e3e9f0';
+          el.style.background = '#fff';
+          el.style.boxShadow = 'none';
         });
-        feedback+=saved.completado?'<h3>🏆 ¡Has completado todas las preguntas de este tema!</h3>':'<p>¡Muy bien! Cuando quieras, continúa con la siguiente misión. 💪</p>';
-        feedback+='<button type="button" id="btnSiguienteMision" class="btn-docente-submit">➡️ Continuar aprendiendo</button></div>';
-        result.innerHTML=feedback;
-        hablarTexto(`¡Muy bien! Acertaste ${saved.correctas} de ${saved.total}. Tu avance es ${saved.porcentajeTema} por ciento.`);
-        const next=document.getElementById('btnSiguienteMision');
-        if(next) next.onclick=()=>cargarMisionQuiz(idSesion,nombreTema);
-        submit.style.display='none';
-      }catch(err){result.innerHTML=`<p style="color:#a52222">${escapeQuizHtml(err.message||'Error al guardar')}</p>`;submit.disabled=false;submit.textContent='✨ Revisar mi misión';}
-    };
-  } catch(e) {
-    body.innerHTML=`<p style="font-weight:700;color:#a52222">No se pudo cargar la misión: ${escapeQuizHtml(e && e.message ? e.message : e)}. Verifica la publicación del GS e inténtalo nuevamente.</p>`;
+        btn.style.borderColor = '#e0ad28';
+        btn.style.background = '#fff7df';
+        btn.style.boxShadow = '0 0 0 2px rgba(224,173,40,.14)';
+        document.getElementById('btnComprobarRespuesta').disabled = false;
+      });
+      opcionesEl.appendChild(btn);
+    });
+
+    const comprobar = document.getElementById('btnComprobarRespuesta');
+    comprobar.addEventListener('click', async () => {
+      if (!opcionElegida) return;
+      comprobar.disabled = true;
+      comprobar.textContent = 'Revisando tu respuesta…';
+      Array.from(opcionesEl.children).forEach(el => { el.disabled = true; el.style.cursor = 'default'; });
+      try {
+        const saved = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({
+            action: 'enviarCuestionario',
+            idSesion: idSesion,
+            idPregunta: p.idPregunta,
+            opcion: opcionElegida,
+            token: token
+          })
+        }).then(r => r.json());
+        if (!saved || !saved.exito) throw new Error(saved && saved.mensaje ? saved.mensaje : 'No se pudo guardar tu respuesta.');
+
+        const nuevoProgreso = Math.max(0, Math.min(100, Number(saved.porcentajeBloque || 0)));
+        const pct = document.getElementById('quizPorcentajeBloque');
+        const bar = document.getElementById('quizBarraBloque');
+        if (pct) pct.textContent = `${nuevoProgreso.toFixed(1).replace(/\.0$/, '')}%`;
+        if (bar) bar.style.width = `${nuevoProgreso}%`;
+        if (bloqueActualSeleccionado && _quizBloqueNumeroUI(saved.bloque) === bloqueActualSeleccionado) {
+          mostrarProgresoBloqueUI(nuevoProgreso, saved.completadoBloque);
+        }
+
+        const result = document.getElementById('quizResultadoJuego');
+        const correctoHtml = saved.correcta
+          ? '<h3 style="margin:0 0 6px;color:#168454;">🎉 ¡Muy bien! Respuesta correcta</h3><p style="margin:0 0 8px;">Ganaste <strong>2 puntos</strong> ⭐</p>'
+          : `<h3 style="margin:0 0 6px;color:#a52222;">💛 ¡Buen intento! Vamos a aprender</h3><p style="margin:0 0 8px;">La respuesta correcta era: <strong>${escapeQuizHtml(saved.respuestaCorrecta)}) ${escapeQuizHtml(saved.textoRespuestaCorrecta || '')}</strong></p>`;
+        result.innerHTML = `<div style="padding:15px;border-radius:14px;background:#f4f9f5;border:1px solid #d8eadc;">${correctoHtml}${saved.explicacion ? `<p style="color:#25415d;margin:8px 0 0;">${escapeQuizHtml(saved.explicacion)}</p>` : ''}<p style="margin:10px 0 0;color:#52677f;font-weight:800;">Avance del bloque: ${nuevoProgreso.toFixed(1).replace(/\.0$/, '')}%</p></div>`;
+        hablarTexto(saved.correcta ? '¡Excelente! Ganaste dos puntos.' : 'Buen intento. Aprende de la explicación y continúa.');
+
+        comprobar.style.display = 'none';
+        const next = document.createElement('button');
+        next.type = 'button';
+        next.className = 'btn-docente-submit';
+        next.style.cssText = 'margin-top:13px;width:100%;padding:13px;';
+        if (saved.completadoTema) {
+          next.textContent = saved.completadoBloque ? 'Celebrar bloque completado 🏆' : 'Volver a los temas';
+          next.onclick = () => {
+            if (saved.completadoBloque) {
+              body.innerHTML = `<div style="text-align:center;padding:22px"><div style="font-size:48px">🏆</div><h2 style="color:#12345a">¡Bloque completado!</h2><p>Has terminado todos los retos de este bloque. ¡Felicitaciones!</p><div style="font-size:30px;color:#168454;font-weight:900">100%</div><button type="button" id="btnCerrarAventuraFinal" class="btn-docente-submit">Volver a los temas</button></div>`;
+              document.getElementById('btnCerrarAventuraFinal').onclick = () => { document.getElementById('quizModalBackdrop').hidden = true; };
+            } else {
+              document.getElementById('quizModalBackdrop').hidden = true;
+            }
+          };
+        } else {
+          next.textContent = 'Siguiente pregunta ➜';
+          next.onclick = () => cargarPreguntaJuego(idSesion, nombreTema);
+        }
+        result.appendChild(next);
+        if (saved.completadoTema && !saved.completadoBloque) {
+          const msg = document.createElement('p');
+          msg.style.cssText = 'color:#52677f;text-align:center;font-weight:700;';
+          msg.textContent = '¡Has terminado este tema! Elige otro tema del bloque para continuar tu aventura.';
+          result.appendChild(msg);
+        }
+      } catch (error) {
+        const result = document.getElementById('quizResultadoJuego');
+        result.innerHTML = `<p style="color:#a52222;font-weight:800;">${escapeQuizHtml(error.message || 'Error al guardar la respuesta.')}</p>`;
+        comprobar.disabled = false;
+        comprobar.textContent = 'Intentar guardar de nuevo';
+        Array.from(opcionesEl.children).forEach(el => { el.disabled = false; el.style.cursor = 'pointer'; });
+      }
+    });
+  } catch (error) {
+    body.innerHTML = `<p style="font-weight:700;color:#a52222;padding:12px;">No se pudo cargar la pregunta: ${escapeQuizHtml(error && error.message ? error.message : error)}. Verifica la publicación del GS e inténtalo nuevamente.</p>`;
   }
 }
+
+function _quizBloqueNumeroUI(valor) {
+  const m = String(valor || '').match(/BLOQUE\s*([1-6])/i);
+  return m ? Number(m[1]) : 0;
+}
+
 function escapeQuizHtml(value){
   return String(value==null?'':value).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
