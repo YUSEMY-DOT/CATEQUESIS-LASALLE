@@ -627,6 +627,34 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
 #diagnosticoPortal{border:0!important;border-radius:18px!important;background:#fff!important;box-shadow:0 5px 18px #476c9510!important}
 @media(max-width:980px){#ldsFamiliaHero{grid-template-columns:180px 1fr!important;padding:23px!important}.module-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.weekly-task-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.calendar-layout{grid-template-columns:1fr!important}}
 @media(max-width:600px){main#inicioPortal{width:calc(100% - 24px)!important;gap:16px!important}#ldsFamiliaHero{grid-template-columns:1fr!important;padding:17px!important;gap:14px!important;border-radius:23px!important}#ldsFamiliaHero .hero-art{height:140px!important}#ldsFamiliaHero .hero-family{font-size:62px!important}#ldsFamiliaHero h2{font-size:1.6rem!important}#ldsFamiliaHero p{font-size:.92rem!important}.module-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}.module-card{min-height:155px!important;padding:13px!important}.module-card h5{font-size:.9rem!important}.module-card p{font-size:.78rem!important}.module-card button{font-size:.76rem!important;padding:8px!important}.weekly-task-grid{grid-template-columns:1fr!important}.lds-weekly-panel{padding:15px!important}.weekly-heading h3{font-size:1.15rem}.lds-guide-card{grid-template-columns:76px minmax(0,1fr)!important;padding:13px!important}.lds-guide-card .guide-art{height:76px!important;min-height:76px!important}.calendar-day{min-height:57px!important}.calendar-day .calendar-topic{font-size:.58rem!important;max-height:31px!important}.day-detail-card{padding:15px!important}}
+
+/* Portal familiar: interior azul elegante, desplegables claros y orden acordado. */
+.calendar-header-alegre{background:linear-gradient(120deg,#dbeafe,#e8f0ff 58%,#f0e9ff)!important;color:#244b79!important;box-shadow:none!important}
+.calendar-header-alegre .fw-bold{color:#244b79!important}
+.lds-blocks-panel,.lds-family-challenge{background:#fff;border:1px solid #dce7f4;border-radius:22px;padding:20px;margin:0 0 16px;box-shadow:0 5px 18px #244b790b}
+.lds-section-heading{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.lds-section-heading>span{width:48px;height:48px;display:grid;place-items:center;border-radius:15px;background:#edf5ff;font-size:25px;flex-shrink:0}
+.lds-section-heading h3{font-size:1.18rem;font-weight:900;color:#214b7b;margin:0 0 4px}
+.lds-section-heading p{font-size:.88rem;color:#647b95;margin:0}
+.lds-block-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.lds-block-card{border:1px solid #dfe9f5;border-radius:15px;overflow:hidden;background:#fff}
+.lds-block-toggle{width:100%;display:flex;align-items:center;gap:12px;text-align:left;padding:14px;background:#f7fbff;border:0;color:#244b79}
+.lds-block-toggle .block-icon{font-size:28px}
+.lds-block-toggle strong{display:block;font-size:.95rem}
+.lds-block-toggle small{display:block;color:#647b95;margin-top:3px}
+.lds-block-body{padding:13px}
+.lds-session-card{padding:12px;border:1px solid #e5edf7;border-radius:12px;margin-bottom:10px;background:#fff}
+.lds-session-card h5{font-size:.91rem;font-weight:800;color:#294f7a;margin:0 0 6px}
+.lds-session-meta{font-size:.76rem;color:#667b91;margin-bottom:7px}
+.lds-resource-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.lds-resource-links a{font-size:.75rem}
+.lds-family-challenge-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.lds-family-challenge-grid article{border:1px solid #e5edf7;border-radius:15px;padding:14px;background:#f9fcff}
+.lds-family-challenge-grid h4{font-size:.9rem;font-weight:800;color:#315b86;margin:8px 0}
+.lds-family-challenge-grid p{font-size:.82rem;color:#60758b;margin:0}
+.challenge-illustration{font-size:30px;min-height:40px}
+.lds-family-note{font-size:.76rem;color:#75879a;margin:12px 0 0}
+@media(max-width:760px){.lds-blocks-panel,.lds-family-challenge{padding:14px;border-radius:17px}.lds-block-grid{grid-template-columns:1fr}.lds-family-challenge-grid{grid-template-columns:1fr}.lds-section-heading>span{width:42px;height:42px}.lds-section-heading h3{font-size:1.05rem}}
 </style>
 
 </head>
@@ -680,6 +708,10 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
     <main id="inicioPortal" class="container mb-5">
       
       <section id="ldsFamiliaHero"><div id="ldsPerfilFamilia" class="hero-art"><div class="hero-sun">☀️</div><div class="hero-family">👨‍👩‍👧‍👦</div><div class="hero-book">📖</div><div class="hero-heart">💗</div></div><div class="hero-copy"><span class="hero-kicker">CAMINO HACIA JESÚS · ESPACIO FAMILIAR</span><h2 id="ldsSaludoFamilia">¡Hola, familia! <span>Qué alegría caminar juntos.</span></h2><p id="ldsTextoFamilia">Este espacio es para acompañar a tu hijo en su preparación. Revisa qué viene esta semana, sus actividades y cómo pueden vivir la fe juntos en casa.</p><div class="hero-pills"><span>🌱 Aprender</span><span>🙏 Vivir la fe</span><span>💞 Acompañar</span></div></div></section>
+<section id="ldsBloquesCatequesis" class="lds-blocks-panel">
+  <div class="lds-section-heading"><span>📖</span><div><h3>Los seis bloques de nuestro camino</h3><p>Programa de catequesis y recursos por tema. Los videos son publicados por las administradoras.</p></div></div>
+  <div id="ldsBloquesContenido"><div class="weekly-loading">✨ Cargando programación…</div></div>
+</section>
 <section id="ldsSemana" class="lds-weekly-panel"><div class="weekly-heading"><div class="weekly-icon">🧭</div><div><h3>Esta semana en familia</h3><p>Revisa las actividades que tu hijo debe realizar y los materiales para acompañarlo.</p></div></div><div id="ldsTareasSemana"><div class="weekly-loading">✨ Estamos revisando las actividades de tu familia…</div></div><button class="weekly-all-btn" type="button" onclick="consultarDatos('getTareas')">📚 Ver todas las tareas y actividades</button></section><div id="diagnosticoPortal" class="card card-custom p-3 mb-4">
         <div class="d-flex align-items-center gap-2"><span class="spinner-border spinner-border-sm text-primary" role="status"></span><strong>Verificando conexión con Google Sheets…</strong></div>
       </div>
@@ -687,7 +719,16 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
       <!-- ========================================================= -->
       <!-- CALENDARIO INTERACTIVO CON MEMBRETE ALEGRE Y CURSOS        -->
       <!-- ========================================================= -->
-      <section class="calendar-layout">
+      <section id="ldsRetoFamilia" class="lds-family-challenge">
+  <div class="lds-section-heading"><span>💞</span><div><h3>Una misión para vivir la fe en familia</h3><p>Pequeñas acciones que ayudan a conversar, practicar y compartir lo aprendido.</p></div></div>
+  <div class="lds-family-challenge-grid">
+    <article><div class="challenge-illustration">🙏🌟</div><h4>Un momento con Jesús</h4><p>Hagan la señal de la cruz, agradezcan por algo del día y compartan una intención.</p></article>
+    <article><div class="challenge-illustration">🤝💗</div><h4>Un gesto de amor</h4><p>Elijan una ayuda concreta en casa o hacia otra persona y realícenla juntos.</p></article>
+    <article><div class="challenge-illustration">📖👨‍👩‍👧</div><h4>Conversar lo aprendido</h4><p>Pregunten al catequizando qué recuerda del tema, qué le llamó la atención y cómo puede vivirlo.</p></article>
+  </div>
+  <p class="lds-family-note">Estas son orientaciones familiares; las tareas asignadas y sus fechas se muestran en el panel de actividades.</p>
+</section>
+<section class="calendar-layout">
         <!-- Columna Izquierda: Cuadrícula con Membrete Alegre -->
         <div class="calendar-column">
           <div class="calendar-card">
