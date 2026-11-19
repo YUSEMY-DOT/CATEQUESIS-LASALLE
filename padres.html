@@ -970,14 +970,15 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
       error.classList.add('d-none');
       if (boton) { boton.disabled=true; boton.textContent='Verificando…'; }
       try {
-        const codigo=document.getElementById('codigoPadre').value.trim();
+        const selector=document.getElementById('selectorPadre').value.trim();
         const clave=document.getElementById('clavePadre').value.trim();
-        const data=await solicitarJsonp({action:'validarLogin',codigoPadre:codigo,clave:clave});
+        if(!selector) throw new Error('Seleccione su nombre de la lista.');
+        const data=await solicitarJsonp({action:'validarLoginPadreSeleccion',selector:selector,clave:clave});
         if (!data.exito || !data.token) throw new Error(data.mensaje || 'No se pudo validar el acceso.');
-        tokenPadres=data.token; perfilPadres=data.perfil || null;
+        tokenPadres=data.token; perfilPadres=data.perfil || null; selectorPadres=selector;
         sessionStorage.setItem('caminoJesusPadresPerfil',JSON.stringify(perfilPadres));
-        actualizarPerfilFamilia();
         sessionStorage.setItem(CLAVE_SESION_PADRES,tokenPadres);
+        sessionStorage.setItem(CLAVE_SELECTOR_PADRES,selectorPadres);
         document.getElementById('loginView').classList.add('d-none');
         document.getElementById('portalView').classList.remove('d-none');
         document.getElementById('clavePadre').value='';
