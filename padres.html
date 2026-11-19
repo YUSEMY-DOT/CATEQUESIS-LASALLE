@@ -427,6 +427,18 @@ main.container{max-width:1240px!important}
   letter-spacing:.02em!important;
 }
 .lds-copyright-footer{margin-top:24px!important}
+
+/* RENOVACION VISUAL - PANEL FAMILIAR (solo frontend; no altera GS ni funciones existentes) */
+.lds-family-welcome{display:flex;align-items:center;gap:14px;padding:18px 20px;margin:0 0 16px;border-radius:18px;background:linear-gradient(120deg,#173765,#285b9c 72%,#3977bd);color:#fff;box-shadow:0 10px 24px rgba(25,55,100,.15)}
+.lds-family-welcome .welcome-icon{width:48px;height:48px;display:grid;place-items:center;flex:0 0 48px;border-radius:15px;background:rgba(255,255,255,.15);font-size:1.5rem}
+.lds-family-welcome h4{margin:0 0 4px;font-size:1.1rem;font-weight:800}.lds-family-welcome p{margin:0;color:#e9f2ff;font-size:.85rem}
+.lds-section-title{display:flex;align-items:center;gap:9px;margin:17px 0 11px;color:#193a65;font-weight:800;font-size:1rem}
+.lds-family-guide{border:1px solid #e3eaf3;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 5px 16px rgba(24,48,80,.05)}
+.lds-family-guide .accordion-item{border:0;border-bottom:1px solid #edf1f6}.lds-family-guide .accordion-item:last-child{border-bottom:0}
+.lds-family-guide .accordion-button{font-weight:700;color:#23456e;background:#fff;padding:14px 16px;box-shadow:none}.lds-family-guide .accordion-button:not(.collapsed){background:#f3f8ff;color:#174d91}
+.lds-family-guide .accordion-body{font-size:.88rem;line-height:1.6;color:#53647a;padding:14px 16px 17px}
+.lds-family-guide .guide-pill{display:inline-block;margin:2px 5px 5px 0;padding:4px 9px;border-radius:999px;background:#eef5ff;color:#2456a6;font-size:.75rem;font-weight:700}
+@media(max-width:600px){.lds-family-welcome{padding:14px;border-radius:14px}.lds-family-welcome .welcome-icon{width:42px;height:42px;flex-basis:42px}.lds-family-welcome h4{font-size:1rem}.lds-family-welcome p{font-size:.8rem}.lds-family-guide .accordion-button{padding:12px}}
 </style>
 
 </head>
@@ -587,6 +599,18 @@ main.container{max-width:1240px!important}
         </div>
       </section>
 
+
+      <!-- Orientaciones informativas para las familias: contenido frontend, no conectado a GS -->
+      <section class="mt-4" aria-label="Orientaciones para familias">
+        <div class="lds-family-welcome"><div class="welcome-icon" aria-hidden="true">💙</div><div><h4>¡Caminamos juntos en la fe!</h4><p>La familia es el primer lugar donde los niños aprenden a amar, servir y acercarse a Jesús. Estas orientaciones acompañan su preparación.</p></div></div>
+        <h5 class="lds-section-title">🌟 Guía práctica para las familias</h5>
+        <div class="accordion lds-family-guide" id="guiaFamiliasLDS">
+          <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#guiaPreparacion" aria-expanded="true" aria-controls="guiaPreparacion">🙏 Preparación espiritual en casa</button></h2><div id="guiaPreparacion" class="accordion-collapse collapse show" data-bs-parent="#guiaFamiliasLDS"><div class="accordion-body">Acompañen a sus hijos con momentos sencillos de oración, conversación sobre lo aprendido y participación en la vida de la comunidad. No se trata solo de memorizar, sino de vivir la fe con amor.<div class="mt-2"><span class="guide-pill">Orar juntos</span><span class="guide-pill">Escuchar</span><span class="guide-pill">Dar ejemplo</span></div></div></div></div>
+          <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#guiaAsistencia" aria-expanded="false" aria-controls="guiaAsistencia">📅 Puntualidad y asistencia</button></h2><div id="guiaAsistencia" class="accordion-collapse collapse" data-bs-parent="#guiaFamiliasLDS"><div class="accordion-body">Procure que los catequizandos lleguen puntualmente y asistan a todos los encuentros. Si surge una dificultad o inasistencia, comuníquenla oportunamente a la catequista correspondiente.</div></div></div>
+          <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#guiaMateriales" aria-expanded="false" aria-controls="guiaMateriales">🎒 Presentación y materiales</button></h2><div id="guiaMateriales" class="accordion-collapse collapse" data-bs-parent="#guiaFamiliasLDS"><div class="accordion-body">Revisen las indicaciones y tareas publicadas en el portal. En cada encuentro, el niño debe traer los materiales solicitados y mantener una presentación adecuada, cuidando sus pertenencias.</div></div></div>
+          <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#guiaCompromiso" aria-expanded="false" aria-controls="guiaCompromiso">🤝 Compromiso de la familia</button></h2><div id="guiaCompromiso" class="accordion-collapse collapse" data-bs-parent="#guiaFamiliasLDS"><div class="accordion-body">La catequesis se fortalece cuando familia, catequista y comunidad caminan unidos. Ayuden a los niños a practicar respeto, solidaridad, responsabilidad y amor a Dios y al prójimo, y consulten regularmente los avisos del portal.</div></div></div>
+        </div>
+      </section>
       <!-- Contenedor dinámico de resultados -->
       <div id="resultadoContenedor" class="mt-4"></div>
     </main>
