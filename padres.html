@@ -891,6 +891,7 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
         document.getElementById('portalView').classList.remove('d-none');
         actualizarPerfilFamilia();
         await cargarDatosCompletosCalendario();
+        await cargarBloquesFamilia();
         await cargarResumenTareasFamilia();
       } else {
         document.getElementById('portalView').classList.add('d-none');
@@ -957,6 +958,39 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
     function mostrarErrorLogin(mensaje) {
       const e=document.getElementById('loginError');
       if(e){e.textContent=mensaje;e.classList.remove('d-none');}
+    }
+
+    function recursoSeguro(url) {
+      const v=String(url||'').trim();
+      return /^https?:\/\//i.test(v) ? v : '';
+    }
+    async function cargarBloquesFamilia() {
+      const cont=document.getElementById('ldsBloquesContenido');
+      if(!cont) return;
+      cont.innerHTML='<div class="weekly-loading">✨ Cargando programación…</div>';
+      try {
+        const data=await apiGet('getSesiones');
+        if(!data||!data.exito) throw new Error(data.mensaje||'Programación no disponible');
+        const bloques=Array.isArray(data.bloques)?data.bloques:[];
+        if(!bloques.length){cont.innerHTML='<div class="weekly-empty">La programación todavía no está disponible.</div>';return;}
+        cont.innerHTML='<div class="lds-block-grid">'+bloques.map((b,i)=>{
+          const sesiones=Array.isArray(b.sessions)?b.sessions:[];
+          const contenido=sesiones.map((ses,j)=>{
+            const recursos=[];
+            const vids=Array.isArray(ses.videos)?ses.videos.slice(0,6):[];
+            vids.forEach((v,k)=>{const u=recursoSeguro(v.url);if(u)recursos.push({url:u,label:'🎥 '+(v.titulo||'Video '+(k+1)),desc:v.descripcion||''});});
+            if(!vids.length&&ses.videoUrl){const u=recursoSeguro(ses.videoUrl);if(u)recursos.push({url:u,label:'🎥 Video del tema'});}
+            [['fichaUrl','📄 Ficha'],['cuestionarioUrl','📝 Cuestionario'],['cancionUrl','🎵 Canción']].forEach(([key,label])=>{const u=recursoSeguro(ses[key]);if(u)recursos.push({url:u,label});});
+            const fecha=ses.fechaProgramada||ses.fecha||'';
+            const meta=[fecha?formatDate(fecha):'',ses.horaInicio&&ses.horaFin?ses.horaInicio+'–'+ses.horaFin:'',ses.catequista||''].filter(Boolean).join(' · ');
+            const extras=[ses.objetivo?'<p class="small mb-1"><strong>Objetivo:</strong> '+escapeHtml(ses.objetivo)+'</p>':'',ses.valor?'<p class="small mb-1"><strong>Valor:</strong> '+escapeHtml(ses.valor)+'</p>':'',ses.cita_biblica||ses.cita?'<p class="small mb-1"><strong>Palabra de Dios:</strong> '+escapeHtml(ses.cita_biblica||ses.cita)+'</p>':''];
+            return '<article class="lds-session-card"><h5>'+escapeHtml(ses.tema||'Tema de catequesis')+'</h5>'+(ses.subtema?'<p class="small mb-1">'+escapeHtml(ses.subtema)+'</p>':'')+(meta?'<div class="lds-session-meta">'+escapeHtml(meta)+'</div>':'')+extras.join('')+(recursos.length?'<div class="lds-resource-links">'+recursos.map(r=>'<a class="btn btn-sm btn-outline-primary rounded-pill" href="'+escapeHtml(r.url)+'" target="_blank" rel="noopener">'+escapeHtml(r.label)+'</a></div>':'')+'</article>';
+          }).join('');
+          return '<article class="lds-block-card"><button class="lds-block-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#ldsBloque_'+i+'" aria-expanded="false"><span class="block-icon">'+escapeHtml(b.icon||'✨')+'</span><span><strong>'+escapeHtml(b.title||('Bloque '+(i+1)))+'</strong><small>'+sesiones.length+' tema(s) · Toca para desplegar</small></span><span class="ms-auto">⌄</span></button><div id="ldsBloque_'+i+'" class="collapse"><div class="lds-block-body">'+(contenido||'<p class="small text-muted">No hay temas visibles en este bloque.</p>')+'</div></div></article>';
+        }).join('')+'</div>';
+      } catch(e) {
+        cont.innerHTML='<div class="weekly-empty">No se pudo cargar la programación. Pulse Actualizar e inténtelo nuevamente.</div>';
+      }
     }
 
     async function cargarResumenTareasFamilia() {
