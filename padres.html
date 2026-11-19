@@ -1058,6 +1058,7 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
         document.getElementById('portalView').classList.remove('d-none');
         document.getElementById('clavePadre').value='';
         await cargarDatosCompletosCalendario();
+        await cargarBloquesFamilia();
         await cargarResumenTareasFamilia();
       } catch(e) {
         error.textContent=e.message || 'Código familiar o PIN incorrecto.';
