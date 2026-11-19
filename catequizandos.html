@@ -1571,69 +1571,94 @@ function abrirBloque(numBloque) {
 }
 
 // CUESTIONARIO DISTRIBUIDO DE ACUERDO AL TEMA / SUBTEMA / SESIÓN (BANCO_PREGUNTAS)
+// Cuestionarios progresivos: misiones cortas de 10 preguntas, 3 alternativas.
 async function abrirCuestionarioTema(idSesion, nombreTema) {
   const backdrop = document.getElementById('quizModalBackdrop');
   const title = document.getElementById('quizModalTitle');
   const body = document.getElementById('quizModalBody');
-
-  title.textContent = `Cuestionario: ${nombreTema}`;
-  body.innerHTML = '<p style="font-weight:700;">Cargando preguntas del tema desde BANCO_PREGUNTAS...</p>';
+  title.textContent = `🌟 Misión de aprendizaje: ${nombreTema}`;
   backdrop.hidden = false;
+  await cargarMisionQuiz(idSesion, nombreTema);
+}
 
+async function cargarMisionQuiz(idSesion, nombreTema) {
+  const backdrop = document.getElementById('quizModalBackdrop');
+  const title = document.getElementById('quizModalTitle');
+  const body = document.getElementById('quizModalBody');
+  const token = localStorage.getItem('lds_cat_token') || '';
+  body.innerHTML = '<p style="font-weight:700;">Preparando tu misión… 🌟</p>';
   try {
-    const token = localStorage.getItem('lds_cat_token') || '';
-    const url = `${API_URL}?action=obtenerPreguntasSesion&idSesion=${encodeURIComponent(idSesion)}&tema=${encodeURIComponent(nombreTema)}&token=${encodeURIComponent(token)}`;
-    const resp = await fetch(url);
+    const resp = await fetch(API_URL, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify({action:'obtenerCuestionarioCatequizando', idSesion:idSesion, token:token})
+    });
     const data = await resp.json();
-
-    if (!data || !data.exito || !Array.isArray(data.preguntas) || data.preguntas.length === 0) {
-      body.innerHTML = '<p style="font-weight:700; color:#a52222;">No hay preguntas activas registradas para este tema en el Google Sheet.</p>';
+    if (!data || !data.exito) {
+      body.innerHTML = `<p style="color:#a52222;font-weight:700;">${escapeQuizHtml(data && data.mensaje ? data.mensaje : 'No se pudo cargar la misión.')}</p>`;
       return;
     }
-
-    const preguntas = data.preguntas;
-    body.innerHTML = preguntas.map((p, idx) => `
-      <div style="margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid #eee;">
-        <p style="font-weight:800; color:#12345a; margin:0 0 8px;">${idx + 1}. ${p.PREGUNTA}</p>
-        <label style="display:block; margin:4px 0; cursor:pointer;"><input type="radio" name="q_${idx}" value="A"> A) ${p.OPCION_A}</label>
-        <label style="display:block; margin:4px 0; cursor:pointer;"><input type="radio" name="q_${idx}" value="B"> B) ${p.OPCION_B}</label>
-        <label style="display:block; margin:4px 0; cursor:pointer;"><input type="radio" name="q_${idx}" value="C"> C) ${p.OPCION_C}</label>
-      </div>
-    `).join('') + `<button type="button" class="btn-docente-submit" id="btnCalificarQuiz">✅ Enviar Respuestas</button><div id="quizResultBox" style="margin-top:12px; font-weight:800;"></div>`;
-
-    document.getElementById('btnCalificarQuiz').onclick = async function() {
-      let correctas = 0;
-      preguntas.forEach((p, idx) => {
-        const marcada = document.querySelector(`input[name="q_${idx}"]:checked`);
-        if (marcada && marcada.value === String(p.RESPUESTA_CORRECTA || '').trim().toUpperCase()) {
-          correctas++;
-        }
+    if (data.completado) {
+      body.innerHTML = `<div style="text-align:center;padding:20px"><h2>🏆 ¡Tema completado!</h2><p>Has recorrido todas las preguntas de <strong>${escapeQuizHtml(data.tema || nombreTema)}</strong>.</p><div style="font-size:24px;color:#168454;font-weight:900">100% 🌟</div><p>¡Felicitaciones! Sigue aprendiendo y creciendo en tu camino hacia Jesús.</p></div>`;
+      return;
+    }
+    const progreso = Number(data.porcentaje || 0);
+    body.innerHTML = `<div style="margin-bottom:14px;padding:12px;border-radius:12px;background:#f3f8ff">
+      <div style="font-weight:800;color:#12345a">🌱 Tu avance en este tema</div>
+      <div style="height:10px;background:#dce5ef;border-radius:99px;overflow:hidden;margin:8px 0"><div style="height:100%;width:${progreso}%;background:#35a66f"></div></div>
+      <strong>${progreso}% completado</strong><p style="margin:5px 0 0">¡Cada pregunta te ayuda a aprender más!</p></div>`;
+    const preguntas = data.preguntas || [];
+    preguntas.forEach((p,idx) => {
+      const card=document.createElement('div');
+      card.style.cssText='margin:12px 0;padding:14px;border:1px solid #e5eaf0;border-radius:14px';
+      card.innerHTML=`<p style="font-weight:800;color:#12345a;margin:0 0 10px">${idx+1}. ${escapeQuizHtml(p.pregunta)}</p>`;
+      (p.opciones||[]).forEach(o=>{
+        const label=document.createElement('label');
+        label.style.cssText='display:block;margin:8px 0;padding:9px;border-radius:10px;background:#f7f9fc;cursor:pointer';
+        label.innerHTML=`<input type="radio" name="quiz_${escapeQuizHtml(p.idPregunta)}" value="${o.valor}"> <strong>${o.valor})</strong> ${escapeQuizHtml(o.texto)}`;
+        card.appendChild(label);
       });
-      const nota = Math.round((correctas / preguntas.length) * 20);
-      document.getElementById('quizResultBox').innerHTML =
-        `🎉 Obtuviste <strong>${correctas} de ${preguntas.length}</strong> respuestas correctas · Nota: <strong>${nota}/20</strong>`;
-      hablarTexto(`Obtuviste ${correctas} de ${preguntas.length} respuestas correctas.`);
-
-      const perfil = JSON.parse(localStorage.getItem('lds_cat_perfil') || '{}');
-      try {
-        await fetch(API_URL, {
-          method: 'POST',
-          body: JSON.stringify({
-            action: 'registrarIntentoCuestionario',
-            idNino: perfil.ID_NINO,
-            nombreCatequizando: perfil.NOMBRE_COMPLETO,
-            idSesion: idSesion,
-            tema: nombreTema,
-            correctas: correctas,
-            totalPreguntas: preguntas.length,
-            notaNumerica: nota
-          })
+      body.appendChild(card);
+    });
+    const submit=document.createElement('button');
+    submit.type='button'; submit.className='btn-docente-submit'; submit.textContent='✨ Revisar mi misión';
+    const result=document.createElement('div'); result.id='quizResultBox'; result.style.cssText='margin-top:14px;font-weight:700';
+    body.append(submit,result);
+    submit.onclick=async()=>{
+      const respuestas=[];
+      preguntas.forEach(p=>{
+        const checked=body.querySelector(`input[name="quiz_${CSS.escape(p.idPregunta)}"]:checked`);
+        if(checked) respuestas.push({idPregunta:p.idPregunta,opcion:checked.value});
+      });
+      if(respuestas.length!==preguntas.length){result.innerHTML='<p style="color:#a52222">¡Responde todas las preguntas de esta misión antes de enviarla!</p>';return;}
+      submit.disabled=true; submit.textContent='Guardando…';
+      try{
+        const saved=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'enviarCuestionario',idSesion:idSesion,respuestas:respuestas,token:token})}).then(r=>r.json());
+        if(!saved || !saved.exito) throw new Error(saved && saved.mensaje ? saved.mensaje : 'No se pudo guardar.');
+        let feedback='<div style="padding:12px;border-radius:12px;background:#f3f8ff"><h3>🎉 ¡Misión terminada!</h3>';
+        feedback+=`<p>Acertaste <strong>${saved.correctas} de ${saved.total}</strong>.</p><p>Ganaste <strong>${saved.puntos} de ${saved.puntosMaximos} puntos</strong> ⭐</p>`;
+        feedback+=`<p>Tu avance en el tema: <strong>${saved.porcentajeTema}%</strong></p>`;
+        (saved.detalle||[]).forEach((d,i)=>{
+          feedback+=`<div style="margin:10px 0;padding:9px;background:white;border-radius:8px"><strong>Pregunta ${i+1}: ${d.correcta?'✅ ¡Muy bien!':'💡 Vamos a aprender'}</strong>`;
+          if(!d.correcta) feedback+=`<p>Respuesta correcta: <strong>${d.respuestaCorrecta}</strong></p>`;
+          if(d.explicacion) feedback+=`<p>${escapeQuizHtml(d.explicacion)}</p>`;
+          feedback+='</div>';
         });
-      } catch (err) {}
+        feedback+=saved.completado?'<h3>🏆 ¡Has completado todas las preguntas de este tema!</h3>':'<p>¡Muy bien! Cuando quieras, continúa con la siguiente misión. 💪</p>';
+        feedback+='<button type="button" id="btnSiguienteMision" class="btn-docente-submit">➡️ Continuar aprendiendo</button></div>';
+        result.innerHTML=feedback;
+        hablarTexto(`¡Muy bien! Acertaste ${saved.correctas} de ${saved.total}. Tu avance es ${saved.porcentajeTema} por ciento.`);
+        const next=document.getElementById('btnSiguienteMision');
+        if(next) next.onclick=()=>cargarMisionQuiz(idSesion,nombreTema);
+        submit.style.display='none';
+      }catch(err){result.innerHTML=`<p style="color:#a52222">${escapeQuizHtml(err.message||'Error al guardar')}</p>`;submit.disabled=false;submit.textContent='✨ Revisar mi misión';}
     };
-  } catch (err) {
-    body.innerHTML = '<p style="font-weight:700; color:#a52222;">Error al cargar el cuestionario desde el Google Sheet.</p>';
+  } catch(e) {
+    body.innerHTML='<p style="font-weight:700;color:#a52222">Error al conectar con el cuestionario. Verifica tu conexión e inténtalo nuevamente.</p>';
   }
+}
+function escapeQuizHtml(value){
+  return String(value==null?'':value).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
 const MESES_NOMBRE = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
