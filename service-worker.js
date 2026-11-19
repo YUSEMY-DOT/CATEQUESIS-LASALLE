@@ -1,5 +1,5 @@
 /* Camino hacia Jesús — Service Worker compartido */
-const CACHE_VERSION = 'camino-hacia-jesus-shell-v25';
+const CACHE_VERSION = 'camino-hacia-jesus-shell-v26';
 
 /* Solo se precargan rutas verificadas en el repositorio.
    No incluir catequizandos.html ni iconos inexistentes: addAll() fallaría
@@ -7,21 +7,7 @@ const CACHE_VERSION = 'camino-hacia-jesus-shell-v25';
 const APP_SHELL = [
   './',
   './index.html',
-  './manifest.webmanifest',
-  './programacion.html',
-  './CATEQUISTA.html',
-  './padres.html',
-  './GestorPastoral.html',
-  './assets/pwa-icon.svg',
-  './assets/PORTAL CATEQUESIS.png',
-  './assets/BTN-PROGRAMACION.png',
-  './assets/BTN-CATEQUIS.png',
-  './assets/BTN_CATEQUISTAS.png',
-  './assets/BTN-PADRES.png',
-  './assets/BTN_COORDINADOR.png',
-  './assets/insignia.png',
-  './assets/logo-la-salle.webp',
-  './assets/PORTADA CATEQUIZANDO.png'
+  './manifest.webmanifest'
 ];
 
 self.addEventListener('install', (event) => {
@@ -76,12 +62,12 @@ self.addEventListener('fetch', (event) => {
   // Apps Script, consultas con parámetros y recursos externos no se cachean.
   if (url.origin !== self.location.origin || url.search) return;
 
-  if (request.mode === 'navigate' || /\\.html?$/i.test(url.pathname)) {
-    event.respondWith(networkFirst(request));
+  if (request.mode === 'navigate' || /\.html?$/i.test(url.pathname)) {
+    event.respondWith(staleWhileRevalidate(request));
     return;
   }
 
-  if (/\\.(png|jpe?g|webp|svg|gif|css|js|woff2?)$/i.test(url.pathname)) {
+  if (/\.(png|jpe?g|webp|svg|gif|css|js|woff2?)$/i.test(url.pathname)) {
     event.respondWith(staleWhileRevalidate(request));
   }
 });
