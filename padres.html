@@ -407,7 +407,15 @@ main.container{max-width:1240px!important}
  .calendar-day{min-height:54px!important}
 }
 
-\n/* Perfil familiar con fotografías originales de assets. */\n#ldsPerfilFamilia{width:116px;height:116px;flex:0 0 116px;border-radius:50%;overflow:hidden;background:#ffffff24;border:4px solid #ffffffb5;box-shadow:0 5px 18px #12345a30;display:flex;align-items:center;justify-content:center}\n#ldsPerfilFamilia img{width:100%;height:100%;object-fit:cover;display:block}\n#ldsPerfilFamilia .profile-placeholder{font-size:48px}\n#ldsFamiliaHero .hero-copy{min-width:0}\n#ldsFamiliaHero .hero-child-pill{display:inline-block;margin:7px 5px 0 0;padding:5px 10px;border-radius:999px;background:#ffffff24;border:1px solid #ffffff50;color:#fff;font-weight:700;font-size:.82rem}\n@media(max-width:600px){#ldsPerfilFamilia{width:84px;height:84px;flex-basis:84px}#ldsFamiliaHero{gap:12px!important;padding:17px!important}}\n</style>
+
+/* Perfil familiar con fotografías originales de assets. */
+#ldsPerfilFamilia{width:116px;height:116px;flex:0 0 116px;border-radius:50%;overflow:hidden;background:#ffffff24;border:4px solid #ffffffb5;box-shadow:0 5px 18px #12345a30;display:flex;align-items:center;justify-content:center}
+#ldsPerfilFamilia img{width:100%;height:100%;object-fit:cover;display:block}
+#ldsPerfilFamilia .profile-placeholder{font-size:48px}
+#ldsFamiliaHero .hero-copy{min-width:0}
+#ldsFamiliaHero .hero-child-pill{display:inline-block;margin:7px 5px 0 0;padding:5px 10px;border-radius:999px;background:#ffffff24;border:1px solid #ffffff50;color:#fff;font-weight:700;font-size:.82rem}
+@media(max-width:600px){#ldsPerfilFamilia{width:84px;height:84px;flex-basis:84px}#ldsFamiliaHero{gap:12px!important;padding:17px!important}}
+</style>
 
 <style id="lds-copyright-standard">
 .lds-copyright-footer,.lds-copyright-line{
@@ -928,7 +936,34 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
       } catch(e) {cont.innerHTML='<div class="weekly-empty">No se pudo actualizar esta sección. Usa el botón para consultar las tareas.</div>';}
     }
 
-\n    // Perfil familiar: asociación confirmada por la promotora; fotografías originales de assets.\n    const FAMILIAS_PADRES = [\n      {alias:['DAYMAN','DEYMAN'],foto:'DEYMAN.jpeg',hijos:['Adam']},\n      {alias:['YESENIA'],foto:'YESENIA.jpeg',hijos:['Adam']},\n      {alias:['CARMEN'],foto:'CARMEN.jpeg',hijos:['Marcos']},\n      {alias:['VICTOR','VÍCTOR'],foto:'VICTOR.jpeg',hijos:['Marcos']},\n      {alias:['JORDI','JHORDY'],foto:'JHORDY.jpeg',hijos:['Marcelo','Camila']},\n      {alias:['EMILIN','EMELIN','EMILÍN','EMILY'],foto:'EMELIN.jpeg',hijos:['Marcelo','Camila']},\n      {alias:['SANTOS'],foto:'SANTOS.png',hijos:['Dani']},\n      {alias:['MELISA','MELISSA'],foto:'MELISSA.jpeg',hijos:['Dani']},\n      {alias:['JESUS','JESÚS'],foto:'JESUS.png',hijos:['Ana Paula']},\n      {alias:['OLIVIA'],foto:'OLIVIA.png',hijos:['Ana Paula']}\n    ];\n    function normalizarNombreFamilia(v){return String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toUpperCase().replace(/[^A-Z0-9 ]/g,' ').replace(/\\s+/g,' ').trim();}\n    function actualizarPerfilFamilia(){\n      const perfil=perfilPadres||{}; const nombre=String(perfil.nombre||perfil.NOMBRE||perfil.NOMBRES||'').trim();\n      const normal=normalizarNombreFamilia(nombre);\n      const encontrado=FAMILIAS_PADRES.find(p=>p.alias.some(a=>{const na=normalizarNombreFamilia(a);return normal===na||normal.includes(na)||na.includes(normal); }));\n      const cont=document.getElementById('ldsPerfilFamilia'); const saludo=document.getElementById('ldsSaludoFamilia'); const texto=document.getElementById('ldsTextoFamilia');\n      if(!cont||!saludo||!texto)return;\n      if(!encontrado){cont.innerHTML='<span class="profile-placeholder">👨‍👩‍👧‍👦</span>';saludo.innerHTML='¡Hola, familia! <span>Qué alegría caminar juntos.</span>';texto.textContent='Este espacio acompaña a tu familia en el camino de catequesis. Consulta las actividades, fechas y avisos.';return;}\n      const url='https://yusemy-dot.github.io/CATEQUESIS-LASALLE/assets/'+encodeURIComponent(encontrado.foto);\n      cont.innerHTML='<img src="'+url+'" alt="Fotografía de '+escapeHtml(nombre)+'">'; const foto=cont.querySelector('img'); if(foto) foto.onerror=()=>{cont.innerHTML='<span class="profile-placeholder">👨‍👩‍👧‍👦</span>';};\n      saludo.innerHTML='¡Hola, '+escapeHtml(nombre)+'! <span>Qué alegría tenerte aquí.</span>';\n      texto.innerHTML='Acompañando a '+encontrado.hijos.map(escapeHtml).join(' y ')+' en su camino hacia Jesús.';\n    }\n    async function realizarLogin(event) {
+
+    // Perfil familiar: asociación confirmada por la promotora; fotografías originales de assets.
+    const FAMILIAS_PADRES = [
+      {alias:['DAYMAN','DEYMAN'],foto:'DEYMAN.jpeg',hijos:['Adam']},
+      {alias:['YESENIA'],foto:'YESENIA.jpeg',hijos:['Adam']},
+      {alias:['CARMEN'],foto:'CARMEN.jpeg',hijos:['Marcos']},
+      {alias:['VICTOR','VÍCTOR'],foto:'VICTOR.jpeg',hijos:['Marcos']},
+      {alias:['JORDI','JHORDY'],foto:'JHORDY.jpeg',hijos:['Marcelo','Camila']},
+      {alias:['EMILIN','EMELIN','EMILÍN','EMILY'],foto:'EMELIN.jpeg',hijos:['Marcelo','Camila']},
+      {alias:['SANTOS'],foto:'SANTOS.png',hijos:['Dani']},
+      {alias:['MELISA','MELISSA'],foto:'MELISSA.jpeg',hijos:['Dani']},
+      {alias:['JESUS','JESÚS'],foto:'JESUS.png',hijos:['Ana Paula']},
+      {alias:['OLIVIA'],foto:'OLIVIA.png',hijos:['Ana Paula']}
+    ];
+    function normalizarNombreFamilia(v){return String(v||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toUpperCase().replace(/[^A-Z0-9 ]/g,' ').replace(/\\s+/g,' ').trim();}
+    function actualizarPerfilFamilia(){
+      const perfil=perfilPadres||{}; const nombre=String(perfil.nombre||perfil.NOMBRE||perfil.NOMBRES||'').trim();
+      const normal=normalizarNombreFamilia(nombre);
+      const encontrado=FAMILIAS_PADRES.find(p=>p.alias.some(a=>{const na=normalizarNombreFamilia(a);return normal===na||normal.includes(na)||na.includes(normal); }));
+      const cont=document.getElementById('ldsPerfilFamilia'); const saludo=document.getElementById('ldsSaludoFamilia'); const texto=document.getElementById('ldsTextoFamilia');
+      if(!cont||!saludo||!texto)return;
+      if(!encontrado){cont.innerHTML='<span class="profile-placeholder">👨‍👩‍👧‍👦</span>';saludo.innerHTML='¡Hola, familia! <span>Qué alegría caminar juntos.</span>';texto.textContent='Este espacio acompaña a tu familia en el camino de catequesis. Consulta las actividades, fechas y avisos.';return;}
+      const url='https://yusemy-dot.github.io/CATEQUESIS-LASALLE/assets/'+encodeURIComponent(encontrado.foto);
+      cont.innerHTML='<img src="'+url+'" alt="Fotografía de '+escapeHtml(nombre)+'">'; const foto=cont.querySelector('img'); if(foto) foto.onerror=()=>{cont.innerHTML='<span class="profile-placeholder">👨‍👩‍👧‍👦</span>';};
+      saludo.innerHTML='¡Hola, '+escapeHtml(nombre)+'! <span>Qué alegría tenerte aquí.</span>';
+      texto.innerHTML='Acompañando a '+encontrado.hijos.map(escapeHtml).join(' y ')+' en su camino hacia Jesús.';
+    }
+    async function realizarLogin(event) {
       event.preventDefault();
       const error=document.getElementById('loginError');
       const boton=event.submitter || document.querySelector('#loginView button[type="submit"]');
@@ -939,7 +974,9 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
         const clave=document.getElementById('clavePadre').value.trim();
         const data=await solicitarJsonp({action:'validarLogin',codigoPadre:codigo,clave:clave});
         if (!data.exito || !data.token) throw new Error(data.mensaje || 'No se pudo validar el acceso.');
-        tokenPadres=data.token; perfilPadres=data.perfil || null;\n        sessionStorage.setItem('caminoJesusPadresPerfil',JSON.stringify(perfilPadres));\n        actualizarPerfilFamilia();
+        tokenPadres=data.token; perfilPadres=data.perfil || null;
+        sessionStorage.setItem('caminoJesusPadresPerfil',JSON.stringify(perfilPadres));
+        actualizarPerfilFamilia();
         sessionStorage.setItem(CLAVE_SESION_PADRES,tokenPadres);
         document.getElementById('loginView').classList.add('d-none');
         document.getElementById('portalView').classList.remove('d-none');
