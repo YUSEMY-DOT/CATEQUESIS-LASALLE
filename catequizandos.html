@@ -1666,15 +1666,22 @@ async function cargarMisionQuiz(idSesion, nombreTema) {
       body.innerHTML = `<p style="color:#a52222;font-weight:700;">${escapeQuizHtml(data && data.mensaje ? data.mensaje : 'No se pudo cargar la misión.')}</p>`;
       return;
     }
-    if (data.completado) {
-      body.innerHTML = `<div style="text-align:center;padding:20px"><h2>🏆 ¡Tema completado!</h2><p>Has recorrido todas las preguntas de <strong>${escapeQuizHtml(data.tema || nombreTema)}</strong>.</p><div style="font-size:24px;color:#168454;font-weight:900">100% 🌟</div><p>¡Felicitaciones! Sigue aprendiendo y creciendo en tu camino hacia Jesús.</p></div>`;
+    if (data.sinPreguntas || Number(data.totalBanco || 0) === 0) {
+      body.innerHTML = `<div style="padding:14px;border-radius:12px;background:#fff7e6;color:#7a4b00"><strong>📚 Este tema aún no tiene preguntas vinculadas.</strong><p>${escapeQuizHtml(data.mensaje || 'No se encontraron preguntas activas para este tema en BANCO_PREGUNTAS. No se marcará como completado.')}</p><p>El resto de los temas permanece disponible.</p></div>`;
       return;
     }
-    const progreso = Number(data.porcentaje || 0);
+    if (data.completado) {
+      body.innerHTML = `<div style="text-align:center;padding:20px"><h2>🏆 ¡Tema completado!</h2><p>Has recorrido todas las misiones de <strong>${escapeQuizHtml(data.tema || nombreTema)}</strong>.</p><div style="font-size:24px;color:#168454;font-weight:900">100% 🌟</div><p>¡Felicitaciones! Sigue aprendiendo y creciendo en tu camino hacia Jesús.</p></div>`;
+      return;
+    }
+    const progreso = Math.max(0, Math.min(100, Number(data.porcentaje || 0)));
+    const numeroMision = Number(data.numeroMision || 1);
+    const totalMisiones = Number(data.totalMisiones || 1);
     body.innerHTML = `<div style="margin-bottom:14px;padding:12px;border-radius:12px;background:#f3f8ff">
       <div style="font-weight:800;color:#12345a">🌱 Tu avance en este tema</div>
       <div style="height:10px;background:#dce5ef;border-radius:99px;overflow:hidden;margin:8px 0"><div style="height:100%;width:${progreso}%;background:#35a66f"></div></div>
-      <strong>${progreso}% completado</strong><p style="margin:5px 0 0">¡Cada pregunta te ayuda a aprender más!</p></div>`;
+      <strong>${progreso}% completado</strong><span style="margin-left:10px;color:#52677f;font-weight:800">Misión ${numeroMision} de ${totalMisiones}</span>
+      <p style="margin:5px 0 0">¡Responde esta pequeña misión y sigue avanzando!</p></div>`;
     const preguntas = data.preguntas || [];
     preguntas.forEach((p,idx) => {
       const card=document.createElement('div');
@@ -1708,7 +1715,7 @@ async function cargarMisionQuiz(idSesion, nombreTema) {
         feedback+=`<p>Tu avance en el tema: <strong>${saved.porcentajeTema}%</strong></p>`;
         (saved.detalle||[]).forEach((d,i)=>{
           feedback+=`<div style="margin:10px 0;padding:9px;background:white;border-radius:8px"><strong>Pregunta ${i+1}: ${d.correcta?'✅ ¡Muy bien!':'💡 Vamos a aprender'}</strong>`;
-          if(!d.correcta) feedback+=`<p>Respuesta correcta: <strong>${d.respuestaCorrecta}</strong></p>`;
+          if(!d.correcta) feedback+=`<p>Respuesta correcta: <strong>${escapeQuizHtml(d.respuestaCorrecta)}) ${escapeQuizHtml(d.textoRespuestaCorrecta || '')}</strong></p>`;
           if(d.explicacion) feedback+=`<p>${escapeQuizHtml(d.explicacion)}</p>`;
           feedback+='</div>';
         });
@@ -1722,7 +1729,7 @@ async function cargarMisionQuiz(idSesion, nombreTema) {
       }catch(err){result.innerHTML=`<p style="color:#a52222">${escapeQuizHtml(err.message||'Error al guardar')}</p>`;submit.disabled=false;submit.textContent='✨ Revisar mi misión';}
     };
   } catch(e) {
-    body.innerHTML='<p style="font-weight:700;color:#a52222">Error al conectar con el cuestionario. Verifica tu conexión e inténtalo nuevamente.</p>';
+    body.innerHTML=`<p style="font-weight:700;color:#a52222">No se pudo cargar la misión: ${escapeQuizHtml(e && e.message ? e.message : e)}. Verifica la publicación del GS e inténtalo nuevamente.</p>`;
   }
 }
 function escapeQuizHtml(value){
