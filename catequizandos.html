@@ -1258,6 +1258,60 @@ header{padding-top:14px;padding-bottom:12px}
 .tema-video-status-v9 a{color:#165da1;text-decoration:underline;font-weight:900}
 @media(max-width:520px){.tema-card-acciones-v9{display:grid;grid-template-columns:1fr}.tema-card-acciones-v9 button{width:100%}}
 
+
+/* V10 — mobile-first: paneles compactos, tareas debajo de bloques y varios videos por tema */
+.tareas-wrapper-v7{margin:12px 0;padding:9px;background:#fffdf8}
+.tareas-summary-v8{padding:12px 13px;border-radius:13px}
+.tareas-summary-copy strong{font-size:17px}
+.tareas-summary-copy small{font-size:10px;line-height:1.35}
+.tareas-details-content-v8{padding:10px;border-radius:0 0 13px 13px}
+.lista-tareas-asignadas-v10{display:grid;gap:7px}
+.tareas-list-intro-v10{margin:0 0 9px;color:#68788e;font-size:12px}
+.tarea-asignada-item-v10{border:1px solid #e8dfcf;border-radius:11px;background:#fff;overflow:hidden}
+.tarea-asignada-item-v10>summary{display:flex;align-items:center;justify-content:space-between;gap:9px;list-style:none;padding:10px 11px;cursor:pointer}
+.tarea-asignada-item-v10>summary::-webkit-details-marker{display:none}
+.tarea-asignada-title-v10{display:grid;gap:3px;min-width:0;color:#18395f;font-size:12px;font-weight:900}
+.tarea-asignada-title-v10 small{color:#728096;font-size:10px}
+.tarea-asignada-body-v10{padding:0 11px 11px;color:#52667e;font-size:12px;line-height:1.48}
+.tarea-asignada-body-v10 p{margin:6px 0}
+.tarea-asignada-evidencia-v10{margin:8px 0;padding:9px 10px;border-radius:9px;background:#eef8f1;color:#276744}
+.tarea-asignada-nota-v10{padding:8px 10px;background:#fff6e6;border-radius:9px}
+.followup-lower{grid-template-columns:1fr!important}
+.followup-task-shortcut{display:none!important}
+.calendar-topic-accordion-v10{border:1px solid #e4d7c1;border-radius:12px;background:#fff;overflow:hidden}
+.calendar-topic-accordion-v10>summary{display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:pointer;list-style:none;padding:12px;background:#fff7e6;color:#7f5b18;font-size:12px;font-weight:900}
+.calendar-topic-accordion-v10>summary::-webkit-details-marker{display:none}
+.calendar-topic-accordion-v10[open]>summary span{transform:rotate(180deg)}
+.calendar-topic-accordion-v10>summary span{transition:transform .15s}
+.calendar-topic-accordion-content-v10{padding:9px}
+.video-gallery-overlay-v10{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:14px;background:rgba(8,25,46,.72)}
+.video-gallery-overlay-v10[hidden]{display:none}
+.video-gallery-open-v10{overflow:hidden}
+.video-gallery-modal-v10{width:min(620px,100%);max-height:min(82vh,760px);overflow:auto;padding:17px;border:2px solid #e4bd5a;border-radius:17px;background:#fffdf8;box-shadow:0 20px 60px rgba(0,0,0,.24)}
+.video-gallery-head-v10{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:13px}
+.video-gallery-head-v10 h3{margin:0;color:#17385d;font:700 20px 'Fredoka',sans-serif}
+.video-gallery-head-v10 button{border:0;border-radius:9px;padding:8px 10px;background:#b70936;color:#fff;font-weight:900}
+.video-gallery-list-v10{display:grid;gap:8px}
+.video-gallery-item-v10{display:flex;align-items:center;gap:9px;padding:10px;border:1px solid #e5dfd2;border-radius:11px;background:#fff}
+.video-gallery-number-v10{flex:0 0 29px;height:29px;display:grid;place-items:center;border-radius:50%;background:#eaf2ff;color:#27558d;font-weight:1000}
+.video-gallery-copy-v10{min-width:0;flex:1}
+.video-gallery-copy-v10 strong{display:block;color:#17385d;font-size:13px}
+.video-gallery-copy-v10 p{margin:3px 0 0;color:#63748a;font-size:11px;line-height:1.4}
+.btn-abrir-video-v10{flex:0 0 auto;border:0;border-radius:9px;padding:8px 10px;background:#e8f6ec;color:#17663d;font-weight:900}
+.video-gallery-empty-v10{padding:17px;border:1px dashed #ddc98c;border-radius:12px;background:#fff8e6;color:#835b15;font-size:13px;line-height:1.5;text-align:center}
+.video-gallery-empty-v10 p{margin:7px 0 0}
+.notice-welcome-v10{background:#f0f7ff!important;border-left-color:#4385c5!important}
+.notice-gestores-v10{background:#fff7e8!important;border-left-color:#dc9c26!important}
+@media(max-width:600px){
+ .tareas-summary-v8{padding:10px}
+ .tareas-summary-copy strong{font-size:16px}
+ .tareas-details-content-v8{padding:8px}
+ .tarea-asignada-item-v10>summary{align-items:flex-start;flex-direction:column}
+ .video-gallery-modal-v10{padding:12px;border-radius:14px}
+ .video-gallery-item-v10{align-items:flex-start;flex-wrap:wrap}
+ .btn-abrir-video-v10{margin-left:38px}
+}
+
 </style>
 </head>
 <body>
@@ -1364,44 +1418,44 @@ header{padding-top:14px;padding-bottom:12px}
     </div>
 
     <section class="section">
-      <div class="eyebrow">Itinerario Oficial · Google Sheet</div>
+      <div class="eyebrow">Itinerario Oficial</div>
       <h2>Los 6 Bloques de Catequesis</h2>
       <div class="stages" id="stagesGrid">
         <button type="button" class="stage" data-bloque="1">
           <span class="num">1</span>
           <div class="icon">✝️</div>
           <strong>Conociendo a Jesús</strong>
-          <small>Bloque 1 · Sheet</small>
+          <small>Bloque 1</small>
         </button>
         <button type="button" class="stage" data-bloque="2">
           <span class="num">2</span>
           <div class="icon">🕊️</div>
           <strong>Aprendemos a Orar</strong>
-          <small>Bloque 2 · Sheet</small>
+          <small>Bloque 2</small>
         </button>
         <button type="button" class="stage" data-bloque="3">
           <span class="num">3</span>
           <div class="icon">📖</div>
           <strong>Los Sacramentos</strong>
-          <small>Bloque 3 · Sheet</small>
+          <small>Bloque 3</small>
         </button>
         <button type="button" class="stage" data-bloque="4">
           <span class="num">4</span>
           <div class="icon">✨</div>
           <strong>La Eucaristía</strong>
-          <small>Bloque 4 · Sheet</small>
+          <small>Bloque 4</small>
         </button>
         <button type="button" class="stage" data-bloque="5">
           <span class="num">5</span>
           <div class="icon">🙏</div>
           <strong>Valores Cristianos</strong>
-          <small>Bloque 5 · Sheet</small>
+          <small>Bloque 5</small>
         </button>
         <button type="button" class="stage" data-bloque="6">
           <span class="num">6</span>
           <div class="icon">🍞</div>
           <strong>Preparación a Nuestro Sacramento</strong>
-          <small>Bloque 6 · Sheet</small>
+          <small>Bloque 6</small>
         </button>
       </div>
 
@@ -1422,6 +1476,61 @@ header{padding-top:14px;padding-bottom:12px}
         <div id="temasBloqueGrid" class="temas-grid"></div>
       </div>
     </section>
+
+
+    <section id="seccion-tareas-asignadas-v10" class="tareas-wrapper-v7" aria-labelledby="titulo-tareas-asignadas-v10">
+      <details id="panelTareasAsignadasV10" class="tareas-details-v8">
+        <summary class="tareas-summary-v8">
+          <span class="tareas-summary-copy">
+            <span class="eyebrow">Tu compromiso de aprendizaje</span>
+            <strong id="titulo-tareas-asignadas-v10">📝 Tareas asignadas</strong>
+            <small id="resumen-tareas-asignadas-v10">Consulta las actividades que tienes que realizar.</small>
+          </span>
+          <span class="tareas-summary-action-v8">Ver tareas <b>⌄</b></span>
+        </summary>
+        <div class="tareas-details-content-v8">
+          <p class="tareas-list-intro-v10">Abre cada actividad para leer las indicaciones y revisar su estado.</p>
+          <div id="lista-tareas-asignadas-v10" class="lista-tareas-asignadas-v10">
+            <div class="tareas-cargando-v7">Cargando tus tareas...</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+<section id="seccion-tareas-familia" class="tareas-wrapper-v7" aria-labelledby="titulo-tareas-familia">
+        <details id="panelTareasFamiliaV7" class="tareas-details-v8">
+          <summary class="tareas-summary-v8">
+            <span class="tareas-summary-copy">
+              <span class="eyebrow">Aprendemos también en casa</span>
+              <strong id="titulo-tareas-familia">🏠 Tarea didáctica en familia</strong>
+              <small id="tareas-summary-count-v8">68 actividades disponibles · abre para elegir tu tema y enviar evidencias</small>
+            </span>
+            <span class="tareas-summary-action-v8">Ver tareas <b>⌄</b></span>
+          </summary>
+          <div class="tareas-details-content-v8">
+            <div class="tareas-header-v7">
+              <p class="regla-foto-v7">📸 Realiza la actividad con tu familia y toma una fotografía que muestre la acción indicada. La evidencia se guardará en Google Drive y el envío se registrará en Google Sheets.</p>
+              <div class="tareas-controles-v7">
+                <select id="selector-tema-tarea" class="select-grande-v7" aria-label="Elegir tema de tarea">
+                  <option value="">Cargando las 68 tareas...</option>
+                </select>
+                <input type="search" id="buscador-tema-tarea" class="input-grande-v7" placeholder="🔍 Buscar tema o número..." aria-label="Buscar tarea por tema">
+              </div>
+              <div id="resumen-tareas-v7" class="resumen-tareas-v7" aria-live="polite">Las tareas se cargan desde Google Sheets.</div>
+            </div>
+            <div id="contenedor-tarjetas-tareas" class="tarjetas-grid-v7">
+              <div class="tareas-cargando-v7">🌱 Cargando tareas desde Google Sheets...</div>
+            </div>
+          </div>
+        </details>
+      </section>
+
+    <div id="videoGalleryModalV10" class="video-gallery-overlay-v10" hidden role="dialog" aria-modal="true" aria-labelledby="videoGalleryTitleV10">
+      <div class="video-gallery-modal-v10">
+        <div class="video-gallery-head-v10"><h3 id="videoGalleryTitleV10">🎬 Videos del tema</h3><button type="button" onclick="cerrarGaleriaVideosTemaV10()" aria-label="Cerrar videos">Cerrar ✕</button></div>
+        <div id="videoGalleryListV10" class="video-gallery-list-v10"></div>
+      </div>
+    </div>
 
     <section id="calendar-section" class="section">
       <div class="eyebrow">Organiza tus encuentros</div>
@@ -1460,33 +1569,7 @@ header{padding-top:14px;padding-bottom:12px}
       <p class="followup-intro">Consulta tus asistencias, tareas y cuánto has avanzado en los seis bloques. Esta información corresponde únicamente a tu cuenta.</p>
       <div id="studentsGrid" class="students-grid"><div class="followup-loading">🌟 Cargando tu seguimiento desde Google Sheets...</div></div>
 
-      <section id="seccion-tareas-familia" class="tareas-wrapper-v7" aria-labelledby="titulo-tareas-familia">
-        <details id="panelTareasFamiliaV7" class="tareas-details-v8">
-          <summary class="tareas-summary-v8">
-            <span class="tareas-summary-copy">
-              <span class="eyebrow">Aprendemos también en casa</span>
-              <strong id="titulo-tareas-familia">🏠 Tarea didáctica en familia</strong>
-              <small id="tareas-summary-count-v8">68 actividades disponibles · abre para elegir tu tema y enviar evidencias</small>
-            </span>
-            <span class="tareas-summary-action-v8">Ver tareas <b>⌄</b></span>
-          </summary>
-          <div class="tareas-details-content-v8">
-            <div class="tareas-header-v7">
-              <p class="regla-foto-v7">📸 Realiza la actividad con tu familia y toma una fotografía que muestre la acción indicada. La evidencia se guardará en Google Drive y el envío se registrará en Google Sheets.</p>
-              <div class="tareas-controles-v7">
-                <select id="selector-tema-tarea" class="select-grande-v7" aria-label="Elegir tema de tarea">
-                  <option value="">Cargando las 68 tareas...</option>
-                </select>
-                <input type="search" id="buscador-tema-tarea" class="input-grande-v7" placeholder="🔍 Buscar tema o número..." aria-label="Buscar tarea por tema">
-              </div>
-              <div id="resumen-tareas-v7" class="resumen-tareas-v7" aria-live="polite">Las tareas se cargan desde Google Sheets.</div>
-            </div>
-            <div id="contenedor-tarjetas-tareas" class="tarjetas-grid-v7">
-              <div class="tareas-cargando-v7">🌱 Cargando tareas desde Google Sheets...</div>
-            </div>
-          </div>
-        </details>
-      </section>
+      
       <div class="communications-panel">
         <div class="communications-heading">
           <div><div class="eyebrow">Estamos en contacto</div><h3>💌 Comunicaciones y mensajes</h3></div>
@@ -1857,7 +1940,7 @@ function renderizarTarjetasAlumnos(idActivo) {
   '<div class="followup-metrics"><div class="followup-metric metric-attendance"><h4>📅 Asistencia</h4><strong>'+pctText+'</strong><div class="followup-mini-track"><div class="followup-mini-fill" style="width:'+(pctAsistencia==null?0:pctAsistencia)+'%"></div></div><p>'+(asistencia.exito?(Number(asistencia.presentes||0)+' presentes · '+Number(asistencia.tardanzas||0)+' tardanzas · '+Number(asistencia.faltas||0)+' faltas'):escapeQuizHtml(asistencia.mensaje||'Esperando datos de asistencia.'))+'</p></div>'+
   '<div class="followup-metric metric-tasks"><h4>📝 Mis tareas</h4><strong>'+tareas.length+'</strong><p>'+(resumen.tareas&&resumen.tareas.exito?(pendientes+' pendientes · '+hechas+' evidencias enviadas'):escapeQuizHtml((resumen.tareas&&resumen.tareas.mensaje)||'Esperando tareas.'))+'</p></div>'+
   '<div class="followup-metric metric-quizzes"><h4>🎮 Cuestionarios</h4><strong>'+promedio+'</strong><p>Promedio de avance de los seis bloques. Cada bloque muestra su propio porcentaje.</p></div></div>'+
-  '<div class="followup-lower"><section class="followup-subpanel followup-task-shortcut"><h4>📚 Tareas asignadas</h4><p>Consulta la actividad familiar y envía tu evidencia desde un solo lugar.</p><div class="followup-task-shortcut-count">'+pendientes+' pendientes · '+hechas+' evidencias enviadas</div><button type="button" class="btn-abrir-tareas-v8" onclick="abrirPanelTareasFamiliaV8()">Ver mis tareas y evidencias →</button></section><section class="followup-subpanel"><h4>🌱 Avance de cuestionarios por bloque</h4><div class="followup-blocks">'+listaBloques+'</div><p class="followup-footnote">El porcentaje refleja las preguntas respondidas del bloque completo. No se muestran cantidades de preguntas al catequizando.</p></section></div></article>';
+  '<div class="followup-lower"><section class="followup-subpanel"><h4>🌱 Avance de cuestionarios por bloque</h4><div class="followup-blocks">'+listaBloques+'</div><p class="followup-footnote">El porcentaje refleja las preguntas respondidas del bloque completo. No se muestran cantidades de preguntas al catequizando.</p></section></div></article>';
 }
 function formatearFechaSeguimiento(valor) {
   if(!valor)return '—';
@@ -1936,6 +2019,7 @@ function portalAplicarProgramacionV7(data) {
     CITA_BIBLICA: s.cita_biblica || s.cita || '',
     ACTIVIDAD: s.actividad || '',
     VIDEO_URL: s.videoUrl || s.VIDEO_URL || '',
+    VIDEOS: Array.isArray(s.videos) ? s.videos : [],
     ESTADO: s.estado || ''
   })));
   clasesSheet = (Array.isArray(data && data.clases) ? data.clases : []).map(c => {
@@ -1968,6 +2052,7 @@ function portalAplicarResumenV7(data, perfil) {
   asistenciaPorAlumno = { [id]: data.asistencia || {} };
   tareasPorAlumno = { [id]: data.tareas || {} };
   renderizarTarjetasAlumnos(id);
+  renderizarTareasAsignadasV10(data.tareas && data.tareas.datos || []);
   renderizarAvisos(data.avisos && data.avisos.datos || []);
   renderizarTareasFamiliaV7(data.tareas && data.tareas.datos || []);
 }
@@ -2088,10 +2173,10 @@ function renderizarAvisos(avisos) {
       (nuevo ? '<span class="notice-new-badge">NUEVO</span>' : '') +
       '<p>' + mensaje + '</p>' + fecha + '</article>';
   };
-  contCat.innerHTML = catequistas.length ? catequistas.map(a => tarjeta(a, '📝', 'teacher')).join('') :
-    '<article class="notice-item teacher notice-welcome-v8"><strong>💛 ¡Bienvenido(a) a Camino hacia Jesús!</strong><p>Nos alegra acompañarte en este camino de fe. Participa con alegría, realiza tus actividades y sigue aprendiendo cada día. Tus catequistas estamos aquí para orientarte y caminar contigo. ¡Dios te bendiga!</p><small>Con cariño, tus catequistas</small></article>';
-  contCoord.innerHTML = gestores.length ? gestores.map(a => tarjeta(a, '📢', 'coord')).join('') :
-    '<article class="notice-item coord notice-gestores-v8"><strong>📢 Comunicado de los Gestores · Regularización de documentos</strong><p>Estimadas familias: les recordamos revisar y regularizar los documentos que se encuentren pendientes en el expediente del catequizando. Por favor, comuníquense con los Gestores para completar la documentación correspondiente. Agradecemos su apoyo y compromiso.</p><small>Atentamente, los Gestores</small></article>';
+  const bienvenida = '<article class="notice-item teacher notice-welcome-v10"><strong>💛 ¡Qué alegría caminar juntos hacia Jesús!</strong><p>Querida familia: nos alegra acompañar a su niño(a) en esta hermosa preparación. Cada encuentro es una oportunidad para crecer en la fe, el amor y la amistad. Cuenten con nosotras para orientarlos y celebrar cada avance. ¡Sigamos este camino con alegría y confianza!</p><small>Con cariño, Miss Lily y Miss Kiara</small></article>';
+  const avisoDocumentos = '<article class="notice-item coord notice-gestores-v10"><strong>📌 Familias: documentos para la Primera Comunión</strong><p>Para que su niño(a) pueda recibir la Primera Comunión, es indispensable entregar y regularizar toda la documentación pendiente. Por favor, acérquense a los Gestores a la brevedad. ¡Gracias por su apoyo!</p><small>Atentamente, los Gestores</small></article>';
+  contCat.innerHTML = bienvenida + (catequistas.length ? catequistas.map(a => tarjeta(a, '📝', 'teacher')).join('') : '');
+  contCoord.innerHTML = avisoDocumentos + (gestores.length ? gestores.map(a => tarjeta(a, '📢', 'coord')).join('') : '');
   if (contFamilia) {
     contFamilia.innerHTML = familia.length ? familia.map(a => tarjeta(a, '💛', 'family')).join('') :
       '<div class="notice-empty">No hay mensajes familiares dirigidos a tu cuenta.</div>';
@@ -2120,6 +2205,52 @@ function abrirPanelTareasFamiliaV8() {
 function normalizarTextoTareaV7(valor) {
   return String(valor || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
 }
+
+function renderizarTareasAsignadasV10(lista) {
+  const tareas = Array.isArray(lista) ? lista : [];
+  const cont = document.getElementById('lista-tareas-asignadas-v10');
+  const resumen = document.getElementById('resumen-tareas-asignadas-v10');
+  const enviadas = tareas.filter(t => ['ENVIADA','REVISADA'].includes(String(t.ESTADO_ENTREGA || '').toUpperCase())).length;
+  const pendientes = Math.max(0, tareas.length - enviadas);
+  if (resumen) resumen.textContent = tareas.length
+    ? tareas.length + ' actividades · ' + pendientes + ' pendientes · ' + enviadas + ' evidencias enviadas'
+    : 'No hay actividades asignadas por ahora.';
+  const resumenFamilia = document.getElementById('tareas-summary-count-v8');
+  if (resumenFamilia) resumenFamilia.textContent = tareas.length + ' actividades disponibles · ' + pendientes + ' pendientes · ' + enviadas + ' evidencias enviadas';
+  if (!cont) return;
+  if (!tareas.length) {
+    cont.innerHTML = '<div class="tareas-vacias-v7">🌱 Cuando tu catequista te asigne una actividad, aparecerá aquí.</div>';
+    return;
+  }
+  const estadoInfo = estado => {
+    const e = String(estado || 'PENDIENTE').toUpperCase();
+    if (e === 'REVISADA') return {texto:'Revisada',clase:'estado-revisada-v7'};
+    if (e === 'ENVIADA') return {texto:'Enviada · espera revisión',clase:'estado-enviada-v7'};
+    if (e === 'CORREGIR') return {texto:'Necesita corrección',clase:'estado-corregir-v7'};
+    return {texto:'Pendiente de evidencia',clase:'estado-pendiente-v7'};
+  };
+  cont.innerHTML = tareas.map((t,i) => {
+    const estado = estadoInfo(t.ESTADO_ENTREGA);
+    const titulo = escapeQuizHtml(t.TITULO || t.ID_SESION || ('Actividad '+(i+1)));
+    const idSesion = escapeQuizHtml(t.ID_SESION || '');
+    const descripcion = escapeQuizHtml(t.DESCRIPCION || '');
+    const evidencia = escapeQuizHtml(t.EVIDENCIA_INSTRUCCION || t.OBSERVACION || '');
+    const fecha = t.FECHA_ENTREGA ? escapeQuizHtml(formatearFechaSeguimiento(t.FECHA_ENTREGA)) : 'Según indicación de la catequista';
+    const observacion = String(t.OBSERVACION_CATEQUISTA || '').trim();
+    return '<details class="tarea-asignada-item-v10"><summary><span class="tarea-asignada-title-v10">'+titulo+
+      (idSesion ? '<small>'+idSesion+'</small>' : '')+'</span><span class="estado-tarea-v7 '+estado.clase+'">'+estado.texto+'</span></summary>'+
+      '<div class="tarea-asignada-body-v10">'+(descripcion?'<p>'+descripcion+'</p>':'')+
+      (evidencia?'<div class="tarea-asignada-evidencia-v10"><strong>📷 Evidencia solicitada:</strong><br>'+evidencia+'</div>':'')+
+      '<small>Fecha de entrega: '+fecha+'</small>'+
+      (observacion?'<p class="tarea-asignada-nota-v10"><strong>Mensaje de tu catequista:</strong> '+escapeQuizHtml(observacion)+'</p>':'')+
+      '</div></details>';
+  }).join('');
+  cont.querySelectorAll('details.tarea-asignada-item-v10').forEach(detalle => detalle.addEventListener('toggle', () => {
+    if (!detalle.open) return;
+    cont.querySelectorAll('details.tarea-asignada-item-v10').forEach(otro => { if (otro !== detalle) otro.open = false; });
+  }));
+}
+
 function renderizarTareasFamiliaV7(lista) {
   tareasCatequesisAlumnoV7 = Array.isArray(lista) ? lista : [];
   const selector=document.getElementById('selector-tema-tarea');
@@ -2294,12 +2425,20 @@ async function actualizarProgresoBloquePortal(numeroBloque) {
 }
 
 async function abrirBloque(numBloque) {
+  const panel = document.getElementById('bloqueDetallePanel');
+  if (!panel) return;
+  const mismoBloqueAbierto = !panel.hidden && bloqueActualSeleccionado === Number(numBloque);
+  if (mismoBloqueAbierto) {
+    panel.hidden = true;
+    bloqueActualSeleccionado = 0;
+    document.querySelectorAll('.stage').forEach(btn => btn.classList.remove('active-stage'));
+    return;
+  }
   bloqueActualSeleccionado = Number(numBloque);
   document.querySelectorAll('.stage').forEach(btn => {
     btn.classList.toggle('active-stage', Number(btn.dataset.bloque) === numBloque);
   });
 
-  const panel = document.getElementById('bloqueDetallePanel');
   const titulo = document.getElementById('bloqueDetalleTitulo');
   const grid = document.getElementById('temasBloqueGrid');
 
@@ -2344,7 +2483,7 @@ async function abrirBloque(numBloque) {
           ${objetivo ? `<p style="margin-top:6px;">${escapeQuizHtml(objetivo)}</p>` : ''}
         </div>
         <div class="tema-card-acciones-v9">
-          <button type="button" class="btn-video-tema-v9" onclick="abrirVideoTema('${idSesJs}')">🎬 Ver video del tema</button>
+          <button type="button" class="btn-video-tema-v9" onclick="abrirVideoTema('${idSesJs}')">🎬 Ver videos${(Array.isArray(s.VIDEOS) && s.VIDEOS.length) ? ' · ' + s.VIDEOS.length : ''}</button>
           <button type="button" class="btn-quiz-tema" onclick="abrirCuestionarioTema('${idSesJs}', '${temaJs}')">🎮 Aprender jugando</button>
         </div>
         <p class="tema-video-status-v9" id="estadoVideoTema_${idSes.replace(/[^a-zA-Z0-9_-]/g, '_') || idx}" role="status" aria-live="polite" hidden></p>
@@ -2358,61 +2497,44 @@ async function abrirBloque(numBloque) {
 
 // Cada tema contiene todas sus preguntas activas. Se juega de una en una;
 // el avance visible se calcula sobre todas las preguntas del bloque completo.
-function abrirVideoTema(idSesion) {
-  const normalizar = valor => String(valor || '').trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
-  const sesion = sesionesSheet.find(s => normalizar(s.ID_SESION) === normalizar(idSesion));
-  const estadoId = 'estadoVideoTema_' + String(idSesion || '').replace(/[^a-zA-Z0-9_-]/g, '_');
-  const estado = document.getElementById(estadoId);
-  const mostrarMensaje = texto => {
-    if (estado) {
-      estado.hidden = false;
-      estado.textContent = texto;
-    } else {
-      alert(texto);
-    }
-  };
-
-  if (!sesion) {
-    mostrarMensaje('No encontramos este tema en la programación. Actualiza el portal e inténtalo nuevamente.');
-    return;
-  }
-
-  const enlace = String(sesion.VIDEO_URL || '').trim();
-  if (!enlace) {
-    mostrarMensaje('🎬 El video de este tema aún no está disponible. Tu catequista o gestor debe registrar su enlace. Mientras tanto, puedes continuar con «Aprender jugando».');
-    return;
-  }
-
+let videosTemaAbiertosV10 = [];
+function cerrarGaleriaVideosTemaV10() {
+  const modal=document.getElementById('videoGalleryModalV10');
+  if(modal)modal.hidden=true;
+  document.body.classList.remove('video-gallery-open-v10');
+  videosTemaAbiertosV10=[];
+}
+function abrirVideoSeleccionadoV10(indice) {
+  const video=videosTemaAbiertosV10[Number(indice)];
+  if(!video)return;
   let url;
-  try {
-    url = new URL(enlace);
-  } catch (e) {
-    mostrarMensaje('El enlace del video de este tema no tiene un formato válido. Solicita que lo revisen.');
-    return;
-  }
-  if (url.protocol !== 'https:' && url.protocol !== 'http:') {
-    mostrarMensaje('Por seguridad, solo se pueden abrir enlaces web de videos.');
-    return;
-  }
-
-  const ventana = window.open(url.href, '_blank', 'noopener,noreferrer');
-  if (!ventana) {
-    if (estado) {
-      estado.hidden = false;
-      estado.textContent = 'El navegador bloqueó la ventana del video. Abre este enlace: ';
-      const link = document.createElement('a');
-      link.href = url.href;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      link.textContent = 'Ver video';
-      estado.appendChild(link);
-    } else {
-      mostrarMensaje('El navegador bloqueó la ventana del video. Permite las ventanas emergentes para este sitio.');
+  try{url=new URL(String(video.url||''));}catch(e){alert('El enlace del video no tiene un formato válido.');return;}
+  const permitidos=['youtube.com','www.youtube.com','youtu.be','www.youtu.be','youtube-nocookie.com','www.youtube-nocookie.com','drive.google.com','www.drive.google.com','vimeo.com','www.vimeo.com'];
+  if(url.protocol!=='https:'||!permitidos.includes(url.hostname.toLowerCase())){alert('Solo se abren videos de YouTube, Google Drive o Vimeo.');return;}
+  const ventana=window.open(url.href,'_blank','noopener,noreferrer');
+  if(!ventana)alert('El navegador bloqueó la ventana. Permite ventanas emergentes para este portal.');
+}
+function abrirVideoTema(idSesion) {
+  const normalizar=valor=>String(valor||'').trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
+  const sesion=sesionesSheet.find(s=>normalizar(s.ID_SESION)===normalizar(idSesion));
+  const modal=document.getElementById('videoGalleryModalV10');
+  const titulo=document.getElementById('videoGalleryTitleV10');
+  const lista=document.getElementById('videoGalleryListV10');
+  if(!modal||!titulo||!lista)return;
+  if(!sesion){titulo.textContent='Videos del tema';lista.innerHTML='<div class="video-gallery-empty-v10">No encontramos este tema en la programación. Actualiza el portal e inténtalo nuevamente.</div>';}
+  else{
+    titulo.textContent='🎬 Videos de '+String(sesion.TEMA||'este tema');
+    let videos=Array.isArray(sesion.VIDEOS)?sesion.VIDEOS.filter(v=>v&&v.url):[];
+    if(!videos.length&&String(sesion.VIDEO_URL||'').trim())videos=[{titulo:'Video del tema',descripcion:'Recurso audiovisual registrado anteriormente.',url:sesion.VIDEO_URL}];
+    videosTemaAbiertosV10=videos.slice(0,6);
+    if(!videosTemaAbiertosV10.length){
+      lista.innerHTML='<div class="video-gallery-empty-v10"><strong>🎬 Próximamente tendremos videos para este tema.</strong><p>Las catequistas están preparando recursos para ayudarte a comprender y repasar lo aprendido.</p></div>';
+    }else{
+      lista.innerHTML=videosTemaAbiertosV10.map((v,i)=>'<article class="video-gallery-item-v10"><span class="video-gallery-number-v10">'+(i+1)+'</span><div class="video-gallery-copy-v10"><strong>'+escapeQuizHtml(v.titulo||('Video '+(i+1)))+'</strong>'+(v.descripcion?'<p>'+escapeQuizHtml(v.descripcion)+'</p>':'')+'</div><button type="button" class="btn-abrir-video-v10" data-video-index="'+i+'">▶ Ver video</button></article>').join('');
+      lista.querySelectorAll('[data-video-index]').forEach(btn=>btn.addEventListener('click',()=>abrirVideoSeleccionadoV10(btn.dataset.videoIndex)));
     }
-  } else if (estado) {
-    estado.hidden = false;
-    estado.textContent = '🎬 Video abierto en una nueva pestaña.';
   }
+  modal.hidden=false;document.body.classList.add('video-gallery-open-v10');
 }
 
 async function abrirCuestionarioTema(idSesion, nombreTema) {
@@ -2436,7 +2558,7 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
     // No depende del CORS de fetch POST ni detiene el juego por una respuesta vacía.
     if (!quizVersionV5Verificada) {
       const versionData = await solicitarJSONP(`${API_URL}?action=verificarVersionCuestionarios`);
-      const versionEsperada = 'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V7-TAREAS-EVIDENCIAS';
+      const versionEsperada = 'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V8-VIDEOS-GESTION-MISES';
       if (!versionData || !versionData.exito || versionData.version !== versionEsperada) {
         const detalle = versionData && (versionData.version || versionData.mensaje)
           ? String(versionData.version || versionData.mensaje)
@@ -2752,7 +2874,9 @@ function seleccionarDiaCalendario(dia, mes, btn) {
     return;
   }
   document.getElementById('calTopicsList').innerHTML =
-    temas.map((tema, i) => renderizarTarjetaTemaCalendarioV7(tema, clase, i)).join('');
+    '<details class="calendar-topic-accordion-v10"><summary>📘 Ver temas y subtemas de este encuentro <span>⌄</span></summary><div class="calendar-topic-accordion-content-v10">'+
+    temas.map((tema, i) => renderizarTarjetaTemaCalendarioV7(tema, clase, i)).join('')+
+    '</div></details>';
 }
 // CUENTA REGRESIVA HACIA EL 12 DE DICIEMBRE DE 2026 A LAS 10:00 A. M. (LIMA)
 function actualizarCuentaRegresiva() {
@@ -2819,6 +2943,10 @@ document.addEventListener('DOMContentLoaded', () => {
     portalEstadoV7('🔄 Actualizando desde Google Sheets...', 'pending');
     cargarDatosPortal({ forzar: true });
   });
+
+  const videoModalV10 = document.getElementById('videoGalleryModalV10');
+  if(videoModalV10)videoModalV10.addEventListener('click',e=>{if(e.target===videoModalV10)cerrarGaleriaVideosTemaV10();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')cerrarGaleriaVideosTemaV10();});
 
   const selectorTareas = document.getElementById('selector-tema-tarea');
   const buscadorTareas = document.getElementById('buscador-tema-tarea');
