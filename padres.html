@@ -996,21 +996,27 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
     async function cargarResumenTareasFamilia() {
       const cont=document.getElementById('ldsTareasSemana');
       if(!cont) return;
-      cont.innerHTML='<div class="weekly-loading">✨ Consultando las actividades familiares…</div>';
+      cont.innerHTML='<div class="weekly-loading">✨ Consultando las actividades de la familia…</div>';
       try {
-        const data=await apiGet('getTareas');
-        if(!data || !data.exito) throw new Error('Consulta no disponible');
+        const [data,seguimiento]=await Promise.all([apiGet('getTareas'),apiGet('getAsistenciaNotas').catch(()=>null)]);
+        if(!data||!data.exito) throw new Error(data.mensaje||'Consulta no disponible');
         const rows=Array.isArray(data.datos)?data.datos:[];
-        if(!rows.length){cont.innerHTML='<div class="weekly-empty">🌷 ¡Por ahora no hay actividades pendientes registradas para tu familia!</div>';return;}
-        const cards=rows.slice(0,6).map(r=>{
-          const estado=String(r.ESTADO||'Pendiente'),done=/complet|entreg|realiz|finaliz/i.test(estado);
-          const links=Object.entries(r).filter(([k,v])=>v&&/(video|url|link|enlace|material|recurso)/i.test(k)&&String(v).startsWith('http')).map(([k,v])=>({k,v:String(v)}));
-          return '<article class="weekly-task"><span class="task-state '+(done?'done':'pending')+'">'+(done?'✅':'⏳')+' '+escapeHtml(estado)+'</span><h4>'+escapeHtml(r.TITULO||'Actividad familiar')+'</h4><p>'+escapeHtml(r.DESCRIPCION||'Revisa las indicaciones de esta actividad con tu catequizando.')+'</p><div class="task-meta">📅 Fecha de entrega: '+escapeHtml(formatDate(r.FECHA_ENTREGA))+'</div>'+(links.length?'<div class="task-links">'+links.map(x=>'<a class="btn btn-sm btn-outline-primary" href="'+escapeHtml(x.v)+'" target="_blank" rel="noopener">'+(/video/i.test(x.k)?'🎥 Ver video':/material|recurso/i.test(x.k)?'📚 Material':'🔗 Abrir enlace')+'</a>').join('')+'</div>':'')+'</article>';
+        const alumnos={};
+        if(seguimiento&&seguimiento.exito&&Array.isArray(seguimiento.datos)){
+          seguimiento.datos.forEach(a=>{alumnos[String(a.ID_NINO||'')]=a.NOMBRE_COMPLETO||[a.NOMBRES,a.APELLIDOS].filter(Boolean).join(' ');});
+        }
+        if(!rows.length){cont.innerHTML='<div class="weekly-empty">🌷 No hay tareas asignadas registradas por el momento.</div>';return;}
+        const cards=rows.slice(0,8).map(r=>{
+          const estado=String(r.ESTADO||'Pendiente');
+          const done=/complet|entreg|realiz|finaliz|revisad|aprob/i.test(estado);
+          const links=Object.entries(r).filter(([k,v])=>v&&/(video|url|link|enlace|material|recurso)/i.test(k)&&recursoSeguro(v)).map(([k,v])=>({k,v:recursoSeguro(v)}));
+          const evidencia=recursoSeguro(r.EVIDENCIA_LINK||r.EVIDENCIA||r.URL_EVIDENCIA);
+          const nino=alumnos[String(r.ID_NINO||'')]||'';
+          return '<article class="weekly-task"><span class="task-state '+(done?'done':'pending')+'">'+(done?'✅':'⏳')+' '+escapeHtml(estado)+'</span><h4>'+escapeHtml(r.TITULO||'Actividad familiar')+'</h4>'+(nino?'<div class="small fw-bold text-primary mb-1">👧🧒 Para: '+escapeHtml(nino)+'</div>':'')+'<p>'+escapeHtml(r.DESCRIPCION||'Revisa las indicaciones y acompaña a tu catequizando.')+'</p><div class="task-meta">📅 Fecha de entrega: '+escapeHtml(formatDate(r.FECHA_ENTREGA))+'</div>'+(r.OBSERVACION?'<div class="small text-muted mt-1">💬 '+escapeHtml(r.OBSERVACION)+'</div>':'')+(evidencia?'<div class="task-links"><a class="btn btn-sm btn-outline-success" href="'+escapeHtml(evidencia)+'" target="_blank" rel="noopener">📷 Ver evidencia enviada</a></div>':'')+(links.length?'<div class="task-links">'+links.map(x=>'<a class="btn btn-sm btn-outline-primary" href="'+escapeHtml(x.v)+'" target="_blank" rel="noopener">'+(/video/i.test(x.k)?'🎥 Ver video':/material|recurso/i.test(x.k)?'📚 Material':'🔗 Abrir enlace')+'</a>').join('')+'</div>':'')+'</article>';
         }).join('');
-        cont.innerHTML='<div class="weekly-task-grid">'+cards+'</div>';
-      } catch(e) {cont.innerHTML='<div class="weekly-empty">No se pudo actualizar esta sección. Usa el botón para consultar las tareas.</div>';}
+        cont.innerHTML='<div class="weekly-task-grid">'+cards+'</div>'+(rows.length>8?'<p class="small text-muted mt-2">Se muestran 8 actividades. Pulsa “Ver todas” para consultar el listado completo.</p>':'');
+      } catch(e) {cont.innerHTML='<div class="weekly-empty">No se pudo actualizar esta sección. Usa el botón para consultar las actividades.</div>';}
     }
-
 
     // Perfil familiar: asociación confirmada por la promotora; fotografías originales de assets.
     const FAMILIAS_PADRES = [
