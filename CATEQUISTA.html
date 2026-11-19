@@ -654,6 +654,10 @@ body{overflow-x:hidden}
         <div><div class="module-cartoon-icon" aria-hidden="true">📆🌼</div><h4>Programación</h4><p>Consulta de la programación general y calendario de catequesis.</p></div>
         <a class="btn small" href="./programacion.html">Abrir Programación</a>
       </div>
+      <div class="tool-card admin-only" id="tarjeta-gestion-videos" hidden>
+        <div><div class="module-cartoon-icon" aria-hidden="true">🎬📚</div><h4>Biblioteca de videos por tema</h4><p>Registra hasta seis videos para cada tema. Solo las administradoras pueden gestionar estos recursos.</p></div>
+        <button class="btn small primary" type="button" onclick="mostrarVista('vista-videos-temas')">Gestionar videos</button>
+      </div>
       <div class="menu-step-title">PASO 2 · SEGUIMIENTO DE CATEQUIZANDOS</div>
 <div class="tool-card">
         <div><div class="module-cartoon-icon" aria-hidden="true">📝🌟</div><h4>Asistencia Modular</h4><p>Control matricial ergonómico conectado a Google Sheet.</p></div>
@@ -751,6 +755,39 @@ body{overflow-x:hidden}
     </div>
 
     <!-- 1. VISTA SESIONES -->
+
+    <div id="vista-videos-temas" style="display:none; margin-top:15px;">
+      <div class="tool-card" style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+          <div><h2>🎬 Biblioteca de videos por tema</h2><p class="sub">Agrega enlaces de YouTube, Vimeo o Google Drive. Cada tema admite hasta seis videos activos.</p></div>
+          <button class="btn small" type="button" onclick="volverMenuPrincipal()">← Volver al menú</button>
+        </div>
+        <div style="margin-top:13px;padding:12px;border-radius:12px;background:#fff7e6;color:#805819;font-size:12px;line-height:1.5;">
+          <strong>Importante:</strong> publica el video en YouTube o Google Drive y pega aquí su enlace. Para Google Drive, comparte el archivo con permiso de visualización mediante enlace. Los videos no se incrustan en el portal para mantener una carga rápida.
+        </div>
+      </div>
+      <form id="formVideoTemaV8" class="tool-card" style="margin-bottom:14px;" onsubmit="guardarVideoTemaPortalV8(event)">
+        <h3 style="margin:0 0 10px;color:var(--navy);">Registrar video para un tema</h3>
+        <label for="selector-admin-video-tema" style="display:block;font-weight:800;margin-bottom:5px;">Tema de catequesis</label>
+        <select id="selector-admin-video-tema" class="btn" style="width:100%;text-align:left;min-height:44px;" required><option value="">Cargando los temas...</option></select>
+        <div id="contador-admin-video-tema" class="sub" style="margin:6px 0 12px;">0 de 6 videos activos</div>
+        <label for="titulo-admin-video" style="display:block;font-weight:800;margin-bottom:5px;">Título del video</label>
+        <input id="titulo-admin-video" class="btn" type="text" maxlength="120" placeholder="Ej. ¿Quién es Dios? — explicación para niños" style="width:100%;text-align:left;min-height:44px;margin-bottom:11px;" required>
+        <label for="url-admin-video" style="display:block;font-weight:800;margin-bottom:5px;">Enlace del video</label>
+        <input id="url-admin-video" class="btn" type="url" maxlength="1000" placeholder="https://www.youtube.com/... o https://drive.google.com/..." style="width:100%;text-align:left;min-height:44px;margin-bottom:11px;" required>
+        <label for="descripcion-admin-video" style="display:block;font-weight:800;margin-bottom:5px;">Descripción breve (opcional)</label>
+        <textarea id="descripcion-admin-video" class="btn" maxlength="350" rows="2" placeholder="¿Qué aprenderá el niño al ver este video?" style="width:100%;text-align:left;margin-bottom:12px;"></textarea>
+        <button id="btnGuardarVideoTemaV8" class="btn small primary" type="submit">💾 Guardar video en Google Sheets</button>
+        <span id="estado-guardar-video-tema-v8" class="sub" role="status" aria-live="polite" style="display:block;margin-top:8px;"></span>
+      </form>
+      <section class="tool-card">
+        <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;">
+          <h3 style="margin:0;color:var(--navy);">Videos registrados para el tema</h3>
+          <button type="button" class="btn small" id="btnActualizarVideosTemaV8">🔄 Actualizar lista</button>
+        </div>
+        <div id="lista-admin-videos-tema-v8" style="display:grid;gap:8px;margin-top:12px;"><p class="sub">Selecciona un tema para consultar sus videos.</p></div>
+      </section>
+    </div>
 
     <div id="vista-evidencias-tareas" style="display:none; margin-top:15px;">
       <div class="panel" style="margin-bottom:14px;">
@@ -1337,6 +1374,8 @@ function actualizarInterfazAdministrador() {
   if (tarjetaCatequizandos) tarjetaCatequizandos.hidden = !esAdmin;
   const tarjetaGestor = $('tarjeta-portal-gestor');
   if (tarjetaGestor) tarjetaGestor.hidden = !esAdmin;
+  const tarjetaVideos = $('tarjeta-gestion-videos');
+  if (tarjetaVideos) tarjetaVideos.hidden = !esAdmin;
   // Padres se consulta desde el directorio interno del panel administrativo.
   // La tarjeta externa conserva el acceso familiar independiente y su PIN.
   const tarjetaPortalPadres = $('tarjeta-portal-padres');
@@ -1423,9 +1462,9 @@ function abrirPortalComun() {
   mostrarVistaInternaPortal('menu-herramientas', false);
   sincronizarConHoja(false).then(function() { iniciarMonitoreoMensajesCatequista(); });
 }
-const VISTAS_PORTAL = ['menu-herramientas','vista-mensajes','vista-evidencias-tareas','vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-calificaciones','vista-dashboard','vista-administrador'];
+const VISTAS_PORTAL = ['menu-herramientas','vista-mensajes','vista-videos-temas','vista-evidencias-tareas','vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-calificaciones','vista-dashboard','vista-administrador'];
 const ETIQUETAS_VISTAS_PORTAL = {
-  'menu-herramientas':'Menú principal', 'vista-mensajes':'Mensajes y notificaciones', 'vista-evidencias-tareas':'Revisión de evidencias',
+  'menu-herramientas':'Menú principal', 'vista-mensajes':'Mensajes y notificaciones', 'vista-videos-temas':'Biblioteca de videos', 'vista-evidencias-tareas':'Revisión de evidencias',
   'vista-clases':'Programación de temas', 'vista-asistencia':'Asistencia modular',
   'vista-pagos':'Control de pagos', 'vista-padres':'Padres de familia',
   'vista-calendario':'Calendario de catequesis', 'vista-calificaciones':'Registro de calificaciones',
@@ -1530,6 +1569,69 @@ function renderizarEntregasTareasCatequista() {
 }
 
 
+
+let sesionesGestionVideosV8 = [];
+function temaSeleccionadoVideosV8() {
+  const id=$('selector-admin-video-tema')?$('selector-admin-video-tema').value:'';
+  return sesionesGestionVideosV8.find(s=>String(s.id||'').trim()===id)||null;
+}
+function renderizarListaVideosTemaV8() {
+  const cont=$('lista-admin-videos-tema-v8'), contador=$('contador-admin-video-tema'), tema=temaSeleccionadoVideosV8();
+  if(!cont||!tema){if(cont)cont.innerHTML='<p class="sub">Selecciona un tema para consultar sus videos.</p>';if(contador)contador.textContent='Selecciona un tema';return;}
+  const videos=Array.isArray(tema.videos)?tema.videos:[];
+  if(contador)contador.textContent=videos.length+' de 6 videos activos';
+  const save=$('btnGuardarVideoTemaV8');if(save)save.disabled=videos.length>=6;
+  if(!videos.length){cont.innerHTML='<div class="sub" style="padding:14px;border:1px dashed var(--line);border-radius:11px;">Este tema aún no tiene videos registrados.</div>';return;}
+  cont.innerHTML=videos.map((v,i)=>
+    '<article style="display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;padding:11px;border:1px solid var(--line);border-radius:11px;background:#f8fafc;">'+
+    '<div style="min-width:0;flex:1;"><strong style="color:var(--navy);">'+escaparHTML(v.titulo||('Video '+(i+1)))+'</strong>'+
+    (v.descripcion?'<p class="sub" style="margin:3px 0;">'+escaparHTML(v.descripcion)+'</p>':'')+
+    '<a href="'+escaparHTML(v.url||'')+'" target="_blank" rel="noopener noreferrer" class="sub">Abrir enlace de video ↗</a></div>'+
+    (v.id&&!String(v.id).startsWith('VIDEO-LEGADO-')?'<button type="button" class="btn small" data-desactivar-video-v8="'+escaparHTML(v.id)+'">Desactivar</button>':'')+'</article>'
+  ).join('');
+  cont.querySelectorAll('[data-desactivar-video-v8]').forEach(btn=>btn.addEventListener('click',async()=>{
+    if(!esAdministradoraPortal()){alert('Solo las administradoras pueden gestionar videos.');return;}
+    if(!confirm('¿Retirar este video de la lista que ven los catequizandos?'))return;
+    btn.disabled=true;btn.textContent='Guardando...';
+    try{await apiPost({action:'desactivarVideoTema',idVideo:btn.dataset.desactivarVideoV8});await cargarGestionVideosTemasV8(tema.id);}
+    catch(e){alert('No se pudo desactivar el video: '+(e.message||e));btn.disabled=false;btn.textContent='Desactivar';}
+  }));
+}
+async function cargarGestionVideosTemasV8(idMantener) {
+  if(!esAdministradoraPortal()){mostrarVista('menu-herramientas');alert('La biblioteca de videos está reservada para Miss Lily y Miss Kiara.');return;}
+  const estado=$('estado-guardar-video-tema-v8'),cont=$('lista-admin-videos-tema-v8');
+  if(cont)cont.innerHTML='<p class="sub">Consultando temas y videos...</p>';
+  try{
+    const data=await apiGet('getSesiones');
+    if(!data||!data.exito)throw new Error(data&&data.mensaje?data.mensaje:'No se pudo leer la programación.');
+    sesionesGestionVideosV8=(data.bloques||[]).flatMap(b=>(b.sessions||[]).map(s=>Object.assign({},s,{bloque:b.title||s.bloque||''})));
+    const selector=$('selector-admin-video-tema');
+    const anterior=idMantener||(selector?selector.value:'');
+    if(selector){
+      selector.innerHTML='<option value="">-- Elige uno de los 68 temas --</option>'+sesionesGestionVideosV8.map(s=>'<option value="'+escaparHTML(s.id)+'">'+escaparHTML(s.id+' · '+s.tema)+'</option>').join('');
+      if(anterior&&sesionesGestionVideosV8.some(s=>s.id===anterior))selector.value=anterior;
+    }
+    if(estado)estado.textContent='Temas sincronizados. Cada tema admite hasta seis videos activos.';
+    renderizarListaVideosTemaV8();
+  }catch(e){if(cont)cont.innerHTML='<p style="color:#a52828;">No se pudo consultar la biblioteca: '+escaparHTML(e.message||e)+'</p>';if(estado)estado.textContent='Error al sincronizar los videos.';}
+}
+async function guardarVideoTemaPortalV8(event) {
+  if(event)event.preventDefault();
+  if(!esAdministradoraPortal()){alert('Solo Miss Lily y Miss Kiara pueden registrar videos.');return;}
+  const idSesion=$('selector-admin-video-tema').value,titulo=$('titulo-admin-video').value.trim(),url=$('url-admin-video').value.trim(),descripcion=$('descripcion-admin-video').value.trim();
+  const estado=$('estado-guardar-video-tema-v8'),boton=$('btnGuardarVideoTemaV8');
+  if(!idSesion||!titulo||!url){if(estado)estado.textContent='Selecciona el tema, escribe un título y pega el enlace del video.';return;}
+  if(boton){boton.disabled=true;boton.textContent='Guardando...';}
+  if(estado)estado.textContent='Registrando enlace en Google Sheets...';
+  try{
+    const r=await apiPost({action:'guardarVideoTema',idSesion:idSesion,titulo:titulo,url:url,descripcion:descripcion});
+    $('titulo-admin-video').value='';$('url-admin-video').value='';$('descripcion-admin-video').value='';
+    if(estado)estado.textContent='✓ '+r.mensaje;
+    await cargarGestionVideosTemasV8(idSesion);
+  }catch(e){if(estado)estado.textContent='No se guardó el video: '+(e.message||e);}
+  finally{if(boton){boton.disabled=false;boton.textContent='💾 Guardar video en Google Sheets';}}
+}
+
 function mostrarVistaInternaPortal(idVista, registrarHistorial) {
   if (!VISTAS_PORTAL.includes(idVista) || !$(idVista)) return;
   VISTAS_PORTAL.forEach(v => { if ($(v)) $(v).style.display = v === idVista ? (v === 'menu-herramientas' ? 'grid' : 'block') : 'none'; });
@@ -1541,11 +1643,17 @@ function mostrarVistaInternaPortal(idVista, registrarHistorial) {
   }
   actualizarControlesHistorialPortal();
 
+const selectorAdminVideoTema = $('selector-admin-video-tema');
+if(selectorAdminVideoTema)selectorAdminVideoTema.addEventListener('change',renderizarListaVideosTemaV8);
+const btnActualizarVideosTema = $('btnActualizarVideosTemaV8');
+if(btnActualizarVideosTema)btnActualizarVideosTema.addEventListener('click',cargarGestionVideosTemasV8);
+
 const filtroEvidenciasTareas = $('filtro-evidencias-tareas');
 if (filtroEvidenciasTareas) filtroEvidenciasTareas.addEventListener('change', cargarEntregasTareasCatequista);
 const btnActualizarEvidenciasTareas = $('btn-actualizar-evidencias-tareas');
 if (btnActualizarEvidenciasTareas) btnActualizarEvidenciasTareas.addEventListener('click', cargarEntregasTareasCatequista);
   if (idVista === 'vista-mensajes') cargarMensajesCatequista(false);
+  if (idVista === 'vista-videos-temas') cargarGestionVideosTemasV8();
   if (idVista === 'vista-evidencias-tareas') cargarEntregasTareasCatequista();
   if (idVista === 'vista-calendario') { renderizarCalendarioModelo(); sincronizarCalendario(false); }
   if (idVista === 'vista-calificaciones') cargarVistaCalificaciones(false);
