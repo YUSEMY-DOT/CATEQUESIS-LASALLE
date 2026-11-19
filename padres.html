@@ -543,6 +543,34 @@ main#inicioPortal{max-width:1120px!important;padding:8px 20px 30px!important;dis
 .lds-guide-card .guide-action{grid-column:2;grid-row:3;justify-self:start;width:auto!important;min-width:190px}
 .lds-guide-card .collapse{grid-column:1 / -1;grid-row:4;width:100%}
 @media(max-width:540px){.lds-guide-card{grid-template-columns:72px minmax(0,1fr)!important;column-gap:10px!important;padding:12px!important}.lds-guide-card .guide-art{height:76px!important;min-height:76px!important;font-size:1.6rem!important}.lds-guide-card .guide-action{min-width:0!important;width:100%!important}}
+
+/* CALENDARIO FAMILIAR: colores pastel por tipo de evento */
+.calendar-header-alegre{background:linear-gradient(110deg,#8bbce9,#b4d8f5)!important;color:#214c7e!important;border-bottom:3px solid #f4d98c!important}
+.calendar-header-alegre .rounded-pill{background:#fffdf2!important;border-color:#f0d58b!important;color:#27496e!important}
+.calendar-day{background:#fbfdff!important;border:1px solid #dfeaf7!important;color:#2c4d72!important}
+.calendar-day.has-clase{background:#e8f3ff!important;border:2px solid #a7c9f4!important}
+.calendar-day.has-cumple{background:#fff0f5!important;border:2px solid #f2bfd1!important}
+.calendar-day.has-aviso{background:#fff8df!important;border:2px solid #f0d58b!important}
+.calendar-day.has-clase.has-cumple{background:linear-gradient(135deg,#e8f3ff 0 50%,#fff0f5 50% 100%)!important}
+.calendar-day.has-clase.has-aviso{background:linear-gradient(135deg,#e8f3ff 0 50%,#fff8df 50% 100%)!important}
+.calendar-day.has-cumple.has-aviso{background:linear-gradient(135deg,#fff0f5 0 50%,#fff8df 50% 100%)!important}
+.calendar-day .calendar-topic{background:#b9d8ff!important;color:#214d84!important;border:1px solid #a4c7f1!important;font-weight:700!important;white-space:normal!important;word-break:normal!important;overflow-wrap:normal!important;hyphens:none!important;max-height:none!important;line-height:1.25!important}
+.calendar-day.has-cumple .calendar-topic{background:#f8d8e5!important;color:#87415f!important;border-color:#edbad0!important}
+.calendar-day.has-aviso .calendar-topic{background:#fae8ae!important;color:#785d1b!important;border-color:#ebd28a!important}
+.calendar-day small{font-size:.68rem!important;line-height:1.2!important}
+.calendar-day.has-clase small{color:#527eae!important}
+.calendar-day.has-cumple small{color:#b05a7a!important}
+.calendar-day.has-aviso small{color:#9b791e!important}
+#detalleClase strong.text-primary{color:#4c83c5!important}
+
+/* Tareas familiares: tarjetas didácticas y estados claros */
+.lds-task-card{border:1px solid #e4eaf3;border-radius:16px;padding:15px;margin-bottom:12px;background:#fff}
+.lds-task-card.task-pending{background:linear-gradient(180deg,#fff9e8,#fff);border-color:#f0d99b}
+.lds-task-card.task-done{background:linear-gradient(180deg,#effaf3,#fff);border-color:#b8e2c5}
+.lds-task-status{display:inline-block;padding:5px 9px;border-radius:999px;font-size:.76rem;font-weight:800}
+.lds-task-status.pending{background:#ffedbd;color:#866317}
+.lds-task-status.done{background:#d8f2df;color:#287047}
+.lds-task-resources a{font-weight:700}
 </style>
 
 </head>
@@ -1027,7 +1055,7 @@ main#inicioPortal{max-width:1120px!important;padding:8px 20px 30px!important;dis
         else if(accion==='getAportes') out+=renderAportes(data);
         else if(accion==='getTareas') {
           const rows=data.datos||[];
-          out+=rows.length?rows.map(r=>`<div class="border rounded-3 p-3 mb-2"><h6 class="fw-bold">${escapeHtml(r.TITULO||'Actividad')}</h6><p class="small">${escapeHtml(r.DESCRIPCION||'')}</p><div class="small text-muted">Entrega: ${escapeHtml(formatDate(r.FECHA_ENTREGA))} · Estado: ${escapeHtml(r.ESTADO||'Pendiente')}</div></div>`).join(''):'<div class="alert alert-info mb-0">La conexión con la hoja TAREAS funciona. Todavía no hay actividades registradas para esta familia.</div>';
+          out+=rows.length?rows.map(r=>{const estado=String(r.ESTADO||'Pendiente');const done=/complet|entreg|realiz|finaliz/i.test(estado);const recursos=Object.entries(r).filter(([k,v])=>v&&/(video|url|link|enlace|material|recurso)/i.test(k)&&/^https?:\\/\\//i.test(String(v))).map(([k,v])=>({k,v:String(v)}));return `<div class="lds-task-card ${done?'task-done':'task-pending'}"><div class="d-flex justify-content-between align-items-start gap-2 flex-wrap"><h6 class="fw-bold mb-1">${escapeHtml(r.TITULO||'Actividad')}</h6><span class="lds-task-status ${done?'done':'pending'}">${done?'✅':'⏳'} ${escapeHtml(estado)}</span></div><p class="small mb-2">${escapeHtml(r.DESCRIPCION||'')}</p><div class="small text-muted">📅 Entrega: ${escapeHtml(formatDate(r.FECHA_ENTREGA))}</div>${recursos.length?`<div class="lds-task-resources mt-2">${recursos.map(x=>`<a class="btn btn-sm btn-outline-primary rounded-pill me-1 mb-1" href="${escapeHtml(x.v)}" target="_blank" rel="noopener">${/video/i.test(x.k)?'🎥 Ver video':/material|recurso/i.test(x.k)?'📚 Abrir material':'🔗 Abrir enlace'}</a>`).join('')}</div>`:''}</div>`}).join(''):'<div class="alert alert-info mb-0">La conexión con la hoja TAREAS funciona. Todavía no hay actividades registradas para esta familia.</div>';
         } else if(accion==='getSesiones') {
           const bloques=data.bloques||[];
           out+=`<p class="text-muted small">${Number(data.totalTemas||data.total||0)} temas distribuidos en ${Number(data.totalClases||0)} fechas.</p>`+bloques.map(b=>`<h6 class="fw-bold mt-3">${escapeHtml(b.title)}</h6><ol>${(b.sessions||[]).map(s=>`<li class="small mb-1">${escapeHtml(s.tema)}</li>`).join('')}</ol>`).join('');
