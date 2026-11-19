@@ -439,6 +439,64 @@ main.container{max-width:1240px!important}
 .lds-family-guide .accordion-body{font-size:.88rem;line-height:1.6;color:#53647a;padding:14px 16px 17px}
 .lds-family-guide .guide-pill{display:inline-block;margin:2px 5px 5px 0;padding:4px 9px;border-radius:999px;background:#eef5ff;color:#2456a6;font-size:.75rem;font-weight:700}
 @media(max-width:600px){.lds-family-welcome{padding:14px;border-radius:14px}.lds-family-welcome .welcome-icon{width:42px;height:42px;flex-basis:42px}.lds-family-welcome h4{font-size:1rem}.lds-family-welcome p{font-size:.8rem}.lds-family-guide .accordion-button{padding:12px}}
+
+/* REDISEÑO DIDÁCTICO DEL PORTAL FAMILIAR — solo frontend */
+body{background:linear-gradient(180deg,#edf6ff 0,#fffaf0 55%,#f8fbff 100%)!important;color:#233b5b!important;font-size:16px!important}
+main#inicioPortal{max-width:1120px!important;padding:8px 20px 30px!important;display:flex!important;flex-direction:column!important;gap:22px!important}
+#ldsFamiliaHero{display:flex;align-items:center;gap:22px;padding:25px 28px;border-radius:26px;background:linear-gradient(120deg,#164b91,#2875c7 68%,#54a2df);color:white;box-shadow:0 12px 28px #1c559020;position:relative;overflow:hidden}
+#ldsFamiliaHero:after{content:"✦ ✧ ✦";position:absolute;right:24px;top:12px;font-size:38px;opacity:.22}
+#ldsFamiliaHero .hero-emoji{width:86px;height:86px;border-radius:25px;background:#ffffff24;display:grid;place-items:center;font-size:45px;flex-shrink:0}
+#ldsFamiliaHero h2{font-size:clamp(1.45rem,3vw,2rem);font-weight:900;margin:0 0 8px;color:#fff}
+#ldsFamiliaHero p{font-size:1rem;margin:0;color:#eef7ff;max-width:680px}
+#ldsFamiliaHero .hero-small{display:inline-flex;margin-top:12px;padding:7px 12px;border-radius:999px;background:#fff2;color:#fff;font-size:.85rem;font-weight:700}
+#diagnosticoPortal{order:6!important;border:0!important;border-radius:20px!important;background:#fff!important;box-shadow:0 5px 18px #274b7310!important;padding:18px!important}
+.diagnostic-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important}
+.diagnostic-item{min-height:86px!important;border:1px solid #e6edf6!important;border-radius:15px!important;padding:12px!important;background:linear-gradient(180deg,#fff,#f8fbff)!important}
+.diagnostic-label{font-size:.8rem!important;min-height:32px!important;color:#63768d!important}
+.diagnostic-value{font-size:1.45rem!important;color:#214d86!important}
+.calendar-layout{order:4!important;grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr)!important;gap:18px!important;margin:0!important}
+.calendar-card,.day-detail-card{border:0!important;border-radius:22px!important;box-shadow:0 7px 22px #214f7b12!important;overflow:hidden}
+.calendar-header-alegre{background:linear-gradient(110deg,#2463b5,#4897db)!important;padding:17px 19px!important}
+.calendar-header-alegre .fs-5{font-size:1.15rem!important}
+.calendar-card .calendar-inner{padding:16px!important}
+.calendar-grid{gap:6px!important}
+.calendar-day{min-height:74px!important;border-radius:12px!important;background:#f8fbff!important;border-color:#e1ebf8!important;font-size:.85rem!important;padding:7px!important}
+.calendar-day.has-clase{background:#eaf3ff!important;border:2px solid #74a9f4!important}
+.calendar-day.has-aviso{background:#fff7df!important}
+.calendar-day.has-cumple{background:#fff0f4!important}
+.calendar-day .calendar-number{font-size:.9rem!important}
+.calendar-day .calendar-topic{font-size:.68rem!important;max-height:36px!important;border-radius:7px!important}
+.day-detail-card{padding:20px!important;background:#fff!important}
+.day-detail-card .badge{font-size:.75rem!important;padding:7px 10px!important}
+.day-detail-card h4{font-size:1.2rem!important}
+.day-detail-card h5{font-size:1rem!important}
+.day-detail-card small,.day-detail-card p{font-size:.88rem!important}
+.module-grid{order:2!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px!important;margin:0!important}
+.module-card{min-height:180px!important;padding:20px!important;border:0!important;border-radius:23px!important;box-shadow:0 8px 20px #294e7410!important;position:relative;overflow:hidden}
+.module-card:before{content:"";position:absolute;right:-25px;top:-28px;width:100px;height:100px;border-radius:50%;background:currentColor;opacity:.06}
+.module-card h5{font-size:1.12rem!important;font-weight:850!important;line-height:1.35!important}
+.module-card p{font-size:.9rem!important;line-height:1.5!important;color:#65768b!important}
+.module-card button{font-size:.9rem!important;font-weight:800!important;border-radius:999px!important;padding:10px 14px!important}
+.module-grid .module-item:nth-child(1) .module-card{background:#eef5ff!important;border-left:6px solid #3576d4!important;color:#3576d4}
+.module-grid .module-item:nth-child(2) .module-card{background:#edfff6!important;border-left:6px solid #23a66b!important;color:#23a66b}
+.module-grid .module-item:nth-child(3) .module-card{background:#fff8e8!important;border-left:6px solid #e5a21c!important;color:#c78a08}
+.module-grid .module-item:nth-child(4) .module-card{background:#fff0f4!important;border-left:6px solid #e34e6b!important;color:#e34e6b}
+.lds-family-welcome{order:3!important;border-radius:22px!important;padding:22px!important;box-shadow:0 8px 20px #294e7410!important}
+.lds-family-welcome .welcome-icon{width:65px!important;height:65px!important;flex-basis:65px!important;border-radius:20px!important;font-size:2rem!important}
+.lds-family-welcome h4{font-size:1.25rem!important}
+.lds-family-welcome p{font-size:.95rem!important;line-height:1.5!important}
+.lds-section-title{font-size:1.05rem!important;margin:0!important;color:#214d86!important}
+.lds-family-guide{border-radius:20px!important;box-shadow:0 7px 20px #294e7410!important}
+.lds-family-guide .accordion-button{font-size:1rem!important;padding:17px 18px!important;font-weight:800!important}
+.lds-family-guide .accordion-body{font-size:.95rem!important;line-height:1.65!important}
+#resultadoContenedor{order:5!important;margin-top:0!important}
+#resultadoContenedor .card-custom{border:0!important;border-radius:20px!important;box-shadow:0 7px 20px #294e7410!important;padding:20px!important}
+@media(max-width:800px){main#inicioPortal{padding:8px 12px 25px!important;gap:16px!important}#ldsFamiliaHero{padding:19px!important;gap:14px!important;border-radius:20px!important}#ldsFamiliaHero .hero-emoji{width:64px;height:64px;border-radius:18px;font-size:34px}.calendar-layout{grid-template-columns:1fr!important}.calendar-day{min-height:60px!important}.module-grid{grid-template-columns:1fr!important}.module-card{min-height:150px!important}.diagnostic-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:480px){#ldsFamiliaHero{align-items:flex-start}#ldsFamiliaHero .hero-emoji{width:52px;height:52px;flex-basis:52px;font-size:29px}#ldsFamiliaHero p{font-size:.9rem}.calendar-day{min-height:54px!important;padding:4px!important}.calendar-day .calendar-topic{font-size:.56rem!important}}
+
+#inicioPortal>section[aria-label="Orientaciones para familias"]{order:3!important;display:flex;flex-direction:column;gap:12px}
+#inicioPortal>#diagnosticoPortal{order:6!important}
+#inicioPortal>#resultadoContenedor{order:5!important}
 </style>
 
 </head>
@@ -489,7 +547,9 @@ main.container{max-width:1240px!important}
     </header>
 
     <main id="inicioPortal" class="container mb-5">
-      <div id="diagnosticoPortal" class="card card-custom p-3 mb-4">
+      
+      <section id="ldsFamiliaHero"><div class="hero-emoji">👨‍👩‍👧‍👦</div><div><h2>¡Bienvenidos, familia!</h2><p>Este es su espacio para acompañar con alegría el camino de fe de sus hijos. Aquí encontrarán lo importante, las actividades y cómo apoyarlos en casa.</p><span class="hero-small">💙 Juntos aprendemos · Juntos crecemos · Juntos caminamos hacia Jesús</span></div></section>
+<div id="diagnosticoPortal" class="card card-custom p-3 mb-4">
         <div class="d-flex align-items-center gap-2"><span class="spinner-border spinner-border-sm text-primary" role="status"></span><strong>Verificando conexión con Google Sheets…</strong></div>
       </div>
 
