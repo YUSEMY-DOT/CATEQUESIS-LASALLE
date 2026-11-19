@@ -1701,14 +1701,15 @@ async function cargarPreguntaJuego(idSesion, nombreTema) {
   const token = localStorage.getItem('lds_cat_token') || '';
   body.innerHTML = '<p style="font-weight:700;text-align:center;padding:20px;">Preparando tu aventura… 🌟</p>';
   try {
-    const versionData = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ action: 'verificarVersionCuestionarios' })
-    }).then(r => r.json());
-    const versionEsperada = 'LDS-CATEQUIZANDO-BLOQUE-PORCENTAJE-V3';
+    // Usa JSONP porque este portal ya consulta getSesiones por JSONP desde GitHub Pages.
+    // No depende del CORS de fetch POST ni detiene el juego por una respuesta vacía.
+    const versionData = await solicitarJSONP(`${API_URL}?action=verificarVersionCuestionarios`);
+    const versionEsperada = 'LDS-CATEQUIZANDO-BLOQUE-PORCENTAJE-V4';
     if (!versionData || !versionData.exito || versionData.version !== versionEsperada) {
-      body.innerHTML = '<div style="padding:16px;border-radius:12px;background:#fff1f0;color:#922b21"><strong>⚠️ El servidor aún no tiene la versión nueva del juego.</strong><p>Actualiza el código GS y publica una nueva versión de la implementación web existente. Después vuelve a entrar al portal.</p></div>';
+      const detalle = versionData && (versionData.version || versionData.mensaje)
+        ? String(versionData.version || versionData.mensaje)
+        : 'El endpoint no devolvió una versión identificable.';
+      body.innerHTML = `<div style="padding:16px;border-radius:12px;background:#fff1f0;color:#922b21"><strong>⚠️ La implementación de Apps Script conectada no corresponde a esta versión del juego.</strong><p>Respuesta del servidor: ${escapeQuizHtml(detalle)}</p><p>La dirección del servidor se conserva igual que en tu HTML original. El GS V4 incluye esta consulta por GET/JSONP, igual que la carga de SESIONES.</p></div>`;
       return;
     }
 
