@@ -1265,6 +1265,86 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
 <script>
 const API_URL = 'https://script.google.com/macros/s/AKfycbyiJHN-fMW4DbAumaziZzX7iD-WE9Q8pzwi7lVPct6a8hVX5Xr2RG6sitl61qsNsIB1vQ/exec';
 
+
+let quizVersionV5Verificada = false;
+let quizAudioContextoV5 = null;
+let quizTemaActivoV5 = '';
+let quizTimerSiguienteV5 = null;
+
+function _quizAudioV5() {
+  try {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return null;
+    if (!quizAudioContextoV5) quizAudioContextoV5 = new Ctx();
+    if (quizAudioContextoV5.state === 'suspended') quizAudioContextoV5.resume().catch(() => {});
+    return quizAudioContextoV5;
+  } catch (e) { return null; }
+}
+
+function _quizTonoV5(ctx, hz, inicio, duracion, tipo, volumen) {
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = tipo || 'sine';
+  osc.frequency.setValueAtTime(hz, inicio);
+  gain.gain.setValueAtTime(0.0001, inicio);
+  gain.gain.exponentialRampToValueAtTime(volumen || 0.07, inicio + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.0001, inicio + duracion);
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.start(inicio); osc.stop(inicio + duracion + 0.03);
+}
+
+function _quizConfetiV5() {
+  if (!document.getElementById('quizConfetiStyleV5')) {
+    const style = document.createElement('style');
+    style.id = 'quizConfetiStyleV5';
+    style.textContent = '@keyframes quizConfetiCaidaV5{0%{transform:translateY(-15vh) rotate(0);opacity:1}100%{transform:translateY(105vh) rotate(680deg);opacity:0}}';
+    document.head.appendChild(style);
+  }
+  const colores = ['#ffc94d', '#20a66a', '#4a90e2', '#ec5b91', '#9a73d8'];
+  for (let i = 0; i < 26; i++) {
+    const p = document.createElement('span');
+    p.style.cssText = 'position:fixed;z-index:10050;top:-15px;width:8px;height:12px;border-radius:2px;pointer-events:none;animation:quizConfetiCaidaV5 1s ease-in forwards;';
+    p.style.left = (Math.random() * 100) + 'vw';
+    p.style.background = colores[i % colores.length];
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 1250);
+  }
+}
+
+function _quizEfectoRespuestaV5(correcta) {
+  const ctx = _quizAudioV5();
+  if (ctx) {
+    const t = ctx.currentTime;
+    if (correcta) {
+      [523, 659, 784, 988].forEach((hz, i) => _quizTonoV5(ctx, hz, t + i * 0.075, 0.28, 'triangle', 0.075));
+      for (let i = 0; i < 4; i++) {
+        const dur = 0.045;
+        const buffer = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur), ctx.sampleRate);
+        const arr = buffer.getChannelData(0);
+        for (let j = 0; j < arr.length; j++) arr[j] = (Math.random() * 2 - 1) * (1 - j / arr.length);
+        const src = ctx.createBufferSource();
+        const filter = ctx.createBiquadFilter();
+        const gain = ctx.createGain();
+        src.buffer = buffer; filter.type = 'highpass'; filter.frequency.value = 900;
+        gain.gain.setValueAtTime(0.0001, t + 0.14 + i * 0.09);
+        gain.gain.exponentialRampToValueAtTime(0.11, t + 0.155 + i * 0.09);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.20 + i * 0.09);
+        src.connect(filter); filter.connect(gain); gain.connect(ctx.destination);
+        src.start(t + 0.14 + i * 0.09);
+      }
+      if (navigator.vibrate) navigator.vibrate([35, 25, 45]);
+      _quizConfetiV5();
+    } else {
+      _quizTonoV5(ctx, 280, t, 0.17, 'triangle', 0.08);
+      _quizTonoV5(ctx, 185, t + 0.15, 0.22, 'triangle', 0.07);
+      if (navigator.vibrate) navigator.vibrate(85);
+    }
+  } else if (correcta) {
+    _quizConfetiV5();
+  }
+}
+
+
 // Rutas candidatas de la insignia en assets/ para evitar imagen rota
 const RUTAS_INSIGNIA = [
   './assets/LOGO%20LASALLE.png',
@@ -1689,13 +1769,14 @@ async function abrirBloque(numBloque) {
 async function abrirCuestionarioTema(idSesion, nombreTema) {
   const backdrop = document.getElementById('quizModalBackdrop');
   const title = document.getElementById('quizModalTitle');
-  const body = document.getElementById('quizModalBody');
   title.textContent = `🎮 Aventura de aprendizaje: ${nombreTema}`;
   backdrop.hidden = false;
+  quizTemaActivoV5 = String(idSesion);
+  if (quizTimerSiguienteV5) clearTimeout(quizTimerSiguienteV5);
   await cargarPreguntaJuego(idSesion, nombreTema);
 }
 
-async function cargarPreguntaJuego(idSesion, nombreTema) {
+async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, progresoPrecargado) {
   const title = document.getElementById('quizModalTitle');
   const body = document.getElementById('quizModalBody');
   const token = localStorage.getItem('lds_cat_token') || '';
@@ -1703,21 +1784,26 @@ async function cargarPreguntaJuego(idSesion, nombreTema) {
   try {
     // Usa JSONP porque este portal ya consulta getSesiones por JSONP desde GitHub Pages.
     // No depende del CORS de fetch POST ni detiene el juego por una respuesta vacía.
-    const versionData = await solicitarJSONP(`${API_URL}?action=verificarVersionCuestionarios`);
-    const versionEsperada = 'LDS-CATEQUIZANDO-BLOQUE-PORCENTAJE-V4';
-    if (!versionData || !versionData.exito || versionData.version !== versionEsperada) {
-      const detalle = versionData && (versionData.version || versionData.mensaje)
-        ? String(versionData.version || versionData.mensaje)
-        : 'El endpoint no devolvió una versión identificable.';
-      body.innerHTML = `<div style="padding:16px;border-radius:12px;background:#fff1f0;color:#922b21"><strong>⚠️ La implementación de Apps Script conectada no corresponde a esta versión del juego.</strong><p>Respuesta del servidor: ${escapeQuizHtml(detalle)}</p><p>La dirección del servidor se conserva igual que en tu HTML original. El GS V4 incluye esta consulta por GET/JSONP, igual que la carga de SESIONES.</p></div>`;
-      return;
+    if (!quizVersionV5Verificada) {
+      const versionData = await solicitarJSONP(`${API_URL}?action=verificarVersionCuestionarios`);
+      const versionEsperada = 'LDS-CATEQUIZANDO-JUEGO-AGIL-V5';
+      if (!versionData || !versionData.exito || versionData.version !== versionEsperada) {
+        const detalle = versionData && (versionData.version || versionData.mensaje)
+          ? String(versionData.version || versionData.mensaje)
+          : 'El endpoint no devolvió una versión identificable.';
+        body.innerHTML = `<div style="padding:16px;border-radius:12px;background:#fff1f0;color:#922b21"><strong>⚠️ El servidor no corresponde a la versión rápida del juego.</strong><p>Respuesta: ${escapeQuizHtml(detalle)}</p></div>`;
+        return;
+      }
+      quizVersionV5Verificada = true;
     }
 
-    const data = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ action: 'obtenerCuestionarioCatequizando', idSesion: idSesion, token: token })
-    }).then(r => r.json());
+    const data = preguntaPrecargada
+      ? { exito: true, pregunta: preguntaPrecargada, porcentajeBloque: progresoPrecargado, completadoTema: false, completadoBloque: false }
+      : await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'obtenerCuestionarioCatequizando', idSesion: idSesion, token: token })
+        }).then(r => r.json());
     if (!data || !data.exito) throw new Error(data && data.mensaje ? data.mensaje : 'No se pudo cargar la pregunta.');
 
     const progreso = Math.max(0, Math.min(100, Number(data.porcentajeBloque || 0)));
@@ -1754,7 +1840,7 @@ async function cargarPreguntaJuego(idSesion, nombreTema) {
         <div id="quizPreguntaTexto" style="font-size:19px;line-height:1.45;font-weight:800;color:#12345a;margin-bottom:15px;"></div>
         <div id="quizOpcionesJuego" style="display:grid;gap:10px;"></div>
       </div>
-      <button type="button" id="btnComprobarRespuesta" class="btn-docente-submit" style="margin-top:15px;width:100%;padding:13px;" disabled>Comprobar mi respuesta ✨</button>
+      <button type="button" id="btnComprobarRespuesta" class="btn-docente-submit" style="display:none;" disabled>Enviar</button>
       <div id="quizResultadoJuego" style="margin-top:14px;"></div>
     `;
     document.getElementById('quizPreguntaTexto').textContent = p.pregunta;
@@ -1777,6 +1863,7 @@ async function cargarPreguntaJuego(idSesion, nombreTema) {
         btn.style.background = '#fff7df';
         btn.style.boxShadow = '0 0 0 2px rgba(224,173,40,.14)';
         document.getElementById('btnComprobarRespuesta').disabled = false;
+        document.getElementById('btnComprobarRespuesta').click();
       });
       opcionesEl.appendChild(btn);
     });
@@ -1785,7 +1872,7 @@ async function cargarPreguntaJuego(idSesion, nombreTema) {
     comprobar.addEventListener('click', async () => {
       if (!opcionElegida) return;
       comprobar.disabled = true;
-      comprobar.textContent = 'Revisando tu respuesta…';
+      // La respuesta se envía sin mostrar un mensaje de espera.
       Array.from(opcionesEl.children).forEach(el => { el.disabled = true; el.style.cursor = 'default'; });
       try {
         const saved = await fetch(API_URL, {
@@ -1810,38 +1897,41 @@ async function cargarPreguntaJuego(idSesion, nombreTema) {
           mostrarProgresoBloqueUI(nuevoProgreso, saved.completadoBloque);
         }
 
+        _quizEfectoRespuestaV5(!!saved.correcta);
         const result = document.getElementById('quizResultadoJuego');
         const correctoHtml = saved.correcta
           ? '<h3 style="margin:0 0 6px;color:#168454;">🎉 ¡Muy bien! Respuesta correcta</h3><p style="margin:0 0 8px;">Ganaste <strong>2 puntos</strong> ⭐</p>'
           : `<h3 style="margin:0 0 6px;color:#a52222;">💛 ¡Buen intento! Vamos a aprender</h3><p style="margin:0 0 8px;">La respuesta correcta era: <strong>${escapeQuizHtml(saved.respuestaCorrecta)}) ${escapeQuizHtml(saved.textoRespuestaCorrecta || '')}</strong></p>`;
         result.innerHTML = `<div style="padding:15px;border-radius:14px;background:#f4f9f5;border:1px solid #d8eadc;">${correctoHtml}${saved.explicacion ? `<p style="color:#25415d;margin:8px 0 0;">${escapeQuizHtml(saved.explicacion)}</p>` : ''}<p style="margin:10px 0 0;color:#52677f;font-weight:800;">Avance del bloque: ${nuevoProgreso.toFixed(1).replace(/\.0$/, '')}%</p></div>`;
-        hablarTexto(saved.correcta ? '¡Excelente! Ganaste dos puntos.' : 'Buen intento. Aprende de la explicación y continúa.');
+        // Los efectos sonoros sustituyen la narración para que la pregunta siguiente llegue sin demora.
 
         comprobar.style.display = 'none';
-        const next = document.createElement('button');
-        next.type = 'button';
-        next.className = 'btn-docente-submit';
-        next.style.cssText = 'margin-top:13px;width:100%;padding:13px;';
-        if (saved.completadoTema) {
-          next.textContent = saved.completadoBloque ? 'Celebrar bloque completado 🏆' : 'Volver a los temas';
-          next.onclick = () => {
+        if (saved.siguientePregunta && saved.siguientePregunta.idPregunta) {
+          const espera = saved.correcta ? 850 : 1450;
+          quizTimerSiguienteV5 = setTimeout(() => {
+            if (quizTemaActivoV5 !== String(idSesion) || document.getElementById('quizModalBackdrop').hidden) return;
+            cargarPreguntaJuego(idSesion, nombreTema, saved.siguientePregunta, nuevoProgreso);
+          }, espera);
+        } else if (saved.completadoTema) {
+          const espera = saved.correcta ? 850 : 1450;
+          quizTimerSiguienteV5 = setTimeout(() => {
+            if (quizTemaActivoV5 !== String(idSesion) || document.getElementById('quizModalBackdrop').hidden) return;
             if (saved.completadoBloque) {
-              body.innerHTML = `<div style="text-align:center;padding:22px"><div style="font-size:48px">🏆</div><h2 style="color:#12345a">¡Bloque completado!</h2><p>Has terminado todos los retos de este bloque. ¡Felicitaciones!</p><div style="font-size:30px;color:#168454;font-weight:900">100%</div><button type="button" id="btnCerrarAventuraFinal" class="btn-docente-submit">Volver a los temas</button></div>`;
-              document.getElementById('btnCerrarAventuraFinal').onclick = () => { document.getElementById('quizModalBackdrop').hidden = true; };
+              _quizEfectoRespuestaV5(true);
+              body.innerHTML = `<div style="text-align:center;padding:22px"><div style="font-size:48px">🏆</div><h2 style="color:#12345a">¡Bloque completado!</h2><p>¡Terminaste todos los retos de este bloque!</p><div style="font-size:30px;color:#168454;font-weight:900">100%</div><button type="button" id="btnVolverBloqueV5" class="btn-docente-submit">Volver a los temas</button></div>`;
+              document.getElementById('btnVolverBloqueV5').onclick = () => { document.getElementById('quizModalBackdrop').hidden = true; };
             } else {
-              document.getElementById('quizModalBackdrop').hidden = true;
+              result.innerHTML += `<p style="text-align:center;font-weight:800;color:#12345a;margin-top:10px;">🏅 ¡Tema completado! Elige otro tema para continuar.</p><button type="button" id="btnVolverTemasV5" class="btn-docente-submit" style="width:100%;margin-top:10px;">Volver a los temas</button>`;
+              document.getElementById('btnVolverTemasV5').onclick = () => { document.getElementById('quizModalBackdrop').hidden = true; };
             }
-          };
+          }, espera);
         } else {
-          next.textContent = 'Siguiente pregunta ➜';
-          next.onclick = () => cargarPreguntaJuego(idSesion, nombreTema);
-        }
-        result.appendChild(next);
-        if (saved.completadoTema && !saved.completadoBloque) {
-          const msg = document.createElement('p');
-          msg.style.cssText = 'color:#52677f;text-align:center;font-weight:700;';
-          msg.textContent = '¡Has terminado este tema! Elige otro tema del bloque para continuar tu aventura.';
-          result.appendChild(msg);
+          const espera = saved.correcta ? 850 : 1450;
+          quizTimerSiguienteV5 = setTimeout(() => {
+            if (quizTemaActivoV5 === String(idSesion) && !document.getElementById('quizModalBackdrop').hidden) {
+              cargarPreguntaJuego(idSesion, nombreTema);
+            }
+          }, espera);
         }
       } catch (error) {
         const result = document.getElementById('quizResultadoJuego');
