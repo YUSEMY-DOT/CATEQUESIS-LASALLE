@@ -713,7 +713,7 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
   <div id="ldsBloquesContenido"><div class="weekly-loading">✨ Cargando programación…</div></div>
 </section>
 <section id="ldsSemana" class="lds-weekly-panel"><div class="weekly-heading"><div class="weekly-icon">🧭</div><div><h3>Esta semana en familia</h3><p>Revisa las actividades que tu hijo debe realizar y los materiales para acompañarlo.</p></div></div><div id="ldsTareasSemana"><div class="weekly-loading">✨ Estamos revisando las actividades de tu familia…</div></div><button class="weekly-all-btn" type="button" onclick="consultarDatos('getTareas')">📚 Ver todas las tareas y actividades</button></section><div id="diagnosticoPortal" class="card card-custom p-3 mb-4">
-        <div class="d-flex align-items-center gap-2"><span class="spinner-border spinner-border-sm text-primary" role="status"></span><strong>Verificando conexión con Google Sheets…</strong></div>
+        <div class="d-flex align-items-center gap-2"><span class="spinner-border spinner-border-sm text-primary" role="status"></span><strong>Verificando la información del programa…</strong></div>
       </div>
 
       <!-- ========================================================= -->
@@ -800,7 +800,11 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
       </section>
 
       <!-- Cuadrícula de los 4 Botones Principales -->
-      <section class="module-grid">
+      <section id="ldsComunicaciones" class="lds-family-challenge">
+  <div class="lds-section-heading"><span>💌</span><div><h3>Comunicaciones para nuestra familia</h3><p>Avisos oficiales y mensajes informativos de la catequesis.</p></div></div>
+  <button class="btn btn-outline-primary rounded-pill" type="button" onclick="consultarDatos('getAvisos')">📬 Ver comunicados recibidos</button>
+</section>
+<section class="module-grid">
         <div class="module-item">
           <div class="card card-custom module-card">
             <h5 class="fw-bold text-primary mb-3">👧🧒 Información del Catequizando</h5>
@@ -1136,7 +1140,7 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
 
     async function cargarDatosCompletosCalendario() {
       const diag=document.getElementById('diagnosticoPortal');
-      diag.innerHTML='<div class="d-flex align-items-center gap-2"><span class="spinner-border spinner-border-sm text-primary"></span><strong>Conectando con Google Sheets…</strong></div>';
+      diag.innerHTML='<div class="d-flex align-items-center gap-2"><span class="spinner-border spinner-border-sm text-primary"></span><strong>Actualizando la información del programa…</strong></div>';
       try {
         const [cal,avisos,cumples,diagnostico] = await Promise.all([
           apiGet('getCalendarioPadres'), apiGet('getAvisos'), apiGet('getCumpleanosPadres'), apiGet('getDiagnosticoPadres')
@@ -1157,7 +1161,7 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
           if(error){error.textContent='La sesión venció. Ingrese nuevamente con su código familiar y PIN.';error.classList.remove('d-none');}
           return;
         }
-        diag.innerHTML=`<div class="alert alert-danger mb-0"><strong>No se pudo conectar con Google Sheets.</strong><br>${escapeHtml(e.message || 'Error de conexión.')}</div>`;
+        diag.innerHTML=`<div class="alert alert-danger mb-0"><strong>No se pudo actualizar la información.</strong><br>${escapeHtml(e.message || 'Error de conexión.')}</div>`;
         generarCalendarioVisual();
       }
     }
@@ -1263,7 +1267,7 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
 
     async function consultarDatos(accion) {
       const c=document.getElementById('resultadoContenedor');
-      c.innerHTML='<div class="alert alert-warning text-center">Consultando registros en Google Sheets…</div>';
+      c.innerHTML='<div class="alert alert-warning text-center">Consultando información familiar…</div>';
       try {
         const data=await apiGet(accion);
         if(!data.exito) throw new Error(data.mensaje||'No se pudo consultar la información.');
@@ -1274,12 +1278,15 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
         else if(accion==='getAportes') out+=renderAportes(data);
         else if(accion==='getTareas') {
           const rows=data.datos||[];
-          out+=rows.length?rows.map(r=>{const estado=String(r.ESTADO||'Pendiente');const done=/complet|entreg|realiz|finaliz/i.test(estado);const recursos=Object.entries(r).filter(([k,v])=>v&&/(video|url|link|enlace|material|recurso)/i.test(k)&&/^https?:\\/\\//i.test(String(v))).map(([k,v])=>({k,v:String(v)}));return `<div class="lds-task-card ${done?'task-done':'task-pending'}"><div class="d-flex justify-content-between align-items-start gap-2 flex-wrap"><h6 class="fw-bold mb-1">${escapeHtml(r.TITULO||'Actividad')}</h6><span class="lds-task-status ${done?'done':'pending'}">${done?'✅':'⏳'} ${escapeHtml(estado)}</span></div><p class="small mb-2">${escapeHtml(r.DESCRIPCION||'')}</p><div class="small text-muted">📅 Entrega: ${escapeHtml(formatDate(r.FECHA_ENTREGA))}</div>${recursos.length?`<div class="lds-task-resources mt-2">${recursos.map(x=>`<a class="btn btn-sm btn-outline-primary rounded-pill me-1 mb-1" href="${escapeHtml(x.v)}" target="_blank" rel="noopener">${/video/i.test(x.k)?'🎥 Ver video':/material|recurso/i.test(x.k)?'📚 Abrir material':'🔗 Abrir enlace'}</a>`).join('')}</div>`:''}</div>`}).join(''):'<div class="alert alert-info mb-0">La conexión con la hoja TAREAS funciona. Todavía no hay actividades registradas para esta familia.</div>';
+          out+=rows.length?rows.map(r=>{const estado=String(r.ESTADO||'Pendiente');const done=/complet|entreg|realiz|finaliz/i.test(estado);const recursos=Object.entries(r).filter(([k,v])=>v&&/(video|url|link|enlace|material|recurso)/i.test(k)&&/^https?:\\/\\//i.test(String(v))).map(([k,v])=>({k,v:String(v)}));return `<div class="lds-task-card ${done?'task-done':'task-pending'}"><div class="d-flex justify-content-between align-items-start gap-2 flex-wrap"><h6 class="fw-bold mb-1">${escapeHtml(r.TITULO||'Actividad')}</h6><span class="lds-task-status ${done?'done':'pending'}">${done?'✅':'⏳'} ${escapeHtml(estado)}</span></div><p class="small mb-2">${escapeHtml(r.DESCRIPCION||'')}</p><div class="small text-muted">📅 Entrega: ${escapeHtml(formatDate(r.FECHA_ENTREGA))}</div>${recursos.length?`<div class="lds-task-resources mt-2">${recursos.map(x=>`<a class="btn btn-sm btn-outline-primary rounded-pill me-1 mb-1" href="${escapeHtml(x.v)}" target="_blank" rel="noopener">${/video/i.test(x.k)?'🎥 Ver video':/material|recurso/i.test(x.k)?'📚 Abrir material':'🔗 Abrir enlace'}</a>`).join('')}</div>`:''}</div>`}).join(''):'<div class="alert alert-info mb-0">Todavía no hay actividades registradas para esta familia.</div>';
         } else if(accion==='getSesiones') {
           const bloques=data.bloques||[];
           out+=`<p class="text-muted small">${Number(data.totalTemas||data.total||0)} temas distribuidos en ${Number(data.totalClases||0)} fechas.</p>`+bloques.map(b=>`<h6 class="fw-bold mt-3">${escapeHtml(b.title)}</h6><ol>${(b.sessions||[]).map(s=>`<li class="small mb-1">${escapeHtml(s.tema)}</li>`).join('')}</ol>`).join('');
         } else if(accion==='getMateriales') {
           out+=renderRequisitos({datos:[],materiales:data.datos||[]});
+        } else if(accion==='getAvisos') {
+          const rows=Array.isArray(data.datos)?data.datos:[];
+          out+=rows.length?rows.map(r=>'<article class="border rounded-3 p-3 mb-2"><div class="d-flex justify-content-between gap-2 flex-wrap"><h6 class="fw-bold text-primary mb-1">'+escapeHtml(r.TITULO||'Comunicado')+'</h6><small class="text-muted">'+escapeHtml(formatDate(r.FECHA))+'</small></div><p class="mb-2">'+escapeHtml(r.MENSAJE||'')+'</p>'+(r.WHATSAPP_LINK&&recursoSeguro(r.WHATSAPP_LINK)?'<a class="btn btn-sm btn-outline-success rounded-pill" href="'+escapeHtml(recursoSeguro(r.WHATSAPP_LINK))+'" target="_blank" rel="noopener">📲 Abrir enlace</a>':'')+'</article>').join(''):'<div class="alert alert-info">No hay comunicados disponibles por el momento.</div>';
         } else if(accion==='getCalificaciones') {
           out+=tableHtml(data.datos||[],['FECHA_REGISTRO','TEMA','TIPO_ACTIVIDAD','NOTA_NUMERICA','EQUIVALENCIA','OBSERVACIONES'],{'FECHA_REGISTRO':'Fecha','TEMA':'Tema','TIPO_ACTIVIDAD':'Actividad','NOTA_NUMERICA':'Nota (0–20)','EQUIVALENCIA':'Equivalencia','OBSERVACIONES':'Observaciones'});
         }
