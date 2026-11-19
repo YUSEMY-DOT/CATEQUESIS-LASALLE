@@ -837,6 +837,7 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
       if (tokenPadres) {
         document.getElementById('loginView').classList.add('d-none');
         document.getElementById('portalView').classList.remove('d-none');
+        actualizarPerfilFamilia();
         await cargarDatosCompletosCalendario();
         await cargarResumenTareasFamilia();
       } else {
