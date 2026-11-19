@@ -1473,22 +1473,90 @@ function renderizarTarjetasAlumnos(idActivo) {
   }).join('');
 }
 
-async function cargarDatosPortal() {
-  try {
-    const resp = await fetch(`${API_URL}?action=obtenerDatosPortalCatequizando`);
-    const data = await resp.json();
-    if (data && data.exito) {
-      if (Array.isArray(data.sesiones)) sesionesSheet = data.sesiones;
-      if (Array.isArray(data.clases)) clasesSheet = data.clases;
-      if (data.asistencia && typeof data.asistencia === 'object') asistenciaPorAlumno = data.asistencia;
-      if (data.tareas && typeof data.tareas === 'object') tareasPorAlumno = data.tareas;
-      if (Array.isArray(data.avisos) && data.avisos.length > 0) renderizarAvisos(data.avisos);
+// Lectura de programación mediante JSONP: evita el bloqueo CORS de Apps Script
+// y consume la acción real existente en Código.gs: getSesiones.
+function solicitarJSONP(url, timeoutMs = 20000) {
+  return new Promise((resolve, reject) => {
+    const callbackName = 'ldsPortalJsonp_' + Date.now() + '_' + Math.floor(Math.random()*100000);
+    const script = document.createElement('script');
+    let terminado = false;
+    const timer = setTimeout(() => finalizar(new Error('Tiempo de espera al consultar Google Sheets.')), timeoutMs);
+    function finalizar(error, data) {
+      if (terminado) return;
+      terminado = true;
+      clearTimeout(timer);
+      try { delete window[callbackName]; } catch (_) { window[callbackName] = undefined; }
+      script.remove();
+      if (error) reject(error); else resolve(data);
     }
+    window[callbackName] = data => finalizar(null, data);
+    script.onerror = () => finalizar(new Error('No se pudo conectar con el backend de Google Apps Script.'));
+    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + callbackName;
+    document.head.appendChild(script);
+  });
+}
+
+function fechaCalendarioDesdeISO(iso) {
+  const m = String(iso || '').match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!m) return String(iso || '');
+  return `${m[3]}/${m[2]}/${m[1]}`;
+}
+
+async function cargarDatosPortal() {
+  const perfil = JSON.parse(localStorage.getItem('lds_cat_perfil') || '{}');
+  try {
+    const data = await solicitarJSONP(`${API_URL}?action=getSesiones`);
+    if (!data || !data.exito) throw new Error((data && data.mensaje) || 'El backend no devolvió la programación.');
+
+    // El backend entrega bloques.sessions y clases.temas. Se adaptan al formato
+    // que ya utiliza este HTML, sin modificar la estructura visual.
+    sesionesSheet = (data.bloques || []).flatMap(b => (b.sessions || []).map(s => ({
+      'N.º DE SESIÓN': s.numeroSesion || s.n || '',
+      ID_SESION: s.id || s.ID_SESION || '',
+      BLOQUE: s.bloque || b.title || '',
+      TEMA: s.tema || '',
+      SUBTEMA: s.subtema || s.desc || '',
+      OBJETIVO: s.objetivo || '',
+      VALOR: s.valor || s.val || '',
+      CITA_BIBLICA: s.cita_biblica || s.cita || '',
+      ACTIVIDAD: s.actividad || '',
+      ESTADO: s.estado || ''
+    })));
+
+    clasesSheet = (data.clases || []).map(c => {
+      const temas = c.temas || [];
+      const t1 = temas[0] || {};
+      const t2 = temas[1] || {};
+      const fecha = fechaCalendarioDesdeISO(c.fechaProgramada || c.fecha || '');
+      return {
+        NUMERO_CLASE: c.numeroClase || '',
+        FECHA_PROGRAMADA: fecha,
+        DIA: c.dia || c.diaRegistrado || '',
+        HORA_INICIO: c.horaInicio || '',
+        HORA_FIN: c.horaFin || '',
+        ID_SESION_1: t1.id || '',
+        TEMA_1: t1.tema || '',
+        ID_SESION_2: t2.id || '',
+        TEMA_2: t2.tema || '',
+        SUB_TEMAS: [t1.subtema, t2.subtema].filter(Boolean).join(' · '),
+        BLOQUE: c.bloque || '',
+        CATEQUISTA: c.catequista || ''
+      };
+    });
+
+    console.info('Programación Google Sheets cargada:', sesionesSheet.length, 'temas y', clasesSheet.length, 'clases.');
   } catch (e) {
-    console.warn('Error sincronizando con Google Sheet:', e);
+    console.error('Error sincronizando programación de Google Sheets:', e);
+    sesionesSheet = [];
+    clasesSheet = [];
+    const panel = document.getElementById('bloqueDetallePanel');
+    const grid = document.getElementById('temasBloqueGrid');
+    if (panel && grid) {
+      panel.hidden = false;
+      grid.innerHTML = `<p style="font-weight:700;color:#b42318;">No se pudo cargar la programación desde Google Sheets: ${escapeQuizHtml(e.message || e)}. Verifica que el GS esté implementado y publicado.</p>`;
+    }
   }
 
-  const perfil = JSON.parse(localStorage.getItem('lds_cat_perfil') || '{}');
   renderizarTarjetasAlumnos(perfil.ID_NINO || '');
   renderizarCalendario();
 }
