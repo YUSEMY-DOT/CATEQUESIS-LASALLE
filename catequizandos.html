@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="auth-required">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#12345a">
-<title>Camino hacia Jesús 2026 | Colegio Privado La Salle del Sur</title>
+<title>Portal de Catequizandos 2026 | Colegio La Salle del Sur</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -53,7 +53,7 @@ a { text-decoration: none; color: inherit; }
 header {
   background: radial-gradient(circle at 80% 20%, #1b4f84 0%, #0d2b50 45%, #06152a 100%);
   color: white;
-  padding: 36px clamp(20px, 4vw, 48px) 48px;
+  padding: 28px clamp(20px, 4vw, 48px) 36px;
   position: relative;
 }
 
@@ -62,7 +62,7 @@ header {
   justify-content: space-between;
   align-items: center;
   gap: 16px;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
 .brand {
@@ -79,7 +79,7 @@ header {
 }
 
 .brand-text h2 {
-  font: 700 20px 'Fredoka', sans-serif;
+  font: 700 19px 'Fredoka', sans-serif;
   color: #ffdf94;
   margin: 0 0 2px;
   letter-spacing: 0.3px;
@@ -94,6 +94,54 @@ header {
   font-size: 11px;
 }
 
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 20px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 800;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+}
+
+.btn-actualizar {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  color: white;
+  border: 1px solid #219653;
+}
+
+.mute-toggle {
+  background: #fff8e5;
+  color: #17385f;
+  border: 1px solid #e5c76d;
+}
+
+.home {
+  background: var(--gold);
+  color: #102b4e;
+  border: 1px solid #ffe18a;
+}
+
+.btn-logout {
+  background: #b0002d;
+  color: #fff;
+  border: 1px solid #ff8fa3;
+}
+
+.btn-action:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.85fr);
@@ -102,8 +150,8 @@ header {
 }
 
 .hero-copy h1 {
-  font: 700 clamp(32px, 3.8vw, 46px)/1.15 'Fredoka', sans-serif;
-  margin: 0 0 12px;
+  font: 700 clamp(28px, 3.2vw, 40px)/1.15 'Fredoka', sans-serif;
+  margin: 0 0 8px;
   color: #fff;
 }
 
@@ -114,18 +162,38 @@ header {
 .hero-copy p {
   margin: 0;
   color: #dbe7f9;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
+}
+
+.hero-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.hero-jesus-img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 14px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  border: 2px solid #e8ca6b;
 }
 
 .countdown {
   background: linear-gradient(145deg, rgba(25, 62, 105, 0.9), rgba(13, 35, 63, 0.95));
   border: 2px solid #e8ca6b;
   border-radius: 20px;
-  padding: 18px 20px;
+  padding: 16px 18px;
   box-shadow: 0 8px 25px rgba(0,0,0,0.25);
   position: relative;
   overflow: hidden;
+  flex: 1;
+  min-width: 270px;
 }
 
 .countdown::before {
@@ -137,7 +205,7 @@ header {
 
 .countdown-main-title {
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .countdown-main-title small {
@@ -149,8 +217,9 @@ header {
 }
 
 .countdown-main-title b {
-  font: 700 18px 'Fredoka', sans-serif;
+  font: 700 20px 'Fredoka', sans-serif;
   color: #fff;
+  letter-spacing: 0.5px;
 }
 
 .timer {
@@ -167,10 +236,13 @@ header {
   text-align: center;
   border-bottom: 3px solid #f1b731;
   box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .timebox b {
-  font: 700 22px/1 'Fredoka', sans-serif;
+  font: 700 20px/1 'Fredoka', sans-serif;
   color: #12345a;
 }
 
@@ -178,100 +250,718 @@ header {
   font-size: 9px;
   font-weight: 900;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
   color: #526882;
   margin-top: 2px;
-  display: block;
+}
+
+.countdown-note {
+  font-size: 11px;
+  line-height: 1.3;
+  margin-top: 8px;
+  color: #fff3db;
+  text-align: center;
+  font-weight: 700;
 }
 
 main {
-  padding: 40px clamp(20px, 4vw, 48px) 56px;
+  padding: 32px clamp(20px, 4vw, 48px) 48px;
 }
 
-.section-title {
-  text-align: center;
-  margin-bottom: 32px;
-}
-
-.section-title h2 {
-  font: 700 32px 'Fredoka', sans-serif;
-  color: #12345a;
-  margin: 0 0 8px;
-}
-
-.section-title p {
-  color: var(--muted);
-  font-weight: 700;
-  font-size: 16px;
-  margin: 0;
-}
-
-.portals-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+.kid-welcome {
+  margin-bottom: 36px;
+  padding: 24px 28px;
+  border: 2px solid #f2d385;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #fff9e6 0%, #fff4d1 100%);
+  box-shadow: 0 4px 16px rgba(175, 131, 31, 0.08);
+  display: flex;
+  align-items: center;
   gap: 20px;
 }
 
-.portal-card {
+.welcome-img {
+  width: 85px;
+  height: 85px;
+  object-fit: cover;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 3px solid var(--gold);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  background: #fff;
+}
+
+.welcome-text h3 {
+  font: 700 24px 'Fredoka', sans-serif;
+  margin: 4px 0 6px;
+  color: #12345a;
+}
+
+.welcome-text p {
+  font-weight: 700;
+  color: #51637a;
+  margin: 0;
+  font-size: 14.5px;
+}
+
+.section {
+  margin-top: 40px;
+}
+
+.eyebrow {
+  color: #a4720e;
+  font: 700 12px 'Fredoka', sans-serif;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.section h2 {
+  font: 700 28px 'Fredoka', sans-serif;
+  color: #12345a;
+  margin: 0 0 20px;
+}
+
+.stages {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media(min-width: 1024px) {
+  .stages { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}
+
+.stage {
+  border: 1px solid #e7d6b8;
+  background: #fff;
+  border-radius: 18px;
+  padding: 18px 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  color: #12345a;
+  box-shadow: 0 4px 12px rgba(18,52,90,0.04);
+}
+
+.stage:hover, .stage.active-stage {
+  transform: translateY(-3px);
+  border-color: #d8aa35;
+  box-shadow: 0 8px 20px rgba(18,52,90,0.12);
+  background: #fff9e6;
+}
+
+.stage .num {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid #fff;
+  display: grid;
+  place-items: center;
+  font: 700 12px 'Fredoka', sans-serif;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  color: #12345a;
+}
+
+.stage .icon {
+  height: 60px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 30px;
+  margin: 8px 0 10px;
+  background: #fffbf0;
+  border: 1px solid #fae8bd;
+}
+
+.stage strong {
+  display: block;
+  font: 700 13px/1.3 'Fredoka', sans-serif;
+  color: #12345a;
+}
+
+.stage small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+/* PANEL DE TEMAS DEL BLOQUE */
+.bloque-detalle-panel {
+  margin-top: 22px;
+  background: #fff;
+  border: 1.5px solid #e6d5b8;
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: 0 6px 20px rgba(18,52,90,0.06);
+}
+
+.bloque-detalle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0e6d2;
+}
+
+.bloque-detalle-header h3 {
+  font: 700 20px 'Fredoka', sans-serif;
+  color: #12345a;
+  margin: 0;
+}
+
+.temas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.tema-card {
+  background: #fffcf7;
+  border: 1px solid #e8d7bb;
+  border-left: 4px solid #d49a0e;
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.tema-card h4 {
+  font: 700 15px 'Fredoka', sans-serif;
+  color: #12345a;
+  margin: 0 0 4px;
+}
+
+.tema-card p {
+  font-size: 13px;
+  color: #4b5d73;
+  margin: 0;
+  font-weight: 600;
+}
+
+.tema-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.tema-badge {
+  background: #fff4d1;
+  color: #8c5c00;
+  padding: 3px 8px;
+  border-radius: 8px;
+}
+
+.btn-quiz-tema {
+  align-self: flex-start;
+  background: #12345a;
+  color: #fff;
+  font: 700 12px 'Fredoka', sans-serif;
+  padding: 8px 14px;
+  border-radius: 10px;
+  transition: background 0.2s;
+}
+
+.btn-quiz-tema:hover {
+  background: #b0002d;
+}
+
+/* CALENDARIO */
+#calendar-section {
+  margin-top: 44px;
+}
+
+.calendar-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.9fr);
+  gap: 20px;
+  align-items: stretch;
+}
+
+.calendar-card, .calendar-info {
   background: #fff;
   border: 1px solid #e8d7bb;
   border-radius: 20px;
-  padding: 28px 20px;
-  text-align: center;
+  padding: 22px;
   box-shadow: 0 4px 16px rgba(18,52,90,0.05);
-  transition: all 0.25s ease;
+}
+
+.cal-top {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  position: relative;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #e7cf82;
+  background: linear-gradient(135deg, #fff9e6 0%, #fff2d1 100%);
+  border-radius: 14px;
+  padding: 10px 16px;
 }
 
-.portal-card:hover {
-  transform: translateY(-5px);
-  border-color: #d8aa35;
-  box-shadow: 0 10px 25px rgba(18,52,90,0.12);
-  background: #fffefb;
+.cal-top h3, .calendar-info h3 {
+  font: 700 20px 'Fredoka', sans-serif;
+  color: #12345a;
+  margin: 0;
 }
 
-.portal-icon {
-  width: 64px;
-  height: 64px;
-  border-radius: 16px;
-  background: #fff8e6;
-  border: 1px solid #fae8bd;
+.cal-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cal-controls button {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #dfb944;
+  border-radius: 10px;
+  background: #fff;
+  color: #12345a;
+  font-size: 18px;
+  font-weight: 900;
   display: grid;
   place-items: center;
-  font-size: 28px;
-  margin-bottom: 16px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+  transition: background 0.2s;
 }
 
-.portal-card h3 {
-  font: 700 18px 'Fredoka', sans-serif;
-  color: #12345a;
-  margin: 0 0 8px;
+.cal-controls button:hover { background: #ffe99a; }
+.cal-controls strong { font: 700 14px 'Fredoka', sans-serif; min-width: 120px; text-align: center; color: #12345a; }
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
 }
 
-.portal-card p {
-  color: var(--muted);
-  font-size: 13.5px;
-  font-weight: 700;
-  margin: 0 0 20px;
-  line-height: 1.4;
+.weekday {
+  text-align: center;
+  color: #1f4675;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 6px 0;
 }
 
-.portal-btn {
-  margin-top: auto;
+.day {
+  min-height: 48px;
+  border: 1px solid #ebdcbf;
+  border-radius: 10px;
+  background: #fffcf7;
+  color: #2c435c;
+  font-weight: 900;
+  font-size: 14px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.day:disabled {
+  opacity: 0.6;
+  background: #f7f6f2;
+  color: #9da3ad;
+  border-color: #eae5db;
+  cursor: default;
+}
+
+.day.classday:not(.selected) {
+  background: #eef7ff;
+  border-color: #93c5fd;
+  color: #1e3a8a;
+}
+
+.day.classday:not(.selected):hover {
+  background: #dbeafe;
+}
+
+.day.classday::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #2563eb;
+  border-radius: 50%;
+  bottom: 6px;
+  left: calc(50% - 3px);
+}
+
+.day.double-session:not(.selected)::before {
+  content: '2';
+  position: absolute;
+  top: 3px;
+  right: 4px;
+  width: 15px;
+  height: 15px;
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+  font: 900 9px 'Nunito', sans-serif;
+}
+
+.day.communion-day {
+  background: #ffebe9;
+  border-color: #d97070;
+  color: #992d2d;
+}
+
+.day.selected {
   background: #12345a;
   color: #fff;
-  font: 700 13px 'Fredoka', sans-serif;
-  padding: 10px 20px;
-  border-radius: 14px;
-  transition: background 0.2s;
-  box-shadow: 0 3px 10px rgba(18,52,90,0.2);
+  border: 2px solid #e8bd3d;
+  box-shadow: 0 0 0 2px #fff6dc, 0 4px 10px rgba(18,52,90,0.25);
 }
 
-.portal-card:hover .portal-btn {
-  background: #b0002d;
+.day.selected::after { background: #ffdc70; }
+
+.calendar-info .pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 20px;
+  padding: 5px 12px;
+  background: #fff4d1;
+  color: #8c5c00;
+  font-weight: 900;
+  font-size: 11px;
+}
+
+.calendar-info .date-big {
+  font: 700 24px 'Fredoka', sans-serif;
+  color: #12345a;
+  margin: 10px 0 8px;
+  line-height: 1.2;
+}
+
+.calendar-info p {
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 14px;
+  margin: 0 0 14px;
+}
+
+.calendar-topic-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.calendar-topic-item.topic-collapsible {
+  border: 1px solid #e5d5b3;
+  border-left: 4px solid #e5b536;
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.topic-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  cursor: pointer;
+  list-style: none;
+  padding: 12px 14px;
+}
+
+.topic-summary::-webkit-details-marker { display: none; }
+.topic-summary::after {
+  content: "+";
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff3cc;
+  color: #8c5c00;
+  font-size: 16px;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+}
+
+.calendar-topic-item.topic-collapsible[open] > .topic-summary::after {
+  content: "-";
+}
+
+.topic-summary-title {
+  margin: 0;
+  font: 700 15px 'Fredoka', sans-serif;
+  color: #12345a;
+}
+
+.topic-content {
+  padding: 0 14px 14px;
+  font-size: 13px;
+  color: #4b5d73;
+  font-weight: 700;
+}
+
+.calendar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  border-top: 1px solid #f0e6d2;
+  padding-top: 12px;
+}
+
+.legend-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #2563eb; margin-right: 5px; }
+.legend-special { display: inline-block; width: 9px; height: 9px; border-radius: 3px; background: #ffe9e9; border: 1px solid #d76b6b; margin-right: 5px; }
+.legend-double { display: inline-grid; place-items: center; width: 14px; height: 14px; border-radius: 3px; background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; font: 900 9px 'Nunito', sans-serif; margin-right: 5px; }
+
+/* SEGUIMIENTO Y ALUMNOS */
+.post-calendar-section {
+  margin-top: 50px;
+  border-top: 2px dashed #e6d5b8;
+  padding-top: 40px;
+}
+
+.students-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.student-card {
+  background: #fff;
+  border: 1px solid #e8d7bb;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 16px rgba(18,52,90,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.student-card.current-student {
+  border: 2px solid #d49a0e;
+  background: #fffdf5;
+  box-shadow: 0 8px 24px rgba(212, 154, 14, 0.14);
+}
+
+.student-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.student-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--gold);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  background: #fff3cc;
+}
+
+.student-info h4 {
+  font: 700 16px 'Fredoka', sans-serif;
+  color: #12345a;
+  margin: 0 0 2px;
+}
+
+.student-info small {
+  display: inline-block;
+  background: #fff4d1;
+  color: #8c5c00;
+  font-weight: 800;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.metrics-box {
+  background: #fffbf5;
+  border: 1px solid #fae8bd;
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.metric-row {
+  margin-bottom: 10px;
+}
+
+.metric-row:last-child {
+  margin-bottom: 0;
+}
+
+.metric-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #193453;
+  margin-bottom: 4px;
+}
+
+.progress-track {
+  background: #f0eae1;
+  border-radius: 8px;
+  height: 8px;
+  overflow: hidden;
+  border: 1px solid #e2d5c3;
+}
+
+.progress-fill-attendance {
+  background: linear-gradient(90deg, #2ecc71, #27ae60);
+  height: 100%;
+  border-radius: 8px;
+}
+
+/* MENSAJES Y COMUNICADOS */
+.notifications-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.notice-card {
+  background: #fff;
+  border: 1px solid #e8d7bb;
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: 0 4px 16px rgba(18,52,90,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.notice-card h3 {
+  font: 700 18px 'Fredoka', sans-serif;
+  color: #12345a;
+  margin: 0;
+}
+
+.interactive-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.interactive-form input, .interactive-form textarea, .interactive-form select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #e2d5c3;
+  border-radius: 10px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13.5px;
+  background: #fffcf7;
+  color: var(--ink);
+}
+
+.interactive-form input:focus, .interactive-form textarea:focus, .interactive-form select:focus {
+  outline: none;
+  border-color: #d49a0e;
+  box-shadow: 0 0 0 2px rgba(212, 154, 14, 0.15);
+}
+
+.btn-docente-submit {
+  align-self: flex-end;
+  background: var(--navy);
+  color: #fff;
+  font: 700 12px 'Fredoka', sans-serif;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-docente-submit:hover { opacity: 0.9; }
+
+.dynamic-items-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.notice-item {
+  background: #fff8e6;
+  border: 1px solid #e8cb82;
+  border-left: 4px solid #d49a0e;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: #193453;
+  font-weight: 700;
+}
+
+.notice-item.coord {
+  background: #eef2ff;
+  border-color: #a5b4fc;
+  border-left-color: #4f46e5;
+  color: #1e1b4b;
+}
+
+/* MODAL DE CUESTIONARIO */
+.quiz-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(9, 28, 53, 0.72);
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.quiz-modal-backdrop[hidden] { display: none !important; }
+
+.quiz-modal {
+  background: #fffdf9;
+  border: 2px solid #e8ca6b;
+  border-radius: 24px;
+  max-width: 680px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 26px;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.3);
+}
+
+.quiz-option-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border: 1.5px solid #d8c6a8;
+  border-radius: 14px;
+  background: #fff;
+  font-weight: 700;
+  color: #12345a;
+  transition: all 0.15s ease;
+}
+
+.quiz-option-btn:hover {
+  background: #fff8e5;
+  border-color: #d49a0e;
+}
+
+.quiz-option-btn.selected-opt {
+  background: #12345a;
+  color: #fff;
+  border-color: #12345a;
 }
 
 .footer {
@@ -279,129 +969,898 @@ main {
   background: linear-gradient(135deg, #0b2850, #174878);
   color: #e4edfa;
   text-align: center;
-  padding: 28px;
+  padding: 26px;
   border-radius: 20px;
   font-weight: 700;
   font-size: 13px;
+  box-shadow: inset 0 2px 5px rgba(255,255,255,0.1);
 }
 
 .footer strong { color: #ffdf94; font-family: 'Fredoka', sans-serif; font-size: 16px; }
 .copyright { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.15); color: #c6d4e8; font-size: 11.5px; }
 
-@media(max-width: 900px) {
+@media(max-width: 1024px) {
   .hero { grid-template-columns: 1fr; gap: 24px; }
+  .calendar-layout { grid-template-columns: 1fr; }
+  .kid-welcome { flex-direction: column; text-align: center; }
+}
+
+@media(max-width: 600px) {
+  .stages { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .topbar { flex-direction: column; align-items: flex-start; }
+  .top-actions { width: 100%; justify-content: flex-start; }
+  .hero-right { justify-content: center; }
+}
+
+/* PORTADA DE ACCESO CATEQUIZANDOS */
+html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display: none !important; }
+#loginGate[hidden] { display: none !important; }
+.login-gate { position: fixed; inset: 0; z-index: 99999; width: 100%; height: 100vh; height: 100dvh; overflow: auto; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; background: #f7f8fc; color: #10254e; }
+.login-scene { position: relative; width: min(100%, 1640px); flex: 0 0 auto; line-height: 0; }
+.login-art { display: block; width: 100%; height: auto; max-width: 100%; object-fit: contain; }
+.login-instruction { position: absolute; left: 24.6%; top: 29.3%; width: 50%; text-align: center; color: #10254e; font: 800 clamp(11px, 1.05vw, 16px)/1.15 Arial, sans-serif; letter-spacing: .01em; line-height: 1.2; }
+.login-form-overlay { position: absolute; left: 24.5%; top: 32.5%; width: 50%; height: 17.4%; margin: 0; padding: 9px 24px 8px; border: 2px solid #bdcce4; border-radius: 25px; background: #f8f9fc; box-shadow: 0 5px 15px rgba(16, 37, 78, .10); display: flex; flex-direction: column; justify-content: space-between; gap: 6px; line-height: normal; z-index: 2; }
+.login-form-overlay select, .login-form-overlay input { position: static; display: block; flex: 1 1 0; min-height: 30px; width: 100%; height: auto; margin: 0; padding: 0 22px; border: 1.5px solid #9db4df; border-radius: 28px; background: #fff; color: #40516f; font: 600 clamp(12px, 1.25vw, 19px) Arial, sans-serif; letter-spacing: .02em; box-shadow: 0 1px 2px rgba(16, 37, 78, .05); }
+.login-form-overlay select { cursor: pointer; }
+.login-form-overlay input { color: #10254e; letter-spacing: .17em; }
+.login-form-overlay select:focus, .login-form-overlay input:focus { outline: 3px solid #dfb32655; border-color: #b0002d; }
+.login-form-overlay button { position: static; display: block; flex: 0 0 clamp(31px, 3vw, 42px); width: min(34%, 230px); min-height: 31px; height: auto; margin: 0 auto; border: 2px solid #dfb326; border-radius: 26px; background: #b0002d; color: #fff; font: 900 clamp(12px, 1.35vw, 19px) Arial, sans-serif; box-shadow: 0 3px 8px rgba(16, 37, 78, .16); }
+.login-form-overlay button:disabled { opacity: .6; cursor: wait; }
+.login-error { position: static; display: block; flex: 0 0 auto; width: 100%; min-height: 0; margin: 0; text-align: center; color: #a52222; font: 800 11px/1.2 Arial, sans-serif; }
+.login-error:empty { display: none; }
+.login-mobile { display: none; }
+
+@media(max-width: 760px) {
+  .login-gate { position: fixed; inset: 0; min-height: 100dvh; height: 100dvh; overflow-y: auto; background: linear-gradient(180deg, #f8f9fc, #fff); }
+  .login-scene, .login-instruction { display: none; }
+  .login-mobile { width: 100%; min-height: 100%; padding: 20px 16px 0; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .login-mobile-brand { width: 100%; display: flex; align-items: center; justify-content: center; gap: 12px; }
+  .login-mobile-brand img { width: 64px; height: 64px; object-fit: contain; }
+  .login-mobile-brand-copy { border-bottom: 3px solid #dfb326; padding-bottom: 7px; text-align: left; }
+  .login-mobile-brand-copy b { display: block; font: 800 12px Arial, sans-serif; color: #10254e; }
+  .login-mobile-brand-copy span { display: block; font: 400 clamp(18px, 5vw, 27px) Georgia, serif; color: #10254e; }
+  .login-mobile-program { padding: 7px 18px; border-radius: 22px; background: #b0002d; color: #fff; font: 900 13px Arial, sans-serif; }
+  .login-mobile-title { margin: 0 0 3px; text-align: center; color: #10254e; font: 400 34px Georgia, serif; }
+  .login-mobile-prompt { margin: 0; text-align: center; color: #415471; font: 800 13px Arial, sans-serif; }
+  .login-mobile-form { width: min(100%, 430px); display: grid; gap: 10px; padding: 16px; background: #fff; border: 1.5px solid #bdcce4; border-radius: 20px; box-shadow: 0 6px 20px #10254e10; }
+  .login-mobile-form select, .login-mobile-form input { width: 100%; height: 47px; padding: 0 14px; border: 1.5px solid #9db4df; border-radius: 25px; background: #fbfcff; color: #40516f; font: 600 15px Arial, sans-serif; }
+  .login-mobile-form input { color: #10254e; letter-spacing: .18em; }
+  .login-mobile-form select:focus, .login-mobile-form input:focus { outline: 3px solid #dfb32655; border-color: #b0002d; }
+  .login-mobile-form button { height: 45px; border: 2px solid #dfb326; border-radius: 24px; background: #b0002d; color: #fff; font: 900 16px Arial, sans-serif; }
+  .login-mobile-form .login-error { position: static; width: auto; min-height: 16px; margin: 0; }
+  .login-mobile-kids { width: 100%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 5px 0 16px; }
+  .login-mobile-kid { aspect-ratio: 3/4; border: 2px solid #dfb326; border-radius: 10px; background-image: url('./assets/PORTADA%20CATEQUIZANDO.png'); background-repeat: no-repeat; background-size: 700% auto; background-color: #fff; box-shadow: 0 3px 9px #10254e1c; }
+  .login-mobile-kid:nth-child(1){background-position:0% 61%}.login-mobile-kid:nth-child(2){background-position:16.6667% 61%}.login-mobile-kid:nth-child(3){background-position:33.3333% 61%}.login-mobile-kid:nth-child(4){background-position:50% 61%}.login-mobile-kid:nth-child(5){background-position:66.6667% 61%}.login-mobile-kid:nth-child(6){background-position:83.3333% 61%}.login-mobile-kid:nth-child(7){background-position:100% 61%}
+  .login-mobile-motto { width: calc(100% + 32px); margin-top: auto; padding: 17px 12px; border-top: 6px solid #dfb326; background: #10254e; color: #fff; text-align: center; font: 900 12px/1.4 Arial, sans-serif; }
 }
 </style>
 </head>
 <body>
 
-<div class="wrap">
+<!-- PORTADA DE ACCESO DE CATEQUIZANDOS (ESCRITORIO Y MÓVIL) -->
+<div id="loginGate" class="login-gate">
+  <div class="login-scene">
+    <img src="./assets/PORTADA%20CATEQUIZANDO.png" alt="Portada Catequizandos" class="login-art">
+    <div class="login-instruction">Selecciona tu nombre e ingresa tu PIN secreto de 12 dígitos para entrar:</div>
+    <form id="loginFormDesktop" class="login-form-overlay">
+      <select id="selectStudentDesktop" required>
+        <option value="">Cargando lista de catequizandos...</option>
+      </select>
+      <input type="password" id="pinInputDesktop" inputmode="numeric" maxlength="12" placeholder="Ingresa tu PIN de 12 dígitos" autocomplete="off" required>
+      <button type="submit" id="btnSubmitDesktop">INGRESAR</button>
+      <div id="loginErrorDesktop" class="login-error"></div>
+    </form>
+  </div>
+
+  <!-- VISTA MÓVIL CON FOTOS DE ALUMNOS -->
+  <div class="login-mobile">
+    <div class="login-mobile-brand">
+      <img src="./assets/LOGO%20LASALLE.png" alt="Insignia La Salle">
+      <div class="login-mobile-brand-copy">
+        <b>COLEGIO PRIVADO LA SALLE DEL SUR</b>
+        <span>Camino hacia Jesús</span>
+      </div>
+    </div>
+    <div class="login-mobile-program">PORTAL DE CATEQUIZANDOS 2026</div>
+    <h1 class="login-mobile-title">¡Bienvenido!</h1>
+    <p class="login-mobile-prompt">Selecciona tu nombre y escribe tu PIN de 12 dígitos</p>
+    <form id="loginFormMobile" class="login-mobile-form">
+      <select id="selectStudentMobile" required>
+        <option value="">Cargando lista de catequizandos...</option>
+      </select>
+      <input type="password" id="pinInputMobile" inputmode="numeric" maxlength="12" placeholder="Ingresa tu PIN de 12 dígitos" autocomplete="off" required>
+      <button type="submit" id="btnSubmitMobile">INGRESAR AL PORTAL</button>
+      <div id="loginErrorMobile" class="login-error"></div>
+    </form>
+    <div class="login-mobile-kids">
+      <div class="login-mobile-kid"></div>
+      <div class="login-mobile-kid"></div>
+      <div class="login-mobile-kid"></div>
+      <div class="login-mobile-kid"></div>
+      <div class="login-mobile-kid"></div>
+      <div class="login-mobile-kid"></div>
+      <div class="login-mobile-kid"></div>
+    </div>
+    <div class="login-mobile-motto">Sembrando fe, cultivando valores y construyendo amistad con Jesús.</div>
+  </div>
+</div>
+
+<!-- PORTAL PRINCIPAL DEL CATEQUIZANDO -->
+<div id="portalWrap" class="wrap" hidden>
   <div class="goldline"></div>
   <header>
     <div class="topbar">
       <div class="brand">
-        <img src="./assets/LOGO%20LASALLE.png" alt="La Salle" class="crest">
+        <img src="./assets/LOGO%20LASALLE.png" alt="Colegio La Salle del Sur" class="crest">
         <div class="brand-text">
-          <small>Colegio Privado La Salle del Sur & Parroquia San Pedro de Lurín</small>
-          <h2>Camino hacia Jesús 2026</h2>
+          <h2>COLEGIO LA SALLE DEL SUR</h2>
+          <small>Programa de Catequesis · Parroquia San Pedro de Lurín</small>
         </div>
       </div>
+      <div class="top-actions">
+        <button type="button" class="btn-action btn-actualizar" id="btnRefreshPortal">🔄 Actualizar</button>
+        <button type="button" class="btn-action mute-toggle" id="btnToggleVoice">🔊 Voz Activa</button>
+        <a href="index.html" class="btn-action home">🏠 Inicio</a>
+        <button type="button" class="btn-action btn-logout" id="btnLogout">🚪 Salir</button>
+      </div>
     </div>
+
     <div class="hero">
       <div class="hero-copy">
-        <h1>Plataforma Oficial de <span>Catequesis 2026</span></h1>
-        <p>Acompañando a nuestros niños y familias en su preparación para la Primera Comunión con fe, valores y alegría lasallana.</p>
+        <h1>¡Portal de <span>Catequizandos</span>! 💛</h1>
+        <p>Sembrando fe, cultivando valores y construyendo amistad con Jesús.</p>
       </div>
       <div class="hero-right">
+        <img src="./assets/JESUS.png" alt="Jesús" class="hero-jesus-img" onerror="this.style.display='none'">
         <div class="countdown">
           <div class="countdown-main-title">
-            <small>Gran Celebración</small>
-            <b>Primera Comunión 2026</b>
+            <small>🎉 Cuenta Regresiva</small>
+            <b>8 de Diciembre 2026</b>
           </div>
           <div class="timer">
-            <div class="timebox"><b id="dias">00</b><span>Días</span></div>
-            <div class="timebox"><b id="horas">00</b><span>Horas</span></div>
-            <div class="timebox"><b id="minutos">00</b><span>Min</span></div>
+            <div class="timebox"><b id="cdDays">--</b><span>Días</span></div>
+            <div class="timebox"><b id="cdHours">--</b><span>Horas</span></div>
+            <div class="timebox"><b id="cdMins">--</b><span>Min</span></div>
           </div>
+          <div class="countdown-note">Cercanos a Jesús. 🙏</div>
         </div>
       </div>
     </div>
   </header>
 
   <main>
-    <div class="section-title">
-      <h2>Portales y Secciones del Programa</h2>
-      <p>Seleccione el espacio al que desea ingresar:</p>
+    <!-- BIENVENIDA PERSONALIZADA CON FOTO DEL ALUMNO -->
+    <div class="kid-welcome">
+      <img id="welcomeStudentAvatar" src="./assets/LOGO%20LASALLE.png" alt="Foto Catequizando" class="welcome-img">
+      <div class="welcome-text">
+        <div class="eyebrow">✨ Tu aventura de fe comienza aquí</div>
+        <h3>¡Hola, <span id="welcomeStudentName">pequeño amigo de Jesús</span>! 💛</h3>
+        <p id="welcomeStudentMeta">Explora los 6 bloques oficiales y consulta tus temas, subtítulos, objetivos, valores y citas bíblicas organizados para ti.</p>
+      </div>
     </div>
 
-    <div class="portals-grid">
-      <!-- 1. Programación -->
-      <div class="portal-card">
-        <div class="portal-icon">📅</div>
-        <h3>Programación</h3>
-        <p>Consulte el cronograma general de sesiones, temas y actividades del año.</p>
-        <a href="programacion.html" class="portal-btn">Ver Programación</a>
+    <!-- LOS 6 BLOQUES DE CATEQUESIS -->
+    <section class="section">
+      <div class="eyebrow">Itinerario Oficial · 68 Temas</div>
+      <h2>Los 6 Bloques de Catequesis</h2>
+      <div class="stages" id="stagesGrid">
+        <button type="button" class="stage" data-bloque="1">
+          <span class="num">1</span>
+          <div class="icon">✝️</div>
+          <strong>Conociendo a Jesús</strong>
+          <small>Temas 1 al 9</small>
+        </button>
+        <button type="button" class="stage" data-bloque="2">
+          <span class="num">2</span>
+          <div class="icon">🕊️</div>
+          <strong>Aprendemos a Orar</strong>
+          <small>Temas 10 al 21</small>
+        </button>
+        <button type="button" class="stage" data-bloque="3">
+          <span class="num">3</span>
+          <div class="icon">📖</div>
+          <strong>Los Sacramentos</strong>
+          <small>Temas 22 al 29</small>
+        </button>
+        <button type="button" class="stage" data-bloque="4">
+          <span class="num">4</span>
+          <div class="icon">✨</div>
+          <strong>La Eucaristía</strong>
+          <small>Temas 30 al 47</small>
+        </button>
+        <button type="button" class="stage" data-bloque="5">
+          <span class="num">5</span>
+          <div class="icon">🙏</div>
+          <strong>Valores Cristianos</strong>
+          <small>Temas 48 al 61</small>
+        </button>
+        <button type="button" class="stage" data-bloque="6">
+          <span class="num">6</span>
+          <div class="icon">🍞</div>
+          <strong>Preparación a Nuestro Sacramento</strong>
+          <small>Temas 62 al 68</small>
+        </button>
       </div>
 
-      <!-- 2. Catequizandos -->
-      <div class="portal-card">
-        <div class="portal-icon">⭐</div>
-        <h3>Catequizandos</h3>
-        <p>Acceso exclusivo para niños con su PIN para cuestionarios y calificaciones.</p>
-        <a href="catequizandos.html" class="portal-btn">Ingresar al Portal</a>
+      <div id="bloqueDetallePanel" class="bloque-detalle-panel" hidden>
+        <div class="bloque-detalle-header">
+          <h3 id="bloqueDetalleTitulo">Temas del Bloque</h3>
+          <button type="button" class="btn-docente-submit" id="btnCerrarBloque">Cerrar lista ✕</button>
+        </div>
+        <div id="temasBloqueGrid" class="temas-grid"></div>
       </div>
+    </section>
 
-      <!-- 3. Catequistas -->
-      <div class="portal-card">
-        <div class="portal-icon">📖</div>
-        <h3>Catequistas</h3>
-        <p>Registro de asistencia, materiales, notas y gestión del aula parroquial.</p>
-        <a href="catequistas.html" class="portal-btn">Panel Docente</a>
-      </div>
+    <!-- CALENDARIO DE CATEQUESIS -->
+    <section id="calendar-section" class="section">
+      <div class="eyebrow">Organiza tus encuentros</div>
+      <h2>📅 Calendario de catequesis</h2>
+      <div class="calendar-layout">
+        <div class="calendar-card">
+          <div class="cal-top">
+            <h3>Calendario</h3>
+            <div class="cal-controls">
+              <button type="button" id="calPrev" aria-label="Mes anterior">‹</button>
+              <strong id="calMonthLabel">Junio 2026</strong>
+              <button type="button" id="calNext" aria-label="Mes siguiente">›</button>
+            </div>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+          <div class="calendar-legend">
+            <span><i class="legend-dot"></i>Clase programada</span>
+            <span><i class="legend-double">2</i>2 temas</span>
+            <span><i class="legend-special"></i>Celebración / Cierre</span>
+          </div>
+        </div>
 
-      <!-- 4. Padres -->
-      <div class="portal-card">
-        <div class="portal-icon">👨‍👩‍👧‍👦</div>
-        <h3>Padres de Familia</h3>
-        <p>Seguimiento familiar, avisos, aportes y requisitos de sacramentos.</p>
-        <a href="padres.html" class="portal-btn">Portal Familiar</a>
+        <div class="calendar-info">
+          <span class="pill">TU ENCUENTRO</span>
+          <div class="date-big" id="calSelectedDate">Elige un día</div>
+          <h3>¿Qué aprenderemos?</h3>
+          <p id="calSelectedDesc">Selecciona una fecha marcada para consultar los temas del encuentro.</p>
+          <div id="calTopicsList" class="calendar-topic-list"></div>
+        </div>
       </div>
+    </section>
 
-      <!-- 5. Coordinación -->
-      <div class="portal-card">
-        <div class="portal-icon">🛡️</div>
-        <h3>Coordinación</h3>
-        <p>Gestión pastoral general, reportes y supervisión administrativa.</p>
-        <a href="coordinacion.html" class="portal-btn">Acceso Coordinación</a>
+    <!-- ASISTENCIA, TAREAS Y SEGUIMIENTO POR ALUMNO -->
+    <section class="post-calendar-section">
+      <div class="eyebrow">Control de Catequizandos Oficial</div>
+      <h2 style="font:700 28px 'Fredoka',sans-serif; color:#12345a; margin:0 0 20px;">📊 Asistencia, Tareas y Seguimiento por Alumno</h2>
+      <div id="studentsGrid" class="students-grid"></div>
+
+      <!-- MENSAJES Y AVISOS -->
+      <div class="notifications-layout">
+        <div class="notice-card">
+          <h3>📝 Mensajes de las Catequistas</h3>
+          <p style="margin:0; font-size:13px; color:var(--muted); font-weight:700;">Comunicados oficiales publicados por las catequistas.</p>
+          <div id="catequistasNotices" class="dynamic-items-container">
+            <div class="notice-item">📝 <strong>Miss Lily & Miss Kiara:</strong> Bienvenidos al portal de preparación. Recuerden revisar el calendario de encuentros y completar sus fichas a tiempo. ✨</div>
+          </div>
+        </div>
+
+        <div class="notice-card">
+          <h3>📢 Mensajes de los Coordinadores</h3>
+          <p style="margin:0; font-size:13px; color:var(--muted); font-weight:700;">Avisos oficiales de la coordinación y parroquia.</p>
+          <div id="coordinadoresNotices" class="dynamic-items-container">
+            <div class="notice-item coord">📢 <strong>Coordinación Parroquial:</strong> Presentar las constancias y fichas de Bautismo actualizadas para el expediente general. 🙏</div>
+          </div>
+        </div>
+
+        <div class="notice-card">
+          <h3>💬 Mensajes de Alumnos a las Catequistas</h3>
+          <form id="studentMessageForm" class="interactive-form">
+            <select id="msgDestinatario" required>
+              <option value="">Dirigido a catequista...</option>
+              <option value="LDS-CAT-002">Kiara Morales Elguera</option>
+              <option value="LDS-CAT-001">Lily Melo Azañero</option>
+            </select>
+            <input type="text" id="msgAsunto" placeholder="Asunto de tu mensaje" required>
+            <textarea id="msgTexto" rows="3" placeholder="Escribe aquí tu consulta o mensaje..." required></textarea>
+            <button type="submit" class="btn-docente-submit">✉️ Enviar a Catequista</button>
+            <div id="msgStatus" style="font-size:12px; font-weight:800; color:#12345a;"></div>
+          </form>
+        </div>
       </div>
+    </section>
+
+    <div class="footer">
+      <strong>Camino hacia Jesús · La Salle del Sur</strong>
+      <div>Parroquia San Pedro de Lurín · Zona Sur de Lima ✨</div>
+      <div class="copyright">© 2026 Colegio Privado La Salle del Sur · Programa de Catequesis Primera Comunión</div>
     </div>
   </main>
+</div>
 
-  <div class="footer">
-    <strong>Colegio Privado La Salle del Sur & Parroquia San Pedro de Lurín</strong>
-    <div class="copyright">© 2026 Todos los derechos reservados · Formando con valores y fe cristiana.</div>
+<!-- MODAL DE CUESTIONARIO INTERACTIVO -->
+<div id="quizModalBackdrop" class="quiz-modal-backdrop" hidden>
+  <div class="quiz-modal">
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:14px;">
+      <h3 id="quizModalTitle" style="font:700 20px 'Fredoka',sans-serif; color:#12345a; margin:0;">Cuestionario</h3>
+      <button type="button" id="btnCloseQuizModal" class="btn-docente-submit" style="background:#b0002d;">Cerrar ✕</button>
+    </div>
+    <div id="quizModalBody"></div>
   </div>
 </div>
 
 <script>
-// Cuenta regresiva hacia el 8 de diciembre de 2026
-function actualizarCuentaRegresiva() {
-  const fechaObjetivo = new Date('2026-12-08T09:00:00');
-  const ahora = new Date();
-  const diferencia = fechaObjetivo - ahora;
+const API_URL = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
 
-  if (diferencia > 0) {
-    const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-    const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+// Catálogo base de los 7 catequizandos oficiales (respaldo inmediato + sincronización con Sheet)
+const CATALOGO_CATEQUIZANDOS_BASE = [
+  {
+    ID_NINO: 'LDS-EST-001',
+    APELLIDOS: 'FRANCISCO CRIOLLO',
+    NOMBRES: 'DANY SMITH',
+    NOMBRE_COMPLETO: 'DANY SMITH FRANCISCO CRIOLLO',
+    GRADO: 'TERCERO',
+    FOTO: 'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/aca87772954fae3aab46c1d3cb875338b917be6e/assets/dany.JPG',
+    ASISTENCIA: '80.0%'
+  },
+  {
+    ID_NINO: 'LDS-EST-002',
+    APELLIDOS: 'PINEDA ELGUERA',
+    NOMBRES: 'ADAM STUARD',
+    NOMBRE_COMPLETO: 'ADAM STUARD PINEDA ELGUERA',
+    GRADO: 'QUINTO',
+    FOTO: 'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/aca87772954fae3aab46c1d3cb875338b917be6e/assets/adam.jpeg',
+    ASISTENCIA: '79.6%'
+  },
+  {
+    ID_NINO: 'LDS-EST-003',
+    APELLIDOS: 'PIZARRO MENDOZA',
+    NOMBRES: 'CAMILA',
+    NOMBRE_COMPLETO: 'CAMILA PIZARRO MENDOZA',
+    GRADO: 'SEGUNDO',
+    FOTO: 'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/aca87772954fae3aab46c1d3cb875338b917be6e/assets/camila.png',
+    ASISTENCIA: '79.2%'
+  },
+  {
+    ID_NINO: 'LDS-EST-004',
+    APELLIDOS: 'QUISPE FLORES',
+    NOMBRES: 'ANA PAULA',
+    NOMBRE_COMPLETO: 'ANA PAULA QUISPE FLORES',
+    GRADO: 'QUINTO',
+    FOTO: 'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/aca87772954fae3aab46c1d3cb875338b917be6e/assets/ana.jpeg',
+    ASISTENCIA: '80.0%'
+  },
+  {
+    ID_NINO: 'LDS-EST-005',
+    APELLIDOS: 'ROMERO SIESQUEN',
+    NOMBRES: 'MARCOS MANUEL',
+    NOMBRE_COMPLETO: 'MARCOS MANUEL ROMERO SIESQUEN',
+    GRADO: 'PRIMERO',
+    FOTO: 'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/aca87772954fae3aab46c1d3cb875338b917be6e/assets/marco.jpeg',
+    ASISTENCIA: '79.6%'
+  },
+  {
+    ID_NINO: 'LDS-EST-006',
+    APELLIDOS: 'CARDENAS QUISPE',
+    NOMBRES: 'VASCO',
+    NOMBRE_COMPLETO: 'VASCO CARDENAS QUISPE',
+    GRADO: 'QUINTO',
+    FOTO: 'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/1d925653f6a026b6bd3f47a931abc16accb65120/assets/VASCO.png',
+    ASISTENCIA: '79.6%'
+  },
+  {
+    ID_NINO: 'LDS-EST-007',
+    APELLIDOS: 'PIZARRO MENDOZA',
+    NOMBRES: 'MARCHELO',
+    NOMBRE_COMPLETO: 'MARCHELO PIZARRO MENDOZA',
+    GRADO: 'SEXTO',
+    FOTO: 'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/aca87772954fae3aab46c1d3cb875338b917be6e/assets/MARCHELO.png',
+    ASISTENCIA: '79.2%'
+  }
+];
 
-    document.getElementById('dias').textContent = String(dias).padStart(2, '0');
-    document.getElementById('horas').textContent = String(horas).padStart(2, '0');
-    document.getElementById('minutos').textContent = String(minutos).padStart(2, '0');
+let listaCatequizandos = [...CATALOGO_CATEQUIZANDOS_BASE];
+let sesionesGlobales = [];
+let vozActiva = true;
+let mesActualCal = 5; // Junio (0-indexed: 5 = Junio)
+const anioCal = 2026;
+
+function normalizarUrlFotoGitHub(url) {
+  if (!url) return './assets/LOGO%20LASALLE.png';
+  return String(url)
+    .replace('https://github.com/', 'https://raw.githubusercontent.com/')
+    .replace('/blob/', '/');
+}
+
+function hablarTexto(texto) {
+  if (!vozActiva || !('speechSynthesis' in window)) return;
+  try {
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(texto);
+    utter.lang = 'es-PE';
+    utter.rate = 0.96;
+    window.speechSynthesis.speak(utter);
+  } catch (e) {}
+}
+
+// 1. POBLAR SELECTORES DE PORTADA (SOLO CÓDIGOS LDS-EST-...)
+function poblarSelectoresLogin(alumnos) {
+  const soloEstudiantes = (alumnos || [])
+    .filter(a => String(a.ID_NINO || '').toUpperCase().startsWith('LDS-EST'))
+    .sort((a, b) => a.NOMBRE_COMPLETO.localeCompare(b.NOMBRE_COMPLETO, 'es'));
+
+  const opcionesHTML = '<option value="">-- Selecciona tu nombre --</option>' +
+    soloEstudiantes.map(a => `<option value="${a.ID_NINO}">${a.NOMBRE_COMPLETO}</option>`).join('');
+
+  ['selectStudentDesktop', 'selectStudentMobile'].forEach(id => {
+    const sel = document.getElementById(id);
+    if (sel) sel.innerHTML = opcionesHTML;
+  });
+}
+
+async function cargarListaCatequizandos() {
+  poblarSelectoresLogin(listaCatequizandos);
+  try {
+    const resp = await fetch(`${API_URL}?action=listarNombresCatequizandosLogin`);
+    const data = await resp.json();
+    if (data && data.exito && Array.isArray(data.datos) && data.datos.length > 0) {
+      const filtrados = data.datos.filter(item =>
+        String(item.ID_NINO || '').toUpperCase().startsWith('LDS-EST')
+      );
+      if (filtrados.length > 0) {
+        listaCatequizandos = filtrados.map(item => {
+          const base = CATALOGO_CATEQUIZANDOS_BASE.find(b => b.ID_NINO === item.ID_NINO) || {};
+          return {
+            ...base,
+            ...item,
+            FOTO: normalizarUrlFotoGitHub(item.FOTO || base.FOTO)
+          };
+        });
+        poblarSelectoresLogin(listaCatequizandos);
+      }
+    }
+  } catch (err) {
+    console.warn('Usando lista local de catequizandos:', err);
   }
 }
-setInterval(actualizarCuentaRegresiva, 1000);
-actualizarCuentaRegresiva();
+
+// 2. VALIDACIÓN DE LOGIN CON PIN DE 12 DÍGITOS
+async function procesarLogin(selectId, inputId, errorId, btnId) {
+  const idNino = String(document.getElementById(selectId).value || '').trim().toUpperCase();
+  const pin = String(document.getElementById(inputId).value || '').replace(/\D/g, '').trim();
+  const errorEl = document.getElementById(errorId);
+  const btnEl = document.getElementById(btnId);
+
+  errorEl.textContent = '';
+
+  if (!idNino || !idNino.startsWith('LDS-EST')) {
+    errorEl.textContent = 'Selecciona tu nombre de la lista antes de ingresar.';
+    return;
+  }
+  if (pin.length !== 12) {
+    errorEl.textContent = 'Ingresa tu PIN secreto completo de 12 dígitos.';
+    return;
+  }
+
+  btnEl.disabled = true;
+  const textoOriginal = btnEl.textContent;
+  btnEl.textContent = 'VERIFICANDO...';
+
+  try {
+    const resp = await fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        action: 'validarLoginCatequizando',
+        idNino: idNino,
+        pin: pin
+      })
+    });
+    const res = await resp.json();
+
+    if (res && res.exito) {
+      const base = CATALOGO_CATEQUIZANDOS_BASE.find(b => b.ID_NINO === idNino) || {};
+      const perfilCompleto = {
+        ...base,
+        ...(res.perfil || {}),
+        FOTO: normalizarUrlFotoGitHub((res.perfil && res.perfil.FOTO) || base.FOTO)
+      };
+      localStorage.setItem('lds_cat_token', res.token || 'ACTIVO');
+      localStorage.setItem('lds_cat_perfil', JSON.stringify(perfilCompleto));
+      desbloquearPortal(perfilCompleto);
+    } else {
+      errorEl.textContent = (res && res.mensaje) || 'El PIN de 12 dígitos no coincide con el estudiante seleccionado.';
+    }
+  } catch (err) {
+    errorEl.textContent = 'No se pudo conectar con el servidor. Verifica tu conexión e inténtalo de nuevo.';
+  } finally {
+    btnEl.disabled = false;
+    btnEl.textContent = textoOriginal;
+  }
+}
+
+function desbloquearPortal(perfil) {
+  document.documentElement.classList.remove('auth-required');
+  document.getElementById('loginGate').hidden = true;
+  document.getElementById('portalWrap').hidden = false;
+
+  if (perfil && perfil.NOMBRE_COMPLETO) {
+    document.getElementById('welcomeStudentName').textContent = perfil.NOMBRE_COMPLETO;
+    document.getElementById('welcomeStudentMeta').textContent =
+      `Código: ${perfil.ID_NINO} · Grado: ${perfil.GRADO || 'Catequesis 2026'} · Explora tus 6 bloques oficiales y cuestionarios.`;
+    const avatar = document.getElementById('welcomeStudentAvatar');
+    avatar.src = normalizarUrlFotoGitHub(perfil.FOTO);
+    avatar.onerror = function() { this.src = './assets/LOGO%20LASALLE.png'; };
+    hablarTexto(`¡Hola, ${perfil.NOMBRES || perfil.NOMBRE_COMPLETO}! Bienvenido al portal de catequizandos.`);
+  }
+
+  renderizarTarjetasAlumnos(perfil ? perfil.ID_NINO : '');
+  cargarDatosPortal();
+}
+
+// 3. RENDERIZAR TARJETAS DE SEGUIMIENTO DE LOS 7 ALUMNOS CON SUS FOTOS
+function renderizarTarjetasAlumnos(idActivo) {
+  const grid = document.getElementById('studentsGrid');
+  if (!grid) return;
+
+  grid.innerHTML = listaCatequizandos.map(st => {
+    const esActual = st.ID_NINO === idActivo;
+    const asistencia = st.ASISTENCIA || '80.0%';
+    const porcentajeNum = parseFloat(asistencia) || 80;
+    const fotoUrl = normalizarUrlFotoGitHub(st.FOTO);
+
+    return `
+      <article class="student-card ${esActual ? 'current-student' : ''}">
+        <div class="student-header">
+          <img src="${fotoUrl}" alt="${st.NOMBRE_COMPLETO}" class="student-avatar" onerror="this.src='./assets/LOGO%20LASALLE.png'">
+          <div class="student-info">
+            <h4>${st.NOMBRE_COMPLETO}</h4>
+            <small>ID: ${st.ID_NINO}${st.GRADO ? ' · ' + st.GRADO : ''}</small>
+          </div>
+        </div>
+        <div class="metrics-box">
+          <div class="metric-row">
+            <div class="metric-label">
+              <span>Asistencia (Sheet)</span>
+              <span>${asistencia}</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill-attendance" style="width:${Math.min(100, porcentajeNum)}%"></div>
+            </div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label">
+              <span>Tareas Entregadas</span>
+              <span>Al día / Auto</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join('');
+}
+
+// 4. CARGAR SESIONES, BLOQUES Y AVISOS DESDE GOOGLE SHEETS
+async function cargarDatosPortal() {
+  try {
+    const resp = await fetch(`${API_URL}?action=obtenerDatosPortalCatequizando`);
+    const data = await resp.json();
+    if (data && data.exito) {
+      if (Array.isArray(data.sesiones)) {
+        sesionesGlobales = data.sesiones;
+      }
+      if (Array.isArray(data.avisos) && data.avisos.length > 0) {
+        renderizarAvisos(data.avisos);
+      }
+    }
+  } catch (e) {
+    console.warn('Sincronización en segundo plano:', e);
+  }
+  renderizarCalendario();
+}
+
+function renderizarAvisos(avisos) {
+  const contCat = document.getElementById('catequistasNotices');
+  const contCoord = document.getElementById('coordinadoresNotices');
+  if (!contCat || !contCoord) return;
+
+  const deCatequistas = avisos.filter(a => String(a.TIPO_REMITENTE || '').toUpperCase().includes('CATEQUISTA'));
+  const deCoordinadores = avisos.filter(a => !String(a.TIPO_REMITENTE || '').toUpperCase().includes('CATEQUISTA'));
+
+  if (deCatequistas.length > 0) {
+    contCat.innerHTML = deCatequistas.map(a =>
+      `<div class="notice-item">📝 <strong>${a.REMITENTE || 'Catequista'}:</strong> ${a.MENSAJE}</div>`
+    ).join('');
+  }
+  if (deCoordinadores.length > 0) {
+    contCoord.innerHTML = deCoordinadores.map(a =>
+      `<div class="notice-item coord">📢 <strong>${a.REMITENTE || 'Coordinación'}:</strong> ${a.MENSAJE}</div>`
+    ).join('');
+  }
+}
+
+// 5. BLOQUES DE CATEQUESIS (1 AL 6) Y CUESTIONARIOS
+const RANGOS_BLOQUES = {
+  1: { titulo: 'Bloque 1: Conociendo a Jesús (Temas 1 al 9)', min: 1, max: 9 },
+  2: { titulo: 'Bloque 2: Aprendemos a Orar (Temas 10 al 21)', min: 10, max: 21 },
+  3: { titulo: 'Bloque 3: Los Sacramentos (Temas 22 al 29)', min: 22, max: 29 },
+  4: { titulo: 'Bloque 4: La Eucaristía (Temas 30 al 47)', min: 30, max: 47 },
+  5: { titulo: 'Bloque 5: Valores Cristianos (Temas 48 al 61)', min: 48, max: 61 },
+  6: { titulo: 'Bloque 6: Preparación a Nuestro Sacramento (Temas 62 al 68)', min: 62, max: 68 }
+};
+
+function abrirBloque(numBloque) {
+  const info = RANGOS_BLOQUES[numBloque];
+  if (!info) return;
+
+  document.querySelectorAll('.stage').forEach(btn => {
+    btn.classList.toggle('active-stage', Number(btn.dataset.bloque) === numBloque);
+  });
+
+  const panel = document.getElementById('bloqueDetallePanel');
+  const titulo = document.getElementById('bloqueDetalleTitulo');
+  const grid = document.getElementById('temasBloqueGrid');
+
+  titulo.textContent = info.titulo;
+  panel.hidden = false;
+  hablarTexto(info.titulo);
+
+  const temas = [];
+  for (let n = info.min; n <= info.max; n++) {
+    const idSes = 'CJ-' + String(n).padStart(3, '0');
+    const sesionSheet = sesionesGlobales.find(s => String(s.ID_SESION || '').toUpperCase() === idSes) || {};
+    temas.push({
+      numero: n,
+      idSesion: idSes,
+      idBanco: 'CJ' + String(n).padStart(3, '0'),
+      tema: sesionSheet.TEMA || `Tema ${n} · Camino hacia Jesús`,
+      objetivo: sesionSheet.OBJETIVO || 'Fortalecer nuestra fe y amistad con Jesús.',
+      valor: sesionSheet.VALOR || 'Fe y Fraternidad',
+      cita: sesionSheet.CITA_BIBLICA || 'Evangelio'
+    });
+  }
+
+  grid.innerHTML = temas.map(t => `
+    <div class="tema-card">
+      <div>
+        <div class="tema-meta">
+          <span class="tema-badge">${t.idSesion}</span>
+          <span class="tema-badge">📖 ${t.cita}</span>
+          <span class="tema-badge">💛 ${t.valor}</span>
+        </div>
+        <h4 style="margin-top:8px;">${t.numero}. ${t.tema}</h4>
+        <p>${t.objetivo}</p>
+      </div>
+      <button type="button" class="btn-quiz-tema" onclick="abrirCuestionarioTema('${t.idBanco}', '${t.tema.replace(/'/g, "\\'")}')">
+        🎯 Practicar Cuestionario
+      </button>
+    </div>
+  `).join('');
+
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+async function abrirCuestionarioTema(idSesionBanco, nombreTema) {
+  const backdrop = document.getElementById('quizModalBackdrop');
+  const title = document.getElementById('quizModalTitle');
+  const body = document.getElementById('quizModalBody');
+
+  title.textContent = `Cuestionario: ${nombreTema}`;
+  body.innerHTML = '<p style="font-weight:700;">Cargando preguntas desde el banco oficial...</p>';
+  backdrop.hidden = false;
+
+  try {
+    const token = localStorage.getItem('lds_cat_token') || '';
+    const resp = await fetch(`${API_URL}?action=obtenerPreguntasSesion&idSesion=${encodeURIComponent(idSesionBanco)}&token=${encodeURIComponent(token)}`);
+    const data = await resp.json();
+
+    if (!data || !data.exito || !Array.isArray(data.preguntas) || data.preguntas.length === 0) {
+      body.innerHTML = '<p style="font-weight:700; color:#a52222;">Aún no hay preguntas activas disponibles para este tema.</p>';
+      return;
+    }
+
+    const preguntas = data.preguntas.slice(0, 10);
+    body.innerHTML = preguntas.map((p, idx) => `
+      <div style="margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid #eee;">
+        <p style="font-weight:800; color:#12345a; margin:0 0 8px;">${idx + 1}. ${p.PREGUNTA}</p>
+        <label style="display:block; margin:4px 0; cursor:pointer;"><input type="radio" name="q_${idx}" value="A"> A) ${p.OPCION_A}</label>
+        <label style="display:block; margin:4px 0; cursor:pointer;"><input type="radio" name="q_${idx}" value="B"> B) ${p.OPCION_B}</label>
+        <label style="display:block; margin:4px 0; cursor:pointer;"><input type="radio" name="q_${idx}" value="C"> C) ${p.OPCION_C}</label>
+      </div>
+    `).join('') + `<button type="button" class="btn-docente-submit" id="btnCalificarQuiz">✅ Enviar Respuestas</button><div id="quizResultBox" style="margin-top:12px; font-weight:800;"></div>`;
+
+    document.getElementById('btnCalificarQuiz').onclick = async function() {
+      let correctas = 0;
+      preguntas.forEach((p, idx) => {
+        const marcada = document.querySelector(`input[name="q_${idx}"]:checked`);
+        if (marcada && marcada.value === String(p.RESPUESTA_CORRECTA || '').trim().toUpperCase()) {
+          correctas++;
+        }
+      });
+      const nota = Math.round((correctas / preguntas.length) * 20);
+      document.getElementById('quizResultBox').innerHTML =
+        `🎉 Obtuviste <strong>${correctas} de ${preguntas.length}</strong> respuestas correctas · Nota: <strong>${nota}/20</strong>`;
+      hablarTexto(`Obtuviste ${correctas} de ${preguntas.length} respuestas correctas.`);
+
+      const perfil = JSON.parse(localStorage.getItem('lds_cat_perfil') || '{}');
+      try {
+        await fetch(API_URL, {
+          method: 'POST',
+          body: JSON.stringify({
+            action: 'registrarIntentoCuestionario',
+            idNino: perfil.ID_NINO,
+            nombreCatequizando: perfil.NOMBRE_COMPLETO,
+            idSesion: idSesionBanco,
+            tema: nombreTema,
+            correctas: correctas,
+            totalPreguntas: preguntas.length,
+            notaNumerica: nota
+          })
+        });
+      } catch (err) {}
+    };
+  } catch (err) {
+    body.innerHTML = '<p style="font-weight:700; color:#a52222;">Error al cargar el cuestionario. Inténtalo nuevamente.</p>';
+  }
+}
+
+// 6. CALENDARIO DE ENCUENTROS (JUNIO - DICIEMBRE 2026)
+const MESES_NOMBRE = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+const DIAS_SEMANA = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+
+function renderizarCalendario() {
+  const grid = document.getElementById('calGrid');
+  const label = document.getElementById('calMonthLabel');
+  if (!grid || !label) return;
+
+  label.textContent = `${MESES_NOMBRE[mesActualCal]} ${anioCal}`;
+  const primerDia = new Date(anioCal, mesActualCal, 1).getDay();
+  const diasMes = new Date(anioCal, mesActualCal + 1, 0).getDate();
+
+  let html = DIAS_SEMANA.map(d => `<div class="weekday">${d}</div>`).join('');
+  for (let i = 0; i < primerDia; i++) {
+    html += `<button type="button" class="day" disabled></button>`;
+  }
+
+  for (let dia = 1; dia <= diasMes; dia++) {
+    const fecha = new Date(anioCal, mesActualCal, dia);
+    const diaSem = fecha.getDay(); // 2 = Martes, 4 = Jueves
+    const esClase = (diaSem === 2 || diaSem === 4) && !(mesActualCal === 5 && dia < 16) && !(mesActualCal === 11 && dia > 8);
+    const esComunion = (mesActualCal === 11 && dia === 8);
+
+    let clases = 'day';
+    if (esComunion) clases += ' communion-day';
+    else if (esClase) clases += ' classday double-session';
+
+    html += `<button type="button" class="${clases}" ${(!esClase && !esComunion) ? 'disabled' : ''} onclick="seleccionarDiaCalendario(${dia}, ${mesActualCal}, this)">${dia}</button>`;
+  }
+  grid.innerHTML = html;
+}
+
+function seleccionarDiaCalendario(dia, mes, btn) {
+  document.querySelectorAll('#calGrid .day').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+
+  const fechaTexto = `${dia} de ${MESES_NOMBRE[mes]} de ${anioCal}`;
+  document.getElementById('calSelectedDate').textContent = fechaTexto;
+
+  if (mes === 11 && dia === 8) {
+    document.getElementById('calSelectedDesc').textContent = '🎉 Gran Celebración de Primera Comunión y Consagración a la Virgen Inmaculada.';
+    document.getElementById('calTopicsList').innerHTML = '';
+    return;
+  }
+
+  document.getElementById('calSelectedDesc').textContent = 'Encuentro de catequesis (2:00 p.m. – 4:00 p.m.) · Parroquia San Pedro de Lurín.';
+  document.getElementById('calTopicsList').innerHTML = `
+    <details class="calendar-topic-item topic-collapsible" open>
+      <summary class="topic-summary"><h4 class="topic-summary-title">Sesión de Catequesis Programada</h4></summary>
+      <div class="topic-content">Revisa los bloques correspondientes en la sección superior para practicar los cuestionarios del día.</div>
+    </details>
+  `;
+}
+
+// 7. CUENTA REGRESIVA AL 8 DE DICIEMBRE DE 2026
+function actualizarCuentaRegresiva() {
+  const objetivo = new Date('2026-12-08T09:00:00-05:00').getTime();
+  const ahora = Date.now();
+  const diff = objetivo - ahora;
+  if (diff <= 0) {
+    document.getElementById('cdDays').textContent = '00';
+    document.getElementById('cdHours').textContent = '00';
+    document.getElementById('cdMins').textContent = '00';
+    return;
+  }
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const m = Math.floor((diff / (1000 * 60)) % 60);
+
+  document.getElementById('cdDays').textContent = String(d).padStart(2, '0');
+  document.getElementById('cdHours').textContent = String(h).padStart(2, '0');
+  document.getElementById('cdMins').textContent = String(m).padStart(2, '0');
+}
+
+// 8. INICIALIZACIÓN Y EVENTOS
+document.addEventListener('DOMContentLoaded', () => {
+  cargarListaCatequizandos();
+  actualizarCuentaRegresiva();
+  setInterval(actualizarCuentaRegresiva, 30000);
+
+  document.getElementById('loginFormDesktop').addEventListener('submit', e => {
+    e.preventDefault();
+    procesarLogin('selectStudentDesktop', 'pinInputDesktop', 'loginErrorDesktop', 'btnSubmitDesktop');
+  });
+
+  document.getElementById('loginFormMobile').addEventListener('submit', e => {
+    e.preventDefault();
+    procesarLogin('selectStudentMobile', 'pinInputMobile', 'loginErrorMobile', 'btnSubmitMobile');
+  });
+
+  document.querySelectorAll('.stage').forEach(btn => {
+    btn.addEventListener('click', () => abrirBloque(Number(btn.dataset.bloque)));
+  });
+
+  document.getElementById('btnCerrarBloque').addEventListener('click', () => {
+    document.getElementById('bloqueDetallePanel').hidden = true;
+  });
+
+  document.getElementById('calPrev').addEventListener('click', () => {
+    if (mesActualCal > 5) { mesActualCal--; renderizarCalendario(); }
+  });
+
+  document.getElementById('calNext').addEventListener('click', () => {
+    if (mesActualCal < 11) { mesActualCal++; renderizarCalendario(); }
+  });
+
+  document.getElementById('btnToggleVoice').addEventListener('click', function() {
+    vozActiva = !vozActiva;
+    this.textContent = vozActiva ? '🔊 Voz Activa' : '🔇 Silenciado';
+    if (!vozActiva && 'speechSynthesis' in window) window.speechSynthesis.cancel();
+  });
+
+  document.getElementById('btnRefreshPortal').addEventListener('click', () => {
+    cargarDatosPortal();
+  });
+
+  document.getElementById('btnLogout').addEventListener('click', () => {
+    localStorage.removeItem('lds_cat_token');
+    localStorage.removeItem('lds_cat_perfil');
+    window.location.href = 'catequizandos.html';
+  });
+
+  document.getElementById('btnCloseQuizModal').addEventListener('click', () => {
+    document.getElementById('quizModalBackdrop').hidden = true;
+  });
+
+  document.getElementById('studentMessageForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const status = document.getElementById('msgStatus');
+    const perfil = JSON.parse(localStorage.getItem('lds_cat_perfil') || '{}');
+    status.textContent = 'Enviando mensaje...';
+    try {
+      const resp = await fetch(API_URL, {
+        method: 'POST',
+        body: JSON.stringify({
+          action: 'enviarMensajeAlumnoCatequista',
+          remitente: perfil.NOMBRE_COMPLETO || 'Catequizando',
+          idRemitente: perfil.ID_NINO || '',
+          idDestinatario: document.getElementById('msgDestinatario').value,
+          asunto: document.getElementById('msgAsunto').value,
+          mensaje: document.getElementById('msgTexto').value
+        })
+      });
+      const res = await resp.json();
+      status.textContent = (res && res.exito) ? '✅ Mensaje enviado correctamente a tu catequista.' : '⚠️ No se pudo enviar el mensaje.';
+      if (res && res.exito) e.target.reset();
+    } catch (err) {
+      status.textContent = '⚠️ Error de conexión al enviar el mensaje.';
+    }
+  });
+
+  // Verificar si ya hay sesión iniciada
+  const tokenGuardado = localStorage.getItem('lds_cat_token');
+  const perfilGuardado = localStorage.getItem('lds_cat_perfil');
+  if (tokenGuardado && perfilGuardado) {
+    try {
+      const perfil = JSON.parse(perfilGuardado);
+      if (perfil && String(perfil.ID_NINO || '').startsWith('LDS-EST')) {
+        desbloquearPortal(perfil);
+      }
+    } catch (e) {}
+  }
+});
 </script>
 </body>
 </html>
