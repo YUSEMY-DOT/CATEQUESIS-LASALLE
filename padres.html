@@ -890,7 +890,7 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
 
   <script>
     const URL_WEB_APP = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
-    // FASE 1: se omite el PIN y las consultas quedan limitadas por el GS a PAD-EST-001.
+    // Acceso familiar validado con PIN mediante selector seguro de nombres.
     const MODO_PRUEBA = false;
     const CLAVE_SESION_PADRES = 'caminoJesusPadresToken';
     const CLAVE_SELECTOR_PADRES = 'caminoJesusPadresSelector';
@@ -934,13 +934,13 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
           if (finalizado) return;
           finalizado = true; limpiar(); fn(value);
         };
-        const timer = setTimeout(() => terminar(reject, new Error('La conexión con Google Sheets agotó el tiempo de espera.')), timeoutMs);
+        const timer = setTimeout(() => terminar(reject, new Error('La conexión tardó demasiado. Intente actualizar el portal.')), timeoutMs);
         window[callback] = data => {
-          if (!data || data.exito === false) return terminar(reject, new Error(data && data.mensaje ? data.mensaje : 'Google Apps Script no pudo completar la consulta.'));
+          if (!data || data.exito === false) return terminar(reject, new Error(data && data.mensaje ? data.mensaje : 'No se pudo completar la consulta.'));
           terminar(resolve, data);
         };
         const query = new URLSearchParams({...params, callback, _:Date.now()});
-        script.onerror = () => terminar(reject, new Error('No se pudo conectar con Google Apps Script.'));
+        script.onerror = () => terminar(reject, new Error('No se pudo conectar. Verifique su conexión e inténtelo nuevamente.'));
         script.src = `${URL_WEB_APP}?${query.toString()}`;
         document.head.appendChild(script);
       });
@@ -1187,7 +1187,7 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
       }
       const r=resp.resumen||{};
       const items=[
-        ['Temas',r.temas],['Fechas de clase',r.clases],['Catequizando de prueba',r.catequizandos],
+        ['Temas',r.temas],['Fechas de clase',r.clases],['Catequizandos vinculados',r.catequizandos],
         ['Tareas',r.tareas],['Avisos publicados',r.avisos],['Requisitos',r.requisitos],
         ['Control de materiales',r.materiales],['Aportes',r.aportes],['Calificaciones',r.calificaciones]
       ];
