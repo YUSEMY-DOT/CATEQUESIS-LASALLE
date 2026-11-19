@@ -1,5 +1,5 @@
 /* Camino hacia Jesús — Service Worker compartido */
-const CACHE_VERSION = 'camino-hacia-jesus-shell-v24';
+const CACHE_VERSION = 'camino-hacia-jesus-shell-v25';
 
 /* Solo se precargan rutas verificadas en el repositorio.
    No incluir catequizandos.html ni iconos inexistentes: addAll() fallaría
@@ -11,8 +11,8 @@ const APP_SHELL = [
   './programacion.html',
   './CATEQUISTA.html',
   './padres.html',
-  './supervisores.html',
   './GestorPastoral.html',
+  './assets/pwa-icon.svg',
   './assets/PORTAL CATEQUESIS.png',
   './assets/BTN-PROGRAMACION.png',
   './assets/BTN-CATEQUIS.png',
