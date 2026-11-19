@@ -655,6 +655,19 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
 .challenge-illustration{font-size:30px;min-height:40px}
 .lds-family-note{font-size:.76rem;color:#75879a;margin:12px 0 0}
 @media(max-width:760px){.lds-blocks-panel,.lds-family-challenge{padding:14px;border-radius:17px}.lds-block-grid{grid-template-columns:1fr}.lds-family-challenge-grid{grid-template-columns:1fr}.lds-section-heading>span{width:42px;height:42px}.lds-section-heading h3{font-size:1.05rem}}
+
+/* Orden acordado de los módulos del portal familiar. */
+#ldsFamiliaHero{order:1!important}
+#ldsBloquesCatequesis{order:2!important}
+#ldsSemana{order:3!important}
+#diagnosticoPortal{order:7!important}
+#ldsRetoFamilia{order:4!important}
+.calendar-layout{order:5!important}
+.module-grid{order:6!important}
+#ldsComunicaciones{order:8!important}
+.lds-guide-interactive{order:9!important}
+#resultadoContenedor{order:10!important}
+body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!important}
 </style>
 
 </head>
@@ -1039,7 +1052,7 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
     function actualizarPerfilFamilia(){
       const perfil=perfilPadres||{}; const nombre=String(perfil.nombre||perfil.NOMBRE||perfil.NOMBRES||'').trim();
       const normal=normalizarNombreFamilia(nombre);
-      const encontrado=FAMILIAS_PADRES.find(p=>p.alias.some(a=>{const na=normalizarNombreFamilia(a);return normal===na||normal.includes(na)||na.includes(normal); }));
+      const encontrado=FAMILIAS_PADRES.find(p=>p.alias.some(a=>{const na=normalizarNombreFamilia(a);return normal.split(' ').includes(na); }));
       const cont=document.getElementById('ldsPerfilFamilia'); const saludo=document.getElementById('ldsSaludoFamilia'); const texto=document.getElementById('ldsTextoFamilia');
       if(!cont||!saludo||!texto)return;
       if(!encontrado){cont.innerHTML='<span class="profile-placeholder">👨‍👩‍👧‍👦</span>';saludo.innerHTML='¡Hola, familia! <span>Qué alegría caminar juntos.</span>';texto.textContent='Este espacio acompaña a tu familia en el camino de catequesis. Consulta las actividades, fechas y avisos.';return;}
@@ -1271,7 +1284,7 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
       try {
         const data=await apiGet(accion);
         if(!data.exito) throw new Error(data.mensaje||'No se pudo consultar la información.');
-        const titulos={getSesiones:'Programación de Catequesis',getAsistenciaNotas:'Asistencia y calificaciones',getTareas:'Tareas para la familia',getRequisitos:'Requisitos y materiales',getAportes:'Aportes parroquiales',getMateriales:'Materiales entregados',getCalificaciones:'Calificaciones'};
+        const titulos={getSesiones:'Programación de Catequesis',getAsistenciaNotas:'Asistencia y calificaciones',getTareas:'Tareas para la familia',getRequisitos:'Requisitos y materiales',getAportes:'Aportes parroquiales',getMateriales:'Materiales entregados',getCalificaciones:'Calificaciones',getAvisos:'Comunicados'};
         let out=`<div class="card card-custom p-3"><div class="d-flex flex-wrap justify-content-between align-items-center gap-2"><div><h5 class="fw-bold text-primary mb-1">${titulos[accion]||'Información familiar'}</h5><span class="small text-muted">${Number(data.total||0)} registro(s)</span></div><button type="button" class="btn btn-outline-primary btn-sm rounded-pill" onclick="volverInicio()">← Volver a inicio</button></div><div class="mt-3">`;
         if(accion==='getAsistenciaNotas') out+=renderAsistencia(data);
         else if(accion==='getRequisitos') out+=renderRequisitos(data);
