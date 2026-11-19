@@ -1023,15 +1023,21 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
           seguimiento.datos.forEach(a=>{alumnos[String(a.ID_NINO||'')]=a.NOMBRE_COMPLETO||[a.NOMBRES,a.APELLIDOS].filter(Boolean).join(' ');});
         }
         if(!rows.length){cont.innerHTML='<div class="weekly-empty">🌷 No hay tareas asignadas registradas por el momento.</div>';return;}
+        const entregadas=rows.filter(r=>/ENTREG|REVIS|APROB|COMPLET/i.test(String(r.ESTADO_ENTREGA||''))||!!r.EVIDENCIA_URL_ALUMNO).length;
+        const porcentaje=Math.round(entregadas/rows.length*100);
+        const resumen='<div class="task-progress-summary"><div class="d-flex justify-content-between align-items-center"><strong>Progreso de evidencias</strong><span>'+entregadas+' de '+rows.length+' · '+porcentaje+'%</span></div><div class="progress mt-2" style="height:9px"><div class="progress-bar bg-success" style="width:'+porcentaje+'%"></div></div></div>';
         const cards=rows.slice(0,8).map(r=>{
-          const estado=String(r.ESTADO||'Pendiente');
-          const done=/complet|entreg|realiz|finaliz|revisad|aprob/i.test(estado);
-          const links=Object.entries(r).filter(([k,v])=>v&&/(video|url|link|enlace|material|recurso)/i.test(k)&&recursoSeguro(v)).map(([k,v])=>({k,v:recursoSeguro(v)}));
-          const evidencia=recursoSeguro(r.EVIDENCIA_LINK||r.EVIDENCIA||r.URL_EVIDENCIA);
+          const estadoTarea=String(r.ESTADO||'Activa');
+          const estadoEvidencia=String(r.ESTADO_ENTREGA||'PENDIENTE').toUpperCase();
+          const evidencia=recursoSeguro(r.EVIDENCIA_URL_ALUMNO||r.EVIDENCIA_LINK||r.EVIDENCIA||r.URL_EVIDENCIA);
           const nino=alumnos[String(r.ID_NINO||'')]||'';
-          return '<article class="weekly-task"><span class="task-state '+(done?'done':'pending')+'">'+(done?'✅':'⏳')+' '+escapeHtml(estado)+'</span><h4>'+escapeHtml(r.TITULO||'Actividad familiar')+'</h4>'+(nino?'<div class="small fw-bold text-primary mb-1">👧🧒 Para: '+escapeHtml(nino)+'</div>':'')+'<p>'+escapeHtml(r.DESCRIPCION||'Revisa las indicaciones y acompaña a tu catequizando.')+'</p><div class="task-meta">📅 Fecha de entrega: '+escapeHtml(formatDate(r.FECHA_ENTREGA))+'</div>'+(r.OBSERVACION?'<div class="small text-muted mt-1">💬 '+escapeHtml(r.OBSERVACION)+'</div>':'')+(evidencia?'<div class="task-links"><a class="btn btn-sm btn-outline-success" href="'+escapeHtml(evidencia)+'" target="_blank" rel="noopener">📷 Ver evidencia enviada</a></div>':'')+(links.length?'<div class="task-links">'+links.map(x=>'<a class="btn btn-sm btn-outline-primary" href="'+escapeHtml(x.v)+'" target="_blank" rel="noopener">'+(/video/i.test(x.k)?'🎥 Ver video':/material|recurso/i.test(x.k)?'📚 Material':'🔗 Abrir enlace')+'</a>').join('')+'</div>':'')+'</article>';
+          const links=Object.entries(r).filter(([k,v])=>v&&/(video|url|link|enlace|material|recurso)/i.test(k)&&recursoSeguro(v)&&!/(evidencia)/i.test(k)).map(([k,v])=>({k,v:recursoSeguro(v)}));
+          const fechaEnvio=r.FECHA_ENVIO_EVIDENCIA||'';
+          const observacion=r.OBSERVACION_CATEQUISTA||r.OBSERVACION||'';
+          const estadoBadge=evidencia?(/APROB|REVIS/i.test(estadoEvidencia)?'bg-success':'bg-info text-dark'):'bg-warning text-dark';
+          return '<article class="weekly-task"><span class="task-state '+(evidencia?'done':'pending')+'">'+(evidencia?'📷':'⏳')+' Evidencia: '+escapeHtml(estadoEvidencia)+'</span><h4>'+escapeHtml(r.TITULO||'Actividad familiar')+'</h4>'+(nino?'<div class="small fw-bold text-primary mb-1">👧🧒 Para: '+escapeHtml(nino)+'</div>':'')+'<p>'+escapeHtml(r.DESCRIPCION||'Revisa las indicaciones y acompaña a tu catequizando.')+'</p><div class="task-meta">📅 Entrega: '+escapeHtml(formatDate(r.FECHA_ENTREGA))+' · '+escapeHtml(estadoTarea)+'</div>'+(fechaEnvio?'<div class="small text-muted mt-1">📨 Evidencia enviada: '+escapeHtml(formatDate(fechaEnvio))+'</div>':'')+(observacion?'<div class="small text-muted mt-1">💬 '+escapeHtml(observacion)+'</div>':'')+(evidencia?'<div class="task-links"><a class="btn btn-sm btn-outline-success" href="'+escapeHtml(evidencia)+'" target="_blank" rel="noopener">📷 Ver evidencia enviada</a></div>':'')+(links.length?'<div class="task-links">'+links.map(x=>'<a class="btn btn-sm btn-outline-primary" href="'+escapeHtml(x.v)+'" target="_blank" rel="noopener">'+(/video/i.test(x.k)?'🎥 Ver video':/material|recurso/i.test(x.k)?'📚 Material':'🔗 Abrir enlace')+'</a>').join('')+'</div>':'')+'</article>';
         }).join('');
-        cont.innerHTML='<div class="weekly-task-grid">'+cards+'</div>'+(rows.length>8?'<p class="small text-muted mt-2">Se muestran 8 actividades. Pulsa “Ver todas” para consultar el listado completo.</p>':'');
+        cont.innerHTML=resumen+'<div class="weekly-task-grid">'+cards+'</div>'+(rows.length>8?'<p class="small text-muted mt-2">Se muestran 8 actividades. Pulsa “Ver todas” para consultar el listado completo.</p>':'');
       } catch(e) {cont.innerHTML='<div class="weekly-empty">No se pudo actualizar esta sección. Usa el botón para consultar las actividades.</div>';}
     }
 
