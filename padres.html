@@ -354,7 +354,60 @@
       .calendar-day-header { font-size:.72rem !important; }
     }
 
-  </style>
+  
+/* RENOVACION VISUAL PORTAL PADRES - LDS */
+:root{
+ --lds-navy:#142b4d; --lds-blue:#2456a6; --lds-red:#c9273c;
+ --lds-gold:#f2c75c; --lds-cream:#fff8e7; --lds-sky:#eaf3ff;
+ --lds-mint:#e8f7f0; --lds-rose:#fff0f2; --lds-lilac:#f2edff;
+}
+body{background:radial-gradient(circle at 5% 0%,#fff7e8 0,transparent 26%),linear-gradient(180deg,#f3f7fc 0%,#fff 55%,#f8f9fc 100%)!important;color:#25334a!important}
+.header-padres{background:linear-gradient(115deg,#102748 0%,#244e91 58%,#2c64b7 100%)!important;border-bottom:4px solid var(--lds-gold)!important;border-radius:0 0 24px 24px!important;padding:16px 0!important;box-shadow:0 12px 28px rgba(20,43,77,.18)!important}
+.header-insignia{filter:drop-shadow(0 4px 8px rgba(0,0,0,.2));border-radius:14px}
+.header-brand-copy .badge{background:linear-gradient(90deg,#f2c75c,#ffe6a1)!important;color:#142b4d!important;border:0!important;font-weight:800!important}
+.header-padres h3{font-size:clamp(1.25rem,2vw,1.75rem)!important;letter-spacing:.01em}
+.header-actions .btn{border-radius:999px!important;padding:.45rem .8rem!important;font-weight:700!important;transition:transform .18s,box-shadow .18s}
+.header-actions .btn:hover{transform:translateY(-2px);box-shadow:0 5px 12px #0002}
+main.container{max-width:1240px!important}
+.card-custom,.calendar-card{border:1px solid #e2eaf5!important;border-radius:20px!important;box-shadow:0 8px 22px rgba(25,48,84,.08)!important;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.calendar-header-alegre{background:linear-gradient(110deg,#17345d,#2b61b2)!important;color:#fff!important;border-bottom:3px solid var(--lds-gold)!important}
+.calendar-header-alegre .rounded-pill{background:#fff9e8!important;border:1px solid #f4d77d!important}
+.calendar-day-header{color:#284e8a!important}
+.calendar-day{border-radius:10px!important;min-height:68px!important;background:#fbfdff!important;border-color:#e3eaf4!important}
+.calendar-day.has-clase{background:#eaf2ff!important;border-color:#6e9de1!important}
+.calendar-day.has-cumple{background:#fff0f2!important;border-color:#ef8b9a!important}
+.calendar-day.has-aviso{background:#fff8e4!important;border-color:#e7c55f!important}
+.calendar-day:hover{transform:translateY(-1px);box-shadow:0 4px 9px #18395f20!important}
+.day-detail-card{background:linear-gradient(145deg,#fff,#f8fbff)!important}
+.day-detail-card .badge{background:linear-gradient(90deg,#c9273c,#e75565)!important}
+.module-grid{gap:16px!important}
+.module-card{position:relative;min-height:170px!important;padding:18px!important;border-radius:18px!important;border:1px solid #e5eaf2!important;overflow:hidden;background:#fff!important;box-shadow:0 7px 18px rgba(25,48,84,.07)!important}
+.module-card:before{content:"";position:absolute;inset:0 auto 0 0;width:6px;background:var(--module-accent,#2456a6)}
+.module-card:after{content:"";position:absolute;width:120px;height:120px;border-radius:50%;right:-42px;top:-45px;background:var(--module-soft,#eaf3ff);opacity:.65;pointer-events:none}
+.module-card>*{position:relative;z-index:1}
+.module-item:nth-child(1) .module-card{--module-accent:#2456a6;--module-soft:#eaf3ff;background:linear-gradient(135deg,#fff,#f1f7ff)!important}
+.module-item:nth-child(2) .module-card{--module-accent:#17966b;--module-soft:#e5f8ef;background:linear-gradient(135deg,#fff,#effbf5)!important}
+.module-item:nth-child(3) .module-card{--module-accent:#d49b19;--module-soft:#fff4d5;background:linear-gradient(135deg,#fff,#fffaf0)!important}
+.module-item:nth-child(4) .module-card{--module-accent:#c9273c;--module-soft:#ffe9ed;background:linear-gradient(135deg,#fff,#fff3f5)!important}
+.module-card:hover{transform:translateY(-4px)!important;box-shadow:0 13px 26px rgba(25,48,84,.13)!important}
+.module-card h5{font-size:1.02rem!important;color:#18345b!important}
+.module-card p{font-size:.83rem!important;color:#5c6b80!important}
+.module-card button{border-radius:999px!important;font-weight:700!important;padding:.5rem .75rem!important}
+#diagnosticoPortal{border-radius:16px!important;background:linear-gradient(110deg,#f0f8ff,#fff)!important}
+.diagnostic-item{border-radius:12px!important;background:linear-gradient(180deg,#fff,#f8fbff)!important}
+.diagnostic-value{color:#193b6d!important}
+#resultadoContenedor .card-custom{border-radius:18px!important}
+.progress{border-radius:999px!important;background:#e8edf5!important;overflow:hidden}
+.progress-bar{background:linear-gradient(90deg,#1b75d0,#32b88a)!important;border-radius:999px!important}
+.alert{border-radius:14px!important}
+.lds-copyright-footer{background:linear-gradient(105deg,#102748,#244e91)!important;border-top:3px solid var(--lds-gold)!important}
+@media(max-width:760px){
+ .header-padres{border-radius:0 0 18px 18px!important;padding:12px 0!important}
+ .module-card{min-height:150px!important;padding:15px!important}
+ .calendar-day{min-height:54px!important}
+}
+
+</style>
 
 <style id="lds-copyright-standard">
 .lds-copyright-footer,.lds-copyright-line{
