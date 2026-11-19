@@ -1051,32 +1051,37 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
     async function cargarResumenTareasFamilia() {
       const cont=document.getElementById('ldsTareasSemana');
       if(!cont) return;
-      cont.innerHTML='<div class="weekly-loading">✨ Consultando las actividades de la familia…</div>';
+      cont.innerHTML='<div class="weekly-loading">✨ Consultando el avance de tus catequizandos…</div>';
       try {
-        const [data,seguimiento]=await Promise.all([apiGet('getTareas'),apiGet('getAsistenciaNotas').catch(()=>null)]);
+        const [data,seguimiento,diagnostico]=await Promise.all([apiGet('getTareas'),apiGet('getAsistenciaNotas').catch(()=>null),apiGet('getDiagnosticoPadres').catch(()=>null)]);
         if(!data||!data.exito) throw new Error(data.mensaje||'Consulta no disponible');
         const rows=Array.isArray(data.datos)?data.datos:[];
         const alumnos={};
-        if(seguimiento&&seguimiento.exito&&Array.isArray(seguimiento.datos)){
-          seguimiento.datos.forEach(a=>{alumnos[String(a.ID_NINO||'')]=a.NOMBRE_COMPLETO||[a.NOMBRES,a.APELLIDOS].filter(Boolean).join(' ');});
+        if(seguimiento&&seguimiento.exito&&Array.isArray(seguimiento.datos))seguimiento.datos.forEach(a=>{alumnos[String(a.ID_NINO||'')]=a.NOMBRE_COMPLETO||[a.NOMBRES,a.APELLIDOS].filter(Boolean).join(' ');});
+        if(!rows.length){
+          const nTareas=Number(diagnostico&&diagnostico.exito&&diagnostico.resumen?diagnostico.resumen.tareas:0);
+          const nCatequizandos=Number(diagnostico&&diagnostico.exito&&diagnostico.resumen?diagnostico.resumen.catequizandos:0);
+          const ninos=Object.values(alumnos).filter(Boolean);
+          cont.innerHTML='<div class="weekly-empty"><strong>📚 No se encontraron tareas vinculadas a esta familia en la consulta.</strong><p class="mb-1 mt-1">Se está consultando el avance de '+(ninos.length?ninos.map(escapeHtml).join(', '):nCatequizandos+' catequizando(s)')+'.</p>'+(nTareas>0?'<div class="alert alert-warning small mt-2 mb-0">El diagnóstico registra '+nTareas+' tarea(s), pero el listado no las devuelve. Hay una diferencia entre consultas; no se ocultan ni se inventan actividades.</div>':'<p class="small mb-0">Si las actividades ya fueron asignadas, revisar la asociación del catequizando con su familia y la consulta de tareas.</p>')+'</div>';
+          return;
         }
-        if(!rows.length){cont.innerHTML='<div class="weekly-empty">🌷 No hay tareas asignadas registradas por el momento.</div>';return;}
         const entregadas=rows.filter(r=>/ENTREG|REVIS|APROB|COMPLET/i.test(String(r.ESTADO_ENTREGA||''))||!!r.EVIDENCIA_URL_ALUMNO).length;
         const porcentaje=Math.round(entregadas/rows.length*100);
-        const resumen='<div class="task-progress-summary"><div class="d-flex justify-content-between align-items-center"><strong>Progreso de evidencias</strong><span>'+entregadas+' de '+rows.length+' · '+porcentaje+'%</span></div><div class="progress mt-2" style="height:9px"><div class="progress-bar bg-success" style="width:'+porcentaje+'%"></div></div></div>';
-        const cards=rows.slice(0,8).map(r=>{
+        const resumen='<div class="task-progress-summary"><div class="d-flex justify-content-between align-items-center"><strong>Avance de evidencias</strong><span>'+entregadas+' de '+rows.length+' · '+porcentaje+'%</span></div><div class="progress mt-2" style="height:9px"><div class="progress-bar bg-success" style="width:'+porcentaje+'%"></div></div></div>';
+        const cards=rows.map(r=>{
           const estadoTarea=String(r.ESTADO||'Activa');
           const estadoEvidencia=String(r.ESTADO_ENTREGA||'PENDIENTE').toUpperCase();
           const evidencia=recursoSeguro(r.EVIDENCIA_URL_ALUMNO||r.EVIDENCIA_LINK||r.EVIDENCIA||r.URL_EVIDENCIA);
-          const nino=alumnos[String(r.ID_NINO||'')]||'';
-          const links=Object.entries(r).filter(([k,v])=>v&&/(video|url|link|enlace|material|recurso)/i.test(k)&&recursoSeguro(v)&&!/(evidencia)/i.test(k)).map(([k,v])=>({k,v:recursoSeguro(v)}));
-          const fechaEnvio=r.FECHA_ENVIO_EVIDENCIA||'';
-          const observacion=r.OBSERVACION_CATEQUISTA||r.OBSERVACION||'';
-          const estadoBadge=evidencia?(/APROB|REVIS/i.test(estadoEvidencia)?'bg-success':'bg-info text-dark'):'bg-warning text-dark';
-          return '<article class="weekly-task"><span class="task-state '+(evidencia?'done':'pending')+'">'+(evidencia?'📷':'⏳')+' Evidencia: '+escapeHtml(estadoEvidencia)+'</span><h4>'+escapeHtml(r.TITULO||'Actividad familiar')+'</h4>'+(nino?'<div class="small fw-bold text-primary mb-1">👧🧒 Para: '+escapeHtml(nino)+'</div>':'')+'<p>'+escapeHtml(r.DESCRIPCION||'Revisa las indicaciones y acompaña a tu catequizando.')+'</p><div class="task-meta">📅 Entrega: '+escapeHtml(formatDate(r.FECHA_ENTREGA))+' · '+escapeHtml(estadoTarea)+'</div>'+(fechaEnvio?'<div class="small text-muted mt-1">📨 Evidencia enviada: '+escapeHtml(formatDate(fechaEnvio))+'</div>':'')+(observacion?'<div class="small text-muted mt-1">💬 '+escapeHtml(observacion)+'</div>':'')+(evidencia?'<div class="task-links"><a class="btn btn-sm btn-outline-success" href="'+escapeHtml(evidencia)+'" target="_blank" rel="noopener">📷 Ver evidencia enviada</a></div>':'')+(links.length?'<div class="task-links">'+links.map(x=>'<a class="btn btn-sm btn-outline-primary" href="'+escapeHtml(x.v)+'" target="_blank" rel="noopener">'+(/video/i.test(x.k)?'🎥 Ver video':/material|recurso/i.test(x.k)?'📚 Material':'🔗 Abrir enlace')+'</a>').join('')+'</div>':'')+'</article>';
+          const nino=alumnos[String(r.ID_NINO||'')]||String(r.NOMBRE_CATEQUIZANDO||r.CATEQUIZANDO||'');
+          const titulo=r.TITULO||r.NOMBRE_TAREA||r.TAREA||r.ACTIVIDAD||'Actividad de catequesis';
+          const descripcion=r.DESCRIPCION||r.INDICACIONES||r.DETALLE||r.OBSERVACION||'Actividad asignada. El catequizando debe realizarla personalmente.';
+          const fecha=r.FECHA_ENTREGA||r.FECHA_LIMITE||r.FECHA||'';
+          const observacion=r.OBSERVACION_CATEQUISTA||'';
+          const revisada=/REVIS|APROB/i.test(estadoEvidencia);
+          return '<article class="weekly-task"><span class="task-state '+(evidencia?'done':'pending')+'">'+(revisada?'✅':evidencia?'📷':'⏳')+' Evidencia: '+escapeHtml(estadoEvidencia)+'</span><h4>'+escapeHtml(titulo)+'</h4>'+(nino?'<div class="small fw-bold text-primary mb-1">👧🧒 Catequizando: '+escapeHtml(nino)+'</div>':'')+'<p>'+escapeHtml(descripcion)+'</p><div class="task-meta">📅 Entrega: '+escapeHtml(formatDate(fecha))+' · '+escapeHtml(estadoTarea)+'</div>'+(r.FECHA_ENVIO_EVIDENCIA?'<div class="small text-muted mt-1">📨 Evidencia enviada: '+escapeHtml(formatDate(r.FECHA_ENVIO_EVIDENCIA))+'</div>':'')+(evidencia?'<div class="task-links"><a class="btn btn-sm btn-outline-success" href="'+escapeHtml(evidencia)+'" target="_blank" rel="noopener">👁️ Supervisar evidencia</a></div>':'')+(observacion?'<div class="small text-muted mt-1">💬 '+escapeHtml(observacion)+'</div>':'')+'</article>';
         }).join('');
-        cont.innerHTML=resumen+'<div class="weekly-task-grid">'+cards+'</div>'+(rows.length>8?'<p class="small text-muted mt-2">Se muestran 8 actividades. Pulsa “Ver todas” para consultar el listado completo.</p>':'');
-      } catch(e) {cont.innerHTML='<div class="weekly-empty">No se pudo actualizar esta sección. Usa el botón para consultar las actividades.</div>';}
+        cont.innerHTML=resumen+'<div class="weekly-task-grid">'+cards+'</div>';
+      } catch(e) {cont.innerHTML='<div class="weekly-empty">No se pudo consultar el avance. Pulsa Actualizar para intentarlo nuevamente.</div>';}
     }
 
     // Perfil familiar: asociación confirmada por la promotora; fotografías originales de assets.
@@ -1199,9 +1204,7 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
       const diag=document.getElementById('diagnosticoPortal');
       diag.innerHTML='<div class="d-flex align-items-center gap-2"><span class="spinner-border spinner-border-sm text-primary"></span><strong>Actualizando la información del programa…</strong></div>';
       try {
-        const [cal,avisos,cumples,diagnostico] = await Promise.all([
-          apiGet('getCalendarioPadres'), apiGet('getAvisos'), apiGet('getCumpleanosPadres'), apiGet('getDiagnosticoPadres')
-        ]);
+        const [cal,avisos,cumples,diagnostico] = await Promise.all([apiGet('getCalendarioPadres'),apiGet('getAvisos'),apiGet('getCumpleanosPadres'),apiGet('getDiagnosticoPadres').catch(error=>({exito:false,mensaje:error.message}))]);
         if (!cal.exito) throw new Error(cal.mensaje || 'No se pudo leer CLASES.');
         if (!avisos.exito) throw new Error(avisos.mensaje || 'No se pudo leer AVISOS.');
         if (!cumples.exito) throw new Error(cumples.mensaje || 'No se pudieron leer los cumpleaños.');
@@ -1268,7 +1271,9 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
         const avisos=eventosAvisos.filter(x=>fechaKey(x.FECHA)===key);
         const cumple=eventosCumple.filter(x=>{const v=x.CUMPLEANOS;if(!v)return false;const d=new Date(v);if(!isNaN(d))return d.getDate()===dia && d.getMonth()===mes;const m=String(v).match(/(\\d{1,2})[\\/-](\\d{1,2})/);return !!m && Number(m[1])===dia && Number(m[2])-1===mes;});
         const titulo=clases.map(x=>[x.tema1,x.tema2].filter(Boolean).join(' / ')).filter(Boolean).join(' · ');
-        out+=`<button type="button" class="calendar-day ${clases.length?'has-clase':''} ${avisos.length?'has-aviso':''} ${cumple.length?'has-cumple':''}" onclick="seleccionarDia(${dia},${mes},${anio})"><span class="calendar-number text-dark">${dia}</span>${titulo?`<div class="calendar-topic bg-primary text-white mt-1">${escapeHtml(titulo)}</div>`:''}${avisos.length?'<small class="text-warning fw-bold">● Aviso</small>':''}${cumple.length?'<small class="text-danger fw-bold">● Cumpleaños</small>':''}</button>`;
+        const bloqueClase=String(clases[0]&&clases[0].bloque||'').toUpperCase();
+        const colorBloque=/BLOQUE\s*1|CONOCIENDO A JESUS/.test(bloqueClase)?'block-1':/BLOQUE\s*2|APRENDEMOS A ORAR/.test(bloqueClase)?'block-2':/BLOQUE\s*3|SACRAMENT/.test(bloqueClase)?'block-3':/BLOQUE\s*4|EUCARIST/.test(bloqueClase)?'block-4':/BLOQUE\s*5|VALORES/.test(bloqueClase)?'block-5':/BLOQUE\s*6|PRIMERA COMUNION/.test(bloqueClase)?'block-6':'';
+        out+=`<button type="button" class="calendar-day ${clases.length?'has-clase':''} ${avisos.length?'has-aviso':''} ${cumple.length?'has-cumple':''}" onclick="seleccionarDia(${dia},${mes},${anio})"><span class="calendar-number text-dark">${dia}</span>${titulo?`<div class="calendar-topic ${colorBloque} mt-1">${escapeHtml(titulo)}</div>`:''}${avisos.length?'<small class="text-warning fw-bold">● Aviso</small>':''}${cumple.length?'<small class="text-danger fw-bold">● Cumpleaños</small>':''}</button>`;
       }
       grid.innerHTML=out;
     }
@@ -1341,10 +1346,12 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
           out+=rows.length?rows.map(r=>{
             const estado=String(r.ESTADO_ENTREGA||'PENDIENTE').toUpperCase();
             const evidencia=recursoSeguro(r.EVIDENCIA_URL_ALUMNO||r.EVIDENCIA_LINK||r.EVIDENCIA||r.URL_EVIDENCIA);
-            const links=Object.entries(r).filter(([k,v])=>v&&/(video|url|link|enlace|material|recurso)/i.test(k)&&recursoSeguro(v)&&!/(evidencia)/i.test(k)).map(([k,v])=>({k,v:recursoSeguro(v)}));
-            const nino=alumnos[String(r.ID_NINO||'')]||'';
-            return '<div class="lds-task-card '+(evidencia?'task-done':'task-pending')+'"><div class="d-flex justify-content-between align-items-start gap-2 flex-wrap"><h6 class="fw-bold mb-1">'+escapeHtml(r.TITULO||'Actividad')+'</h6><span class="lds-task-status">'+escapeHtml(estado)+'</span></div>'+(nino?'<div class="small fw-bold text-primary mb-1">Para: '+escapeHtml(nino)+'</div>':'')+'<p class="small mb-2">'+escapeHtml(r.DESCRIPCION||'')+'</p><div class="small text-muted">📅 Entrega: '+escapeHtml(formatDate(r.FECHA_ENTREGA))+'</div>'+(r.FECHA_ENVIO_EVIDENCIA?'<div class="small text-muted">📨 Enviada: '+escapeHtml(formatDate(r.FECHA_ENVIO_EVIDENCIA))+'</div>':'')+(evidencia?'<a class="btn btn-sm btn-outline-success rounded-pill mt-2" href="'+escapeHtml(evidencia)+'" target="_blank" rel="noopener">📷 Ver evidencia enviada</a>':'')+(r.OBSERVACION_CATEQUISTA?'<div class="small text-muted mt-2">💬 '+escapeHtml(r.OBSERVACION_CATEQUISTA)+'</div>':'')+(links.length?'<div class="lds-task-resources mt-2">'+links.map(x=>'<a class="btn btn-sm btn-outline-primary rounded-pill me-1 mb-1" href="'+escapeHtml(x.v)+'" target="_blank" rel="noopener">'+(/video/i.test(x.k)?'🎥 Ver video':/material|recurso/i.test(x.k)?'📚 Abrir material':'🔗 Abrir enlace')+'</a>').join('')+'</div>':'')+'</div>';
-          }).join(''):'<div class="alert alert-info mb-0">Todavía no hay actividades registradas para esta familia.</div>';
+            const nino=alumnos[String(r.ID_NINO||'')]||String(r.NOMBRE_CATEQUIZANDO||r.CATEQUIZANDO||'');
+            const titulo=r.TITULO||r.NOMBRE_TAREA||r.TAREA||r.ACTIVIDAD||'Actividad de catequesis';
+            const descripcion=r.DESCRIPCION||r.INDICACIONES||r.DETALLE||r.OBSERVACION||'Actividad asignada.';
+            const fecha=r.FECHA_ENTREGA||r.FECHA_LIMITE||r.FECHA||'';
+            return '<div class="lds-task-card '+(evidencia?'task-done':'task-pending')+'"><div class="d-flex justify-content-between align-items-start gap-2 flex-wrap"><h6 class="fw-bold mb-1">'+escapeHtml(titulo)+'</h6><span class="lds-task-status">'+escapeHtml(estado)+'</span></div>'+(nino?'<div class="small fw-bold text-primary mb-1">Catequizando: '+escapeHtml(nino)+'</div>':'')+'<p class="small mb-2">'+escapeHtml(descripcion)+'</p><div class="small text-muted">📅 Entrega: '+escapeHtml(formatDate(fecha))+'</div>'+(r.FECHA_ENVIO_EVIDENCIA?'<div class="small text-muted">📨 Enviada: '+escapeHtml(formatDate(r.FECHA_ENVIO_EVIDENCIA))+'</div>':'')+(evidencia?'<a class="btn btn-sm btn-outline-success rounded-pill mt-2" href="'+escapeHtml(evidencia)+'" target="_blank" rel="noopener">👁️ Supervisar evidencia</a>':'')+(r.OBSERVACION_CATEQUISTA?'<div class="small text-muted mt-2">💬 '+escapeHtml(r.OBSERVACION_CATEQUISTA)+'</div>':'')+'</div>';
+          }).join(''):'<div class="alert alert-info mb-0">No se encontraron tareas vinculadas a esta familia en la consulta. Si las actividades ya fueron asignadas, revisar la asociación familiar del catequizando.</div>';
         } else if(accion==='getSesiones') {
           const bloques=data.bloques||[];
           out+=`<p class="text-muted small">${Number(data.totalTemas||data.total||0)} temas distribuidos en ${Number(data.totalClases||0)} fechas.</p>`+bloques.map(b=>`<h6 class="fw-bold mt-3">${escapeHtml(b.title)}</h6><ol>${(b.sessions||[]).map(s=>`<li class="small mb-1">${escapeHtml(s.tema)}</li>`).join('')}</ol>`).join('');
