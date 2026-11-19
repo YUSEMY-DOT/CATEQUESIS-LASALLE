@@ -1898,11 +1898,23 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
         }
 
         _quizEfectoRespuestaV5(!!saved.correcta);
+        const claveCorrectaJuego = String(saved.respuestaCorrecta || '');
+        Array.from(opcionesEl.children).forEach(el => {
+          const valorOpcion = String(el.textContent || '').trim().charAt(0);
+          if (valorOpcion === claveCorrectaJuego) {
+            el.style.borderColor = '#20a66a';
+            el.style.background = '#edfff3';
+            el.style.boxShadow = '0 0 0 2px rgba(32,166,106,.16)';
+          } else if (valorOpcion === opcionElegida && !saved.correcta) {
+            el.style.borderColor = '#d64747';
+            el.style.background = '#fff0ef';
+          }
+        });
         const result = document.getElementById('quizResultadoJuego');
         const correctoHtml = saved.correcta
           ? '<h3 style="margin:0 0 6px;color:#168454;">🎉 ¡Muy bien! Respuesta correcta</h3><p style="margin:0 0 8px;">Ganaste <strong>2 puntos</strong> ⭐</p>'
           : `<h3 style="margin:0 0 6px;color:#a52222;">💛 ¡Buen intento! Vamos a aprender</h3><p style="margin:0 0 8px;">La respuesta correcta era: <strong>${escapeQuizHtml(saved.respuestaCorrecta)}) ${escapeQuizHtml(saved.textoRespuestaCorrecta || '')}</strong></p>`;
-        result.innerHTML = `<div style="padding:15px;border-radius:14px;background:#f4f9f5;border:1px solid #d8eadc;">${correctoHtml}${saved.explicacion ? `<p style="color:#25415d;margin:8px 0 0;">${escapeQuizHtml(saved.explicacion)}</p>` : ''}<p style="margin:10px 0 0;color:#52677f;font-weight:800;">Avance del bloque: ${nuevoProgreso.toFixed(1).replace(/\.0$/, '')}%</p></div>`;
+        result.innerHTML = `<div style="padding:15px;border-radius:14px;background:${saved.correcta ? "#effaf2" : "#fff2f0"};border:1px solid ${saved.correcta ? "#a8dfb5" : "#f2b9b2"};">${correctoHtml}${saved.explicacion ? `<p style="color:#25415d;margin:8px 0 0;">${escapeQuizHtml(saved.explicacion)}</p>` : ''}<p style="margin:10px 0 0;color:#52677f;font-weight:800;">Avance del bloque: ${nuevoProgreso.toFixed(1).replace(/\.0$/, '')}%</p></div>`;
         // Los efectos sonoros sustituyen la narración para que la pregunta siguiente llegue sin demora.
 
         comprobar.style.display = 'none';
