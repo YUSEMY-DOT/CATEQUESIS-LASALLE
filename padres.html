@@ -497,6 +497,15 @@ main#inicioPortal{max-width:1120px!important;padding:8px 20px 30px!important;dis
 #inicioPortal>section[aria-label="Orientaciones para familias"]{order:3!important;display:flex;flex-direction:column;gap:12px}
 #inicioPortal>#diagnosticoPortal{order:6!important}
 #inicioPortal>#resultadoContenedor{order:5!important}
+
+/* Ajuste de los 4 accesos familiares: una fila horizontal y tarjetas compactas */
+.module-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important;align-items:stretch!important}
+.module-card{min-height:0!important;height:140px!important;padding:14px 15px!important;border-radius:17px!important;display:flex!important;flex-direction:column!important;justify-content:space-between!important;gap:8px!important}
+.module-card h5{font-size:.92rem!important;line-height:1.25!important;margin:0!important}
+.module-card p{font-size:.76rem!important;line-height:1.35!important;margin:3px 0 0!important}
+.module-card button{font-size:.76rem!important;padding:7px 10px!important;line-height:1.2!important;min-height:30px!important}
+@media(max-width:800px){.module-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}.module-card{height:136px!important;padding:12px!important}}
+@media(max-width:460px){.module-grid{grid-template-columns:1fr!important}.module-card{height:auto!important;min-height:122px!important}}
 </style>
 
 </head>
