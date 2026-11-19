@@ -1182,6 +1182,36 @@ header{padding-top:14px;padding-bottom:12px}
  .calendar-topic-session{font-size:10px}
 }
 
+
+/* V7 — Tareas didácticas en familia. Interfaz ligera sin imágenes incrustadas. */
+.tareas-wrapper-v7{margin:22px 0 26px;padding:20px;background:#fffdf7;border:1px solid #e8d9bd;border-radius:20px;box-shadow:0 5px 17px rgba(18,52,90,.05)}
+.tareas-header-v7 h3{margin:2px 0 9px;color:#12345a;font:700 22px 'Fredoka',sans-serif}
+.regla-foto-v7{margin:0 0 15px;padding:12px 14px;border-left:5px solid #e1a32c;border-radius:11px;background:#fff5dc;color:#76500d;font-size:13px;line-height:1.48;font-weight:700}
+.tareas-controles-v7{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,.9fr);gap:10px;margin-bottom:11px}
+.select-grande-v7,.input-grande-v7{width:100%;min-width:0;min-height:44px;padding:10px 13px;border:1px solid #cbd9e8;border-radius:12px;background:#fff;color:#193653;font:700 13px 'Nunito',sans-serif}
+.resumen-tareas-v7{display:flex;align-items:center;flex-wrap:wrap;gap:8px;color:#596b82;font-size:11px;font-weight:900}
+.resumen-tareas-v7 strong{color:#12345a}
+.tarjetas-grid-v7{display:grid;grid-template-columns:minmax(0,1fr);gap:11px;margin-top:13px}
+.tarjeta-tarea-v7{background:#fff;border:1px solid #d9e4f0;border-left:5px solid #3c79c5;border-radius:16px;padding:16px;box-shadow:0 3px 10px rgba(18,52,90,.04)}
+.badge-tema-v7{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;background:#eaf2ff;color:#245b99;font-size:10px;font-weight:1000;letter-spacing:.3px}
+.tarjeta-tarea-v7 h4{margin:8px 0 12px;color:#173d70;font:700 20px/1.25 'Fredoka',sans-serif}
+.bloque-actividad-v7,.bloque-evidencia-v7{padding:12px 13px;border-radius:12px;margin:0 0 10px;font-size:13px;line-height:1.5}
+.bloque-actividad-v7{background:#edf5ff;color:#204c82;border:1px solid #d8e7f8}
+.bloque-evidencia-v7{background:#edf9f1;color:#17623d;border:1px dashed #9dd4b0}
+.estado-tarea-v7{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;font-size:10px;font-weight:1000;letter-spacing:.25px}
+.estado-pendiente-v7{background:#fff4d9;color:#8a5b0b;border:1px solid #f0d99d}
+.estado-enviada-v7{background:#eaf3ff;color:#245f9d;border:1px solid #c9ddf4}
+.estado-revisada-v7{background:#eaf8ef;color:#216b40;border:1px solid #c5e7d0}
+.estado-corregir-v7{background:#fff0f0;color:#a32d36;border:1px solid #edc2c6}
+.acciones-tarea-v7{display:flex;flex-wrap:wrap;gap:9px;margin-top:13px}
+.btn-tarea-voz-v7,.btn-tarea-evidencia-v7{min-height:42px;flex:1 1 180px;padding:10px 14px;border:0;border-radius:11px;font-size:13px;font-weight:900;cursor:pointer}
+.btn-tarea-voz-v7{background:#f3b83f;color:#fff}
+.btn-tarea-evidencia-v7{background:#218753;color:#fff}
+.btn-tarea-evidencia-v7:disabled{opacity:.55;cursor:not-allowed}
+.tarea-estado-mensaje-v7{min-height:18px;margin-top:9px;color:#52677f;font-size:11px;font-weight:800}
+.tareas-cargando-v7,.tareas-vacias-v7{padding:16px;border:1px dashed #d7e0e9;border-radius:13px;background:#f8fafc;color:#63748a;font-size:12px;font-weight:800}
+@media(max-width:620px){.tareas-wrapper-v7{padding:14px}.tareas-controles-v7{grid-template-columns:1fr}.tarjeta-tarea-v7{padding:13px}.tarjeta-tarea-v7 h4{font-size:18px}.btn-tarea-voz-v7,.btn-tarea-evidencia-v7{flex-basis:100%}}
+
 </style>
 </head>
 <body>
@@ -1384,6 +1414,24 @@ header{padding-top:14px;padding-bottom:12px}
       <h2 class="followup-heading">📊 Mi seguimiento de catequesis</h2>
       <p class="followup-intro">Consulta tus asistencias, tareas y cuánto has avanzado en los seis bloques. Esta información corresponde únicamente a tu cuenta.</p>
       <div id="studentsGrid" class="students-grid"><div class="followup-loading">🌟 Cargando tu seguimiento desde Google Sheets...</div></div>
+
+      <section id="seccion-tareas-familia" class="tareas-wrapper-v7" aria-labelledby="titulo-tareas-familia">
+        <div class="tareas-header-v7">
+          <div class="eyebrow">Aprendemos también en casa</div>
+          <h3 id="titulo-tareas-familia">🏠 Tarea didáctica en familia</h3>
+          <p class="regla-foto-v7">📸 Realiza la actividad con tu familia y toma una fotografía que muestre la acción indicada. La evidencia se guardará en Google Drive y el envío se registrará en Google Sheets.</p>
+          <div class="tareas-controles-v7">
+            <select id="selector-tema-tarea" class="select-grande-v7" aria-label="Elegir tema de tarea">
+              <option value="">Cargando las 68 tareas...</option>
+            </select>
+            <input type="search" id="buscador-tema-tarea" class="input-grande-v7" placeholder="🔍 Buscar tema o número..." aria-label="Buscar tarea por tema">
+          </div>
+          <div id="resumen-tareas-v7" class="resumen-tareas-v7" aria-live="polite">Las tareas se cargan desde Google Sheets.</div>
+        </div>
+        <div id="contenedor-tarjetas-tareas" class="tarjetas-grid-v7">
+          <div class="tareas-cargando-v7">🌱 Cargando tareas desde Google Sheets...</div>
+        </div>
+      </section>
       <div class="communications-panel">
         <div class="communications-heading">
           <div><div class="eyebrow">Estamos en contacto</div><h3>💌 Comunicaciones y mensajes</h3></div>
@@ -1740,7 +1788,7 @@ function renderizarTarjetasAlumnos(idActivo) {
   const tareas = Array.isArray(resumen.tareas && resumen.tareas.datos) ? resumen.tareas.datos : [];
   const bloques = Array.isArray(resumen.bloques) ? resumen.bloques : [];
   const foto = normalizarUrlFotoGitHub(alumno.FOTO || perfil.FOTO || '');
-  const hechas = tareas.filter(t => /COMPLET|ENTREG|REALIZ|CUMPL|APROB/i.test(String(t.ESTADO||''))).length;
+  const hechas = tareas.filter(t => ['ENVIADA','REVISADA'].includes(String(t.ESTADO_ENTREGA || '').toUpperCase())).length;
   const pendientes = Math.max(0,tareas.length-hechas);
   const listaTareas = tareas.length ? tareas.map(t => {
     const titulo=escapeQuizHtml(t.TITULO||'Tarea asignada');
@@ -1758,7 +1806,7 @@ function renderizarTarjetasAlumnos(idActivo) {
   const promedio=bloques.length?(bloques.reduce((s,b)=>s+Number(b.porcentaje||0),0)/bloques.length).toFixed(1).replace(/\.0$/,'')+'%':'—';
   grid.innerHTML='<article class="followup-panel"><div class="followup-panel-head"><img class="followup-avatar" src="'+escapeQuizHtml(foto)+'" alt="Foto del catequizando" onerror="this.src=\''+RUTAS_INSIGNIA[0]+'\'"><div class="followup-name"><h3>'+escapeQuizHtml(alumno.NOMBRE_COMPLETO||((alumno.NOMBRES||'')+' '+(alumno.APELLIDOS||'')))+'</h3><p>'+escapeQuizHtml(alumno.ID_NINO)+(alumno.GRADO?' · '+escapeQuizHtml(alumno.GRADO):'')+'</p></div><span class="followup-synced">🔒 Seguimiento personal</span></div>'+
   '<div class="followup-metrics"><div class="followup-metric metric-attendance"><h4>📅 Asistencia</h4><strong>'+pctText+'</strong><div class="followup-mini-track"><div class="followup-mini-fill" style="width:'+(pctAsistencia==null?0:pctAsistencia)+'%"></div></div><p>'+(asistencia.exito?(Number(asistencia.presentes||0)+' presentes · '+Number(asistencia.tardanzas||0)+' tardanzas · '+Number(asistencia.faltas||0)+' faltas'):escapeQuizHtml(asistencia.mensaje||'Esperando datos de asistencia.'))+'</p></div>'+
-  '<div class="followup-metric metric-tasks"><h4>📝 Mis tareas</h4><strong>'+tareas.length+'</strong><p>'+(resumen.tareas&&resumen.tareas.exito?(pendientes+' pendientes · '+hechas+' completadas'):escapeQuizHtml((resumen.tareas&&resumen.tareas.mensaje)||'Esperando tareas.'))+'</p></div>'+
+  '<div class="followup-metric metric-tasks"><h4>📝 Mis tareas</h4><strong>'+tareas.length+'</strong><p>'+(resumen.tareas&&resumen.tareas.exito?(pendientes+' pendientes · '+hechas+' evidencias enviadas'):escapeQuizHtml((resumen.tareas&&resumen.tareas.mensaje)||'Esperando tareas.'))+'</p></div>'+
   '<div class="followup-metric metric-quizzes"><h4>🎮 Cuestionarios</h4><strong>'+promedio+'</strong><p>Promedio de avance de los seis bloques. Cada bloque muestra su propio porcentaje.</p></div></div>'+
   '<div class="followup-lower"><section class="followup-subpanel"><h4>📚 Tareas asignadas</h4><div class="followup-task-list">'+listaTareas+'</div></section><section class="followup-subpanel"><h4>🌱 Avance de cuestionarios por bloque</h4><div class="followup-blocks">'+listaBloques+'</div><p class="followup-footnote">El porcentaje refleja las preguntas respondidas del bloque completo. No se muestran cantidades de preguntas al catequizando.</p></section></div></article>';
 }
@@ -1871,6 +1919,7 @@ function portalAplicarResumenV7(data, perfil) {
   tareasPorAlumno = { [id]: data.tareas || {} };
   renderizarTarjetasAlumnos(id);
   renderizarAvisos(data.avisos && data.avisos.datos || []);
+  renderizarTareasFamiliaV7(data.tareas && data.tareas.datos || []);
 }
 function portalClaveResumenV7(idNino) {
   return PORTAL_CACHE_RESUMEN_PREFIX_V7 + encodeURIComponent(String(idNino || '').trim().toUpperCase());
@@ -2007,6 +2056,150 @@ function renderizarAvisos(avisos) {
   }
 }
 
+
+let tareasCatequesisAlumnoV7 = [];
+let tareaSeleccionadaV7 = '';
+let envioEvidenciaOcupadoV7 = false;
+
+function normalizarTextoTareaV7(valor) {
+  return String(valor || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+}
+function renderizarTareasFamiliaV7(lista) {
+  tareasCatequesisAlumnoV7 = Array.isArray(lista) ? lista : [];
+  const selector=document.getElementById('selector-tema-tarea');
+  const contenedor=document.getElementById('contenedor-tarjetas-tareas');
+  const resumen=document.getElementById('resumen-tareas-v7');
+  if(!selector||!contenedor)return;
+  const anterior=tareaSeleccionadaV7||selector.value;
+  selector.innerHTML='<option value="">-- Selecciona uno de tus 68 temas --</option>'+
+    tareasCatequesisAlumnoV7.map(t=>'<option value="'+escapeQuizHtml(t.ID_TAREA)+'">'+
+    escapeQuizHtml((t.ID_SESION||t.ID_TAREA)+' · '+(t.TITULO||'Tema de catequesis'))+'</option>').join('');
+  const enviadas=tareasCatequesisAlumnoV7.filter(t=>['ENVIADA','REVISADA'].includes(String(t.ESTADO_ENTREGA||'').toUpperCase())).length;
+  const pendientes=tareasCatequesisAlumnoV7.length-enviadas;
+  if(resumen)resumen.innerHTML='<strong>'+tareasCatequesisAlumnoV7.length+'</strong> tareas disponibles · <strong>'+enviadas+
+    '</strong> evidencias enviadas · <strong>'+pendientes+'</strong> pendientes';
+  if(!tareasCatequesisAlumnoV7.length){
+    contenedor.innerHTML='<div class="tareas-vacias-v7">Todavía no se han activado las 68 tareas. La catequista debe ejecutar la preparación inicial del módulo.</div>';
+    tareaSeleccionadaV7='';return;
+  }
+  const buscador=document.getElementById('buscador-tema-tarea');
+  const busqueda=normalizarTextoTareaV7(buscador&&buscador.value);
+  let seleccion=busqueda?tareasCatequesisAlumnoV7.find(t=>
+    normalizarTextoTareaV7(t.TITULO).includes(busqueda)||
+    normalizarTextoTareaV7(t.ID_TAREA).includes(busqueda)||
+    normalizarTextoTareaV7(t.ID_SESION).includes(busqueda)):
+    tareasCatequesisAlumnoV7.find(t=>String(t.ID_TAREA)===String(anterior));
+  if(busqueda&&!seleccion){
+    contenedor.innerHTML='<div class="tareas-vacias-v7">No se encontró ese tema. Prueba con otra palabra o número.</div>';
+    tareaSeleccionadaV7='';selector.value='';return;
+  }
+  if(!seleccion)seleccion=tareasCatequesisAlumnoV7[0];
+  tareaSeleccionadaV7=String(seleccion.ID_TAREA||'');
+  selector.value=tareaSeleccionadaV7;
+  const estado=String(seleccion.ESTADO_ENTREGA||'PENDIENTE').toUpperCase();
+  const estadoTexto=estado==='REVISADA'?'EVIDENCIA REVISADA':estado==='ENVIADA'?'EVIDENCIA ENVIADA · PENDIENTE DE REVISIÓN':
+    estado==='CORREGIR'?'NECESITA CORRECCIÓN':'PENDIENTE DE EVIDENCIA';
+  const estadoClase=estado==='REVISADA'?'estado-revisada-v7':estado==='ENVIADA'?'estado-enviada-v7':
+    estado==='CORREGIR'?'estado-corregir-v7':'estado-pendiente-v7';
+  const instruccion=seleccion.EVIDENCIA_INSTRUCCION||
+    String(seleccion.OBSERVACION||'').replace(/^EVIDENCIA\s+FOTOGR[AÁ]FICA\s+OBLIGATORIA\s*:\s*/i,'').trim();
+  const observacion=String(seleccion.OBSERVACION_CATEQUISTA||'').trim();
+  const fechaEnvio=seleccion.FECHA_ENVIO_EVIDENCIA?' · Enviada: '+escapeQuizHtml(formatearFechaSeguimiento(seleccion.FECHA_ENVIO_EVIDENCIA)):'';
+  contenedor.innerHTML='<article class="tarjeta-tarea-v7">'+
+    '<span class="badge-tema-v7">📘 '+escapeQuizHtml(seleccion.ID_SESION||seleccion.ID_TAREA)+'</span>'+
+    '<h4>'+escapeQuizHtml(seleccion.TITULO||'Tarea didáctica en familia')+'</h4>'+
+    '<div class="bloque-actividad-v7"><strong>👨‍👩‍👧‍👦 Tarea en familia</strong><br>'+escapeQuizHtml(seleccion.DESCRIPCION||'')+'</div>'+
+    '<div class="bloque-evidencia-v7"><strong>📸 Evidencia fotográfica</strong><br>'+escapeQuizHtml(instruccion||'Toma una fotografía donde se vea la actividad realizada en familia.')+'</div>'+
+    '<div><span class="estado-tarea-v7 '+estadoClase+'">'+escapeQuizHtml(estadoTexto)+'</span><span style="font-size:10px;color:#64748b;font-weight:800">'+fechaEnvio+'</span></div>'+
+    (observacion?'<div class="bloque-actividad-v7" style="margin-top:10px"><strong>💬 Observación de tu catequista</strong><br>'+escapeQuizHtml(observacion)+'</div>':'')+
+    '<div class="acciones-tarea-v7">'+
+    '<button type="button" class="btn-tarea-voz-v7" id="btnEscucharTareaV7">🔊 Escuchar tarea</button>'+
+    '<button type="button" class="btn-tarea-evidencia-v7" id="btnElegirEvidenciaV7" '+(['ENVIADA','REVISADA'].includes(estado)?'disabled':'')+'>📷 Tomar o seleccionar fotografía</button>'+
+    '<input type="file" id="inputEvidenciaTareaV7" accept="image/jpeg,image/png,image/webp" capture="environment" style="display:none"></div>'+
+    '<div id="estadoEnvioEvidenciaV7" class="tarea-estado-mensaje-v7" role="status" aria-live="polite">'+
+    (estado==='ENVIADA'?'Tu evidencia ya está guardada y espera revisión.':estado==='REVISADA'?'¡Tu catequista ya revisó esta evidencia!':
+    estado==='CORREGIR'?'Puedes enviar una nueva fotografía con la corrección solicitada.':
+    'La evidencia se guardará en Drive y se registrará en Google Sheets.')+'</div></article>';
+  document.getElementById('btnEscucharTareaV7').addEventListener('click',()=>leerTareaEnVozAltaV7(seleccion));
+  const input=document.getElementById('inputEvidenciaTareaV7');
+  document.getElementById('btnElegirEvidenciaV7').addEventListener('click',()=>input.click());
+  input.addEventListener('change',async()=>{
+    const archivo=input.files&&input.files[0];
+    if(archivo)await enviarEvidenciaTareaV7(seleccion,archivo,input);
+  });
+}
+function leerTareaEnVozAltaV7(tarea) {
+  const texto='Tema '+String(tarea.ID_SESION||'')+'. '+String(tarea.TITULO||'')+
+    '. Tarea en familia: '+String(tarea.DESCRIPCION||'')+
+    '. Evidencia fotográfica: '+String(tarea.EVIDENCIA_INSTRUCCION||tarea.OBSERVACION||'Toma una fotografía de la actividad realizada.');
+  hablarTexto(texto);
+}
+function comprimirFotoTareaV7(archivo) {
+  return new Promise((resolve,reject)=>{
+    if(!archivo||!['image/jpeg','image/png','image/webp'].includes(String(archivo.type||'').toLowerCase())){
+      reject(new Error('Selecciona una fotografía JPG, PNG o WEBP.'));return;
+    }
+    const url=URL.createObjectURL(archivo),imagen=new Image();
+    imagen.onload=()=>{
+      try{
+        const escala=Math.min(1,1440/Math.max(imagen.width,imagen.height));
+        const canvas=document.createElement('canvas');
+        canvas.width=Math.max(1,Math.round(imagen.width*escala));
+        canvas.height=Math.max(1,Math.round(imagen.height*escala));
+        const ctx=canvas.getContext('2d',{alpha:false});
+        if(!ctx)throw new Error('No se pudo preparar la fotografía.');
+        ctx.drawImage(imagen,0,0,canvas.width,canvas.height);
+        canvas.toBlob(blob=>{
+          URL.revokeObjectURL(url);
+          if(!blob){reject(new Error('No se pudo comprimir la fotografía.'));return;}
+          if(blob.size>1800000){reject(new Error('La fotografía supera 1.8 MB después de comprimirla. Toma otra con menor resolución.'));return;}
+          const lector=new FileReader();
+          lector.onload=()=>{
+            const base64=String(lector.result||'').split(',')[1]||'';
+            if(!base64){reject(new Error('No se pudo leer la fotografía.'));return;}
+            resolve({base64:base64,mimeType:blob.type||'image/jpeg',size:blob.size,fileName:'evidencia.jpg'});
+          };
+          lector.onerror=()=>reject(new Error('No se pudo preparar el archivo.'));
+          lector.readAsDataURL(blob);
+        },'image/jpeg',0.76);
+      }catch(e){URL.revokeObjectURL(url);reject(e);}
+    };
+    imagen.onerror=()=>{URL.revokeObjectURL(url);reject(new Error('No se pudo abrir la fotografía. Usa JPG, PNG o WEBP.'));};
+    imagen.src=url;
+  });
+}
+async function enviarEvidenciaTareaV7(tarea,archivo,input) {
+  if(envioEvidenciaOcupadoV7)return;
+  const boton=document.getElementById('btnElegirEvidenciaV7');
+  const estado=document.getElementById('estadoEnvioEvidenciaV7');
+  const token=localStorage.getItem('lds_cat_token')||'';
+  if(!token){if(estado)estado.textContent='Tu sesión venció. Ingresa nuevamente.';return;}
+  envioEvidenciaOcupadoV7=true;
+  if(boton){boton.disabled=true;boton.textContent='⏳ Preparando fotografía...';}
+  if(estado)estado.textContent='Comprimiendo una copia para agilizar el envío...';
+  try{
+    const imagen=await comprimirFotoTareaV7(archivo);
+    if(boton)boton.textContent='⏳ Guardando evidencia...';
+    if(estado)estado.textContent='Enviando a Drive y registrando en Google Sheets. No cierres esta ventana.';
+    const respuesta=await fetch(API_URL,{
+      method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify({action:'enviarEvidenciaTarea',token:token,idTarea:tarea.ID_TAREA,idSesion:tarea.ID_SESION,
+        fileName:imagen.fileName,mimeType:imagen.mimeType,base64:imagen.base64})
+    }).then(r=>r.json());
+    if(!respuesta||!respuesta.exito)throw new Error(respuesta&&respuesta.mensaje?respuesta.mensaje:'Google Sheets no confirmó el guardado.');
+    if(estado)estado.textContent='✅ '+(respuesta.mensaje||'Evidencia guardada en Drive y Sheets.');
+    tareaSeleccionadaV7=String(tarea.ID_TAREA);
+    const perfil=JSON.parse(localStorage.getItem('lds_cat_perfil')||'{}');
+    await cargarResumenSeguimientoPortal(perfil,{conservarVista:true});
+  }catch(e){
+    if(estado)estado.textContent='⚠️ No se confirmó el guardado: '+(e.message||e)+'. Puedes volver a intentarlo.';
+    if(boton){boton.disabled=false;boton.textContent='📷 Reintentar fotografía';}
+  }finally{
+    envioEvidenciaOcupadoV7=false;
+    if(input)input.value='';
+  }
+}
+
 // BLOQUES FILTRADOS DESDE LA PESTAÑA SESIONES DEL GOOGLE SHEET
 let bloqueActualSeleccionado = 0;
 
@@ -2124,7 +2317,7 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
     // No depende del CORS de fetch POST ni detiene el juego por una respuesta vacía.
     if (!quizVersionV5Verificada) {
       const versionData = await solicitarJSONP(`${API_URL}?action=verificarVersionCuestionarios`);
-      const versionEsperada = 'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V6';
+      const versionEsperada = 'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V7-TAREAS-EVIDENCIAS';
       if (!versionData || !versionData.exito || versionData.version !== versionEsperada) {
         const detalle = versionData && (versionData.version || versionData.mensaje)
           ? String(versionData.version || versionData.mensaje)
@@ -2493,6 +2686,18 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btnRefreshPortal').addEventListener('click', () => {
     portalEstadoV7('🔄 Actualizando desde Google Sheets...', 'pending');
     cargarDatosPortal({ forzar: true });
+  });
+
+  const selectorTareas = document.getElementById('selector-tema-tarea');
+  const buscadorTareas = document.getElementById('buscador-tema-tarea');
+  if (selectorTareas) selectorTareas.addEventListener('change', () => {
+    tareaSeleccionadaV7 = selectorTareas.value;
+    if (buscadorTareas) buscadorTareas.value = '';
+    renderizarTareasFamiliaV7(tareasCatequesisAlumnoV7);
+  });
+  if (buscadorTareas) buscadorTareas.addEventListener('input', () => {
+    tareaSeleccionadaV7 = '';
+    renderizarTareasFamiliaV7(tareasCatequesisAlumnoV7);
   });
 
   document.getElementById('btnLogout').addEventListener('click', () => {
