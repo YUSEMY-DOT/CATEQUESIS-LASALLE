@@ -670,6 +670,11 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
 body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!important}
 
 .task-progress-summary{background:#f3f9ff;border:1px solid #dceaf8;border-radius:12px;padding:12px;margin-bottom:12px;color:#355b82;font-size:.82rem}
+
+/* Cuatro accesos principales en una fila en escritorio; adaptación por pantalla. */
+.module-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+@media(max-width:980px){.module-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:480px){.module-grid{grid-template-columns:1fr!important}}
 </style>
 
 </head>
@@ -1001,7 +1006,7 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
             if(!vids.length&&ses.videoUrl){const u=recursoSeguro(ses.videoUrl);if(u)recursos.push({url:u,label:'🎥 Video del tema'});}
             [['fichaUrl','📄 Ficha'],['cuestionarioUrl','📝 Cuestionario'],['cancionUrl','🎵 Canción']].forEach(([key,label])=>{const u=recursoSeguro(ses[key]);if(u)recursos.push({url:u,label});});
             const fecha=ses.fechaProgramada||ses.fecha||'';
-            const meta=[fecha?formatDate(fecha):'',ses.horaInicio&&ses.horaFin?ses.horaInicio+'–'+ses.horaFin:'',ses.catequista||''].filter(Boolean).join(' · ');
+            const meta=[ses.numeroClase?'Clase '+ses.numeroClase:'',fecha?formatDate(fecha):'',ses.horaInicio&&ses.horaFin?ses.horaInicio+'–'+ses.horaFin:'',ses.catequista||''].filter(Boolean).join(' · ');
             const extras=[ses.objetivo?'<p class="small mb-1"><strong>Objetivo:</strong> '+escapeHtml(ses.objetivo)+'</p>':'',ses.valor?'<p class="small mb-1"><strong>Valor:</strong> '+escapeHtml(ses.valor)+'</p>':'',ses.cita_biblica||ses.cita?'<p class="small mb-1"><strong>Palabra de Dios:</strong> '+escapeHtml(ses.cita_biblica||ses.cita)+'</p>':''];
             return '<article class="lds-session-card"><h5>'+escapeHtml(ses.tema||'Tema de catequesis')+'</h5>'+(ses.subtema?'<p class="small mb-1">'+escapeHtml(ses.subtema)+'</p>':'')+(meta?'<div class="lds-session-meta">'+escapeHtml(meta)+'</div>':'')+extras.join('')+(recursos.length?'<div class="lds-resource-links">'+recursos.map(r=>'<a class="btn btn-sm btn-outline-primary rounded-pill" href="'+escapeHtml(r.url)+'" target="_blank" rel="noopener">'+escapeHtml(r.label)+'</a>').join('')+'</div>':'')+'</article>';
           }).join('');
