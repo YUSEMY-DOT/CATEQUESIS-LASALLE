@@ -675,6 +675,67 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
 .module-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}
 @media(max-width:980px){.module-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(max-width:480px){.module-grid{grid-template-columns:1fr!important}}
+
+/* Ajustes solicitados: seis bloques compactos, color por bloque y calendario vivo. */
+.lds-mission-strip{display:flex;align-items:center;gap:10px;padding:11px 15px;margin:0 0 12px;background:linear-gradient(90deg,#fff1d2,#ffe7f1,#e8f5ff);border:1px solid #e7d7f4;border-radius:15px}
+.lds-mission-strip .mission-emoji{font-size:24px;flex-shrink:0}
+.lds-mission-strip strong{color:#315b87;font-weight:900}
+.lds-mission-strip p{margin:2px 0 0;color:#536c86;font-size:.78rem}
+.lds-blocks-panel{padding:14px!important;margin-bottom:14px!important}
+.lds-blocks-panel .lds-section-heading{margin-bottom:9px!important}
+.lds-blocks-panel .lds-section-heading>span{width:36px;height:36px;font-size:20px;border-radius:11px}
+.lds-blocks-panel .lds-section-heading h3{font-size:1rem!important}
+.lds-blocks-panel .lds-section-heading p{font-size:.72rem!important}
+.lds-block-grid{grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:7px!important}
+.lds-block-card{min-width:0;border-radius:12px!important;box-shadow:none!important}
+.lds-block-toggle{padding:9px 7px!important;min-height:82px;display:flex;flex-direction:column;justify-content:center;gap:4px;text-align:center!important}
+.lds-block-toggle .block-icon{font-size:22px!important}
+.lds-block-toggle strong{font-size:.69rem!important;line-height:1.25}
+.lds-block-toggle small{font-size:.61rem!important;margin-top:2px}
+.lds-block-toggle>span:last-child{display:none}
+.lds-block-card:nth-child(1) .lds-block-toggle{background:#f0e5ff!important;color:#59309b!important;border-color:#d9c2ff}
+.lds-block-card:nth-child(2) .lds-block-toggle{background:#fff0d6!important;color:#915b00!important;border-color:#ffd994}
+.lds-block-card:nth-child(3) .lds-block-toggle{background:#e2f5e9!important;color:#176b42!important;border-color:#b9e4ca}
+.lds-block-card:nth-child(4) .lds-block-toggle{background:#e1f0ff!important;color:#18578e!important;border-color:#b9d9ff}
+.lds-block-card:nth-child(5) .lds-block-toggle{background:#ffe5ef!important;color:#a12f5c!important;border-color:#ffc1d8}
+.lds-block-card:nth-child(6) .lds-block-toggle{background:#fff7bf!important;color:#876500!important;border-color:#f4e17a}
+.lds-block-card .lds-block-body{padding:8px!important}
+.lds-session-card{border-radius:10px!important;padding:10px!important;border-left:4px solid var(--block-accent,#5389d8)!important;background:var(--block-soft,#f7fbff)!important}
+.lds-block-card:nth-child(1){--block-accent:#8b5cf6;--block-soft:#faf5ff}
+.lds-block-card:nth-child(2){--block-accent:#f59e0b;--block-soft:#fffbeb}
+.lds-block-card:nth-child(3){--block-accent:#16a34a;--block-soft:#f0fdf4}
+.lds-block-card:nth-child(4){--block-accent:#3b82f6;--block-soft:#eff6ff}
+.lds-block-card:nth-child(5){--block-accent:#ec4899;--block-soft:#fdf2f8}
+.lds-block-card:nth-child(6){--block-accent:#eab308;--block-soft:#fefce8}
+.lds-session-card h5{color:var(--block-accent)!important}
+.lds-session-card p{margin-bottom:5px!important;font-size:.77rem!important}
+.lds-session-card strong{color:var(--block-accent)!important}
+.lds-family-challenge:not(.lds-mission-strip){display:none!important}
+.lds-guide-interactive{padding:13px!important;margin:0 0 14px!important;border-radius:18px!important}
+.lds-guide-heading{margin-bottom:9px!important}
+.lds-guide-heading h3{font-size:1rem!important}
+.lds-guide-heading p{font-size:.72rem!important;margin:2px 0 0!important}
+.lds-guide-compact{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important}
+.lds-guide-compact .lds-guide-card{padding:10px!important;min-height:120px!important;border-radius:13px!important}
+.lds-guide-compact .guide-art{height:36px!important;min-height:36px!important;margin-bottom:5px!important}
+.lds-guide-compact .guide-art span{font-size:20px!important}
+.lds-guide-compact h4{font-size:.77rem!important;margin:3px 0!important}
+.lds-guide-compact p{font-size:.68rem!important;margin:0!important;line-height:1.35!important}
+.calendar-day.has-clase{background:#f3f8ff!important;border-color:#b6d4fe!important}
+.calendar-topic{font-size:.61rem!important;line-height:1.25!important;border-radius:5px!important;padding:3px 4px!important;font-weight:800!important;white-space:normal!important}
+.calendar-topic.block-1{background:#8b5cf6!important;color:#fff!important}
+.calendar-topic.block-2{background:#f59e0b!important;color:#432900!important}
+.calendar-topic.block-3{background:#16a34a!important;color:#fff!important}
+.calendar-topic.block-4{background:#3b82f6!important;color:#fff!important}
+.calendar-topic.block-5{background:#ec4899!important;color:#fff!important}
+.calendar-topic.block-6{background:#eab308!important;color:#423300!important}
+.calendar-day.has-aviso{box-shadow:inset 0 0 0 2px #ffb020!important}
+.calendar-day.has-cumple{box-shadow:inset 0 0 0 2px #f06a9b!important}
+.calendar-day.selected-day{background:#fff2c9!important;border-color:#e0a62c!important}
+.module-card{min-height:180px!important}
+.module-card .btn{font-weight:800!important}
+@media(max-width:950px){.lds-block-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}.lds-guide-compact{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(max-width:560px){.lds-block-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.lds-guide-compact{grid-template-columns:1fr!important}.lds-guide-compact .lds-guide-card{min-height:auto!important}}
 </style>
 
 </head>
@@ -728,26 +789,21 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
     <main id="inicioPortal" class="container mb-5">
       
       <section id="ldsFamiliaHero"><div id="ldsPerfilFamilia" class="hero-art"><div class="hero-sun">☀️</div><div class="hero-family">👨‍👩‍👧‍👦</div><div class="hero-book">📖</div><div class="hero-heart">💗</div></div><div class="hero-copy"><span class="hero-kicker">CAMINO HACIA JESÚS · ESPACIO FAMILIAR</span><h2 id="ldsSaludoFamilia">¡Hola, familia! <span>Qué alegría caminar juntos.</span></h2><p id="ldsTextoFamilia">Este espacio es para acompañar a tu hijo en su preparación. Revisa qué viene esta semana, sus actividades y cómo pueden vivir la fe juntos en casa.</p><div class="hero-pills"><span>🌱 Aprender</span><span>🙏 Vivir la fe</span><span>💞 Acompañar</span></div></div></section>
+<section id="ldsRetoFamilia" class="lds-family-challenge lds-mission-strip">
+  <span class="mission-emoji">💞</span><div><strong>Una misión para vivir la fe en familia</strong><p>Un momento con Jesús, un gesto de amor y una conversación sobre lo aprendido. La familia acompaña; el catequizando realiza sus tareas.</p></div>
+</section>
 <section id="ldsBloquesCatequesis" class="lds-blocks-panel">
   <div class="lds-section-heading"><span>📖</span><div><h3>Los seis bloques de nuestro camino</h3><p>Programa de catequesis y recursos por tema. Los videos son publicados por las administradoras.</p></div></div>
   <div id="ldsBloquesContenido"><div class="weekly-loading">✨ Cargando programación…</div></div>
 </section>
-<section id="ldsSemana" class="lds-weekly-panel"><div class="weekly-heading"><div class="weekly-icon">🧭</div><div><h3>Esta semana en familia</h3><p>Revisa las actividades que tu hijo debe realizar y los materiales para acompañarlo.</p></div></div><div id="ldsTareasSemana"><div class="weekly-loading">✨ Estamos revisando las actividades de tu familia…</div></div><button class="weekly-all-btn" type="button" onclick="consultarDatos('getTareas')">📚 Ver todas las tareas y actividades</button><p class="small text-muted mt-2 mb-0">📷 Para enviar una evidencia, ingresa al Portal del Catequizando con su acceso personal.</p><a class="btn btn-sm btn-outline-primary rounded-pill mt-2" href="catequizandos.html">Abrir Portal del Catequizando</a></section><div id="diagnosticoPortal" class="card card-custom p-3 mb-4">
+<section id="ldsSemana" class="lds-weekly-panel"><div class="weekly-heading"><div class="weekly-icon">🧭</div><div><h3>Esta semana en familia</h3><p>Revisa las actividades que tu hijo debe realizar y los materiales para acompañarlo.</p></div></div><div id="ldsTareasSemana"><div class="weekly-loading">✨ Estamos revisando las actividades de tu familia…</div></div><button class="weekly-all-btn" type="button" onclick="consultarDatos('getTareas')">📚 Ver todas las tareas y actividades</button><p class="small text-muted mt-2 mb-0">👀 La familia acompaña y supervisa el avance. El catequizando realiza sus propias actividades y envía sus evidencias desde su acceso.</p></section><div id="diagnosticoPortal" class="card card-custom p-3 mb-4">
         <div class="d-flex align-items-center gap-2"><span class="spinner-border spinner-border-sm text-primary" role="status"></span><strong>Verificando la información del programa…</strong></div>
       </div>
 
       <!-- ========================================================= -->
       <!-- CALENDARIO INTERACTIVO CON MEMBRETE ALEGRE Y CURSOS        -->
       <!-- ========================================================= -->
-      <section id="ldsRetoFamilia" class="lds-family-challenge">
-  <div class="lds-section-heading"><span>💞</span><div><h3>Una misión para vivir la fe en familia</h3><p>Pequeñas acciones que ayudan a conversar, practicar y compartir lo aprendido.</p></div></div>
-  <div class="lds-family-challenge-grid">
-    <article><div class="challenge-illustration">🙏🌟</div><h4>Un momento con Jesús</h4><p>Hagan la señal de la cruz, agradezcan por algo del día y compartan una intención.</p></article>
-    <article><div class="challenge-illustration">🤝💗</div><h4>Un gesto de amor</h4><p>Elijan una ayuda concreta en casa o hacia otra persona y realícenla juntos.</p></article>
-    <article><div class="challenge-illustration">📖👨‍👩‍👧</div><h4>Conversar lo aprendido</h4><p>Pregunten al catequizando qué recuerda del tema, qué le llamó la atención y cómo puede vivirlo.</p></article>
-  </div>
-  <p class="lds-family-note">Estas son orientaciones familiares; las tareas asignadas y sus fechas se muestran en el panel de actividades.</p>
-</section>
+      
 <section class="calendar-layout">
         <!-- Columna Izquierda: Cuadrícula con Membrete Alegre -->
         <div class="calendar-column">
@@ -857,39 +913,14 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
 
 
       <!-- Orientaciones informativas para las familias: contenido frontend, no conectado a GS -->
-      <section class="lds-guide-interactive" aria-label="Guía práctica interactiva para familias">
-        <div class="lds-guide-heading"><span class="heading-icon">🌟</span><div><h3>Guía práctica para las familias</h3><p>Ideas sencillas para acompañar a tu hijo. ¡Pulsa cada tarjeta y descubre cómo hacerlo en casa!</p></div></div>
-        <div class="lds-guide-grid">
-          <article class="lds-guide-card guide-prayer">
-            <div class="guide-art" aria-hidden="true"><span>👨‍👩‍👧</span><span>🙏</span><span>🕯️</span></div>
-            <div class="guide-card-title"><span class="guide-number">1</span><h4>Preparación espiritual</h4></div>
-            <p>La fe también se aprende con pequeños momentos en familia.</p>
-            <button class="guide-action" type="button" data-bs-toggle="collapse" data-bs-target="#ejemploOracion" aria-expanded="false" aria-controls="ejemploOracion">💡 Ver ejemplo en casa</button>
-            <div class="collapse" id="ejemploOracion"><div class="guide-example"><strong>🏠 ¡Hagámoslo juntos!</strong><p>Antes de dormir, apaguen un momento la televisión, hagan la señal de la cruz y agradezcan a Jesús por algo bueno del día. Luego, cada uno puede decir una intención.</p><div class="guide-challenge">🎯 <b>Reto familiar:</b> ¿pueden hacerlo durante 3 noches esta semana?</div></div></div>
-          </article>
-          <article class="lds-guide-card guide-time">
-            <div class="guide-art" aria-hidden="true"><span>⏰</span><span>👟</span><span>🗓️</span></div>
-            <div class="guide-card-title"><span class="guide-number">2</span><h4>Puntualidad y asistencia</h4></div>
-            <p>Ayúdale a llegar tranquilo, preparado y con ganas de aprender.</p>
-            <button class="guide-action" type="button" data-bs-toggle="collapse" data-bs-target="#ejemploPuntualidad" aria-expanded="false" aria-controls="ejemploPuntualidad">💡 Ver ejemplo en casa</button>
-            <div class="collapse" id="ejemploPuntualidad"><div class="guide-example"><strong>🏠 ¡Preparemos la mañana!</strong><p>La noche anterior revisen juntos el horario, preparen la ropa y la mochila. Pongan una alarma y salgan con tiempo para evitar las prisas.</p><div class="guide-challenge">🎯 <b>Reto familiar:</b> el catequizando prepara sus cosas y el adulto le acompaña.</div></div></div>
-          </article>
-          <article class="lds-guide-card guide-bag">
-            <div class="guide-art" aria-hidden="true"><span>🎒</span><span>📖</span><span>✏️</span></div>
-            <div class="guide-card-title"><span class="guide-number">3</span><h4>Presentación y materiales</h4></div>
-            <p>Revisen juntos qué necesita llevar y cuidar en cada encuentro.</p>
-            <button class="guide-action" type="button" data-bs-toggle="collapse" data-bs-target="#ejemploMateriales" aria-expanded="false" aria-controls="ejemploMateriales">💡 Ver ejemplo en casa</button>
-            <div class="collapse" id="ejemploMateriales"><div class="guide-example"><strong>🏠 ¡La mochila lista!</strong><p>Coloquen sobre la mesa la Biblia o material solicitado, cuaderno, lápiz y lo indicado en el aviso. El niño verifica cada cosa y guarda su mochila.</p><div class="guide-challenge">🎯 <b>Reto familiar:</b> usa esta mini-lista: material 📖 · cuaderno 📓 · lápiz ✏️ · aviso revisado ☑️.</div></div></div>
-          </article>
-          <article class="lds-guide-card guide-love">
-            <div class="guide-art" aria-hidden="true"><span>🤝</span><span>💗</span><span>🌱</span></div>
-            <div class="guide-card-title"><span class="guide-number">4</span><h4>Compromiso familiar</h4></div>
-            <p>El ejemplo de los adultos ayuda a que la fe se convierta en acciones.</p>
-            <button class="guide-action" type="button" data-bs-toggle="collapse" data-bs-target="#ejemploCompromiso" aria-expanded="false" aria-controls="ejemploCompromiso">💡 Ver ejemplo en casa</button>
-            <div class="collapse" id="ejemploCompromiso"><div class="guide-example"><strong>🏠 ¡Vivamos lo que aprendemos!</strong><p>Si el tema fue ayudar al prójimo, elijan juntos una acción: ayudar a un adulto mayor, compartir algo o colaborar en casa sin que se lo pidan.</p><div class="guide-challenge">🎯 <b>Reto familiar:</b> ¿qué gesto de amor pueden realizar hoy?</div></div></div>
-          </article>
-        </div>
-      </section>
+      <section class="lds-guide-interactive" aria-label="Guía práctica para familias">
+  <div class="lds-guide-heading"><span class="heading-icon">🌟</span><div><h3>Guía práctica para las familias</h3><p>Ideas breves para acompañar sin hacer las tareas por el catequizando.</p></div></div>
+  <div class="lds-guide-grid lds-guide-compact">
+    <article class="lds-guide-card guide-prayer"><div class="guide-art" aria-hidden="true"><span>🙏</span><span>🕯️</span></div><h4>Preparación espiritual</h4><p>Dedicar unos minutos a orar y agradecer juntos.</article>
+    <article class="lds-guide-card guide-time"><div class="guide-art" aria-hidden="true"><span>⏰</span><span>👟</span></div><h4>Puntualidad y asistencia</h4><p>Preparar la mochila y salir con tiempo.</article>
+    <article class="lds-guide-card guide-bag"><div class="guide-art" aria-hidden="true"><span>🎒</span><span>📖</span></div><h4>Materiales y compromiso</h4><p>Revisar avisos y materiales; animar al niño a cumplir por sí mismo.</article>
+  </div>
+</section>
 <!-- Contenedor dinámico de resultados -->
       <div id="resultadoContenedor" class="mt-4"></div>
     </main>
