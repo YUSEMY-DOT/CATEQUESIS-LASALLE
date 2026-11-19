@@ -736,6 +736,26 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
 .module-card .btn{font-weight:800!important}
 @media(max-width:950px){.lds-block-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}.lds-guide-compact{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
 @media(max-width:560px){.lds-block-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.lds-guide-compact{grid-template-columns:1fr!important}.lds-guide-compact .lds-guide-card{min-height:auto!important}}
+/* Orden visual final acordado: misión, seis bloques, seguimiento, módulos, calendario, guía. */
+#ldsRetoFamilia{order:2!important}
+#ldsBloquesCatequesis{order:3!important}
+#ldsSemana{order:4!important}
+#inicioPortal>.module-grid{order:5!important}
+.calendar-layout{order:6!important}
+.lds-guide-interactive{order:7!important}
+#diagnosticoPortal{order:8!important}
+#resultadoContenedor{order:9!important}
+@media(min-width:680px){.lds-block-grid{grid-template-columns:repeat(6,minmax(0,1fr))!important}}
+@media(max-width:679px){.lds-block-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(max-width:480px){.lds-block-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(min-width:650px){.lds-guide-compact{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+.lds-session-card p strong{display:inline-block;color:var(--block-accent)!important;background:#fff;border-radius:6px;padding:2px 5px}
+.lds-session-card .lds-resource-links{gap:4px}
+.lds-session-card .lds-resource-links a{font-size:.66rem!important;padding:3px 7px!important}
+.lds-block-toggle strong{max-width:100%;overflow-wrap:anywhere}
+.lds-block-toggle small{line-height:1.2}
+.diagnostic-action{cursor:pointer;text-align:left;border:1px solid #d9e7f6;background:#f8fbff;border-radius:12px}
+.diagnostic-action:hover{background:#eaf4ff;border-color:#8db8e9;transform:translateY(-1px)}
 </style>
 
 </head>
@@ -1234,11 +1254,12 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
       }
       const r=resp.resumen||{};
       const items=[
-        ['Temas',r.temas],['Fechas de clase',r.clases],['Catequizandos vinculados',r.catequizandos],
-        ['Tareas',r.tareas],['Avisos publicados',r.avisos],['Requisitos',r.requisitos],
-        ['Control de materiales',r.materiales],['Aportes',r.aportes],['Calificaciones',r.calificaciones]
+        ['Temas',r.temas,'getSesiones'],['Fechas de clase',r.clases,'calendario'],['Catequizandos vinculados',r.catequizandos,'getAsistenciaNotas'],
+        ['Tareas',r.tareas,'getTareas'],['Avisos publicados',r.avisos,'getAvisos'],['Requisitos',r.requisitos,'getRequisitos'],
+        ['Control de materiales',r.materiales,'getMateriales'],['Aportes',r.aportes,'getAportes'],['Calificaciones',r.calificaciones,'getCalificaciones'],['Sesiones de asistencia',r.asistenciaSesiones,'getAsistenciaNotas']
       ];
-      el.innerHTML=`<div class="d-flex align-items-center mb-2"><strong class="text-success small">✓ Conexión establecida</strong></div><div class="diagnostic-grid">${items.map(([k,v])=>`<div class="diagnostic-item"><div class="diagnostic-label">${escapeHtml(k)}</div><div class="diagnostic-value">${Number(v||0)}</div></div>`).join('')}</div>`;
+      el.innerHTML=`<div class="d-flex align-items-center mb-2"><strong class="text-success small">✓ Datos consultados · toca un indicador para abrir su detalle</strong></div><div class="diagnostic-grid">${items.map(([k,v,a])=>`<button type="button" class="diagnostic-item diagnostic-action" onclick="${a==='calendario'?'document.querySelector(\'.calendar-layout\')?.scrollIntoView({behavior:\'smooth\'})':'consultarDatos(\''+a+'\')'}"><div class="diagnostic-label">${escapeHtml(k)}</div><div class="diagnostic-value">${Number(v||0)}</div></button>`).join('')}</div>`;
+
     }
 
     function seleccionarFechaInicial() {
