@@ -10,7 +10,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./assets/insignia.png">
   <title>Camino hacia Jesús - Colegio La Salle del Sur</title>
-  <link rel="preload" as="image" href="./assets/PORTAL%20CATEQUESIS.png">
+  <link rel="preload" as="image" href="./assets/PORTAL%20CATEQUESIS.png" fetchpriority="high">
 
   <style>
     * {
@@ -245,6 +245,7 @@
 .lds-copyright-footer{margin-top:24px!important}
 </style>
 
+  <!-- LDS-PORTAL-GENERAL-OPTIMIZADO-V1 -->
 </head>
 
 <body>
@@ -281,7 +282,7 @@
         <button class="boton" type="button"
           data-destino="programacion.html"
           aria-label="Nuestra Programación">
-          <img src="./assets/BTN-PROGRAMACION.png" alt="Nuestra Programación" loading="eager" decoding="async">
+          <img src="./assets/BTN-PROGRAMACION.png" alt="Nuestra Programación" loading="lazy" decoding="async" fetchpriority="low">
         </button>
         <span class="nombre-opcion">Programación</span>
       </div>
@@ -291,7 +292,7 @@
         <button class="boton" type="button"
           data-destino="catequizandos.html?ingreso=pin"
           aria-label="Catequizandos">
-          <img src="./assets/BTN-CATEQUIS.png" alt="Catequizandos" loading="eager" decoding="async">
+          <img src="./assets/BTN-CATEQUIS.png" alt="Catequizandos" loading="lazy" decoding="async" fetchpriority="low">
         </button>
         <span class="nombre-opcion">Catequizandos</span>
       </div>
@@ -301,7 +302,7 @@
         <button class="boton" type="button"
           data-destino="CATEQUISTA.html"
           aria-label="Catequistas">
-          <img src="./assets/BTN_CATEQUISTAS.png" alt="Catequistas" loading="eager" decoding="async">
+          <img src="./assets/BTN_CATEQUISTAS.png" alt="Catequistas" loading="lazy" decoding="async" fetchpriority="low">
         </button>
         <span class="nombre-opcion">Catequistas</span>
       </div>
@@ -311,7 +312,7 @@
         <button class="boton" type="button"
           data-destino="padres.html"
           aria-label="Padres de familia">
-          <img src="./assets/BTN-PADRES.png" alt="Padres de familia" loading="eager" decoding="async">
+          <img src="./assets/BTN-PADRES.png" alt="Padres de familia" loading="lazy" decoding="async" fetchpriority="low">
         </button>
         <span class="nombre-opcion">Padres</span>
       </div>
@@ -321,7 +322,7 @@
   <button class="boton" type="button"
     data-destino="supervisores.html"
     aria-label="SUPERVISORES">
-    <img src="./assets/BTN_COORDINADOR.png" alt="SUPERVISORES" loading="eager" decoding="async">
+    <img src="./assets/BTN_COORDINADOR.png" alt="SUPERVISORES" loading="lazy" decoding="async" fetchpriority="low">
   </button>
   <span class="nombre-opcion">SUPERVISORES</span>
 </div>
@@ -376,17 +377,17 @@
 
           osc.type = "triangle";
           osc.frequency.setValueAtTime(440, ahora);
-          osc.frequency.exponentialRampToValueAtTime(880, ahora + 0.12);
+          osc.frequency.exponentialRampToValueAtTime(880, ahora + 0.07);
 
           gain.gain.setValueAtTime(0.001, ahora);
-          gain.gain.linearRampToValueAtTime(0.15, ahora + 0.02);
-          gain.gain.exponentialRampToValueAtTime(0.001, ahora + 0.2);
+          gain.gain.linearRampToValueAtTime(0.13, ahora + 0.015);
+          gain.gain.exponentialRampToValueAtTime(0.001, ahora + 0.11);
 
           osc.connect(gain);
           gain.connect(contextoAudio.destination);
 
           osc.start(ahora);
-          osc.stop(ahora + 0.22);
+          osc.stop(ahora + 0.12);
         } catch (e) {
           // Ignorar si el navegador bloquea
         }
@@ -406,7 +407,7 @@
             if (destino) {
               window.location.href = destino;
             }
-          }, 350); // Tiempo suficiente para escuchar el sonido y ver el zoom brillante
+          }, 150); // Efecto breve; navegación más ágil.
         });
       });
 
@@ -513,11 +514,16 @@
       else if (standaloneQuery.addListener) standaloneQuery.addListener(syncInstallControl);
 
       if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
+        const registrarSW = () => {
           navigator.serviceWorker.register('./service-worker.js', { scope: './' })
             .then(() => console.info('Camino hacia Jesús está listo para instalarse.'))
             .catch((error) => console.warn('No se pudo registrar el servicio de instalación:', error));
-        }, { once: true });
+        };
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', registrarSW, { once: true });
+        } else {
+          registrarSW();
+        }
       }
     })();
   </script>
