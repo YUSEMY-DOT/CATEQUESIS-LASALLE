@@ -1119,12 +1119,17 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
     ];
     function normalizarNombreFamilia(v){return String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().replace(/[^A-Z0-9 ]/g,' ').replace(/\s+/g,' ').trim();}
     function actualizarPerfilFamilia(){
-      const perfil=perfilPadres||{}; const nombre=String(perfil.nombre||perfil.NOMBRE||perfil.NOMBRES||'').trim();
+      const perfil=perfilPadres||{}; const nombre=String(perfil.nombre||perfil.NOMBRE||perfil.NOMBRE_COMPLETO||perfil.NOMBRES||'').trim();
       const normal=normalizarNombreFamilia(nombre);
-      const encontrado=FAMILIAS_PADRES.find(p=>p.alias.some(a=>{const na=normalizarNombreFamilia(a);return normal.split(' ').includes(na); }));
+      const encontrado=FAMILIAS_PADRES.find(p=>p.alias.some(a=>{const na=normalizarNombreFamilia(a);return (' '+normal+' ').includes(' '+na+' '); }));
       const cont=document.getElementById('ldsPerfilFamilia'); const saludo=document.getElementById('ldsSaludoFamilia'); const texto=document.getElementById('ldsTextoFamilia');
       if(!cont||!saludo||!texto)return;
-      if(!encontrado){cont.innerHTML='<span class="profile-placeholder">👨‍👩‍👧‍👦</span>';saludo.innerHTML='¡Hola, familia! <span>Qué alegría caminar juntos.</span>';texto.textContent='Este espacio acompaña a tu familia en el camino de catequesis. Consulta las actividades, fechas y avisos.';return;}
+      if(!encontrado){
+        cont.innerHTML='<span class="profile-placeholder">👨‍👩‍👧‍👦</span>';
+        saludo.innerHTML=nombre?'¡Hola, '+escapeHtml(nombre)+'! <span>Qué alegría tenerte aquí.</span>':'¡Hola, familia! <span>Qué alegría caminar juntos.</span>';
+        texto.textContent='Este espacio acompaña a tu familia en el camino de catequesis. Consulta las actividades, fechas y avisos.';
+        return;
+      }
       const url='https://yusemy-dot.github.io/CATEQUESIS-LASALLE/assets/'+encodeURIComponent(encontrado.foto);
       cont.innerHTML='<img src="'+url+'" alt="Fotografía de '+escapeHtml(nombre)+'">'; const foto=cont.querySelector('img'); if(foto) foto.onerror=()=>{cont.innerHTML='<span class="profile-placeholder">👨‍👩‍👧‍👦</span>';};
       saludo.innerHTML='¡Hola, '+escapeHtml(nombre)+'! <span>Qué alegría tenerte aquí.</span>';
