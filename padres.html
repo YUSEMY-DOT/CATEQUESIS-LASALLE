@@ -827,7 +827,9 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
     // FASE 1: se omite el PIN y las consultas quedan limitadas por el GS a PAD-EST-001.
     const MODO_PRUEBA = false;
     const CLAVE_SESION_PADRES = 'caminoJesusPadresToken';
+    const CLAVE_SELECTOR_PADRES = 'caminoJesusPadresSelector';
     let tokenPadres = sessionStorage.getItem(CLAVE_SESION_PADRES) || '';
+    let selectorPadres = sessionStorage.getItem(CLAVE_SELECTOR_PADRES) || '';
     let perfilPadres = JSON.parse(sessionStorage.getItem('caminoJesusPadresPerfil')||'null');
     let fechaActualVista = new Date();
     let eventosSesiones = [], eventosCumple = [], eventosAvisos = [];
@@ -844,6 +846,7 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
       } else {
         document.getElementById('portalView').classList.add('d-none');
         document.getElementById('loginView').classList.remove('d-none');
+        await cargarOpcionesLoginPadres(false);
       }
     });
 
@@ -879,6 +882,32 @@ main#inicioPortal{max-width:1220px!important;width:calc(100% - 36px)!important;p
     async function apiGet(action, extra={}) {
       const params = {action, ...(tokenPadres ? {token:tokenPadres} : {}), ...extra};
       return await solicitarJsonp(params);
+    }
+
+    async function cargarOpcionesLoginPadres(forzarAviso=false) {
+      const sel=document.getElementById('selectorPadre');
+      const btn=document.getElementById('btnActualizarFamilias');
+      if(!sel) return;
+      const elegido=selectorPadres||sel.value||'';
+      sel.disabled=true;
+      if(btn) btn.disabled=true;
+      sel.innerHTML='<option value="">Cargando familias…</option>';
+      try {
+        const data=await solicitarJsonp({action:'listarOpcionesLoginPadres'});
+        if(!data.exito) throw new Error(data.mensaje||'No se pudo cargar la lista.');
+        const lista=Array.isArray(data.datos)?data.datos:[];
+        sel.innerHTML='<option value="">Seleccione su nombre…</option>'+lista.map(x=>'<option value="'+escapeHtml(x.selector)+'">'+escapeHtml(x.nombre)+'</option>').join('');
+        if(elegido && lista.some(x=>x.selector===elegido)) sel.value=elegido;
+        selectorPadres=sel.value||'';
+        if(forzarAviso && !lista.length) mostrarErrorLogin('No hay familias disponibles.');
+      } catch(e) {
+        sel.innerHTML='<option value="">No se pudo cargar la lista. Actualice. </option>';
+        if(forzarAviso) mostrarErrorLogin(e.message||'No se pudo actualizar la lista.');
+      } finally {sel.disabled=false;if(btn)btn.disabled=false;}
+    }
+    function mostrarErrorLogin(mensaje) {
+      const e=document.getElementById('loginError');
+      if(e){e.textContent=mensaje;e.classList.remove('d-none');}
     }
 
     async function cargarResumenTareasFamilia() {
