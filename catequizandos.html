@@ -144,7 +144,7 @@ header {
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.85fr);
+  grid-template-columns: minmax(0, 1.05fr) minmax(360px, 1.15fr);
   gap: 32px;
   align-items: center;
 }
@@ -169,31 +169,20 @@ header {
 .hero-right {
   display: flex;
   justify-content: flex-end;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
 }
 
-.hero-jesus-img {
-  width: 90px;
-  height: 90px;
-  object-fit: cover;
-  border-radius: 14px;
-  flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-  border: 2px solid #e8ca6b;
-}
-
+/* CUENTA REGRESIVA AMPLIADA SIN FOTO */
 .countdown {
-  background: linear-gradient(145deg, rgba(25, 62, 105, 0.9), rgba(13, 35, 63, 0.95));
+  background: linear-gradient(145deg, rgba(25, 62, 105, 0.94), rgba(13, 35, 63, 0.98));
   border: 2px solid #e8ca6b;
-  border-radius: 20px;
-  padding: 16px 18px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  border-radius: 22px;
+  padding: 20px 24px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.3);
   position: relative;
   overflow: hidden;
-  flex: 1;
-  min-width: 270px;
+  width: 100%;
 }
 
 .countdown::before {
@@ -205,7 +194,7 @@ header {
 
 .countdown-main-title {
   text-align: center;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .countdown-main-title small {
@@ -217,48 +206,60 @@ header {
 }
 
 .countdown-main-title b {
-  font: 700 20px 'Fredoka', sans-serif;
+  font: 700 21px 'Fredoka', sans-serif;
   color: #fff;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
+  display: block;
+  margin-top: 2px;
+}
+
+.countdown-subdetail {
+  text-align: center;
+  font-size: 12px;
+  color: #ffe8a3;
+  font-weight: 800;
+  margin-top: 4px;
 }
 
 .timer {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
+  gap: 10px;
 }
 
 .timebox {
   background: #fffdf9;
   color: #102b4e;
-  border-radius: 10px;
-  padding: 8px 4px;
+  border-radius: 12px;
+  padding: 10px 6px;
   text-align: center;
   border-bottom: 3px solid #f1b731;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.12);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .timebox b {
-  font: 700 20px/1 'Fredoka', sans-serif;
+  font: 700 22px/1 'Fredoka', sans-serif;
   color: #12345a;
 }
 
 .timebox span {
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: #526882;
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
 .countdown-note {
-  font-size: 11px;
-  line-height: 1.3;
-  margin-top: 8px;
+  font-size: 12px;
+  line-height: 1.45;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 223, 148, 0.25);
   color: #fff3db;
   text-align: center;
   font-weight: 700;
@@ -394,7 +395,6 @@ main {
   margin-top: 4px;
 }
 
-/* PANEL DE TEMAS DEL BLOQUE */
 .bloque-detalle-panel {
   margin-top: 22px;
   background: #fff;
@@ -423,7 +423,7 @@ main {
 
 .temas-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
   gap: 14px;
 }
 
@@ -450,6 +450,13 @@ main {
   color: #4b5d73;
   margin: 0;
   font-weight: 600;
+}
+
+.tema-subtema {
+  font-size: 12px;
+  color: #6b7d93;
+  font-weight: 700;
+  margin-top: 4px;
 }
 
 .tema-meta {
@@ -481,7 +488,6 @@ main {
   background: #b0002d;
 }
 
-/* CALENDARIO */
 #calendar-section {
   margin-top: 44px;
 }
@@ -725,7 +731,6 @@ main {
 .legend-special { display: inline-block; width: 9px; height: 9px; border-radius: 3px; background: #ffe9e9; border: 1px solid #d76b6b; margin-right: 5px; }
 .legend-double { display: inline-grid; place-items: center; width: 14px; height: 14px; border-radius: 3px; background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; font: 900 9px 'Nunito', sans-serif; margin-right: 5px; }
 
-/* SEGUIMIENTO Y ALUMNOS */
 .post-calendar-section {
   margin-top: 50px;
   border-top: 2px dashed #e6d5b8;
@@ -826,7 +831,6 @@ main {
   border-radius: 8px;
 }
 
-/* MENSAJES Y COMUNICADOS */
 .notifications-layout {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -913,7 +917,6 @@ main {
   color: #1e1b4b;
 }
 
-/* MODAL DE CUESTIONARIO */
 .quiz-modal-backdrop {
   position: fixed;
   inset: 0;
@@ -931,37 +934,12 @@ main {
   background: #fffdf9;
   border: 2px solid #e8ca6b;
   border-radius: 24px;
-  max-width: 680px;
+  max-width: 720px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
   padding: 26px;
   box-shadow: 0 18px 45px rgba(0,0,0,0.3);
-}
-
-.quiz-option-btn {
-  display: block;
-  width: 100%;
-  text-align: left;
-  padding: 12px 16px;
-  margin-bottom: 10px;
-  border: 1.5px solid #d8c6a8;
-  border-radius: 14px;
-  background: #fff;
-  font-weight: 700;
-  color: #12345a;
-  transition: all 0.15s ease;
-}
-
-.quiz-option-btn:hover {
-  background: #fff8e5;
-  border-color: #d49a0e;
-}
-
-.quiz-option-btn.selected-opt {
-  background: #12345a;
-  color: #fff;
-  border-color: #12345a;
 }
 
 .footer {
@@ -992,7 +970,6 @@ main {
   .hero-right { justify-content: center; }
 }
 
-/* PORTADA DE ACCESO CATEQUIZANDOS */
 html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display: none !important; }
 #loginGate[hidden] { display: none !important; }
 .login-gate { position: fixed; inset: 0; z-index: 99999; width: 100%; height: 100vh; height: 100dvh; overflow: auto; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; background: #f7f8fc; color: #10254e; }
@@ -1037,7 +1014,6 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
 </head>
 <body>
 
-<!-- PORTADA DE ACCESO DE CATEQUIZANDOS (ESCRITORIO Y MÓVIL) -->
 <div id="loginGate" class="login-gate">
   <div class="login-scene">
     <img src="./assets/PORTADA%20CATEQUIZANDO.png" alt="Portada Catequizandos" class="login-art">
@@ -1052,10 +1028,9 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
     </form>
   </div>
 
-  <!-- VISTA MÓVIL CON FOTOS DE ALUMNOS -->
   <div class="login-mobile">
     <div class="login-mobile-brand">
-      <img src="./assets/LOGO%20LASALLE.png" alt="Insignia La Salle">
+      <img src="./assets/LOGO%20LASALLE.png" alt="Insignia La Salle" class="js-logo-img">
       <div class="login-mobile-brand-copy">
         <b>COLEGIO PRIVADO LA SALLE DEL SUR</b>
         <span>Camino hacia Jesús</span>
@@ -1085,13 +1060,12 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
   </div>
 </div>
 
-<!-- PORTAL PRINCIPAL DEL CATEQUIZANDO -->
 <div id="portalWrap" class="wrap" hidden>
   <div class="goldline"></div>
   <header>
     <div class="topbar">
       <div class="brand">
-        <img src="./assets/LOGO%20LASALLE.png" alt="Colegio La Salle del Sur" class="crest">
+        <img src="./assets/LOGO%20LASALLE.png" alt="Colegio La Salle del Sur" class="crest js-logo-img">
         <div class="brand-text">
           <h2>COLEGIO LA SALLE DEL SUR</h2>
           <small>Programa de Catequesis · Parroquia San Pedro de Lurín</small>
@@ -1111,74 +1085,74 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
         <p>Sembrando fe, cultivando valores y construyendo amistad con Jesús.</p>
       </div>
       <div class="hero-right">
-        <img src="./assets/JESUS.png" alt="Jesús" class="hero-jesus-img" onerror="this.style.display='none'">
         <div class="countdown">
           <div class="countdown-main-title">
-            <small>🎉 Cuenta Regresiva</small>
-            <b>8 de Diciembre 2026</b>
+            <small>🎉 Cuenta Regresiva · Celebración Oficial</small>
+            <b>12 de Diciembre 2026 · 10:00 a. m.</b>
+            <div class="countdown-subdetail">Parroquia San Pedro de Lurín · Colegio Privado La Salle del Sur</div>
           </div>
           <div class="timer">
             <div class="timebox"><b id="cdDays">--</b><span>Días</span></div>
             <div class="timebox"><b id="cdHours">--</b><span>Horas</span></div>
             <div class="timebox"><b id="cdMins">--</b><span>Min</span></div>
           </div>
-          <div class="countdown-note">Cercanos a Jesús. 🙏</div>
+          <div class="countdown-note">
+            Preparación espiritual y encuentro de fe para nuestra Primera Comunión junto a nuestras familias y catequistas. 🙏
+          </div>
         </div>
       </div>
     </div>
   </header>
 
   <main>
-    <!-- BIENVENIDA PERSONALIZADA CON FOTO DEL ALUMNO -->
     <div class="kid-welcome">
-      <img id="welcomeStudentAvatar" src="./assets/LOGO%20LASALLE.png" alt="Foto Catequizando" class="welcome-img">
+      <img id="welcomeStudentAvatar" src="./assets/LOGO%20LASALLE.png" alt="Foto Catequizando" class="welcome-img js-logo-img">
       <div class="welcome-text">
         <div class="eyebrow">✨ Tu aventura de fe comienza aquí</div>
         <h3>¡Hola, <span id="welcomeStudentName">pequeño amigo de Jesús</span>! 💛</h3>
-        <p id="welcomeStudentMeta">Explora los 6 bloques oficiales y consulta tus temas, subtítulos, objetivos, valores y citas bíblicas organizados para ti.</p>
+        <p id="welcomeStudentMeta">Explora los 6 bloques oficiales y consulta tus temas, subtítulos, objetivos, valores y citas bíblicas desde tu hoja de catequesis.</p>
       </div>
     </div>
 
-    <!-- LOS 6 BLOQUES DE CATEQUESIS -->
     <section class="section">
-      <div class="eyebrow">Itinerario Oficial · 68 Temas</div>
+      <div class="eyebrow">Itinerario Oficial · Google Sheet</div>
       <h2>Los 6 Bloques de Catequesis</h2>
       <div class="stages" id="stagesGrid">
         <button type="button" class="stage" data-bloque="1">
           <span class="num">1</span>
           <div class="icon">✝️</div>
           <strong>Conociendo a Jesús</strong>
-          <small>Temas 1 al 9</small>
+          <small>Bloque 1 · Sheet</small>
         </button>
         <button type="button" class="stage" data-bloque="2">
           <span class="num">2</span>
           <div class="icon">🕊️</div>
           <strong>Aprendemos a Orar</strong>
-          <small>Temas 10 al 21</small>
+          <small>Bloque 2 · Sheet</small>
         </button>
         <button type="button" class="stage" data-bloque="3">
           <span class="num">3</span>
           <div class="icon">📖</div>
           <strong>Los Sacramentos</strong>
-          <small>Temas 22 al 29</small>
+          <small>Bloque 3 · Sheet</small>
         </button>
         <button type="button" class="stage" data-bloque="4">
           <span class="num">4</span>
           <div class="icon">✨</div>
           <strong>La Eucaristía</strong>
-          <small>Temas 30 al 47</small>
+          <small>Bloque 4 · Sheet</small>
         </button>
         <button type="button" class="stage" data-bloque="5">
           <span class="num">5</span>
           <div class="icon">🙏</div>
           <strong>Valores Cristianos</strong>
-          <small>Temas 48 al 61</small>
+          <small>Bloque 5 · Sheet</small>
         </button>
         <button type="button" class="stage" data-bloque="6">
           <span class="num">6</span>
           <div class="icon">🍞</div>
           <strong>Preparación a Nuestro Sacramento</strong>
-          <small>Temas 62 al 68</small>
+          <small>Bloque 6 · Sheet</small>
         </button>
       </div>
 
@@ -1191,7 +1165,6 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
       </div>
     </section>
 
-    <!-- CALENDARIO DE CATEQUESIS -->
     <section id="calendar-section" class="section">
       <div class="eyebrow">Organiza tus encuentros</div>
       <h2>📅 Calendario de catequesis</h2>
@@ -1217,19 +1190,17 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
           <span class="pill">TU ENCUENTRO</span>
           <div class="date-big" id="calSelectedDate">Elige un día</div>
           <h3>¿Qué aprenderemos?</h3>
-          <p id="calSelectedDesc">Selecciona una fecha marcada para consultar los temas del encuentro.</p>
+          <p id="calSelectedDesc">Selecciona una fecha marcada para consultar los temas y subtemas del encuentro registrados en el Google Sheet.</p>
           <div id="calTopicsList" class="calendar-topic-list"></div>
         </div>
       </div>
     </section>
 
-    <!-- ASISTENCIA, TAREAS Y SEGUIMIENTO POR ALUMNO -->
     <section class="post-calendar-section">
       <div class="eyebrow">Control de Catequizandos Oficial</div>
       <h2 style="font:700 28px 'Fredoka',sans-serif; color:#12345a; margin:0 0 20px;">📊 Asistencia, Tareas y Seguimiento por Alumno</h2>
       <div id="studentsGrid" class="students-grid"></div>
 
-      <!-- MENSAJES Y AVISOS -->
       <div class="notifications-layout">
         <div class="notice-card">
           <h3>📝 Mensajes de las Catequistas</h3>
@@ -1272,7 +1243,6 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
   </main>
 </div>
 
-<!-- MODAL DE CUESTIONARIO INTERACTIVO -->
 <div id="quizModalBackdrop" class="quiz-modal-backdrop" hidden>
   <div class="quiz-modal">
     <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:14px;">
@@ -1286,81 +1256,51 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
 <script>
 const API_URL = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
 
-// Catálogo base de los 7 catequizandos oficiales (respaldo inmediato + sincronización con Sheet)
+// Rutas candidatas de la insignia en assets/ para evitar imagen rota
+const RUTAS_INSIGNIA = [
+  './assets/LOGO%20LASALLE.png',
+  './assets/logo.png',
+  './assets/LOGO.png',
+  './assets/insignia.png',
+  'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/LOGO%20LASALLE.png'
+];
+
+function configurarInsignias() {
+  document.querySelectorAll('.js-logo-img').forEach(img => {
+    let idx = 0;
+    img.onerror = function() {
+      idx++;
+      if (idx < RUTAS_INSIGNIA.length) {
+        this.src = RUTAS_INSIGNIA[idx];
+      } else {
+        this.style.display = 'none';
+      }
+    };
+  });
+}
+
+// Catálogo base de los 7 catequizandos oficiales (respaldo hasta sincronizar con Google Sheet)
 const CATALOGO_CATEQUIZANDOS_BASE = [
-  {
-    ID_NINO: 'LDS-EST-001',
-    APELLIDOS: 'FRANCISCO CRIOLLO',
-    NOMBRES: 'DANY SMITH',
-    NOMBRE_COMPLETO: 'DANY SMITH FRANCISCO CRIOLLO',
-    GRADO: 'TERCERO',
-    FOTO: 'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/aca87772954fae3aab46c1d3cb875338b917be6e/assets/dany.JPG',
-    ASISTENCIA: '80.0%'
-  },
-  {
-    ID_NINO: 'LDS-EST-002',
-    APELLIDOS: 'PINEDA ELGUERA',
-    NOMBRES: 'ADAM STUARD',
-    NOMBRE_COMPLETO: 'ADAM STUARD PINEDA ELGUERA',
-    GRADO: 'QUINTO',
-    FOTO: 'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/aca87772954fae3aab46c1d3cb875338b917be6e/assets/adam.jpeg',
-    ASISTENCIA: '79.6%'
-  },
-  {
-    ID_NINO: 'LDS-EST-003',
-    APELLIDOS: 'PIZARRO MENDOZA',
-    NOMBRES: 'CAMILA',
-    NOMBRE_COMPLETO: 'CAMILA PIZARRO MENDOZA',
-    GRADO: 'SEGUNDO',
-    FOTO: 'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/aca87772954fae3aab46c1d3cb875338b917be6e/assets/camila.png',
-    ASISTENCIA: '79.2%'
-  },
-  {
-    ID_NINO: 'LDS-EST-004',
-    APELLIDOS: 'QUISPE FLORES',
-    NOMBRES: 'ANA PAULA',
-    NOMBRE_COMPLETO: 'ANA PAULA QUISPE FLORES',
-    GRADO: 'QUINTO',
-    FOTO: 'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/aca87772954fae3aab46c1d3cb875338b917be6e/assets/ana.jpeg',
-    ASISTENCIA: '80.0%'
-  },
-  {
-    ID_NINO: 'LDS-EST-005',
-    APELLIDOS: 'ROMERO SIESQUEN',
-    NOMBRES: 'MARCOS MANUEL',
-    NOMBRE_COMPLETO: 'MARCOS MANUEL ROMERO SIESQUEN',
-    GRADO: 'PRIMERO',
-    FOTO: 'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/aca87772954fae3aab46c1d3cb875338b917be6e/assets/marco.jpeg',
-    ASISTENCIA: '79.6%'
-  },
-  {
-    ID_NINO: 'LDS-EST-006',
-    APELLIDOS: 'CARDENAS QUISPE',
-    NOMBRES: 'VASCO',
-    NOMBRE_COMPLETO: 'VASCO CARDENAS QUISPE',
-    GRADO: 'QUINTO',
-    FOTO: 'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/1d925653f6a026b6bd3f47a931abc16accb65120/assets/VASCO.png',
-    ASISTENCIA: '79.6%'
-  },
-  {
-    ID_NINO: 'LDS-EST-007',
-    APELLIDOS: 'PIZARRO MENDOZA',
-    NOMBRES: 'MARCHELO',
-    NOMBRE_COMPLETO: 'MARCHELO PIZARRO MENDOZA',
-    GRADO: 'SEXTO',
-    FOTO: 'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/aca87772954fae3aab46c1d3cb875338b917be6e/assets/MARCHELO.png',
-    ASISTENCIA: '79.2%'
-  }
+  { ID_NINO: 'LDS-EST-001', APELLIDOS: 'FRANCISCO CRIOLLO', NOMBRES: 'DANY SMITH', NOMBRE_COMPLETO: 'DANY SMITH FRANCISCO CRIOLLO', GRADO: 'TERCERO', FOTO: 'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/aca87772954fae3aab46c1d3cb875338b917be6e/assets/dany.JPG', ASISTENCIA: '' },
+  { ID_NINO: 'LDS-EST-002', APELLIDOS: 'PINEDA ELGUERA', NOMBRES: 'ADAM STUARD', NOMBRE_COMPLETO: 'ADAM STUARD PINEDA ELGUERA', GRADO: 'QUINTO', FOTO: 'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/aca87772954fae3aab46c1d3cb875338b917be6e/assets/adam.jpeg', ASISTENCIA: '' },
+  { ID_NINO: 'LDS-EST-003', APELLIDOS: 'PIZARRO MENDOZA', NOMBRES: 'CAMILA', NOMBRE_COMPLETO: 'CAMILA PIZARRO MENDOZA', GRADO: 'SEGUNDO', FOTO: 'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/aca87772954fae3aab46c1d3cb875338b917be6e/assets/camila.png', ASISTENCIA: '' },
+  { ID_NINO: 'LDS-EST-004', APELLIDOS: 'QUISPE FLORES', NOMBRES: 'ANA PAULA', NOMBRE_COMPLETO: 'ANA PAULA QUISPE FLORES', GRADO: 'QUINTO', FOTO: 'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/aca87772954fae3aab46c1d3cb875338b917be6e/assets/ana.jpeg', ASISTENCIA: '' },
+  { ID_NINO: 'LDS-EST-005', APELLIDOS: 'ROMERO SIESQUEN', NOMBRES: 'MARCOS MANUEL', NOMBRE_COMPLETO: 'MARCOS MANUEL ROMERO SIESQUEN', GRADO: 'PRIMERO', FOTO: 'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/aca87772954fae3aab46c1d3cb875338b917be6e/assets/marco.jpeg', ASISTENCIA: '' },
+  { ID_NINO: 'LDS-EST-006', APELLIDOS: 'CARDENAS QUISPE', NOMBRES: 'VASCO', NOMBRE_COMPLETO: 'VASCO CARDENAS QUISPE', GRADO: 'QUINTO', FOTO: 'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/1d925653f6a026b6bd3f47a931abc16accb65120/assets/VASCO.png', ASISTENCIA: '' },
+  { ID_NINO: 'LDS-EST-007', APELLIDOS: 'PIZARRO MENDOZA', NOMBRES: 'MARCHELO', NOMBRE_COMPLETO: 'MARCHELO PIZARRO MENDOZA', GRADO: 'SEXTO', FOTO: 'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/aca87772954fae3aab46c1d3cb875338b917be6e/assets/MARCHELO.png', ASISTENCIA: '' }
 ];
 
 let listaCatequizandos = [...CATALOGO_CATEQUIZANDOS_BASE];
-let sesionesGlobales = [];
+let sesionesSheet = [];
+let clasesSheet = [];
+let asistenciaPorAlumno = {};
+let tareasPorAlumno = {};
 let vozActiva = true;
-let mesActualCal = 5; // Junio (0-indexed: 5 = Junio)
+let mesActualCal = 5; // Junio 2026
 const anioCal = 2026;
 
 function normalizarUrlFotoGitHub(url) {
-  if (!url) return './assets/LOGO%20LASALLE.png';
+  if (!url) return RUTAS_INSIGNIA[0];
   return String(url)
     .replace('https://github.com/', 'https://raw.githubusercontent.com/')
     .replace('/blob/', '/');
@@ -1377,10 +1317,9 @@ function hablarTexto(texto) {
   } catch (e) {}
 }
 
-// 1. POBLAR SELECTORES DE PORTADA (SOLO CÓDIGOS LDS-EST-...)
 function poblarSelectoresLogin(alumnos) {
   const soloEstudiantes = (alumnos || [])
-    .filter(a => String(a.ID_NINO || '').toUpperCase().startsWith('LDS-EST'))
+    .filter(a => String(a.ID_NINO || '').trim().toUpperCase().startsWith('LDS-EST'))
     .sort((a, b) => a.NOMBRE_COMPLETO.localeCompare(b.NOMBRE_COMPLETO, 'es'));
 
   const opcionesHTML = '<option value="">-- Selecciona tu nombre --</option>' +
@@ -1399,7 +1338,7 @@ async function cargarListaCatequizandos() {
     const data = await resp.json();
     if (data && data.exito && Array.isArray(data.datos) && data.datos.length > 0) {
       const filtrados = data.datos.filter(item =>
-        String(item.ID_NINO || '').toUpperCase().startsWith('LDS-EST')
+        String(item.ID_NINO || '').trim().toUpperCase().startsWith('LDS-EST')
       );
       if (filtrados.length > 0) {
         listaCatequizandos = filtrados.map(item => {
@@ -1414,11 +1353,10 @@ async function cargarListaCatequizandos() {
       }
     }
   } catch (err) {
-    console.warn('Usando lista local de catequizandos:', err);
+    console.warn('Error cargando lista de catequizandos:', err);
   }
 }
 
-// 2. VALIDACIÓN DE LOGIN CON PIN DE 12 DÍGITOS
 async function procesarLogin(selectId, inputId, errorId, btnId) {
   const idNino = String(document.getElementById(selectId).value || '').trim().toUpperCase();
   const pin = String(document.getElementById(inputId).value || '').replace(/\D/g, '').trim();
@@ -1480,10 +1418,10 @@ function desbloquearPortal(perfil) {
   if (perfil && perfil.NOMBRE_COMPLETO) {
     document.getElementById('welcomeStudentName').textContent = perfil.NOMBRE_COMPLETO;
     document.getElementById('welcomeStudentMeta').textContent =
-      `Código: ${perfil.ID_NINO} · Grado: ${perfil.GRADO || 'Catequesis 2026'} · Explora tus 6 bloques oficiales y cuestionarios.`;
+      `Código: ${perfil.ID_NINO} · Grado: ${perfil.GRADO || ''} · Consulta tus temas, subtemas, asistencia y cuestionarios del Google Sheet.`;
     const avatar = document.getElementById('welcomeStudentAvatar');
     avatar.src = normalizarUrlFotoGitHub(perfil.FOTO);
-    avatar.onerror = function() { this.src = './assets/LOGO%20LASALLE.png'; };
+    avatar.onerror = function() { this.src = RUTAS_INSIGNIA[0]; };
     hablarTexto(`¡Hola, ${perfil.NOMBRES || perfil.NOMBRE_COMPLETO}! Bienvenido al portal de catequizandos.`);
   }
 
@@ -1491,21 +1429,23 @@ function desbloquearPortal(perfil) {
   cargarDatosPortal();
 }
 
-// 3. RENDERIZAR TARJETAS DE SEGUIMIENTO DE LOS 7 ALUMNOS CON SUS FOTOS
 function renderizarTarjetasAlumnos(idActivo) {
   const grid = document.getElementById('studentsGrid');
   if (!grid) return;
 
   grid.innerHTML = listaCatequizandos.map(st => {
     const esActual = st.ID_NINO === idActivo;
-    const asistencia = st.ASISTENCIA || '80.0%';
-    const porcentajeNum = parseFloat(asistencia) || 80;
+    const datoAsist = asistenciaPorAlumno[st.ID_NINO] || {};
+    const datoTarea = tareasPorAlumno[st.ID_NINO] || {};
+    const asistenciaTexto = datoAsist.porcentaje || st.ASISTENCIA || '—';
+    const tareasTexto = datoTarea.resumen || datoAsist.tareas || '—';
+    const porcentajeNum = parseFloat(String(asistenciaTexto).replace(',', '.')) || 0;
     const fotoUrl = normalizarUrlFotoGitHub(st.FOTO);
 
     return `
       <article class="student-card ${esActual ? 'current-student' : ''}">
         <div class="student-header">
-          <img src="${fotoUrl}" alt="${st.NOMBRE_COMPLETO}" class="student-avatar" onerror="this.src='./assets/LOGO%20LASALLE.png'">
+          <img src="${fotoUrl}" alt="${st.NOMBRE_COMPLETO}" class="student-avatar" onerror="this.src='${RUTAS_INSIGNIA[0]}'">
           <div class="student-info">
             <h4>${st.NOMBRE_COMPLETO}</h4>
             <small>ID: ${st.ID_NINO}${st.GRADO ? ' · ' + st.GRADO : ''}</small>
@@ -1515,16 +1455,16 @@ function renderizarTarjetasAlumnos(idActivo) {
           <div class="metric-row">
             <div class="metric-label">
               <span>Asistencia (Sheet)</span>
-              <span>${asistencia}</span>
+              <span>${asistenciaTexto}</span>
             </div>
             <div class="progress-track">
-              <div class="progress-fill-attendance" style="width:${Math.min(100, porcentajeNum)}%"></div>
+              <div class="progress-fill-attendance" style="width:${Math.min(100, Math.max(0, porcentajeNum))}%"></div>
             </div>
           </div>
           <div class="metric-row">
             <div class="metric-label">
-              <span>Tareas Entregadas</span>
-              <span>Al día / Auto</span>
+              <span>Tareas (Sheet)</span>
+              <span>${tareasTexto}</span>
             </div>
           </div>
         </div>
@@ -1533,22 +1473,23 @@ function renderizarTarjetasAlumnos(idActivo) {
   }).join('');
 }
 
-// 4. CARGAR SESIONES, BLOQUES Y AVISOS DESDE GOOGLE SHEETS
 async function cargarDatosPortal() {
   try {
     const resp = await fetch(`${API_URL}?action=obtenerDatosPortalCatequizando`);
     const data = await resp.json();
     if (data && data.exito) {
-      if (Array.isArray(data.sesiones)) {
-        sesionesGlobales = data.sesiones;
-      }
-      if (Array.isArray(data.avisos) && data.avisos.length > 0) {
-        renderizarAvisos(data.avisos);
-      }
+      if (Array.isArray(data.sesiones)) sesionesSheet = data.sesiones;
+      if (Array.isArray(data.clases)) clasesSheet = data.clases;
+      if (data.asistencia && typeof data.asistencia === 'object') asistenciaPorAlumno = data.asistencia;
+      if (data.tareas && typeof data.tareas === 'object') tareasPorAlumno = data.tareas;
+      if (Array.isArray(data.avisos) && data.avisos.length > 0) renderizarAvisos(data.avisos);
     }
   } catch (e) {
-    console.warn('Sincronización en segundo plano:', e);
+    console.warn('Error sincronizando con Google Sheet:', e);
   }
+
+  const perfil = JSON.parse(localStorage.getItem('lds_cat_perfil') || '{}');
+  renderizarTarjetasAlumnos(perfil.ID_NINO || '');
   renderizarCalendario();
 }
 
@@ -1572,20 +1513,8 @@ function renderizarAvisos(avisos) {
   }
 }
 
-// 5. BLOQUES DE CATEQUESIS (1 AL 6) Y CUESTIONARIOS
-const RANGOS_BLOQUES = {
-  1: { titulo: 'Bloque 1: Conociendo a Jesús (Temas 1 al 9)', min: 1, max: 9 },
-  2: { titulo: 'Bloque 2: Aprendemos a Orar (Temas 10 al 21)', min: 10, max: 21 },
-  3: { titulo: 'Bloque 3: Los Sacramentos (Temas 22 al 29)', min: 22, max: 29 },
-  4: { titulo: 'Bloque 4: La Eucaristía (Temas 30 al 47)', min: 30, max: 47 },
-  5: { titulo: 'Bloque 5: Valores Cristianos (Temas 48 al 61)', min: 48, max: 61 },
-  6: { titulo: 'Bloque 6: Preparación a Nuestro Sacramento (Temas 62 al 68)', min: 62, max: 68 }
-};
-
+// BLOQUES FILTRADOS DESDE LA PESTAÑA SESIONES DEL GOOGLE SHEET
 function abrirBloque(numBloque) {
-  const info = RANGOS_BLOQUES[numBloque];
-  if (!info) return;
-
   document.querySelectorAll('.stage').forEach(btn => {
     btn.classList.toggle('active-stage', Number(btn.dataset.bloque) === numBloque);
   });
@@ -1594,65 +1523,75 @@ function abrirBloque(numBloque) {
   const titulo = document.getElementById('bloqueDetalleTitulo');
   const grid = document.getElementById('temasBloqueGrid');
 
-  titulo.textContent = info.titulo;
-  panel.hidden = false;
-  hablarTexto(info.titulo);
+  const sesionesDelBloque = sesionesSheet.filter(s => {
+    const bloqueTexto = String(s.BLOQUE || '').toUpperCase();
+    return bloqueTexto.includes(`BLOQUE ${numBloque}`) || bloqueTexto.startsWith(`${numBloque} `) || bloqueTexto === String(numBloque);
+  });
 
-  const temas = [];
-  for (let n = info.min; n <= info.max; n++) {
-    const idSes = 'CJ-' + String(n).padStart(3, '0');
-    const sesionSheet = sesionesGlobales.find(s => String(s.ID_SESION || '').toUpperCase() === idSes) || {};
-    temas.push({
-      numero: n,
-      idSesion: idSes,
-      idBanco: 'CJ' + String(n).padStart(3, '0'),
-      tema: sesionSheet.TEMA || `Tema ${n} · Camino hacia Jesús`,
-      objetivo: sesionSheet.OBJETIVO || 'Fortalecer nuestra fe y amistad con Jesús.',
-      valor: sesionSheet.VALOR || 'Fe y Fraternidad',
-      cita: sesionSheet.CITA_BIBLICA || 'Evangelio'
-    });
+  titulo.textContent = sesionesDelBloque.length > 0
+    ? (sesionesDelBloque[0].BLOQUE || `Bloque ${numBloque}`)
+    : `Bloque ${numBloque}`;
+
+  panel.hidden = false;
+  hablarTexto(titulo.textContent);
+
+  if (sesionesDelBloque.length === 0) {
+    grid.innerHTML = '<p style="font-weight:700; color:var(--muted);">No se encontraron sesiones registradas para este bloque en el Google Sheet.</p>';
+    return;
   }
 
-  grid.innerHTML = temas.map(t => `
-    <div class="tema-card">
-      <div>
-        <div class="tema-meta">
-          <span class="tema-badge">${t.idSesion}</span>
-          <span class="tema-badge">📖 ${t.cita}</span>
-          <span class="tema-badge">💛 ${t.valor}</span>
+  grid.innerHTML = sesionesDelBloque.map((s, idx) => {
+    const idSes = String(s.ID_SESION || '').trim();
+    const tema = String(s.TEMA || `Sesión ${idx + 1}`).trim();
+    const subtema = String(s.SUBTEMA || '').trim();
+    const objetivo = String(s.OBJETIVO || '').trim();
+    const valor = String(s.VALOR || '').trim();
+    const cita = String(s.CITA_BIBLICA || '').trim();
+
+    return `
+      <div class="tema-card">
+        <div>
+          <div class="tema-meta">
+            ${idSes ? `<span class="tema-badge">${idSes}</span>` : ''}
+            ${cita ? `<span class="tema-badge">📖 ${cita}</span>` : ''}
+            ${valor ? `<span class="tema-badge">💛 ${valor}</span>` : ''}
+          </div>
+          <h4 style="margin-top:8px;">${s['N.º DE SESIÓN'] || (idx + 1)}. ${tema}</h4>
+          ${subtema ? `<div class="tema-subtema">Subtema: ${subtema}</div>` : ''}
+          ${objetivo ? `<p style="margin-top:6px;">${objetivo}</p>` : ''}
         </div>
-        <h4 style="margin-top:8px;">${t.numero}. ${t.tema}</h4>
-        <p>${t.objetivo}</p>
+        <button type="button" class="btn-quiz-tema" onclick="abrirCuestionarioTema('${idSes.replace(/'/g, "\\'")}', '${tema.replace(/'/g, "\\'")}')">
+          🎯 Cuestionario del Tema
+        </button>
       </div>
-      <button type="button" class="btn-quiz-tema" onclick="abrirCuestionarioTema('${t.idBanco}', '${t.tema.replace(/'/g, "\\'")}')">
-        🎯 Practicar Cuestionario
-      </button>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 
   panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-async function abrirCuestionarioTema(idSesionBanco, nombreTema) {
+// CUESTIONARIO DISTRIBUIDO DE ACUERDO AL TEMA / SUBTEMA / SESIÓN (BANCO_PREGUNTAS)
+async function abrirCuestionarioTema(idSesion, nombreTema) {
   const backdrop = document.getElementById('quizModalBackdrop');
   const title = document.getElementById('quizModalTitle');
   const body = document.getElementById('quizModalBody');
 
   title.textContent = `Cuestionario: ${nombreTema}`;
-  body.innerHTML = '<p style="font-weight:700;">Cargando preguntas desde el banco oficial...</p>';
+  body.innerHTML = '<p style="font-weight:700;">Cargando preguntas del tema desde BANCO_PREGUNTAS...</p>';
   backdrop.hidden = false;
 
   try {
     const token = localStorage.getItem('lds_cat_token') || '';
-    const resp = await fetch(`${API_URL}?action=obtenerPreguntasSesion&idSesion=${encodeURIComponent(idSesionBanco)}&token=${encodeURIComponent(token)}`);
+    const url = `${API_URL}?action=obtenerPreguntasSesion&idSesion=${encodeURIComponent(idSesion)}&tema=${encodeURIComponent(nombreTema)}&token=${encodeURIComponent(token)}`;
+    const resp = await fetch(url);
     const data = await resp.json();
 
     if (!data || !data.exito || !Array.isArray(data.preguntas) || data.preguntas.length === 0) {
-      body.innerHTML = '<p style="font-weight:700; color:#a52222;">Aún no hay preguntas activas disponibles para este tema.</p>';
+      body.innerHTML = '<p style="font-weight:700; color:#a52222;">No hay preguntas activas registradas para este tema en el Google Sheet.</p>';
       return;
     }
 
-    const preguntas = data.preguntas.slice(0, 10);
+    const preguntas = data.preguntas;
     body.innerHTML = preguntas.map((p, idx) => `
       <div style="margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid #eee;">
         <p style="font-weight:800; color:#12345a; margin:0 0 8px;">${idx + 1}. ${p.PREGUNTA}</p>
@@ -1683,7 +1622,7 @@ async function abrirCuestionarioTema(idSesionBanco, nombreTema) {
             action: 'registrarIntentoCuestionario',
             idNino: perfil.ID_NINO,
             nombreCatequizando: perfil.NOMBRE_COMPLETO,
-            idSesion: idSesionBanco,
+            idSesion: idSesion,
             tema: nombreTema,
             correctas: correctas,
             totalPreguntas: preguntas.length,
@@ -1693,13 +1632,23 @@ async function abrirCuestionarioTema(idSesionBanco, nombreTema) {
       } catch (err) {}
     };
   } catch (err) {
-    body.innerHTML = '<p style="font-weight:700; color:#a52222;">Error al cargar el cuestionario. Inténtalo nuevamente.</p>';
+    body.innerHTML = '<p style="font-weight:700; color:#a52222;">Error al cargar el cuestionario desde el Google Sheet.</p>';
   }
 }
 
-// 6. CALENDARIO DE ENCUENTROS (JUNIO - DICIEMBRE 2026)
 const MESES_NOMBRE = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 const DIAS_SEMANA = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+
+function obtenerClasesDelDia(dia, mes) {
+  const mesNum = mes + 1;
+  return clasesSheet.filter(c => {
+    const texto = String(c.FECHA_PROGRAMADA || '').toLowerCase().trim();
+    const matchDia = texto.match(/\b(\d{1,2})\b/);
+    if (!matchDia || Number(matchDia[1]) !== dia) return false;
+    const mesNombre = MESES_NOMBRE[mes].toLowerCase();
+    return texto.includes(mesNombre) || texto.includes(`/${String(mesNum).padStart(2, '0')}`) || texto.includes(`-${String(mesNum).padStart(2, '0')}`);
+  });
+}
 
 function renderizarCalendario() {
   const grid = document.getElementById('calGrid');
@@ -1716,16 +1665,18 @@ function renderizarCalendario() {
   }
 
   for (let dia = 1; dia <= diasMes; dia++) {
-    const fecha = new Date(anioCal, mesActualCal, dia);
-    const diaSem = fecha.getDay(); // 2 = Martes, 4 = Jueves
-    const esClase = (diaSem === 2 || diaSem === 4) && !(mesActualCal === 5 && dia < 16) && !(mesActualCal === 11 && dia > 8);
-    const esComunion = (mesActualCal === 11 && dia === 8);
+    const clasesDia = obtenerClasesDelDia(dia, mesActualCal);
+    const esCelebracion = (mesActualCal === 11 && dia === 12);
+    const tieneClase = clasesDia.length > 0;
 
-    let clases = 'day';
-    if (esComunion) clases += ' communion-day';
-    else if (esClase) clases += ' classday double-session';
+    let clasesBtn = 'day';
+    if (esCelebracion) clasesBtn += ' communion-day';
+    else if (tieneClase) {
+      clasesBtn += ' classday';
+      if (clasesDia[0].TEMA_2) clasesBtn += ' double-session';
+    }
 
-    html += `<button type="button" class="${clases}" ${(!esClase && !esComunion) ? 'disabled' : ''} onclick="seleccionarDiaCalendario(${dia}, ${mesActualCal}, this)">${dia}</button>`;
+    html += `<button type="button" class="${clasesBtn}" ${(!tieneClase && !esCelebracion) ? 'disabled' : ''} onclick="seleccionarDiaCalendario(${dia}, ${mesActualCal}, this)">${dia}</button>`;
   }
   grid.innerHTML = html;
 }
@@ -1737,26 +1688,48 @@ function seleccionarDiaCalendario(dia, mes, btn) {
   const fechaTexto = `${dia} de ${MESES_NOMBRE[mes]} de ${anioCal}`;
   document.getElementById('calSelectedDate').textContent = fechaTexto;
 
-  if (mes === 11 && dia === 8) {
-    document.getElementById('calSelectedDesc').textContent = '🎉 Gran Celebración de Primera Comunión y Consagración a la Virgen Inmaculada.';
+  if (mes === 11 && dia === 12) {
+    document.getElementById('calSelectedDesc').textContent = '🎉 Celebración de Catequesis / Primera Comunión · 10:00 a. m. · Parroquia San Pedro de Lurín.';
     document.getElementById('calTopicsList').innerHTML = '';
     return;
   }
 
-  document.getElementById('calSelectedDesc').textContent = 'Encuentro de catequesis (2:00 p.m. – 4:00 p.m.) · Parroquia San Pedro de Lurín.';
-  document.getElementById('calTopicsList').innerHTML = `
+  const clasesDia = obtenerClasesDelDia(dia, mes);
+  if (clasesDia.length === 0) {
+    document.getElementById('calSelectedDesc').textContent = 'No hay temas registrados en el Google Sheet para esta fecha.';
+    document.getElementById('calTopicsList').innerHTML = '';
+    return;
+  }
+
+  const c = clasesDia[0];
+  document.getElementById('calSelectedDesc').textContent = `${c.DIA || ''} · ${c.HORA_INICIO || ''} – ${c.HORA_FIN || ''}`.trim();
+
+  const items = [];
+  if (c.TEMA_1) {
+    items.push({
+      titulo: `${c.ID_SESION_1 ? c.ID_SESION_1 + ' · ' : ''}${c.TEMA_1}`,
+      detalle: c.SUB_TEMAS || ''
+    });
+  }
+  if (c.TEMA_2) {
+    items.push({
+      titulo: `${c.ID_SESION_2 ? c.ID_SESION_2 + ' · ' : ''}${c.TEMA_2}`,
+      detalle: c.SUB_TEMAS || ''
+    });
+  }
+
+  document.getElementById('calTopicsList').innerHTML = items.map(it => `
     <details class="calendar-topic-item topic-collapsible" open>
-      <summary class="topic-summary"><h4 class="topic-summary-title">Sesión de Catequesis Programada</h4></summary>
-      <div class="topic-content">Revisa los bloques correspondientes en la sección superior para practicar los cuestionarios del día.</div>
+      <summary class="topic-summary"><h4 class="topic-summary-title">${it.titulo}</h4></summary>
+      <div class="topic-content">${it.detalle || 'Tema programado en el Google Sheet.'}</div>
     </details>
-  `;
+  `).join('');
 }
 
-// 7. CUENTA REGRESIVA AL 8 DE DICIEMBRE DE 2026
+// CUENTA REGRESIVA HACIA EL 12 DE DICIEMBRE DE 2026 A LAS 10:00 A. M. (LIMA)
 function actualizarCuentaRegresiva() {
-  const objetivo = new Date('2026-12-08T09:00:00-05:00').getTime();
-  const ahora = Date.now();
-  const diff = objetivo - ahora;
+  const objetivo = new Date('2026-12-12T10:00:00-05:00').getTime();
+  const diff = objetivo - Date.now();
   if (diff <= 0) {
     document.getElementById('cdDays').textContent = '00';
     document.getElementById('cdHours').textContent = '00';
@@ -1772,8 +1745,8 @@ function actualizarCuentaRegresiva() {
   document.getElementById('cdMins').textContent = String(m).padStart(2, '0');
 }
 
-// 8. INICIALIZACIÓN Y EVENTOS
 document.addEventListener('DOMContentLoaded', () => {
+  configurarInsignias();
   cargarListaCatequizandos();
   actualizarCuentaRegresiva();
   setInterval(actualizarCuentaRegresiva, 30000);
@@ -1849,7 +1822,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Verificar si ya hay sesión iniciada
   const tokenGuardado = localStorage.getItem('lds_cat_token');
   const perfilGuardado = localStorage.getItem('lds_cat_perfil');
   if (tokenGuardado && perfilGuardado) {
