@@ -506,6 +506,33 @@ main#inicioPortal{max-width:1120px!important;padding:8px 20px 30px!important;dis
 .module-card button{font-size:.76rem!important;padding:7px 10px!important;line-height:1.2!important;min-height:30px!important}
 @media(max-width:800px){.module-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}.module-card{height:136px!important;padding:12px!important}}
 @media(max-width:460px){.module-grid{grid-template-columns:1fr!important}.module-card{height:auto!important;min-height:122px!important}}
+
+/* Guía familiar interactiva y didáctica */
+.lds-guide-interactive{order:3!important;display:flex;flex-direction:column;gap:15px;margin-top:8px}
+.lds-guide-heading{display:flex;align-items:center;gap:13px}
+.lds-guide-heading .heading-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:16px;background:#fff3cf;font-size:1.5rem}
+.lds-guide-heading h3{font-size:1.25rem;font-weight:900;color:#234f8d;margin:0}
+.lds-guide-heading p{font-size:.9rem;color:#61748c;margin:4px 0 0}
+.lds-guide-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;align-items:start}
+.lds-guide-card{border:1px solid #e2eaf4;border-radius:19px;padding:15px;background:#fff;box-shadow:0 5px 14px rgba(34,66,105,.06);display:flex;flex-direction:column;gap:9px;min-width:0}
+.lds-guide-card.guide-prayer{border-top:4px solid #6b72d8;background:linear-gradient(180deg,#f8f7ff,#fff)}
+.lds-guide-card.guide-time{border-top:4px solid #25a6a1;background:linear-gradient(180deg,#f0fffc,#fff)}
+.lds-guide-card.guide-bag{border-top:4px solid #e7a82c;background:linear-gradient(180deg,#fffaf0,#fff)}
+.lds-guide-card.guide-love{border-top:4px solid #e36b91;background:linear-gradient(180deg,#fff5f8,#fff)}
+.lds-guide-card .guide-art{height:74px;border-radius:13px;background:#fff;display:flex;align-items:center;justify-content:center;gap:12px;font-size:2rem;box-shadow:inset 0 0 0 1px #edf1f6}
+.lds-guide-card .guide-art span:nth-child(2){font-size:1.65rem}.lds-guide-card .guide-art span:nth-child(3){font-size:1.35rem}
+.lds-guide-card .guide-card-title{display:flex;align-items:center;gap:8px}
+.lds-guide-card .guide-number{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#e9f1ff;color:#24579a;font-weight:900;font-size:.78rem;flex-shrink:0}
+.lds-guide-card h4{font-size:.95rem;font-weight:850;color:#244d82;margin:0;line-height:1.25}
+.lds-guide-card>p{font-size:.82rem;color:#60738b;line-height:1.45;margin:0;min-height:44px}
+.lds-guide-card .guide-action{border:1px solid #cbdcf4;background:#fff;color:#24579a;border-radius:999px;padding:8px 10px;font-size:.8rem;font-weight:800;cursor:pointer;transition:.15s}
+.lds-guide-card .guide-action:hover{background:#eaf3ff;transform:translateY(-1px)}
+.lds-guide-card .guide-example{background:#fff;border:1px dashed #bfd2ea;border-radius:13px;padding:12px;font-size:.82rem;line-height:1.5;color:#4b6079;margin-top:3px}
+.lds-guide-card .guide-example strong{display:block;color:#244d82;margin-bottom:5px}
+.lds-guide-card .guide-example p{margin:0 0 8px}
+.lds-guide-card .guide-challenge{background:#fff8df;border-radius:9px;padding:8px;color:#765b1b;font-size:.78rem}
+@media(max-width:900px){.lds-guide-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){.lds-guide-grid{grid-template-columns:1fr}.lds-guide-heading h3{font-size:1.08rem}.lds-guide-heading p{font-size:.82rem}.lds-guide-card .guide-art{height:62px}.lds-guide-card>p{min-height:0}}
 </style>
 
 </head>
@@ -670,17 +697,40 @@ main#inicioPortal{max-width:1120px!important;padding:8px 20px 30px!important;dis
 
 
       <!-- Orientaciones informativas para las familias: contenido frontend, no conectado a GS -->
-      <section class="mt-4" aria-label="Orientaciones para familias">
-        <div class="lds-family-welcome"><div class="welcome-icon" aria-hidden="true">💙</div><div><h4>¡Caminamos juntos en la fe!</h4><p>La familia es el primer lugar donde los niños aprenden a amar, servir y acercarse a Jesús. Estas orientaciones acompañan su preparación.</p></div></div>
-        <h5 class="lds-section-title">🌟 Guía práctica para las familias</h5>
-        <div class="accordion lds-family-guide" id="guiaFamiliasLDS">
-          <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#guiaPreparacion" aria-expanded="true" aria-controls="guiaPreparacion">🙏 Preparación espiritual en casa</button></h2><div id="guiaPreparacion" class="accordion-collapse collapse show" data-bs-parent="#guiaFamiliasLDS"><div class="accordion-body">Acompañen a sus hijos con momentos sencillos de oración, conversación sobre lo aprendido y participación en la vida de la comunidad. No se trata solo de memorizar, sino de vivir la fe con amor.<div class="mt-2"><span class="guide-pill">Orar juntos</span><span class="guide-pill">Escuchar</span><span class="guide-pill">Dar ejemplo</span></div></div></div></div>
-          <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#guiaAsistencia" aria-expanded="false" aria-controls="guiaAsistencia">📅 Puntualidad y asistencia</button></h2><div id="guiaAsistencia" class="accordion-collapse collapse" data-bs-parent="#guiaFamiliasLDS"><div class="accordion-body">Procure que los catequizandos lleguen puntualmente y asistan a todos los encuentros. Si surge una dificultad o inasistencia, comuníquenla oportunamente a la catequista correspondiente.</div></div></div>
-          <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#guiaMateriales" aria-expanded="false" aria-controls="guiaMateriales">🎒 Presentación y materiales</button></h2><div id="guiaMateriales" class="accordion-collapse collapse" data-bs-parent="#guiaFamiliasLDS"><div class="accordion-body">Revisen las indicaciones y tareas publicadas en el portal. En cada encuentro, el niño debe traer los materiales solicitados y mantener una presentación adecuada, cuidando sus pertenencias.</div></div></div>
-          <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#guiaCompromiso" aria-expanded="false" aria-controls="guiaCompromiso">🤝 Compromiso de la familia</button></h2><div id="guiaCompromiso" class="accordion-collapse collapse" data-bs-parent="#guiaFamiliasLDS"><div class="accordion-body">La catequesis se fortalece cuando familia, catequista y comunidad caminan unidos. Ayuden a los niños a practicar respeto, solidaridad, responsabilidad y amor a Dios y al prójimo, y consulten regularmente los avisos del portal.</div></div></div>
+      <section class="lds-guide-interactive" aria-label="Guía práctica interactiva para familias">
+        <div class="lds-guide-heading"><span class="heading-icon">🌟</span><div><h3>Guía práctica para las familias</h3><p>Ideas sencillas para acompañar a tu hijo. ¡Pulsa cada tarjeta y descubre cómo hacerlo en casa!</p></div></div>
+        <div class="lds-guide-grid">
+          <article class="lds-guide-card guide-prayer">
+            <div class="guide-art" aria-hidden="true"><span>👨‍👩‍👧</span><span>🙏</span><span>🕯️</span></div>
+            <div class="guide-card-title"><span class="guide-number">1</span><h4>Preparación espiritual</h4></div>
+            <p>La fe también se aprende con pequeños momentos en familia.</p>
+            <button class="guide-action" type="button" data-bs-toggle="collapse" data-bs-target="#ejemploOracion" aria-expanded="false" aria-controls="ejemploOracion">💡 Ver ejemplo en casa</button>
+            <div class="collapse" id="ejemploOracion"><div class="guide-example"><strong>🏠 ¡Hagámoslo juntos!</strong><p>Antes de dormir, apaguen un momento la televisión, hagan la señal de la cruz y agradezcan a Jesús por algo bueno del día. Luego, cada uno puede decir una intención.</p><div class="guide-challenge">🎯 <b>Reto familiar:</b> ¿pueden hacerlo durante 3 noches esta semana?</div></div></div>
+          </article>
+          <article class="lds-guide-card guide-time">
+            <div class="guide-art" aria-hidden="true"><span>⏰</span><span>👟</span><span>🗓️</span></div>
+            <div class="guide-card-title"><span class="guide-number">2</span><h4>Puntualidad y asistencia</h4></div>
+            <p>Ayúdale a llegar tranquilo, preparado y con ganas de aprender.</p>
+            <button class="guide-action" type="button" data-bs-toggle="collapse" data-bs-target="#ejemploPuntualidad" aria-expanded="false" aria-controls="ejemploPuntualidad">💡 Ver ejemplo en casa</button>
+            <div class="collapse" id="ejemploPuntualidad"><div class="guide-example"><strong>🏠 ¡Preparemos la mañana!</strong><p>La noche anterior revisen juntos el horario, preparen la ropa y la mochila. Pongan una alarma y salgan con tiempo para evitar las prisas.</p><div class="guide-challenge">🎯 <b>Reto familiar:</b> el catequizando prepara sus cosas y el adulto le acompaña.</div></div></div>
+          </article>
+          <article class="lds-guide-card guide-bag">
+            <div class="guide-art" aria-hidden="true"><span>🎒</span><span>📖</span><span>✏️</span></div>
+            <div class="guide-card-title"><span class="guide-number">3</span><h4>Presentación y materiales</h4></div>
+            <p>Revisen juntos qué necesita llevar y cuidar en cada encuentro.</p>
+            <button class="guide-action" type="button" data-bs-toggle="collapse" data-bs-target="#ejemploMateriales" aria-expanded="false" aria-controls="ejemploMateriales">💡 Ver ejemplo en casa</button>
+            <div class="collapse" id="ejemploMateriales"><div class="guide-example"><strong>🏠 ¡La mochila lista!</strong><p>Coloquen sobre la mesa la Biblia o material solicitado, cuaderno, lápiz y lo indicado en el aviso. El niño verifica cada cosa y guarda su mochila.</p><div class="guide-challenge">🎯 <b>Reto familiar:</b> usa esta mini-lista: material 📖 · cuaderno 📓 · lápiz ✏️ · aviso revisado ☑️.</div></div></div>
+          </article>
+          <article class="lds-guide-card guide-love">
+            <div class="guide-art" aria-hidden="true"><span>🤝</span><span>💗</span><span>🌱</span></div>
+            <div class="guide-card-title"><span class="guide-number">4</span><h4>Compromiso familiar</h4></div>
+            <p>El ejemplo de los adultos ayuda a que la fe se convierta en acciones.</p>
+            <button class="guide-action" type="button" data-bs-toggle="collapse" data-bs-target="#ejemploCompromiso" aria-expanded="false" aria-controls="ejemploCompromiso">💡 Ver ejemplo en casa</button>
+            <div class="collapse" id="ejemploCompromiso"><div class="guide-example"><strong>🏠 ¡Vivamos lo que aprendemos!</strong><p>Si el tema fue ayudar al prójimo, elijan juntos una acción: ayudar a un adulto mayor, compartir algo o colaborar en casa sin que se lo pidan.</p><div class="guide-challenge">🎯 <b>Reto familiar:</b> ¿qué gesto de amor pueden realizar hoy?</div></div></div>
+          </article>
         </div>
       </section>
-      <!-- Contenedor dinámico de resultados -->
+<!-- Contenedor dinámico de resultados -->
       <div id="resultadoContenedor" class="mt-4"></div>
     </main>
   </div>
