@@ -1869,6 +1869,7 @@ function abrirCuestionarioTema(idSesion, ventanaExistente) {
     document.getElementById('cerrarFinal').addEventListener('click',function(){salidaAutorizada=true;try{if(window.opener&&typeof window.opener.actualizarAprendizajeDesdeCuestionario==='function')window.opener.actualizarAprendizajeDesdeCuestionario();}catch(_e){}window.close();});
   }
   iniciar();
+  setInterval(function(){post({action:'renovarBloqueoDispositivoCatequizando',token:CFG.token,deviceId:CFG.deviceId}).then(function(j){if(j&&j.bloqueado)alarmaIngresoIndebido(j.mensaje);}).catch(function(e){if(String(e.message||'').includes('¡ALERTA! INGRESO INDEBIDO'))alarmaIngresoIndebido(e.message);});},45000);
   <\/script></body></html>`);
   ventana.document.close();
   try { ventana.focus(); } catch (error) {}
