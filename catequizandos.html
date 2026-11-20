@@ -2635,19 +2635,30 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
     // Usa JSONP porque este portal ya consulta getSesiones por JSONP desde GitHub Pages.
     // No depende del CORS de fetch POST ni detiene el juego por una respuesta vacía.
     if (!quizVersionV5Verificada) {
-      const versionData = await solicitarJSONP(`${API_URL}?action=verificarVersionCuestionarios`);
+      const claveVersionLocalV9 = 'lds_quiz_version_cache_v9';
       const versionesCompatibles = [
         'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V8-VIDEOS-GESTION-MISES',
         'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V9-RENDIMIENTO-LIMA'
       ];
-      if (!versionData || !versionData.exito || !versionesCompatibles.includes(versionData.version)) {
-        const detalle = versionData && (versionData.version || versionData.mensaje)
-          ? String(versionData.version || versionData.mensaje)
-          : 'El endpoint no devolvió una versión identificable.';
-        body.innerHTML = `<div style="padding:16px;border-radius:12px;background:#fff1f0;color:#922b21"><strong>⚠️ El servidor no corresponde a una versión compatible del juego.</strong><p>Respuesta: ${escapeQuizHtml(detalle)}</p></div>`;
-        return;
+      // Evita consultar la versión del servidor en cada apertura durante diez minutos.
+      try {
+        const cacheVersion = JSON.parse(localStorage.getItem(claveVersionLocalV9) || 'null');
+        if (cacheVersion && versionesCompatibles.includes(cacheVersion.version) && Date.now() - Number(cacheVersion.fecha || 0) < 600000) {
+          quizVersionV5Verificada = true;
+        }
+      } catch (e) {}
+      if (!quizVersionV5Verificada) {
+        const versionData = await solicitarJSONP(`${API_URL}?action=verificarVersionCuestionarios`);
+        if (!versionData || !versionData.exito || !versionesCompatibles.includes(versionData.version)) {
+          const detalle = versionData && (versionData.version || versionData.mensaje)
+            ? String(versionData.version || versionData.mensaje)
+            : 'El endpoint no devolvió una versión identificable.';
+          body.innerHTML = `<div style="padding:16px;border-radius:12px;background:#fff1f0;color:#922b21"><strong>⚠️ El servidor no corresponde a una versión compatible del juego.</strong><p>Respuesta: ${escapeQuizHtml(detalle)}</p></div>`;
+          return;
+        }
+        quizVersionV5Verificada = true;
+        try { localStorage.setItem(claveVersionLocalV9, JSON.stringify({version:versionData.version,fecha:Date.now()})); } catch (e) {}
       }
-      quizVersionV5Verificada = true;
     }
 
     const data = preguntaPrecargada
@@ -2727,8 +2738,8 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
     const textoLecturaPreguntaV6 = 'Pregunta. ' + p.pregunta + '. ' + p.opciones.map(o => 'Alternativa ' + o.valor + '. ' + o.texto).join('. ');
     const botonRepetirV6 = document.getElementById('btnRepetirPreguntaV6');
     if (botonRepetirV6) botonRepetirV6.addEventListener('click', () => quizHablarV6(textoLecturaPreguntaV6));
-    // La narración automática anuncia solo la pregunta; las alternativas se pueden escuchar manualmente.
-    quizHablarV6('Pregunta. ' + p.pregunta);
+    // No reproducir voz automáticamente: el niño lee a su ritmo y usa Escuchar cuando lo necesite.
+    // La locución queda bajo demanda para reducir la espera entre preguntas.
 
     const comprobar = document.getElementById('btnComprobarRespuesta');
     comprobar.addEventListener('click', async () => {
@@ -2820,7 +2831,7 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
           }
         };
         // La retroalimentación y explicación quedan visibles; no frenamos la siguiente pregunta por voz.
-        quizTimerSiguienteV5 = setTimeout(avanzarAlTerminarVozV6, 450);
+        quizTimerSiguienteV5 = setTimeout(avanzarAlTerminarVozV6, 180);
       } catch (error) {
         quizEnvioEnCursoV8 = false;
         const result = document.getElementById('quizResultadoJuego');
