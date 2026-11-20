@@ -845,6 +845,10 @@ body{overflow-x:hidden}
         <div><div class="module-cartoon-icon" aria-hidden="true">🧒🎒</div><h4>Portal Catequizando</h4><p>Vista administrativa general de alumnos, fichas, tareas, asistencia y avances. No suplanta el ingreso individual del alumno.</p></div>
         <a class="btn small primary" href="./catequizandos.html?modo=administradora" onclick="return abrirPortalCatequizandoDesdeCatequista(event)">Consultar Catequizandos</a>
       </div>
+      <div class="tool-card" id="tarjeta-alertas-dispositivos">
+        <div><div class="module-cartoon-icon" aria-hidden="true">🚨🔒</div><h4>Alertas de seguridad <span id="badge-alertas-dispositivos" class="badge-count">0</span></h4><p>Intentos de ingreso simultáneo desde otro dispositivo. Consulta los bloqueos registrados de catequizandos.</p></div>
+        <button class="btn small primary" type="button" onclick="mostrarVista('vista-alertas-dispositivos')">Ver alertas de seguridad</button>
+      </div>
       <div class="menu-step-title">PASO 3 · ADMINISTRACIÓN Y ATENCIÓN A FAMILIAS</div>
 <div class="tool-card">
         <div><div class="module-cartoon-icon" aria-hidden="true">💰🪙</div><h4>Control de Pagos</h4><p>Registro único de S/. 40.00 con vouchers.</p></div>
@@ -869,6 +873,24 @@ body{overflow-x:hidden}
         <a class="btn small primary" href="./GestorPastoral.html?modo=administradora" onclick="return abrirGestorPastoralDesdeCatequista(event)">Abrir Supervisión</a>
       </div>
 
+    </div>
+
+    <!-- VISTA ALERTAS DE SEGURIDAD DE DISPOSITIVOS -->
+    <div id="vista-alertas-dispositivos" style="display:none; margin-top:15px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:15px;">
+        <button class="btn small" type="button" onclick="volverMenuPrincipal()">← Volver al menú</button>
+        <button class="btn small primary" id="btn-actualizar-alertas-dispositivos" type="button" onclick="cargarAlertasDispositivosCatequizandos(true)">🔄 Actualizar</button>
+      </div>
+      <section class="panel" style="border-color:#f0b4b4;background:linear-gradient(135deg,#fff,#fff7f7);">
+        <h3 style="color:#991b1b;margin:0 0 5px;">🚨 Registro de intentos de ingreso indebido</h3>
+        <p class="sub">Los intentos de abrir la sesión de un catequizando en otro dispositivo se bloquean en el servidor y se registran en Google Sheets. Esta vista se actualiza automáticamente.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin:14px 0;">
+          <div class="tool-card" style="min-width:150px;"><strong id="alertas-dispositivos-total" style="font-size:1.6rem;color:#b42318;">0</strong><span class="sub">Incidentes registrados</span></div>
+          <div class="tool-card" style="min-width:150px;"><strong id="alertas-dispositivos-ultimo" style="font-size:1rem;color:var(--navy);">—</strong><span class="sub">Último intento</span></div>
+        </div>
+        <p id="estado-alertas-dispositivos" class="sub" role="status" aria-live="polite">Consultando registros…</p>
+        <div id="lista-alertas-dispositivos" style="display:grid;gap:10px;margin-top:12px;"></div>
+      </section>
     </div>
 
     <!-- VISTA MENSAJES Y NOTIFICACIONES -->
@@ -1516,7 +1538,7 @@ async function cargarCatequistasLogin() {
 }
 
 function cerrarSesionCatequistaPortal() {
-  if (intervaloMensajesCatequista) clearInterval(intervaloMensajesCatequista);
+  sincronizarConHoja(false).then(function() { iniciarMonitoreoMensajesCatequista(); iniciarMonitoreoAlertasDispositivos(); });
   intervaloMensajesCatequista = null;
   idsMensajesNotificados.clear();
   primerChequeoMensajes = true;
@@ -1632,9 +1654,9 @@ function abrirPortalComun() {
   mostrarVistaInternaPortal('menu-herramientas', false);
   sincronizarConHoja(false).then(function() { iniciarMonitoreoMensajesCatequista(); });
 }
-const VISTAS_PORTAL = ['menu-herramientas','vista-mensajes','vista-videos-temas','vista-evidencias-tareas','vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-calificaciones','vista-dashboard','vista-administrador'];
+const VISTAS_PORTAL = ['menu-herramientas','vista-alertas-dispositivos','vista-mensajes','vista-videos-temas','vista-evidencias-tareas','vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-calificaciones','vista-dashboard','vista-administrador'];
 const ETIQUETAS_VISTAS_PORTAL = {
-  'menu-herramientas':'Menú principal', 'vista-mensajes':'Mensajes y notificaciones', 'vista-videos-temas':'Biblioteca de videos', 'vista-evidencias-tareas':'Revisión de evidencias',
+  'menu-herramientas':'Menú principal', 'vista-alertas-dispositivos':'Alertas de seguridad', 'vista-mensajes':'Mensajes y notificaciones', 'vista-videos-temas':'Biblioteca de videos', 'vista-evidencias-tareas':'Revisión de evidencias',
   'vista-clases':'Programación de temas', 'vista-asistencia':'Asistencia modular',
   'vista-pagos':'Control de pagos', 'vista-padres':'Padres de familia',
   'vista-calendario':'Calendario de catequesis', 'vista-calificaciones':'Registro de calificaciones',
@@ -1822,6 +1844,7 @@ const filtroEvidenciasTareas = $('filtro-evidencias-tareas');
 if (filtroEvidenciasTareas) filtroEvidenciasTareas.addEventListener('change', cargarEntregasTareasCatequista);
 const btnActualizarEvidenciasTareas = $('btn-actualizar-evidencias-tareas');
 if (btnActualizarEvidenciasTareas) btnActualizarEvidenciasTareas.addEventListener('click', cargarEntregasTareasCatequista);
+  if (idVista === 'vista-alertas-dispositivos') cargarAlertasDispositivosCatequizandos(false);
   if (idVista === 'vista-mensajes') cargarMensajesCatequista(false);
   if (idVista === 'vista-videos-temas') cargarGestionVideosTemasV8();
   if (idVista === 'vista-evidencias-tareas') cargarEntregasTareasCatequista();
@@ -2349,8 +2372,63 @@ async function cargarMensajesCatequista(mostrarEstado) {
     return false;
   }
 }
+let intervaloAlertasDispositivos = null;
+let totalAlertasDispositivosAnterior = 0;
+function fechaHoraAlertaDispositivo(valor){
+  if(!valor)return '—';
+  const f=new Date(valor);
+  return isNaN(f.getTime())?String(valor):f.toLocaleString('es-PE',{dateStyle:'short',timeStyle:'short'});
+}
+function renderizarAlertasDispositivosCatequizandos(alertas){
+  const lista=$('lista-alertas-dispositivos');
+  const total=$('alertas-dispositivos-total');
+  const ultimo=$('alertas-dispositivos-ultimo');
+  const badge=$('badge-alertas-dispositivos');
+  const registros=Array.isArray(alertas)?alertas:[];
+  if(total)total.textContent=registros.length;
+  if(badge){badge.textContent=registros.length;badge.style.background=registros.length?'#b42318':'#64748b';badge.style.color='#fff';}
+  if(ultimo)ultimo.textContent=registros.length?fechaHoraAlertaDispositivo(registros[0].fechaHora):'—';
+  if(!lista)return;
+  lista.replaceChildren();
+  if(!registros.length){const vacio=document.createElement('div');vacio.className='tool-card';vacio.textContent='No hay intentos de segundo dispositivo registrados.';lista.appendChild(vacio);return;}
+  registros.forEach(function(a){
+    const card=document.createElement('article');
+    card.style.cssText='border:1px solid #efb2b2;border-left:6px solid #b42318;border-radius:12px;padding:12px 14px;background:#fff;';
+    const h=document.createElement('h4');h.style.cssText='margin:0 0 6px;color:#991b1b;font-size:1rem';h.textContent='🚨 '+(a.nombre||'Catequizando sin nombre');
+    const p=document.createElement('p');p.style.cssText='margin:0;color:#334155;font-size:.86rem;line-height:1.6';
+    p.textContent='Código: '+(a.idNino||'—')+' · Fecha: '+fechaHoraAlertaDispositivo(a.fechaHora)+' · Evento: '+(a.evento||'INTENTO_SEGUNDO_DISPOSITIVO')+' · Resultado: '+(a.resultado||'BLOQUEADO')+' · Dispositivo: '+(a.tipoDispositivo||'No identificado');
+    const d=document.createElement('div');d.style.cssText='margin-top:6px;color:#7f1d1d;font-size:.82rem';d.textContent=a.detalle||'Acceso bloqueado por existir una sesión activa en otro dispositivo.';
+    card.append(h,p,d);lista.appendChild(card);
+  });
+}
+async function cargarAlertasDispositivosCatequizandos(mostrarEstado){
+  const estado=$('estado-alertas-dispositivos');
+  if(estado&&mostrarEstado)estado.textContent='Consultando el registro de seguridad en Google Sheets…';
+  try{
+    const r=await apiGet('getAlertasSeguridadDispositivos');
+    const alertas=Array.isArray(r.alertas)?r.alertas:[];
+    renderizarAlertasDispositivosCatequizandos(alertas);
+    if(estado)estado.textContent='Registro actualizado · '+alertas.length+' incidente(s) · Fuente: Google Sheets.';
+    totalAlertasDispositivosAnterior=alertas.length;
+    return true;
+  }catch(e){
+    if(estado)estado.textContent='No se pudieron consultar las alertas: '+(e.message||e);
+    return false;
+  }
+}
+function iniciarMonitoreoAlertasDispositivos(){
+  if(intervaloAlertasDispositivos)clearInterval(intervaloAlertasDispositivos);
+  cargarAlertasDispositivosCatequizandos(false);
+  intervaloAlertasDispositivos=setInterval(function(){
+    if(!tokenCatequistaPortal)return;
+    cargarAlertasDispositivosCatequizandos(false);
+  },60000);
+}
+
 function iniciarMonitoreoMensajesCatequista() {
   if (intervaloMensajesCatequista) clearInterval(intervaloMensajesCatequista);
+  if (intervaloAlertasDispositivos) clearInterval(intervaloAlertasDispositivos);
+  intervaloAlertasDispositivos = null;
   cargarMensajesCatequista(false);
   intervaloMensajesCatequista = setInterval(async function() {
     if (!tokenCatequistaPortal || consultaMensajesCatequistaActiva) return;
