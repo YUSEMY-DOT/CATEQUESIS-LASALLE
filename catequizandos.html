@@ -1313,6 +1313,22 @@ header{padding-top:14px;padding-bottom:12px}
  .btn-abrir-video-v10{margin-left:38px}
 }
 
+/* Imágenes originales de los catequizandos: respetar siempre su proporción real. */
+.welcome-img,
+.student-avatar,
+.followup-avatar {
+  object-fit: contain !important;
+  object-position: center center !important;
+}
+@media (max-width: 760px) {
+  .login-mobile-kid {
+    width: 100%;
+    height: auto !important;
+    aspect-ratio: auto !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+  }
+}
 </style>
 </head>
 <body>
