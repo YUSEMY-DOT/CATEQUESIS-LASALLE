@@ -203,10 +203,90 @@
       pointer-events: none;
     }
 
-    @media (max-width: 600px) {
-      .panel-menu { width: 110px; min-width: 95px; padding: 5px 2px; }
-      .derechos-reservados { width: calc(100% - 110px); font-size: 8px; left: 0; }
-      .nombre-opcion { font-size: 7px; }
+    /* Diseño adaptable: el menú lateral pasa a una cuadrícula en tablet y celular. */
+    @media (max-width: 820px) {
+      html, body { width: 100%; height: auto; min-height: 100%; overflow-x: hidden; }
+      body {
+        min-height: 100dvh;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+      .portada {
+        width: 100%;
+        height: clamp(240px, 43svh, 390px);
+        min-height: 240px;
+        max-height: 390px;
+        flex: 0 0 auto;
+        background-position: center center;
+        background-size: cover;
+      }
+      .panel-menu {
+        width: 100%;
+        min-width: 0;
+        height: auto;
+        flex: 0 0 auto;
+        padding: 14px 12px calc(14px + env(safe-area-inset-bottom));
+        border-left: 0;
+        border-top: 2px solid rgba(215, 182, 93, 0.4);
+        box-shadow: none;
+      }
+      .menu {
+        width: 100%;
+        height: auto;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        align-items: start;
+        justify-content: stretch;
+        gap: 14px 10px;
+      }
+      .menu-item {
+        width: 100%;
+        min-width: 0;
+        min-height: 108px;
+        flex: none;
+        gap: 5px;
+      }
+      .boton {
+        width: min(100%, 104px);
+        height: clamp(68px, 13vw, 86px);
+        max-height: none;
+        flex: 0 0 auto;
+        overflow: hidden;
+        text-decoration: none;
+      }
+      .boton img { width: 100%; height: 100%; object-fit: contain; }
+      .nombre-opcion {
+        width: 100%;
+        padding: 0 2px;
+        font-size: clamp(10px, 2.2vw, 12px);
+        line-height: 1.2;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+      }
+      .derechos-reservados {
+        position: static;
+        width: 100%;
+        left: auto;
+        bottom: auto;
+        margin: 0;
+        padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+        font-size: 11px;
+        line-height: 1.4;
+        text-align: center;
+      }
+      .pwa-install-button { top: 62px; left: 10px; }
+    }
+
+    @media (max-width: 480px) {
+      .portada { height: clamp(230px, 39svh, 320px); min-height: 230px; }
+      .menu { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 8px; }
+      .menu-item { min-height: 102px; }
+      .boton { width: min(100%, 98px); height: 74px; }
+      .nombre-opcion { font-size: 11px; }
     }
 
 
@@ -279,53 +359,45 @@
 
       <!-- 1. NUESTRA PROGRAMACIÓN -->
       <div class="menu-item">
-        <button class="boton" type="button"
-          data-destino="programacion.html"
-          aria-label="Nuestra Programación">
+        <a class="boton" href="./programacion.html" data-destino="programacion.html" aria-label="Nuestra Programación">
           <img src="./assets/BTN-PROGRAMACION.png" alt="Nuestra Programación" loading="lazy" decoding="async" fetchpriority="low">
-        </button>
+        </a>
         <span class="nombre-opcion">Programación</span>
       </div>
 
       <!-- 2. CATEQUIZANDOS -->
       <div class="menu-item">
-        <button class="boton" type="button"
-          data-destino="catequizandos.html?ingreso=pin"
-          aria-label="Catequizandos">
+        <a class="boton" href="./catequizandos.html?ingreso=pin" data-destino="catequizandos.html?ingreso=pin" aria-label="Catequizandos">
           <img src="./assets/BTN-CATEQUIS.png" alt="Catequizandos" loading="lazy" decoding="async" fetchpriority="low">
-        </button>
+        </a>
         <span class="nombre-opcion">Catequizandos</span>
       </div>
 
       <!-- 3. CATEQUISTAS -->
       <div class="menu-item">
-        <button class="boton" type="button"
-          data-destino="CATEQUISTA.html"
-          aria-label="Catequistas">
+        <a class="boton" href="./CATEQUISTA.html" data-destino="CATEQUISTA.html" aria-label="Catequistas">
           <img src="./assets/BTN_CATEQUISTAS.png" alt="Catequistas" loading="lazy" decoding="async" fetchpriority="low">
-        </button>
+        </a>
         <span class="nombre-opcion">Catequistas</span>
       </div>
 
       <!-- 4. PADRES DE FAMILIA -->
       <div class="menu-item">
-        <button class="boton" type="button"
-          data-destino="padres.html"
-          aria-label="Padres de familia">
+        <a class="boton" href="./padres.html" data-destino="padres.html" aria-label="Padres de familia">
           <img src="./assets/BTN-PADRES.png" alt="Padres de familia" loading="lazy" decoding="async" fetchpriority="low">
-        </button>
+        </a>
         <span class="nombre-opcion">Padres</span>
       </div>
 
  <!-- 5. GestorPastoral -->
 <div class="menu-item">
-  <button class="boton" type="button"
-    data-destino="supervisores.html"
-    aria-label="SUPERVISORES">
+  <a class="boton" href="./supervisores.html" data-destino="supervisores.html" aria-label="SUPERVISORES">
     <img src="./assets/BTN_COORDINADOR.png" alt="SUPERVISORES" loading="lazy" decoding="async" fetchpriority="low">
-  </button>
+  </a>
   <span class="nombre-opcion">SUPERVISORES</span>
 </div>
+    </nav>
+  </aside>
 
   <!-- DERECHOS RESERVADOS -->
   <footer class="derechos-reservados lds-copyright-line">
@@ -394,20 +466,10 @@
       }
 
       /* NAVEGACIÓN CON EFECTO VISIBLE Y TIEMPO PARA APRECIAR EL AUDIO */
-      botones.forEach((boton) => {
-        boton.addEventListener("click", (e) => {
-          e.preventDefault();
+      // Los enlaces conservan su navegación nativa; el sonido es solo un efecto adicional.
+      botones.forEach((enlace) => {
+        enlace.addEventListener("click", () => {
           reproducirSonidoClic();
-          
-          boton.classList.add("clicado");
-
-          const destino = boton.getAttribute("data-destino");
-
-          setTimeout(() => {
-            if (destino) {
-              window.location.href = destino;
-            }
-          }, 150); // Efecto breve; navegación más ágil.
         });
       });
 
