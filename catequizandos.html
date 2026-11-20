@@ -1016,8 +1016,8 @@ html.auth-required #portalWrap,#portalWrap[hidden],.portal-wrap-locked{display:n
 <style>#adminAccessError[hidden]{display:none!important}#adminAccessError:not([hidden]){display:flex!important}</style>
 <section id="adminAccessError" hidden style="position:fixed;inset:0;z-index:100000;background:#f4f1ea;align-items:center;justify-content:center;padding:20px;">
   <div style="width:min(560px,100%);padding:28px;background:#fff;border:1px solid #e6d5b8;border-radius:20px;text-align:center;box-shadow:0 10px 35px #12345a18;">
-    <h2 style="margin:0 0 8px;color:#12345a;font-family:Fredoka,Arial,sans-serif;">Sesión administrativa no disponible</h2>
-    <p id="adminAccessErrorText" style="color:#5c6f84;font-weight:700;">Abre este portal desde tu sesión de Administradora en el Portal de Catequistas.</p>
+    <h2 style="margin:0 0 8px;color:#12345a;font-family:Fredoka,Arial,sans-serif;">Sesión de catequista no disponible</h2>
+    <p id="adminAccessErrorText" style="color:#5c6f84;font-weight:700;">Abre este portal desde tu sesión de Catequista en el Portal de Catequistas.</p>
     <a href="./CATEQUISTA.html" style="display:inline-block;padding:11px 18px;border-radius:12px;background:#12345a;color:#fff;font-weight:900;">Volver al Portal de Catequistas</a>
   </div>
 </section>
@@ -1219,7 +1219,20 @@ function escaparHTML(valor) {
 
 function mostrarErrorLogin(mensaje){
   ['loginError','loginErrorMobile'].forEach(function(id){const caja=document.getElementById(id);if(caja)caja.textContent=mensaje||'';});
-  if(mensaje)reproducirBienvenida(mensaje);
+  if(mensaje){if(String(mensaje).includes('¡ALERTA! INGRESO INDEBIDO'))activarAlarmaIngresoIndebido(mensaje);else reproducirBienvenida(mensaje);}
+}
+let LDS_ALARMA_DISPOSITIVO={activa:false,ctx:null,intervalo:null,vozTimer:null,overlay:null};
+function activarAlarmaIngresoIndebido(mensaje){
+  if(LDS_ALARMA_DISPOSITIVO.activa)return;LDS_ALARMA_DISPOSITIVO.activa=true;
+  const overlay=document.createElement('div');overlay.id='ldsIngresoIndebidoAlarm';overlay.setAttribute('role','alert');overlay.setAttribute('aria-live','assertive');overlay.style.cssText='position:fixed;inset:0;z-index:1000000;background:#970000;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:22px;font:900 clamp(22px,5.5vw,48px) Arial;animation:ldsFlash .38s infinite alternate';
+  const panel=document.createElement('div');panel.style.cssText='width:min(720px,100%);border:5px solid #fff;border-radius:24px;padding:24px;background:#970000;box-shadow:0 0 35px #0008';
+  const icon=document.createElement('div');icon.textContent='🚨';icon.style.fontSize='clamp(55px,14vw,110px)';const title=document.createElement('h1');title.textContent='¡ALERTA! INGRESO INDEBIDO';title.style.cssText='margin:8px 0;font-size:1em;line-height:1.08';
+  const detail=document.createElement('p');detail.textContent=mensaje||'Este dispositivo ha sido bloqueado.';detail.style.cssText='font-size:.48em;line-height:1.35;margin:12px 0';const note=document.createElement('p');note.textContent='El acceso al cuestionario permanece BLOQUEADO.';note.style.cssText='font-size:.42em;font-weight:800;margin:10px 0';
+  const btn=document.createElement('button');btn.type='button';btn.textContent='DETENER ALARMA Y CERRAR AVISO';btn.style.cssText='margin-top:14px;padding:14px 18px;border:3px solid #fff;border-radius:14px;background:#ffdf45;color:#680000;font:900 16px Arial;cursor:pointer';panel.append(icon,title,detail,note,btn);overlay.appendChild(panel);document.body.appendChild(overlay);LDS_ALARMA_DISPOSITIVO.overlay=overlay;
+  if(!document.getElementById('ldsAlarmStyle')){const st=document.createElement('style');st.id='ldsAlarmStyle';st.textContent='@keyframes ldsFlash{from{background:#970000;filter:brightness(.85)}to{background:#f00;filter:brightness(1.25)}}';document.head.appendChild(st);}
+  try{const AC=window.AudioContext||window.webkitAudioContext;if(AC){const ctx=new AC();LDS_ALARMA_DISPOSITIVO.ctx=ctx;ctx.resume().catch(function(){});let step=0;function sirena(){if(!LDS_ALARMA_DISPOSITIVO.activa||ctx.state==='closed')return;try{const o=ctx.createOscillator(),g=ctx.createGain();o.type='sawtooth';o.frequency.setValueAtTime(step%2?1040:680,ctx.currentTime);g.gain.setValueAtTime(.0001,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.35,ctx.currentTime+.025);g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+.38);o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+.4);step++;}catch(_e){}}sirena();LDS_ALARMA_DISPOSITIVO.intervalo=setInterval(sirena,480);}}catch(_e){}
+  function decir(){if(!LDS_ALARMA_DISPOSITIVO.activa||!window.speechSynthesis)return;try{window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance('¡Alerta! Ingreso indebido. Segundo dispositivo detectado. Este equipo está bloqueado.');u.lang='es-PE';u.rate=.78;u.pitch=1.05;u.volume=1;window.speechSynthesis.speak(u);}catch(_e){}}decir();LDS_ALARMA_DISPOSITIVO.vozTimer=setInterval(decir,5000);
+  btn.addEventListener('click',function(){LDS_ALARMA_DISPOSITIVO.activa=false;if(LDS_ALARMA_DISPOSITIVO.intervalo)clearInterval(LDS_ALARMA_DISPOSITIVO.intervalo);if(LDS_ALARMA_DISPOSITIVO.vozTimer)clearInterval(LDS_ALARMA_DISPOSITIVO.vozTimer);try{if(window.speechSynthesis)window.speechSynthesis.cancel();if(LDS_ALARMA_DISPOSITIVO.ctx)LDS_ALARMA_DISPOSITIVO.ctx.close();}catch(_e){}overlay.remove();});
 }
 
 function mostrarPortalCatequizando(perfil, token, darBienvenida){
@@ -1239,7 +1252,7 @@ function mostrarPortalCatequizando(perfil, token, darBienvenida){
   }
   document.documentElement.classList.remove('auth-required');
   const saludo=document.getElementById('adventure-greeting');
-  const nombre = MODO_ADMIN_CATEQUISTA ? 'Administración de Catequesis' : ((perfil && (perfil.NOMBRE_COMPLETO || [perfil.NOMBRES,perfil.APELLIDOS].filter(Boolean).join(' '))) || 'pequeño amigo');
+  const nombre = MODO_ADMIN_CATEQUISTA ? 'Portal de Catequistas' : ((perfil && (perfil.NOMBRE_COMPLETO || [perfil.NOMBRES,perfil.APELLIDOS].filter(Boolean).join(' '))) || 'pequeño amigo');
   if(saludo)saludo.textContent = MODO_ADMIN_CATEQUISTA ? 'Vista general del Portal de Catequizandos' : '¡Hola, '+nombre+'!';
   const adminBanner=document.getElementById('adminModeBanner');
   if(adminBanner)adminBanner.style.display = MODO_ADMIN_CATEQUISTA ? 'flex' : 'none';
@@ -1247,6 +1260,7 @@ function mostrarPortalCatequizando(perfil, token, darBienvenida){
   if(nombreCampo){nombreCampo.value=nombre;nombreCampo.readOnly=true;}
   if(darBienvenida && !MODO_ADMIN_CATEQUISTA)reproducirBienvenida('¡Hola, '+nombre+'! Bienvenido al portal Camino hacia Jesús. Vamos a aprender y caminar juntos en la fe.');
   cargarDatosBackend().catch(function(error){console.error('Error al cargar los datos del catequizando:',error);reproducirBienvenida('No se pudo cargar toda la información. Verifica tu conexión e inténtalo nuevamente.');});
+  if(!MODO_ADMIN_CATEQUISTA)iniciarHeartbeatDispositivoCatequizando();
 }
 
 function normalizarNombreLogin(valor){
@@ -1311,7 +1325,11 @@ async function ingresarConPIN(event){
   }finally{if(boton)boton.disabled=false;}
 }
 
+let LDS_DEVICE_HEARTBEAT_TIMER=null;
+function iniciarHeartbeatDispositivoCatequizando(){if(LDS_DEVICE_HEARTBEAT_TIMER)return;const token=obtenerTokenCatequizando(),deviceId=obtenerDeviceIdCatequizando();if(!token)return;const ping=()=>fetch(API_URL,{method:'POST',mode:'cors',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'renovarBloqueoDispositivoCatequizando',token:token,deviceId:deviceId})}).then(r=>r.json()).then(j=>{if(j&&j.bloqueado){activarAlarmaIngresoIndebido(j.mensaje);cerrarSesionCatequizando(j.mensaje);}}).catch(()=>{});ping();LDS_DEVICE_HEARTBEAT_TIMER=setInterval(ping,45000);}
+function liberarBloqueoDispositivoCatequizando(){const token=obtenerTokenCatequizando(),deviceId=obtenerDeviceIdCatequizando();if(token)fetch(API_URL,{method:'POST',mode:'cors',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'cerrarSesionDispositivoCatequizando',token:token,deviceId:deviceId})}).catch(()=>{});if(LDS_DEVICE_HEARTBEAT_TIMER){clearInterval(LDS_DEVICE_HEARTBEAT_TIMER);LDS_DEVICE_HEARTBEAT_TIMER=null;}}
 function cerrarSesionCatequizando(mensaje){
+  liberarBloqueoDispositivoCatequizando();
   if(window.speechSynthesis)window.speechSynthesis.cancel();
   sesionCatequizando={token:'',perfil:null};
   sessionStorage.removeItem(CLAVE_TOKEN_CATEQUIZANDO);
@@ -1357,20 +1375,20 @@ async function iniciarModoAdministradoraCatequista(){
   if(!TOKEN_ADMIN_CATEQUISTA){
     const caja=document.getElementById('adminAccessError');
     const texto=document.getElementById('adminAccessErrorText');
-    if(texto)texto.textContent='Abre este módulo desde el Portal de Catequistas después de ingresar como Administradora.';
+    if(texto)texto.textContent='Abre este módulo desde el botón Catequista, después de ingresar como catequista.';
     if(caja)caja.hidden=false;
     return;
   }
   try{
     // La lista completa confirma en el servidor que el token pertenece a Lily o Kiara.
     const validacion=await apiGetJsonp('getCatequizandos',{token:TOKEN_ADMIN_CATEQUISTA});
-    if(!validacion || validacion.exito!==true)throw new Error((validacion&&validacion.mensaje)||'La sesión administrativa no está autorizada.');
-    const perfil={NOMBRES:'Administración',APELLIDOS:'Catequistas',NOMBRE_COMPLETO:'Administración de Catequesis',ADMINISTRADORA:true};
+    if(!validacion || validacion.exito!==true)throw new Error((validacion&&validacion.mensaje)||'La sesión de catequista no está autorizada.');
+    const perfil={NOMBRES:'Administración',APELLIDOS:'Catequistas',NOMBRE_COMPLETO:'Portal de Catequistas',ADMINISTRADORA:true};
     mostrarPortalCatequizando(perfil,TOKEN_ADMIN_CATEQUISTA,false);
   }catch(error){
     const caja=document.getElementById('adminAccessError');
     const texto=document.getElementById('adminAccessErrorText');
-    if(texto)texto.textContent=(error&&error.message)||'Vuelve al Portal de Catequistas e ingresa como Administradora.';
+    if(texto)texto.textContent=(error&&error.message)||'Vuelve al Portal de Catequistas e ingresa como catequista.';
     if(caja)caja.hidden=false;
   }
 }
@@ -1395,6 +1413,9 @@ function mostrarEstadoPortal(mensaje, tipo) {
 }
 
 const CLAVE_TOKEN_CATEQUIZANDO = 'LDS_CATEQUIZANDO_TOKEN';
+const CLAVE_DEVICE_CATEQUIZANDO='LDS_CATEQUIZANDO_DEVICE_ID';
+function obtenerDeviceIdCatequizando(){let id=localStorage.getItem(CLAVE_DEVICE_CATEQUIZANDO)||'';if(!id){id='LDS-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2)+'-'+Math.random().toString(36).slice(2);localStorage.setItem(CLAVE_DEVICE_CATEQUIZANDO,id);}return id;}
+function detectarTipoDispositivoCatequizando(){const ua=String(navigator.userAgent||'').toLowerCase();if(/ipad|tablet|playbook|silk/.test(ua)||(/android/.test(ua)&&!/mobile/.test(ua)))return 'TABLET';if(/iphone|ipod|android.*mobile|windows phone|mobile/.test(ua))return 'CELULAR';return 'COMPUTADORA';}
 const CLAVE_PERFIL_CATEQUIZANDO = 'LDS_CATEQUIZANDO_PERFIL';
 let sesionCatequizando = {token:'', perfil:null};
 
@@ -1411,7 +1432,7 @@ function obtenerTokenCatequizando(){
  */
 async function validarPINEnGoogleSheets(pin,idNino){
   let ultimoError=null;
-  const payload=JSON.stringify({action:'validarLoginCatequizando',pin:String(pin),idNino:String(idNino||'')});
+  const payload=JSON.stringify({action:'validarLoginCatequizando',pin:String(pin),idNino:String(idNino||''),deviceId:obtenerDeviceIdCatequizando(),deviceType:detectarTipoDispositivoCatequizando()});
   for(let intento=1;intento<=3;intento++){
     try{
       const respuesta=await fetch(API_URL,{method:'POST',mode:'cors',redirect:'follow',cache:'no-store',headers:{'Content-Type':'text/plain;charset=utf-8'},body:payload});
@@ -1432,7 +1453,7 @@ async function validarPINEnGoogleSheets(pin,idNino){
 }
 
 async function apiPost(datos){
-  if (MODO_ADMIN_CATEQUISTA) throw new Error('La vista administrativa es de consulta; las operaciones individuales se realizan desde el acceso propio del catequizando.');
+  if (MODO_ADMIN_CATEQUISTA) throw new Error('La vista de catequista es de consulta; las operaciones individuales se realizan desde el acceso propio del catequizando.');
   const respuesta = await fetch(API_URL, {
     method:'POST', mode:'cors', redirect:'follow',
     headers:{'Content-Type':'text/plain;charset=utf-8'},
@@ -1474,13 +1495,13 @@ async function apiGet(accion, parametros) {
   const datos = Object.assign({}, parametros || {});
   const rutasProtegidas = ['getCatequizandos','getAsistenciaNotas','getTareas','getAvisos','getCuestionario'];
   if (MODO_ADMIN_CATEQUISTA && rutasProtegidas.includes(accion)) {
-    if (!TOKEN_ADMIN_CATEQUISTA) throw new Error('Inicia sesión como administradora desde el Portal de Catequistas.');
+    if (!TOKEN_ADMIN_CATEQUISTA) throw new Error('Inicia sesión como catequista desde el botón Catequista.');
     // No existen endpoints paralelos *_Admin: el panel central conserva
     // las acciones estándar y el GS autoriza según el token de Catequistas.
     datos.token = TOKEN_ADMIN_CATEQUISTA;
     const respuestaAdmin = await apiGetJsonp(accion, datos);
     if (!respuestaAdmin || respuestaAdmin.authRequired || respuestaAdmin.exito !== true) {
-      throw new Error((respuestaAdmin && respuestaAdmin.mensaje) || 'La sesión de Administradora venció. Vuelve al Portal de Catequistas.');
+      throw new Error((respuestaAdmin && respuestaAdmin.mensaje) || 'La sesión de catequista venció. Vuelve al Portal de Catequistas.');
     }
     return respuestaAdmin;
   }
@@ -1497,9 +1518,9 @@ async function apiGet(accion, parametros) {
     if (MODO_ADMIN_CATEQUISTA) {
       const caja=document.getElementById('adminAccessError');
       const texto=document.getElementById('adminAccessErrorText');
-      if(texto)texto.textContent='La sesión administrativa venció. Vuelve al Portal de Catequistas e ingresa nuevamente como Administradora.';
+      if(texto)texto.textContent='La sesión de catequista venció. Vuelve al Portal de Catequistas e ingresa nuevamente como catequista.';
       if(caja)caja.hidden=false;
-      throw new Error('Sesión administrativa vencida.');
+      throw new Error('Sesión de catequista vencida.');
     }
     cerrarSesionCatequizando('Tu sesión terminó. Ingresa nuevamente con tu PIN.');
     throw new Error('Sesión vencida.');
@@ -1747,7 +1768,7 @@ function abrirBloque(indice) {
 /** Abre el cuestionario individual del tema seleccionado. Los datos y las notas vienen de Google Sheets. */
 function abrirCuestionarioTema(idSesion, ventanaExistente) {
   if (MODO_ADMIN_CATEQUISTA) {
-    alert('Estás en la vista general de Administradora. Los cuestionarios individuales se responden desde el acceso personal de cada catequizando.');
+    alert('Estás en la vista de catequista. Los cuestionarios individuales se responden desde el acceso personal de cada catequizando.');
     return;
   }
   const tema = buscarTemaPortalPorId(idSesion);
@@ -1765,7 +1786,7 @@ function abrirCuestionarioTema(idSesion, ventanaExistente) {
   }
   if (!ventana) ventana = window.open('', '_blank');
   if (!ventana) { reproducirBienvenida('No se pudo abrir el cuestionario. Vuelve a abrir el bloque e inténtalo otra vez.'); return; }
-  const cfg = JSON.stringify({api:API_URL,idSesion:String(idSesion),tema:String(tema.tema || ''),idNino:String(perfil.ID_NINO),nombre:String(perfil.NOMBRE_COMPLETO || [perfil.NOMBRES,perfil.APELLIDOS].filter(Boolean).join(' ')),token:token});
+  const cfg = JSON.stringify({api:API_URL,idSesion:String(idSesion),tema:String(tema.tema || ''),idNino:String(perfil.ID_NINO),nombre:String(perfil.NOMBRE_COMPLETO || [perfil.NOMBRES,perfil.APELLIDOS].filter(Boolean).join(' ')),token:token,deviceId:obtenerDeviceIdCatequizando(),deviceType:detectarTipoDispositivoCatequizando()});
   ventana.document.open();
   ventana.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cuestionario · ${escaparHTML(tema.tema || '')}</title><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"><style>
   *{box-sizing:border-box}body{margin:0;background:#f2f6fb;color:#193453;font:15px Nunito,Arial,sans-serif}.quiz-wrap{max-width:760px;margin:24px auto;padding:16px}.quiz-top-actions{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px}.quiz-nav-btn{border:1px solid #cbd9e8;border-radius:12px;padding:10px 14px;background:#fff;color:#17385f;font:900 13px Nunito;cursor:pointer;box-shadow:0 3px 10px #12345a10}.quiz-nav-btn.save{background:#fff3d5;border-color:#e7c66a;color:#805600}.quiz-head{background:linear-gradient(135deg,#12345a,#245d89);color:#fff;border-radius:22px;padding:24px;box-shadow:0 8px 24px #12345a20}.quiz-kicker{font-size:12px;color:#ffe19a;font-weight:900;letter-spacing:.08em}.quiz-head h1{font:700 25px Fredoka,sans-serif;margin:7px 0}.quiz-head p{margin:0;color:#e4effa}.quiz-card{background:#fff;border:1px solid #dce7f2;border-radius:20px;padding:22px;margin-top:16px;box-shadow:0 5px 18px #12345a0c}.quiz-label{font-size:12px;color:#52708e;font-weight:900}.quiz-btn{border:0;border-radius:13px;padding:13px 18px;background:#f3c95b;color:#183653;font:900 15px Nunito;cursor:pointer}.quiz-btn:disabled{opacity:.5;cursor:not-allowed}.quiz-progress{height:9px;background:#e8eef5;border-radius:20px;overflow:hidden;margin:10px 0 18px}.quiz-progress span{display:block;height:100%;background:linear-gradient(90deg,#6bb6d9,#e9bf50);width:0;transition:width .2s}.quiz-question{font:700 21px Fredoka,sans-serif;line-height:1.35;margin:10px 0 18px}.quiz-option{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:13px;margin:9px 0;border:1.5px solid #dbe6f0;border-radius:14px;background:#f9fbfe;color:#24415e;font:800 14px Nunito;cursor:pointer}.quiz-option.selected{border-color:#4e9acb;background:#eaf5ff;box-shadow:0 0 0 3px #dceefa}.quiz-option b{display:grid;place-items:center;flex:0 0 30px;height:30px;border-radius:10px;background:#e5eef7;color:#24547a}.quiz-actions{display:flex;justify-content:space-between;gap:10px;margin-top:18px}.quiz-status{font-size:13px;font-weight:800;color:#627991;margin-top:12px}.quiz-result{text-align:center;padding:30px}.quiz-score{font:700 54px Fredoka;color:#1d6590;margin:12px}.quiz-symbol{font-size:42px}.quiz-note{background:#f4f8fc;border-radius:12px;padding:12px;color:#4d6680;font-weight:700;margin:15px 0}.quiz-alert{background:#fff0f0;border:2px solid #d92d20;border-radius:14px;padding:13px;margin:12px 0;color:#a32119;font-weight:900;line-height:1.45;animation:quizPulse .9s ease-in-out 2}.quiz-alert.info{background:#fff8e5;border-color:#d69e22;color:#795400}.quiz-alert.success{background:#ecfdf3;border-color:#16a34a;color:#166534}@keyframes quizPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.015)}}@media(max-width:560px){.quiz-wrap{margin:0 auto;padding:12px}.quiz-head{padding:19px}.quiz-card{padding:17px}.quiz-question{font-size:19px}}
@@ -1775,6 +1796,14 @@ function abrirCuestionarioTema(idSesion, ventanaExistente) {
   let preguntaActual=null,numeroPregunta=1,totalPreguntas=0,respuestaSeleccionada='',enviando=false,salidaAutorizada=false,ultimoAviso='';
   const app=document.getElementById('quizApp');
   function hablar(texto){if(!('speechSynthesis'in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(texto);u.lang='es-PE';u.rate=.9;window.speechSynthesis.speak(u);}
+  let alarmaIngresoIndebidoActiva=false,alarmaQuizCtx=null,alarmaQuizTimer=null,alarmaQuizSpeechTimer=null;
+  function alarmaIngresoIndebido(mensaje){if(alarmaIngresoIndebidoActiva)return;alarmaIngresoIndebidoActiva=true;app.innerHTML='<div class="quiz-result" style="position:fixed;inset:0;z-index:999999;background:#970000;color:#fff;border-radius:0;padding:18px;display:flex;flex-direction:column;justify-content:center;align-items:center;animation:quizPulse .4s infinite alternate"><div style="font-size:clamp(60px,14vw,110px)">🚨</div><h1 style="font-size:clamp(24px,6vw,42px);line-height:1.1">¡ALERTA! INGRESO INDEBIDO</h1><p style="font-size:clamp(16px,4vw,22px)">'+esc(mensaje||'Este dispositivo ha sido bloqueado.')+'</p><p style="font-weight:900">EL CUESTIONARIO PERMANECE BLOQUEADO</p><button id="detenerAlarmaQuiz" class="quiz-btn" style="background:#ffe145;color:#700000;border:3px solid #fff">DETENER ALARMA Y CERRAR AVISO</button></div>';
+    function sonar(){if(!alarmaIngresoIndebidoActiva||!alarmaQuizCtx||alarmaQuizCtx.state==='closed')return;try{const o=alarmaQuizCtx.createOscillator(),g=alarmaQuizCtx.createGain();o.type='sawtooth';o.frequency.value=Date.now()%2?1020:680;g.gain.setValueAtTime(.0001,alarmaQuizCtx.currentTime);g.gain.exponentialRampToValueAtTime(.34,alarmaQuizCtx.currentTime+.03);g.gain.exponentialRampToValueAtTime(.0001,alarmaQuizCtx.currentTime+.38);o.connect(g);g.connect(alarmaQuizCtx.destination);o.start();o.stop(alarmaQuizCtx.currentTime+.4);}catch(_e){}}
+    function hablarAlerta(){if(!alarmaIngresoIndebidoActiva||!window.speechSynthesis)return;try{window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance('¡Alerta! Ingreso indebido. Segundo dispositivo detectado. Este equipo está bloqueado.');u.lang='es-PE';u.rate=.78;u.volume=1;window.speechSynthesis.speak(u);}catch(_e){}}
+    try{const AC=window.AudioContext||window.webkitAudioContext;if(AC){alarmaQuizCtx=new AC();alarmaQuizCtx.resume().catch(function(){});sonar();alarmaQuizTimer=setInterval(sonar,480);}}catch(_e){}hablarAlerta();alarmaQuizSpeechTimer=setInterval(hablarAlerta,5000);
+    document.getElementById('detenerAlarmaQuiz').addEventListener('click',function(){alarmaIngresoIndebidoActiva=false;clearInterval(alarmaQuizTimer);clearInterval(alarmaQuizSpeechTimer);try{window.speechSynthesis.cancel();if(alarmaQuizCtx)alarmaQuizCtx.close();}catch(_e){}app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">🔒</div><h2>Dispositivo bloqueado</h2><p>El intento de ingreso indebido fue registrado. No puedes continuar desde este dispositivo.</p></div>';});
+  }
+
   function alarma(mensaje,tipo){
     ultimoAviso=mensaje;
     const caja=document.getElementById('quizAlerta');
@@ -1795,18 +1824,19 @@ function abrirCuestionarioTema(idSesion, ventanaExistente) {
   window.addEventListener('beforeunload',function(){if(!salidaAutorizada&&preguntaActual&&!respuestaSeleccionada&&window.speechSynthesis)window.speechSynthesis.cancel();});
   function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
   async function post(datos){
-    const r=await fetch(CFG.api,{method:'POST',mode:'cors',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(datos)});
+    const r=await fetch(CFG.api,{method:'POST',mode:'cors',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(Object.assign({},datos,{deviceId:CFG.deviceId,deviceType:CFG.deviceType}))});
     if(!r.ok)throw new Error('Error del servidor: '+r.status);
     return r.json();
   }
   async function iniciar(){
     try{
+      const lock=await post({action:'validarDispositivoCuestionario',token:CFG.token,deviceId:CFG.deviceId});if(lock&&lock.bloqueado){alarmaIngresoIndebido(lock.mensaje);return;}
       const j=await post({action:'obtenerCuestionarioCatequizando',idSesion:CFG.idSesion,token:CFG.token});
       if(!j.exito)throw new Error(j.mensaje||'No se pudo cargar el cuestionario.');
       if(j.completadoTema){mostrarCompletado();return;}
       if(j.sinPreguntas){app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">📖</div><h2>Este tema aún no tiene preguntas</h2><p>'+esc(j.mensaje||'No se ha asignado un cuestionario.')+'</p></div>';return;}
       preguntaActual=j.pregunta;numeroPregunta=Number(j.numeroPregunta||1);totalPreguntas=Number(j.totalPreguntas||0);respuestaSeleccionada='';mostrarPregunta();
-    }catch(e){app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">⚠️</div><h2>No se pudo abrir el cuestionario</h2><p>'+esc(e.message)+'</p><button class="quiz-btn" id="reintentar">Intentar nuevamente</button></div>';document.getElementById('reintentar').addEventListener('click',iniciar);hablar(e.message);}
+    }catch(e){if(String(e.message||'').includes('¡ALERTA! INGRESO INDEBIDO')){alarmaIngresoIndebido(e.message);return;}app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">⚠️</div><h2>No se pudo abrir el cuestionario</h2><p>'+esc(e.message)+'</p><button class="quiz-btn" id="reintentar">Intentar nuevamente</button></div>';document.getElementById('reintentar').addEventListener('click',iniciar);hablar(e.message);}
   }
   function mostrarPregunta(alertaInicial){
     if(!preguntaActual)return;
@@ -1855,6 +1885,7 @@ function abrirCuestionarioTema(idSesion, ventanaExistente) {
     document.getElementById('cerrarFinal').addEventListener('click',function(){salidaAutorizada=true;try{if(window.opener&&typeof window.opener.actualizarAprendizajeDesdeCuestionario==='function')window.opener.actualizarAprendizajeDesdeCuestionario();}catch(_e){}window.close();});
   }
   iniciar();
+  setInterval(function(){post({action:'renovarBloqueoDispositivoCatequizando',token:CFG.token,deviceId:CFG.deviceId}).then(function(j){if(j&&j.bloqueado)alarmaIngresoIndebido(j.mensaje);}).catch(function(e){if(String(e.message||'').includes('¡ALERTA! INGRESO INDEBIDO'))alarmaIngresoIndebido(e.message);});},45000);
   <\/script></body></html>`);
   ventana.document.close();
   try { ventana.focus(); } catch (error) {}
@@ -2263,7 +2294,7 @@ function actualizarCuentaRegresiva() {
 
 async function enviarMensajeCatequista() {
   if (MODO_ADMIN_CATEQUISTA) {
-    alert('La vista administrativa permite consultar la plataforma. Los mensajes deben enviarse desde la sesión individual del catequizando.');
+    alert('La vista de catequista permite consultar la plataforma. Los mensajes deben enviarse desde la sesión individual del catequizando.');
     return;
   }
   const nombre = document.getElementById('input-alum-nombre').value.trim();
@@ -2328,7 +2359,7 @@ window.addEventListener('DOMContentLoaded', function() {
   const actualizar=document.getElementById('btnActualizar');if(actualizar)actualizar.addEventListener('click',async function(){const b=this;b.disabled=true;try{await cargarDatosBackend();}catch(e){reproducirBienvenida('No se pudieron actualizar tus datos.');}finally{b.disabled=false;}});
   const mensaje=document.getElementById('btn-add-alum');if(mensaje)mensaje.addEventListener('click',enviarMensajeCatequista);
   const mute=document.getElementById('mute-toggle');if(mute)mute.addEventListener('click',function(){vozSilenciada=!vozSilenciada;mute.textContent=vozSilenciada?'🔇 Activar':'🔊 Silenciar';mute.setAttribute('aria-pressed',vozSilenciada?'true':'false');if(vozSilenciada&&window.speechSynthesis)window.speechSynthesis.cancel();});
-  const home=document.querySelector('.top-actions a.home');if(home)home.addEventListener('click',function(){sessionStorage.removeItem(CLAVE_TOKEN_CATEQUIZANDO);sessionStorage.removeItem(CLAVE_PERFIL_CATEQUIZANDO);});
+  const home=document.querySelector('.top-actions a.home');if(home)home.addEventListener('click',function(){liberarBloqueoDispositivoCatequizando();sessionStorage.removeItem(CLAVE_TOKEN_CATEQUIZANDO);sessionStorage.removeItem(CLAVE_PERFIL_CATEQUIZANDO);});
   const parametrosIngreso=new URLSearchParams(window.location.search);
   if(parametrosIngreso.get('ingreso')==='pin'){
     document.documentElement.classList.add('auth-required');
