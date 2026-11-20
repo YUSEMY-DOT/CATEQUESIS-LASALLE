@@ -2632,42 +2632,46 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
   quizCancelarVozV6(false);
   body.innerHTML = preguntaPrecargada ? '' : '<p style="font-weight:700;text-align:center;padding:12px;">🌟 Preparando la primera pregunta...</p>';
   try {
-    // Usa JSONP porque este portal ya consulta getSesiones por JSONP desde GitHub Pages.
-    // No depende del CORS de fetch POST ni detiene el juego por una respuesta vacía.
-    if (!quizVersionV5Verificada) {
+    // Verifica la versión y solicita la primera pregunta en paralelo.
+    // Así no se espera una consulta de red antes de iniciar la otra.
+    const solicitudVersion = (async () => {
+      if (quizVersionV5Verificada) return true;
       const claveVersionLocalV9 = 'lds_quiz_version_cache_v9';
       const versionesCompatibles = [
         'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V8-VIDEOS-GESTION-MISES',
         'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V9-RENDIMIENTO-LIMA'
       ];
-      // Evita consultar la versión del servidor en cada apertura durante diez minutos.
       try {
         const cacheVersion = JSON.parse(localStorage.getItem(claveVersionLocalV9) || 'null');
         if (cacheVersion && versionesCompatibles.includes(cacheVersion.version) && Date.now() - Number(cacheVersion.fecha || 0) < 600000) {
           quizVersionV5Verificada = true;
+          return true;
         }
       } catch (e) {}
-      if (!quizVersionV5Verificada) {
-        const versionData = await solicitarJSONP(`${API_URL}?action=verificarVersionCuestionarios`);
-        if (!versionData || !versionData.exito || !versionesCompatibles.includes(versionData.version)) {
-          const detalle = versionData && (versionData.version || versionData.mensaje)
-            ? String(versionData.version || versionData.mensaje)
-            : 'El endpoint no devolvió una versión identificable.';
-          body.innerHTML = `<div style="padding:16px;border-radius:12px;background:#fff1f0;color:#922b21"><strong>⚠️ El servidor no corresponde a una versión compatible del juego.</strong><p>Respuesta: ${escapeQuizHtml(detalle)}</p></div>`;
-          return;
-        }
-        quizVersionV5Verificada = true;
-        try { localStorage.setItem(claveVersionLocalV9, JSON.stringify({version:versionData.version,fecha:Date.now()})); } catch (e) {}
+      const versionData = await solicitarJSONP(`${API_URL}?action=verificarVersionCuestionarios`);
+      if (!versionData || !versionData.exito || !versionesCompatibles.includes(versionData.version)) {
+        const detalle = versionData && (versionData.version || versionData.mensaje)
+          ? String(versionData.version || versionData.mensaje)
+          : 'El endpoint no devolvió una versión identificable.';
+        throw new Error('El servidor no corresponde a una versión compatible del juego. ' + detalle);
       }
-    }
+      quizVersionV5Verificada = true;
+      try { localStorage.setItem(claveVersionLocalV9, JSON.stringify({version:versionData.version,fecha:Date.now()})); } catch (e) {}
+      return true;
+    })();
 
-    const data = preguntaPrecargada
-      ? { exito: true, pregunta: preguntaPrecargada, porcentajeBloque: progresoPrecargado, completadoTema: false, completadoBloque: false }
-      : await fetch(API_URL, {
+    const solicitudPregunta = preguntaPrecargada
+      ? Promise.resolve({ exito: true, pregunta: preguntaPrecargada, porcentajeBloque: progresoPrecargado, completadoTema: false, completadoBloque: false })
+      : fetch(API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify({ action: 'obtenerCuestionarioCatequizando', idSesion: idSesion, token: token })
-        }).then(r => r.json());
+        }).then(response => {
+          if (!response.ok) throw new Error('El servidor respondió con estado ' + response.status + '.');
+          return response.json();
+        });
+
+    const [, data] = await Promise.all([solicitudVersion, solicitudPregunta]);
     if (!data || !data.exito) throw new Error(data && data.mensaje ? data.mensaje : 'No se pudo cargar la pregunta.');
 
     const progreso = Math.max(0, Math.min(100, Number(data.porcentajeBloque || 0)));
