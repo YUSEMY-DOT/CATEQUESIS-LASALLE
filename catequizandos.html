@@ -1011,46 +1011,306 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
   .login-mobile-motto { width: calc(100% + 32px); margin-top: auto; padding: 17px 12px; border-top: 6px solid #dfb326; background: #10254e; color: #fff; text-align: center; font: 900 12px/1.4 Arial, sans-serif; }
 }
 
-/* Tareas y alertas: estilos acotados al panel existente del portal. */
-.tasks-panel { margin: 24px 0 10px; padding: 20px; border: 1px solid #e5d8bf; border-radius: 18px; background: #fffaf0; }
-.tasks-panel-head { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:12px; }
-.tasks-panel-head h3 { margin:0; color:#12345a; font:700 21px 'Fredoka',sans-serif; }
-.tasks-summary { color:#52677f; font-weight:900; }
-.tasks-reminder { margin:10px 0 16px; padding:12px 15px; border-radius:12px; border:1px solid #efaaaa; background:#fff0f0; color:#9b1c1c; font-weight:900; }
-.tasks-reminder[hidden] { display:none !important; }
-.tasks-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
-.task-item { min-width:0; padding:15px; border:2px solid #ef4444; border-left-width:7px; border-radius:14px; background:#fff0f0; }
-.task-item.status-reprogramada { border-color:#a855f7; background:#faf0ff; }
-.task-item.status-entregada { border-color:#22a06b; background:#effff5; }
-.task-item.status-cerrada { border-color:#c7cdd4; background:#f4f6f8; }
-.task-item.status-sin-fecha { border-color:#e5b75c; background:#fffaf0; }
-.task-item h4 { margin:0 0 7px; color:#12345a; font:700 17px 'Fredoka',sans-serif; }
-.task-item p { margin:6px 0; color:#344b65; font-size:13px; }
-.task-state { display:inline-flex; align-items:center; gap:6px; padding:5px 10px; border-radius:99px; background:#ffd6d6; color:#a31111; font-size:12px; font-weight:900; }
-.status-reprogramada .task-state { background:#e8cfff; color:#5b168f; }
-.status-entregada .task-state { background:#c9f3d8; color:#075d35; }
-.status-cerrada .task-state { background:#e4e7eb; color:#4b5563; }
-.status-sin-fecha .task-state { background:#fff0c2; color:#805400; }
-.task-reprogram-pill { display:inline-flex; align-items:center; margin:4px 0 8px; padding:5px 10px; border:1px solid #a855f7; border-radius:999px; background:#ead5ff; color:#581c87; font-size:12px; font-weight:1000; }
-.task-dates { display:flex; flex-wrap:wrap; gap:7px 14px; margin:10px 0; font-size:12px; font-weight:800; color:#52677f; }
-.task-upload-row { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:10px; }
-.task-upload-row input[type=file] { max-width:100%; font-size:12px; }
-.task-upload-row button { padding:8px 13px; border-radius:9px; background:#12345a; color:white; font-weight:900; }
-.task-upload-row button:disabled { opacity:.55; cursor:wait; }
-.task-upload-status { min-height:18px; margin-top:6px; color:#52677f; font-size:12px; font-weight:800; }
-.task-evidence-link { display:inline-block; margin-top:7px; color:#17643b; font-weight:900; text-decoration:underline; }
-.quiz-question-card { margin:12px 0; padding:16px; border:1px solid #e5eaf0; border-radius:14px; background:#fff; }
-.quiz-option { display:block; margin:9px 0; padding:11px; border:1px solid #dce5ef; border-radius:10px; background:#f7f9fc; cursor:pointer; }
-.quiz-option.correct { border:2px solid #2b9d58; background:#e1f6e8; color:#155e32; }
-.quiz-option.incorrect { border:2px solid #d43b3b; background:#fde5e5; color:#8f1f1f; }
-.security-alert-backdrop { position:fixed; inset:0; z-index:200000; display:flex; align-items:center; justify-content:center; padding:18px; background:rgba(95,0,0,.94); }
-.security-alert-backdrop[hidden] { display:none !important; }
-.security-alert-card { width:min(100%,560px); padding:26px; border:5px solid #fff; border-radius:22px; background:#fff; text-align:center; box-shadow:0 0 0 8px #ff000055,0 20px 60px #0008; animation:securityPulse .65s infinite alternate; }
-.security-alert-card h2 { margin:0 0 10px; color:#a40000; font:900 clamp(24px,5vw,36px) 'Fredoka',sans-serif; }
-.security-alert-card p { color:#461111; font-weight:900; }
-.security-alert-card button { margin-top:12px; padding:12px 20px; border-radius:11px; background:#a40000; color:#fff; font-weight:900; }
-@keyframes securityPulse { from { transform:scale(1); } to { transform:scale(1.025); } }
-@media(max-width:700px) { .tasks-list { grid-template-columns:1fr; } .tasks-panel { padding:14px; } }
+/* V6 — cabecera organizada */
+header{padding:22px clamp(18px,3.6vw,44px) 30px}
+.topbar{justify-content:flex-start;margin-bottom:10px}
+.brand{min-width:0}
+.crest{width:78px;height:78px;flex:0 0 78px}
+.hero{grid-template-columns:minmax(0,1.08fr) minmax(390px,.92fr);align-items:start;gap:28px}
+.hero-copy{min-width:0;padding-top:12px}
+.hero-copy p{max-width:680px}
+.hero-copy .top-actions{margin-top:18px;justify-content:flex-start;gap:9px}
+.top-actions{width:auto;display:flex;flex-wrap:wrap;align-items:center}
+.top-actions .btn-action{min-height:39px;padding:9px 14px;justify-content:center;white-space:nowrap}
+.hero-right{width:100%;justify-content:flex-end;align-items:flex-start}
+.countdown{width:100%;max-width:560px;padding:20px 22px;border-radius:20px}
+.countdown-main-title{margin-bottom:12px}
+.countdown-main-title b{font-size:clamp(17px,1.7vw,22px)}
+.timer{gap:9px}.timebox{min-height:66px;justify-content:center}
+@media(max-width:1024px){.hero{grid-template-columns:1fr;gap:18px}.hero-copy{padding-top:4px}.hero-right{justify-content:flex-start}.countdown{max-width:none}}
+@media(max-width:600px){
+ header{padding:18px 15px 22px}.topbar{margin-bottom:8px}.brand{gap:11px}.crest{width:58px;height:58px;flex-basis:58px}
+ .brand-text h2{font-size:16px}.brand-text small{font-size:9px;letter-spacing:.35px}
+ .hero-copy h1{font-size:clamp(27px,8vw,36px)}.hero-copy .top-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;margin-top:16px;gap:8px}
+ .top-actions .btn-action{width:100%;min-width:0;font-size:12px;padding:9px 7px}.countdown{padding:17px 14px}
+ .countdown-subdetail,.countdown-note{font-size:10px}
+}
+/* V6 — tarjeta privada de seguimiento */
+.post-calendar-section{margin-top:42px;padding-top:32px}
+.followup-heading{margin-bottom:7px!important}
+.followup-intro{margin:0 0 18px;color:var(--muted);font-size:14px;font-weight:700}
+.students-grid{display:block;margin:0 0 26px}
+.followup-loading,.followup-error{padding:18px;border-radius:16px;background:#fff;border:1px dashed #d9cba9;color:#52677f;font-weight:800}
+.followup-panel{background:#fff;border:1px solid #e5d5b8;border-radius:22px;padding:20px;box-shadow:0 7px 22px rgba(18,52,90,.06)}
+.followup-panel-head{display:flex;align-items:center;gap:14px;padding-bottom:16px;border-bottom:1px solid #f0e6d2}
+.followup-avatar{width:58px;height:58px;flex:0 0 58px;border:2px solid #f0c95c;border-radius:50%;object-fit:cover;background:#fff7dc}
+.followup-name{min-width:0;flex:1}.followup-name h3{margin:0;font:700 19px 'Fredoka',sans-serif;color:#12345a}
+.followup-name p{margin:2px 0 0;color:#65768b;font-size:12px;font-weight:800}
+.followup-synced{background:#eefaf2;color:#17663a;border:1px solid #c7e8d0;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:900;white-space:nowrap}
+.followup-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:16px}
+.followup-metric{min-width:0;background:#fffcf6;border:1px solid #efdfbf;border-radius:16px;padding:15px}
+.followup-metric h4{margin:0 0 8px;color:#6b7788;font:900 11px 'Nunito',sans-serif;text-transform:uppercase;letter-spacing:.7px}
+.followup-metric strong{display:block;color:#12345a;font:700 28px/1.1 'Fredoka',sans-serif}
+.followup-metric p{margin:7px 0 0;color:#64758b;font-size:11px;font-weight:800}
+.followup-mini-track{height:8px;border-radius:99px;background:#e8edf2;overflow:hidden;margin-top:10px}
+.followup-mini-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#25a56b,#8ccf57);transition:width .35s ease}
+.followup-lower{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:14px;margin-top:15px}
+.followup-subpanel{min-width:0;border:1px solid #e8dfce;background:#fff;border-radius:16px;padding:15px}
+.followup-subpanel h4{margin:0 0 11px;font:700 16px 'Fredoka',sans-serif;color:#12345a}
+.followup-task-list{display:grid;gap:8px}
+.followup-task{padding:10px 11px;background:#fffaf0;border:1px solid #f0e2c5;border-radius:11px}
+.followup-task b{display:block;color:#193453;font-size:13px}.followup-task p{margin:3px 0;color:#607086;font-size:11px;line-height:1.45}
+.followup-task small{color:#8a6419;font-weight:900;font-size:10px}
+.followup-empty{color:#718095;background:#f7f9fc;border:1px dashed #d5deea;border-radius:11px;padding:12px;font-size:12px;font-weight:800}
+.followup-blocks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px}
+.followup-block{min-width:0}.followup-block-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:5px}
+.followup-block-head span{color:#334b67;font-size:11px;font-weight:900;line-height:1.25}
+.followup-block-head b{color:#12345a;font:700 13px 'Fredoka',sans-serif;white-space:nowrap}
+.followup-block .followup-mini-track{margin-top:0;height:7px}
+.followup-footnote{margin:12px 0 0;color:#7a8797;font-size:10px;font-weight:700}
+@media(max-width:760px){.followup-metrics{grid-template-columns:1fr}.followup-lower{grid-template-columns:1fr}.followup-blocks{grid-template-columns:1fr}.followup-synced{display:none}.followup-panel{padding:14px}}
+/* V6 — panel único de comunicaciones */
+.communications-panel{background:#fff;border:1px solid #e5d5b8;border-radius:22px;padding:20px;box-shadow:0 7px 22px rgba(18,52,90,.06)}
+.communications-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-bottom:14px;border-bottom:1px solid #f0e6d2;margin-bottom:14px}
+.communications-heading h3{margin:0;color:#12345a;font:700 22px 'Fredoka',sans-serif}
+.communications-tag{border-radius:999px;background:#fff4d1;color:#8c5c00;padding:6px 11px;font-size:10px;font-weight:900;white-space:nowrap}
+.communications-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.communication-column{min-width:0;padding:14px;background:#fffcf7;border:1px solid #eee2cc;border-radius:16px;display:flex;flex-direction:column;gap:10px}
+.communication-column h4{color:#12345a;font:700 16px 'Fredoka',sans-serif;margin:0}
+.communication-column .dynamic-items-container{max-height:280px;overflow-y:auto}.communication-column .notice-item{overflow-wrap:anywhere}
+.notice-empty{border:1px dashed #d8dfeb;border-radius:11px;background:#f8fafc;color:#68788d;padding:12px;font-size:12px;font-weight:800}
+.communication-help{margin:-3px 0 0;font-size:11px;color:#69798e;font-weight:700}
+.communication-column .interactive-form{gap:7px}.communication-column .interactive-form label{color:#435a75;font-size:11px;font-weight:900;margin-top:2px}
+.communication-column .interactive-form input,.communication-column .interactive-form textarea,.communication-column .interactive-form select{font-size:12px;padding:9px 11px;background:#fff}
+.communication-column .btn-docente-submit{align-self:stretch;min-height:38px}
+.message-status{min-height:18px;font-size:11px;line-height:1.4;font-weight:900;color:#12345a}
+@media(max-width:900px){.communications-grid{grid-template-columns:1fr 1fr}.communication-form-column{grid-column:1/-1}}
+@media(max-width:600px){.communications-panel{padding:14px}.communications-grid{grid-template-columns:1fr}.communication-form-column{grid-column:auto}.communications-heading{align-items:flex-start}.communications-heading h3{font-size:19px}.communications-tag{display:none}}
+
+
+/* V7 — velocidad: diseño liviano con CSS y recursos institucionales existentes */
+.portal-sync-status{margin:-9px 0 20px;padding:8px 12px;border-radius:10px;background:#eef6ff;border:1px solid #d5e6f8;color:#285d89;font-size:11px;font-weight:800}
+.portal-sync-status.sync-ok{background:#effaf2;border-color:#cfead5;color:#22633b}
+.portal-sync-status.sync-warning{background:#fff6e8;border-color:#f0d8a9;color:#8b5a0b}
+.portal-sync-status.sync-error{background:#fff1f1;border-color:#efc5c5;color:#a52828}
+
+/* Cuenta regresiva elevada y cabecera más compacta sin cambiar el contenido */
+header{padding-top:14px;padding-bottom:12px}
+.topbar{margin-bottom:4px}
+.hero{margin-top:-7px;align-items:start;gap:20px}
+.hero-copy{padding-top:12px}
+.hero-right{transform:translateY(-30px);margin-bottom:-25px;align-items:flex-start}
+.countdown{max-width:535px;padding:10px 16px 9px;border-radius:17px}
+.countdown-main-title{margin-bottom:6px}
+.countdown-main-title small{font-size:9px;letter-spacing:.65px}
+.countdown-main-title b{font-size:18px;margin-top:0}
+.countdown-subdetail{font-size:10px;margin-top:2px}
+.timer{gap:7px}
+.timebox{min-height:48px;padding:6px 5px;border-radius:9px}
+.timebox b{font-size:18px}
+.timebox span{font-size:9px;margin-top:2px}
+.countdown-note{font-size:10px;line-height:1.28;margin-top:6px;padding-top:6px}
+@media(max-width:1024px){
+  header{padding-bottom:16px}
+  .hero{margin-top:0;gap:10px}
+  .hero-copy{padding-top:0}
+  .hero-right{transform:none;margin-bottom:0;justify-content:flex-start}
+  .countdown{max-width:none}
+}
+@media(max-width:600px){
+  header{padding-top:13px;padding-bottom:15px}
+  .hero-right{transform:none}
+  .countdown{padding:10px 11px 8px}
+  .countdown-main-title b{font-size:16px}
+  .countdown-note{font-size:9px}
+}
+
+/* Tarjetas con colores claros por tipo de seguimiento */
+.followup-metric{position:relative;overflow:hidden}
+.followup-metric.metric-attendance{background:linear-gradient(145deg,#edf6ff,#fff);border:1px solid #c8def5;border-top:4px solid #3b82c4}
+.followup-metric.metric-attendance h4,.followup-metric.metric-attendance strong{color:#235f98}
+.followup-metric.metric-attendance .followup-mini-fill{background:linear-gradient(90deg,#3284d6,#70b8ed)}
+.followup-metric.metric-tasks{background:linear-gradient(145deg,#fff7e5,#fff);border:1px solid #f1ddb0;border-top:4px solid #e1a32c}
+.followup-metric.metric-tasks h4,.followup-metric.metric-tasks strong{color:#94610d}
+.followup-metric.metric-quizzes{background:linear-gradient(145deg,#f3edff,#fff);border:1px solid #ddcef8;border-top:4px solid #9060d7}
+.followup-metric.metric-quizzes h4,.followup-metric.metric-quizzes strong{color:#6740a7}
+.followup-metric.metric-quizzes .followup-mini-fill{background:linear-gradient(90deg,#8250ce,#b28ae9)}
+.followup-subpanel:first-child{background:#fffaf0;border-color:#efddb6}
+.followup-subpanel:last-child{background:#f8f4ff;border-color:#dfd0f8}
+.followup-task{background:#fffdf7;border-left:4px solid #e3a52f}
+
+/* Comunicados: color por origen y rojo cuando hay mensajes no leídos */
+.communications-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.communication-column.notice-teachers{background:#f2f7ff;border-color:#d0e0f6}
+.communication-column.notice-teachers h4{color:#245d98}
+.communication-column.notice-coordination{background:#f7f2ff;border-color:#ded1f4}
+.communication-column.notice-coordination h4{color:#7045a6}
+.communication-column.notice-family{background:#f1faf4;border-color:#cee8d5}
+.communication-column.notice-family h4{color:#247247}
+.notice-item{position:relative;border-left:4px solid #5785bd;background:#fff}
+.notice-item.coord{border-left-color:#9060d7;background:#fcfaff}
+.notice-item.family{border-left-color:#32a36a;background:#fafffb}
+.notice-item.notice-highlight{border:1px solid #efb9bd;border-left:5px solid #c6283d;background:#fff5f5;box-shadow:0 3px 10px rgba(198,40,61,.07)}
+.notice-item strong{display:block;padding-right:65px}
+.notice-new-badge{position:absolute;right:9px;top:9px;padding:3px 7px;border-radius:999px;background:#c6283d;color:#fff;font-size:9px;font-weight:900;letter-spacing:.3px}
+.notice-alert-line{display:none;margin:0 0 12px;padding:9px 12px;border-radius:12px;background:#fff0f0;border:1px solid #f1c0c4;color:#b42332;font-size:12px;font-weight:900}
+.notice-alert-line.visible{display:block}
+@media(max-width:1100px){.communications-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.communications-grid{grid-template-columns:1fr}}
+
+/* Vista de temas del calendario: conserva el contenido y resalta los mismos campos de SESIONES */
+.calendar-topic-list{display:grid;gap:14px;margin-top:14px}
+.calendar-topic-item{display:block;padding:14px 16px;background:#fcfaf4;border:1px solid #eadcc3;border-radius:17px;box-shadow:0 3px 12px rgba(18,52,90,.035)}
+.calendar-topic-session{display:flex;flex-wrap:wrap;align-items:center;gap:5px 8px;padding:7px 11px;margin-bottom:8px;background:#fff1c9;border-radius:11px;color:#966b16;font-size:12px;font-weight:900}
+.calendar-topic-session-code{margin-left:auto;color:#66758b;font-weight:800}
+.calendar-topic-title{padding:11px 15px;margin-bottom:9px;border-left:5px solid #2c67e8;border-radius:12px;background:#eaf2ff;color:#10254e;font:700 20px/1.25 'Fredoka',sans-serif}
+.calendar-topic-subtopics{padding:12px 17px;margin-bottom:9px;border-left:5px solid #8b5cf6;border-radius:13px;background:#f0eaff;color:#61419d}
+.calendar-topic-subtopics strong{display:block;margin-bottom:5px;font:700 14px 'Fredoka',sans-serif;letter-spacing:.3px}
+.calendar-topic-subtopics ol{margin:0;padding-left:22px}
+.calendar-topic-subtopics li{padding:2px 0 2px 3px;font-weight:700;line-height:1.42}
+.calendar-topic-objective{padding:5px 0 10px;color:#52647b;font-size:14px;line-height:1.5;font-weight:700}
+.calendar-topic-value,.calendar-topic-bible,.calendar-topic-activity,.calendar-topic-teacher{padding:9px 13px;margin-top:6px;border-radius:11px;border-left:5px solid}
+.calendar-topic-value{background:#fff6df;border-left-color:#e3a11b;color:#875909}
+.calendar-topic-bible{background:#eaf7ef;border-left-color:#23965d;color:#176b42}
+.calendar-topic-activity{background:#fff0e9;border-left-color:#ee7b35;color:#a64d20}
+.calendar-topic-teacher{background:#eaf4fb;border-left-color:#2886bd;color:#1c648a}
+.calendar-topic-value b,.calendar-topic-bible b,.calendar-topic-activity b,.calendar-topic-teacher b{font-weight:900}
+@media(max-width:600px){
+ .calendar-topic-item{padding:10px;border-radius:13px}
+ .calendar-topic-title{font-size:18px;padding:9px 11px}
+ .calendar-topic-subtopics{padding:10px 12px}
+ .calendar-topic-session{font-size:10px}
+}
+
+
+/* V7 — Tareas didácticas en familia. Interfaz ligera sin imágenes incrustadas. */
+.tareas-wrapper-v7{margin:22px 0 26px;padding:20px;background:#fffdf7;border:1px solid #e8d9bd;border-radius:20px;box-shadow:0 5px 17px rgba(18,52,90,.05)}
+.tareas-header-v7 h3{margin:2px 0 9px;color:#12345a;font:700 22px 'Fredoka',sans-serif}
+.regla-foto-v7{margin:0 0 15px;padding:12px 14px;border-left:5px solid #e1a32c;border-radius:11px;background:#fff5dc;color:#76500d;font-size:13px;line-height:1.48;font-weight:700}
+.tareas-controles-v7{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,.9fr);gap:10px;margin-bottom:11px}
+.select-grande-v7,.input-grande-v7{width:100%;min-width:0;min-height:44px;padding:10px 13px;border:1px solid #cbd9e8;border-radius:12px;background:#fff;color:#193653;font:700 13px 'Nunito',sans-serif}
+.resumen-tareas-v7{display:flex;align-items:center;flex-wrap:wrap;gap:8px;color:#596b82;font-size:11px;font-weight:900}
+.resumen-tareas-v7 strong{color:#12345a}
+.tarjetas-grid-v7{display:grid;grid-template-columns:minmax(0,1fr);gap:11px;margin-top:13px}
+.tarjeta-tarea-v7{background:#fff;border:1px solid #d9e4f0;border-left:5px solid #3c79c5;border-radius:16px;padding:16px;box-shadow:0 3px 10px rgba(18,52,90,.04)}
+.badge-tema-v7{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;background:#eaf2ff;color:#245b99;font-size:10px;font-weight:1000;letter-spacing:.3px}
+.tarjeta-tarea-v7 h4{margin:8px 0 12px;color:#173d70;font:700 20px/1.25 'Fredoka',sans-serif}
+.bloque-actividad-v7,.bloque-evidencia-v7{padding:12px 13px;border-radius:12px;margin:0 0 10px;font-size:13px;line-height:1.5}
+.bloque-actividad-v7{background:#edf5ff;color:#204c82;border:1px solid #d8e7f8}
+.bloque-evidencia-v7{background:#edf9f1;color:#17623d;border:1px dashed #9dd4b0}
+.estado-tarea-v7{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;font-size:10px;font-weight:1000;letter-spacing:.25px}
+.estado-pendiente-v7{background:#fff4d9;color:#8a5b0b;border:1px solid #f0d99d}
+.estado-enviada-v7{background:#eaf3ff;color:#245f9d;border:1px solid #c9ddf4}
+.estado-revisada-v7{background:#eaf8ef;color:#216b40;border:1px solid #c5e7d0}
+.estado-corregir-v7{background:#fff0f0;color:#a32d36;border:1px solid #edc2c6}
+.acciones-tarea-v7{display:flex;flex-wrap:wrap;gap:9px;margin-top:13px}
+.btn-tarea-voz-v7,.btn-tarea-evidencia-v7{min-height:42px;flex:1 1 180px;padding:10px 14px;border:0;border-radius:11px;font-size:13px;font-weight:900;cursor:pointer}
+.btn-tarea-voz-v7{background:#f3b83f;color:#fff}
+.btn-tarea-evidencia-v7{background:#218753;color:#fff}
+.btn-tarea-evidencia-v7:disabled{opacity:.55;cursor:not-allowed}
+.tarea-estado-mensaje-v7{min-height:18px;margin-top:9px;color:#52677f;font-size:11px;font-weight:800}
+.tareas-cargando-v7,.tareas-vacias-v7{padding:16px;border:1px dashed #d7e0e9;border-radius:13px;background:#f8fafc;color:#63748a;font-size:12px;font-weight:800}
+@media(max-width:620px){.tareas-wrapper-v7{padding:14px}.tareas-controles-v7{grid-template-columns:1fr}.tarjeta-tarea-v7{padding:13px}.tarjeta-tarea-v7 h4{font-size:18px}.btn-tarea-voz-v7,.btn-tarea-evidencia-v7{flex-basis:100%}}
+
+
+/* V8: orden visual y paneles plegados */
+.portal-sync-status{display:none!important}
+#calGrid .day.today{outline:3px solid #e4a62e;outline-offset:1px;background:#fff2c9;color:#7a4a00;font-weight:1000;box-shadow:0 0 0 2px #fff}
+#calGrid .day.today.selected{background:#17395e;color:#fff;outline-color:#e4a62e}
+.tareas-details-v8{border:0}
+.tareas-summary-v8{display:flex;align-items:center;justify-content:space-between;gap:14px;list-style:none;cursor:pointer;padding:16px 17px;border:1px solid #e5d4b5;border-radius:15px;background:#fff7e6}
+.tareas-summary-v8::-webkit-details-marker{display:none}
+.tareas-summary-copy{display:flex;flex-direction:column;gap:4px;min-width:0}
+.tareas-summary-copy .eyebrow{margin:0}
+.tareas-summary-copy strong{color:#12345a;font:700 19px 'Fredoka',sans-serif}
+.tareas-summary-copy small{color:#68788d;font-size:11px;font-weight:800}
+.tareas-summary-action-v8{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;padding:9px 13px;border-radius:999px;background:#17395e;color:#fff;font-size:11px;font-weight:900}
+.tareas-details-v8[open] .tareas-summary-v8{border-color:#e6bd61;border-radius:15px 15px 0 0}
+.tareas-details-v8[open] .tareas-summary-action-v8 b{transform:rotate(180deg)}
+.tareas-summary-action-v8 b{display:inline-block;transition:transform .18s}
+.tareas-details-content-v8{padding:16px;border:1px solid #e5d4b5;border-top:0;border-radius:0 0 15px 15px;background:#fff}
+.tareas-wrapper-v7{padding:12px;background:#fffdf7}
+.tareas-wrapper-v7 .tareas-header-v7 h3{display:none}
+.tareas-wrapper-v7 .regla-foto-v7{margin-bottom:13px}
+.followup-task-shortcut{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.followup-task-shortcut p{margin:0;color:#64758b;font-size:12px;line-height:1.45}
+.followup-task-shortcut-count{color:#8a5b0b;font-size:11px;font-weight:900}
+.btn-abrir-tareas-v8{margin-top:2px;padding:9px 13px;border:0;border-radius:10px;background:#17395e;color:#fff;font:900 11px 'Nunito',sans-serif;cursor:pointer}
+.notice-welcome-v8{background:#f0f7ff!important;border-left-color:#4385c5!important}
+.notice-gestores-v8{background:#fff7e8!important;border-left-color:#dc9c26!important}
+.notice-welcome-v8 p,.notice-gestores-v8 p{line-height:1.5}
+@media(max-width:600px){
+ .tareas-summary-v8{align-items:flex-start;padding:13px}
+ .tareas-summary-copy strong{font-size:17px}
+ .tareas-summary-action-v8{padding:8px 10px}
+ .tareas-details-content-v8{padding:11px}
+}
+
+
+/* V9 — botón de video junto al cuestionario, usando VIDEO_URL de SESIONES */
+.tema-card-acciones-v9{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px}
+.tema-card-acciones-v9 .btn-quiz-tema{margin:0;flex:1 1 145px}
+.btn-video-tema-v9{flex:1 1 145px;min-height:38px;padding:9px 12px;border:1px solid #a8d8bd;border-radius:10px;background:#eaf8ef;color:#176b42;font:900 12px 'Nunito',sans-serif;cursor:pointer;transition:transform .15s,background .15s}
+.btn-video-tema-v9:hover{background:#d9f2e2;transform:translateY(-1px)}
+.btn-video-tema-v9:active{transform:scale(.98)}
+.tema-video-status-v9{margin:8px 0 0;padding:8px 10px;border-radius:9px;background:#fff5dc;border:1px solid #efd79c;color:#83560c;font-size:11px;line-height:1.4;font-weight:800}
+.tema-video-status-v9[hidden]{display:none}
+.tema-video-status-v9 a{color:#165da1;text-decoration:underline;font-weight:900}
+@media(max-width:520px){.tema-card-acciones-v9{display:grid;grid-template-columns:1fr}.tema-card-acciones-v9 button{width:100%}}
+
+
+/* V10 — mobile-first: paneles compactos, tareas debajo de bloques y varios videos por tema */
+.tareas-wrapper-v7{margin:12px 0;padding:9px;background:#fffdf8}
+.tareas-summary-v8{padding:12px 13px;border-radius:13px}
+.tareas-summary-copy strong{font-size:17px}
+.tareas-summary-copy small{font-size:10px;line-height:1.35}
+.tareas-details-content-v8{padding:10px;border-radius:0 0 13px 13px}
+.lista-tareas-asignadas-v10{display:grid;gap:7px}
+.tareas-list-intro-v10{margin:0 0 9px;color:#68788e;font-size:12px}
+.tarea-asignada-item-v10{border:1px solid #e8dfcf;border-radius:11px;background:#fff;overflow:hidden}
+.tarea-asignada-item-v10>summary{display:flex;align-items:center;justify-content:space-between;gap:9px;list-style:none;padding:10px 11px;cursor:pointer}
+.tarea-asignada-item-v10>summary::-webkit-details-marker{display:none}
+.tarea-asignada-title-v10{display:grid;gap:3px;min-width:0;color:#18395f;font-size:12px;font-weight:900}
+.tarea-asignada-title-v10 small{color:#728096;font-size:10px}
+.tarea-asignada-body-v10{padding:0 11px 11px;color:#52667e;font-size:12px;line-height:1.48}
+.tarea-asignada-body-v10 p{margin:6px 0}
+.tarea-asignada-evidencia-v10{margin:8px 0;padding:9px 10px;border-radius:9px;background:#eef8f1;color:#276744}
+.tarea-asignada-nota-v10{padding:8px 10px;background:#fff6e6;border-radius:9px}
+.followup-lower{grid-template-columns:1fr!important}
+.followup-task-shortcut{display:none!important}
+.calendar-topic-accordion-v10{border:1px solid #e4d7c1;border-radius:12px;background:#fff;overflow:hidden}
+.calendar-topic-accordion-v10>summary{display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:pointer;list-style:none;padding:12px;background:#fff7e6;color:#7f5b18;font-size:12px;font-weight:900}
+.calendar-topic-accordion-v10>summary::-webkit-details-marker{display:none}
+.calendar-topic-accordion-v10[open]>summary span{transform:rotate(180deg)}
+.calendar-topic-accordion-v10>summary span{transition:transform .15s}
+.calendar-topic-accordion-content-v10{padding:9px}
+.video-gallery-overlay-v10{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:14px;background:rgba(8,25,46,.72)}
+.video-gallery-overlay-v10[hidden]{display:none}
+.video-gallery-open-v10{overflow:hidden}
+.video-gallery-modal-v10{width:min(620px,100%);max-height:min(82vh,760px);overflow:auto;padding:17px;border:2px solid #e4bd5a;border-radius:17px;background:#fffdf8;box-shadow:0 20px 60px rgba(0,0,0,.24)}
+.video-gallery-head-v10{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:13px}
+.video-gallery-head-v10 h3{margin:0;color:#17385d;font:700 20px 'Fredoka',sans-serif}
+.video-gallery-head-v10 button{border:0;border-radius:9px;padding:8px 10px;background:#b70936;color:#fff;font-weight:900}
+.video-gallery-list-v10{display:grid;gap:8px}
+.video-gallery-item-v10{display:flex;align-items:center;gap:9px;padding:10px;border:1px solid #e5dfd2;border-radius:11px;background:#fff}
+.video-gallery-number-v10{flex:0 0 29px;height:29px;display:grid;place-items:center;border-radius:50%;background:#eaf2ff;color:#27558d;font-weight:1000}
+.video-gallery-copy-v10{min-width:0;flex:1}
+.video-gallery-copy-v10 strong{display:block;color:#17385d;font-size:13px}
+.video-gallery-copy-v10 p{margin:3px 0 0;color:#63748a;font-size:11px;line-height:1.4}
+.btn-abrir-video-v10{flex:0 0 auto;border:0;border-radius:9px;padding:8px 10px;background:#e8f6ec;color:#17663d;font-weight:900}
+.video-gallery-empty-v10{padding:17px;border:1px dashed #ddc98c;border-radius:12px;background:#fff8e6;color:#835b15;font-size:13px;line-height:1.5;text-align:center}
+.video-gallery-empty-v10 p{margin:7px 0 0}
+.notice-welcome-v10{background:#f0f7ff!important;border-left-color:#4385c5!important}
+.notice-gestores-v10{background:#fff7e8!important;border-left-color:#dc9c26!important}
+@media(max-width:600px){
+ .tareas-summary-v8{padding:10px}
+ .tareas-summary-copy strong{font-size:16px}
+ .tareas-details-content-v8{padding:8px}
+ .tarea-asignada-item-v10>summary{align-items:flex-start;flex-direction:column}
+ .video-gallery-modal-v10{padding:12px;border-radius:14px}
+ .video-gallery-item-v10{align-items:flex-start;flex-wrap:wrap}
+ .btn-abrir-video-v10{margin-left:38px}
+}
 
 </style>
 </head>
@@ -1072,7 +1332,7 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
 
   <div class="login-mobile">
     <div class="login-mobile-brand">
-      <img src="./assets/LOGO%20LASALLE.png" alt="Insignia La Salle" class="js-logo-img">
+      <img src="./assets/insignia.png" alt="Insignia La Salle" class="js-logo-img">
       <div class="login-mobile-brand-copy">
         <b>COLEGIO PRIVADO LA SALLE DEL SUR</b>
         <span>Camino hacia Jesús</span>
@@ -1107,24 +1367,25 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
   <header>
     <div class="topbar">
       <div class="brand">
-        <img src="./assets/LOGO%20LASALLE.png" alt="Colegio La Salle del Sur" class="crest js-logo-img">
+        <img src="./assets/insignia.png" alt="Colegio La Salle del Sur" class="crest js-logo-img">
         <div class="brand-text">
           <h2>COLEGIO LA SALLE DEL SUR</h2>
           <small>Programa de Catequesis · Parroquia San Pedro de Lurín</small>
         </div>
       </div>
-      <div class="top-actions">
-        <button type="button" class="btn-action btn-actualizar" id="btnRefreshPortal">🔄 Actualizar</button>
-        <button type="button" class="btn-action mute-toggle" id="btnToggleVoice">🔊 Voz Activa</button>
-        <a href="index.html" class="btn-action home">🏠 Inicio</a>
-        <button type="button" class="btn-action btn-logout" id="btnLogout">🚪 Salir</button>
-      </div>
+      
     </div>
 
     <div class="hero">
       <div class="hero-copy">
         <h1>¡Portal de <span>Catequizandos</span>! 💛</h1>
         <p>Sembrando fe, cultivando valores y construyendo amistad con Jesús.</p>
+        <div class="top-actions">
+        <button type="button" class="btn-action btn-actualizar" id="btnRefreshPortal">🔄 Actualizar</button>
+        <button type="button" class="btn-action mute-toggle" id="btnToggleVoice">🔊 Voz Activa</button>
+        <a href="index.html" class="btn-action home">🏠 Inicio</a>
+        <button type="button" class="btn-action btn-logout" id="btnLogout">🚪 Salir</button>
+      </div>
       </div>
       <div class="hero-right">
         <div class="countdown">
@@ -1148,7 +1409,7 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
 
   <main>
     <div class="kid-welcome">
-      <img id="welcomeStudentAvatar" src="./assets/LOGO%20LASALLE.png" alt="Foto Catequizando" class="welcome-img js-logo-img">
+      <img id="welcomeStudentAvatar" src="./assets/insignia.png" alt="Foto Catequizando" class="welcome-img js-logo-img">
       <div class="welcome-text">
         <div class="eyebrow">✨ Tu aventura de fe comienza aquí</div>
         <h3>¡Hola, <span id="welcomeStudentName">pequeño amigo de Jesús</span>! 💛</h3>
@@ -1157,44 +1418,44 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
     </div>
 
     <section class="section">
-      <div class="eyebrow">Itinerario Oficial · Google Sheet</div>
+      <div class="eyebrow">Itinerario Oficial</div>
       <h2>Los 6 Bloques de Catequesis</h2>
       <div class="stages" id="stagesGrid">
         <button type="button" class="stage" data-bloque="1">
           <span class="num">1</span>
           <div class="icon">✝️</div>
           <strong>Conociendo a Jesús</strong>
-          <small>Bloque 1 · Sheet</small>
+          <small>Bloque 1</small>
         </button>
         <button type="button" class="stage" data-bloque="2">
           <span class="num">2</span>
           <div class="icon">🕊️</div>
           <strong>Aprendemos a Orar</strong>
-          <small>Bloque 2 · Sheet</small>
+          <small>Bloque 2</small>
         </button>
         <button type="button" class="stage" data-bloque="3">
           <span class="num">3</span>
           <div class="icon">📖</div>
           <strong>Los Sacramentos</strong>
-          <small>Bloque 3 · Sheet</small>
+          <small>Bloque 3</small>
         </button>
         <button type="button" class="stage" data-bloque="4">
           <span class="num">4</span>
           <div class="icon">✨</div>
           <strong>La Eucaristía</strong>
-          <small>Bloque 4 · Sheet</small>
+          <small>Bloque 4</small>
         </button>
         <button type="button" class="stage" data-bloque="5">
           <span class="num">5</span>
           <div class="icon">🙏</div>
           <strong>Valores Cristianos</strong>
-          <small>Bloque 5 · Sheet</small>
+          <small>Bloque 5</small>
         </button>
         <button type="button" class="stage" data-bloque="6">
           <span class="num">6</span>
           <div class="icon">🍞</div>
           <strong>Preparación a Nuestro Sacramento</strong>
-          <small>Bloque 6 · Sheet</small>
+          <small>Bloque 6</small>
         </button>
       </div>
 
@@ -1203,9 +1464,73 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
           <h3 id="bloqueDetalleTitulo">Temas del Bloque</h3>
           <button type="button" class="btn-docente-submit" id="btnCerrarBloque">Cerrar lista ✕</button>
         </div>
+        <div id="progresoBloquePanel" style="margin:12px 0 18px;padding:13px 15px;border:1px solid #e8d7bb;border-radius:14px;background:#fffaf0;">
+          <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;font-weight:800;color:#12345a;">
+            <span>🌱 Tu avance en este bloque</span><strong id="progresoBloquePanelTexto">—%</strong>
+          </div>
+          <div style="height:11px;background:#e8edf3;border-radius:99px;overflow:hidden;margin-top:9px;">
+            <div id="progresoBloquePanelBarra" style="height:100%;width:0%;background:linear-gradient(90deg,#27a56b,#8ccc53);border-radius:99px;transition:width .3s;"></div>
+          </div>
+          <p id="progresoBloquePanelMensaje" style="font-size:12px;color:#52677f;margin:7px 0 0;">Cada respuesta te ayuda a avanzar. ✨</p>
+        </div>
         <div id="temasBloqueGrid" class="temas-grid"></div>
       </div>
     </section>
+
+
+    <section id="seccion-tareas-asignadas-v10" class="tareas-wrapper-v7" aria-labelledby="titulo-tareas-asignadas-v10">
+      <details id="panelTareasAsignadasV10" class="tareas-details-v8">
+        <summary class="tareas-summary-v8">
+          <span class="tareas-summary-copy">
+            <span class="eyebrow">Tu compromiso de aprendizaje</span>
+            <strong id="titulo-tareas-asignadas-v10">📝 Tareas asignadas</strong>
+            <small id="resumen-tareas-asignadas-v10">Consulta las actividades que tienes que realizar.</small>
+          </span>
+          <span class="tareas-summary-action-v8">Ver tareas <b>⌄</b></span>
+        </summary>
+        <div class="tareas-details-content-v8">
+          <p class="tareas-list-intro-v10">Abre cada actividad para leer las indicaciones y revisar su estado.</p>
+          <div id="lista-tareas-asignadas-v10" class="lista-tareas-asignadas-v10">
+            <div class="tareas-cargando-v7">Cargando tus tareas...</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+<section id="seccion-tareas-familia" class="tareas-wrapper-v7" aria-labelledby="titulo-tareas-familia">
+        <details id="panelTareasFamiliaV7" class="tareas-details-v8">
+          <summary class="tareas-summary-v8">
+            <span class="tareas-summary-copy">
+              <span class="eyebrow">Aprendemos también en casa</span>
+              <strong id="titulo-tareas-familia">🏠 Tarea didáctica en familia</strong>
+              <small id="tareas-summary-count-v8">68 actividades disponibles · abre para elegir tu tema y enviar evidencias</small>
+            </span>
+            <span class="tareas-summary-action-v8">Ver tareas <b>⌄</b></span>
+          </summary>
+          <div class="tareas-details-content-v8">
+            <div class="tareas-header-v7">
+              <p class="regla-foto-v7">📸 Realiza la actividad con tu familia y toma una fotografía que muestre la acción indicada. La evidencia se guardará en Google Drive y el envío se registrará en Google Sheets.</p>
+              <div class="tareas-controles-v7">
+                <select id="selector-tema-tarea" class="select-grande-v7" aria-label="Elegir tema de tarea">
+                  <option value="">Cargando las 68 tareas...</option>
+                </select>
+                <input type="search" id="buscador-tema-tarea" class="input-grande-v7" placeholder="🔍 Buscar tema o número..." aria-label="Buscar tarea por tema">
+              </div>
+              <div id="resumen-tareas-v7" class="resumen-tareas-v7" aria-live="polite">Las tareas se cargan desde Google Sheets.</div>
+            </div>
+            <div id="contenedor-tarjetas-tareas" class="tarjetas-grid-v7">
+              <div class="tareas-cargando-v7">🌱 Cargando tareas desde Google Sheets...</div>
+            </div>
+          </div>
+        </details>
+      </section>
+
+    <div id="videoGalleryModalV10" class="video-gallery-overlay-v10" hidden role="dialog" aria-modal="true" aria-labelledby="videoGalleryTitleV10">
+      <div class="video-gallery-modal-v10">
+        <div class="video-gallery-head-v10"><h3 id="videoGalleryTitleV10">🎬 Videos del tema</h3><button type="button" onclick="cerrarGaleriaVideosTemaV10()" aria-label="Cerrar videos">Cerrar ✕</button></div>
+        <div id="videoGalleryListV10" class="video-gallery-list-v10"></div>
+      </div>
+    </div>
 
     <section id="calendar-section" class="section">
       <div class="eyebrow">Organiza tus encuentros</div>
@@ -1216,7 +1541,7 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
             <h3>Calendario</h3>
             <div class="cal-controls">
               <button type="button" id="calPrev" aria-label="Mes anterior">‹</button>
-              <strong id="calMonthLabel">Junio 2026</strong>
+              <strong id="calMonthLabel">Mes actual</strong>
               <button type="button" id="calNext" aria-label="Mes siguiente">›</button>
             </div>
           </div>
@@ -1239,51 +1564,49 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
     </section>
 
     <section class="post-calendar-section">
-      <div class="eyebrow">Control de Catequizandos Oficial</div>
-      <h2 style="font:700 28px 'Fredoka',sans-serif; color:#12345a; margin:0 0 20px;">📊 Asistencia, Tareas y Seguimiento por Alumno</h2>
-      <div id="studentsGrid" class="students-grid"></div>
+      <div class="eyebrow">Tu espacio personal</div>
+      <h2 class="followup-heading">📊 Mi seguimiento de catequesis</h2>
+      <p class="followup-intro">Consulta tus asistencias, tareas y cuánto has avanzado en los seis bloques. Esta información corresponde únicamente a tu cuenta.</p>
+      <div id="studentsGrid" class="students-grid"><div class="followup-loading">🌟 Cargando tu seguimiento desde Google Sheets...</div></div>
 
-      <div id="tasksSection" class="tasks-panel">
-        <div class="tasks-panel-head">
-          <h3>📚 Mis tareas de catequesis</h3>
-          <div id="tasksSummary" class="tasks-summary">Cargando tareas…</div>
+      
+      <div class="communications-panel">
+        <div class="communications-heading">
+          <div><div class="eyebrow">Estamos en contacto</div><h3>💌 Comunicaciones y mensajes</h3></div>
+          <span class="communications-tag">La Salle del Sur</span>
         </div>
-        <div id="tasksReminder" class="tasks-reminder" hidden></div>
-        <div id="tasksList" class="tasks-list">
-          <p style="font-weight:800;color:#52677f">Tus tareas se cargarán desde Google Sheets.</p>
-        </div>
-      </div>
-
-      <div class="notifications-layout">
-        <div class="notice-card">
-          <h3>📝 Mensajes de las Catequistas</h3>
-          <p style="margin:0; font-size:13px; color:var(--muted); font-weight:700;">Comunicados oficiales publicados por las catequistas.</p>
-          <div id="catequistasNotices" class="dynamic-items-container">
-            <div class="notice-item">📝 <strong>Miss Lily & Miss Kiara:</strong> Bienvenidos al portal de preparación. Recuerden revisar el calendario de encuentros y completar sus fichas a tiempo. ✨</div>
-          </div>
-        </div>
-
-        <div class="notice-card">
-          <h3>📢 Mensajes de los Coordinadores</h3>
-          <p style="margin:0; font-size:13px; color:var(--muted); font-weight:700;">Avisos oficiales de la coordinación y parroquia.</p>
-          <div id="coordinadoresNotices" class="dynamic-items-container">
-            <div class="notice-item coord">📢 <strong>Coordinación Parroquial:</strong> Presentar las constancias y fichas de Bautismo actualizadas para el expediente general. 🙏</div>
-          </div>
-        </div>
-
-        <div class="notice-card">
-          <h3>💬 Mensajes de Alumnos a las Catequistas</h3>
-          <form id="studentMessageForm" class="interactive-form">
-            <select id="msgDestinatario" required>
-              <option value="">Dirigido a catequista...</option>
-              <option value="LDS-CAT-002">Kiara Morales Elguera</option>
-              <option value="LDS-CAT-001">Lily Melo Azañero</option>
-            </select>
-            <input type="text" id="msgAsunto" placeholder="Asunto de tu mensaje" required>
-            <textarea id="msgTexto" rows="3" placeholder="Escribe aquí tu consulta o mensaje..." required></textarea>
-            <button type="submit" class="btn-docente-submit">✉️ Enviar a Catequista</button>
-            <div id="msgStatus" style="font-size:12px; font-weight:800; color:#12345a;"></div>
-          </form>
+        <div id="noticeAlertLine" class="notice-alert-line" role="status" aria-live="polite"></div>
+        <div class="communications-grid">
+          <section class="communication-column notice-teachers">
+            <h4>📝 Mensajes de tus catequistas</h4>
+            <div id="catequistasNotices" class="dynamic-items-container"><div class="notice-empty">Cargando comunicados...</div></div>
+          </section>
+          <section class="communication-column notice-coordination">
+            <h4>📢 Mensajes de los Gestores</h4>
+            <div id="coordinadoresNotices" class="dynamic-items-container"><div class="notice-empty">Cargando comunicados...</div></div>
+          </section>
+          <section class="communication-column notice-family">
+            <h4>💛 Mensajes de tu familia</h4>
+            <div id="familiaNotices" class="dynamic-items-container"><div class="notice-empty">Cargando mensajes...</div></div>
+          </section>
+          <section class="communication-column communication-form-column">
+            <h4>💬 Escribe a tu catequista</h4>
+            <p class="communication-help">Envía una consulta o comparte una duda. Tu mensaje llegará a la catequista que selecciones.</p>
+            <form id="studentMessageForm" class="interactive-form">
+              <label for="msgDestinatario">Enviar a</label>
+              <select id="msgDestinatario" required>
+                <option value="">Selecciona una catequista...</option>
+                <option value="LDS-CAT-002">Kiara Morales Elguera</option>
+                <option value="LDS-CAT-001">Lily Melo Azañero</option>
+              </select>
+              <label for="msgAsunto">Asunto</label>
+              <input type="text" id="msgAsunto" maxlength="120" placeholder="¿Sobre qué deseas consultar?" required>
+              <label for="msgTexto">Tu mensaje</label>
+              <textarea id="msgTexto" rows="4" maxlength="1500" placeholder="Escribe aquí tu consulta o mensaje..." required></textarea>
+              <button type="submit" class="btn-docente-submit" id="btnEnviarMensajeAlumno">✉️ Enviar mensaje</button>
+              <div id="msgStatus" class="message-status" role="status" aria-live="polite"></div>
+            </form>
+          </section>
         </div>
       </div>
     </section>
@@ -1306,25 +1629,121 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
   </div>
 </div>
 
-<div id="securityAlertOverlay" class="security-alert-backdrop" hidden role="alertdialog" aria-modal="true" aria-labelledby="securityAlertTitle">
-  <div class="security-alert-card">
-    <h2 id="securityAlertTitle">🚨 ALERTA DE ACTIVIDAD SIMULTÁNEA 🚨</h2>
-    <p>Se detectó actividad simultánea en el cuestionario desde dos dispositivos para la misma cuenta. El cuestionario está bloqueado hasta que una catequista administradora libere el acceso. El botón PADRES no está afectado.</p>
-    <p>No respondas el cuestionario desde varios dispositivos al mismo tiempo. Tu avance guardado permanece en Google Sheets.</p>
-    <button type="button" id="btnCloseSecurityAlert">ENTENDIDO</button>
-  </div>
-</div>
-
 <script>
-const API_URL = 'https://script.google.com/macros/s/AKfycbzY3t45DhNHCDnjOlwuHPbwHCz_RQ_TksFnn7EaR9ZNrrX7AL7YcmZxwX98tNQ7oH6x/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbyiJHN-fMW4DbAumaziZzX7iD-WE9Q8pzwi7lVPct6a8hVX5Xr2RG6sitl61qsNsIB1vQ/exec';
+
+
+let quizVersionV5Verificada = false;
+let quizAudioContextoV5 = null;
+let quizTemaActivoV5 = '';
+let quizTimerSiguienteV5 = null;
+
+function _quizAudioV5() {
+  try {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return null;
+    if (!quizAudioContextoV5) quizAudioContextoV5 = new Ctx();
+    if (quizAudioContextoV5.state === 'suspended') quizAudioContextoV5.resume().catch(() => {});
+    return quizAudioContextoV5;
+  } catch (e) { return null; }
+}
+
+function _quizTonoV5(ctx, hz, inicio, duracion, tipo, volumen) {
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = tipo || 'sine';
+  osc.frequency.setValueAtTime(hz, inicio);
+  gain.gain.setValueAtTime(0.0001, inicio);
+  gain.gain.exponentialRampToValueAtTime(volumen || 0.07, inicio + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.0001, inicio + duracion);
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.start(inicio); osc.stop(inicio + duracion + 0.03);
+}
+
+function _quizConfetiV5() {
+  if (!document.getElementById('quizConfetiStyleV5')) {
+    const style = document.createElement('style');
+    style.id = 'quizConfetiStyleV5';
+    style.textContent = '@keyframes quizConfetiCaidaV5{0%{transform:translateY(-15vh) rotate(0);opacity:1}100%{transform:translateY(105vh) rotate(680deg);opacity:0}}';
+    document.head.appendChild(style);
+  }
+  const colores = ['#ffc94d', '#20a66a', '#4a90e2', '#ec5b91', '#9a73d8'];
+  for (let i = 0; i < 26; i++) {
+    const p = document.createElement('span');
+    p.style.cssText = 'position:fixed;z-index:10050;top:-15px;width:8px;height:12px;border-radius:2px;pointer-events:none;animation:quizConfetiCaidaV5 1s ease-in forwards;';
+    p.style.left = (Math.random() * 100) + 'vw';
+    p.style.background = colores[i % colores.length];
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 1250);
+  }
+}
+
+function _quizEfectoRespuestaV5(correcta) {
+  const ctx = _quizAudioV5();
+  if (ctx) {
+    const t = ctx.currentTime;
+    if (correcta) {
+      [523, 659, 784, 988].forEach((hz, i) => _quizTonoV5(ctx, hz, t + i * 0.075, 0.28, 'triangle', 0.075));
+      for (let i = 0; i < 4; i++) {
+        const dur = 0.045;
+        const buffer = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur), ctx.sampleRate);
+        const arr = buffer.getChannelData(0);
+        for (let j = 0; j < arr.length; j++) arr[j] = (Math.random() * 2 - 1) * (1 - j / arr.length);
+        const src = ctx.createBufferSource();
+        const filter = ctx.createBiquadFilter();
+        const gain = ctx.createGain();
+        src.buffer = buffer; filter.type = 'highpass'; filter.frequency.value = 900;
+        gain.gain.setValueAtTime(0.0001, t + 0.14 + i * 0.09);
+        gain.gain.exponentialRampToValueAtTime(0.11, t + 0.155 + i * 0.09);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.20 + i * 0.09);
+        src.connect(filter); filter.connect(gain); gain.connect(ctx.destination);
+        src.start(t + 0.14 + i * 0.09);
+      }
+      if (navigator.vibrate) navigator.vibrate([35, 25, 45]);
+      _quizConfetiV5();
+    } else {
+      _quizTonoV5(ctx, 280, t, 0.17, 'triangle', 0.08);
+      _quizTonoV5(ctx, 185, t + 0.15, 0.22, 'triangle', 0.07);
+      if (navigator.vibrate) navigator.vibrate(85);
+    }
+  } else if (correcta) {
+    _quizConfetiV5();
+  }
+}
+
+
+let quizVozTokenV6=0,quizVozFinalizarV6=null,quizVozRespaldoV6=null;
+function quizCancelarVozV6(continuar){
+  quizVozTokenV6++;
+  if(quizVozRespaldoV6){clearTimeout(quizVozRespaldoV6);quizVozRespaldoV6=null;}
+  const fin=quizVozFinalizarV6;quizVozFinalizarV6=null;
+  if('speechSynthesis'in window){try{window.speechSynthesis.cancel();}catch(e){}}
+  if(continuar&&typeof fin==='function')setTimeout(fin,0);
+}
+function quizHablarV6(texto,alTerminar){
+  const frase=String(texto||'').trim();quizCancelarVozV6(false);
+  if(!frase||!vozActiva||!('speechSynthesis'in window)||typeof SpeechSynthesisUtterance==='undefined'){if(typeof alTerminar==='function')setTimeout(alTerminar,120);return;}
+  const token=++quizVozTokenV6,utter=new SpeechSynthesisUtterance(frase);
+  utter.lang='es-PE';utter.rate=1.12;utter.pitch=1.03;utter.volume=1;
+  try{const voces=window.speechSynthesis.getVoices()||[];const esp=voces.find(v=>/^es-PE$/i.test(v.lang))||voces.find(v=>/^es-(MX|US|CO|AR|CL|ES)/i.test(v.lang))||voces.find(v=>/^es\\b/i.test(v.lang));if(esp)utter.voice=esp;}catch(e){}
+  let done=false;
+  const finish=()=>{if(done||token!==quizVozTokenV6)return;done=true;if(quizVozRespaldoV6){clearTimeout(quizVozRespaldoV6);quizVozRespaldoV6=null;}quizVozFinalizarV6=null;if(typeof alTerminar==='function')alTerminar();};
+  quizVozFinalizarV6=finish;utter.onend=finish;utter.onerror=finish;
+  quizVozRespaldoV6=setTimeout(finish,Math.min(40000,Math.max(5000,frase.length*75+2200)));
+  try{window.speechSynthesis.speak(utter);}catch(e){finish();}
+}
+function quizAnimacionesV6(){
+  if(document.getElementById('quizAnimacionesV6'))return;
+  const st=document.createElement('style');st.id='quizAnimacionesV6';
+  st.textContent='@keyframes quizEntradaV6{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes quizShakeV6{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px)}}@keyframes quizPopV6{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}.quiz-panel-entrada-v6{animation:quizEntradaV6 .28s ease-out both}.quiz-option-correct-v6{animation:quizPopV6 .45s ease-out}.quiz-option-wrong-v6{animation:quizShakeV6 .38s ease-out}.quiz-feedback-v6{animation:quizEntradaV6 .25s ease-out both}@media(prefers-reduced-motion:reduce){.quiz-panel-entrada-v6,.quiz-option-correct-v6,.quiz-option-wrong-v6,.quiz-feedback-v6{animation:none!important}}';
+  document.head.appendChild(st);
+}
 
 // Rutas candidatas de la insignia en assets/ para evitar imagen rota
 const RUTAS_INSIGNIA = [
-  './assets/LOGO%20LASALLE.png',
-  './assets/logo.png',
-  './assets/LOGO.png',
   './assets/insignia.png',
-  'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/LOGO%20LASALLE.png'
+  './assets/logo-la-salle.webp',
+  'https://raw.githubusercontent.com/YUSEMY-DOT/CATEQUESIS-LASALLE/main/assets/insignia.png'
 ];
 
 function configurarInsignias() {
@@ -1357,12 +1776,11 @@ let sesionesSheet = [];
 let clasesSheet = [];
 let asistenciaPorAlumno = {};
 let tareasPorAlumno = {};
-let tareasPortal = [];
-let resumenPortal = null;
-let contextoAlarmaDispositivo = null;
+let resumenPortalCatequizando = null;
 let vozActiva = true;
-let mesActualCal = 5; // Junio 2026
-const anioCal = 2026;
+const FECHA_HOY_CAL = new Date();
+let mesActualCal = FECHA_HOY_CAL.getMonth();
+let anioCal = FECHA_HOY_CAL.getFullYear();
 
 function normalizarUrlFotoGitHub(url) {
   if (!url) return RUTAS_INSIGNIA[0];
@@ -1422,121 +1840,12 @@ async function cargarListaCatequizandos() {
   }
 }
 
-function obtenerIdDispositivoCatequizando() {
-  let id = localStorage.getItem('lds_cat_device_id');
-  if (!id) {
-    const aleatorio = (window.crypto && typeof window.crypto.randomUUID === 'function')
-      ? window.crypto.randomUUID().replace(/-/g, '')
-      : (String(Date.now()) + Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2));
-    id = String(aleatorio).replace(/[^A-Za-z0-9_-]/g, '').padEnd(20, 'x').slice(0, 64);
-    localStorage.setItem('lds_cat_device_id', id);
-  }
-  return id;
-}
-
-function prepararAudioAlertaDispositivo() {
-  try {
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if (AudioCtx) {
-      if (!contextoAlarmaDispositivo || contextoAlarmaDispositivo.state === 'closed') contextoAlarmaDispositivo = new AudioCtx();
-      if (contextoAlarmaDispositivo.state === 'suspended') contextoAlarmaDispositivo.resume();
-    }
-  } catch (e) {}
-}
-
-function reproducirAlarmaDispositivo() {
-  try {
-    prepararAudioAlertaDispositivo();
-    const ctx = contextoAlarmaDispositivo;
-    if (ctx && ctx.state !== 'closed') {
-      const inicio = ctx.currentTime + 0.05;
-      for (let i = 0; i < 12; i++) {
-        const t = inicio + i * 0.48;
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(i % 2 ? 660 : 990, t);
-        gain.gain.setValueAtTime(0.0001, t);
-        gain.gain.linearRampToValueAtTime(0.38, t + 0.035);
-        gain.gain.setValueAtTime(0.38, t + 0.24);
-        gain.gain.linearRampToValueAtTime(0.0001, t + 0.34);
-        osc.connect(gain); gain.connect(ctx.destination);
-        osc.start(t); osc.stop(t + 0.36);
-      }
-    }
-  } catch (e) {}
-  try {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const aviso = new SpeechSynthesisUtterance('Alerta. Actividad simultánea en el cuestionario. Se han enviado respuestas desde más de un dispositivo. Solicita a una catequista que libere el cuestionario.');
-      aviso.lang = 'es-PE'; aviso.rate = 0.88; aviso.volume = 1;
-      window.speechSynthesis.speak(aviso);
-    }
-  } catch (e) {}
-  try { if (navigator.vibrate) navigator.vibrate([500, 150, 500, 150, 900]); } catch (e) {}
-}
-
-function mostrarAlertaDispositivo() {
-  const alerta = document.getElementById('securityAlertOverlay');
-  if (alerta) alerta.hidden = false;
-  reproducirAlarmaDispositivo();
-}
-
-let vigilanciaSesionCatequizandoTimer = null;
-let verificacionSesionCatequizandoEnCurso = false;
-let alertaConcurrenciaMostrada = false;
-
-function detenerVigilanciaSesionCatequizando() {
-  if (vigilanciaSesionCatequizandoTimer) {
-    clearInterval(vigilanciaSesionCatequizandoTimer);
-    vigilanciaSesionCatequizandoTimer = null;
-  }
-  verificacionSesionCatequizandoEnCurso = false;
-}
-
-function iniciarVigilanciaSesionCatequizando() {
-  detenerVigilanciaSesionCatequizando();
-  vigilanciaSesionCatequizandoTimer = setInterval(async () => {
-    if (verificacionSesionCatequizandoEnCurso) return;
-    const token = localStorage.getItem('lds_cat_token') || '';
-    if (!token) { detenerVigilanciaSesionCatequizando(); return; }
-    verificacionSesionCatequizandoEnCurso = true;
-    try {
-      const resp = await fetch(API_URL, {
-        method:'POST',
-        headers:{'Content-Type':'text/plain;charset=utf-8'},
-        body:JSON.stringify({action:'verificarSesionCatequizando', token:token})
-      });
-      const data = await resp.json();
-      if (data && data.sesionConcurrente === true) {
-        if (!alertaConcurrenciaMostrada) mostrarAlertaDispositivo();
-        alertaConcurrenciaMostrada = true;
-      } else if (data && data.sesionValida === true) {
-        alertaConcurrenciaMostrada = false;
-      } else if (data && data.sesionValida === false && data.temporal !== true) {
-        detenerVigilanciaSesionCatequizando();
-        localStorage.removeItem('lds_cat_token');
-        localStorage.removeItem('lds_cat_perfil');
-        document.getElementById('portalWrap').hidden = true;
-        document.getElementById('loginGate').hidden = false;
-        document.documentElement.classList.add('auth-required');
-        const error = document.getElementById('loginErrorDesktop');
-        if (error) error.textContent = 'Tu sesión venció. Tu avance guardado sigue en Google Sheets; ingresa nuevamente con tu PIN.';
-      }
-    } catch (e) {
-      // Una falla temporal de internet no borra la sesión local ni el avance.
-      // La sesión no se libera por tiempo: solo al cerrar sesión o mediante una catequista administradora.
-    } finally {
-      verificacionSesionCatequizandoEnCurso = false;
-    }
-  }, 120000);
-}
-
 async function procesarLogin(selectId, inputId, errorId, btnId) {
   const idNino = String(document.getElementById(selectId).value || '').trim().toUpperCase();
   const pin = String(document.getElementById(inputId).value || '').replace(/\D/g, '').trim();
   const errorEl = document.getElementById(errorId);
   const btnEl = document.getElementById(btnId);
+
   errorEl.textContent = '';
 
   if (!idNino || !idNino.startsWith('LDS-EST')) {
@@ -1548,8 +1857,6 @@ async function procesarLogin(selectId, inputId, errorId, btnId) {
     return;
   }
 
-  prepararAudioAlertaDispositivo();
-  const deviceId = obtenerIdDispositivoCatequizando();
   btnEl.disabled = true;
   const textoOriginal = btnEl.textContent;
   btnEl.textContent = 'VERIFICANDO...';
@@ -1557,24 +1864,22 @@ async function procesarLogin(selectId, inputId, errorId, btnId) {
   try {
     const resp = await fetch(API_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({
         action: 'validarLoginCatequizando',
         idNino: idNino,
-        pin: pin,
-        deviceId: deviceId
+        pin: pin
       })
     });
     const res = await resp.json();
 
-    if (res && res.exito && res.token) {
+    if (res && res.exito) {
       const base = CATALOGO_CATEQUIZANDOS_BASE.find(b => b.ID_NINO === idNino) || {};
       const perfilCompleto = {
         ...base,
         ...(res.perfil || {}),
         FOTO: normalizarUrlFotoGitHub((res.perfil && res.perfil.FOTO) || base.FOTO)
       };
-      localStorage.setItem('lds_cat_token', res.token);
+      localStorage.setItem('lds_cat_token', res.token || 'ACTIVO');
       localStorage.setItem('lds_cat_perfil', JSON.stringify(perfilCompleto));
       desbloquearPortal(perfilCompleto);
     } else {
@@ -1589,7 +1894,6 @@ async function procesarLogin(selectId, inputId, errorId, btnId) {
 }
 
 function desbloquearPortal(perfil) {
-  iniciarVigilanciaSesionCatequizando();
   document.documentElement.classList.remove('auth-required');
   document.getElementById('loginGate').hidden = true;
   document.getElementById('portalWrap').hidden = false;
@@ -1611,45 +1915,37 @@ function desbloquearPortal(perfil) {
 function renderizarTarjetasAlumnos(idActivo) {
   const grid = document.getElementById('studentsGrid');
   if (!grid) return;
-
-  grid.innerHTML = listaCatequizandos.map(st => {
-    const esActual = st.ID_NINO === idActivo;
-    const datoAsist = asistenciaPorAlumno[st.ID_NINO] || {};
-    const datoTarea = tareasPorAlumno[st.ID_NINO] || {};
-    const asistenciaTexto = datoAsist.porcentaje || st.ASISTENCIA || '—';
-    const tareasTexto = datoTarea.resumen || datoAsist.tareas || '—';
-    const porcentajeNum = parseFloat(String(asistenciaTexto).replace(',', '.')) || 0;
-    const fotoUrl = normalizarUrlFotoGitHub(st.FOTO);
-
-    return `
-      <article class="student-card ${esActual ? 'current-student' : ''}">
-        <div class="student-header">
-          <img src="${fotoUrl}" alt="${st.NOMBRE_COMPLETO}" class="student-avatar" onerror="this.src='${RUTAS_INSIGNIA[0]}'">
-          <div class="student-info">
-            <h4>${st.NOMBRE_COMPLETO}</h4>
-            <small>ID: ${st.ID_NINO}${st.GRADO ? ' · ' + st.GRADO : ''}</small>
-          </div>
-        </div>
-        <div class="metrics-box">
-          <div class="metric-row">
-            <div class="metric-label">
-              <span>Asistencia (Sheet)</span>
-              <span>${asistenciaTexto}</span>
-            </div>
-            <div class="progress-track">
-              <div class="progress-fill-attendance" style="width:${Math.min(100, Math.max(0, porcentajeNum))}%"></div>
-            </div>
-          </div>
-          <div class="metric-row">
-            <div class="metric-label">
-              <span>Tareas (Sheet)</span>
-              <span>${tareasTexto}</span>
-            </div>
-          </div>
-        </div>
-      </article>
-    `;
-  }).join('');
+  const perfil = JSON.parse(localStorage.getItem('lds_cat_perfil') || '{}');
+  const alumno = listaCatequizandos.find(x => String(x.ID_NINO) === String(idActivo)) || perfil;
+  if (!alumno || !alumno.ID_NINO) {
+    grid.innerHTML = '<div class="followup-empty">No se pudo identificar tu cuenta para mostrar el seguimiento.</div>';
+    return;
+  }
+  const resumen = resumenPortalCatequizando || {};
+  const asistencia = resumen.asistencia || {};
+  const pctAsistencia = asistencia.porcentaje == null ? null : Math.max(0,Math.min(100,Number(asistencia.porcentaje)||0));
+  const tareas = Array.isArray(resumen.tareas && resumen.tareas.datos) ? resumen.tareas.datos : [];
+  const bloques = Array.isArray(resumen.bloques) ? resumen.bloques : [];
+  const foto = normalizarUrlFotoGitHub(alumno.FOTO || perfil.FOTO || '');
+  const hechas = tareas.filter(t => ['ENVIADA','REVISADA'].includes(String(t.ESTADO_ENTREGA || '').toUpperCase())).length;
+  const pendientes = Math.max(0,tareas.length-hechas);
+  const listaBloques = bloques.length ? bloques.map(b => {
+    const pct=Math.max(0,Math.min(100,Number(b.porcentaje||0)));
+    const nombre=String(b.nombre||('Bloque '+b.numero)).replace(/BLOQUE\s*\d+\s*[—–-]?/i,'').trim()||('Bloque '+b.numero);
+    return '<div class="followup-block"><div class="followup-block-head"><span>'+escapeQuizHtml('Bloque '+b.numero+' · '+nombre)+'</span><b>'+pct.toFixed(1).replace(/\.0$/,'')+'%</b></div><div class="followup-mini-track"><div class="followup-mini-fill" style="width:'+pct+'%"></div></div></div>';
+  }).join(''):'<div class="followup-empty">No se pudo cargar el porcentaje de los bloques. '+escapeQuizHtml(resumen.bloquesError||'')+'</div>';
+  const pctText=pctAsistencia==null?'—':pctAsistencia.toFixed(1).replace(/\.0$/,'')+'%';
+  const promedio=bloques.length?(bloques.reduce((s,b)=>s+Number(b.porcentaje||0),0)/bloques.length).toFixed(1).replace(/\.0$/,'')+'%':'—';
+  grid.innerHTML='<article class="followup-panel"><div class="followup-panel-head"><img class="followup-avatar" src="'+escapeQuizHtml(foto)+'" alt="Foto del catequizando" onerror="this.src=\''+RUTAS_INSIGNIA[0]+'\'"><div class="followup-name"><h3>'+escapeQuizHtml(alumno.NOMBRE_COMPLETO||((alumno.NOMBRES||'')+' '+(alumno.APELLIDOS||'')))+'</h3><p>'+escapeQuizHtml(alumno.ID_NINO)+(alumno.GRADO?' · '+escapeQuizHtml(alumno.GRADO):'')+'</p></div><span class="followup-synced">🔒 Seguimiento personal</span></div>'+
+  '<div class="followup-metrics"><div class="followup-metric metric-attendance"><h4>📅 Asistencia</h4><strong>'+pctText+'</strong><div class="followup-mini-track"><div class="followup-mini-fill" style="width:'+(pctAsistencia==null?0:pctAsistencia)+'%"></div></div><p>'+(asistencia.exito?(Number(asistencia.presentes||0)+' presentes · '+Number(asistencia.tardanzas||0)+' tardanzas · '+Number(asistencia.faltas||0)+' faltas'):escapeQuizHtml(asistencia.mensaje||'Esperando datos de asistencia.'))+'</p></div>'+
+  '<div class="followup-metric metric-tasks"><h4>📝 Mis tareas</h4><strong>'+tareas.length+'</strong><p>'+(resumen.tareas&&resumen.tareas.exito?(pendientes+' pendientes · '+hechas+' evidencias enviadas'):escapeQuizHtml((resumen.tareas&&resumen.tareas.mensaje)||'Esperando tareas.'))+'</p></div>'+
+  '<div class="followup-metric metric-quizzes"><h4>🎮 Cuestionarios</h4><strong>'+promedio+'</strong><p>Promedio de avance de los seis bloques. Cada bloque muestra su propio porcentaje.</p></div></div>'+
+  '<div class="followup-lower"><section class="followup-subpanel"><h4>🌱 Avance de cuestionarios por bloque</h4><div class="followup-blocks">'+listaBloques+'</div><p class="followup-footnote">El porcentaje refleja las preguntas respondidas del bloque completo. No se muestran cantidades de preguntas al catequizando.</p></section></div></article>';
+}
+function formatearFechaSeguimiento(valor) {
+  if(!valor)return '—';
+  const fecha=new Date(valor);
+  return isNaN(fecha.getTime())?String(valor):fecha.toLocaleDateString('es-PE',{day:'2-digit',month:'short',year:'numeric'});
 }
 
 // Lectura de programación mediante JSONP: evita el bloqueo CORS de Apps Script
@@ -1675,268 +1971,474 @@ function solicitarJSONP(url, timeoutMs = 20000) {
   });
 }
 
+
+// V7 — caché de lectura. Google Sheets sigue siendo la fuente oficial.
+// Esta caché solo permite mostrar los últimos datos mientras se sincroniza en segundo plano.
+const PORTAL_CACHE_PROGRAMACION_V7 = 'lds_cat_programacion_cache_v7';
+const PORTAL_CACHE_RESUMEN_PREFIX_V7 = 'lds_cat_resumen_cache_v7_';
+
+function portalLeerCacheV7(clave) {
+  try {
+    const raw = localStorage.getItem(clave);
+    if (!raw) return null;
+    const item = JSON.parse(raw);
+    return item && item.data ? item : null;
+  } catch (e) {
+    return null;
+  }
+}
+function portalGuardarCacheV7(clave, data) {
+  try {
+    localStorage.setItem(clave, JSON.stringify({ actualizado: Date.now(), data: data }));
+    return true;
+  } catch (e) {
+    console.warn('No se pudo guardar la caché de lectura; Google Sheets sigue siendo la fuente oficial.', e);
+    return false;
+  }
+}
+function portalFechaCacheV7(item) {
+  if (!item || !item.actualizado) return '';
+  return new Date(item.actualizado).toLocaleString('es-PE', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' });
+}
+function portalEstadoV7(texto, tipo) {
+  const el = document.getElementById('portalSyncStatus');
+  if (!el) return;
+  el.className = 'portal-sync-status' + (tipo ? ' sync-' + tipo : '');
+  el.textContent = texto;
+}
+function portalAplicarProgramacionV7(data) {
+  const sesiones = Array.isArray(data && data.bloques) ? data.bloques : [];
+  sesionesSheet = sesiones.flatMap(b => (b.sessions || []).map(s => ({
+    'N.º DE SESIÓN': s.numeroSesion || s.n || '',
+    ID_SESION: s.id || s.ID_SESION || '',
+    BLOQUE: s.bloque || b.title || '',
+    TEMA: s.tema || '',
+    SUBTEMA: s.subtema || s.desc || '',
+    OBJETIVO: s.objetivo || '',
+    VALOR: s.valor || s.val || '',
+    CITA_BIBLICA: s.cita_biblica || s.cita || '',
+    ACTIVIDAD: s.actividad || '',
+    VIDEO_URL: s.videoUrl || s.VIDEO_URL || '',
+    VIDEOS: Array.isArray(s.videos) ? s.videos : [],
+    ESTADO: s.estado || ''
+  })));
+  clasesSheet = (Array.isArray(data && data.clases) ? data.clases : []).map(c => {
+    const temas = Array.isArray(c.temas) ? c.temas : [];
+    const t1 = temas[0] || {};
+    const t2 = temas[1] || {};
+    return {
+      ...c,
+      NUMERO_CLASE: c.numeroClase || '',
+      FECHA_PROGRAMADA: fechaCalendarioDesdeISO(c.fechaProgramada || c.fecha || ''),
+      DIA: c.dia || c.diaRegistrado || '',
+      HORA_INICIO: c.horaInicio || '',
+      HORA_FIN: c.horaFin || '',
+      ID_SESION_1: t1.id || '',
+      TEMA_1: t1.tema || '',
+      TEMA_1_OBJ: t1,
+      ID_SESION_2: t2.id || '',
+      TEMA_2: t2.tema || '',
+      TEMA_2_OBJ: t2,
+      SUB_TEMAS: [t1.subtema, t2.subtema].filter(Boolean).join(' · '),
+      BLOQUE: c.bloque || '',
+      CATEQUISTA: c.catequista || '',
+      TAREAS: Array.isArray(c.tareas) ? c.tareas : []
+    };
+  });
+}
+function portalAplicarResumenV7(data, perfil) {
+  resumenPortalCatequizando = data;
+  const id = (perfil && perfil.ID_NINO) || (data.alumno && data.alumno.id) || '';
+  asistenciaPorAlumno = { [id]: data.asistencia || {} };
+  tareasPorAlumno = { [id]: data.tareas || {} };
+  renderizarTarjetasAlumnos(id);
+  renderizarTareasAsignadasV10(data.tareas && data.tareas.datos || []);
+  renderizarAvisos(data.avisos && data.avisos.datos || []);
+  renderizarTareasFamiliaV7(data.tareas && data.tareas.datos || []);
+}
+function portalClaveResumenV7(idNino) {
+  return PORTAL_CACHE_RESUMEN_PREFIX_V7 + encodeURIComponent(String(idNino || '').trim().toUpperCase());
+}
+function portalLimpiarCachesPersonalesV7() {
+  try {
+    const keys = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.indexOf(PORTAL_CACHE_RESUMEN_PREFIX_V7) === 0) keys.push(k);
+    }
+    keys.forEach(k => localStorage.removeItem(k));
+  } catch (e) {}
+}
+
 function fechaCalendarioDesdeISO(iso) {
   const m = String(iso || '').match(/^(\d{4})-(\d{2})-(\d{2})/);
   if (!m) return String(iso || '');
   return `${m[3]}/${m[2]}/${m[1]}`;
 }
 
-async function cargarDatosPortal() {
+async function cargarDatosPortal(opciones) {
   const perfil = JSON.parse(localStorage.getItem('lds_cat_perfil') || '{}');
-  const token = localStorage.getItem('lds_cat_token') || '';
-  try {
-    const data = await solicitarJSONP(`${API_URL}?action=getSesiones`);
-    if (!data || !data.exito) throw new Error((data && data.mensaje) || 'El backend no devolvió la programación.');
+  const idNino = String(perfil.ID_NINO || '').trim().toUpperCase();
+  const cachePrograma = portalLeerCacheV7(PORTAL_CACHE_PROGRAMACION_V7);
+  const cacheResumen = idNino ? portalLeerCacheV7(portalClaveResumenV7(idNino)) : null;
+  const tieneCachePrograma = !!(cachePrograma && cachePrograma.data && cachePrograma.data.exito);
+  const tieneCacheResumen = !!(cacheResumen && cacheResumen.data && cacheResumen.data.exito);
 
-    sesionesSheet = (data.bloques || []).flatMap(b => (b.sessions || []).map(s => ({
-      'N.º DE SESIÓN': s.numeroSesion || s.n || '',
-      ID_SESION: s.id || s.ID_SESION || '',
-      BLOQUE: s.bloque || b.title || '',
-      TEMA: s.tema || '',
-      SUBTEMA: s.subtema || s.desc || '',
-      OBJETIVO: s.objetivo || '',
-      VALOR: s.valor || s.val || '',
-      CITA_BIBLICA: s.cita_biblica || s.cita || '',
-      ACTIVIDAD: s.actividad || '',
-      VIDEO_URL: s.videoUrl || '',
-      VIDEOS: Array.isArray(s.videos) ? s.videos : [],
-      ESTADO: s.estado || ''
-    })));
-
-    clasesSheet = (data.clases || []).map(c => {
-      const temas = c.temas || [];
-      const t1 = temas[0] || {};
-      const t2 = temas[1] || {};
-      const fecha = fechaCalendarioDesdeISO(c.fechaProgramada || c.fecha || '');
-      return {
-        NUMERO_CLASE: c.numeroClase || '',
-        FECHA_PROGRAMADA: fecha,
-        DIA: c.dia || c.diaRegistrado || '',
-        HORA_INICIO: c.horaInicio || '',
-        HORA_FIN: c.horaFin || '',
-        ID_SESION_1: t1.id || '',
-        TEMA_1: t1.tema || '',
-        ID_SESION_2: t2.id || '',
-        TEMA_2: t2.tema || '',
-        SUB_TEMAS: [t1.subtema, t2.subtema].filter(Boolean).join(' · '),
-        BLOQUE: c.bloque || '',
-        CATEQUISTA: c.catequista || ''
-      };
-    });
-
-    if (token) {
-      const resumenResp = await fetch(API_URL, {
-        method:'POST',
-        headers:{'Content-Type':'text/plain;charset=utf-8'},
-        body:JSON.stringify({action:'obtenerResumenPortalCatequizando', token:token})
-      }).then(r=>r.json());
-      if (!resumenResp || !resumenResp.exito) throw new Error((resumenResp && resumenResp.mensaje) || 'No se pudo recuperar el progreso del catequizando.');
-      resumenPortal = resumenResp;
-      renderizarProgresoBloques(resumenResp.bloques || []);
-      const asistencia = resumenResp.asistencia || {};
-      asistenciaPorAlumno[perfil.ID_NINO] = { porcentaje: asistencia.porcentaje == null ? '—' : asistencia.porcentaje };
-
-      // El resumen ya incluye las tareas; solo se hace una segunda consulta si esa sección falla.
-      if (resumenResp.tareas && resumenResp.tareas.exito) {
-        tareasPortal = Array.isArray(resumenResp.tareas.datos) ? resumenResp.tareas.datos : [];
-      } else {
-        const tareasResp = await solicitarJSONP(`${API_URL}?action=getTareas&token=${encodeURIComponent(token)}`);
-        if (!tareasResp || !tareasResp.exito) throw new Error((tareasResp && tareasResp.mensaje) || 'No se pudieron recuperar las tareas.');
-        tareasPortal = Array.isArray(tareasResp.datos) ? tareasResp.datos : [];
-      }
-      tareasPorAlumno[perfil.ID_NINO] = {
-        resumen: `${tareasPortal.filter(t => ['ENVIADA','REVISADA'].includes(String(t.ESTADO_ENTREGA || '').toUpperCase())).length}/${tareasPortal.length}`
-      };
-      renderizarTareasPortal();
-    }
-
-    console.info('Programación Google Sheets cargada:', sesionesSheet.length, 'temas y', clasesSheet.length, 'clases.');
-  } catch (e) {
-    console.error('Error sincronizando programación de Google Sheets:', e);
-    sesionesSheet = [];
-    clasesSheet = [];
-    const panel = document.getElementById('bloqueDetallePanel');
-    const grid = document.getElementById('temasBloqueGrid');
-    if (panel && grid) {
-      panel.hidden = false;
-      grid.innerHTML = `<p style="font-weight:700;color:#b42318;">No se pudo cargar la programación desde Google Sheets: ${escapeQuizHtml(e.message || e)}. Verifica que el GS esté implementado y publicado.</p>`;
-    }
-  }
-
-  renderizarTarjetasAlumnos(perfil.ID_NINO || '');
-  renderizarCalendario();
-}
-
-function renderizarProgresoBloques(bloques) {
-  const porNumero = {};
-  (bloques || []).forEach(b => { porNumero[String(b.numero)] = b; });
-  document.querySelectorAll('.stage').forEach(btn => {
-    const numero = String(btn.dataset.bloque || '');
-    const dato = porNumero[numero];
-    const small = btn.querySelector('small');
-    if (small) small.textContent = dato && dato.disponible
-      ? `Bloque ${numero} · ${Math.round(Number(dato.porcentaje || 0))}%` 
-      : `Bloque ${numero} · Sin datos`;
-  });
-}
-
-function renderizarTareasPortal() {
-  const lista = document.getElementById('tasksList');
-  const resumen = document.getElementById('tasksSummary');
-  const alerta = document.getElementById('tasksReminder');
-  if (!lista || !resumen || !alerta) return;
-  const total = tareasPortal.length;
-  const entregadas = tareasPortal.filter(t => ['ENVIADA','REVISADA'].includes(String(t.ESTADO_ENTREGA || '').toUpperCase())).length;
-  const pendientes = tareasPortal.filter(t => !['ENVIADA','REVISADA'].includes(String(t.ESTADO_ENTREGA || '').toUpperCase()) && String(t.ESTADO_PLAZO || '') !== 'CERRADA').length;
-  const porcentaje = total ? Math.round(entregadas / total * 100) : 0;
-  resumen.textContent = `${entregadas} de ${total} tareas · ${porcentaje}% completado`;
-  if (pendientes > 0) {
-    alerta.hidden = false;
-    alerta.textContent = `🔔 ¡Tienes ${pendientes} ${pendientes === 1 ? 'tarea pendiente' : 'tareas pendientes'}! Recuerda presentar tus evidencias. La reprogramación cierra el 22/11/2026 a las 11:30 p. m.`;
+  // Primero pinta las últimas lecturas. Esto no confirma ni reemplaza ningún guardado en Sheets.
+  if (tieneCachePrograma) {
+    portalAplicarProgramacionV7(cachePrograma.data);
+    renderizarCalendario();
+    portalEstadoV7('⚡ Programa listo · verificando cambios en Google Sheets...', 'pending');
   } else {
-    alerta.hidden = true;
-    alerta.textContent = '';
+    portalEstadoV7('Conectando con Google Sheets para cargar el programa...', 'pending');
   }
-  if (!total) {
-    lista.innerHTML = '<p style="font-weight:800;color:#52677f">No se encontraron tareas activas en la hoja TAREAS de Google Sheets.</p>';
-    return;
+  if (tieneCacheResumen) {
+    portalAplicarResumenV7(cacheResumen.data, perfil);
+  } else {
+    renderizarTarjetasAlumnos(idNino);
   }
 
-  lista.innerHTML = tareasPortal.map((t, index) => {
-    const estadoEntrega = String(t.ESTADO_ENTREGA || 'PENDIENTE').toUpperCase();
-    const plazo = String(t.ESTADO_PLAZO || 'PENDIENTE').toUpperCase();
-    const entregada = ['ENVIADA','REVISADA'].includes(estadoEntrega);
-    const cerrada = plazo === 'CERRADA';
-    const sinFecha = plazo === 'SIN_FECHA';
-    const clase = entregada ? 'status-entregada' : (cerrada ? 'status-cerrada' : (sinFecha ? 'status-sin-fecha' : (plazo === 'REPROGRAMADA' ? 'status-reprogramada' : 'status-pendiente')));
-    const estadoTexto = entregada ? '✓ TAREA ENTREGADA' : (cerrada ? '🔒 PLAZO CERRADO' : (estadoEntrega === 'CORREGIR' ? '⚠ REQUIERE CORRECCIÓN' : (sinFecha ? '⚠ FECHA POR RECUPERAR' : (plazo === 'REPROGRAMADA' ? '↻ REPROGRAMADA' : '● PENDIENTE'))));
-    const instruccion = t.EVIDENCIA_INSTRUCCION || '';
-    const idTareaSegura = String(t.ID_TAREA || '').replace(/[^A-Z0-9_-]/gi, '');
-    const fechaEntrega = t.FECHA_ENTREGA_TEXTO || 'Fecha pendiente de recuperar desde CLASES';
-    const comentario = t.OBSERVACION_CATEQUISTA ? `<p><strong>Observación:</strong> ${escapeQuizHtml(t.OBSERVACION_CATEQUISTA)}</p>` : '';
-    const evidencia = t.EVIDENCIA_URL_ALUMNO ? `<a class="task-evidence-link" href="${escapeQuizHtml(t.EVIDENCIA_URL_ALUMNO)}" target="_blank" rel="noopener">Ver evidencia enviada</a>` : '';
-    const upload = (!entregada && !cerrada && t.PERMITE_ENTREGA !== false)
-      ? `<div class="task-upload-row"><input id="taskFile_${index}" type="file" accept="image/*" capture="environment"><button type="button" onclick="subirEvidenciaTareaPortal('${idTareaSegura}', 'taskFile_${index}', this)">📷 Enviar foto</button></div><div id="taskUploadStatus_${index}" class="task-upload-status"></div>`
-      : '';
-    return `<article class="task-item ${clase}">
-      <h4>${escapeQuizHtml(t.TITULO || `Tarea ${index + 1}`)}</h4>
-      <span class="task-state">${estadoTexto}</span>
-      ${!entregada && !cerrada ? `<span class="task-reprogram-pill">↻ REPROGRAMACIÓN HASTA 22/11/2026 · 11:30 P. M.</span>` : ''}
-      <p>${escapeQuizHtml(t.DESCRIPCION || '')}</p>
-      ${instruccion ? `<p><strong>Evidencia solicitada:</strong> ${escapeQuizHtml(instruccion)}</p>` : ''}
-      <div class="task-dates"><span>📅 Tema: ${escapeQuizHtml(t.FECHA_ASIGNACION_TEXTO || '—')}</span><span>⏰ Entrega original: ${escapeQuizHtml(fechaEntrega)}</span></div>
-      ${comentario}${evidencia}${upload}
-    </article>`;
-  }).join('');
+  const sincronizarPrograma = async () => {
+    const data = await solicitarJSONP(`${API_URL}?action=getSesiones`, 15000);
+    if (!data || !data.exito) throw new Error((data && data.mensaje) || 'Google Sheets no devolvió la programación.');
+    portalAplicarProgramacionV7(data);
+    portalGuardarCacheV7(PORTAL_CACHE_PROGRAMACION_V7, data);
+    renderizarCalendario();
+    return true;
+  };
+  const sincronizarResumen = async () => {
+    const data = await cargarResumenSeguimientoPortal(perfil, { conservarVista: true });
+    return !!data;
+  };
+
+  const resultados = await Promise.allSettled([sincronizarPrograma(), sincronizarResumen()]);
+  const errores = resultados.filter(r => r.status === 'rejected').map(r => r.reason && r.reason.message ? r.reason.message : 'Error de sincronización');
+  if (errores.length === 0) {
+    portalEstadoV7('✓ Datos sincronizados con Google Sheets · asistencia, tareas, avisos y avance actualizados.', 'ok');
+  } else if (tieneCachePrograma || tieneCacheResumen) {
+    portalEstadoV7('⚠ Se muestran los últimos datos consultados. No se pudo completar la actualización: ' + errores.join(' · '), 'warning');
+    console.warn('Sincronización parcial del portal:', errores);
+  } else {
+    portalEstadoV7('⚠ No se pudo completar la conexión con Google Sheets. Comprueba tu conexión y pulsa Actualizar.', 'error');
+    console.error('Sincronización del portal fallida:', errores);
+  }
 }
 
-function comprimirImagenTareaPortal(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onerror = () => reject(new Error('No se pudo leer la fotografía.'));
-    reader.onload = () => {
-      const imagen = new Image();
-      imagen.onerror = () => reject(new Error('El archivo seleccionado no es una imagen válida.'));
-      imagen.onload = () => {
-        const maximo = 1400;
-        const escala = Math.min(1, maximo / Math.max(imagen.width, imagen.height));
-        const canvas = document.createElement('canvas');
-        canvas.width = Math.max(1, Math.round(imagen.width * escala));
-        canvas.height = Math.max(1, Math.round(imagen.height * escala));
-        const ctx = canvas.getContext('2d');
-        if (!ctx) return reject(new Error('No se pudo preparar la fotografía.'));
-        ctx.drawImage(imagen, 0, 0, canvas.width, canvas.height);
-        let calidad = 0.78;
-        let dataUrl = canvas.toDataURL('image/jpeg', calidad);
-        while (dataUrl.length > 2350000 && calidad > 0.42) {
-          calidad -= 0.08;
-          dataUrl = canvas.toDataURL('image/jpeg', calidad);
-        }
-        if (dataUrl.length > 2450000) return reject(new Error('La fotografía sigue siendo demasiado pesada. Selecciona otra imagen.'));
-        resolve({ base64:dataUrl, mimeType:'image/jpeg', fileName:(file.name || 'evidencia').replace(/\.[^.]+$/, '') + '.jpg' });
-      };
-      imagen.src = reader.result;
-    };
-    reader.readAsDataURL(file);
+async function cargarResumenSeguimientoPortal(perfil, opciones) {
+  const opts = opciones || {};
+  const grid = document.getElementById('studentsGrid');
+  const perfilLocal = perfil || {};
+  const idNino = String(perfilLocal.ID_NINO || '').trim().toUpperCase();
+  if (!resumenPortalCatequizando && grid && !opts.conservarVista) {
+    grid.innerHTML = '<div class="followup-loading">🌟 Sincronizando tu asistencia, tareas y cuestionarios...</div>';
+  }
+  const token = localStorage.getItem('lds_cat_token') || '';
+  const response = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({ action: 'obtenerResumenPortalCatequizando', token: token })
   });
-}
-
-async function subirEvidenciaTareaPortal(idTarea, inputId, boton) {
-  const input = document.getElementById(inputId);
-  const status = input ? input.closest('.task-item').querySelector('.task-upload-status') : null;
-  const file = input && input.files ? input.files[0] : null;
-  if (!file) { if (status) status.textContent = 'Selecciona o toma una fotografía primero.'; return; }
-  const token = localStorage.getItem('lds_cat_token') || '';
-  if (!token) { if (status) status.textContent = 'La sesión venció. Ingresa nuevamente.'; return; }
-  boton.disabled = true;
-  boton.textContent = 'Comprimiendo…';
-  if (status) status.textContent = 'Preparando fotografía…';
-  try {
-    const imagen = await comprimirImagenTareaPortal(file);
-    boton.textContent = 'Guardando…';
-    if (status) status.textContent = 'Guardando en Google Drive y Google Sheets…';
-    const resp = await fetch(API_URL, {
-      method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body:JSON.stringify({ action:'enviarEvidenciaTarea', token:token, idTarea:idTarea, base64:imagen.base64, mimeType:imagen.mimeType, fileName:imagen.fileName })
-    });
-    const data = await resp.json();
-    if (!data || !data.exito) throw new Error(data && data.mensaje ? data.mensaje : 'No se pudo guardar la evidencia.');
-    if (status) status.textContent = '✓ Evidencia guardada correctamente.';
-    await cargarTareasPortal();
-  } catch (e) {
-    if (status) status.textContent = e && e.message ? e.message : 'No se pudo enviar la evidencia.';
-    boton.disabled = false;
-    boton.textContent = '📷 Reintentar';
-  }
-}
-
-async function cargarTareasPortal() {
-  const token = localStorage.getItem('lds_cat_token') || '';
-  if (!token) return;
-  try {
-    const data = await solicitarJSONP(`${API_URL}?action=getTareas&token=${encodeURIComponent(token)}`);
-    if (data && data.exito) {
-      tareasPortal = Array.isArray(data.datos) ? data.datos : [];
-      const perfil = JSON.parse(localStorage.getItem('lds_cat_perfil') || '{}');
-      tareasPorAlumno[perfil.ID_NINO] = {
-        resumen: `${tareasPortal.filter(t => ['ENVIADA','REVISADA'].includes(String(t.ESTADO_ENTREGA || '').toUpperCase())).length}/${tareasPortal.length}`
-      };
-      renderizarTareasPortal();
-      renderizarTarjetasAlumnos(perfil.ID_NINO || '');
-    }
-  } catch (e) {
-    const lista = document.getElementById('tasksList');
-    if (lista) lista.innerHTML = `<p style="color:#a52222;font-weight:800">No se pudieron cargar las tareas: ${escapeQuizHtml(e.message || e)}</p>`;
-  }
+  const data = await response.json();
+  if (!data || !data.exito) throw new Error(data && data.mensaje ? data.mensaje : 'No se pudo leer tu seguimiento desde Google Sheets.');
+  portalAplicarResumenV7(data, perfilLocal);
+  if (idNino) portalGuardarCacheV7(portalClaveResumenV7(idNino), data);
+  return data;
 }
 
 function renderizarAvisos(avisos) {
   const contCat = document.getElementById('catequistasNotices');
   const contCoord = document.getElementById('coordinadoresNotices');
+  const contFamilia = document.getElementById('familiaNotices');
   if (!contCat || !contCoord) return;
+  const lista = Array.isArray(avisos) ? avisos : [];
+  const tipo = a => String(a.TIPO_REMITENTE || '').toUpperCase();
+  const remitente = a => String(a.REMITENTE || '').toUpperCase();
+  const esCatequista = a => /CATEQUISTA/.test(tipo(a) + ' ' + remitente(a));
+  const esFamilia = a => /PADRE|MADRE|FAMILIA|TUTOR/.test(tipo(a) + ' ' + remitente(a));
+  const catequistas = lista.filter(esCatequista);
+  const familia = lista.filter(a => !esCatequista(a) && esFamilia(a));
+  const gestores = lista.filter(a => !esCatequista(a) && !esFamilia(a));
 
-  const deCatequistas = avisos.filter(a => String(a.TIPO_REMITENTE || '').toUpperCase().includes('CATEQUISTA'));
-  const deCoordinadores = avisos.filter(a => !String(a.TIPO_REMITENTE || '').toUpperCase().includes('CATEQUISTA'));
-
-  if (deCatequistas.length > 0) {
-    contCat.innerHTML = deCatequistas.map(a =>
-      `<div class="notice-item">📝 <strong>${a.REMITENTE || 'Catequista'}:</strong> ${a.MENSAJE}</div>`
-    ).join('');
+  const noLeido = a => a.ES_NO_LEIDO === true ||
+    (!a.ES_NO_LEIDO && !/LEID[OA]|ATENDIDO|RESPONDIDO/i.test(String(a.ESTADO || '')) &&
+      /ENVIADO|PUBLICADO|RECIBIDO/i.test(String(a.ESTADO || '')));
+  const tarjeta = (a, icono, clase) => {
+    const titulo = escapeQuizHtml(a.TITULO || a.ASUNTO || 'Comunicado');
+    const nombre = escapeQuizHtml(a.REMITENTE || (clase === 'coord' ? 'Coordinación' : clase === 'family' ? 'Familia' : 'Catequista'));
+    const mensaje = escapeQuizHtml(a.MENSAJE || '');
+    const fecha = a.FECHA ? '<small>' + escapeQuizHtml(formatearFechaSeguimiento(a.FECHA)) + '</small>' : '';
+    const nuevo = noLeido(a);
+    return '<article class="notice-item ' + clase + (nuevo ? ' notice-highlight' : '') + '">' +
+      '<strong>' + icono + ' ' + nombre + ' · ' + titulo + '</strong>' +
+      (nuevo ? '<span class="notice-new-badge">NUEVO</span>' : '') +
+      '<p>' + mensaje + '</p>' + fecha + '</article>';
+  };
+  const bienvenida = '<article class="notice-item teacher notice-welcome-v10"><strong>💛 ¡Qué alegría caminar juntos hacia Jesús!</strong><p>Querida familia: nos alegra acompañar a su niño(a) en esta hermosa preparación. Cada encuentro es una oportunidad para crecer en la fe, el amor y la amistad. Cuenten con nosotras para orientarlos y celebrar cada avance. ¡Sigamos este camino con alegría y confianza!</p><small>Con cariño, Miss Lily y Miss Kiara</small></article>';
+  const avisoDocumentos = '<article class="notice-item coord notice-gestores-v10"><strong>📌 Familias: documentos para la Primera Comunión</strong><p>Para que su niño(a) pueda recibir la Primera Comunión, es indispensable entregar y regularizar toda la documentación pendiente. Por favor, acérquense a los Gestores a la brevedad. ¡Gracias por su apoyo!</p><small>Atentamente, los Gestores</small></article>';
+  contCat.innerHTML = bienvenida + (catequistas.length ? catequistas.map(a => tarjeta(a, '📝', 'teacher')).join('') : '');
+  contCoord.innerHTML = avisoDocumentos + (gestores.length ? gestores.map(a => tarjeta(a, '📢', 'coord')).join('') : '');
+  if (contFamilia) {
+    contFamilia.innerHTML = familia.length ? familia.map(a => tarjeta(a, '💛', 'family')).join('') :
+      '<div class="notice-empty">No hay mensajes familiares dirigidos a tu cuenta.</div>';
   }
-  if (deCoordinadores.length > 0) {
-    contCoord.innerHTML = deCoordinadores.map(a =>
-      `<div class="notice-item coord">📢 <strong>${a.REMITENTE || 'Coordinación'}:</strong> ${a.MENSAJE}</div>`
-    ).join('');
+  const totalNuevos = lista.filter(noLeido).length;
+  const alerta = document.getElementById('noticeAlertLine');
+  if (alerta) {
+    alerta.classList.toggle('visible', totalNuevos > 0);
+    alerta.textContent = totalNuevos > 0
+      ? '🔴 Tienes ' + totalNuevos + (totalNuevos === 1 ? ' mensaje nuevo.' : ' mensajes nuevos.') + ' Revisa tus comunicados.'
+      : '';
+  }
+}
+
+
+let tareasCatequesisAlumnoV7 = [];
+let tareaSeleccionadaV7 = '';
+let envioEvidenciaOcupadoV7 = false;
+
+function abrirPanelTareasFamiliaV8() {
+  const panel=document.getElementById('panelTareasFamiliaV7');
+  const seccion=document.getElementById('seccion-tareas-familia');
+  if(panel)panel.open=true;
+  if(seccion)seccion.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function normalizarTextoTareaV7(valor) {
+  return String(valor || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+}
+
+function renderizarTareasAsignadasV10(lista) {
+  const tareas = Array.isArray(lista) ? lista : [];
+  const cont = document.getElementById('lista-tareas-asignadas-v10');
+  const resumen = document.getElementById('resumen-tareas-asignadas-v10');
+  const enviadas = tareas.filter(t => ['ENVIADA','REVISADA'].includes(String(t.ESTADO_ENTREGA || '').toUpperCase())).length;
+  const pendientes = Math.max(0, tareas.length - enviadas);
+  if (resumen) resumen.textContent = tareas.length
+    ? tareas.length + ' actividades · ' + pendientes + ' pendientes · ' + enviadas + ' evidencias enviadas'
+    : 'No hay actividades asignadas por ahora.';
+  const resumenFamilia = document.getElementById('tareas-summary-count-v8');
+  if (resumenFamilia) resumenFamilia.textContent = tareas.length + ' actividades disponibles · ' + pendientes + ' pendientes · ' + enviadas + ' evidencias enviadas';
+  if (!cont) return;
+  if (!tareas.length) {
+    cont.innerHTML = '<div class="tareas-vacias-v7">🌱 Cuando tu catequista te asigne una actividad, aparecerá aquí.</div>';
+    return;
+  }
+  const estadoInfo = estado => {
+    const e = String(estado || 'PENDIENTE').toUpperCase();
+    if (e === 'REVISADA') return {texto:'Revisada',clase:'estado-revisada-v7'};
+    if (e === 'ENVIADA') return {texto:'Enviada · espera revisión',clase:'estado-enviada-v7'};
+    if (e === 'CORREGIR') return {texto:'Necesita corrección',clase:'estado-corregir-v7'};
+    return {texto:'Pendiente de evidencia',clase:'estado-pendiente-v7'};
+  };
+  cont.innerHTML = tareas.map((t,i) => {
+    const estado = estadoInfo(t.ESTADO_ENTREGA);
+    const titulo = escapeQuizHtml(t.TITULO || t.ID_SESION || ('Actividad '+(i+1)));
+    const idSesion = escapeQuizHtml(t.ID_SESION || '');
+    const descripcion = escapeQuizHtml(t.DESCRIPCION || '');
+    const evidencia = escapeQuizHtml(t.EVIDENCIA_INSTRUCCION || t.OBSERVACION || '');
+    const fecha = t.FECHA_ENTREGA ? escapeQuizHtml(formatearFechaSeguimiento(t.FECHA_ENTREGA)) : 'Según indicación de la catequista';
+    const observacion = String(t.OBSERVACION_CATEQUISTA || '').trim();
+    return '<details class="tarea-asignada-item-v10"><summary><span class="tarea-asignada-title-v10">'+titulo+
+      (idSesion ? '<small>'+idSesion+'</small>' : '')+'</span><span class="estado-tarea-v7 '+estado.clase+'">'+estado.texto+'</span></summary>'+
+      '<div class="tarea-asignada-body-v10">'+(descripcion?'<p>'+descripcion+'</p>':'')+
+      (evidencia?'<div class="tarea-asignada-evidencia-v10"><strong>📷 Evidencia solicitada:</strong><br>'+evidencia+'</div>':'')+
+      '<small>Fecha de entrega: '+fecha+'</small>'+
+      (observacion?'<p class="tarea-asignada-nota-v10"><strong>Mensaje de tu catequista:</strong> '+escapeQuizHtml(observacion)+'</p>':'')+
+      '</div></details>';
+  }).join('');
+  cont.querySelectorAll('details.tarea-asignada-item-v10').forEach(detalle => detalle.addEventListener('toggle', () => {
+    if (!detalle.open) return;
+    cont.querySelectorAll('details.tarea-asignada-item-v10').forEach(otro => { if (otro !== detalle) otro.open = false; });
+  }));
+}
+
+function renderizarTareasFamiliaV7(lista) {
+  tareasCatequesisAlumnoV7 = Array.isArray(lista) ? lista : [];
+  const selector=document.getElementById('selector-tema-tarea');
+  const contenedor=document.getElementById('contenedor-tarjetas-tareas');
+  const resumen=document.getElementById('resumen-tareas-v7');
+  if(!selector||!contenedor)return;
+  const anterior=tareaSeleccionadaV7||selector.value;
+  selector.innerHTML='<option value="">-- Selecciona uno de tus 68 temas --</option>'+
+    tareasCatequesisAlumnoV7.map(t=>'<option value="'+escapeQuizHtml(t.ID_TAREA)+'">'+
+    escapeQuizHtml((t.ID_SESION||t.ID_TAREA)+' · '+(t.TITULO||'Tema de catequesis'))+'</option>').join('');
+  const enviadas=tareasCatequesisAlumnoV7.filter(t=>['ENVIADA','REVISADA'].includes(String(t.ESTADO_ENTREGA||'').toUpperCase())).length;
+  const pendientes=tareasCatequesisAlumnoV7.length-enviadas;
+  if(resumen)resumen.innerHTML='<strong>'+tareasCatequesisAlumnoV7.length+'</strong> tareas disponibles · <strong>'+enviadas+
+    '</strong> evidencias enviadas · <strong>'+pendientes+'</strong> pendientes';
+  const resumenPlegado=document.getElementById('tareas-summary-count-v8');
+  if(resumenPlegado)resumenPlegado.textContent=tareasCatequesisAlumnoV7.length+' actividades disponibles · '+pendientes+' pendientes · '+enviadas+' evidencias enviadas';
+  if(!tareasCatequesisAlumnoV7.length){
+    contenedor.innerHTML='<div class="tareas-vacias-v7">Todavía no se han activado las 68 tareas. La catequista debe ejecutar la preparación inicial del módulo.</div>';
+    tareaSeleccionadaV7='';return;
+  }
+  const buscador=document.getElementById('buscador-tema-tarea');
+  const busqueda=normalizarTextoTareaV7(buscador&&buscador.value);
+  let seleccion=busqueda?tareasCatequesisAlumnoV7.find(t=>
+    normalizarTextoTareaV7(t.TITULO).includes(busqueda)||
+    normalizarTextoTareaV7(t.ID_TAREA).includes(busqueda)||
+    normalizarTextoTareaV7(t.ID_SESION).includes(busqueda)):
+    tareasCatequesisAlumnoV7.find(t=>String(t.ID_TAREA)===String(anterior));
+  if(busqueda&&!seleccion){
+    contenedor.innerHTML='<div class="tareas-vacias-v7">No se encontró ese tema. Prueba con otra palabra o número.</div>';
+    tareaSeleccionadaV7='';selector.value='';return;
+  }
+  if(!seleccion)seleccion=tareasCatequesisAlumnoV7[0];
+  tareaSeleccionadaV7=String(seleccion.ID_TAREA||'');
+  selector.value=tareaSeleccionadaV7;
+  const estado=String(seleccion.ESTADO_ENTREGA||'PENDIENTE').toUpperCase();
+  const estadoTexto=estado==='REVISADA'?'EVIDENCIA REVISADA':estado==='ENVIADA'?'EVIDENCIA ENVIADA · PENDIENTE DE REVISIÓN':
+    estado==='CORREGIR'?'NECESITA CORRECCIÓN':'PENDIENTE DE EVIDENCIA';
+  const estadoClase=estado==='REVISADA'?'estado-revisada-v7':estado==='ENVIADA'?'estado-enviada-v7':
+    estado==='CORREGIR'?'estado-corregir-v7':'estado-pendiente-v7';
+  const instruccion=seleccion.EVIDENCIA_INSTRUCCION||
+    String(seleccion.OBSERVACION||'').replace(/^EVIDENCIA\s+FOTOGR[AÁ]FICA\s+OBLIGATORIA\s*:\s*/i,'').trim();
+  const observacion=String(seleccion.OBSERVACION_CATEQUISTA||'').trim();
+  const fechaEnvio=seleccion.FECHA_ENVIO_EVIDENCIA?' · Enviada: '+escapeQuizHtml(formatearFechaSeguimiento(seleccion.FECHA_ENVIO_EVIDENCIA)):'';
+  contenedor.innerHTML='<article class="tarjeta-tarea-v7">'+
+    '<span class="badge-tema-v7">📘 '+escapeQuizHtml(seleccion.ID_SESION||seleccion.ID_TAREA)+'</span>'+
+    '<h4>'+escapeQuizHtml(seleccion.TITULO||'Tarea didáctica en familia')+'</h4>'+
+    '<div class="bloque-actividad-v7"><strong>👨‍👩‍👧‍👦 Tarea en familia</strong><br>'+escapeQuizHtml(seleccion.DESCRIPCION||'')+'</div>'+
+    '<div class="bloque-evidencia-v7"><strong>📸 Evidencia fotográfica</strong><br>'+escapeQuizHtml(instruccion||'Toma una fotografía donde se vea la actividad realizada en familia.')+'</div>'+
+    '<div><span class="estado-tarea-v7 '+estadoClase+'">'+escapeQuizHtml(estadoTexto)+'</span><span style="font-size:10px;color:#64748b;font-weight:800">'+fechaEnvio+'</span></div>'+
+    (observacion?'<div class="bloque-actividad-v7" style="margin-top:10px"><strong>💬 Observación de tu catequista</strong><br>'+escapeQuizHtml(observacion)+'</div>':'')+
+    '<div class="acciones-tarea-v7">'+
+    '<button type="button" class="btn-tarea-voz-v7" id="btnEscucharTareaV7">🔊 Escuchar tarea</button>'+
+    '<button type="button" class="btn-tarea-evidencia-v7" id="btnElegirEvidenciaV7" '+(['ENVIADA','REVISADA'].includes(estado)?'disabled':'')+'>📷 Tomar o seleccionar fotografía</button>'+
+    '<input type="file" id="inputEvidenciaTareaV7" accept="image/jpeg,image/png,image/webp" capture="environment" style="display:none"></div>'+
+    '<div id="estadoEnvioEvidenciaV7" class="tarea-estado-mensaje-v7" role="status" aria-live="polite">'+
+    (estado==='ENVIADA'?'Tu evidencia ya está guardada y espera revisión.':estado==='REVISADA'?'¡Tu catequista ya revisó esta evidencia!':
+    estado==='CORREGIR'?'Puedes enviar una nueva fotografía con la corrección solicitada.':
+    'La evidencia se guardará en Drive y se registrará en Google Sheets.')+'</div></article>';
+  document.getElementById('btnEscucharTareaV7').addEventListener('click',()=>leerTareaEnVozAltaV7(seleccion));
+  const input=document.getElementById('inputEvidenciaTareaV7');
+  document.getElementById('btnElegirEvidenciaV7').addEventListener('click',()=>input.click());
+  input.addEventListener('change',async()=>{
+    const archivo=input.files&&input.files[0];
+    if(archivo)await enviarEvidenciaTareaV7(seleccion,archivo,input);
+  });
+}
+function leerTareaEnVozAltaV7(tarea) {
+  const texto='Tema '+String(tarea.ID_SESION||'')+'. '+String(tarea.TITULO||'')+
+    '. Tarea en familia: '+String(tarea.DESCRIPCION||'')+
+    '. Evidencia fotográfica: '+String(tarea.EVIDENCIA_INSTRUCCION||tarea.OBSERVACION||'Toma una fotografía de la actividad realizada.');
+  hablarTexto(texto);
+}
+function comprimirFotoTareaV7(archivo) {
+  return new Promise((resolve,reject)=>{
+    if(!archivo||!['image/jpeg','image/png','image/webp'].includes(String(archivo.type||'').toLowerCase())){
+      reject(new Error('Selecciona una fotografía JPG, PNG o WEBP.'));return;
+    }
+    const url=URL.createObjectURL(archivo),imagen=new Image();
+    imagen.onload=()=>{
+      try{
+        const escala=Math.min(1,1440/Math.max(imagen.width,imagen.height));
+        const canvas=document.createElement('canvas');
+        canvas.width=Math.max(1,Math.round(imagen.width*escala));
+        canvas.height=Math.max(1,Math.round(imagen.height*escala));
+        const ctx=canvas.getContext('2d',{alpha:false});
+        if(!ctx)throw new Error('No se pudo preparar la fotografía.');
+        ctx.drawImage(imagen,0,0,canvas.width,canvas.height);
+        canvas.toBlob(blob=>{
+          URL.revokeObjectURL(url);
+          if(!blob){reject(new Error('No se pudo comprimir la fotografía.'));return;}
+          if(blob.size>1800000){reject(new Error('La fotografía supera 1.8 MB después de comprimirla. Toma otra con menor resolución.'));return;}
+          const lector=new FileReader();
+          lector.onload=()=>{
+            const base64=String(lector.result||'').split(',')[1]||'';
+            if(!base64){reject(new Error('No se pudo leer la fotografía.'));return;}
+            resolve({base64:base64,mimeType:blob.type||'image/jpeg',size:blob.size,fileName:'evidencia.jpg'});
+          };
+          lector.onerror=()=>reject(new Error('No se pudo preparar el archivo.'));
+          lector.readAsDataURL(blob);
+        },'image/jpeg',0.76);
+      }catch(e){URL.revokeObjectURL(url);reject(e);}
+    };
+    imagen.onerror=()=>{URL.revokeObjectURL(url);reject(new Error('No se pudo abrir la fotografía. Usa JPG, PNG o WEBP.'));};
+    imagen.src=url;
+  });
+}
+async function enviarEvidenciaTareaV7(tarea,archivo,input) {
+  if(envioEvidenciaOcupadoV7)return;
+  const boton=document.getElementById('btnElegirEvidenciaV7');
+  const estado=document.getElementById('estadoEnvioEvidenciaV7');
+  const token=localStorage.getItem('lds_cat_token')||'';
+  if(!token){if(estado)estado.textContent='Tu sesión venció. Ingresa nuevamente.';return;}
+  envioEvidenciaOcupadoV7=true;
+  if(boton){boton.disabled=true;boton.textContent='⏳ Preparando fotografía...';}
+  if(estado)estado.textContent='Comprimiendo una copia para agilizar el envío...';
+  try{
+    const imagen=await comprimirFotoTareaV7(archivo);
+    if(boton)boton.textContent='⏳ Guardando evidencia...';
+    if(estado)estado.textContent='Enviando a Drive y registrando en Google Sheets. No cierres esta ventana.';
+    const respuesta=await fetch(API_URL,{
+      method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify({action:'enviarEvidenciaTarea',token:token,idTarea:tarea.ID_TAREA,idSesion:tarea.ID_SESION,
+        fileName:imagen.fileName,mimeType:imagen.mimeType,base64:imagen.base64})
+    }).then(r=>r.json());
+    if(!respuesta||!respuesta.exito)throw new Error(respuesta&&respuesta.mensaje?respuesta.mensaje:'Google Sheets no confirmó el guardado.');
+    if(estado)estado.textContent='✅ '+(respuesta.mensaje||'Evidencia guardada en Drive y Sheets.');
+    tareaSeleccionadaV7=String(tarea.ID_TAREA);
+    const perfil=JSON.parse(localStorage.getItem('lds_cat_perfil')||'{}');
+    await cargarResumenSeguimientoPortal(perfil,{conservarVista:true});
+  }catch(e){
+    if(estado)estado.textContent='⚠️ No se confirmó el guardado: '+(e.message||e)+'. Puedes volver a intentarlo.';
+    if(boton){boton.disabled=false;boton.textContent='📷 Reintentar fotografía';}
+  }finally{
+    envioEvidenciaOcupadoV7=false;
+    if(input)input.value='';
   }
 }
 
 // BLOQUES FILTRADOS DESDE LA PESTAÑA SESIONES DEL GOOGLE SHEET
-function abrirBloque(numBloque) {
+let bloqueActualSeleccionado = 0;
+
+function mostrarProgresoBloqueUI(porcentaje, completado) {
+  const valor = Math.max(0, Math.min(100, Number(porcentaje || 0)));
+  const texto = document.getElementById('progresoBloquePanelTexto');
+  const barra = document.getElementById('progresoBloquePanelBarra');
+  const mensaje = document.getElementById('progresoBloquePanelMensaje');
+  if (texto) texto.textContent = `${valor.toFixed(1).replace(/\.0$/, '')}%`;
+  if (barra) barra.style.width = `${valor}%`;
+  if (mensaje) mensaje.textContent = completado
+    ? '🏆 ¡Has completado todas las preguntas de este bloque!'
+    : 'Sigue jugando y aprendiendo. Tu avance se guarda automáticamente. ✨';
+}
+
+async function actualizarProgresoBloquePortal(numeroBloque) {
+  const texto = document.getElementById('progresoBloquePanelTexto');
+  const mensaje = document.getElementById('progresoBloquePanelMensaje');
+  if (texto) texto.textContent = '…';
+  if (mensaje) mensaje.textContent = 'Consultando tu avance guardado…';
+  try {
+    const token = localStorage.getItem('lds_cat_token') || '';
+    const data = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'obtenerProgresoBloqueCatequizando', bloque: numeroBloque, token: token })
+    }).then(r => r.json());
+    if (!data || !data.exito) throw new Error(data && data.mensaje ? data.mensaje : 'No se pudo consultar el avance.');
+    if (bloqueActualSeleccionado === numeroBloque) mostrarProgresoBloqueUI(data.porcentajeBloque, data.completadoBloque);
+  } catch (error) {
+    if (texto) texto.textContent = '—%';
+    if (mensaje) mensaje.textContent = 'No se pudo sincronizar el avance. Verifica tu conexión e inténtalo de nuevo.';
+  }
+}
+
+async function abrirBloque(numBloque) {
+  const panel = document.getElementById('bloqueDetallePanel');
+  if (!panel) return;
+  const mismoBloqueAbierto = !panel.hidden && bloqueActualSeleccionado === Number(numBloque);
+  if (mismoBloqueAbierto) {
+    panel.hidden = true;
+    bloqueActualSeleccionado = 0;
+    document.querySelectorAll('.stage').forEach(btn => btn.classList.remove('active-stage'));
+    return;
+  }
+  bloqueActualSeleccionado = Number(numBloque);
   document.querySelectorAll('.stage').forEach(btn => {
     btn.classList.toggle('active-stage', Number(btn.dataset.bloque) === numBloque);
   });
 
-  const panel = document.getElementById('bloqueDetallePanel');
   const titulo = document.getElementById('bloqueDetalleTitulo');
   const grid = document.getElementById('temasBloqueGrid');
 
@@ -1953,155 +2455,300 @@ function abrirBloque(numBloque) {
   hablarTexto(titulo.textContent);
 
   if (sesionesDelBloque.length === 0) {
-    grid.innerHTML = '<p style="font-weight:700; color:var(--muted);">No se encontraron sesiones registradas para este bloque en el Google Sheet.</p>';
+    grid.innerHTML = '<p style="font-weight:700;color:var(--muted);">No se encontraron sesiones registradas para este bloque en Google Sheets.</p>';
+    actualizarProgresoBloquePortal(numBloque);
     return;
   }
 
   grid.innerHTML = sesionesDelBloque.map((s, idx) => {
     const idSes = String(s.ID_SESION || '').trim();
+    const idSesJs = idSes.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
     const tema = String(s.TEMA || `Sesión ${idx + 1}`).trim();
+    const temaJs = tema.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
     const subtema = String(s.SUBTEMA || '').trim();
     const objetivo = String(s.OBJETIVO || '').trim();
     const valor = String(s.VALOR || '').trim();
     const cita = String(s.CITA_BIBLICA || '').trim();
-    const videos = (Array.isArray(s.VIDEOS) ? s.VIDEOS : []).filter(v => /^https:\/\//i.test(String(v.url || '')));
-    const videosHtml = videos.length
-      ? `<div style="margin-top:10px;padding:10px;border-radius:10px;background:#f1f7ff"><strong>🎬 Videos de apoyo</strong>${videos.map(v => `<p style="margin:5px 0"><a href="${escapeQuizHtml(v.url)}" target="_blank" rel="noopener" style="color:#14558b;font-weight:900;text-decoration:underline">▶ ${escapeQuizHtml(v.titulo || 'Ver video del tema')}</a></p>`).join('')}</div>`
-      : (s.VIDEO_URL ? `<p style="margin-top:8px"><a href="${escapeQuizHtml(s.VIDEO_URL)}" target="_blank" rel="noopener" style="color:#14558b;font-weight:900;text-decoration:underline">▶ Ver video de apoyo</a></p>` : '');
 
     return `
       <div class="tema-card">
         <div>
           <div class="tema-meta">
-            ${idSes ? `<span class="tema-badge">${idSes}</span>` : ''}
-            ${cita ? `<span class="tema-badge">📖 ${cita}</span>` : ''}
-            ${valor ? `<span class="tema-badge">💛 ${valor}</span>` : ''}
+            ${idSes ? `<span class="tema-badge">${escapeQuizHtml(idSes)}</span>` : ''}
+            ${cita ? `<span class="tema-badge">📖 ${escapeQuizHtml(cita)}</span>` : ''}
+            ${valor ? `<span class="tema-badge">💛 ${escapeQuizHtml(valor)}</span>` : ''}
           </div>
-          <h4 style="margin-top:8px;">${s['N.º DE SESIÓN'] || (idx + 1)}. ${tema}</h4>
-          ${subtema ? `<div class="tema-subtema">Subtema: ${subtema}</div>` : ''}
-          ${objetivo ? `<p style="margin-top:6px;">${objetivo}</p>` : ''}
-          ${videosHtml}
+          <h4 style="margin-top:8px;">${escapeQuizHtml(s['N.º DE SESIÓN'] || (idx + 1))}. ${escapeQuizHtml(tema)}</h4>
+          ${subtema ? `<div class="tema-subtema">Subtema: ${escapeQuizHtml(subtema).replace(/\\n/g, '<br>')}</div>` : ''}
+          ${objetivo ? `<p style="margin-top:6px;">${escapeQuizHtml(objetivo)}</p>` : ''}
         </div>
-        <button type="button" class="btn-quiz-tema" onclick="abrirCuestionarioTema('${idSes.replace(/'/g, "\\'")}', '${tema.replace(/'/g, "\\'")}')">
-          🎯 Cuestionario del Tema
-        </button>
+        <div class="tema-card-acciones-v9">
+          <button type="button" class="btn-video-tema-v9" onclick="abrirVideoTema('${idSesJs}')">🎬 Ver videos${(Array.isArray(s.VIDEOS) && s.VIDEOS.length) ? ' · ' + s.VIDEOS.length : ''}</button>
+          <button type="button" class="btn-quiz-tema" onclick="abrirCuestionarioTema('${idSesJs}', '${temaJs}')">🎮 Aprender jugando</button>
+        </div>
+        <p class="tema-video-status-v9" id="estadoVideoTema_${idSes.replace(/[^a-zA-Z0-9_-]/g, '_') || idx}" role="status" aria-live="polite" hidden></p>
       </div>
     `;
   }).join('');
 
   panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  actualizarProgresoBloquePortal(numBloque);
 }
 
-// CUESTIONARIO DISTRIBUIDO DE ACUERDO AL TEMA / SUBTEMA / SESIÓN (BANCO_PREGUNTAS)
-// Cuestionarios progresivos: misiones cortas de 10 preguntas, 3 alternativas.
+// Cada tema contiene todas sus preguntas activas. Se juega de una en una;
+// el avance visible se calcula sobre todas las preguntas del bloque completo.
+let videosTemaAbiertosV10 = [];
+function cerrarGaleriaVideosTemaV10() {
+  const modal=document.getElementById('videoGalleryModalV10');
+  if(modal)modal.hidden=true;
+  document.body.classList.remove('video-gallery-open-v10');
+  videosTemaAbiertosV10=[];
+}
+function abrirVideoSeleccionadoV10(indice) {
+  const video=videosTemaAbiertosV10[Number(indice)];
+  if(!video)return;
+  let url;
+  try{url=new URL(String(video.url||''));}catch(e){alert('El enlace del video no tiene un formato válido.');return;}
+  const permitidos=['youtube.com','www.youtube.com','youtu.be','www.youtu.be','youtube-nocookie.com','www.youtube-nocookie.com','drive.google.com','www.drive.google.com','vimeo.com','www.vimeo.com'];
+  if(url.protocol!=='https:'||!permitidos.includes(url.hostname.toLowerCase())){alert('Solo se abren videos de YouTube, Google Drive o Vimeo.');return;}
+  const ventana=window.open(url.href,'_blank','noopener,noreferrer');
+  if(!ventana)alert('El navegador bloqueó la ventana. Permite ventanas emergentes para este portal.');
+}
+function abrirVideoTema(idSesion) {
+  const normalizar=valor=>String(valor||'').trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
+  const sesion=sesionesSheet.find(s=>normalizar(s.ID_SESION)===normalizar(idSesion));
+  const modal=document.getElementById('videoGalleryModalV10');
+  const titulo=document.getElementById('videoGalleryTitleV10');
+  const lista=document.getElementById('videoGalleryListV10');
+  if(!modal||!titulo||!lista)return;
+  if(!sesion){titulo.textContent='Videos del tema';lista.innerHTML='<div class="video-gallery-empty-v10">No encontramos este tema en la programación. Actualiza el portal e inténtalo nuevamente.</div>';}
+  else{
+    titulo.textContent='🎬 Videos de '+String(sesion.TEMA||'este tema');
+    let videos=Array.isArray(sesion.VIDEOS)?sesion.VIDEOS.filter(v=>v&&v.url):[];
+    if(!videos.length&&String(sesion.VIDEO_URL||'').trim())videos=[{titulo:'Video del tema',descripcion:'Recurso audiovisual registrado anteriormente.',url:sesion.VIDEO_URL}];
+    videosTemaAbiertosV10=videos.slice(0,6);
+    if(!videosTemaAbiertosV10.length){
+      lista.innerHTML='<div class="video-gallery-empty-v10"><strong>🎬 Próximamente tendremos videos para este tema.</strong><p>Las catequistas están preparando recursos para ayudarte a comprender y repasar lo aprendido.</p></div>';
+    }else{
+      lista.innerHTML=videosTemaAbiertosV10.map((v,i)=>'<article class="video-gallery-item-v10"><span class="video-gallery-number-v10">'+(i+1)+'</span><div class="video-gallery-copy-v10"><strong>'+escapeQuizHtml(v.titulo||('Video '+(i+1)))+'</strong>'+(v.descripcion?'<p>'+escapeQuizHtml(v.descripcion)+'</p>':'')+'</div><button type="button" class="btn-abrir-video-v10" data-video-index="'+i+'">▶ Ver video</button></article>').join('');
+      lista.querySelectorAll('[data-video-index]').forEach(btn=>btn.addEventListener('click',()=>abrirVideoSeleccionadoV10(btn.dataset.videoIndex)));
+    }
+  }
+  modal.hidden=false;document.body.classList.add('video-gallery-open-v10');
+}
+
 async function abrirCuestionarioTema(idSesion, nombreTema) {
   const backdrop = document.getElementById('quizModalBackdrop');
   const title = document.getElementById('quizModalTitle');
+  title.textContent = `🎮 Aventura de aprendizaje: ${nombreTema}`;
   backdrop.hidden = false;
-  title.textContent = `🌟 Misión de aprendizaje: ${nombreTema}`;
-  await cargarMisionQuiz(idSesion, nombreTema);
+  quizTemaActivoV5 = String(idSesion);
+  if (quizTimerSiguienteV5) clearTimeout(quizTimerSiguienteV5);
+  await cargarPreguntaJuego(idSesion, nombreTema);
 }
 
-async function cargarMisionQuiz(idSesion, nombreTema) {
+async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, progresoPrecargado) {
+  const title = document.getElementById('quizModalTitle');
   const body = document.getElementById('quizModalBody');
   const token = localStorage.getItem('lds_cat_token') || '';
-  body.innerHTML = '<p style="font-weight:700;">Preparando tu siguiente pregunta… 🌟</p>';
+  quizCancelarVozV6(false);
+  body.innerHTML = preguntaPrecargada ? '' : '<p style="font-weight:700;text-align:center;padding:12px;">🌟 Preparando la primera pregunta...</p>';
   try {
-    const resp = await fetch(API_URL, {
-      method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body:JSON.stringify({action:'obtenerCuestionarioCatequizando', idSesion:idSesion, token:token})
-    });
-    const data = await resp.json();
-    if (!data || !data.exito) {
-      if (data && data.sesionConcurrente) mostrarAlertaDispositivo();
-      body.innerHTML = `<p style="color:#a52222;font-weight:700;">${escapeQuizHtml(data && data.mensaje ? data.mensaje : 'No se pudo cargar la pregunta.')}</p>`;
-      return;
+    // Usa JSONP porque este portal ya consulta getSesiones por JSONP desde GitHub Pages.
+    // No depende del CORS de fetch POST ni detiene el juego por una respuesta vacía.
+    if (!quizVersionV5Verificada) {
+      const versionData = await solicitarJSONP(`${API_URL}?action=verificarVersionCuestionarios`);
+      const versionEsperada = 'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V8-VIDEOS-GESTION-MISES';
+      if (!versionData || !versionData.exito || versionData.version !== versionEsperada) {
+        const detalle = versionData && (versionData.version || versionData.mensaje)
+          ? String(versionData.version || versionData.mensaje)
+          : 'El endpoint no devolvió una versión identificable.';
+        body.innerHTML = `<div style="padding:16px;border-radius:12px;background:#fff1f0;color:#922b21"><strong>⚠️ El servidor no corresponde a la versión rápida del juego.</strong><p>Respuesta: ${escapeQuizHtml(detalle)}</p></div>`;
+        return;
+      }
+      quizVersionV5Verificada = true;
     }
+
+    const data = preguntaPrecargada
+      ? { exito: true, pregunta: preguntaPrecargada, porcentajeBloque: progresoPrecargado, completadoTema: false, completadoBloque: false }
+      : await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'obtenerCuestionarioCatequizando', idSesion: idSesion, token: token })
+        }).then(r => r.json());
+    if (!data || !data.exito) throw new Error(data && data.mensaje ? data.mensaje : 'No se pudo cargar la pregunta.');
+
+    const progreso = Math.max(0, Math.min(100, Number(data.porcentajeBloque || 0)));
+    if (bloqueActualSeleccionado && _quizBloqueNumeroUI(data.bloque) === bloqueActualSeleccionado) {
+      mostrarProgresoBloqueUI(progreso, data.completadoBloque);
+    }
+
     if (data.sinPreguntas) {
-      body.innerHTML = `<div style="padding:14px;border-radius:12px;background:#fff7e6;color:#7a4b00"><strong>📚 Este tema aún no tiene preguntas vinculadas.</strong><p>${escapeQuizHtml(data.mensaje || 'No se encontraron preguntas activas para este tema en BANCO_PREGUNTAS. No se marcará como completado.')}</p></div>`;
+      body.innerHTML = `<div style="padding:16px;border-radius:14px;background:#fff7e6;color:#7a4b00"><strong>📚 Este tema todavía no tiene preguntas registradas.</strong><p>${escapeQuizHtml(data.mensaje || 'No se encontraron preguntas activas para este tema.')}</p></div>`;
       return;
     }
+
     if (data.completadoTema) {
-      body.innerHTML = `<div style="text-align:center;padding:20px"><h2>🏆 ¡Tema completado!</h2><p>Has respondido todas las preguntas de <strong>${escapeQuizHtml(data.tema || nombreTema)}</strong>.</p><div style="font-size:24px;color:#168454;font-weight:900">100% 🌟</div><p>¡Felicitaciones! Sigue aprendiendo y creciendo en tu camino hacia Jesús.</p></div>`;
+      body.innerHTML = `<div style="text-align:center;padding:22px"><div style="font-size:42px">🏅</div><h2 style="color:#12345a">¡Tema completado!</h2><p>Has respondido todas las preguntas de <strong>${escapeQuizHtml(data.tema || nombreTema)}</strong>.</p><div style="font-size:28px;color:#168454;font-weight:900;margin:12px 0">${progreso.toFixed(1).replace(/\.0$/, '')}%</div><p>Este es tu avance en el bloque. ¡Sigue aprendiendo con el siguiente tema!</p>${data.completadoBloque ? '<h3>🏆 ¡Bloque completado!</h3>' : ''}<button type="button" id="btnVolverBloque" class="btn-docente-submit">Volver a los temas</button></div>`;
+      document.getElementById('btnVolverBloque').onclick = () => { document.getElementById('quizModalBackdrop').hidden = true; };
       return;
     }
-    if (!data.pregunta || !data.pregunta.idPregunta) {
-      body.innerHTML = '<p style="color:#a52222;font-weight:800">El servidor no devolvió una pregunta pendiente. No se registró ningún cambio.</p>';
-      return;
-    }
-    mostrarPreguntaQuiz(idSesion, nombreTema, data);
-  } catch(e) {
-    body.innerHTML = `<p style="font-weight:700;color:#a52222">No se pudo cargar la pregunta: ${escapeQuizHtml(e && e.message ? e.message : e)}. Verifica la publicación del GS e inténtalo nuevamente.</p>`;
+
+    const p = data.pregunta;
+    if (!p || !Array.isArray(p.opciones) || p.opciones.length !== 3) throw new Error('La pregunta recibida no tiene sus tres alternativas A, B y C.');
+
+    body.innerHTML = `
+      <div style="margin-bottom:17px;padding:13px 15px;border-radius:14px;background:#f3f8ff;border:1px solid #dce7f3;">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;color:#12345a;font-weight:800;">
+          <span>🌱 Tu avance en el bloque</span><strong id="quizPorcentajeBloque">${progreso.toFixed(1).replace(/\.0$/, '')}%</strong>
+        </div>
+        <div style="height:11px;background:#dce5ef;border-radius:99px;overflow:hidden;margin:9px 0 5px;">
+          <div id="quizBarraBloque" style="height:100%;width:${progreso}%;background:linear-gradient(90deg,#27a56b,#8ccc53);border-radius:99px;transition:width .3s;"></div>
+        </div>
+        <small style="color:#52677f;">¡Cada respuesta te acerca a completar el bloque! ✨</small>
+      </div>
+      <div class="quiz-panel-entrada-v6" style="padding:18px;border:1px solid #e7cf82;border-radius:17px;background:#fffdf7;">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:13px;font-weight:900;color:#b47a00;margin-bottom:9px;"><span>⭐ RETO DE APRENDIZAJE</span><button type="button" id="btnRepetirPreguntaV6" style="border:1px solid #dce4ee;border-radius:999px;padding:6px 11px;background:#f3f8ff;color:#12345a;font-weight:900;">🔊 Escuchar</button></div>
+        <div id="quizPreguntaTexto" style="font-size:19px;line-height:1.45;font-weight:800;color:#12345a;margin-bottom:15px;"></div>
+        <div id="quizOpcionesJuego" style="display:grid;gap:10px;"></div>
+      </div>
+      <button type="button" id="btnComprobarRespuesta" class="btn-docente-submit" style="display:none;" disabled>Enviar</button>
+      <div id="quizResultadoJuego" style="margin-top:14px;"></div>
+    `;
+    document.getElementById('quizPreguntaTexto').textContent = p.pregunta;
+    const opcionesEl = document.getElementById('quizOpcionesJuego');
+    let opcionElegida = '';
+    p.opciones.forEach(o => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      quizAnimacionesV6();
+      btn.className = 'quiz-opcion-juego';
+      btn.style.cssText = 'width:100%;text-align:left;padding:13px 15px;border:2px solid #e3e9f0;border-radius:13px;background:#fff;color:#17395e;font-size:15px;font-weight:700;cursor:pointer;transition:all .15s;animation:quizEntradaV6 .25s ease-out both;animation-delay:' + (p.opciones.indexOf(o) * 70) + 'ms;'
+      btn.textContent = `${o.valor}) ${o.texto}`;
+      btn.addEventListener('click', () => {
+        if (btn.disabled) return;
+        quizCancelarVozV6(false);
+        opcionElegida = o.valor;
+        Array.from(opcionesEl.children).forEach(el => {
+          el.style.borderColor = '#e3e9f0';
+          el.style.background = '#fff';
+          el.style.boxShadow = 'none';
+        });
+        btn.style.borderColor = '#e0ad28';
+        btn.style.background = '#fff7df';
+        btn.style.boxShadow = '0 0 0 2px rgba(224,173,40,.14)';
+        document.getElementById('btnComprobarRespuesta').disabled = false;
+        document.getElementById('btnComprobarRespuesta').click();
+      });
+      opcionesEl.appendChild(btn);
+    });
+
+    const textoLecturaPreguntaV6 = 'Pregunta. ' + p.pregunta + '. ' + p.opciones.map(o => 'Alternativa ' + o.valor + '. ' + o.texto).join('. ');
+    const botonRepetirV6 = document.getElementById('btnRepetirPreguntaV6');
+    if (botonRepetirV6) botonRepetirV6.addEventListener('click', () => quizHablarV6(textoLecturaPreguntaV6));
+    quizHablarV6(textoLecturaPreguntaV6);
+
+    const comprobar = document.getElementById('btnComprobarRespuesta');
+    comprobar.addEventListener('click', async () => {
+      if (!opcionElegida) return;
+      comprobar.disabled = true;
+      // La respuesta se envía sin mostrar un mensaje de espera.
+      Array.from(opcionesEl.children).forEach(el => { el.disabled = true; el.style.cursor = 'default'; });
+      try {
+        const saved = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({
+            action: 'enviarCuestionario',
+            idSesion: idSesion,
+            idPregunta: p.idPregunta,
+            opcion: opcionElegida,
+            token: token
+          })
+        }).then(r => r.json());
+        if (!saved || !saved.exito) throw new Error(saved && saved.mensaje ? saved.mensaje : 'No se pudo guardar tu respuesta.');
+
+        const nuevoProgreso = Math.max(0, Math.min(100, Number(saved.porcentajeBloque || 0)));
+        if (resumenPortalCatequizando && Array.isArray(resumenPortalCatequizando.bloques)) {
+          resumenPortalCatequizando.bloques = resumenPortalCatequizando.bloques.map(b =>
+            Number(b.numero) === _quizBloqueNumeroUI(saved.bloque) ? { ...b, porcentaje: nuevoProgreso, completado: !!saved.completadoBloque } : b
+          );
+          const idCacheAlumno = String((JSON.parse(localStorage.getItem('lds_cat_perfil') || '{}')).ID_NINO || '').trim().toUpperCase();
+          if (idCacheAlumno) portalGuardarCacheV7(portalClaveResumenV7(idCacheAlumno), resumenPortalCatequizando);
+          renderizarTarjetasAlumnos(idCacheAlumno);
+        }
+        const pct = document.getElementById('quizPorcentajeBloque');
+        const bar = document.getElementById('quizBarraBloque');
+        if (pct) pct.textContent = `${nuevoProgreso.toFixed(1).replace(/\.0$/, '')}%`;
+        if (bar) bar.style.width = `${nuevoProgreso}%`;
+        if (bloqueActualSeleccionado && _quizBloqueNumeroUI(saved.bloque) === bloqueActualSeleccionado) {
+          mostrarProgresoBloqueUI(nuevoProgreso, saved.completadoBloque);
+        }
+
+        _quizEfectoRespuestaV5(!!saved.correcta);
+        const claveCorrectaJuego = String(saved.respuestaCorrecta || '');
+        Array.from(opcionesEl.children).forEach(el => {
+          const valorOpcion = String(el.textContent || '').trim().charAt(0);
+          if (valorOpcion === claveCorrectaJuego) {
+            el.classList.add('quiz-option-correct-v6');
+            el.style.borderColor = '#20a66a';
+            el.style.background = '#edfff3';
+            el.style.boxShadow = '0 0 0 2px rgba(32,166,106,.16)';
+          } else if (valorOpcion === opcionElegida && !saved.correcta) {
+            el.classList.add('quiz-option-wrong-v6');
+            el.style.borderColor = '#d64747';
+            el.style.background = '#fff0ef';
+          }
+        });
+        const result = document.getElementById('quizResultadoJuego');
+        const correctoHtml = saved.correcta
+          ? '<h3 style="margin:0 0 6px;color:#168454;">🎉 ¡Muy bien! Respuesta correcta</h3><p style="margin:0 0 8px;">Ganaste <strong>2 puntos</strong> ⭐</p>'
+          : `<h3 style="margin:0 0 6px;color:#a52222;">💛 ¡Buen intento! Vamos a aprender</h3><p style="margin:0 0 8px;">La respuesta correcta era: <strong>${escapeQuizHtml(saved.respuestaCorrecta)}) ${escapeQuizHtml(saved.textoRespuestaCorrecta || '')}</strong></p>`;
+        result.innerHTML = `<div class="quiz-feedback-v6" style="padding:15px;border-radius:14px;background:${saved.correcta ? "#effaf2" : "#fff2f0"};border:1px solid ${saved.correcta ? "#a8dfb5" : "#f2b9b2"};">${correctoHtml}${saved.explicacion ? `<p style="color:#25415d;margin:8px 0 0;">${escapeQuizHtml(saved.explicacion)}</p>` : ''}<p style="margin:10px 0 0;color:#52677f;font-weight:800;">Avance del bloque: ${nuevoProgreso.toFixed(1).replace(/\.0$/, '')}%</p></div>`;
+        // Los efectos sonoros sustituyen la narración para que la pregunta siguiente llegue sin demora.
+
+        comprobar.style.display = 'none';
+        const retroalimentacionV6 = saved.correcta
+          ? '¡Excelente! Respuesta correcta. Ganaste dos puntos. ' + String(saved.explicacion || '')
+          : 'Buen intento. La respuesta correcta es ' + String(saved.textoRespuestaCorrecta || '') + '. ' + String(saved.explicacion || '');
+        const avanzarAlTerminarVozV6 = () => {
+          if (quizTemaActivoV5 !== String(idSesion) || document.getElementById('quizModalBackdrop').hidden) return;
+          if (saved.siguientePregunta && saved.siguientePregunta.idPregunta) {
+            quizTimerSiguienteV5 = setTimeout(() => {
+              if (quizTemaActivoV5 !== String(idSesion) || document.getElementById('quizModalBackdrop').hidden) return;
+              cargarPreguntaJuego(idSesion,nombreTema,saved.siguientePregunta,nuevoProgreso);
+            },180);
+          } else if (saved.completadoTema) {
+            if (saved.completadoBloque) {
+              _quizEfectoRespuestaV5(true);
+              body.innerHTML = '<div class="quiz-panel-entrada-v6" style="text-align:center;padding:22px"><div style="font-size:48px">🏆</div><h2 style="color:#12345a">¡Bloque completado!</h2><p>¡Terminaste todos los retos de este bloque!</p><div style="font-size:30px;color:#168454;font-weight:900">100%</div><button type="button" id="btnVolverBloqueV6" class="btn-docente-submit">Volver a los temas</button></div>';
+              quizHablarV6('¡Felicitaciones! Has completado todas las preguntas del bloque.');
+              document.getElementById('btnVolverBloqueV6').onclick=()=>{quizCancelarVozV6(false);document.getElementById('quizModalBackdrop').hidden=true;};
+            } else {
+              result.innerHTML += '<p style="text-align:center;font-weight:800;color:#12345a;margin-top:10px;">🏅 ¡Tema completado! Elige otro tema para continuar.</p><button type="button" id="btnVolverTemasV6" class="btn-docente-submit" style="width:100%;margin-top:10px;">Volver a los temas</button>';
+              document.getElementById('btnVolverTemasV6').onclick=()=>{quizCancelarVozV6(false);document.getElementById('quizModalBackdrop').hidden=true;};
+            }
+          } else {
+            quizTimerSiguienteV5=setTimeout(()=>{if(quizTemaActivoV5===String(idSesion)&&!document.getElementById('quizModalBackdrop').hidden)cargarPreguntaJuego(idSesion,nombreTema);},180);
+          }
+        };
+        quizHablarV6(retroalimentacionV6,avanzarAlTerminarVozV6);
+      } catch (error) {
+        const result = document.getElementById('quizResultadoJuego');
+        result.innerHTML = `<p style="color:#a52222;font-weight:800;">${escapeQuizHtml(error.message || 'Error al guardar la respuesta.')}</p>`;
+        comprobar.disabled = false;
+        comprobar.textContent = 'Intentar guardar de nuevo';
+        Array.from(opcionesEl.children).forEach(el => { el.disabled = false; el.style.cursor = 'pointer'; });
+      }
+    });
+  } catch (error) {
+    body.innerHTML = `<p style="font-weight:700;color:#a52222;padding:12px;">No se pudo cargar la pregunta: ${escapeQuizHtml(error && error.message ? error.message : error)}. Verifica la publicación del GS e inténtalo nuevamente.</p>`;
   }
 }
 
-function mostrarPreguntaQuiz(idSesion, nombreTema, data) {
-  const body = document.getElementById('quizModalBody');
-  const p = data.pregunta;
-  const progreso = Math.max(0, Math.min(100, Number(data.porcentajeTema || 0)));
-  const total = Number(data.totalPreguntas || 0);
-  const respondidas = Number(data.respondidasTema || 0);
-  const numeroPregunta = respondidas + 1;
-  const opciones = (p.opciones || []).map(o => `<label class="quiz-option"><input type="radio" name="quiz_respuesta_actual" value="${escapeQuizHtml(o.valor)}"> <strong>${escapeQuizHtml(o.valor)})</strong> ${escapeQuizHtml(o.texto)}</label>`).join('');
-  body.innerHTML = `<div style="margin-bottom:14px;padding:12px;border-radius:12px;background:#f3f8ff">
-    <div style="font-weight:800;color:#12345a">🌱 Tu avance en este tema</div>
-    <div style="height:10px;background:#dce5ef;border-radius:99px;overflow:hidden;margin:8px 0"><div style="height:100%;width:${progreso}%;background:#35a66f"></div></div>
-    <strong>${progreso}% completado</strong><span style="margin-left:10px;color:#52677f;font-weight:800">Pregunta ${numeroPregunta}${total ? ` de ${total}` : ''}</span></div>
-    <div class="quiz-question-card"><p style="font-weight:900;color:#12345a;margin:0 0 12px;font-size:17px">${escapeQuizHtml(p.pregunta)}</p>${opciones}</div>
-    <div id="quizResultBox" style="margin-top:12px;font-weight:700"></div>
-    <button type="button" id="btnResponderPregunta" class="btn-docente-submit">✓ Comprobar respuesta</button>`;
-
-  const submit = document.getElementById('btnResponderPregunta');
-  submit.onclick = async () => {
-    const checked = body.querySelector('input[name="quiz_respuesta_actual"]:checked');
-    const result = document.getElementById('quizResultBox');
-    if (!checked) { result.innerHTML = '<p style="color:#a52222">Selecciona una alternativa para continuar.</p>'; return; }
-    submit.disabled = true; submit.textContent = 'Guardando respuesta…';
-    try {
-      const token = localStorage.getItem('lds_cat_token') || '';
-      const savedResp = await fetch(API_URL, {
-        method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'},
-        body:JSON.stringify({action:'enviarCuestionario', idSesion:idSesion, idPregunta:p.idPregunta, opcion:checked.value, token:token})
-      });
-      const saved = await savedResp.json();
-      if (saved && saved.sesionConcurrente) {
-        mostrarAlertaDispositivo();
-        throw new Error(saved.mensaje || 'El cuestionario quedó bloqueado por actividad simultánea. Una catequista administradora debe liberar el acceso.');
-      }
-      if (!saved || !saved.exito) throw new Error(saved && saved.mensaje ? saved.mensaje : 'No se pudo guardar la respuesta.');
-
-      const labels = Array.from(body.querySelectorAll('.quiz-option'));
-      labels.forEach(label => {
-        const input = label.querySelector('input');
-        input.disabled = true;
-        if (input.value === String(saved.respuestaCorrecta || '').toUpperCase()) label.classList.add('correct');
-        if (input.checked && !saved.correcta) label.classList.add('incorrect');
-      });
-      const feedback = saved.correcta
-        ? '<div style="padding:13px;border-radius:12px;background:#e1f6e8;color:#155e32;border:2px solid #2b9d58">✅ ¡Muy bien! Respuesta correcta. Tu respuesta quedó guardada.</div>'
-        : `<div style="padding:13px;border-radius:12px;background:#fde5e5;color:#8f1f1f;border:2px solid #d43b3b">❌ Esta vez no fue correcta. La respuesta correcta es <strong>${escapeQuizHtml(saved.respuestaCorrecta)}) ${escapeQuizHtml(saved.textoRespuestaCorrecta || '')}</strong>.${saved.explicacion ? `<p style="margin:8px 0 0">💡 ${escapeQuizHtml(saved.explicacion)}</p>` : ''}<p style="margin:8px 0 0">Tu respuesta también quedó guardada para que puedas seguir avanzando.</p></div>`;
-      result.innerHTML = feedback;
-      const totalPreguntas = Number(saved.totalPreguntas || 0);
-      const respondidas = Number(saved.respondidasTema || 0);
-      const porcentaje = Number(saved.porcentajeTema || 0);
-      const avance = document.createElement('p');
-      avance.style.cssText = 'margin:10px 0;color:#12345a;font-weight:900';
-      avance.textContent = `Avance guardado: ${respondidas}${totalPreguntas ? ' de ' + totalPreguntas : ''} · ${porcentaje}%`;
-      result.appendChild(avance);
-      const siguiente = document.createElement('button');
-      siguiente.type = 'button'; siguiente.className = 'btn-docente-submit';
-      siguiente.style.marginTop = '8px';
-      siguiente.textContent = saved.completadoTema ? '🏆 Ver tema completado' : '➡️ Siguiente pregunta';
-      siguiente.onclick = () => cargarMisionQuiz(idSesion, nombreTema);
-      result.appendChild(siguiente);
-      submit.style.display = 'none';
-      hablarTexto(saved.correcta ? '¡Muy bien! Respuesta correcta.' : 'Vamos a aprender. Revisa la explicación y continúa.');
-      if (saved.completadoTema) hablarTexto('¡Felicitaciones! Has completado todas las preguntas de este tema.');
-    } catch(err) {
-      result.innerHTML = `<p style="color:#a52222">${escapeQuizHtml(err.message || 'Error al guardar la respuesta')}</p>`;
-      submit.disabled = false; submit.textContent = '✓ Reintentar guardar respuesta';
-    }
-  };
+function _quizBloqueNumeroUI(valor) {
+  const m = String(valor || '').match(/BLOQUE\s*([1-6])/i);
+  return m ? Number(m[1]) : 0;
 }
 
 function escapeQuizHtml(value){
@@ -2114,12 +2761,13 @@ const DIAS_SEMANA = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 function obtenerClasesDelDia(dia, mes) {
   const mesNum = mes + 1;
   return clasesSheet.filter(c => {
-    const texto = String(c.FECHA_PROGRAMADA || '').trim();
-    const partes = texto.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);
-    if (partes) return Number(partes[1]) === dia && Number(partes[2]) === mesNum && Number(partes[3]) === anioCal;
-    const iso = texto.match(/^(\d{4})-(\d{2})-(\d{2})/);
-    if (iso) return Number(iso[3]) === dia && Number(iso[2]) === mesNum && Number(iso[1]) === anioCal;
-    return false;
+    const texto = String(c.FECHA_PROGRAMADA || '').toLowerCase().trim();
+    const matchDia = texto.match(/\b(\d{1,2})\b/);
+    if (!matchDia || Number(matchDia[1]) !== dia) return false;
+    const matchAnio = texto.match(/\b(19\d{2}|20\d{2})\b/);
+    if (matchAnio && Number(matchAnio[1]) !== anioCal) return false;
+    const mesNombre = MESES_NOMBRE[mes].toLowerCase();
+    return texto.includes(mesNombre) || texto.includes(`/${String(mesNum).padStart(2, '0')}`) || texto.includes(`-${String(mesNum).padStart(2, '0')}`);
   });
 }
 
@@ -2139,66 +2787,97 @@ function renderizarCalendario() {
 
   for (let dia = 1; dia <= diasMes; dia++) {
     const clasesDia = obtenerClasesDelDia(dia, mesActualCal);
-    const esCelebracion = (mesActualCal === 11 && dia === 12);
+    const esCelebracion = (anioCal === 2026 && mesActualCal === 11 && dia === 12);
     const tieneClase = clasesDia.length > 0;
-
+    const esHoy = anioCal === FECHA_HOY_CAL.getFullYear() && mesActualCal === FECHA_HOY_CAL.getMonth() && dia === FECHA_HOY_CAL.getDate();
     let clasesBtn = 'day';
+    if (esHoy) clasesBtn += ' today';
     if (esCelebracion) clasesBtn += ' communion-day';
     else if (tieneClase) {
       clasesBtn += ' classday';
       if (clasesDia[0].TEMA_2) clasesBtn += ' double-session';
     }
-
-    html += `<button type="button" class="${clasesBtn}" ${(!tieneClase && !esCelebracion) ? 'disabled' : ''} onclick="seleccionarDiaCalendario(${dia}, ${mesActualCal}, this)">${dia}</button>`;
+    html += `<button type="button" class="${clasesBtn}" ${(!tieneClase && !esCelebracion && !esHoy) ? 'disabled' : ''} onclick="seleccionarDiaCalendario(${dia}, ${mesActualCal}, this)">${dia}</button>`;
   }
   grid.innerHTML = html;
+  if (anioCal === FECHA_HOY_CAL.getFullYear() && mesActualCal === FECHA_HOY_CAL.getMonth()) {
+    const botonHoy = grid.querySelector('.day.today');
+    if (botonHoy) seleccionarDiaCalendario(FECHA_HOY_CAL.getDate(), mesActualCal, botonHoy);
+  }
+}
+
+function renderizarTarjetaTemaCalendarioV7(tema, clase, indice) {
+  const datos = tema || {};
+  const fechaISO = String(clase.fechaProgramada || clase.FECHA_PROGRAMADA || '');
+  const fechaVisible = fechaISO ? fechaISO.split('-').reverse().join('/') : '';
+  const numeroSesion = datos.numeroSesion || (indice + 1);
+  const idSesion = escapeQuizHtml(datos.id || '');
+  const temaTexto = escapeQuizHtml(datos.tema || 'Tema registrado en SESIONES');
+  const subtemasRaw = String(datos.subtema || '').trim();
+  const subtemas = subtemasRaw
+    ? subtemasRaw.split(/\s*[•\n\r]+\s*/).map(x => x.trim()).filter(Boolean)
+    : [];
+  const objetivo = String(datos.objetivo || '').trim();
+  const valor = String(datos.valor || '').trim();
+  const cita = String(datos.cita || datos.cita_biblica || '').trim();
+  const actividad = String(datos.actividad || '').trim();
+  const catequista = String(clase.catequista || clase.CATEQUISTA || '').trim();
+  const horaInicio = String(clase.horaInicio || clase.HORA_INICIO || '').trim();
+  const horaFin = String(clase.horaFin || clase.HORA_FIN || '').trim();
+  const claseNumero = clase.numeroClase || clase.NUMERO_CLASE || '';
+  let html = '<article class="calendar-topic-item">';
+  html += '<div class="calendar-topic-session"><span>Sesión N.º ' + escapeQuizHtml(numeroSesion) +
+    ' · 📅 ' + escapeQuizHtml(fechaVisible) +
+    (horaInicio ? ' · ' + escapeQuizHtml(horaInicio) : '') +
+    (horaFin ? ' – ' + escapeQuizHtml(horaFin) : '') +
+    (claseNumero ? ' · Clase ' + escapeQuizHtml(claseNumero) : '') +
+    '</span><span class="calendar-topic-session-code">' + idSesion + '</span></div>';
+  html += '<div class="calendar-topic-title">' + temaTexto + '</div>';
+  if (subtemas.length) {
+    html += '<div class="calendar-topic-subtopics"><strong>SUBTEMAS</strong><ol>' +
+      subtemas.map(x => '<li>' + escapeQuizHtml(x) + '</li>').join('') + '</ol></div>';
+  }
+  if (objetivo) html += '<div class="calendar-topic-objective"><b>Objetivo:</b> ' + escapeQuizHtml(objetivo) + '</div>';
+  if (valor) html += '<div class="calendar-topic-value"><b>Valor:</b> ' + escapeQuizHtml(valor) + '</div>';
+  if (cita) html += '<div class="calendar-topic-bible"><b>Cita Bíblica:</b> ' + escapeQuizHtml(cita) + '</div>';
+  if (actividad) html += '<div class="calendar-topic-activity"><b>Actividad:</b> ' + escapeQuizHtml(actividad) + '</div>';
+  if (catequista) html += '<div class="calendar-topic-teacher"><b>Catequista:</b> ' + escapeQuizHtml(catequista) + '</div>';
+  html += '</article>';
+  return html;
 }
 
 function seleccionarDiaCalendario(dia, mes, btn) {
   document.querySelectorAll('#calGrid .day').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
-
+  if (btn) btn.classList.add('selected');
   const fechaTexto = `${dia} de ${MESES_NOMBRE[mes]} de ${anioCal}`;
   document.getElementById('calSelectedDate').textContent = fechaTexto;
-
   if (mes === 11 && dia === 12) {
     document.getElementById('calSelectedDesc').textContent = '🎉 Celebración de Catequesis / Primera Comunión · 10:00 a. m. · Parroquia San Pedro de Lurín.';
     document.getElementById('calTopicsList').innerHTML = '';
     return;
   }
-
   const clasesDia = obtenerClasesDelDia(dia, mes);
-  if (clasesDia.length === 0) {
-    document.getElementById('calSelectedDesc').textContent = 'No hay temas registrados en el Google Sheet para esta fecha.';
+  if (!clasesDia.length) {
+    const esHoy = dia === FECHA_HOY_CAL.getDate() && mes === FECHA_HOY_CAL.getMonth() && anioCal === FECHA_HOY_CAL.getFullYear();
+    document.getElementById('calSelectedDesc').textContent = esHoy
+      ? 'Hoy no hay clase programada. Aquí aparecerán los temas cuando exista un encuentro registrado para esta fecha.'
+      : 'No hay temas registrados en el Google Sheet para esta fecha.';
     document.getElementById('calTopicsList').innerHTML = '';
     return;
   }
-
-  const c = clasesDia[0];
-  document.getElementById('calSelectedDesc').textContent = `${c.DIA || ''} · ${c.HORA_INICIO || ''} – ${c.HORA_FIN || ''}`.trim();
-
-  const items = [];
-  if (c.TEMA_1) {
-    items.push({
-      titulo: `${c.ID_SESION_1 ? c.ID_SESION_1 + ' · ' : ''}${c.TEMA_1}`,
-      detalle: c.SUB_TEMAS || ''
-    });
+  const clase = clasesDia[0];
+  document.getElementById('calSelectedDesc').textContent =
+    `${clase.DIA || ''} · ${clase.HORA_INICIO || ''} – ${clase.HORA_FIN || ''}`.trim();
+  const temas = [clase.TEMA_1_OBJ, clase.TEMA_2_OBJ].filter(t => t && t.tema);
+  if (!temas.length) {
+    document.getElementById('calTopicsList').innerHTML = '<div class="followup-empty">La fecha tiene clase registrada, pero no hay temas vinculados en la respuesta de Google Sheets.</div>';
+    return;
   }
-  if (c.TEMA_2) {
-    items.push({
-      titulo: `${c.ID_SESION_2 ? c.ID_SESION_2 + ' · ' : ''}${c.TEMA_2}`,
-      detalle: c.SUB_TEMAS || ''
-    });
-  }
-
-  document.getElementById('calTopicsList').innerHTML = items.map(it => `
-    <details class="calendar-topic-item topic-collapsible" open>
-      <summary class="topic-summary"><h4 class="topic-summary-title">${it.titulo}</h4></summary>
-      <div class="topic-content">${it.detalle || 'Tema programado en el Google Sheet.'}</div>
-    </details>
-  `).join('');
+  document.getElementById('calTopicsList').innerHTML =
+    '<details class="calendar-topic-accordion-v10"><summary>📘 Ver temas y subtemas de este encuentro <span>⌄</span></summary><div class="calendar-topic-accordion-content-v10">'+
+    temas.map((tema, i) => renderizarTarjetaTemaCalendarioV7(tema, clase, i)).join('')+
+    '</div></details>';
 }
-
 // CUENTA REGRESIVA HACIA EL 12 DE DICIEMBRE DE 2026 A LAS 10:00 A. M. (LIMA)
 function actualizarCuentaRegresiva() {
   const objetivo = new Date('2026-12-12T10:00:00-05:00').getTime();
@@ -2218,7 +2897,7 @@ function actualizarCuentaRegresiva() {
   document.getElementById('cdMins').textContent = String(m).padStart(2, '0');
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
   configurarInsignias();
   cargarListaCatequizandos();
   actualizarCuentaRegresiva();
@@ -2243,66 +2922,73 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   document.getElementById('calPrev').addEventListener('click', () => {
-    if (mesActualCal > 5) { mesActualCal--; renderizarCalendario(); }
+    mesActualCal--;
+    if (mesActualCal < 0) { mesActualCal = 11; anioCal--; }
+    renderizarCalendario();
   });
 
   document.getElementById('calNext').addEventListener('click', () => {
-    if (mesActualCal < 11) { mesActualCal++; renderizarCalendario(); }
+    mesActualCal++;
+    if (mesActualCal > 11) { mesActualCal = 0; anioCal++; }
+    renderizarCalendario();
   });
 
   document.getElementById('btnToggleVoice').addEventListener('click', function() {
     vozActiva = !vozActiva;
     this.textContent = vozActiva ? '🔊 Voz Activa' : '🔇 Silenciado';
-    if (!vozActiva && 'speechSynthesis' in window) window.speechSynthesis.cancel();
+    if (!vozActiva) quizCancelarVozV6(true);
   });
 
   document.getElementById('btnRefreshPortal').addEventListener('click', () => {
-    cargarDatosPortal();
+    portalEstadoV7('🔄 Actualizando desde Google Sheets...', 'pending');
+    cargarDatosPortal({ forzar: true });
   });
 
-  document.getElementById('btnLogout').addEventListener('click', async () => {
-    detenerVigilanciaSesionCatequizando();
-    const token = localStorage.getItem('lds_cat_token') || '';
-    try {
-      if (token) await fetch(API_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify({action:'cerrarSesionCatequizando', token:token}) });
-    } catch (e) {}
+  const videoModalV10 = document.getElementById('videoGalleryModalV10');
+  if(videoModalV10)videoModalV10.addEventListener('click',e=>{if(e.target===videoModalV10)cerrarGaleriaVideosTemaV10();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')cerrarGaleriaVideosTemaV10();});
+
+  const selectorTareas = document.getElementById('selector-tema-tarea');
+  const buscadorTareas = document.getElementById('buscador-tema-tarea');
+  if (selectorTareas) selectorTareas.addEventListener('change', () => {
+    tareaSeleccionadaV7 = selectorTareas.value;
+    if (buscadorTareas) buscadorTareas.value = '';
+    renderizarTareasFamiliaV7(tareasCatequesisAlumnoV7);
+  });
+  if (buscadorTareas) buscadorTareas.addEventListener('input', () => {
+    tareaSeleccionadaV7 = '';
+    renderizarTareasFamiliaV7(tareasCatequesisAlumnoV7);
+  });
+
+  document.getElementById('btnLogout').addEventListener('click', () => {
+    portalLimpiarCachesPersonalesV7();
     localStorage.removeItem('lds_cat_token');
     localStorage.removeItem('lds_cat_perfil');
     window.location.href = 'catequizandos.html';
   });
 
   document.getElementById('btnCloseQuizModal').addEventListener('click', () => {
+    quizCancelarVozV6(false);
+    if (quizTimerSiguienteV5) clearTimeout(quizTimerSiguienteV5);
     document.getElementById('quizModalBackdrop').hidden = true;
   });
 
-  document.getElementById('studentMessageForm').addEventListener('submit', async e => {
+  document.getElementById('studentMessageForm').addEventListener('submit',async e=>{
     e.preventDefault();
-    const status = document.getElementById('msgStatus');
-    const perfil = JSON.parse(localStorage.getItem('lds_cat_perfil') || '{}');
-    status.textContent = 'Enviando mensaje...';
-    try {
-      const resp = await fetch(API_URL, {
-        method: 'POST',
-        body: JSON.stringify({
-          action: 'guardarMensajeCatequizando',
-          token: localStorage.getItem('lds_cat_token') || '',
-          remitente: perfil.NOMBRE_COMPLETO || 'Catequizando',
-          idRemitente: perfil.ID_NINO || '',
-          idDestinatario: document.getElementById('msgDestinatario').value,
-          asunto: document.getElementById('msgAsunto').value,
-          mensaje: document.getElementById('msgTexto').value
-        })
-      });
-      const res = await resp.json();
-      status.textContent = (res && res.exito) ? '✅ Mensaje enviado correctamente a tu catequista.' : '⚠️ No se pudo enviar el mensaje.';
-      if (res && res.exito) e.target.reset();
-    } catch (err) {
-      status.textContent = '⚠️ Error de conexión al enviar el mensaje.';
-    }
-  });
-
-  document.getElementById('btnCloseSecurityAlert').addEventListener('click', () => {
-    document.getElementById('securityAlertOverlay').hidden = true;
+    const form=e.currentTarget,status=document.getElementById('msgStatus'),btn=document.getElementById('btnEnviarMensajeAlumno');
+    const perfil=JSON.parse(localStorage.getItem('lds_cat_perfil')||'{}'),token=localStorage.getItem('lds_cat_token')||'';
+    btn.disabled=true;status.textContent='Enviando tu mensaje...';
+    try{
+      const resp=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({
+        action:'guardarMensaje',token:token,nombreAlumno:perfil.NOMBRE_COMPLETO||'',idNino:perfil.ID_NINO||'',
+        catequista:document.getElementById('msgDestinatario').value,
+        asunto:document.getElementById('msgAsunto').value,mensaje:document.getElementById('msgTexto').value
+      })});
+      const res=await resp.json();
+      if(!res||!res.exito)throw new Error(res&&res.mensaje?res.mensaje:'No se pudo enviar el mensaje.');
+      status.textContent='✅ '+(res.mensaje||'Mensaje enviado correctamente.');form.reset();
+    }catch(err){status.textContent='⚠️ '+(err&&err.message?err.message:'Error de conexión al enviar el mensaje.');}
+    finally{btn.disabled=false;}
   });
 
   const tokenGuardado = localStorage.getItem('lds_cat_token');
@@ -2310,25 +2996,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (tokenGuardado && perfilGuardado) {
     try {
       const perfil = JSON.parse(perfilGuardado);
-      const validacion = await fetch(API_URL, {
-        method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'},
-        body:JSON.stringify({action:'verificarSesionCatequizando', token:tokenGuardado})
-      }).then(r=>r.json());
-      if (validacion && validacion.sesionValida && perfil && String(perfil.ID_NINO || '').startsWith('LDS-EST')) {
+      if (perfil && String(perfil.ID_NINO || '').startsWith('LDS-EST')) {
         desbloquearPortal(perfil);
-      } else if (validacion && validacion.temporal === true) {
-        const loginError = document.getElementById('loginErrorDesktop');
-        if (loginError) loginError.textContent = 'El servidor está ocupado. Tu sesión y tu avance se conservaron; vuelve a cargar la página para verificar el acceso.';
-      } else {
-        localStorage.removeItem('lds_cat_token');
-        localStorage.removeItem('lds_cat_perfil');
       }
-    } catch (e) {
-      const loginError = document.getElementById('loginErrorDesktop');
-      if (loginError) loginError.textContent = 'No se pudo verificar la sesión. Vuelve a ingresar cuando tengas conexión.';
-      localStorage.removeItem('lds_cat_token');
-      localStorage.removeItem('lds_cat_perfil');
-    }
+    } catch (e) {}
   }
 });
 </script>
