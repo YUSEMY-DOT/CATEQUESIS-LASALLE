@@ -284,7 +284,8 @@ main {
 .welcome-img {
   width: 85px;
   height: 85px;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   border-radius: 50%;
   flex-shrink: 0;
   border: 3px solid var(--gold);
@@ -771,7 +772,8 @@ main {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   border: 2px solid var(--gold);
   box-shadow: 0 3px 8px rgba(0,0,0,0.15);
   background: #fff3cc;
@@ -1006,8 +1008,7 @@ html.auth-required #portalWrap, html.auth-required #portalWrap[hidden] { display
   .login-mobile-form button { height: 45px; border: 2px solid #dfb326; border-radius: 24px; background: #b0002d; color: #fff; font: 900 16px Arial, sans-serif; }
   .login-mobile-form .login-error { position: static; width: auto; min-height: 16px; margin: 0; }
   .login-mobile-kids { width: 100%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 5px 0 16px; }
-  .login-mobile-kid { aspect-ratio: 3/4; border: 2px solid #dfb326; border-radius: 10px; background-image: url('./assets/PORTADA%20CATEQUIZANDO.png'); background-repeat: no-repeat; background-size: 700% auto; background-color: #fff; box-shadow: 0 3px 9px #10254e1c; }
-  .login-mobile-kid:nth-child(1){background-position:0% 61%}.login-mobile-kid:nth-child(2){background-position:16.6667% 61%}.login-mobile-kid:nth-child(3){background-position:33.3333% 61%}.login-mobile-kid:nth-child(4){background-position:50% 61%}.login-mobile-kid:nth-child(5){background-position:66.6667% 61%}.login-mobile-kid:nth-child(6){background-position:83.3333% 61%}.login-mobile-kid:nth-child(7){background-position:100% 61%}
+  .login-mobile-kid { display:block; width:100%; min-width:0; aspect-ratio:3/4; object-fit:contain; object-position:center; border:2px solid #dfb326; border-radius:10px; background:#fff; box-shadow:0 3px 9px #10254e1c; }
   .login-mobile-motto { width: calc(100% + 32px); margin-top: auto; padding: 17px 12px; border-top: 6px solid #dfb326; background: #10254e; color: #fff; text-align: center; font: 900 12px/1.4 Arial, sans-serif; }
 }
 
@@ -1043,7 +1044,7 @@ header{padding:22px clamp(18px,3.6vw,44px) 30px}
 .followup-loading,.followup-error{padding:18px;border-radius:16px;background:#fff;border:1px dashed #d9cba9;color:#52677f;font-weight:800}
 .followup-panel{background:#fff;border:1px solid #e5d5b8;border-radius:22px;padding:20px;box-shadow:0 7px 22px rgba(18,52,90,.06)}
 .followup-panel-head{display:flex;align-items:center;gap:14px;padding-bottom:16px;border-bottom:1px solid #f0e6d2}
-.followup-avatar{width:58px;height:58px;flex:0 0 58px;border:2px solid #f0c95c;border-radius:50%;object-fit:cover;background:#fff7dc}
+.followup-avatar{width:58px;height:58px;flex:0 0 58px;border:2px solid #f0c95c;border-radius:50%;object-fit:contain;object-position:center;background:#fff7dc}
 .followup-name{min-width:0;flex:1}.followup-name h3{margin:0;font:700 19px 'Fredoka',sans-serif;color:#12345a}
 .followup-name p{margin:2px 0 0;color:#65768b;font-size:12px;font-weight:800}
 .followup-synced{background:#eefaf2;color:#17663a;border:1px solid #c7e8d0;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:900;white-space:nowrap}
@@ -1350,13 +1351,13 @@ header{padding-top:14px;padding-bottom:12px}
       <div id="loginErrorMobile" class="login-error"></div>
     </form>
     <div class="login-mobile-kids">
-      <div class="login-mobile-kid"></div>
-      <div class="login-mobile-kid"></div>
-      <div class="login-mobile-kid"></div>
-      <div class="login-mobile-kid"></div>
-      <div class="login-mobile-kid"></div>
-      <div class="login-mobile-kid"></div>
-      <div class="login-mobile-kid"></div>
+      <img class="login-mobile-kid" src="./assets/dany.JPG" alt="Catequizando" loading="lazy" decoding="async">
+      <img class="login-mobile-kid" src="./assets/adam.jpeg" alt="Catequizando" loading="lazy" decoding="async">
+      <img class="login-mobile-kid" src="./assets/camila.png" alt="Catequizando" loading="lazy" decoding="async">
+      <img class="login-mobile-kid" src="./assets/ana.jpeg" alt="Catequizando" loading="lazy" decoding="async">
+      <img class="login-mobile-kid" src="./assets/marco.jpeg" alt="Catequizando" loading="lazy" decoding="async">
+      <img class="login-mobile-kid" src="./assets/VASCO.png" alt="Catequizando" loading="lazy" decoding="async">
+      <img class="login-mobile-kid" src="./assets/MARCHELO.png" alt="Catequizando" loading="lazy" decoding="async">
     </div>
     <div class="login-mobile-motto">Sembrando fe, cultivando valores y construyendo amistad con Jesús.</div>
   </div>
@@ -1724,7 +1725,7 @@ function quizHablarV6(texto,alTerminar){
   const frase=String(texto||'').trim();quizCancelarVozV6(false);
   if(!frase||!vozActiva||!('speechSynthesis'in window)||typeof SpeechSynthesisUtterance==='undefined'){if(typeof alTerminar==='function')setTimeout(alTerminar,120);return;}
   const token=++quizVozTokenV6,utter=new SpeechSynthesisUtterance(frase);
-  utter.lang='es-PE';utter.rate=1.12;utter.pitch=1.03;utter.volume=1;
+  utter.lang='es-PE';utter.rate=1.2;utter.pitch=1.03;utter.volume=1;
   try{const voces=window.speechSynthesis.getVoices()||[];const esp=voces.find(v=>/^es-PE$/i.test(v.lang))||voces.find(v=>/^es-(MX|US|CO|AR|CL|ES)/i.test(v.lang))||voces.find(v=>/^es\\b/i.test(v.lang));if(esp)utter.voice=esp;}catch(e){}
   let done=false;
   const finish=()=>{if(done||token!==quizVozTokenV6)return;done=true;if(quizVozRespaldoV6){clearTimeout(quizVozRespaldoV6);quizVozRespaldoV6=null;}quizVozFinalizarV6=null;if(typeof alTerminar==='function')alTerminar();};
@@ -2537,6 +2538,78 @@ function abrirVideoTema(idSesion) {
   modal.hidden=false;document.body.classList.add('video-gallery-open-v10');
 }
 
+
+/* Respaldo local de una respuesta pendiente. Se guarda ANTES del envío a Apps Script. */
+function quizClavePendienteRespuestaV8(idSesion) {
+  try {
+    const perfil = JSON.parse(localStorage.getItem('lds_cat_perfil') || '{}');
+    const idNino = String(perfil.ID_NINO || '').trim().toUpperCase();
+    return idNino && idSesion ? 'lds_quiz_pendiente_v8_' + encodeURIComponent(idNino) + '_' + encodeURIComponent(String(idSesion)) : '';
+  } catch (e) { return ''; }
+}
+function quizGuardarPendienteRespuestaV8(idSesion, idPregunta, opcion, tema) {
+  const clave = quizClavePendienteRespuestaV8(idSesion);
+  if (!clave) return false;
+  try {
+    localStorage.setItem(clave, JSON.stringify({idSesion:String(idSesion),idPregunta:String(idPregunta),opcion:String(opcion).toUpperCase(),tema:String(tema||''),fechaLocal:Date.now()}));
+    return true;
+  } catch (e) { console.warn('No se pudo guardar el respaldo local.',e); return false; }
+}
+function quizLeerPendienteRespuestaV8(idSesion) {
+  const clave = quizClavePendienteRespuestaV8(idSesion);
+  if (!clave) return null;
+  try { const d=JSON.parse(localStorage.getItem(clave)||'null'); return d&&d.idPregunta&&d.opcion?d:null; } catch(e) { return null; }
+}
+function quizLimpiarPendienteRespuestaV8(idSesion) {
+  const clave = quizClavePendienteRespuestaV8(idSesion);
+  if (clave) { try { localStorage.removeItem(clave); } catch(e) {} }
+}
+let quizReintentoPendienteEnCursoV8 = false;
+
+async function quizReintentarRespuestaPendienteV8(idSesion,nombreTema,pendiente) {
+  const body=document.getElementById('quizModalBody');
+  const token=localStorage.getItem('lds_cat_token')||'';
+  if(!body||!token||!pendiente||!pendiente.idPregunta||!pendiente.opcion||quizReintentoPendienteEnCursoV8)return;
+  quizReintentoPendienteEnCursoV8=true;
+  body.innerHTML='<div style="padding:20px;text-align:center;border:1px solid #e8ca6b;border-radius:16px;background:#fff9e8"><strong>📥 Tu respuesta quedó protegida en este dispositivo.</strong><p>Comprobando si Google Sheets ya la recibió…</p><div role="status">Conectando…</div></div>';
+  const post=async payload=>{
+    const resp=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
+    if(!resp.ok)throw new Error('El servidor respondió con estado '+resp.status+'.');
+    return await resp.json();
+  };
+  try {
+    try {
+      const saved=await post({action:'enviarCuestionario',idSesion:idSesion,idPregunta:pendiente.idPregunta,opcion:pendiente.opcion,token:token});
+      if(!saved||!saved.exito)throw new Error(saved&&saved.mensaje?saved.mensaje:'No se pudo confirmar el guardado.');
+      quizLimpiarPendienteRespuestaV8(idSesion);
+      quizReintentoPendienteEnCursoV8=false;
+      await cargarPreguntaJuego(idSesion,nombreTema,saved.siguientePregunta,Number(saved.porcentajeBloque||0));
+      return;
+    } catch(envioError) {
+      // Si se perdió la respuesta HTTP pero Sheets sí guardó, reconocer la siguiente pregunta.
+      const actual=await post({action:'obtenerCuestionarioCatequizando',idSesion:idSesion,token:token});
+      if(actual&&actual.exito&&(actual.completadoTema||(actual.pregunta&&String(actual.pregunta.idPregunta)!==String(pendiente.idPregunta)))) {
+        quizLimpiarPendienteRespuestaV8(idSesion);
+        quizReintentoPendienteEnCursoV8=false;
+        await cargarPreguntaJuego(idSesion,nombreTema,actual.pregunta,Number(actual.porcentajeBloque||0));
+        return;
+      }
+      throw envioError;
+    }
+  } catch(error) {
+    quizReintentoPendienteEnCursoV8=false;
+    body.innerHTML='<div style="padding:18px;border:1px solid #e8ca6b;border-radius:16px;background:#fff9e8"><strong style="color:#8a5b0b">⚠️ Tu respuesta sigue protegida.</strong><p>No la vuelvas a contestar. Recupera la conexión y pulsa reintentar; primero comprobaremos si Google Sheets ya la recibió.</p><p style="font-size:12px;color:#8b3030">'+escapeQuizHtml(error&&error.message?error.message:'Sin conexión')+'</p><button type="button" id="btnReintentarPendienteV8" class="btn-docente-submit" style="width:100%">Reintentar guardado</button></div>';
+    const retry=document.getElementById('btnReintentarPendienteV8');
+    if(retry)retry.addEventListener('click',()=>quizReintentarRespuestaPendienteV8(idSesion,nombreTema,pendiente));
+  }
+}
+window.addEventListener('online',()=>{
+  const modal=document.getElementById('quizModalBackdrop'),idSesion=quizTemaActivoV5;
+  if(!idSesion||!modal||modal.hidden)return;
+  const p=quizLeerPendienteRespuestaV8(idSesion);
+  if(p)quizReintentarRespuestaPendienteV8(idSesion,p.tema||'',p);
+});
+
 async function abrirCuestionarioTema(idSesion, nombreTema) {
   const backdrop = document.getElementById('quizModalBackdrop');
   const title = document.getElementById('quizModalTitle');
@@ -2544,6 +2617,8 @@ async function abrirCuestionarioTema(idSesion, nombreTema) {
   backdrop.hidden = false;
   quizTemaActivoV5 = String(idSesion);
   if (quizTimerSiguienteV5) clearTimeout(quizTimerSiguienteV5);
+  const pendiente = quizLeerPendienteRespuestaV8(idSesion);
+  if (pendiente) { await quizReintentarRespuestaPendienteV8(idSesion,nombreTema,pendiente); return; }
   await cargarPreguntaJuego(idSesion, nombreTema);
 }
 
@@ -2646,7 +2721,8 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
     const textoLecturaPreguntaV6 = 'Pregunta. ' + p.pregunta + '. ' + p.opciones.map(o => 'Alternativa ' + o.valor + '. ' + o.texto).join('. ');
     const botonRepetirV6 = document.getElementById('btnRepetirPreguntaV6');
     if (botonRepetirV6) botonRepetirV6.addEventListener('click', () => quizHablarV6(textoLecturaPreguntaV6));
-    quizHablarV6(textoLecturaPreguntaV6);
+    // La narración automática anuncia solo la pregunta; las alternativas se pueden escuchar manualmente.
+    quizHablarV6('Pregunta. ' + p.pregunta);
 
     const comprobar = document.getElementById('btnComprobarRespuesta');
     comprobar.addEventListener('click', async () => {
@@ -2654,6 +2730,8 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
       comprobar.disabled = true;
       // La respuesta se envía sin mostrar un mensaje de espera.
       Array.from(opcionesEl.children).forEach(el => { el.disabled = true; el.style.cursor = 'default'; });
+      const pendienteRespuestaV8 = {idSesion:String(idSesion),idPregunta:String(p.idPregunta),opcion:String(opcionElegida).toUpperCase(),tema:nombreTema};
+      const respuestaRespaldadaV8 = quizGuardarPendienteRespuestaV8(idSesion,p.idPregunta,opcionElegida,nombreTema);
       try {
         const saved = await fetch(API_URL, {
           method: 'POST',
@@ -2667,6 +2745,7 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
           })
         }).then(r => r.json());
         if (!saved || !saved.exito) throw new Error(saved && saved.mensaje ? saved.mensaje : 'No se pudo guardar tu respuesta.');
+        quizLimpiarPendienteRespuestaV8(idSesion);
 
         const nuevoProgreso = Math.max(0, Math.min(100, Number(saved.porcentajeBloque || 0)));
         if (resumenPortalCatequizando && Array.isArray(resumenPortalCatequizando.bloques)) {
@@ -2732,13 +2811,19 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
             quizTimerSiguienteV5=setTimeout(()=>{if(quizTemaActivoV5===String(idSesion)&&!document.getElementById('quizModalBackdrop').hidden)cargarPreguntaJuego(idSesion,nombreTema);},180);
           }
         };
-        quizHablarV6(retroalimentacionV6,avanzarAlTerminarVozV6);
+        // La retroalimentación y explicación quedan visibles; no frenamos la siguiente pregunta por voz.
+        quizTimerSiguienteV5 = setTimeout(avanzarAlTerminarVozV6, 450);
       } catch (error) {
         const result = document.getElementById('quizResultadoJuego');
-        result.innerHTML = `<p style="color:#a52222;font-weight:800;">${escapeQuizHtml(error.message || 'Error al guardar la respuesta.')}</p>`;
-        comprobar.disabled = false;
-        comprobar.textContent = 'Intentar guardar de nuevo';
-        Array.from(opcionesEl.children).forEach(el => { el.disabled = false; el.style.cursor = 'pointer'; });
+        const aviso = respuestaRespaldadaV8
+          ? 'La respuesta quedó respaldada en este dispositivo. No tienes que volver a contestarla.'
+          : 'No se pudo confirmar el respaldo local. Mantén esta pantalla abierta y recupera la conexión.';
+        result.innerHTML = `<div style="padding:14px;border:1px solid #e8ca6b;border-radius:13px;background:#fff9e8"><p style="color:#8b3030;font-weight:900;margin:0 0 7px;">⚠️ No llegó la confirmación del servidor.</p><p style="color:#52677f;font-size:12px;margin:0 0 10px;">${aviso}</p><button type="button" id="btnReintentarRespuestaV8" class="btn-docente-submit" style="width:100%">Reintentar guardado</button></div>`;
+        comprobar.disabled = true;
+        comprobar.style.display = 'none';
+        Array.from(opcionesEl.children).forEach(el => { el.disabled = true; el.style.cursor = 'default'; });
+        const retry = document.getElementById('btnReintentarRespuestaV8');
+        if (retry) retry.addEventListener('click', () => quizReintentarRespuestaPendienteV8(idSesion,nombreTema,pendienteRespuestaV8));
       }
     });
   } catch (error) {
