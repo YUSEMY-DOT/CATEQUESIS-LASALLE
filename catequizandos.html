@@ -2565,6 +2565,7 @@ function quizLimpiarPendienteRespuestaV8(idSesion) {
   if (clave) { try { localStorage.removeItem(clave); } catch(e) {} }
 }
 let quizReintentoPendienteEnCursoV8 = false;
+let quizEnvioEnCursoV8 = false;
 
 async function quizReintentarRespuestaPendienteV8(idSesion,nombreTema,pendiente) {
   const body=document.getElementById('quizModalBody');
@@ -2604,6 +2605,8 @@ async function quizReintentarRespuestaPendienteV8(idSesion,nombreTema,pendiente)
   }
 }
 window.addEventListener('online',()=>{
+  // No lanzar un segundo envío mientras la solicitud original todavía responde.
+  if (quizEnvioEnCursoV8 || quizReintentoPendienteEnCursoV8) return;
   const modal=document.getElementById('quizModalBackdrop'),idSesion=quizTemaActivoV5;
   if(!idSesion||!modal||modal.hidden)return;
   const p=quizLeerPendienteRespuestaV8(idSesion);
@@ -2735,6 +2738,7 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
       Array.from(opcionesEl.children).forEach(el => { el.disabled = true; el.style.cursor = 'default'; });
       const pendienteRespuestaV8 = {idSesion:String(idSesion),idPregunta:String(p.idPregunta),opcion:String(opcionElegida).toUpperCase(),tema:nombreTema};
       const respuestaRespaldadaV8 = quizGuardarPendienteRespuestaV8(idSesion,p.idPregunta,opcionElegida,nombreTema);
+      quizEnvioEnCursoV8 = true;
       try {
         const saved = await fetch(API_URL, {
           method: 'POST',
@@ -2748,6 +2752,7 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
           })
         }).then(r => r.json());
         if (!saved || !saved.exito) throw new Error(saved && saved.mensaje ? saved.mensaje : 'No se pudo guardar tu respuesta.');
+        quizEnvioEnCursoV8 = false;
         quizLimpiarPendienteRespuestaV8(idSesion);
 
         const nuevoProgreso = Math.max(0, Math.min(100, Number(saved.porcentajeBloque || 0)));
@@ -2817,6 +2822,7 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
         // La retroalimentación y explicación quedan visibles; no frenamos la siguiente pregunta por voz.
         quizTimerSiguienteV5 = setTimeout(avanzarAlTerminarVozV6, 450);
       } catch (error) {
+        quizEnvioEnCursoV8 = false;
         const result = document.getElementById('quizResultadoJuego');
         const aviso = respuestaRespaldadaV8
           ? 'La respuesta quedó respaldada en este dispositivo. No tienes que volver a contestarla.'
