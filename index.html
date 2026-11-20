@@ -282,11 +282,30 @@
     }
 
     @media (max-width: 480px) {
-      .portada { height: clamp(230px, 39svh, 320px); min-height: 230px; }
-      .menu { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 8px; }
-      .menu-item { min-height: 102px; }
-      .boton { width: min(100%, 98px); height: 74px; }
-      .nombre-opcion { font-size: 11px; }
+      /* En celulares: tres accesos por fila y los dos restantes centrados. */
+      .panel-menu {
+        padding: 10px 10px calc(12px + env(safe-area-inset-bottom));
+      }
+      .menu {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 8px 4px;
+      }
+      .menu-item {
+        grid-column: span 2;
+        min-height: 0;
+        gap: 3px;
+      }
+      .menu-item:nth-child(4) { grid-column: 2 / span 2; }
+      .menu-item:nth-child(5) { grid-column: 4 / span 2; }
+      .boton {
+        width: min(100%, 84px);
+        height: 66px;
+      }
+      .nombre-opcion {
+        margin-top: 2px;
+        font-size: clamp(10px, 2.5vw, 11px);
+        line-height: 1.15;
+      }
     }
 
 
