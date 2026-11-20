@@ -2633,12 +2633,15 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
     // No depende del CORS de fetch POST ni detiene el juego por una respuesta vacía.
     if (!quizVersionV5Verificada) {
       const versionData = await solicitarJSONP(`${API_URL}?action=verificarVersionCuestionarios`);
-      const versionEsperada = 'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V8-VIDEOS-GESTION-MISES';
-      if (!versionData || !versionData.exito || versionData.version !== versionEsperada) {
+      const versionesCompatibles = [
+        'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V8-VIDEOS-GESTION-MISES',
+        'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V9-RENDIMIENTO-LIMA'
+      ];
+      if (!versionData || !versionData.exito || !versionesCompatibles.includes(versionData.version)) {
         const detalle = versionData && (versionData.version || versionData.mensaje)
           ? String(versionData.version || versionData.mensaje)
           : 'El endpoint no devolvió una versión identificable.';
-        body.innerHTML = `<div style="padding:16px;border-radius:12px;background:#fff1f0;color:#922b21"><strong>⚠️ El servidor no corresponde a la versión rápida del juego.</strong><p>Respuesta: ${escapeQuizHtml(detalle)}</p></div>`;
+        body.innerHTML = `<div style="padding:16px;border-radius:12px;background:#fff1f0;color:#922b21"><strong>⚠️ El servidor no corresponde a una versión compatible del juego.</strong><p>Respuesta: ${escapeQuizHtml(detalle)}</p></div>`;
         return;
       }
       quizVersionV5Verificada = true;
