@@ -973,22 +973,6 @@ html.auth-required #portalWrap,#portalWrap[hidden],.portal-wrap-locked{display:n
 .btn-cuestionario:disabled{cursor:not-allowed!important;opacity:.72}
 @media(max-width:600px){.learning-dashboard{padding:15px;margin:22px 0 30px}.learning-head h2{font-size:22px}.learning-stats{gap:7px}.learning-stat{padding:10px}.learning-stat strong{font-size:21px}.learning-stat span{font-size:9px}.learning-progress-wrap,.learning-history{padding:12px}.learning-grade{grid-template-columns:minmax(0,1fr) auto}}
 </style>
-
-<style id="lds-prorroga-alerta-tareas">
-.lds-tareas-alerta{display:flex;align-items:center;gap:16px;margin:16px auto 22px;padding:18px 20px;max-width:1180px;border:3px solid #c4161c;border-radius:18px;background:linear-gradient(110deg,#fff0f0,#fff);box-shadow:0 8px 24px rgba(160,0,0,.16);animation:ldsTareaPulso 1.35s ease-in-out 3}
-.lds-tareas-alerta[hidden]{display:none!important}
-.lds-tareas-alerta-icono{font-size:48px;flex:0 0 auto;animation:ldsTareaCampana .8s ease-in-out 3}
-.lds-tareas-alerta h2{margin:0 0 6px;color:#b00016;font:900 clamp(17px,2.4vw,23px) 'Fredoka',sans-serif;letter-spacing:.015em}
-.lds-tareas-alerta p{margin:0 0 8px;color:#5b1b23;font-weight:800}
-.lds-tareas-fecha-vencida{margin-top:7px;color:#d00000;font-size:14px;font-weight:1000;letter-spacing:.02em}
-.lds-tareas-prorroga{margin-top:6px;color:#7200c8;font-size:15px;font-weight:1000;letter-spacing:.015em}
-.lds-tareas-alerta-audio{margin-top:12px;padding:10px 16px;border:0;border-radius:11px;background:#9e0016;color:#fff;font:900 13px 'Nunito',sans-serif;cursor:pointer;box-shadow:0 4px 12px rgba(158,0,22,.25)}
-.lds-tareas-alerta-audio:focus-visible{outline:3px solid #7200c8;outline-offset:3px}
-@keyframes ldsTareaPulso{0%,100%{box-shadow:0 8px 24px rgba(160,0,0,.14)}50%{box-shadow:0 8px 30px rgba(208,0,0,.3)}}
-@keyframes ldsTareaCampana{0%,100%{transform:rotate(0)}20%{transform:rotate(18deg)}40%{transform:rotate(-18deg)}60%{transform:rotate(12deg)}80%{transform:rotate(-12deg)}}
-@media(max-width:600px){.lds-tareas-alerta{align-items:flex-start;margin:12px 4px 18px;padding:14px;gap:10px}.lds-tareas-alerta-icono{font-size:36px}.lds-tareas-prorroga{font-size:13px}.lds-tareas-alerta-audio{width:100%}}
-</style>
-
 </head>
 <body>
 <section id="loginGate" class="login-gate" aria-label="Ingreso de catequizandos">
@@ -1092,23 +1076,12 @@ html.auth-required #portalWrap,#portalWrap[hidden],.portal-wrap-locked{display:n
       </div>
     </section>
 
-    <section id="ldsTareasPendientesBanner" class="lds-tareas-alerta" hidden role="alert" aria-live="assertive">
-      <div class="lds-tareas-alerta-icono">🔔</div>
-      <div class="lds-tareas-alerta-contenido">
-        <h2>¡ATENCIÓN! TIENES TAREAS PENDIENTES</h2>
-        <p id="ldsTareasPendientesTexto">Revisa tus actividades y presenta tus evidencias.</p>
-        <div class="lds-tareas-fecha-vencida">FECHA ORIGINAL DE ENTREGA: VENCIDA</div>
-        <div class="lds-tareas-prorroga" id="ldsTareasProrrogaBannerText">PRÓRROGA EXTRAORDINARIA: MARTES 24 DE NOVIEMBRE DE 2026 · 7:00 P. M.</div>
-        <button type="button" id="btnEscucharAlertaTareas" class="lds-tareas-alerta-audio">🔊 ESCUCHAR AVISO DE TAREA PENDIENTE</button>
-      </div>
-    </section>
-
     <section class="learning-dashboard" id="learningDashboard" aria-label="Mi progreso de aprendizaje">
       <div class="learning-head">
         <div>
           <span class="learning-kicker">Tu esfuerzo cuenta</span>
           <h2>🏆 Mi progreso y récord de aprendizaje</h2>
-          <p>Cada respuesta queda registrada. Tu avance se calcula con tus respuestas reales y tus notas finales se muestran al completar cada cuestionario.</p>
+          <p>Cada cuestionario completado queda registrado. ¡Sigue avanzando tema por tema!</p>
         </div>
       </div>
       <div class="learning-stats">
@@ -1118,7 +1091,7 @@ html.auth-required #portalWrap,#portalWrap[hidden],.portal-wrap-locked{display:n
       </div>
       <div class="learning-progress-wrap">
         <div class="learning-progress-caption"><span>Mi camino de aprendizaje</span><span id="learningProgressCount">0 de 0 temas</span></div>
-        <div class="learning-progress-track" role="progressbar" aria-label="Porcentaje de preguntas respondidas" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="learningProgressBar"><div class="learning-progress-fill" id="learningProgressFill"></div></div>
+        <div class="learning-progress-track" role="progressbar" aria-label="Porcentaje de temas completados" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="learningProgressBar"><div class="learning-progress-fill" id="learningProgressFill"></div></div>
         <div class="learning-next" id="learningNext">Cargando tu próximo reto...</div>
       </div>
       <div class="learning-history">
@@ -1233,7 +1206,6 @@ let listaAlumnosPortal = [];
 let listaAsistenciaPortal = [];
 let listaTareasPortal = [];
 let listaCuestionariosCompletadosPortal = [];
-let listaProgresoCuestionariosPortal = [];
 let listaCalificacionesPortal = [];
 
 const nombresMeses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
@@ -1247,8 +1219,22 @@ function escaparHTML(valor) {
 
 function mostrarErrorLogin(mensaje){
   ['loginError','loginErrorMobile'].forEach(function(id){const caja=document.getElementById(id);if(caja)caja.textContent=mensaje||'';});
-  if(mensaje)reproducirBienvenida(mensaje);
+  if(mensaje){if(String(mensaje).includes('¡ALERTA! INGRESO INDEBIDO'))activarAlarmaIngresoIndebido(mensaje);else reproducirBienvenida(mensaje);}
 }
+let LDS_ALARMA_DISPOSITIVO={activa:false,ctx:null,intervalo:null,vozTimer:null,overlay:null};
+function activarAlarmaIngresoIndebido(mensaje){
+  if(LDS_ALARMA_DISPOSITIVO.activa)return;LDS_ALARMA_DISPOSITIVO.activa=true;
+  const overlay=document.createElement('div');overlay.id='ldsIngresoIndebidoAlarm';overlay.setAttribute('role','alert');overlay.setAttribute('aria-live','assertive');overlay.style.cssText='position:fixed;inset:0;z-index:1000000;background:#970000;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:22px;font:900 clamp(22px,5.5vw,48px) Arial;animation:ldsFlash .38s infinite alternate';
+  const panel=document.createElement('div');panel.style.cssText='width:min(720px,100%);border:5px solid #fff;border-radius:24px;padding:24px;background:#970000;box-shadow:0 0 35px #0008';
+  const icon=document.createElement('div');icon.textContent='🚨';icon.style.fontSize='clamp(55px,14vw,110px)';const title=document.createElement('h1');title.textContent='¡ALERTA! INGRESO INDEBIDO';title.style.cssText='margin:8px 0;font-size:1em;line-height:1.08';
+  const detail=document.createElement('p');detail.textContent=mensaje||'Este dispositivo ha sido bloqueado.';detail.style.cssText='font-size:.48em;line-height:1.35;margin:12px 0';const note=document.createElement('p');note.textContent='El acceso al cuestionario permanece BLOQUEADO.';note.style.cssText='font-size:.42em;font-weight:800;margin:10px 0';
+  const btn=document.createElement('button');btn.type='button';btn.textContent='DETENER ALARMA Y CERRAR AVISO';btn.style.cssText='margin-top:14px;padding:14px 18px;border:3px solid #fff;border-radius:14px;background:#ffdf45;color:#680000;font:900 16px Arial;cursor:pointer';panel.append(icon,title,detail,note,btn);overlay.appendChild(panel);document.body.appendChild(overlay);LDS_ALARMA_DISPOSITIVO.overlay=overlay;
+  if(!document.getElementById('ldsAlarmStyle')){const st=document.createElement('style');st.id='ldsAlarmStyle';st.textContent='@keyframes ldsFlash{from{background:#970000;filter:brightness(.85)}to{background:#f00;filter:brightness(1.25)}}';document.head.appendChild(st);}
+  try{const AC=window.AudioContext||window.webkitAudioContext;if(AC){const ctx=new AC();LDS_ALARMA_DISPOSITIVO.ctx=ctx;ctx.resume().catch(function(){});let step=0;function sirena(){if(!LDS_ALARMA_DISPOSITIVO.activa||ctx.state==='closed')return;try{const o=ctx.createOscillator(),g=ctx.createGain();o.type='sawtooth';o.frequency.setValueAtTime(step%2?1040:680,ctx.currentTime);g.gain.setValueAtTime(.0001,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.35,ctx.currentTime+.025);g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+.38);o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+.4);step++;}catch(_e){}}sirena();LDS_ALARMA_DISPOSITIVO.intervalo=setInterval(sirena,480);}}catch(_e){}
+  function decir(){if(!LDS_ALARMA_DISPOSITIVO.activa||!window.speechSynthesis)return;try{window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance('¡Alerta! Ingreso indebido. Segundo dispositivo detectado. Este equipo está bloqueado.');u.lang='es-PE';u.rate=.78;u.pitch=1.05;u.volume=1;window.speechSynthesis.speak(u);}catch(_e){}}decir();LDS_ALARMA_DISPOSITIVO.vozTimer=setInterval(decir,5000);
+  btn.addEventListener('click',function(){LDS_ALARMA_DISPOSITIVO.activa=false;if(LDS_ALARMA_DISPOSITIVO.intervalo)clearInterval(LDS_ALARMA_DISPOSITIVO.intervalo);if(LDS_ALARMA_DISPOSITIVO.vozTimer)clearInterval(LDS_ALARMA_DISPOSITIVO.vozTimer);try{if(window.speechSynthesis)window.speechSynthesis.cancel();if(LDS_ALARMA_DISPOSITIVO.ctx)LDS_ALARMA_DISPOSITIVO.ctx.close();}catch(_e){}overlay.remove();});
+}
+
 function mostrarPortalCatequizando(perfil, token, darBienvenida){
   sesionCatequizando={token:token,perfil:perfil};
   if (!MODO_ADMIN_CATEQUISTA) {
@@ -1274,6 +1260,7 @@ function mostrarPortalCatequizando(perfil, token, darBienvenida){
   if(nombreCampo){nombreCampo.value=nombre;nombreCampo.readOnly=true;}
   if(darBienvenida && !MODO_ADMIN_CATEQUISTA)reproducirBienvenida('¡Hola, '+nombre+'! Bienvenido al portal Camino hacia Jesús. Vamos a aprender y caminar juntos en la fe.');
   cargarDatosBackend().catch(function(error){console.error('Error al cargar los datos del catequizando:',error);reproducirBienvenida('No se pudo cargar toda la información. Verifica tu conexión e inténtalo nuevamente.');});
+  if(!MODO_ADMIN_CATEQUISTA)iniciarHeartbeatDispositivoCatequizando();
 }
 
 function normalizarNombreLogin(valor){
@@ -1338,7 +1325,11 @@ async function ingresarConPIN(event){
   }finally{if(boton)boton.disabled=false;}
 }
 
+let LDS_DEVICE_HEARTBEAT_TIMER=null;
+function iniciarHeartbeatDispositivoCatequizando(){if(LDS_DEVICE_HEARTBEAT_TIMER)return;const token=obtenerTokenCatequizando(),deviceId=obtenerDeviceIdCatequizando();if(!token)return;const ping=()=>fetch(API_URL,{method:'POST',mode:'cors',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'renovarBloqueoDispositivoCatequizando',token:token,deviceId:deviceId})}).then(r=>r.json()).then(j=>{if(j&&j.bloqueado){activarAlarmaIngresoIndebido(j.mensaje);cerrarSesionCatequizando(j.mensaje);}}).catch(()=>{});ping();LDS_DEVICE_HEARTBEAT_TIMER=setInterval(ping,45000);}
+function liberarBloqueoDispositivoCatequizando(){const token=obtenerTokenCatequizando(),deviceId=obtenerDeviceIdCatequizando();if(token)fetch(API_URL,{method:'POST',mode:'cors',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'cerrarSesionDispositivoCatequizando',token:token,deviceId:deviceId})}).catch(()=>{});if(LDS_DEVICE_HEARTBEAT_TIMER){clearInterval(LDS_DEVICE_HEARTBEAT_TIMER);LDS_DEVICE_HEARTBEAT_TIMER=null;}}
 function cerrarSesionCatequizando(mensaje){
+  liberarBloqueoDispositivoCatequizando();
   if(window.speechSynthesis)window.speechSynthesis.cancel();
   sesionCatequizando={token:'',perfil:null};
   sessionStorage.removeItem(CLAVE_TOKEN_CATEQUIZANDO);
@@ -1422,6 +1413,9 @@ function mostrarEstadoPortal(mensaje, tipo) {
 }
 
 const CLAVE_TOKEN_CATEQUIZANDO = 'LDS_CATEQUIZANDO_TOKEN';
+const CLAVE_DEVICE_CATEQUIZANDO='LDS_CATEQUIZANDO_DEVICE_ID';
+function obtenerDeviceIdCatequizando(){let id=localStorage.getItem(CLAVE_DEVICE_CATEQUIZANDO)||'';if(!id){id='LDS-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2)+'-'+Math.random().toString(36).slice(2);localStorage.setItem(CLAVE_DEVICE_CATEQUIZANDO,id);}return id;}
+function detectarTipoDispositivoCatequizando(){const ua=String(navigator.userAgent||'').toLowerCase();if(/ipad|tablet|playbook|silk/.test(ua)||(/android/.test(ua)&&!/mobile/.test(ua)))return 'TABLET';if(/iphone|ipod|android.*mobile|windows phone|mobile/.test(ua))return 'CELULAR';return 'COMPUTADORA';}
 const CLAVE_PERFIL_CATEQUIZANDO = 'LDS_CATEQUIZANDO_PERFIL';
 let sesionCatequizando = {token:'', perfil:null};
 
@@ -1438,7 +1432,7 @@ function obtenerTokenCatequizando(){
  */
 async function validarPINEnGoogleSheets(pin,idNino){
   let ultimoError=null;
-  const payload=JSON.stringify({action:'validarLoginCatequizando',pin:String(pin),idNino:String(idNino||'')});
+  const payload=JSON.stringify({action:'validarLoginCatequizando',pin:String(pin),idNino:String(idNino||''),deviceId:obtenerDeviceIdCatequizando(),deviceType:detectarTipoDispositivoCatequizando()});
   for(let intento=1;intento<=3;intento++){
     try{
       const respuesta=await fetch(API_URL,{method:'POST',mode:'cors',redirect:'follow',cache:'no-store',headers:{'Content-Type':'text/plain;charset=utf-8'},body:payload});
@@ -1640,13 +1634,6 @@ function obtenerIntentoCuestionarioPortal(idSesion) {
   }) || null;
 }
 
-function obtenerProgresoCuestionarioPortal(idSesion) {
-  const id = String(idSesion || '').trim();
-  return listaProgresoCuestionariosPortal.find(function(item) {
-    return String(item.idSesion || item.ID_SESION || '').trim() === id;
-  }) || null;
-}
-
 function formatearFechaNotaPortal(valor) {
   if (!valor) return 'Fecha no disponible';
   const fecha = new Date(valor);
@@ -1668,55 +1655,23 @@ function renderizarProgresoYNotasPortal() {
     const id = String(item.idSesion || '').trim();
     if (id && !mapaIntentos.has(id)) mapaIntentos.set(id, item);
   });
-  const mapaProgreso = new Map();
-  (listaProgresoCuestionariosPortal || []).forEach(function(item) {
-    const id = String(item.idSesion || item.ID_SESION || '').trim();
-    if (id && !mapaProgreso.has(id)) mapaProgreso.set(id, item);
-  });
-  const sesionesDisponibles = sesiones.filter(function(tema) {
-    const progreso = mapaProgreso.get(String(tema.id || '').trim());
-    return !progreso || progreso.disponible !== false && Number(progreso.totalPreguntas || progreso.total || 0) > 0;
-  });
-  const completados = sesionesDisponibles.filter(function(tema) {
-    const id = String(tema.id || '').trim();
-    const progreso = mapaProgreso.get(id);
-    return (progreso && progreso.completado === true) || mapaIntentos.has(id);
-  });
-  const total = sesionesDisponibles.length;
+  const completados = sesiones.filter(function(tema) { return mapaIntentos.has(String(tema.id || '').trim()); });
+  const total = sesiones.length;
   const cantidad = completados.length;
   const pendientes = Math.max(0, total - cantidad);
-  const totalPreguntasPrograma = sesionesDisponibles.reduce(function(suma, tema) {
-    const progreso = mapaProgreso.get(String(tema.id || '').trim());
-    return suma + (progreso ? Number(progreso.totalPreguntas || progreso.total || 0) : 0);
-  }, 0);
-  const respondidasPrograma = sesionesDisponibles.reduce(function(suma, tema) {
-    const progreso = mapaProgreso.get(String(tema.id || '').trim());
-    return suma + (progreso ? Number(progreso.respondidas || 0) : 0);
-  }, 0);
-  const porcentaje = totalPreguntasPrograma
-    ? Math.min(100, Math.round((respondidasPrograma / totalPreguntasPrograma) * 100))
-    : (total ? Math.round((cantidad / total) * 100) : 0);
+  const porcentaje = total ? Math.round((cantidad / total) * 100) : 0;
   const poner = function(id, texto) { const nodo = document.getElementById(id); if (nodo) nodo.textContent = texto; };
   poner('learningPercent', porcentaje + '%');
   poner('learningCompleted', cantidad);
   poner('learningRemaining', pendientes);
-  poner('learningProgressCount', totalPreguntasPrograma
-    ? respondidasPrograma + ' de ' + totalPreguntasPrograma + ' preguntas · ' + cantidad + ' de ' + total + ' temas completos'
-    : cantidad + ' de ' + total + ' temas');
+  poner('learningProgressCount', cantidad + ' de ' + total + ' temas');
   const barra = document.getElementById('learningProgressFill');
   if (barra) barra.style.width = porcentaje + '%';
   const progressBar = document.getElementById('learningProgressBar');
   if (progressBar) progressBar.setAttribute('aria-valuenow', String(porcentaje));
-  const siguiente = sesionesDisponibles.find(function(tema) {
-    const progreso = mapaProgreso.get(String(tema.id || '').trim());
-    return !(progreso && progreso.completado === true) && !mapaIntentos.has(String(tema.id || '').trim());
-  });
-  const progresoSiguiente = siguiente ? mapaProgreso.get(String(siguiente.id || '').trim()) : null;
+  const siguiente = sesiones.find(function(tema) { return !mapaIntentos.has(String(tema.id || '').trim()); });
   poner('learningNext', siguiente
-    ? '🎯 Tu siguiente reto: Tema ' + String(siguiente.n || siguiente.numeroSesion || '') + ' · ' + String(siguiente.tema || 'Tema pendiente') +
-      (progresoSiguiente && Number(progresoSiguiente.respondidas || 0) > 0
-        ? ' · ' + Number(progresoSiguiente.respondidas || 0) + '/' + Number(progresoSiguiente.totalPreguntas || 0) + ' preguntas respondidas'
-        : '')
+    ? '🎯 Tu siguiente reto: Tema ' + String(siguiente.n || siguiente.numeroSesion || '') + ' · ' + String(siguiente.tema || 'Tema pendiente')
     : (total ? '🎉 ¡Completaste todos los cuestionarios disponibles del programa!' : 'La programación todavía no está disponible.'));
 
   let notas = (listaCalificacionesPortal || []).map(function(item) {
@@ -1753,7 +1708,6 @@ async function actualizarAprendizajeDesdeCuestionario() {
   try {
     const respuesta = await apiGet('getAsistenciaNotas');
     listaCalificacionesPortal = respuesta.calificaciones || [];
-    listaProgresoCuestionariosPortal = Array.isArray(respuesta.progresoCuestionarios) ? respuesta.progresoCuestionarios : [];
     listaCuestionariosCompletadosPortal = sincronizarCuestionariosDesdeCalificacionesPortal(
       listaCalificacionesPortal, respuesta.cuestionarios
     );
@@ -1782,22 +1736,6 @@ function abrirBloque(indice) {
     const subtemasHTML = subtemas.length
       ? '<strong>Subtemas:</strong><ol>' + subtemas.map(x => '<li>' + escaparHTML(x) + '</li>').join('') + '</ol>'
       : '<strong>Subtemas:</strong><p>Sin subtemas registrados.</p>';
-    const progresoTema = obtenerProgresoCuestionarioPortal(tema.id);
-    const intentoFinalTema = obtenerIntentoCuestionarioPortal(tema.id);
-    let estadoCuestionarioHTML = '';
-    if (intentoFinalTema || (progresoTema && progresoTema.completado === true)) {
-      estadoCuestionarioHTML = '<span class="btn-cuestionario estado-completado" role="status">COMPLETADO</span>';
-    } else if (progresoTema && (progresoTema.disponible === false || Number(progresoTema.totalPreguntas || 0) <= 0)) {
-      estadoCuestionarioHTML = '<span class="btn-cuestionario estado-sin-preguntas" role="status">CUESTIONARIO PENDIENTE</span>';
-    } else {
-      const respondidasTema = progresoTema ? Number(progresoTema.respondidas || 0) : 0;
-      const totalTema = progresoTema ? Number(progresoTema.totalPreguntas || 0) : 0;
-      const detalleTema = respondidasTema > 0
-        ? '<small class="quiz-progress-detail">Avance real: ' + respondidasTema + '/' + totalTema + ' preguntas · ' + Number(progresoTema.porcentaje || 0) + '% · Nota provisional: ' + Number(progresoTema.notaProvisional || 0).toFixed(2) + '/20</small>'
-        : '';
-      const textoBoton = respondidasTema > 0 ? '↻ Continuar cuestionario' : '🎯 Desarrollar cuestionario';
-      estadoCuestionarioHTML = detalleTema + '<button type="button" class="btn-cuestionario" onclick="if(window.opener && typeof window.opener.abrirCuestionarioTema === \'function\'){window.opener.abrirCuestionarioTema(\'' + escaparHTML(tema.id || '') + '\', window);}else{alert(\'No se pudo comunicar con el portal. Cierra esta ventana y vuelve a ingresar.\');}">' + textoBoton + '</button>';
-    }
     return `<article class="tema">
       <span class="numero">TEMA ${escaparHTML(tema.n || '')} · ${escaparHTML(tema.id || '')}</span>
       <h2>${escaparHTML(tema.tema || '')}</h2>
@@ -1808,7 +1746,7 @@ function abrirBloque(indice) {
       <p><b>Actividad:</b> ${escaparHTML(tema.actividad || 'Por definir')}</p></div>
       <div class="clase"><b>Programación:</b> ${escaparHTML(tema.fecha || 'Fecha pendiente')} · Clase ${escaparHTML(tema.numeroClase || '')} · Horario: ${escaparHTML(tema.horaInicio || '14:00')} a ${escaparHTML(tema.horaFin || '16:00')} horas<br><b>Catequista:</b> ${escaparHTML(tema.catequista || 'Por asignar')}</div>
       <div class="resource-buttons">
-        ${estadoCuestionarioHTML}
+        ${obtenerIntentoCuestionarioPortal(tema.id) ? '<span class="btn-cuestionario estado-completado' + (obtenerIntentoCuestionarioPortal(tema.id).apoyoVisual ? ' estado-completado-apoyo' : '') + '" role="status">COMPLETADO</span>' : '<button type="button" class="btn-cuestionario" onclick="if(window.opener && typeof window.opener.abrirCuestionarioTema === \'function\'){window.opener.abrirCuestionarioTema(\'' + escaparHTML(tema.id || '') + '\', window);}else{alert(\'No se pudo comunicar con el portal. Cierra esta ventana y vuelve a ingresar.\');}">🎯 Desarrollar cuestionario</button>'}
         <!-- Recursos complementarios desactivados temporalmente. -->
       </div>
     </article>`;
@@ -1816,8 +1754,8 @@ function abrirBloque(indice) {
 
   ventana.document.open();
   ventana.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escaparHTML(bloque.title)}</title><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"><style>
-  *{box-sizing:border-box}body{font:14px Nunito,Arial,sans-serif;background:#f4f1ea;color:#193453;max-width:900px;margin:25px auto;padding:0 15px}header{background:#12345a;color:white;padding:22px 24px;border-radius:16px;margin-bottom:20px}h1{margin:0;font:700 24px Fredoka,sans-serif}.sub{color:#ffdf94;font-weight:700;margin:6px 0 0}.tema{border:1px solid #e7d6b8;border-radius:14px;background:white;padding:18px;margin-bottom:16px;box-shadow:0 3px 10px #12345a0d}.numero{font-size:11px;font-weight:900;color:#b27b19}.tema h2{font:700 18px Fredoka,sans-serif;color:#12345a;margin:5px 0 12px}.subtemas{background:#f3f7fc;padding:10px 14px;border-left:4px solid #d99b16;border-radius:9px}.subtemas ol{margin:6px 0 0;padding-left:20px}.subtemas li{margin:4px 0}.datos{background:#fffaf0;border:1px solid #fae8bd;border-radius:10px;padding:10px 12px;margin-top:12px}.datos p{margin:5px 0}.clase{font-size:12px;background:#eef9f2;border:1px solid #98dfb0;border-radius:10px;padding:10px 12px;margin-top:10px}.resource-buttons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}.resource-buttons button,.resource-buttons a{display:block;text-decoration:none;border-radius:10px;padding:10px 8px;font:800 12px Nunito,sans-serif;cursor:pointer;text-align:center;background:#fff8e6;border:1px solid #e8cb82;color:#12345a}.resource-buttons button:nth-child(2),.resource-buttons a:nth-child(2){background:#f0f4ff;border-color:#a8c2f5;color:#173b7a}.resource-buttons button:nth-child(3){background:#eef9f2;border-color:#98dfb0;color:#156b37}.resource-buttons button:nth-child(4){background:#fff2f0;border-color:#f2a9a0;color:#8a2817}.resource-buttons button:hover,.resource-buttons a:hover{filter:brightness(.97);transform:translateY(-1px)}.resource-buttons > :not(.btn-cuestionario):not(.quiz-progress-detail){display:none!important}
-  .resource-buttons .btn-cuestionario{background:#eaf5ff;border-color:#8bbce8;color:#123b66;font-weight:900}.resource-buttons .estado-completado{display:block;padding:10px 8px;border:1px solid #98dfb0;border-radius:10px;background:#eef9f2;color:#17643a;font:900 12px Nunito,sans-serif;text-align:center;cursor:default}.resource-buttons .estado-completado-apoyo{background:#e3f7df;border-color:#b7e6ad;color:#236b35}.resource-buttons .estado-sin-preguntas{display:block;padding:10px 8px;border:1px solid #e8cb82;border-radius:10px;background:#fff8e6;color:#805d18;font:900 11px Nunito,sans-serif;text-align:center;cursor:default}.quiz-progress-detail{grid-column:1/-1;display:block;padding:8px 10px;border-radius:9px;background:#f1f6fb;color:#244765;font:800 11px Nunito,sans-serif;text-align:center}.resource-buttons .btn-tema-completo{background:#f1eaff;border-color:#c4a8ef;color:#51327e;font-weight:900}.close{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin:8px 0 25px;color:#12345a}.deadline-original{margin-top:10px;padding:10px 12px;border-left:5px solid #d00000;border-radius:8px;background:#fff0f0;color:#d00000;font-size:13px;font-weight:1000}.deadline-extension{margin-top:8px;padding:11px 12px;border-left:5px solid #7200c8;border-radius:8px;background:#f4e9ff;color:#7200c8;font-size:14px;font-weight:1000;line-height:1.45}@media(max-width:560px){.resource-buttons{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  *{box-sizing:border-box}body{font:14px Nunito,Arial,sans-serif;background:#f4f1ea;color:#193453;max-width:900px;margin:25px auto;padding:0 15px}header{background:#12345a;color:white;padding:22px 24px;border-radius:16px;margin-bottom:20px}h1{margin:0;font:700 24px Fredoka,sans-serif}.sub{color:#ffdf94;font-weight:700;margin:6px 0 0}.tema{border:1px solid #e7d6b8;border-radius:14px;background:white;padding:18px;margin-bottom:16px;box-shadow:0 3px 10px #12345a0d}.numero{font-size:11px;font-weight:900;color:#b27b19}.tema h2{font:700 18px Fredoka,sans-serif;color:#12345a;margin:5px 0 12px}.subtemas{background:#f3f7fc;padding:10px 14px;border-left:4px solid #d99b16;border-radius:9px}.subtemas ol{margin:6px 0 0;padding-left:20px}.subtemas li{margin:4px 0}.datos{background:#fffaf0;border:1px solid #fae8bd;border-radius:10px;padding:10px 12px;margin-top:12px}.datos p{margin:5px 0}.clase{font-size:12px;background:#eef9f2;border:1px solid #98dfb0;border-radius:10px;padding:10px 12px;margin-top:10px}.resource-buttons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}.resource-buttons button,.resource-buttons a{display:block;text-decoration:none;border-radius:10px;padding:10px 8px;font:800 12px Nunito,sans-serif;cursor:pointer;text-align:center;background:#fff8e6;border:1px solid #e8cb82;color:#12345a}.resource-buttons button:nth-child(2),.resource-buttons a:nth-child(2){background:#f0f4ff;border-color:#a8c2f5;color:#173b7a}.resource-buttons button:nth-child(3){background:#eef9f2;border-color:#98dfb0;color:#156b37}.resource-buttons button:nth-child(4){background:#fff2f0;border-color:#f2a9a0;color:#8a2817}.resource-buttons button:hover,.resource-buttons a:hover{filter:brightness(.97);transform:translateY(-1px)}.resource-buttons > :not(.btn-cuestionario){display:none!important}
+  .resource-buttons .btn-cuestionario{background:#eaf5ff;border-color:#8bbce8;color:#123b66;font-weight:900}.resource-buttons .estado-completado{display:block;padding:10px 8px;border:1px solid #98dfb0;border-radius:10px;background:#eef9f2;color:#17643a;font:900 12px Nunito,sans-serif;text-align:center;cursor:default}.resource-buttons .estado-completado-apoyo{background:#e3f7df;border-color:#b7e6ad;color:#236b35}.resource-buttons .btn-tema-completo{background:#f1eaff;border-color:#c4a8ef;color:#51327e;font-weight:900}.close{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin:8px 0 25px;color:#12345a}@media(max-width:560px){.resource-buttons{grid-template-columns:repeat(2,minmax(0,1fr))}}
   </style></head><body><header><h1>${escaparHTML(bloque.title)}</h1><p class="sub">${(bloque.sessions || []).length} temas</p></header>${tarjetas}<button class="close" onclick="window.close()" type="button">Cerrar ventana</button><script>
   function leer(texto){if(!('speechSynthesis' in window))return;window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(texto);u.lang='es-PE';u.rate=.92;window.speechSynthesis.speak(u);}
   window.addEventListener('DOMContentLoaded',function(){
@@ -1851,7 +1789,7 @@ function abrirCuestionarioTema(idSesion, ventanaExistente) {
   }
   if (!ventana) ventana = window.open('', '_blank');
   if (!ventana) { reproducirBienvenida('No se pudo abrir el cuestionario. Vuelve a abrir el bloque e inténtalo otra vez.'); return; }
-  const cfg = JSON.stringify({api:API_URL,idSesion:String(idSesion),tema:String(tema.tema || ''),idNino:String(perfil.ID_NINO),nombre:String(perfil.NOMBRE_COMPLETO || [perfil.NOMBRES,perfil.APELLIDOS].filter(Boolean).join(' ')),token:token});
+  const cfg = JSON.stringify({api:API_URL,idSesion:String(idSesion),tema:String(tema.tema || ''),idNino:String(perfil.ID_NINO),nombre:String(perfil.NOMBRE_COMPLETO || [perfil.NOMBRES,perfil.APELLIDOS].filter(Boolean).join(' ')),token:token,deviceId:obtenerDeviceIdCatequizando(),deviceType:detectarTipoDispositivoCatequizando()});
   ventana.document.open();
   ventana.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cuestionario · ${escaparHTML(tema.tema || '')}</title><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"><style>
   *{box-sizing:border-box}body{margin:0;background:#f2f6fb;color:#193453;font:15px Nunito,Arial,sans-serif}.quiz-wrap{max-width:760px;margin:24px auto;padding:16px}.quiz-top-actions{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px}.quiz-nav-btn{border:1px solid #cbd9e8;border-radius:12px;padding:10px 14px;background:#fff;color:#17385f;font:900 13px Nunito;cursor:pointer;box-shadow:0 3px 10px #12345a10}.quiz-nav-btn.save{background:#fff3d5;border-color:#e7c66a;color:#805600}.quiz-head{background:linear-gradient(135deg,#12345a,#245d89);color:#fff;border-radius:22px;padding:24px;box-shadow:0 8px 24px #12345a20}.quiz-kicker{font-size:12px;color:#ffe19a;font-weight:900;letter-spacing:.08em}.quiz-head h1{font:700 25px Fredoka,sans-serif;margin:7px 0}.quiz-head p{margin:0;color:#e4effa}.quiz-card{background:#fff;border:1px solid #dce7f2;border-radius:20px;padding:22px;margin-top:16px;box-shadow:0 5px 18px #12345a0c}.quiz-label{font-size:12px;color:#52708e;font-weight:900}.quiz-btn{border:0;border-radius:13px;padding:13px 18px;background:#f3c95b;color:#183653;font:900 15px Nunito;cursor:pointer}.quiz-btn:disabled{opacity:.5;cursor:not-allowed}.quiz-progress{height:9px;background:#e8eef5;border-radius:20px;overflow:hidden;margin:10px 0 18px}.quiz-progress span{display:block;height:100%;background:linear-gradient(90deg,#6bb6d9,#e9bf50);width:0;transition:width .2s}.quiz-question{font:700 21px Fredoka,sans-serif;line-height:1.35;margin:10px 0 18px}.quiz-option{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:13px;margin:9px 0;border:1.5px solid #dbe6f0;border-radius:14px;background:#f9fbfe;color:#24415e;font:800 14px Nunito;cursor:pointer}.quiz-option.selected{border-color:#4e9acb;background:#eaf5ff;box-shadow:0 0 0 3px #dceefa}.quiz-option b{display:grid;place-items:center;flex:0 0 30px;height:30px;border-radius:10px;background:#e5eef7;color:#24547a}.quiz-actions{display:flex;justify-content:space-between;gap:10px;margin-top:18px}.quiz-status{font-size:13px;font-weight:800;color:#627991;margin-top:12px}.quiz-result{text-align:center;padding:30px}.quiz-score{font:700 54px Fredoka;color:#1d6590;margin:12px}.quiz-symbol{font-size:42px}.quiz-note{background:#f4f8fc;border-radius:12px;padding:12px;color:#4d6680;font-weight:700;margin:15px 0}.quiz-alert{background:#fff0f0;border:2px solid #d92d20;border-radius:14px;padding:13px;margin:12px 0;color:#a32119;font-weight:900;line-height:1.45;animation:quizPulse .9s ease-in-out 2}.quiz-alert.info{background:#fff8e5;border-color:#d69e22;color:#795400}.quiz-alert.success{background:#ecfdf3;border-color:#16a34a;color:#166534}@keyframes quizPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.015)}}@media(max-width:560px){.quiz-wrap{margin:0 auto;padding:12px}.quiz-head{padding:19px}.quiz-card{padding:17px}.quiz-question{font-size:19px}}
@@ -1861,6 +1799,14 @@ function abrirCuestionarioTema(idSesion, ventanaExistente) {
   let preguntaActual=null,numeroPregunta=1,totalPreguntas=0,respuestaSeleccionada='',enviando=false,salidaAutorizada=false,ultimoAviso='';
   const app=document.getElementById('quizApp');
   function hablar(texto){if(!('speechSynthesis'in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(texto);u.lang='es-PE';u.rate=.9;window.speechSynthesis.speak(u);}
+  let alarmaIngresoIndebidoActiva=false,alarmaQuizCtx=null,alarmaQuizTimer=null,alarmaQuizSpeechTimer=null;
+  function alarmaIngresoIndebido(mensaje){if(alarmaIngresoIndebidoActiva)return;alarmaIngresoIndebidoActiva=true;app.innerHTML='<div class="quiz-result" style="position:fixed;inset:0;z-index:999999;background:#970000;color:#fff;border-radius:0;padding:18px;display:flex;flex-direction:column;justify-content:center;align-items:center;animation:quizPulse .4s infinite alternate"><div style="font-size:clamp(60px,14vw,110px)">🚨</div><h1 style="font-size:clamp(24px,6vw,42px);line-height:1.1">¡ALERTA! INGRESO INDEBIDO</h1><p style="font-size:clamp(16px,4vw,22px)">'+esc(mensaje||'Este dispositivo ha sido bloqueado.')+'</p><p style="font-weight:900">EL CUESTIONARIO PERMANECE BLOQUEADO</p><button id="detenerAlarmaQuiz" class="quiz-btn" style="background:#ffe145;color:#700000;border:3px solid #fff">DETENER ALARMA Y CERRAR AVISO</button></div>';
+    function sonar(){if(!alarmaIngresoIndebidoActiva||!alarmaQuizCtx||alarmaQuizCtx.state==='closed')return;try{const o=alarmaQuizCtx.createOscillator(),g=alarmaQuizCtx.createGain();o.type='sawtooth';o.frequency.value=Date.now()%2?1020:680;g.gain.setValueAtTime(.0001,alarmaQuizCtx.currentTime);g.gain.exponentialRampToValueAtTime(.34,alarmaQuizCtx.currentTime+.03);g.gain.exponentialRampToValueAtTime(.0001,alarmaQuizCtx.currentTime+.38);o.connect(g);g.connect(alarmaQuizCtx.destination);o.start();o.stop(alarmaQuizCtx.currentTime+.4);}catch(_e){}}
+    function hablarAlerta(){if(!alarmaIngresoIndebidoActiva||!window.speechSynthesis)return;try{window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance('¡Alerta! Ingreso indebido. Segundo dispositivo detectado. Este equipo está bloqueado.');u.lang='es-PE';u.rate=.78;u.volume=1;window.speechSynthesis.speak(u);}catch(_e){}}
+    try{const AC=window.AudioContext||window.webkitAudioContext;if(AC){alarmaQuizCtx=new AC();alarmaQuizCtx.resume().catch(function(){});sonar();alarmaQuizTimer=setInterval(sonar,480);}}catch(_e){}hablarAlerta();alarmaQuizSpeechTimer=setInterval(hablarAlerta,5000);
+    document.getElementById('detenerAlarmaQuiz').addEventListener('click',function(){alarmaIngresoIndebidoActiva=false;clearInterval(alarmaQuizTimer);clearInterval(alarmaQuizSpeechTimer);try{window.speechSynthesis.cancel();if(alarmaQuizCtx)alarmaQuizCtx.close();}catch(_e){}app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">🔒</div><h2>Dispositivo bloqueado</h2><p>El intento de ingreso indebido fue registrado. No puedes continuar desde este dispositivo.</p></div>';});
+  }
+
   function alarma(mensaje,tipo){
     ultimoAviso=mensaje;
     const caja=document.getElementById('quizAlerta');
@@ -1881,18 +1827,19 @@ function abrirCuestionarioTema(idSesion, ventanaExistente) {
   window.addEventListener('beforeunload',function(){if(!salidaAutorizada&&preguntaActual&&!respuestaSeleccionada&&window.speechSynthesis)window.speechSynthesis.cancel();});
   function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
   async function post(datos){
-    const r=await fetch(CFG.api,{method:'POST',mode:'cors',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(datos)});
+    const r=await fetch(CFG.api,{method:'POST',mode:'cors',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(Object.assign({},datos,{deviceId:CFG.deviceId,deviceType:CFG.deviceType}))});
     if(!r.ok)throw new Error('Error del servidor: '+r.status);
     return r.json();
   }
   async function iniciar(){
     try{
+      const lock=await post({action:'validarDispositivoCuestionario',token:CFG.token,deviceId:CFG.deviceId});if(lock&&lock.bloqueado){alarmaIngresoIndebido(lock.mensaje);return;}
       const j=await post({action:'obtenerCuestionarioCatequizando',idSesion:CFG.idSesion,token:CFG.token});
       if(!j.exito)throw new Error(j.mensaje||'No se pudo cargar el cuestionario.');
       if(j.completadoTema){mostrarCompletado();return;}
       if(j.sinPreguntas){app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">📖</div><h2>Este tema aún no tiene preguntas</h2><p>'+esc(j.mensaje||'No se ha asignado un cuestionario.')+'</p></div>';return;}
       preguntaActual=j.pregunta;numeroPregunta=Number(j.numeroPregunta||1);totalPreguntas=Number(j.totalPreguntas||0);respuestaSeleccionada='';mostrarPregunta();
-    }catch(e){app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">⚠️</div><h2>No se pudo abrir el cuestionario</h2><p>'+esc(e.message)+'</p><button class="quiz-btn" id="reintentar">Intentar nuevamente</button></div>';document.getElementById('reintentar').addEventListener('click',iniciar);hablar(e.message);}
+    }catch(e){if(String(e.message||'').includes('¡ALERTA! INGRESO INDEBIDO')){alarmaIngresoIndebido(e.message);return;}app.innerHTML='<div class="quiz-result"><div class="quiz-symbol">⚠️</div><h2>No se pudo abrir el cuestionario</h2><p>'+esc(e.message)+'</p><button class="quiz-btn" id="reintentar">Intentar nuevamente</button></div>';document.getElementById('reintentar').addEventListener('click',iniciar);hablar(e.message);}
   }
   function mostrarPregunta(alertaInicial){
     if(!preguntaActual)return;
@@ -1941,6 +1888,7 @@ function abrirCuestionarioTema(idSesion, ventanaExistente) {
     document.getElementById('cerrarFinal').addEventListener('click',function(){salidaAutorizada=true;try{if(window.opener&&typeof window.opener.actualizarAprendizajeDesdeCuestionario==='function')window.opener.actualizarAprendizajeDesdeCuestionario();}catch(_e){}window.close();});
   }
   iniciar();
+  setInterval(function(){post({action:'renovarBloqueoDispositivoCatequizando',token:CFG.token,deviceId:CFG.deviceId}).then(function(j){if(j&&j.bloqueado)alarmaIngresoIndebido(j.mensaje);}).catch(function(e){if(String(e.message||'').includes('¡ALERTA! INGRESO INDEBIDO'))alarmaIngresoIndebido(e.message);});},45000);
   <\/script></body></html>`);
   ventana.document.close();
   try { ventana.focus(); } catch (error) {}
@@ -1985,8 +1933,9 @@ function abrirEnlaceRecurso(tipo, idSesion) {
   window.open(url, '_blank', 'noopener,noreferrer');
 }
 
+/** Formatea las fechas de TAREAS sin alterar los datos almacenados. */
 function formatearFechaEntregaTareaPortal(valor) {
-  if (valor === null || valor === undefined || String(valor).trim() === '') return 'fecha original no registrada en la hoja TAREAS';
+  if (valor === null || valor === undefined || String(valor).trim() === '') return 'No registrada';
   if (valor instanceof Date && !isNaN(valor.getTime())) {
     return valor.toLocaleDateString('es-PE', {day:'2-digit', month:'long', year:'numeric'});
   }
@@ -2003,165 +1952,123 @@ function formatearFechaEntregaTareaPortal(valor) {
   return texto;
 }
 
-function fechaValorTareaPortal(valor) {
-  if (valor === null || valor === undefined || String(valor).trim() === '') return null;
-  if (valor instanceof Date && !isNaN(valor.getTime())) {
-    return new Date(valor.getFullYear(), valor.getMonth(), valor.getDate(), 12, 0, 0);
+/** Reduce la fotografía antes de enviarla al endpoint existente del Apps Script. */
+async function comprimirFotoTareaPortal(file) {
+  if (!file) throw new Error('Selecciona una fotografía de tu tarea.');
+  if (!String(file.type || '').toLowerCase().startsWith('image/')) throw new Error('Selecciona un archivo de imagen.');
+  if (file.size > 15000000) throw new Error('La fotografía supera 15 MB. Selecciona una imagen más ligera.');
+  const objectUrl = URL.createObjectURL(file);
+  try {
+    const img = await new Promise(function(resolve, reject) {
+      const imagen = new Image();
+      imagen.onload = function() { resolve(imagen); };
+      imagen.onerror = function() { reject(new Error('El navegador no pudo abrir la fotografía. Prueba con JPG o PNG.')); };
+      imagen.src = objectUrl;
+    });
+    let maximo = 1600;
+    for (let intento = 0; intento < 10; intento++) {
+      const escala = Math.min(1, maximo / Math.max(img.naturalWidth, img.naturalHeight));
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.max(1, Math.round(img.naturalWidth * escala));
+      canvas.height = Math.max(1, Math.round(img.naturalHeight * escala));
+      const ctx = canvas.getContext('2d');
+      if (!ctx) throw new Error('No se pudo preparar la fotografía en este dispositivo.');
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      const dataUrl = canvas.toDataURL('image/jpeg', [0.82, 0.76, 0.70, 0.64][intento % 4]);
+      const coma = dataUrl.indexOf(',');
+      const bytes = Math.floor((dataUrl.length - coma - 1) * 3 / 4);
+      if (bytes <= 1650000) {
+        return {
+          base64: dataUrl,
+          mimeType: 'image/jpeg',
+          fileName: (file.name || 'evidencia').replace(/\.[^.]+$/, '') + '.jpg'
+        };
+      }
+      maximo = Math.max(640, Math.round(maximo * 0.82));
+    }
+    throw new Error('No se pudo reducir la fotografía al tamaño permitido. Selecciona otra imagen.');
+  } finally {
+    URL.revokeObjectURL(objectUrl);
   }
-  if (typeof valor === 'number' && Number.isFinite(valor) && valor > 30000 && valor < 70000) {
-    const utc = new Date(Date.UTC(1899, 11, 30) + Math.floor(valor) * 86400000);
-    return new Date(utc.getUTCFullYear(), utc.getUTCMonth(), utc.getUTCDate(), 12, 0, 0);
-  }
-  const texto = String(valor).trim();
-  let m = texto.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
-  if (m) return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]), 12, 0, 0);
-  m = texto.match(/^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{4})$/);
-  if (m) return new Date(Number(m[3]), Number(m[2]) - 1, Number(m[1]), 12, 0, 0);
-  const fecha = new Date(texto);
-  return isNaN(fecha.getTime()) ? null : new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate(), 12, 0, 0);
 }
 
-function obtenerDatosProrrogaTareasPortal() {
-  const cfg = datosConfig || {};
-  const activo = String(cfg.taskExtensionEnabled == null ? 'SI' : cfg.taskExtensionEnabled).trim().toUpperCase();
-  const habilitada = !['NO', 'FALSE', '0', 'INACTIVA', 'INACTIVO'].includes(activo);
-  const fechaValor = cfg.taskExtensionDate || '2026-11-24';
-  const horaValor = cfg.taskExtensionTime || '19:00';
-  const fecha = fechaValorTareaPortal(fechaValor);
-  const meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-  const dias = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
-  let fechaLarga = '24 de noviembre de 2026';
-  let dia = 'martes';
-  if (fecha) {
-    fechaLarga = fecha.getDate() + ' de ' + meses[fecha.getMonth()] + ' de ' + fecha.getFullYear();
-    dia = dias[fecha.getDay()];
+/** Envía la foto usando la acción enviarEvidenciaTarea que ya existe en Codigo.gs. */
+async function enviarEvidenciaTareaDesdePopup(boton) {
+  const tarjeta = boton && boton.closest('.task');
+  const selector = tarjeta && tarjeta.querySelector('[data-evidencia-tarea]');
+  const estado = tarjeta && tarjeta.querySelector('[data-estado-evidencia]');
+  const archivo = selector && selector.files && selector.files[0];
+  if (!tarjeta || !selector || !estado) return;
+  if (!archivo) { estado.textContent = 'Primero selecciona la fotografía.'; return; }
+  const token = obtenerTokenCatequizando();
+  if (!token || MODO_ADMIN_CATEQUISTA) {
+    estado.textContent = 'Ingresa con la cuenta del catequizando para enviar su evidencia.';
+    return;
   }
-  let horaTexto = String(horaValor).trim();
-  if (typeof horaValor === 'number' && Number.isFinite(horaValor) && horaValor >= 0 && horaValor < 1) {
-    const minutos = Math.round(horaValor * 1440);
-    horaTexto = String(Math.floor(minutos / 60)).padStart(2, '0') + ':' + String(minutos % 60).padStart(2, '0');
+  boton.disabled = true;
+  const textoOriginal = boton.textContent;
+  boton.textContent = 'ENVIANDO…';
+  estado.textContent = 'Preparando la fotografía y guardándola en Drive…';
+  estado.style.color = '#526882';
+  try {
+    const foto = await comprimirFotoTareaPortal(archivo);
+    const respuesta = await apiPost({
+      action: 'enviarEvidenciaTarea',
+      token: token,
+      idTarea: boton.getAttribute('data-id-tarea') || '',
+      base64: foto.base64,
+      mimeType: foto.mimeType,
+      fileName: foto.fileName
+    });
+    if (!respuesta || respuesta.exito !== true) throw new Error((respuesta && respuesta.mensaje) || 'No se pudo registrar la entrega.');
+    estado.textContent = '¡EVIDENCIA ENVIADA! Tu fotografía quedó registrada y guardada en Google Drive.';
+    estado.style.color = '#17643a';
+    selector.disabled = true;
+    boton.textContent = 'EVIDENCIA ENVIADA';
+    boton.disabled = true;
+  } catch (error) {
+    estado.textContent = (error && error.message) || String(error);
+    estado.style.color = '#b00016';
+    boton.disabled = false;
+    boton.textContent = textoOriginal;
   }
-  let hora = horaTexto;
-  const hm = horaTexto.match(/(?:T|\s)?(\d{1,2}):(\d{2})(?::\d{2})?$/);
-  if (hm) {
-    const h = Number(hm[1]);
-    const h12 = h % 12 || 12;
-    hora = h12 + ':' + hm[2] + (h >= 12 ? ' p. m.' : ' a. m.');
-  }
-  return {
-    habilitada: habilitada,
-    fecha: fecha,
-    texto: dia + ' ' + fechaLarga + ', a las ' + hora,
-    etiqueta: 'PRÓRROGA EXTRAORDINARIA HASTA EL ' + dia.toUpperCase() + ' ' + fechaLarga.toUpperCase() + ' · ' + hora.toUpperCase()
-  };
 }
 
-function estadoFechaEntregaTareaPortal(valor) {
-  const fecha = fechaValorTareaPortal(valor);
-  if (!fecha) return 'FECHA ORIGINAL DE ENTREGA NO REGISTRADA';
-  const hoy = new Date(); hoy.setHours(12, 0, 0, 0);
-  return fecha.getTime() < hoy.getTime() ? 'FECHA ORIGINAL DE ENTREGA VENCIDA' : 'FECHA ORIGINAL DE ENTREGA';
-}
-
-/** Consulta tareas, permite enviar fotografía y registra la evidencia en Drive/Sheets. */
+/** Consulta las tareas asociadas al ID_SESION y las presenta en una ventana propia. */
 async function abrirTareasDeSesion(idSesion) {
   const ventana = window.open('', '_blank');
   if (!ventana) {
-    reproducirBienvenida('Permite las ventanas emergentes para consultar y entregar las tareas.');
+    reproducirBienvenida('Permite las ventanas emergentes para consultar las tareas.');
     return;
   }
 
   const escribir = function(titulo, contenido) {
     ventana.document.open();
-    ventana.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escaparHTML(titulo)}</title><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"><style>
-      *{box-sizing:border-box}body{font:14px Nunito,Arial,sans-serif;background:#f4f1ea;color:#193453;max-width:850px;margin:25px auto;padding:0 15px}header{background:#12345a;color:#fff;padding:20px 24px;border-radius:16px;margin-bottom:18px}h1{font:700 23px Fredoka,sans-serif;margin:0}.sub{color:#ffdf94;font-weight:800;margin:6px 0 0}.task{background:#fff;border:1px solid #e7d6b8;border-radius:13px;padding:15px;margin-bottom:12px}.task h2{font:700 17px Fredoka,sans-serif;color:#12345a;margin:4px 0 8px}.meta{font-size:12px;color:#526882;line-height:1.7}.state{display:inline-block;background:#fff2cf;color:#8a6418;border-radius:20px;padding:4px 10px;font-size:11px;font-weight:900;margin-top:8px}.evidence{display:inline-block;margin-top:10px;color:#1557a0;font-weight:900}.deadline-original{margin-top:10px;padding:10px 12px;border-left:5px solid #d00000;border-radius:8px;background:#fff0f0;color:#d00000;font-size:13px;font-weight:1000}.deadline-extension{margin-top:8px;padding:11px 12px;border-left:5px solid #7200c8;border-radius:8px;background:#f4e9ff;color:#7200c8;font-size:14px;font-weight:1000;line-height:1.45}.upload-panel{margin-top:14px;padding:13px;border:1px dashed #9ab0c8;border-radius:12px;background:#f7fbff}.upload-panel strong{display:block;color:#12345a;margin-bottom:7px}.upload-panel p{margin:6px 0;color:#526882;font-size:12px}.upload-panel input[type=file]{display:block;width:100%;margin:9px 0;padding:9px;background:#fff;border:1px solid #c9d7e5;border-radius:8px}.upload-btn{display:block;width:100%;padding:12px 16px;border:0;border-radius:10px;background:#12345a;color:#fff;font:900 13px Nunito,sans-serif;cursor:pointer}.upload-btn:disabled{opacity:.55;cursor:wait}.upload-status{display:block;margin-top:9px;font-size:12px;font-weight:900;color:#805d18}.upload-success{margin-top:12px;padding:12px;border-radius:10px;background:#eaf8ef;color:#17643a;font-weight:900}.upload-error{margin-top:9px;color:#b00016;font-size:12px;font-weight:900}.review-note{margin-top:8px;padding:9px;border-radius:8px;background:#fff4e5;color:#87520b;font-size:12px;font-weight:800}.extension-note{color:#7200c8;font-weight:900}.close{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin:8px 0 25px;color:#12345a}
-      </style>
-      <style id="lds-copyright-standard">.lds-copyright-footer,.lds-copyright-line{display:block!important;width:100%!important;box-sizing:border-box!important;margin:12px 0 0!important;padding:11px 16px!important;text-align:center!important;color:#fff!important;background:linear-gradient(105deg,#0a1c39,#18395f)!important;border-top:2px solid #d4ae55!important;font-family:inherit!important;font-size:12px!important;font-weight:700!important;line-height:1.5!important;letter-spacing:.02em!important}.lds-copyright-footer{margin-top:24px!important}</style>
-      </head><body><header><h1>${escaparHTML(titulo)}</h1><p class="sub">Datos consultados desde la hoja TAREAS · ${escaparHTML(idSesion)}</p></header><main>${contenido}</main><button class="close" onclick="window.close()" type="button">Cerrar ventana</button><script>
-      (function(){
-        function estado(texto, esError){
-          var el=this;
-          if(!el)return;
-          el.textContent=texto;
-          el.className=esError?'upload-error':'upload-status';
-        }
-        function convertirFotoAJpeg(file){
-          return new Promise(function(resolve,reject){
-            if(!file){reject(new Error('Selecciona una fotografía.'));return;}
-            if(file.size>15000000){reject(new Error('La fotografía original supera 15 MB. Elige una imagen más ligera.'));return;}
-            var url=URL.createObjectURL(file);
-            var img=new Image();
-            img.onload=function(){
-              try{
-                var maximo=1600;
-                for(var intento=0;intento<8;intento++){
-                  var escala=Math.min(1,maximo/Math.max(img.naturalWidth,img.naturalHeight));
-                  var canvas=document.createElement('canvas');
-                  canvas.width=Math.max(1,Math.round(img.naturalWidth*escala));
-                  canvas.height=Math.max(1,Math.round(img.naturalHeight*escala));
-                  var ctx=canvas.getContext('2d');
-                  if(!ctx)throw new Error('No se pudo preparar la fotografía en este dispositivo.');
-                  ctx.fillStyle='#ffffff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);
-                  var calidad=[0.82,0.76,0.70,0.64][intento%4];
-                  var dataUrl=canvas.toDataURL('image/jpeg',calidad);
-                  var coma=dataUrl.indexOf(',');
-                  var bytes=Math.floor((dataUrl.length-coma-1)*3/4);
-                  if(bytes<=1650000){
-                    URL.revokeObjectURL(url);
-                    resolve({base64:dataUrl,mimeType:'image/jpeg',fileName:(file.name||'evidencia').replace(/\.[^.]+$/,'')+'.jpg'});
-                    return;
-                  }
-                  maximo=Math.max(720,Math.round(maximo*0.82));
-                }
-                throw new Error('No se pudo reducir la fotografía al tamaño permitido. Selecciona otra imagen.');
-              }catch(error){URL.revokeObjectURL(url);reject(error);}
-            };
-            img.onerror=function(){URL.revokeObjectURL(url);reject(new Error('El navegador no pudo leer la imagen. Usa una foto JPG o PNG.'));};
-            img.src=url;
-          });
-        }
-        document.addEventListener('click',async function(event){
-          var btn=event.target.closest('[data-send-evidence]');
-          if(!btn)return;
-          var card=btn.closest('.task');
-          var input=card&&card.querySelector('[data-evidence-file]');
-          var statusEl=card&&card.querySelector('[data-upload-status]');
-          if(!card||!input||!statusEl)return;
-          var file=input.files&&input.files[0];
-          if(!file){estado.call(statusEl,'Primero selecciona la fotografía de tu tarea.',true);return;}
-          var opener=window.opener;
-          if(!opener||typeof opener.apiPost!=='function'||typeof opener.obtenerTokenCatequizando!=='function'){
-            estado.call(statusEl,'No se pudo enlazar con el portal principal. Cierra esta ventana, vuelve a entrar al portal e inténtalo otra vez.',true);return;
-          }
-          var token=opener.obtenerTokenCatequizando();
-          if(!token){estado.call(statusEl,'Tu acceso no está activo. Regresa al portal e ingresa nuevamente con tu PIN.',true);return;}
-          btn.disabled=true;btn.textContent='PREPARANDO Y ENVIANDO…';
-          estado.call(statusEl,'Comprimiendo la fotografía y guardándola en Google Drive…',false);
-          try{
-            var foto=await convertirFotoAJpeg(file);
-            var respuesta=await opener.apiPost({
-              action:'enviarEvidenciaTarea',token:token,idTarea:btn.getAttribute('data-send-evidence'),
-              base64:foto.base64,mimeType:foto.mimeType,fileName:foto.fileName
-            });
-            if(!respuesta||respuesta.exito!==true)throw new Error((respuesta&&respuesta.mensaje)||'No se pudo registrar la entrega.');
-            var estadoEl=card.querySelector('.state');
-            if(estadoEl){estadoEl.textContent='ENVIADA · PENDIENTE DE REVISIÓN';estadoEl.style.background='#eaf8ef';estadoEl.style.color='#17643a';}
-            var panel=card.querySelector('.upload-panel');
-            if(panel){
-              var ok=document.createElement('div');ok.className='upload-success';
-              ok.textContent='¡Evidencia enviada correctamente! La fotografía quedó guardada en Google Drive y registrada en ENTREGAS_TAREAS.';
-              panel.replaceWith(ok);
-            }
-          }catch(error){
-            estado.call(statusEl,(error&&error.message)||String(error),true);
-            btn.disabled=false;btn.textContent='ENVIAR FOTOGRAFÍA A LA CATEQUISTA';
-          }
-        });
-        window.addEventListener('DOMContentLoaded',function(){
-          var main=document.querySelector('main');var texto=main?main.innerText:'';
-          if(texto&&'speechSynthesis'in window){var u=new SpeechSynthesisUtterance('Tareas de este tema. '+texto);u.lang='es-PE';u.rate=.92;window.speechSynthesis.cancel();window.speechSynthesis.speak(u);}
-        });
-      })();
+    ventana.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escaparHTML(titulo)}</title><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"><style>*{box-sizing:border-box}body{font:14px Nunito,Arial,sans-serif;background:#f4f1ea;color:#193453;max-width:850px;margin:25px auto;padding:0 15px}header{background:#12345a;color:#fff;padding:20px 24px;border-radius:16px;margin-bottom:18px}h1{font:700 23px Fredoka,sans-serif;margin:0}.sub{color:#ffdf94;font-weight:800;margin:6px 0 0}.task{background:#fff;border:1px solid #e7d6b8;border-radius:13px;padding:15px;margin-bottom:12px}.task h2{font:700 17px Fredoka,sans-serif;color:#12345a;margin:4px 0 8px}.meta{font-size:12px;color:#526882;line-height:1.7}.state{display:inline-block;background:#fff2cf;color:#8a6418;border-radius:20px;padding:4px 10px;font-size:11px;font-weight:900;margin-top:8px}.evidence{display:inline-block;margin-top:10px;color:#1557a0;font-weight:900}.deadline-original{display:inline;color:#d00000;font-weight:1000}.deadline-extension{display:block;margin-top:8px;padding:9px 11px;border-left:5px solid #7200c8;border-radius:7px;background:#f4e9ff;color:#7200c8;font-size:13px;font-weight:1000;line-height:1.45}.task-upload{margin-top:10px;padding-top:9px;border-top:1px solid #e7d6b8}.task-upload input{display:block;max-width:100%;margin:7px 0;padding:6px}.task-upload button{margin-top:5px;padding:8px 13px;border:0;border-radius:9px;background:#12345a;color:#fff;font:900 12px Nunito,sans-serif;cursor:pointer}.task-upload button:disabled{opacity:.6}.task-upload [data-estado-evidencia],.task-upload-state{display:block;margin-top:7px;font-size:12px;font-weight:900;color:#526882}.task-upload-state{color:#17643a}.close{background:#ffc94d;border:0;border-radius:20px;padding:10px 22px;font-weight:900;cursor:pointer;margin:8px 0 25px;color:#12345a}</style>
+<style id="lds-copyright-standard">
+.lds-copyright-footer,.lds-copyright-line{
+  display:block!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+  margin:12px 0 0!important;
+  padding:11px 16px!important;
+  text-align:center!important;
+  color:#fff!important;
+  background:linear-gradient(105deg,#0a1c39,#18395f)!important;
+  border-top:2px solid #d4ae55!important;
+  font-family:inherit!important;
+  font-size:12px!important;
+  font-weight:700!important;
+  line-height:1.5!important;
+  letter-spacing:.02em!important;
+}
+.lds-copyright-footer{margin-top:24px!important}
+</style>
+
+</head><body><header><h1>${escaparHTML(titulo)}</h1><p class="sub">Datos consultados desde la hoja TAREAS · ${escaparHTML(idSesion)}</p></header><main>${contenido}</main><button class="close" onclick="window.close()" type="button">Cerrar ventana</button><script>
+      window.addEventListener('DOMContentLoaded',function(){var m=document.querySelector('main');var texto=m?m.innerText:'';if(texto&&'speechSynthesis'in window){var u=new SpeechSynthesisUtterance('¡Atención! Tienes tareas pendientes. Revisa las fechas de entrega y presenta tu fotografía a la catequista. '+texto);u.lang='es-PE';u.rate=.88;u.pitch=1.08;u.volume=1;window.speechSynthesis.cancel();window.speechSynthesis.speak(u);}});
       <\/script></body></html>`);
     ventana.document.close();
     ventana.focus();
@@ -2176,32 +2083,44 @@ async function abrirTareasDeSesion(idSesion) {
       return;
     }
 
-    const prorroga = obtenerDatosProrrogaTareasPortal();
+    let configTareas = datosConfig || {};
+    if (!configTareas.taskExtensionDate || !configTareas.taskExtensionTime) {
+      try {
+        const respuestaConfig = await apiGet('getConfig');
+        configTareas = respuestaConfig && respuestaConfig.datos ? respuestaConfig.datos : configTareas;
+        datosConfig = configTareas;
+      } catch (_errorConfig) {}
+    }
+    const configProrrogaActiva = String(configTareas.taskExtensionEnabled == null ? 'SI' : configTareas.taskExtensionEnabled).trim().toUpperCase();
+    const mostrarProrroga = !['NO','FALSE','0','INACTIVA','INACTIVO'].includes(configProrrogaActiva);
+    const fechaProrroga = formatearFechaEntregaTareaPortal(configTareas.taskExtensionDate || '2026-11-24');
+    let horaProrroga = String(configTareas.taskExtensionTime || '19:00').trim();
+    const horaProrrogaMatch = horaProrroga.match(/^(\d{1,2}):(\d{2})/);
+    if (horaProrrogaMatch) {
+      const hora24 = Number(horaProrrogaMatch[1]);
+      horaProrroga = (hora24 % 12 || 12) + ':' + horaProrrogaMatch[2] + (hora24 >= 12 ? ' p. m.' : ' a. m.');
+    }
+
     const contenido = tareas.map(function(tarea) {
-      const enlaceReferencia = String(tarea.EVIDENCIA_LINK || '').trim();
-      const enlace = /^https?:\/\//i.test(enlaceReferencia)
-        ? `<a class="evidence" href="${escaparHTML(enlaceReferencia)}" target="_blank" rel="noopener noreferrer">Abrir material de apoyo</a>`
+      const evidencia = String(tarea.EVIDENCIA_LINK || '').trim();
+      const enlace = /^https?:\/\//i.test(evidencia)
+        ? `<a class="evidence" href="${escaparHTML(evidencia)}" target="_blank" rel="noopener noreferrer">Abrir evidencia</a>`
         : '';
       const fechaAsignacion = formatearFechaEntregaTareaPortal(tarea.FECHA_ASIGNACION);
-      const fechaOriginal = formatearFechaEntregaTareaPortal(tarea.FECHA_ENTREGA);
-      const estadoFecha = estadoFechaEntregaTareaPortal(tarea.FECHA_ENTREGA);
+      const fechaEntrega = formatearFechaEntregaTareaPortal(tarea.FECHA_ENTREGA);
+      const bloqueProrroga = mostrarProrroga
+        ? `<div class="deadline-extension">PRÓRROGA EXTRAORDINARIA HASTA EL ${escaparHTML(fechaProrroga)} · ${escaparHTML(horaProrroga)}</div>`
+        : '';
       const estadoEntrega = String(tarea.ESTADO_ENTREGA || 'PENDIENTE').trim().toUpperCase();
       const yaEnviada = ['ENVIADA','REVISADA','ENTREGADA','ENTREGADO','RECIBIDA','RECIBIDO'].includes(estadoEntrega);
-      const puedeReenviar = estadoEntrega === 'CORREGIR';
-      const observacionRevision = String(tarea.OBSERVACION_CATEQUISTA || '').trim();
       const enlaceEntrega = String(tarea.EVIDENCIA_URL_ALUMNO || '').trim();
       const enlaceEntregaHtml = /^https?:\/\//i.test(enlaceEntrega)
-        ? `<a class="evidence" href="${escaparHTML(enlaceEntrega)}" target="_blank" rel="noopener noreferrer">Ver fotografía enviada</a>`
+        ? `<br><a class="evidence" href="${escaparHTML(enlaceEntrega)}" target="_blank" rel="noopener noreferrer">Ver fotografía enviada</a>`
         : '';
-      let entregaHtml = '';
-      if (yaEnviada) {
-        entregaHtml = `<div class="upload-success">${estadoEntrega === 'REVISADA' ? 'Tu evidencia ya fue revisada.' : 'Tu evidencia ya fue enviada y está pendiente de revisión.'}${enlaceEntregaHtml ? '<br>' + enlaceEntregaHtml : ''}</div>`;
-      } else {
-        const avisoCorregir = puedeReenviar && observacionRevision ? `<div class="review-note">Observación de la catequista: ${escaparHTML(observacionRevision)}</div>` : '';
-        entregaHtml = `<div class="upload-panel"><strong>📷 Entrega tu evidencia fotográfica</strong><p>${puedeReenviar ? 'La catequista solicitó una corrección. Selecciona la nueva fotografía y vuelve a enviarla.' : 'Selecciona una fotografía de tu trabajo. El portal la guardará en Google Drive y registrará tu entrega.'}</p>${avisoCorregir}<input type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" data-evidence-file aria-label="Seleccionar fotografía de evidencia"><button class="upload-btn" type="button" data-send-evidence="${escaparHTML(tarea.ID_TAREA || '')}">ENVIAR FOTOGRAFÍA A LA CATEQUISTA</button><span class="upload-status" data-upload-status>Formatos admitidos: JPG, PNG o WEBP. La imagen se reduce automáticamente.</span></div>`;
-      }
-      const prorrogaHtml = prorroga.habilitada ? `<div class="deadline-extension">${escaparHTML(prorroga.etiqueta)}</div>` : '';
-      return `<article class="task"><span class="meta">${escaparHTML(tarea.ID_TAREA || '')} · ${escaparHTML(tarea.ID_CLASE || '')}</span><h2>${escaparHTML(tarea.TITULO || 'Tarea')}</h2><p>${escaparHTML(tarea.DESCRIPCION || '')}</p><div class="meta"><b>Asignada:</b> ${escaparHTML(fechaAsignacion || '—')}<br><b>Responsable:</b> ${escaparHTML(tarea.RESPONSABLE || '—')}<br><b>Qué debes presentar:</b> ${escaparHTML(tarea.EVIDENCIA_INSTRUCCION || tarea.OBSERVACION || 'Evidencia fotográfica de la actividad.')}</div><div class="deadline-original">${escaparHTML(estadoFecha)} · ${escaparHTML(fechaOriginal)}</div>${prorrogaHtml}<span class="state">${escaparHTML(estadoEntrega)}</span>${enlace}${entregaHtml}</article>`;
+      const bloqueEntrega = yaEnviada
+        ? `<div class="task-upload-state">${estadoEntrega === 'REVISADA' ? 'EVIDENCIA REVISADA' : 'EVIDENCIA ENVIADA · PENDIENTE DE REVISIÓN'}${enlaceEntregaHtml}</div>`
+        : `<div class="task-upload"><input type="file" accept="image/*" data-evidencia-tarea aria-label="Seleccionar fotografía de evidencia"><button type="button" data-id-tarea="${escaparHTML(tarea.ID_TAREA || '')}" onclick="window.opener.enviarEvidenciaTareaDesdePopup(this)">ENVIAR FOTOGRAFÍA</button><span data-estado-evidencia>Selecciona una fotografía de tu trabajo.</span></div>`;
+      return `<article class="task"><span class="meta">${escaparHTML(tarea.ID_TAREA || '')}</span><h2>${escaparHTML(tarea.TITULO || 'Tarea')}</h2><p>${escaparHTML(tarea.DESCRIPCION || '')}</p><div class="meta"><b>Asignada:</b> ${escaparHTML(fechaAsignacion || '—')}<br><b>Entrega:</b> <span class="deadline-original">${escaparHTML(fechaEntrega)}</span><br><b>Responsable:</b> ${escaparHTML(tarea.RESPONSABLE || '—')}<br><b>Observación:</b> ${escaparHTML(tarea.OBSERVACION || '—')}</div>${bloqueProrroga}<span class="state">${escaparHTML(tarea.ESTADO || 'Pendiente')}</span>${enlace}${bloqueEntrega}</article>`;
     }).join('');
     escribir('Tareas del tema', contenido);
   } catch (error) {
@@ -2457,72 +2376,6 @@ function renderizarAvisos(avisos) {
   if (coord && !coord.children.length) coord.innerHTML = '<div class="notice-item coord">No hay comunicados publicados de coordinación.</div>';
 }
 
-let LDS_TAREA_ALERTA_AUTOMATICA_LANZADA = false;
-let LDS_TAREA_AUDIO_CTX = null;
-function tareasEstadoPendienteParaAviso(tarea) {
-  const estado = String(tarea && (tarea.ESTADO_ENTREGA || tarea.ESTADO) || 'PENDIENTE').trim().toUpperCase();
-  return !['ENVIADA','REVISADA','ENTREGADA','ENTREGADO','COMPLETADA','COMPLETADO','APROBADA','APROBADO','REALIZADA','REALIZADO','RECIBIDA','RECIBIDO'].includes(estado);
-}
-function reproducirAlertaTareasPendientes() {
-  const prorroga = obtenerDatosProrrogaTareasPortal();
-  const textoProrroga = prorroga.habilitada ? ' Tienes una prórroga extraordinaria hasta el ' + prorroga.texto + '.' : '';
-  const mensaje = '¡Atención, catequizando! Tienes tareas pendientes. Revisa tus actividades y presenta tus evidencias. Consulta la fecha original de entrega.' + textoProrroga + ' ¡No olvides entregar tus tareas!';
-  try {
-    const AC = window.AudioContext || window.webkitAudioContext;
-    if (AC) {
-      if (!LDS_TAREA_AUDIO_CTX || LDS_TAREA_AUDIO_CTX.state === 'closed') LDS_TAREA_AUDIO_CTX = new AC();
-      const ctx = LDS_TAREA_AUDIO_CTX;
-      const iniciarTonos = function() {
-        const inicio = ctx.currentTime + 0.03;
-        [0,0.22,0.58,0.80,1.16,1.38].forEach(function(offset, i) {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(i % 2 ? 740 : 1040, inicio + offset);
-          gain.gain.setValueAtTime(0.0001, inicio + offset);
-          gain.gain.exponentialRampToValueAtTime(0.24, inicio + offset + 0.025);
-          gain.gain.exponentialRampToValueAtTime(0.0001, inicio + offset + 0.17);
-          osc.connect(gain); gain.connect(ctx.destination);
-          osc.start(inicio + offset); osc.stop(inicio + offset + 0.18);
-        });
-      };
-      const promesa = ctx.state === 'suspended' ? ctx.resume() : Promise.resolve();
-      promesa.then(iniciarTonos).catch(function(){});
-    }
-  } catch (_e) {}
-  try {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const voz = new SpeechSynthesisUtterance(mensaje);
-      voz.lang = 'es-PE'; voz.rate = 0.88; voz.pitch = 1.12; voz.volume = 1;
-      window.speechSynthesis.speak(voz);
-    }
-  } catch (_e) {}
-}
-function renderizarAlertaTareasPendientes(tareas) {
-  const banner = document.getElementById('ldsTareasPendientesBanner');
-  if (!banner || MODO_ADMIN_CATEQUISTA) { if (banner) banner.hidden = true; return; }
-  const pendientes = (Array.isArray(tareas) ? tareas : []).filter(tareasEstadoPendienteParaAviso);
-  if (!pendientes.length) { banner.hidden = true; return; }
-  const texto = document.getElementById('ldsTareasPendientesTexto');
-  const prorroga = obtenerDatosProrrogaTareasPortal();
-  if (texto) texto.textContent = 'Tienes ' + pendientes.length + ' actividades pendientes de enviar o corregir.' + (prorroga.habilitada ? ' Puedes entregarlas sin bloqueos hasta el ' + prorroga.texto + '.' : ' Revisa las fechas de entrega indicadas en cada actividad.');
-  const etiquetaProrroga = document.getElementById('ldsTareasProrrogaBannerText');
-  if (etiquetaProrroga) { etiquetaProrroga.textContent = prorroga.habilitada ? prorroga.etiqueta : ''; etiquetaProrroga.hidden = !prorroga.habilitada; }
-  banner.hidden = false;
-  const boton = document.getElementById('btnEscucharAlertaTareas');
-  if (boton && !boton.dataset.ldsVinculado) {
-    boton.dataset.ldsVinculado = '1';
-    boton.addEventListener('click', reproducirAlertaTareasPendientes);
-  }
-  if (!LDS_TAREA_ALERTA_AUTOMATICA_LANZADA) {
-    LDS_TAREA_ALERTA_AUTOMATICA_LANZADA = true;
-    // Se intenta reproducir al entrar. Si el navegador móvil bloquea el autoplay,
-    // el botón visible permite escuchar el aviso con un toque.
-    setTimeout(reproducirAlertaTareasPendientes, 450);
-  }
-}
-
 async function cargarDatosBackend() {
   if (!obtenerTokenCatequizando()) throw new Error('El PIN es necesario para consultar tus datos.');
   const resultados = await Promise.allSettled([
@@ -2538,15 +2391,13 @@ async function cargarDatosBackend() {
   if (resultados[2].status === 'fulfilled') {
     listaAsistenciaPortal=resultados[2].value.datos||[];
     listaCalificacionesPortal=resultados[2].value.calificaciones||[];
-    listaProgresoCuestionariosPortal=Array.isArray(resultados[2].value.progresoCuestionarios)?resultados[2].value.progresoCuestionarios:[];
     listaCuestionariosCompletadosPortal=sincronizarCuestionariosDesdeCalificacionesPortal(
       listaCalificacionesPortal, resultados[2].value.cuestionarios
     );
   } else errores.push('asistencia: '+resultados[2].reason.message);
-  if (resultados[3].status === 'fulfilled') { listaTareasPortal=resultados[3].value.datos||[]; } else errores.push('tareas: '+resultados[3].reason.message);
+  if (resultados[3].status === 'fulfilled') listaTareasPortal=resultados[3].value.datos||[]; else errores.push('tareas: '+resultados[3].reason.message);
   if (resultados[4].status === 'fulfilled') renderizarAvisos(resultados[4].value.datos||[]); else errores.push('avisos: '+resultados[4].reason.message);
   if (resultados[5].status === 'fulfilled') {datosConfig=resultados[5].value.datos||{};actualizarCuentaRegresiva();if(bloquesPortal.length)construirCalendario(bloquesPortal.flatMap(b=>b.sessions||[]));} else errores.push('configuración: '+resultados[5].reason.message);
-  renderizarAlertaTareasPendientes(listaTareasPortal);
   renderizarTarjetasAlumnos(listaAlumnosPortal,listaAsistenciaPortal,listaTareasPortal);
   renderizarProgresoYNotasPortal();
   if(errores.length)mostrarEstadoPortal('Datos pendientes: '+errores.join(' · '),'error');
@@ -2646,7 +2497,7 @@ window.addEventListener('DOMContentLoaded', function() {
   const actualizar=document.getElementById('btnActualizar');if(actualizar)actualizar.addEventListener('click',async function(){const b=this;b.disabled=true;try{await cargarDatosBackend();}catch(e){reproducirBienvenida('No se pudieron actualizar tus datos.');}finally{b.disabled=false;}});
   const mensaje=document.getElementById('btn-add-alum');if(mensaje)mensaje.addEventListener('click',enviarMensajeCatequista);
   const mute=document.getElementById('mute-toggle');if(mute)mute.addEventListener('click',function(){vozSilenciada=!vozSilenciada;mute.textContent=vozSilenciada?'🔇 Activar':'🔊 Silenciar';mute.setAttribute('aria-pressed',vozSilenciada?'true':'false');if(vozSilenciada&&window.speechSynthesis)window.speechSynthesis.cancel();});
-  const home=document.querySelector('.top-actions a.home');if(home)home.addEventListener('click',function(){sessionStorage.removeItem(CLAVE_TOKEN_CATEQUIZANDO);sessionStorage.removeItem(CLAVE_PERFIL_CATEQUIZANDO);});
+  const home=document.querySelector('.top-actions a.home');if(home)home.addEventListener('click',function(){liberarBloqueoDispositivoCatequizando();sessionStorage.removeItem(CLAVE_TOKEN_CATEQUIZANDO);sessionStorage.removeItem(CLAVE_PERFIL_CATEQUIZANDO);});
   const parametrosIngreso=new URLSearchParams(window.location.search);
   if(parametrosIngreso.get('ingreso')==='pin'){
     document.documentElement.classList.add('auth-required');
