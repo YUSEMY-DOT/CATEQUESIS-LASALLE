@@ -754,7 +754,7 @@ body{overflow-x:hidden}
 .menu-intro-catequistas{margin:4px 0 16px;padding:4px 2px;}
 .menu-intro-catequistas h2{margin:0 0 6px;color:#17365d;font-size:clamp(1.15rem,2.5vw,1.55rem);}
 .menu-intro-catequistas p,.menu-area-heading p{margin:0;color:#687b96;line-height:1.45;}
-.menu-areas-catequistas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0 18px;}
+.menu-areas-catequistas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0 18px;}
 .menu-area-btn{border:1px solid #dce4ef;background:#fff;border-radius:16px;padding:14px 12px;min-height:108px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;color:#17365d;cursor:pointer;box-shadow:0 3px 10px rgba(16,42,76,.04);}
 .menu-area-btn span{font-size:1.65rem;line-height:1;}.menu-area-btn strong{font-size:.86rem;letter-spacing:.02em;text-align:center;}.menu-area-btn small{font-size:.72rem;color:#687b96;text-align:center;line-height:1.35;}
 .menu-area-btn.active{border-color:#17365d;background:#eef4fb;box-shadow:0 0 0 2px #17365d18;}
@@ -762,7 +762,7 @@ body{overflow-x:hidden}
 .menu-area-heading{margin:0 0 12px;padding:12px 14px;background:#f4f7fb;border-left:4px solid #d8ad3c;border-radius:10px;}
 .menu-area-heading h3{margin:0 0 4px;color:#17365d;font-size:1.05rem;}
 .menu-area-panel .tools-grid{margin-top:0;}
-@media(max-width:760px){.menu-areas-catequistas{grid-template-columns:1fr;gap:9px}.menu-area-btn{min-height:74px;display:grid;grid-template-columns:42px 1fr;grid-template-rows:auto auto;text-align:left;justify-items:start;padding:12px 14px}.menu-area-btn span{grid-row:1/3;align-self:center}.menu-area-btn strong,.menu-area-btn small{text-align:left}.menu-area-panel .tools-grid{grid-template-columns:1fr!important;gap:11px!important}.menu-area-panel .tool-card{padding:15px!important}}
+@media(max-width:760px){.menu-areas-catequistas{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.menu-area-btn{min-height:82px;padding:10px 7px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px}.menu-area-btn span{font-size:1.35rem}.menu-area-btn strong{font-size:.75rem;line-height:1.15}.menu-area-btn small{font-size:.65rem;line-height:1.2;text-align:center}.menu-area-panel .tools-grid{grid-template-columns:1fr!important;gap:11px!important}.menu-area-panel .tool-card{padding:15px!important}}
 @media(min-width:761px) and (max-width:1100px){.menu-area-panel .tools-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}}
 </style>
 
@@ -832,6 +832,7 @@ body{overflow-x:hidden}
 <button class="menu-area-btn active" type="button" data-area="administracion" aria-pressed="true" onclick="seleccionarAreaCatequistas('administracion')"><span>⚙️</span><strong>ADMINISTRACIÓN</strong><small>Programa · gestores · configuración</small></button>
 <button class="menu-area-btn" type="button" data-area="catequizandos" aria-pressed="false" onclick="seleccionarAreaCatequistas('catequizandos')"><span>👧👦</span><strong>CATEQUIZANDOS</strong><small>Progreso · notas · asistencia · tareas</small></button>
 <button class="menu-area-btn" type="button" data-area="padres" aria-pressed="false" onclick="seleccionarAreaCatequistas('padres')"><span>👨‍👩‍👧</span><strong>PADRES Y FAMILIAS</strong><small>Pagos · documentos · comunicación</small></button>
+<button class="menu-area-btn" type="button" data-area="gestores" aria-pressed="false" onclick="seleccionarAreaCatequistas('gestores')"><span>👥</span><strong>GESTORES</strong><small>Supervisión · coordinación · mensajes</small></button>
 </div>
 <div class="menu-area-panel" id="area-administracion"><div class="menu-area-heading"><h3>⚙️ Administración del programa</h3><p>Planificación, supervisión y herramientas de gestión.</p></div><div class="tools-grid"><div class="tool-card">
         <div><div class="module-cartoon-icon" aria-hidden="true">📚✨</div><h4 id="titulo-total-sesiones">Programa de sesiones</h4><p>Programa completo y materiales organizados.</p></div>
@@ -845,9 +846,6 @@ body{overflow-x:hidden}
       </div><div class="tool-card admin-only" id="tarjeta-gestion-videos" hidden>
         <div><div class="module-cartoon-icon" aria-hidden="true">🎬📚</div><h4>Biblioteca de videos por tema</h4><p>Registra hasta seis videos para cada tema. Solo las administradoras pueden gestionar estos recursos.</p></div>
         <button class="btn small primary" type="button" onclick="mostrarVista('vista-videos-temas')">Gestionar videos</button>
-      </div><div class="tool-card module-link-card admin-only" id="tarjeta-portal-gestor" hidden>
-        <div><div class="module-cartoon-icon" aria-hidden="true">⛪✨</div><h4>Supervisión Pastoral</h4><p>Consulta general de clases, catequizandos, padres, asistencia, calificaciones y documentación. Este módulo es de solo lectura.</p></div>
-        <a class="btn small primary" href="./GestorPastoral.html?modo=administradora" onclick="return abrirGestorPastoralDesdeCatequista(event)">Abrir Supervisión</a>
       </div><div class="tool-card admin-only" id="tarjeta-administracion-cuentas" hidden><div><div class="module-cartoon-icon" aria-hidden="true">🔐👩‍💼</div><h4>Administración de cuentas</h4><p>Gestiona accesos y cuentas de catequistas administradoras.</p></div><button class="btn small primary" type="button" onclick="abrirAdministradorCatequistas()">Administrar cuentas</button></div></div></div>
 <div class="menu-area-panel" id="area-catequizandos" hidden><div class="menu-area-heading"><h3>👧👦 Gestión de catequizandos</h3><p>Seguimiento del avance, evaluaciones, asistencia y evidencias.</p></div><div class="tools-grid"><div class="tool-card">
         <div><div class="module-cartoon-icon" aria-hidden="true">📝🌟</div><h4>Asistencia Modular</h4><p>Control matricial ergonómico conectado a Google Sheet.</p></div>
@@ -874,7 +872,8 @@ body{overflow-x:hidden}
       </div><div class="tool-card" id="tarjeta-mensajes">
         <div><div class="module-cartoon-icon" aria-hidden="true">💌🔔</div><h4>Mensajes y notificaciones <span id="contador-mensajes-menu" class="badge-count">0</span></h4><p>Comunicados oficiales, mensajes recibidos de catequizandos y avisos de coordinación.</p></div>
         <button class="btn small gold" type="button" onclick="mostrarVista('vista-mensajes')">Abrir mensajes</button>
-      </div></div></div>
+      </div></div><div class="menu-area-panel" id="area-gestores" hidden><div class="menu-area-heading"><h3>👥 Gestión de gestores</h3><p>Supervisión pastoral, coordinación y comunicación con gestores.</p></div><div class="tools-grid"><div class="tool-card module-link-card admin-only" id="tarjeta-portal-gestor" hidden><div><div class="module-cartoon-icon" aria-hidden="true">⛪✨</div><h4>Supervisión Pastoral</h4><p>Consulta general de clases, catequizandos, padres, asistencia, calificaciones y documentación.</p></div><a class="btn small primary" href="./GestorPastoral.html?modo=administradora" onclick="return abrirGestorPastoralDesdeCatequista(event)">Abrir Supervisión</a></div><div class="tool-card"><div><div class="module-cartoon-icon" aria-hidden="true">💬👥</div><h4>Mensajes a gestores</h4><p>Accede al centro de mensajes para comunicarte con gestores y coordinación.</p></div><button class="btn small primary" type="button" onclick="mostrarVista('vista-mensajes')">Abrir mensajes</button></div><div class="tool-card admin-only" id="tarjeta-administracion-cuentas-gestores" hidden><div><div class="module-cartoon-icon" aria-hidden="true">🔐</div><h4>Gestión de accesos</h4><p>Administración de cuentas y permisos existentes.</p></div><button class="btn small primary" type="button" onclick="abrirAdministradorCatequistas()">Administrar cuentas</button></div></div></div>
+</div>
 </div>
 
     <!-- VISTA MENSAJES Y NOTIFICACIONES -->
@@ -1838,7 +1837,13 @@ if (btnActualizarEvidenciasTareas) btnActualizarEvidenciasTareas.addEventListene
   if (idVista === 'vista-padres') renderizarPadres();
   if (idVista === 'vista-dashboard') renderizarDashboard();
 }
-function mostrarVista(idVista) { mostrarVistaInternaPortal(idVista, true); }
+function mostrarVista(idVista) {
+  if(idVista !== 'menu-herramientas') {
+    document.querySelectorAll('.menu-area-panel').forEach(p=>p.hidden=true);
+    document.querySelectorAll('.menu-area-btn').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-pressed','false');});
+  }
+  mostrarVistaInternaPortal(idVista, true);
+}
 function navegarPortalAtras() {
   if (indiceHistorialPortal <= 0) return;
   indiceHistorialPortal--;
@@ -3454,7 +3459,7 @@ async function sincronizarCalendario(mostrarAlerta) {
 
 
 function seleccionarAreaCatequistas(area){
-  const areas=['administracion','catequizandos','padres'];
+  const areas=['administracion','catequizandos','padres','gestores'];
   if(!areas.includes(area)) return;
   areas.forEach(a=>{
     const panel=document.getElementById('area-'+a);
