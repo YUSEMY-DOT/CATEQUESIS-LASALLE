@@ -2626,7 +2626,7 @@ async function abrirBloque(numBloque) {
         </div>
         <div class="tema-card-acciones-v9">
           <button type="button" class="btn-video-tema-v9" onclick="abrirVideoTema('${idSesJs}')">🎬 Ver videos${(Array.isArray(s.VIDEOS) && s.VIDEOS.length) ? ' · ' + s.VIDEOS.length : ''}</button>
-          <button type="button" class="btn-quiz-tema" onclick="abrirCuestionarioTema('${idSesJs}', '${temaJs}')">🎮 Aprender jugando</button>
+          <button type="button" class="btn-quiz-tema" onclick="irCuestionariosBloquePorSesionV10('${idSesJs}')">🎮 Cuestionarios del bloque</button>
         </div>
         <p class="tema-video-status-v9" id="estadoVideoTema_${idSes.replace(/[^a-zA-Z0-9_-]/g, '_') || idx}" role="status" aria-live="polite" hidden></p>
       </div>
@@ -2891,6 +2891,14 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
 
 // ===== CUESTIONARIOS EN GRUPOS DE 10, CON REANUDACIÓN =====
 let quizBloqueActualV10=0, quizNumeroActualV10=0;
+
+function irCuestionariosBloquePorSesionV10(idSesion){
+ const sesion=sesionesSheet.find(s=>String(s.ID_SESION||'').trim().toUpperCase()===String(idSesion||'').trim().toUpperCase());
+ const numero=_quizBloqueNumeroUI(sesion&&sesion.BLOQUE);if(!numero){alert('No se pudo identificar el bloque de este tema.');return;}
+ const panel=document.getElementById('bloqueDetallePanel');
+ if(panel.hidden||Number(bloqueActualSeleccionado)!==numero)abrirBloque(numero);
+ setTimeout(()=>{const box=document.getElementById('cuestionariosBloqueGridV10');if(box)box.scrollIntoView({behavior:'smooth',block:'center'});cargarCuestionariosBloquePortalV10(numero);},250);
+}
 async function cargarCuestionariosBloquePortalV10(numeroBloque){
  const cont=document.getElementById('cuestionariosBloqueGridV10'); if(!cont)return;
  cont.innerHTML='<p style="font-weight:800;color:#52677f">Consultando tus cuestionarios…</p>';
