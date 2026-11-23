@@ -1320,6 +1320,18 @@ header{padding-top:14px;padding-bottom:12px}
  .btn-abrir-video-v10{margin-left:38px}
 }
 
+
+/* Cuestionarios de 10 preguntas: estado persistente derivado de INTENTOS_CUESTIONARIO */
+.quiz-groups-v10{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:9px;margin:12px 0 20px}
+.quiz-group-v10{border:1px solid #dce5ef;border-radius:12px;background:#fff;padding:11px 10px;text-align:left;color:#12345a;font-weight:900;cursor:pointer;box-shadow:0 2px 7px #12345a0a}
+.quiz-group-v10:hover{transform:translateY(-1px);border-color:#d5ad37;background:#fffaf0}
+.quiz-group-v10:disabled{cursor:default;opacity:.78}
+.quiz-group-v10 small{display:block;margin-top:4px;font-size:10px;letter-spacing:.3px}
+.quiz-group-v10.incomplete{border-color:#e6a33b;background:#fff8e9}
+.quiz-group-v10.complete{border-color:#78c79a;background:#effaf3;color:#176b42}
+.quiz-group-v10.pending{border-color:#dce5ef;background:#fff}
+#quizGroupsHeadingV10{font:800 15px 'Fredoka',sans-serif;color:#12345a;margin:14px 0 4px}
+@media(max-width:520px){.quiz-groups-v10{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 </head>
 <body>
@@ -1481,7 +1493,7 @@ header{padding-top:14px;padding-bottom:12px}
           </div>
           <p id="progresoBloquePanelMensaje" style="font-size:12px;color:#52677f;margin:7px 0 0;">Cada respuesta te ayuda a avanzar. ✨</p>
         </div>
-        <div id="temasBloqueGrid" class="temas-grid"></div>
+        <h4 id="quizGroupsHeadingV10">🎯 Cuestionarios del bloque</h4><p style="margin:0 0 8px;color:#52677f;font-size:12px;font-weight:700;">Cada cuestionario contiene 10 preguntas. Si lo dejas a medias, continúa donde te quedaste.</p><div id="cuestionariosBloqueGridV10" class="quiz-groups-v10" aria-live="polite"></div><div id="temasBloqueGrid" class="temas-grid"></div>
       </div>
     </section>
 
@@ -2582,6 +2594,7 @@ async function abrirBloque(numBloque) {
 
   panel.hidden = false;
   hablarTexto(titulo.textContent);
+  cargarCuestionariosBloquePortalV10(numBloque);
 
   if (sesionesDelBloque.length === 0) {
     grid.innerHTML = '<p style="font-weight:700;color:var(--muted);">No se encontraron sesiones registradas para este bloque en Google Sheets.</p>';
@@ -2687,7 +2700,7 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
     // No depende del CORS de fetch POST ni detiene el juego por una respuesta vacía.
     if (!quizVersionV5Verificada) {
       const versionData = await solicitarJSONP(`${API_URL}?action=verificarVersionCuestionarios`);
-      const versionEsperada = 'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V8-VIDEOS-GESTION-MISES';
+      const versionEsperada = 'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V10-CUESTIONARIOS-10-REANUDABLE';
       if (!versionData || !versionData.exito || versionData.version !== versionEsperada) {
         const detalle = versionData && (versionData.version || versionData.mensaje)
           ? String(versionData.version || versionData.mensaje)
@@ -2873,6 +2886,29 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
   } catch (error) {
     body.innerHTML = `<p style="font-weight:700;color:#a52222;padding:12px;">No se pudo cargar la pregunta: ${escapeQuizHtml(error && error.message ? error.message : error)}. Verifica la publicación del GS e inténtalo nuevamente.</p>`;
   }
+}
+
+
+// ===== CUESTIONARIOS EN GRUPOS DE 10, CON REANUDACIÓN =====
+let quizBloqueActualV10=0, quizNumeroActualV10=0;
+async function cargarCuestionariosBloquePortalV10(numeroBloque){
+ const cont=document.getElementById('cuestionariosBloqueGridV10'); if(!cont)return;
+ cont.innerHTML='<p style="font-weight:800;color:#52677f">Consultando tus cuestionarios…</p>';
+ try{const token=localStorage.getItem('lds_cat_token')||'';const data=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'obtenerCuestionariosBloqueCatequizando',numeroBloque:Number(numeroBloque),token})}).then(r=>r.json());
+  if(!data||!data.exito)throw new Error(data&&data.mensaje||'No se pudieron consultar los cuestionarios.');
+  cont.innerHTML=(data.cuestionarios||[]).map(q=>{const estado=String(q.estado||'PENDIENTE').toUpperCase();const cls=estado==='COMPLETADO'?'complete':estado==='INCOMPLETO'?'incomplete':'pending';const label=estado==='COMPLETADO'?'COMPLETADO':estado==='INCOMPLETO'?'INCOMPLETO · CONTINUAR':'PENDIENTE · INICIAR';return '<button type="button" class="quiz-group-v10 '+cls+'" '+(estado==='COMPLETADO'?'disabled':'')+' onclick="abrirCuestionarioBloqueV10('+Number(numeroBloque)+','+Number(q.numero)+')"><span>Cuestionario '+Number(q.numero)+'</span><small>'+label+'</small></button>';}).join('')||'<p>No hay cuestionarios en este bloque.</p>';
+ }catch(e){cont.innerHTML='<p style="color:#a52222;font-weight:800">'+escapeQuizHtml(e.message||e)+'</p>';}
+}
+async function abrirCuestionarioBloqueV10(numeroBloque,numeroQuiz){quizBloqueActualV10=Number(numeroBloque);quizNumeroActualV10=Number(numeroQuiz);document.getElementById('quizModalBackdrop').hidden=false;document.getElementById('quizModalTitle').textContent='🎮 Bloque '+numeroBloque+' · Cuestionario '+numeroQuiz;if(quizTimerSiguienteV5)clearTimeout(quizTimerSiguienteV5);await cargarPreguntaCuestionarioBloqueV10();}
+async function cargarPreguntaCuestionarioBloqueV10(){
+ const body=document.getElementById('quizModalBody'),token=localStorage.getItem('lds_cat_token')||'';body.innerHTML='<p style="font-weight:800;text-align:center;padding:12px">🌟 Recuperando tu avance…</p>';
+ try{const data=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'obtenerPreguntaCuestionarioBloqueCatequizando',numeroBloque:quizBloqueActualV10,numeroCuestionario:quizNumeroActualV10,token})}).then(r=>r.json());if(!data||!data.exito)throw new Error(data&&data.mensaje||'No se pudo recuperar el cuestionario.');
+  if(data.completadoCuestionario){body.innerHTML='<div style="text-align:center;padding:22px"><div style="font-size:44px">🏅</div><h2 style="color:#12345a">¡Cuestionario completado!</h2><p>Terminaste este reto.</p><button class="btn-docente-submit" id="btnSalirQuizCompletadoV10">Volver a los cuestionarios</button></div>';document.getElementById('btnSalirQuizCompletadoV10').onclick=()=>{document.getElementById('quizModalBackdrop').hidden=true;cargarCuestionariosBloquePortalV10(quizBloqueActualV10);actualizarProgresoBloquePortal(quizBloqueActualV10);};return;}
+  const p=data.pregunta;if(!p||!Array.isArray(p.opciones)||p.opciones.length!==3)throw new Error('La pregunta no contiene las tres alternativas esperadas.');const pct=Math.max(0,Math.min(100,Number(data.porcentajeBloque||0));
+  body.innerHTML='<div style="margin-bottom:14px;padding:12px;border-radius:14px;background:#f3f8ff;border:1px solid #dce7f3"><div style="display:flex;justify-content:space-between;align-items:center;font-weight:900;color:#12345a"><span>🌱 Avance del bloque</span><strong>'+pct.toFixed(1).replace(/\\.0$/,'')+'%</strong></div><div style="height:10px;background:#dce5ef;border-radius:99px;overflow:hidden;margin-top:8px"><div style="height:100%;width:'+pct+'%;background:linear-gradient(90deg,#27a56b,#8ccc53)"></div></div><small>Cuestionario '+quizNumeroActualV10+' · '+(data.estado==='INCOMPLETO'?'Continuando donde te quedaste':'En proceso')+'</small></div><div style="padding:17px;border:1px solid #e7cf82;border-radius:16px;background:#fffdf7"><div style="font-weight:900;color:#b47a00;margin-bottom:8px">⭐ RETO DE APRENDIZAJE</div><div id="quizPreguntaBloqueV10" style="font-size:18px;line-height:1.45;font-weight:800;color:#12345a;margin-bottom:13px"></div><div id="quizOpcionesBloqueV10" style="display:grid;gap:9px"></div></div><div id="quizResultadoBloqueV10" style="margin-top:12px"></div>';
+  document.getElementById('quizPreguntaBloqueV10').textContent=p.pregunta;const options=document.getElementById('quizOpcionesBloqueV10');
+  p.opciones.forEach(o=>{const b=document.createElement('button');b.type='button';b.className='quiz-opcion-juego';b.style.cssText='width:100%;text-align:left;padding:12px 14px;border:2px solid #e3e9f0;border-radius:12px;background:#fff;color:#17395e;font-size:15px;font-weight:700';b.textContent=o.valor+') '+o.texto;b.onclick=async()=>{if(b.disabled)return;Array.from(options.children).forEach(x=>x.disabled=true);try{const saved=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'enviarCuestionario',idSesion:p.idSesion,idPregunta:p.idPregunta,opcion:o.valor,token})}).then(r=>r.json());if(!saved||!saved.exito)throw new Error(saved&&saved.mensaje||'No se guardó la respuesta.');const result=document.getElementById('quizResultadoBloqueV10');result.innerHTML='<div style="padding:13px;border-radius:12px;background:'+(saved.correcta?'#effaf2':'#fff2f0')+';border:1px solid '+(saved.correcta?'#a8dfb5':'#f2b9b2')+';font-weight:800">'+(saved.correcta?'🎉 ¡Respuesta correcta!':'💛 Buen intento')+(saved.correcta?'':'<p>Respuesta correcta: <b>'+escapeQuizHtml(saved.respuestaCorrecta)+') '+escapeQuizHtml(saved.textoRespuestaCorrecta||'')+'</b></p>')+(saved.explicacion?'<p>'+escapeQuizHtml(saved.explicacion)+'</p>':'')+'</div>';if(quizBloqueActualV10===Number(bloqueActualSeleccionado))mostrarProgresoBloqueUI(saved.porcentajeBloque,saved.completadoBloque);quizHablarV6(saved.correcta?'¡Excelente! '+(saved.explicacion||''):'Buen intento. '+(saved.textoRespuestaCorrecta||'')+'. '+(saved.explicacion||''));quizTimerSiguienteV5=setTimeout(async()=>{if(document.getElementById('quizModalBackdrop').hidden)return;await cargarPreguntaCuestionarioBloqueV10();},1100);}catch(err){const r=document.getElementById('quizResultadoBloqueV10');r.innerHTML='<p style="color:#a52222;font-weight:800">'+escapeQuizHtml(err.message||err)+' · Tu respuesta no se confirmó. Intenta nuevamente.</p>';Array.from(options.children).forEach(x=>x.disabled=false);}};options.appendChild(b);});quizHablarV6('Pregunta. '+p.pregunta+'. '+p.opciones.map(o=>'Alternativa '+o.valor+'. '+o.texto).join('. '));
+ }catch(e){body.innerHTML='<p style="color:#a52222;font-weight:800;padding:12px">'+escapeQuizHtml(e.message||e)+'</p>';}
 }
 
 function _quizBloqueNumeroUI(valor) {
