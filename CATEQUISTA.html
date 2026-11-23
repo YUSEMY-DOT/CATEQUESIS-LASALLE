@@ -275,10 +275,67 @@ body{overflow-x:hidden}
 .menu-areas-catequistas{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin:14px 0 18px;width:100%;}
 .menu-areas-catequistas .menu-area-btn:not([data-area="administracion"]){display:none;}
 .menu-areas-catequistas.subareas-visible{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:100%;align-items:stretch;}
+.menu-areas-catequistas.area-selected{display:none!important}
 .menu-areas-catequistas.subareas-visible .menu-area-btn[data-area="administracion"]{grid-column:1/-1;justify-self:start;}
 .menu-area-btn.menu-admin-entry{max-width:360px;width:100%;}
 .menu-area-panel[hidden]{display:none!important;}
 @media(max-width:600px){.menu-areas-catequistas.subareas-visible{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.menu-area-btn{padding:9px 7px;gap:5px}.menu-area-btn span{font-size:1.15rem}.menu-area-btn strong{font-size:.72rem;line-height:1.15}.menu-area-btn small{display:none}}
+
+/* Navegación uniforme: un único botón volver al menú en todo el portal */
+#portal-nav-back,#portal-nav-forward{display:none!important}
+#portal-nav-home{min-width:150px;font-weight:850}
+.portal-history-nav{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);padding:7px 0;border-bottom:1px solid #e8edf4;margin:0 0 10px}
+.portal-history-main{width:100%;display:flex;justify-content:flex-start}
+.portal-history-nav #portal-nav-home{display:inline-flex!important}
+#mise-modal button[onclick="volverMenuPrincipal()"]{display:none!important}
+/* Colores pastel para biblioteca de videos */
+#vista-videos-temas .tool-card{background:#fffdfd;border-color:#f0d7e8;box-shadow:0 3px 12px rgba(89,63,120,.06)}
+#vista-videos-temas h2{color:#245b48}
+#vista-videos-temas form h3{background:#f0e8ff;color:#5b4789;padding:10px 12px;border-radius:10px;border:1px solid #dac8f5}
+#vista-videos-temas label{color:#365b79}
+#vista-videos-temas input,#vista-videos-temas select,#vista-videos-temas textarea{background:#f2faff;border:1px solid #b9dff5!important;color:#244765}
+#vista-videos-temas #descripcion-admin-video{background:#fff9ee!important;border-color:#f2dfb7!important;color:#735a31!important}
+#vista-videos-temas #url-admin-video{background:#e4f7ff!important;border-color:#71c5ec!important;font-weight:700;color:#145d86!important}
+#vista-videos-temas #titulo-admin-video{background:#f6efff!important;border-color:#d6b9f1!important;color:#5b4789!important}
+#vista-videos-temas #selector-admin-video-tema{background:#eaf8ed!important;border-color:#b9e2c4!important;color:#276345!important;font-weight:700}
+.avances-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#eef8f0;border-color:#c9e8d0}
+.avances-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.avances-layout{display:grid;grid-template-columns:minmax(250px,320px) minmax(0,1fr);gap:14px;margin-top:14px;align-items:start}
+.avances-listado{background:#fff8fc;border-color:#f0d5e5}
+.avances-lista{display:flex;flex-direction:column;gap:8px;max-height:70vh;overflow:auto;margin-top:10px}
+.avance-alumno-btn{display:flex;align-items:center;gap:10px;text-align:left;width:100%;border:1px solid #d9e5ef;background:#fff;border-radius:12px;padding:9px;cursor:pointer}
+.avance-alumno-btn.active{border:2px solid #78b8dc;background:#edf8ff}
+.avance-alumno-btn img{width:42px;height:42px;border-radius:50%;object-fit:cover;background:#f5f5f5}
+.avance-alumno-btn strong{font-size:.83rem;color:#254767}
+.avance-progress{height:9px;background:#e8edf2;border-radius:999px;overflow:hidden;margin:5px 0}
+.avance-progress>span{display:block;height:100%;background:#8bc9a0;border-radius:999px}
+.avance-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px}
+.avance-kpi{background:#f2faff;border:1px solid #c9e7f5;border-radius:12px;padding:10px;text-align:center}
+.avance-kpi strong{display:block;font-size:1.25rem;color:#2b6282}
+.avance-temas{max-height:560px;overflow:auto;border:1px solid #e2e8f0;border-radius:12px}
+.avance-tema-row{display:grid;grid-template-columns:minmax(170px,1fr) 130px minmax(130px,1fr);gap:10px;align-items:center;padding:9px 10px;border-bottom:1px solid #edf1f5;font-size:.82rem}
+.avance-tema-row:nth-child(even){background:#fbfdff}
+.avance-pill{display:inline-block;padding:3px 8px;border-radius:999px;font-size:.72rem;font-weight:800;background:#fff3d9;color:#8b6418}
+.avance-pill.done{background:#e7f6ec;color:#26724a}
+.avance-notas{width:100%;border-collapse:collapse;font-size:.8rem}
+.avance-notas th,.avance-notas td{padding:7px;border:1px solid #e4e9ef;text-align:left}
+.avance-notas th{background:#f2eaff;color:#5c4986}
+/* Asistencia grupal horizontal, fotos/nombres sticky */
+.asistencia-matriz-full-wrap{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.asistencia-matriz-hint{padding:10px 12px;background:#fff9e8;border-bottom:1px solid #f1dfb1;color:#795a17;font-size:.82rem}
+.asistencia-matriz-scroll{overflow:auto;max-height:72vh;max-width:100%}
+.asistencia-matriz-full{width:max-content;min-width:100%;border-collapse:separate;border-spacing:0;font-size:.75rem}
+.asistencia-matriz-full th,.asistencia-matriz-full td{padding:5px 7px;min-width:86px;white-space:nowrap;background:#fff}
+.asistencia-matriz-full th:first-child,.asistencia-matriz-full td:first-child{position:sticky;left:0;z-index:6;min-width:220px;width:220px;background:#f2f8ff;box-shadow:2px 0 4px #00000012}
+.asistencia-matriz-full th:first-child{z-index:8}
+.asistencia-matriz-full select{width:100%;min-width:65px;border-radius:7px;padding:5px 3px;font-weight:800;border:1px solid #cfdbe8}
+.asistencia-alumno-cell{display:flex;align-items:center;gap:8px;max-width:220px}
+.asistencia-alumno-cell img{width:32px;height:32px;object-fit:cover;border-radius:50%;flex:none}
+.asistencia-alumno-cell span{font-weight:800;white-space:normal;line-height:1.2}
+.asistencia-matriz-full th{position:sticky;top:0;z-index:5;background:#e8f4ff;color:#254967;text-align:center}
+.asistencia-matriz-full td{text-align:center}
+@media(max-width:700px){.avances-layout{grid-template-columns:1fr}.avances-lista{max-height:260px}.avance-tema-row{grid-template-columns:1fr 95px}.avance-tema-row .avance-progress{grid-column:1/-1}.asistencia-matriz-full th:first-child,.asistencia-matriz-full td:first-child{min-width:170px;width:170px}.asistencia-alumno-cell img{width:26px;height:26px}}
+
 </style>
 
 <style id="lds-copyright-standard">
@@ -769,6 +826,7 @@ body{overflow-x:hidden}
 .menu-area-btn.active{border-color:#17365d;background:#eef4fb;box-shadow:0 0 0 2px #17365d18;}
 .menu-area-btn[data-area="catequizandos"],.menu-area-btn[data-area="padres"],.menu-area-btn[data-area="gestores"]{display:none;}
 .menu-areas-catequistas.subareas-visible{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:100%;align-items:stretch;}
+.menu-areas-catequistas.area-selected{display:none!important}
 .menu-areas-catequistas.subareas-visible .menu-area-btn[data-area="administracion"]{grid-column:1/-1;justify-self:start;}
 .menu-area-panel{display:block;}.menu-area-panel[hidden]{display:none!important;}
 .menu-area-heading{margin:0 0 12px;padding:12px 14px;background:#f4f7fb;border-left:4px solid #d8ad3c;border-radius:10px;}
@@ -805,7 +863,7 @@ body{overflow-x:hidden}
     <div class="portal-intro-copy">
       <div class="eyebrow">Programa de Catequesis · Primera Comunión 2026</div>
       <h1>Portal de Catequistas</h1>
-      <p id="portal-descripcion">Panel central de Catequistas: programación, seguimiento y coordinación pastoral.</p>
+      <p id="portal-descripcion">Panel de Catequistas: catequizandos, clases, tareas, asistencia y comunicación.</p>
       <div class="portal-intro-school">Colegio Privado La Salle del Sur · Parroquia San Pedro de Lurín</div>
     </div>
   </div>
@@ -822,9 +880,7 @@ body{overflow-x:hidden}
   <div class="portal-user-name-top"><span id="catequista-sesion-nombre" class="auth-user"></span></div>
       <nav class="portal-history-nav no-print" aria-label="Navegación del portal">
       <div class="portal-history-group portal-history-main">
-        <button class="btn small" id="portal-nav-back" type="button" onclick="navegarPortalAtras()" disabled>← Atrás</button>
-        <button class="btn small" id="portal-nav-home" type="button" onclick="volverMenuPrincipal()">⌂ Principal</button>
-        <button class="btn small" id="portal-nav-forward" type="button" onclick="navegarPortalAdelante()" disabled>Adelante →</button>
+        <button class="btn small primary" id="portal-nav-home" type="button" onclick="volverMenuPrincipal()">⌂ Volver al menú</button>
       </div>
     </nav>
 </header>
@@ -856,12 +912,14 @@ body{overflow-x:hidden}
       <div class="menu-area-panel" id="area-catequizandos" hidden>
         <div class="menu-area-heading"><h3>👧👦 Catequizandos</h3><p>Datos básicos, programación, clases, tareas, asistencia y comunicación. Sin ficha de seguimiento adicional.</p></div>
         <div class="tools-grid">
-          <div class="tool-card"><div><div class="module-cartoon-icon" aria-hidden="true">🧒🎒</div><h4>Datos y portal del catequizando</h4><p>Consulta ficha, fotografía, tareas, avances y registros existentes.</p></div><a class="btn small primary" href="./catequizandos.html?modo=administradora" onclick="return abrirPortalCatequizandoDesdeCatequista(event)">Consultar Catequizandos</a></div>
+          <div class="tool-card"><div><div class="module-cartoon-icon" aria-hidden="true">🧒🎒📈</div><h4>Ficha y avance de todos los catequizandos</h4><p>Seleccione cualquier alumno sin PIN y consulte su fotografía, tareas, cuestionarios, avances, porcentajes y notas.</p></div><button class="btn small primary" type="button" onclick="mostrarVista('vista-avances-catequizandos')">Consultar todos</button></div>
           <div class="tool-card"><div><div class="module-cartoon-icon" aria-hidden="true">📚✨</div><h4 id="titulo-total-sesiones">Temas y sesiones (68)</h4><p>Bloques, temas, objetivos y sesiones programadas.</p></div><button class="btn small primary" onclick="mostrarVista('vista-clases')">Abrir Temas y Sesiones</button></div>
-          <div class="tool-card"><div><div class="module-cartoon-icon" aria-hidden="true">📆🌼</div><h4>Programación</h4><p>Clases, fechas y programación general.</p></div><a class="btn small" href="./programacion.html">Abrir Programación</a></div>
+          <div class="tool-card"><div><div class="module-cartoon-icon" aria-hidden="true">📆🌼</div><h4>Programación de clases</h4><p>46 clases, fechas y sesiones asignadas.</p></div><button class="btn small primary" type="button" onclick="mostrarVista('vista-calendario')">Abrir Programación</button></div>
           <div class="tool-card"><div><div class="module-cartoon-icon" aria-hidden="true">🎬📚</div><h4>Videos por tema</h4><p>Biblioteca audiovisual organizada por sesión.</p></div><button class="btn small primary" type="button" onclick="mostrarVista('vista-videos-temas')">Abrir Biblioteca</button></div>
           <div class="tool-card"><div><div class="module-cartoon-icon" aria-hidden="true">📝🌟</div><h4>Asistencia</h4><p>Registro grupal por clase, con todos los catequizandos en una matriz.</p></div><button class="btn small primary" onclick="mostrarVista('vista-asistencia')">Abrir Asistencia</button></div>
           <div class="tool-card"><div><div class="module-cartoon-icon" aria-hidden="true">📷📝</div><h4>Tareas y cuestionarios</h4><p>Entregas, evidencias, revisión y calificaciones.</p></div><button class="btn small primary" type="button" onclick="mostrarVista('vista-evidencias-tareas')">Revisar Tareas</button></div>
+          <div class="tool-card"><div><div class="module-cartoon-icon" aria-hidden="true">🧮📋</div><h4>Notas y calificaciones</h4><p>Registro y consulta de notas de tareas y cuestionarios.</p></div><button class="btn small primary" type="button" onclick="mostrarVista('vista-calificaciones')">Ver calificaciones</button></div>
+          <div class="tool-card"><div><div class="module-cartoon-icon" aria-hidden="true">📎📖</div><h4>Materiales por sesión</h4><p>Recursos y materiales vinculados a los temas del programa.</p></div><button class="btn small" type="button" onclick="mostrarVista('vista-clases')">Ver materiales</button></div>
           <div class="tool-card"><div><div class="module-cartoon-icon" aria-hidden="true">🗓️</div><h4>Calendario</h4><p>Clases, sesiones y fechas relacionadas.</p></div><button class="btn small" onclick="mostrarVista('vista-calendario')">Ver Calendario</button></div>
           <div class="tool-card"><div><div class="module-cartoon-icon" aria-hidden="true">💌🔔</div><h4>Avisos y mensajes <span id="contador-mensajes-menu" class="badge-count">0</span></h4><p>Comunicados, mensajes y avisos del programa.</p></div><button class="btn small primary" type="button" onclick="mostrarVista('vista-mensajes')">Abrir Mensajes</button></div>
         </div>
@@ -943,7 +1001,7 @@ body{overflow-x:hidden}
         </div>
       </div>
       <form id="formVideoTemaV8" class="tool-card" style="margin-bottom:14px;" onsubmit="guardarVideoTemaPortalV8(event)">
-        <h3 style="margin:0 0 10px;color:var(--navy);">Registrar video para un tema</h3>
+        <h3 style="margin:0 0 10px;color:#5b4789;background:#f3eaff;padding:10px;border-radius:10px;">Registrar video para un tema</h3>
         <label for="selector-admin-video-tema" style="display:block;font-weight:800;margin-bottom:5px;">Tema de catequesis</label>
         <select id="selector-admin-video-tema" class="btn" style="width:100%;text-align:left;min-height:44px;" required><option value="">Cargando los temas...</option></select>
         <div id="contador-admin-video-tema" class="sub" style="margin:6px 0 12px;">0 de 6 videos activos</div>
@@ -987,18 +1045,28 @@ body{overflow-x:hidden}
     </div>
 
     <div id="vista-clases" style="display:none; margin-top:15px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-        <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
-        <h3 style="color:var(--navy); margin:0;">Programa Completo</h3>
+      <div style="display:flex;justify-content:flex-end;align-items:center;margin-bottom:15px;">
+        <h3 style="color:var(--navy);margin:0;">Programa Completo</h3>
       </div>
-      <div id="contenedor-56-sesiones"></div>
+      <div id="contenedor-68-sesiones"></div>
+    </div>
+
+    <!-- VISTA CONSULTA GENERAL DE AVANCES, SOLO PARA CATEQUISTAS AUTORIZADAS -->
+    <div id="vista-avances-catequizandos" style="display:none;margin-top:15px;">
+      <section class="tool-card avances-header">
+        <div><h2>📈 Avance de catequizandos</h2><p class="sub">Consulta de todos los alumnos sin PIN individual. Datos consultados desde Google Sheets. El avance general promedia cuestionarios y tareas enviadas.</p></div>
+        <div class="avances-actions"><button class="btn small primary" type="button" onclick="cargarResumenAvancesCatequizandos(true)">🔄 Actualizar</button><span id="estado-avances-catequizandos" class="sub" aria-live="polite"></span></div>
+      </section>
+      <div class="avances-layout">
+        <section class="tool-card avances-listado"><label for="filtro-avances-alumno"><strong>Buscar catequizando</strong></label><input id="filtro-avances-alumno" type="search" placeholder="Escriba un nombre…" oninput="renderizarListaAvancesCatequizandos()"><div id="lista-avances-catequizandos" class="avances-lista"><p class="sub">Cargando alumnos…</p></div></section>
+        <section class="tool-card avances-detalle" id="detalle-avance-catequizando"><p class="sub">Seleccione un catequizando para consultar sus avances.</p></section>
+      </div>
     </div>
 
     <!-- 2. VISTA ASISTENCIA MATRICIAL ERGONÓMICA -->
     <div id="vista-asistencia" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;" class="no-print">
-        <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
-        <div style="display:flex; gap:8px;">
+        <div style="display:flex; gap:8px;flex-wrap:wrap;justify-content:flex-end;">
           <button class="btn small attendance-sync" type="button" onclick="sincronizarConHoja()">🔄 Sincronizar</button>
           <button class="btn small attendance-save" type="button" id="btnGuardarAsistencia" onclick="guardarAsistenciaPendiente()" disabled>💾 Guardar asistencia</button>
           <button class="btn small attendance-print" type="button" onclick="window.print()">🖨️ Imprimir reporte</button>
@@ -1006,7 +1074,7 @@ body{overflow-x:hidden}
       </div>
 
       <h3 style="color:var(--navy); margin-bottom:4px;">Control de Asistencia Matricial • Parroquia San Pedro de Lurín</h3>
-      <p class="sub" style="margin-bottom:15px;">Seleccione un catequizando, marque los estados pendientes y presione Guardar asistencia. Una vez guardado, cada estado quedará bloqueado y no podrá modificarse.</p>
+      <p class="sub" style="margin-bottom:15px;">La matriz corresponde a las 46 clases oficiales. Marque a todos los catequizandos y guarde los cambios juntos. Las marcas ya registradas se muestran bloqueadas según la regla vigente de Google Sheets.</p>
 
       <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:10px; margin-bottom:18px; background:#f8fafc; border:1px solid var(--line); border-radius:14px; padding:14px; text-align:center;">
         <div><div id="stat-porcentaje-global" style="font-size:1.35rem; font-weight:900; color:var(--green);">79.6%</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">% Asistencia</div></div>
@@ -1016,33 +1084,9 @@ body{overflow-x:hidden}
         <div><div id="stat-justificadas-global" style="font-size:1.35rem; font-weight:900; color:var(--green);">6</div><div style="font-size:0.72rem; text-transform:uppercase; color:var(--muted); font-weight:bold;">[FJ] Justificada</div></div>
       </div>
 
-      <div class="asist-layout">
-        <!-- Lista lateral izquierda -->
-        <div class="estudiantes-lista-asist" id="lista-catequizandos-asist"></div>
-
-        <!-- Panel derecho con Tabla Matriz Compacta -->
-        <div class="asistencia-tabla-container">
-          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid var(--gold); padding-bottom:12px; margin-bottom:16px;">
-            <div>
-              <h4 id="nombre-catequizando-activo" style="margin:0; color:var(--navy); font-size:1.15rem;">Seleccione un catequizando</h4>
-              <p id="sub-id-activo" class="sub" style="margin:2px 0 0; font-size:0.8rem;">ID: - · DNI: -</p>
-            </div>
-            <div id="porcentaje-individual-badge" style="background:var(--blue-soft); color:var(--navy); padding:6px 14px; border-radius:10px; font-weight:900; font-size:0.85rem; border:1px solid var(--line);">Asistencia: 0.0%</div>
-          </div>
-          
-          <table class="matrix-table">
-            <thead>
-              <tr>
-                <th style="width: 80px;">Sesión</th>
-                <th style="width: 110px;">Fecha</th>
-                <th>Estado de Asistencia</th>
-              </tr>
-            </thead>
-            <tbody id="tabla-matriz-cuerpo">
-              <tr><td colspan="3" style="text-align:center; color:var(--muted); padding:30px;">Seleccione un alumno de la lista para ver su matriz de asistencia.</td></tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="asistencia-matriz-full-wrap">
+        <div class="asistencia-matriz-hint">Todos los catequizandos aparecen en una sola tabla. La columna de nombres y fotografías queda fija; desplácese horizontalmente para las clases. Marque cada estado y guarde los cambios pendientes en conjunto.</div><div id="aviso-total-clases-matriz" class="sub" role="status" style="padding:8px 12px;background:#eaf8ed;color:#276345;font-weight:800">La matriz debe mostrar 46 clases, según la programación oficial.</div>
+        <div class="asistencia-matriz-scroll"><table class="matrix-table asistencia-matriz-full"><thead id="tabla-matriz-cabeza"></thead><tbody id="tabla-matriz-cuerpo"><tr><td>Sincronice para cargar catequizandos.</td></tr></tbody></table></div>
       </div>
     </div>
 
@@ -1222,11 +1266,11 @@ body{overflow-x:hidden}
       </div>
     </div>
 
-    <!-- 7. VISTA DASHBOARD -->
+    <!-- RESUMEN GENERAL -->
     <div id="vista-dashboard" style="display:none; margin-top:15px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
         <button class="btn small" onclick="volverMenuPrincipal()">← Volver al menú</button>
-        <h3 style="color:var(--navy); margin:0;">Resumen estadístico</h3>
+        <h3 style="color:var(--navy); margin:0;">Resumen general</h3>
       </div>
       <div class="tool-card">
         <h4>Indicadores del Programa</h4>
@@ -1638,9 +1682,9 @@ function abrirPortalComun() {
   mostrarVistaInternaPortal('menu-herramientas', false);
   sincronizarConHoja(false).then(function() { iniciarMonitoreoMensajesCatequista(); });
 }
-const VISTAS_PORTAL = ['menu-herramientas','vista-mensajes','vista-videos-temas','vista-evidencias-tareas','vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-calificaciones','vista-dashboard','vista-administrador'];
+const VISTAS_PORTAL = ['menu-herramientas','vista-avances-catequizandos','vista-mensajes','vista-videos-temas','vista-evidencias-tareas','vista-clases','vista-asistencia','vista-pagos','vista-padres','vista-calendario','vista-calificaciones','vista-dashboard','vista-administrador'];
 const ETIQUETAS_VISTAS_PORTAL = {
-  'menu-herramientas':'Menú principal', 'vista-mensajes':'Mensajes y notificaciones', 'vista-videos-temas':'Biblioteca de videos', 'vista-evidencias-tareas':'Revisión de evidencias',
+  'menu-herramientas':'Menú principal', 'vista-avances-catequizandos':'Avance de catequizandos', 'vista-mensajes':'Mensajes y notificaciones', 'vista-videos-temas':'Biblioteca de videos', 'vista-evidencias-tareas':'Revisión de evidencias',
   'vista-clases':'Programación de temas', 'vista-asistencia':'Asistencia modular',
   'vista-pagos':'Control de pagos', 'vista-padres':'Padres de familia',
   'vista-calendario':'Calendario de catequesis', 'vista-calificaciones':'Registro de calificaciones',
@@ -1654,6 +1698,8 @@ function actualizarControlesHistorialPortal() {
 }
 
 let entregasTareasCatequistaCache = [];
+let resumenEntregasCalendarioCache = {};
+let tareasProgramaCatequistaCache = [];
 function escapeHtmlEvidenciaTarea(valor) {
   return escaparHTML(String(valor == null ? '' : valor));
 }
@@ -1784,7 +1830,7 @@ async function cargarGestionVideosTemasV8(idMantener) {
     const selector=$('selector-admin-video-tema');
     const anterior=idMantener||(selector?selector.value:'');
     if(selector){
-      selector.innerHTML='<option value="">-- Elige uno de los 68 temas --</option>'+sesionesGestionVideosV8.map(s=>'<option value="'+escaparHTML(s.id)+'">'+escaparHTML(s.id+' · '+s.tema)+'</option>').join('');
+      selector.innerHTML='<option value="">-- Selecciona tema de los 68 --</option>'+sesionesGestionVideosV8.map(s=>'<option value="'+escaparHTML(s.id)+'">'+escaparHTML(s.id+' · '+s.tema)+'</option>').join('');
       if(anterior&&sesionesGestionVideosV8.some(s=>s.id===anterior))selector.value=anterior;
     }
     if(estado)estado.textContent='Temas sincronizados. Cada tema admite hasta seis videos activos.';
@@ -1831,7 +1877,8 @@ if (btnActualizarEvidenciasTareas) btnActualizarEvidenciasTareas.addEventListene
   if (idVista === 'vista-mensajes') cargarMensajesCatequista(false);
   if (idVista === 'vista-videos-temas') cargarGestionVideosTemasV8();
   if (idVista === 'vista-evidencias-tareas') cargarEntregasTareasCatequista();
-  if (idVista === 'vista-calendario') { renderizarCalendarioModelo(); sincronizarCalendario(false); }
+  if (idVista === 'vista-calendario') { renderizarCalendarioModelo(); sincronizarCalendario(false); cargarEntregasParaCalendario(); }
+  if (idVista === 'vista-clases') cargarEntregasParaCalendario();
   if (idVista === 'vista-calificaciones') cargarVistaCalificaciones(false);
   if (idVista === 'vista-asistencia') inicializarAsistenciaModular();
   if (idVista === 'vista-pagos') renderizarPagos();
@@ -1839,10 +1886,9 @@ if (btnActualizarEvidenciasTareas) btnActualizarEvidenciasTareas.addEventListene
   if (idVista === 'vista-dashboard') renderizarDashboard();
 }
 function mostrarVista(idVista) {
-  // Entering any standalone module closes area menus; returning to Principal
-  // always presents the four neutral buttons without auto-opening an area.
   cerrarAreasCatequistas();
   mostrarVistaInternaPortal(idVista, true);
+  if(idVista==='vista-avances-catequizandos') cargarResumenAvancesCatequizandos(false);
 }
 function navegarPortalAtras() {
   if (indiceHistorialPortal <= 0) return;
@@ -1916,7 +1962,7 @@ async function sincronizarConHoja(silencioso) {
     const titulo = $('titulo-total-sesiones');
     if (titulo) titulo.textContent = `${ses.total} temas`;
     const h = document.querySelector('#vista-clases h3');
-    if (h) h.textContent = `Programa Completo: ${ses.total} temas · ${ses.totalClases} clases`;
+    if (h) h.textContent = `Programa Completo: ${ses.total} temas · ${ses.totalClases} clases (46 previstas)`;
     botones.forEach((b, i) => { b.textContent = '✅ Sincronizado'; });
     await retraso(900);
     botones.forEach((b, i) => { b.textContent = textos[i] || '🔄 Sincronizar'; });
@@ -2371,8 +2417,14 @@ function iniciarMonitoreoMensajesCatequista() {
   }, 15000);
 }
 
+function renderizarTareasVinculadasSesion(idSesion){
+  const norm=String(idSesion||'').trim().toUpperCase();
+  const tareas=(tareasProgramaCatequistaCache||[]).filter(t=>String(t.idSesion||'').trim().toUpperCase()===norm);
+  if(!tareas.length)return '<div class="sub" style="margin-top:7px">No hay tarea registrada en la hoja TAREAS para esta sesión.</div>';
+  return `<div class="sesion-tareas-vinculadas" style="margin-top:9px;padding:10px;background:#fff7e9;border:1px solid #f1dfb6;border-radius:10px"><strong style="color:#805b16">📌 Tareas asignadas y entregas</strong>${tareas.map(t=>`<div style="padding:7px 0;border-bottom:1px solid #f1dfb6"><strong>${escaparHTML(t.titulo||'Tarea')}</strong><div class="sub">${escaparHTML(t.descripcion||'')}</div><div class="sub">Asignada: ${escaparHTML(fechaEvidenciaTarea(t.fechaAsignacion))} · Entrega: ${escaparHTML(fechaEvidenciaTarea(t.fechaEntrega))}</div><div style="font-weight:800;color:#276345;margin-top:4px">📨 ${Number(t.enviadas||0)}/${Number(t.totalCatequizandos||0)} enviadas · ${Number(t.revisadas||0)} revisadas · ${Number(t.porRevisar||0)} por revisar · ${Number(t.pendientesEntrega||0)} pendientes</div></div>`).join('')}</div>`;
+}
 function renderizarSesionesCompletas() {
-  const contenedor = $('contenedor-56-sesiones');
+  const contenedor = $('contenedor-68-sesiones');
   if (!contenedor) return;
   if (!sesionesPortal.length) {
     contenedor.innerHTML = '<p class="sub">No se recibieron temas desde la hoja SESIONES.</p>';
@@ -2409,8 +2461,9 @@ function renderizarSesionesCompletas() {
           <div><strong style="color:var(--blue);">📖 Cita Bíblica:</strong> ${escaparHTML(t.cita || '—')}</div>
         </div>
         <div style="background:#f0f7f4;border:1px solid #cce8dc;border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:0.88rem;">
-          <strong style="color:var(--green);">✨ Actividad:</strong> ${escaparHTML(t.actividad || '—')}
+          <strong style="color:var(--green);">✨ Actividad del tema:</strong> ${escaparHTML(t.actividad || '—')}
         </div>
+        ${renderizarTareasVinculadasSesion(id)}
         <div style="font-size:0.8rem;color:var(--muted);margin:0 0 8px;">Clase ${escaparHTML(t.numeroClase || '—')} · ${escaparHTML(formatearFecha(t.fechaProgramada || t.fecha, false))} · ${escaparHTML(t.horaInicio || '14:00')}–${escaparHTML(t.horaFin || '16:00')} · ${escaparHTML(t.catequista || 'Catequista pendiente')}</div>
         <!-- Esta vista es exclusivamente de programación: sin acciones de recursos ni calificaciones por tema. -->`;
       bloqueDiv.appendChild(box);
@@ -2475,39 +2528,83 @@ async function guardarMaterialSesion() {
   }
 }
 
-function inicializarAsistenciaModular() {
-  const lista = $('lista-catequizandos-asist');
-  if (!lista) return;
-  lista.innerHTML = '';
-  if (!datosAsistenciaGlobal.length) {
-    lista.innerHTML = '<p class="sub">No hay registros de asistencia disponibles.</p>';
-    recalcularTotalesGlobales();
-    return;
+let resumenAvancesCatequizandosPortal = null;
+let alumnoAvanceSeleccionadoPortal = '';
+async function cargarResumenAvancesCatequizandos(forzar){
+  const estado=$('estado-avances-catequizandos');
+  const lista=$('lista-avances-catequizandos');
+  if(estado)estado.textContent='Consultando Google Sheets…';
+  if(lista)lista.innerHTML='<p class="sub">Cargando todos los catequizandos…</p>';
+  try{
+    const r=await apiGet('getResumenAvanceCatequizandos',forzar?{nocache:'1'}:{});
+    if(!r||r.exito===false)throw new Error(r&&r.mensaje?r.mensaje:'No se pudo obtener el avance general.');
+    resumenAvancesCatequizandosPortal=r.datos||[];
+    if(estado)estado.textContent='✓ Datos actualizados desde Google Sheets';
+    renderizarListaAvancesCatequizandos();
+    if(alumnoAvanceSeleccionadoPortal)renderizarDetalleAvanceCatequizando(alumnoAvanceSeleccionadoPortal);
+  }catch(e){
+    if(estado)estado.textContent='Error de consulta';
+    if(lista)lista.innerHTML='<p style="color:#a52828">'+escaparHTML(e.message||e)+'</p>';
   }
-  let idxActivo = datosAsistenciaGlobal.findIndex(x => x.ID_NINO === window.idCatequizandoActivo);
-  if (idxActivo < 0) idxActivo = Math.min(indiceCatequizandoActivo, datosAsistenciaGlobal.length - 1);
-  indiceCatequizandoActivo = idxActivo;
-  datosAsistenciaGlobal.forEach((est, idx) => {
-    const porc = est.ASISTENCIA_PORCENTAJE == null ? '—' : Number(est.ASISTENCIA_PORCENTAJE).toFixed(1) + '%';
-    const btn = document.createElement('div');
-    btn.className = 'est-item-btn' + (idx === idxActivo ? ' active' : '');
-    const foto = est.FOTO || './assets/insignia.png';
-    btn.innerHTML = `<img src="${escaparHTML(foto)}" alt="${escaparHTML(est.NOMBRE_COMPLETO)}" onerror="this.onerror=null;this.src='./assets/insignia.png';">
-      <div style="overflow:hidden;width:100%;"><div class="info-n">${escaparHTML(est.NOMBRE_COMPLETO)}</div>
-      <div class="info-sub"><span>ID: ${escaparHTML(est.ID_NINO)} · DNI: ${escaparHTML(est.DNI || '—')}</span><strong style="color:var(--navy);">${porc}</strong></div></div>`;
-    btn.onclick = () => {
-      indiceCatequizandoActivo = idx;
-      window.idCatequizandoActivo = est.ID_NINO;
-      document.querySelectorAll('.est-item-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      cargarMatrizEstudiante(idx);
-    };
-    lista.appendChild(btn);
-  });
-  recalcularTotalesGlobales(resumenAsistenciaPortal);
-  cargarMatrizEstudiante(idxActivo);
+}
+function renderizarListaAvancesCatequizandos(){
+  const cont=$('lista-avances-catequizandos');if(!cont)return;
+  const filtro=String($('filtro-avances-alumno')?.value||'').toLowerCase().trim();
+  const alumnos=(resumenAvancesCatequizandosPortal||[]).filter(a=>String(a.nombre||'').toLowerCase().includes(filtro));
+  if(!alumnos.length){cont.innerHTML='<p class="sub">No hay catequizandos coincidentes.</p>';return;}
+  cont.innerHTML=alumnos.map(a=>`<button type="button" class="avance-alumno-btn ${String(a.id)===String(alumnoAvanceSeleccionadoPortal)?'active':''}" data-id="${escaparHTML(a.id)}" onclick="seleccionarAlumnoAvancePortal(this.dataset.id)"><img src="${escaparHTML(a.foto||'./assets/insignia.png')}" onerror="this.onerror=null;this.src='./assets/insignia.png'" alt=""><span style="flex:1;min-width:0"><strong>${escaparHTML(a.nombre)}</strong><div class="avance-progress"><span style="width:${Math.max(0,Math.min(100,Number(a.porcentajeGeneral)||0))}%"></span></div><small>${Number(a.porcentajeGeneral||0).toFixed(1)}% general</small></span></button>`).join('');
+}
+function seleccionarAlumnoAvancePortal(id){alumnoAvanceSeleccionadoPortal=String(id||'');renderizarListaAvancesCatequizandos();renderizarDetalleAvanceCatequizando(alumnoAvanceSeleccionadoPortal);}
+function renderizarDetalleAvanceCatequizando(id){
+  const cont=$('detalle-avance-catequizando');if(!cont)return;
+  const a=(resumenAvancesCatequizandosPortal||[]).find(x=>String(x.id)===String(id));
+  if(!a){cont.innerHTML='<p class="sub">Seleccione un catequizando.</p>';return;}
+  const temas=a.temas||[],tareas=a.tareas||[],notas=a.notas||[];
+  const tareasEnviadas=tareas.filter(t=>['ENVIADA','REVISADA','CORREGIR'].includes(String(t.estado||'').toUpperCase())).length;
+  const quizzesCompletos=temas.filter(t=>Number(t.porcentaje||0)>=100).length;
+  const porcentajeQuiz=temas.length?temas.reduce((sum,t)=>sum+Number(t.porcentaje||0),0)/temas.length:0;
+  const pctTareas=tareas.length?tareasEnviadas/tareas.length*100:0;
+  const notaNumerica=notas.map(n=>Number(n.nota)).filter(n=>Number.isFinite(n));
+  const promedioNotas=notaNumerica.length?notaNumerica.reduce((s,n)=>s+n,0)/notaNumerica.length:null;
+  cont.innerHTML=`<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><img src="${escaparHTML(a.foto||'./assets/insignia.png')}" onerror="this.onerror=null;this.src='./assets/insignia.png'" style="width:66px;height:66px;object-fit:cover;border-radius:50%;border:2px solid #d6e8f3"><div><h2 style="margin:0;color:#245b48">${escaparHTML(a.nombre)}</h2><div class="sub">ID: ${escaparHTML(a.id)} · ${escaparHTML(a.dni||'DNI no registrado')}</div></div></div>
+  <div class="avance-kpis"><div class="avance-kpi"><strong>${Number(a.porcentajeGeneral||0).toFixed(1)}%</strong>Avance general</div><div class="avance-kpi"><strong>${Number(porcentajeQuiz).toFixed(1)}%</strong>Cuestionarios</div><div class="avance-kpi"><strong>${quizzesCompletos}/${temas.length}</strong>Cuestionarios completos</div><div class="avance-kpi"><strong>${tareasEnviadas}/${tareas.length} · ${pctTareas.toFixed(1)}%</strong>Tareas enviadas</div><div class="avance-kpi"><strong>${promedioNotas==null?'—':promedioNotas.toFixed(1)+'/20'}</strong>Promedio de notas (${notas.length})</div><div class="avance-kpi"><strong>${a.asistenciaPct==null?'—':Number(a.asistenciaPct).toFixed(1)+'%'}</strong>Asistencia</div></div>
+  <h3 style="margin:16px 0 8px;color:#5b4789">Cuestionarios por tema</h3><div class="avance-temas">${temas.map(t=>`<div class="avance-tema-row"><span><strong>${escaparHTML(t.tema||t.idSesion)}</strong><small class="sub" style="display:block">${escaparHTML(t.bloque||'')}</small></span><span class="avance-pill ${Number(t.porcentaje)>=100?'done':''}">${Number(t.respondidas||0)}/${Number(t.total||0)} · ${Number(t.porcentaje||0).toFixed(1)}% · ${Number(t.porcentaje)>=100?'COMPLETO':Number(t.respondidas)>0?'EN CURSO':'PENDIENTE'}</span><div class="avance-progress"><span style="width:${Math.max(0,Math.min(100,Number(t.porcentaje)||0))}%"></span></div></div>`).join('')||'<p class="sub">No hay datos de cuestionarios para mostrar.</p>'}</div>
+  <h3 style="margin:16px 0 8px;color:#5b4789">Tareas y entregas</h3><div class="avance-temas">${tareas.map(t=>`<div class="avance-tema-row"><span><strong>${escaparHTML(t.titulo||t.idTarea||'Tarea')}</strong><small class="sub" style="display:block">${escaparHTML(t.tema||'')} · entrega ${escaparHTML(t.fechaEntrega||'—')}</small></span><span class="avance-pill ${['ENVIADA','REVISADA'].includes(String(t.estado||'').toUpperCase())?'done':''}">${escaparHTML(t.estado||'PENDIENTE')}</span><span>${escaparHTML(t.observacion||'')}</span></div>`).join('')||'<p class="sub">No hay tareas asignadas registradas.</p>'}</div>
+  <h3 style="margin:16px 0 8px;color:#5b4789">Notas y calificaciones</h3><div style="overflow:auto"><table class="avance-notas"><thead><tr><th>Tema</th><th>Actividad</th><th>Nota</th><th>Fecha</th><th>Observación</th></tr></thead><tbody>${notas.map(n=>`<tr><td>${escaparHTML(n.tema||'')}</td><td>${escaparHTML(n.tipo||n.descripcion||'')}</td><td><strong>${escaparHTML(n.nota==null?'—':n.nota+'/20')} ${escaparHTML(n.equivalencia||'')}</strong></td><td>${escaparHTML(n.fecha||'')}</td><td>${escaparHTML(n.observaciones||'')}</td></tr>`).join('')||'<tr><td colspan="5">No hay calificaciones registradas.</td></tr>'}</tbody></table></div>`;
 }
 
+function inicializarAsistenciaModular() {
+  const head=$('tabla-matriz-cabeza'),body=$('tabla-matriz-cuerpo');
+  if(!head||!body)return;
+  if(!datosAsistenciaGlobal.length){head.innerHTML='';body.innerHTML='<tr><td>No hay registros de asistencia disponibles.</td></tr>';recalcularTotalesGlobales();return;}
+  const clases=(clasesPortal||[]).slice(0,46);
+  const totalClasesSheets=(clasesPortal||[]).length;
+  const avisoClases=$('aviso-total-clases-matriz');
+  if(avisoClases){avisoClases.textContent=totalClasesSheets===46?'✓ 46 clases oficiales cargadas desde Google Sheets.':`⚠ Google Sheets devolvió ${totalClasesSheets} clases; la matriz muestra un máximo de 46. Verifique la hoja CLASES.`;avisoClases.style.background=totalClasesSheets===46?'#eaf8ed':'#fff4dc';avisoClases.style.color=totalClasesSheets===46?'#276345':'#805b16';}
+  head.innerHTML='<tr><th>Foto · Catequizando</th>'+clases.map((c,i)=>`<th title="Clase ${i+1} · ${escaparHTML(c.fechaProgramada||'')}">Clase ${i+1}<small style="display:block">${escaparHTML(formatearFecha(c.fechaProgramada,false)||'—')}</small></th>`).join('')+'</tr>';
+  body.innerHTML=datosAsistenciaGlobal.map((est,idx)=>{
+    const foto=est.FOTO||est.FOTOGRAFIA||'./assets/insignia.png';
+    const estados=est.ESTADOS_SESIONES||[];const pend=obtenerPendientesAsistencia(est.ID_NINO);
+    const celdas=clases.map((c,j)=>{
+      const val=pend[String(j)]||String(estados[j]||'').trim().toUpperCase();
+      const locked=String(estados[j]||'').trim()!=='';
+      const color=val==='A'?'#e5f5eb':val==='T'?'#fff2cc':val==='F'?'#fde8e8':val==='FJ'?'#e4f3e9':'#fff';
+      return `<td><select data-student="${escaparHTML(est.ID_NINO)}" data-session="${j}" ${locked?'disabled':''} onchange="prepararEstadoMatrizAsistencia(this)" style="background:${color};color:${val==='F'?'#a12b32':'#244765'}" title="${locked?'Guardado en Google Sheets':'Seleccionar asistencia'}"><option value="" ${val===''?'selected':''}>—</option><option value="A" ${val==='A'?'selected':''}>A</option><option value="T" ${val==='T'?'selected':''}>T</option><option value="F" ${val==='F'?'selected':''}>F</option><option value="FJ" ${val==='FJ'?'selected':''}>FJ</option></select></td>`;
+    }).join('');
+    return `<tr><td><div class="asistencia-alumno-cell"><img src="${escaparHTML(foto)}" onerror="this.onerror=null;this.src='./assets/insignia.png'" alt=""><span>${escaparHTML(est.NOMBRE_COMPLETO||[est.NOMBRES,est.APELLIDOS].filter(Boolean).join(' '))}</span></div></td>${celdas}</tr>`;
+  }).join('');
+  recalcularTotalesGlobales(resumenAsistenciaPortal);actualizarBotonGuardarAsistencia();
+}
+function prepararEstadoMatrizAsistencia(select){
+  const id=String(select.dataset.student||''),idx=Number(select.dataset.session),est=datosAsistenciaGlobal.find(x=>String(x.ID_NINO)===id);
+  if(!est||!Number.isInteger(idx))return;
+  const saved=String((est.ESTADOS_SESIONES||[])[idx]||'').trim().toUpperCase();
+  if(saved){select.disabled=true;return;}
+  const pend=obtenerPendientesAsistencia(id),val=String(select.value||'').trim().toUpperCase();
+  if(['A','T','F','FJ'].includes(val))pend[String(idx)]=val;else delete pend[String(idx)];
+  select.style.background=val==='A'?'#e5f5eb':val==='T'?'#fff2cc':val==='F'?'#fde8e8':val==='FJ'?'#e4f3e9':'#fff';
+  actualizarBotonGuardarAsistencia();
+}
 function calcularPorcentajeLocal(est) {
   if (est.ASISTENCIA_PORCENTAJE != null && !isNaN(Number(est.ASISTENCIA_PORCENTAJE))) return Number(est.ASISTENCIA_PORCENTAJE);
   const marcadas = (est.ESTADOS_SESIONES || []).filter(v => ['A','T','F','FJ'].includes(v)).length;
@@ -2520,158 +2617,37 @@ function obtenerPendientesAsistencia(idNino) {
   return cambiosAsistenciaPendientes[id];
 }
 
-function actualizarBotonGuardarAsistencia() {
-  const boton = $('btnGuardarAsistencia');
-  if (!boton) return;
-  const est = datosAsistenciaGlobal[indiceCatequizandoActivo];
-  const pendientes = est ? Object.keys(obtenerPendientesAsistencia(est.ID_NINO)).length : 0;
-  boton.disabled = pendientes === 0;
-  boton.textContent = pendientes ? `💾 Guardar asistencia (${pendientes})` : '💾 Guardar asistencia';
+function actualizarBotonGuardarAsistencia(){
+  const boton=$('btnGuardarAsistencia');if(!boton)return;
+  let n=0;Object.keys(cambiosAsistenciaPendientes||{}).forEach(id=>n+=Object.keys(cambiosAsistenciaPendientes[id]||{}).length);
+  boton.disabled=n===0;boton.textContent=n?`💾 Guardar asistencia (${n} cambios)`:'💾 Guardar asistencia';
 }
-
-function cargarMatrizEstudiante(idxEst) {
-  const est = datosAsistenciaGlobal[idxEst];
-  if (!est) return;
-  window.idCatequizandoActivo = est.ID_NINO;
-  $('nombre-catequizando-activo').textContent = est.NOMBRE_COMPLETO;
-  $('sub-id-activo').textContent = `ID: ${est.ID_NINO} · DNI: ${est.DNI || '—'}`;
-  $('porcentaje-individual-badge').textContent = `Asistencia: ${calcularPorcentajeLocal(est).toFixed(1)}%`;
-  const tbody = $('tabla-matriz-cuerpo');
-  tbody.innerHTML = '';
-  const estados = est.ESTADOS_SESIONES || [];
-  const pendientes = obtenerPendientesAsistencia(est.ID_NINO);
-  estados.forEach((valorGuardado, idx) => {
-    const val = String(valorGuardado || '').trim().toUpperCase();
-    const tienePendiente = Object.prototype.hasOwnProperty.call(pendientes, String(idx));
-    const valorVista = tienePendiente ? pendientes[String(idx)] : val;
-    const bloqueado = val !== '';
-    let bg = '#fff', fg = 'var(--muted)', border = 'var(--line)';
-    if (valorVista === 'A') { bg = '#1b4a79'; fg = '#fff'; border = '#1b4a79'; }
-    else if (valorVista === 'T') { bg = '#f3c755'; fg = '#12345b'; border = '#e0b23d'; }
-    else if (valorVista === 'F') { bg = '#b83d43'; fg = '#fff'; border = '#b83d43'; }
-    else if (valorVista === 'FJ') { bg = '#23764c'; fg = '#fff'; border = '#23764c'; }
-    const fecha = fechasClasesAsist[idx] || '—';
-    const tr = document.createElement('tr');
-    const estadoTexto = { A: 'A (Asistencia)', T: 'T (Tardanza)', F: 'F (Falta)', FJ: 'FJ (Justificada)' };
-    const avisoEstado = bloqueado
-      ? '<span style="display:inline-block;margin-left:8px;color:var(--green);font-size:.76rem;font-weight:800;">🔒 Guardado</span>'
-      : (tienePendiente ? '<span style="display:inline-block;margin-left:8px;color:var(--gold-deep);font-size:.76rem;font-weight:800;">Pendiente de guardar</span>' : '');
-    tr.innerHTML = `<td style="text-align:center;font-weight:800;color:var(--navy);">Clase ${idx+1}</td>
-      <td style="color:var(--muted);font-weight:600;">📅 ${escaparHTML(fecha)}</td>
-      <td><select ${bloqueado ? 'disabled' : ''} onchange="prepararEstadoModular(${idxEst},${idx},this.value)" style="font-size:0.85rem;font-weight:800;padding:6px 12px;border-radius:8px;border:1.5px solid ${border};background:${bg};color:${fg};cursor:${bloqueado?'not-allowed':'pointer'};width:100%;max-width:240px;opacity:${bloqueado?'.85':'1'};">
-        <option value="" ${valorVista===''?'selected':''}>-- Opción --</option>
-        <option value="A" ${valorVista==='A'?'selected':''}>A (Asistencia)</option>
-        <option value="T" ${valorVista==='T'?'selected':''}>T (Tardanza)</option>
-        <option value="F" ${valorVista==='F'?'selected':''}>F (Falta)</option>
-        <option value="FJ" ${valorVista==='FJ'?'selected':''}>FJ (Justificada)</option>
-      </select>${avisoEstado}</td>`;
-    tbody.appendChild(tr);
-  });
-  actualizarBotonGuardarAsistencia();
-}
-
-function prepararEstadoModular(idxEst, idxClase, nuevoVal) {
-  const est = datosAsistenciaGlobal[idxEst];
-  if (!est) return;
-  const guardado = String((est.ESTADOS_SESIONES || [])[idxClase] || '').trim().toUpperCase();
-  if (guardado) {
-    alert('Esta asistencia ya fue guardada y está bloqueada. No se puede modificar.');
-    cargarMatrizEstudiante(idxEst);
-    return;
-  }
-  const pendientes = obtenerPendientesAsistencia(est.ID_NINO);
-  const valor = String(nuevoVal || '').trim().toUpperCase();
-  if (['A', 'T', 'F', 'FJ'].includes(valor)) pendientes[String(idxClase)] = valor;
-  else delete pendientes[String(idxClase)];
-  cargarMatrizEstudiante(idxEst);
-}
-
-async function guardarAsistenciaPendiente() {
-  const est = datosAsistenciaGlobal[indiceCatequizandoActivo];
-  if (!est) { alert('Seleccione un catequizando.'); return; }
-  if (!tokenCatequistaPortal) { alert('La sesión de catequista venció. Ingrese nuevamente.'); cerrarSesionCatequistaPortal(); return; }
-
-  const pendientes = obtenerPendientesAsistencia(est.ID_NINO);
-  const totalSesionesAlumno = Array.isArray(est.ESTADOS_SESIONES) ? est.ESTADOS_SESIONES.length : 0;
-  if (!totalSesionesAlumno) { alert('No se cargaron las sesiones de la matriz. Presione Sincronizar antes de guardar.'); return; }
-  const entradas = Object.keys(pendientes).map(k => [Number(k), String(pendientes[k] || '').trim().toUpperCase()])
-    .filter(x => Number.isInteger(x[0]) && x[0] >= 0 && x[0] < totalSesionesAlumno && ['A','T','F','FJ'].includes(x[1]))
-    .sort((a,b) => a[0] - b[0]);
-  if (!entradas.length) { alert('No hay asistencias válidas pendientes de guardar. Verifique la selección de A, T, F o FJ.'); return; }
-
-  const boton = $('btnGuardarAsistencia');
-  if (boton) { boton.disabled = true; boton.textContent = '⏳ Guardando…'; }
-  try {
-    // Una sola solicitud reduce fallos intermitentes entre escrituras consecutivas.
-    // Google Apps Script recibe el token de la catequista desde apiPost().
-    await apiPost({
-      action: 'registrarAsistenciasLote',
-      idEstudiante: est.ID_NINO,
-      asistencias: entradas.map(([idxClase, estado]) => ({ sesion: idxClase + 1, estado }))
-    });
-
-    // La respuesta del POST se valida y después se confirma leyendo de nuevo
-    // la matriz oficial en Google Sheets.
-    await retraso(1200);
-    const respuesta = await apiGet('getAsistenciaNotas');
-    const actualizado = (respuesta.datos || []).find(x => String(x.ID_NINO).trim() === String(est.ID_NINO).trim());
-    if (!actualizado) throw new Error('Google Sheets no devolvió al catequizando seleccionado para verificar el guardado.');
-    if (!Array.isArray(actualizado.ESTADOS_SESIONES)) throw new Error('Google Sheets devolvió el alumno, pero no devolvió la matriz de sesiones para verificar.');
-
-    const confirmadas = [];
-    const noConfirmadas = [];
-    entradas.forEach(([idxClase, estado]) => {
-      const estadoHoja = String((actualizado.ESTADOS_SESIONES || [])[idxClase] || '').trim().toUpperCase();
-      if (estadoHoja === estado) {
-        confirmadas.push(idxClase + 1);
-        delete pendientes[String(idxClase)];
-      } else {
-        noConfirmadas.push(idxClase + 1);
-      }
-    });
-
-    datosAsistenciaGlobal = respuesta.datos || [];
-    resumenAsistenciaPortal = respuesta.resumen || {};
-    indiceCatequizandoActivo = Math.max(0, datosAsistenciaGlobal.findIndex(x => String(x.ID_NINO) === String(est.ID_NINO)));
-    recalcularTotalesGlobales(resumenAsistenciaPortal);
+async function guardarAsistenciaPendiente(){
+  if(!tokenCatequistaPortal){alert('La sesión de catequista venció. Ingrese nuevamente.');cerrarSesionCatequistaPortal();return;}
+  const registros=Object.keys(cambiosAsistenciaPendientes||{}).map(id=>({
+    idEstudiante:id,
+    asistencias:Object.entries(cambiosAsistenciaPendientes[id]||{}).map(([k,v])=>({sesion:Number(k)+1,estado:v})).filter(x=>Number.isInteger(x.sesion)&&['A','T','F','FJ'].includes(x.estado))
+  })).filter(g=>g.asistencias.length);
+  if(!registros.length){alert('No hay cambios pendientes por guardar.');return;}
+  const boton=$('btnGuardarAsistencia');if(boton){boton.disabled=true;boton.textContent='⏳ Guardando matriz…';}
+  const total=registros.reduce((n,g)=>n+g.asistencias.length,0);
+  try{
+    const r=await apiPost({action:'registrarAsistenciasMatrizGlobal',registros:registros});
+    if(!r||!Array.isArray(r.resultados))throw new Error(r&&r.mensaje?r.mensaje:'Google Sheets no devolvió resultados verificables.');
+    const ok=new Set((r.resultados||[]).filter(x=>x.exito).map(x=>String(x.idEstudiante)+'|'+String(x.sesion)));
+    registros.forEach(g=>g.asistencias.forEach(x=>{if(ok.has(String(g.idEstudiante)+'|'+String(x.sesion)))delete cambiosAsistenciaPendientes[g.idEstudiante][String(x.sesion-1)];}));
+    Object.keys(cambiosAsistenciaPendientes).forEach(id=>{if(!Object.keys(cambiosAsistenciaPendientes[id]||{}).length)delete cambiosAsistenciaPendientes[id];});
+    await retraso(400);
+    const resp=await apiGet('getAsistenciaNotas');
+    if(resp&&resp.datos){datosAsistenciaGlobal=resp.datos;resumenAsistenciaPortal=resp.resumen||{};}
     inicializarAsistenciaModular();
-
-    if (noConfirmadas.length) {
-      alert('Guardado parcial confirmado.\n\nClases guardadas y bloqueadas: ' + (confirmadas.join(', ') || 'ninguna') +
-        '.\nClases que siguen pendientes: ' + noConfirmadas.join(', ') +
-        '.\n\nNo vuelvas a marcar las clases confirmadas. Revisa la pestaña ASISTENCIA en Google Sheets.');
-      return;
-    }
-    alert('Se guardaron y verificaron ' + confirmadas.length + ' asistencia(s) en Google Sheets. Los estados quedaron bloqueados.');
-  } catch (error) {
-    console.error('Error al guardar asistencia:', error);
-    // Recupera cualquier escritura que sí haya llegado a la hoja, sin perder pendientes.
-    try {
-      await retraso(500);
-      const respuesta = await apiGet('getAsistenciaNotas');
-      const actualizado = (respuesta.datos || []).find(x => String(x.ID_NINO) === String(est.ID_NINO));
-      if (actualizado) {
-        entradas.forEach(([idxClase, estado]) => {
-          if (String((actualizado.ESTADOS_SESIONES || [])[idxClase] || '').trim().toUpperCase() === estado) {
-            delete pendientes[String(idxClase)];
-          }
-        });
-        datosAsistenciaGlobal = respuesta.datos || [];
-        resumenAsistenciaPortal = respuesta.resumen || {};
-        indiceCatequizandoActivo = Math.max(0, datosAsistenciaGlobal.findIndex(x => String(x.ID_NINO) === String(est.ID_NINO)));
-        recalcularTotalesGlobales(resumenAsistenciaPortal);
-        inicializarAsistenciaModular();
-      }
-    } catch (verificacionError) {
-      console.error('No se pudo verificar el estado posterior al error:', verificacionError);
-    }
-    alert('No se pudo confirmar el guardado completo.\n' + (error && error.message ? error.message : String(error)) +
-      '\n\nLas asistencias que no se confirmaron permanecen pendientes. No se eliminaron los registros ya guardados.');
-  } finally {
-    if (boton) { boton.disabled = false; actualizarBotonGuardarAsistencia(); }
-  }
+    const guardadas=(r.resultados||[]).filter(x=>x.exito).length;
+    const pendientes=Object.keys(cambiosAsistenciaPendientes).reduce((n,id)=>n+Object.keys(cambiosAsistenciaPendientes[id]||{}).length,0);
+    if(pendientes||guardadas<total)alert(`Google Sheets confirmó ${guardadas} de ${total} marcas. ${pendientes} quedan pendientes y se mantienen visibles para reintentar.`);
+    else alert(`✓ Se guardaron ${guardadas} marcas de asistencia en Google Sheets en un solo envío.`);
+  }catch(e){alert('No se confirmó el guardado de la matriz. Los cambios permanecen en pantalla para reintentar.\n'+(e.message||e));}
+  finally{actualizarBotonGuardarAsistencia();}
 }
-
 function recalcularTotalesGlobales(resumen) {
   let A = 0, T = 0, F = 0, FJ = 0;
   datosAsistenciaGlobal.forEach(est => (est.ESTADOS_SESIONES || []).forEach(v => {
@@ -3242,10 +3218,19 @@ function renderizarTemaDetalleCalendario(tema) {
     <strong>${escaparHTML(tema.tema || 'Tema pendiente')}</strong>
     <div class="cal-topic-extra"><strong>Subtemas:</strong>${listaSubtemas}</div>
     ${objetivo}${actividad}${meta}
+    ${renderizarTareasVinculadasSesion(tema.id)}
     ${renderizarRecursosCalendario(tema)}
   </article>`;
 }
 
+async function cargarEntregasParaCalendario(){
+  try{const r=await apiGet('getResumenEntregasTareasCatequista');if(r&&r.exito){resumenEntregasCalendarioCache={};(r.datos||[]).forEach(x=>resumenEntregasCalendarioCache[String(x.tarea||'').toUpperCase()]=x);tareasProgramaCatequistaCache=Array.isArray(r.tareas)?r.tareas:[];renderizarCalendarioModelo();renderizarListaProgramaCalendario();renderizarSesionesCompletas();}}catch(e){console.warn('No se pudieron cargar los resúmenes de entregas para el calendario',e);}
+}
+function resumenEntregaTareaCalendario(idTarea){
+  const id=String(idTarea||'').trim().toUpperCase();if(!id)return '';
+  const r=resumenEntregasCalendarioCache[id];if(!r)return '<div class="cal-task-delivery-count" style="margin-top:5px;padding:5px 8px;border-radius:8px;background:#fff6df;color:#805b16;font-weight:800;">📨 Estado de entregas aún no sincronizado</div>';
+  return `<div class="cal-task-delivery-count" style="margin-top:5px;padding:5px 8px;border-radius:8px;background:#eaf7ee;color:#276345;font-weight:800;">📨 ${Number(r.enviadas||0)}/${Number(r.totalCatequizandos||0)} entregas · ${Number(r.revisadas||0)} revisadas · ${Number(r.pendientesRevision||0)} por revisar · ${Number(r.pendientesEntrega||0)} pendientes</div>`;
+}
 function renderizarTareasCalendario(tareas) {
   if (!Array.isArray(tareas) || !tareas.length) {
     return '<div class="cal-empty-note">No hay tareas adicionales registradas en la hoja TAREAS para este encuentro. Las actividades indicadas en cada tema se muestran por separado.</div>';
@@ -3256,7 +3241,7 @@ function renderizarTareasCalendario(tareas) {
     const responsable = t.responsable ? `Responsable: ${t.responsable}` : '';
     const estado = t.estado ? `Estado: ${t.estado}` : '';
     const enlace = urlSeguraCalendario(t.evidenciaLink);
-    return `<div class="cal-task-item"><strong>${escaparHTML(nombre)}</strong>${t.descripcion && t.descripcion !== nombre ? `<div>${escaparHTML(t.descripcion)}</div>` : ''}${fechas ? `<div>${escaparHTML(fechas)}</div>` : ''}${[responsable, estado].filter(Boolean).length ? `<div>${escaparHTML([responsable, estado].filter(Boolean).join(' · '))}</div>` : ''}${t.observacion ? `<div>${escaparHTML(t.observacion)}</div>` : ''}${enlace ? `<div><a href="${escaparHTML(enlace)}" target="_blank" rel="noopener noreferrer">Ver evidencia / material</a></div>` : ''}</div>`;
+    return `<div class="cal-task-item"><strong>${escaparHTML(nombre)}</strong>${t.descripcion && t.descripcion !== nombre ? `<div>${escaparHTML(t.descripcion)}</div>` : ''}${fechas ? `<div>${escaparHTML(fechas)}</div>` : ''}${[responsable, estado].filter(Boolean).length ? `<div>${escaparHTML([responsable, estado].filter(Boolean).join(' · '))}</div>` : ''}${t.observacion ? `<div>${escaparHTML(t.observacion)}</div>` : ''}${enlace ? `<div><a href="${escaparHTML(enlace)}" target="_blank" rel="noopener noreferrer">Ver evidencia / material</a></div>` : ''}${t.idTarea ? resumenEntregaTareaCalendario(t.idTarea) : ''}</div>`;
   }).join('')}</div>`;
 }
 
@@ -3463,7 +3448,7 @@ function seleccionarAreaCatequistas(area){
   if(!areas.includes(area)) return;
   const cont=document.querySelector('.menu-areas-catequistas');
   if(area==='administracion'){
-    if(cont) cont.classList.add('subareas-visible');
+    if(cont){cont.classList.remove('area-selected');cont.classList.add('subareas-visible');}
     const adminPanel=document.getElementById('area-administracion');
     if(adminPanel) adminPanel.hidden=false;
     const adminBtn=document.querySelector('.menu-area-btn[data-area="administracion"]');
@@ -3474,7 +3459,7 @@ function seleccionarAreaCatequistas(area){
     });
     return;
   }
-  if(cont) cont.classList.add('subareas-visible');
+  if(cont){cont.classList.remove('subareas-visible');cont.classList.add('area-selected');}
   ['administracion','catequizandos','padres','gestores'].forEach(a=>{
     const panel=document.getElementById('area-'+a); if(panel) panel.hidden=(a!==area);
     const btn=document.querySelector('.menu-area-btn[data-area="'+a+'"]');
@@ -3483,7 +3468,7 @@ function seleccionarAreaCatequistas(area){
 }
 function cerrarAreasCatequistas(){
   const cont=document.querySelector('.menu-areas-catequistas');
-  if(cont) cont.classList.remove('subareas-visible');
+  if(cont) cont.classList.remove('subareas-visible','area-selected');
   ['administracion','catequizandos','padres','gestores'].forEach(a=>{
     const panel=document.getElementById('area-'+a); if(panel) panel.hidden=true;
     const btn=document.querySelector('.menu-area-btn[data-area="'+a+'"]');
