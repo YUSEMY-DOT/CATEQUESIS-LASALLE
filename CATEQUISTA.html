@@ -829,12 +829,12 @@ body{overflow-x:hidden}
     <div class="menu-principal-catequistas" id="menu-herramientas">
 <div class="menu-intro-catequistas"><h2>Centro de gestión · Camino hacia Jesús 2026</h2><p>Selecciona el área que deseas administrar. Los datos se consultan y guardan en Google Sheets.</p></div>
 <div class="menu-areas-catequistas" role="navigation" aria-label="Áreas principales">
-<button class="menu-area-btn active" type="button" data-area="administracion" aria-pressed="true" onclick="seleccionarAreaCatequistas('administracion')"><span>⚙️</span><strong>ADMINISTRACIÓN</strong><small>Programa · gestores · configuración</small></button>
+<button class="menu-area-btn" type="button" data-area="administracion" aria-pressed="false" onclick="seleccionarAreaCatequistas('administracion')"><span>⚙️</span><strong>ADMINISTRACIÓN</strong><small>Programa · gestores · configuración</small></button>
 <button class="menu-area-btn" type="button" data-area="catequizandos" aria-pressed="false" onclick="seleccionarAreaCatequistas('catequizandos')"><span>👧👦</span><strong>CATEQUIZANDOS</strong><small>Progreso · notas · asistencia · tareas</small></button>
 <button class="menu-area-btn" type="button" data-area="padres" aria-pressed="false" onclick="seleccionarAreaCatequistas('padres')"><span>👨‍👩‍👧</span><strong>PADRES Y FAMILIAS</strong><small>Pagos · documentos · comunicación</small></button>
 <button class="menu-area-btn" type="button" data-area="gestores" aria-pressed="false" onclick="seleccionarAreaCatequistas('gestores')"><span>👥</span><strong>GESTORES</strong><small>Supervisión · coordinación · mensajes</small></button>
 </div>
-<div class="menu-area-panel" id="area-administracion"><div class="menu-area-heading"><h3>⚙️ Administración del programa</h3><p>Planificación, supervisión y herramientas de gestión.</p></div><div class="tools-grid"><div class="tool-card">
+<div class="menu-area-panel" id="area-administracion" hidden><div class="menu-area-heading"><h3>⚙️ Administración del programa</h3><p>Planificación, supervisión y herramientas de gestión.</p></div><div class="tools-grid"><div class="tool-card">
         <div><div class="module-cartoon-icon" aria-hidden="true">📚✨</div><h4 id="titulo-total-sesiones">Programa de sesiones</h4><p>Programa completo y materiales organizados.</p></div>
         <button class="btn small primary" onclick="mostrarVista('vista-clases')">Abrir Sesiones</button>
       </div><div class="tool-card">
@@ -1838,10 +1838,9 @@ if (btnActualizarEvidenciasTareas) btnActualizarEvidenciasTareas.addEventListene
   if (idVista === 'vista-dashboard') renderizarDashboard();
 }
 function mostrarVista(idVista) {
-  if(idVista !== 'menu-herramientas') {
-    document.querySelectorAll('.menu-area-panel').forEach(p=>p.hidden=true);
-    document.querySelectorAll('.menu-area-btn').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-pressed','false');});
-  }
+  // Entering any standalone module closes area menus; returning to Principal
+  // always presents the four neutral buttons without auto-opening an area.
+  cerrarAreasCatequistas();
   mostrarVistaInternaPortal(idVista, true);
 }
 function navegarPortalAtras() {
@@ -3461,11 +3460,20 @@ async function sincronizarCalendario(mostrarAlerta) {
 function seleccionarAreaCatequistas(area){
   const areas=['administracion','catequizandos','padres','gestores'];
   if(!areas.includes(area)) return;
+  // No area is active on initial load. Only a deliberate click opens one.
   areas.forEach(a=>{
     const panel=document.getElementById('area-'+a);
     const btn=document.querySelector('.menu-area-btn[data-area="'+a+'"]');
     if(panel) panel.hidden=(a!==area);
     if(btn){btn.classList.toggle('active',a===area);btn.setAttribute('aria-pressed',a===area?'true':'false');}
+  });
+}
+function cerrarAreasCatequistas(){
+  ['administracion','catequizandos','padres','gestores'].forEach(a=>{
+    const panel=document.getElementById('area-'+a);
+    const btn=document.querySelector('.menu-area-btn[data-area="'+a+'"]');
+    if(panel) panel.hidden=true;
+    if(btn){btn.classList.remove('active');btn.setAttribute('aria-pressed','false');}
   });
 }
 function initPortalCatequistas() {
