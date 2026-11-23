@@ -1186,6 +1186,16 @@ header{padding-top:14px;padding-bottom:12px}
 
 /* V7 — Tareas didácticas en familia. Interfaz ligera sin imágenes incrustadas. */
 /* V10 — Un solo panel para tareas asignadas y tareas didácticas en familia */
+/* V10.1 — Destacar claramente el compromiso familiar y retirar el buscador duplicado */
+.tareas-summary-v8{background:linear-gradient(115deg,#fff1a8,#ffd34f 52%,#ffb72d)!important;border:2px solid #f0a400!important;box-shadow:0 0 0 3px rgba(255,191,0,.22),0 7px 20px rgba(205,130,0,.25)!important;animation:brilloTareaFamiliaV101 1.6s ease-in-out infinite alternate}
+.tareas-summary-copy strong{color:#7b3200!important;font-size:22px!important;font-weight:1000!important;text-shadow:0 1px 0 rgba(255,255,255,.6)}
+.tareas-summary-copy .eyebrow{color:#853800!important;font-size:13px!important;font-weight:1000!important;letter-spacing:.45px}
+.tareas-summary-copy small{color:#6e3600!important;font-size:13px!important;font-weight:1000!important}
+.tareas-summary-action-v8{background:#b92318!important;color:#fff!important;font-size:13px!important;font-weight:1000!important;box-shadow:0 3px 0 #7d160f}
+.regla-foto-v7{background:linear-gradient(110deg,#fff0a3,#ffe05b)!important;border:2px solid #f2ae00!important;border-left:8px solid #e47700!important;color:#633000!important;font-size:16px!important;line-height:1.55!important;font-weight:1000!important;box-shadow:0 4px 14px rgba(220,150,0,.2)!important}
+.tareas-controles-v7{grid-template-columns:minmax(0,1fr)!important}
+@keyframes brilloTareaFamiliaV101{from{box-shadow:0 0 0 2px rgba(255,191,0,.18),0 5px 14px rgba(205,130,0,.18)}to{box-shadow:0 0 0 5px rgba(255,191,0,.34),0 8px 22px rgba(205,130,0,.3)}}
+@media(prefers-reduced-motion:reduce){.tareas-summary-v8{animation:none!important}}
 .tareas-asignadas-integradas-v10{margin:0 0 16px;padding:0 0 14px;border-bottom:1px solid #e5eaf0}
 .tareas-asignadas-integradas-v10 h3{margin:0 0 7px;color:#17395e;font-size:16px;font-weight:900}
 .tareas-asignadas-integradas-v10 .tareas-list-intro-v10{margin:0 0 10px;font-size:13px;color:#52677f}
@@ -1531,7 +1541,7 @@ body { font-size: 16px; }
             <span class="tareas-summary-copy">
               <span class="eyebrow">Tu compromiso de aprendizaje</span>
               <strong id="titulo-tareas-familia">📚 Tareas didácticas en familia</strong>
-              <small id="tareas-summary-count-v8">Consulta tus tareas, realiza las actividades y envía tus evidencias.</small>
+              <small id="tareas-summary-count-v8">¡Familia! Aquí deben realizar la actividad y subir la fotografía.</small>
             <span id="resumen-tareas-asignadas-v10" hidden>Consulta las actividades que tienes que realizar.</span>
             </span>
             <span class="tareas-summary-action-v8">Ver tareas <b>⌄</b></span>
@@ -1545,13 +1555,12 @@ body { font-size: 16px; }
               </div>
             </div>
             <div class="tareas-header-v7">
-              <p class="regla-foto-v7">📸 Realiza la actividad con tu familia y toma una fotografía que muestre la acción indicada. La evidencia se guardará en Google Drive y el envío se registrará en Google Sheets.</p>
+              <p class="regla-foto-v7">👨‍👩‍👧‍👦 ¡PAPÁ, MAMÁ Y FAMILIA! REALICEN JUNTOS LA ACTIVIDAD INDICADA. 📸 Luego, tomen una fotografía y súbanla como evidencia. El envío se guardará en Google Drive y se registrará en Google Sheets.</p>
               <button type="button" class="btn-alerta-tareas-pendientes-v7" id="btnAlertaTareasPendientesV7" hidden>🔊 Escuchar aviso de tareas pendientes</button>
               <div class="tareas-controles-v7">
                 <select id="selector-tema-tarea" class="select-grande-v7" aria-label="Elegir tema de tarea">
                   <option value="">Cargando las 68 tareas...</option>
                 </select>
-                <input type="search" id="buscador-tema-tarea" class="input-grande-v7" placeholder="🔍 Buscar tema o número..." aria-label="Buscar tarea por tema">
               </div>
               <div id="resumen-tareas-v7" class="resumen-tareas-v7" aria-live="polite">Las tareas se cargan desde Google Sheets.</div>
             </div>
@@ -2467,17 +2476,7 @@ function renderizarTareasFamiliaV7(lista) {
     contenedor.innerHTML='<div class="tareas-vacias-v7">Todavía no se han activado las 68 tareas. La catequista debe ejecutar la preparación inicial del módulo.</div>';
     tareaSeleccionadaV7='';return;
   }
-  const buscador=document.getElementById('buscador-tema-tarea');
-  const busqueda=normalizarTextoTareaV7(buscador&&buscador.value);
-  let seleccion=busqueda?tareasCatequesisAlumnoV7.find(t=>
-    normalizarTextoTareaV7(t.TITULO).includes(busqueda)||
-    normalizarTextoTareaV7(t.ID_TAREA).includes(busqueda)||
-    normalizarTextoTareaV7(t.ID_SESION).includes(busqueda)):
-    tareasCatequesisAlumnoV7.find(t=>String(t.ID_TAREA)===String(anterior));
-  if(busqueda&&!seleccion){
-    contenedor.innerHTML='<div class="tareas-vacias-v7">No se encontró ese tema. Prueba con otra palabra o número.</div>';
-    tareaSeleccionadaV7='';selector.value='';return;
-  }
+  let seleccion=tareasCatequesisAlumnoV7.find(t=>String(t.ID_TAREA)===String(anterior));
   if(!seleccion)seleccion=tareasCatequesisAlumnoV7[0];
   tareaSeleccionadaV7=String(seleccion.ID_TAREA||'');
   selector.value=tareaSeleccionadaV7;
@@ -2835,7 +2834,7 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
     // No depende del CORS de fetch POST ni detiene el juego por una respuesta vacía.
     if (!quizVersionV5Verificada) {
       const versionData = await solicitarJSONP(`${API_URL}?action=verificarVersionCuestionarios`);
-      const versionEsperada = 'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V10-CUESTIONARIOS-10-REANUDABLE-TAREAS-UNIFICADAS';
+      const versionEsperada = 'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V10.1-CUESTIONARIOS-10-REANUDABLE-TAREAS-UNIFICADAS-SIN-BUSCADOR';
       if (!versionData || !versionData.exito || versionData.version !== versionEsperada) {
         const detalle = versionData && (versionData.version || versionData.mensaje)
           ? String(versionData.version || versionData.mensaje)
@@ -3263,14 +3262,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const selectorTareas = document.getElementById('selector-tema-tarea');
-  const buscadorTareas = document.getElementById('buscador-tema-tarea');
   if (selectorTareas) selectorTareas.addEventListener('change', () => {
     tareaSeleccionadaV7 = selectorTareas.value;
-    if (buscadorTareas) buscadorTareas.value = '';
-    renderizarTareasFamiliaV7(tareasCatequesisAlumnoV7);
-  });
-  if (buscadorTareas) buscadorTareas.addEventListener('input', () => {
-    tareaSeleccionadaV7 = '';
     renderizarTareasFamiliaV7(tareasCatequesisAlumnoV7);
   });
 
