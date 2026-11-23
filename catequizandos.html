@@ -1283,6 +1283,17 @@ header{padding-top:14px;padding-bottom:12px}
 @media(max-width:520px){.tema-card-acciones-v9{display:grid;grid-template-columns:1fr}.tema-card-acciones-v9 button{width:100%}}
 
 
+/* V10.3 — alerta automática de tareas, visible y accesible */
+.mute-toggle-v103{font-weight:1000;letter-spacing:.02em;min-height:42px}
+.mute-toggle-v103[aria-pressed="false"]{background:#e5e7eb!important;color:#273449!important;border-color:#94a3b8!important}
+.portal-tareas-alerta-v10{margin:0 0 16px;padding:15px 17px;border-radius:16px;border:2px solid #b42332;background:linear-gradient(110deg,#7f1020,#d62839,#ff4d3d);color:#fff;box-shadow:0 0 0 4px rgba(214,40,57,.16),0 8px 22px rgba(127,16,32,.28);font-weight:1000;line-height:1.45;animation:alertaTareasPulsoV103 .8s ease-in-out infinite alternate}
+.portal-tareas-alerta-v10.alerta-ok{border-color:#147a43;background:linear-gradient(110deg,#12683b,#20a35a);box-shadow:0 0 0 4px rgba(32,163,90,.13),0 8px 22px rgba(18,104,59,.2);animation:none}
+.portal-tareas-alerta-v10 strong{display:block;font-size:clamp(17px,2.3vw,23px);margin-bottom:4px}
+.portal-tareas-alerta-v10 span{font-size:clamp(14px,1.8vw,17px)}
+@keyframes alertaTareasPulsoV103{from{filter:brightness(1);transform:translateY(0)}to{filter:brightness(1.16);transform:translateY(-1px)}}
+@media(prefers-reduced-motion:reduce){.portal-tareas-alerta-v10{animation:none!important}}
+@media(max-width:620px){.portal-tareas-alerta-v10{padding:12px 13px;border-radius:13px;margin-bottom:12px}}
+
 /* V10 — mobile-first: paneles compactos, tareas debajo de bloques y varios videos por tema */
 .tareas-wrapper-v7{margin:12px 0;padding:9px;background:#fffdf8}
 .tareas-summary-v8{padding:12px 13px;border-radius:13px}
@@ -1369,6 +1380,55 @@ body { font-size: 16px; }
 .quiz-group-button-v10[data-estado="PENDIENTE"] .quiz-group-status-v10 { color:#52677f; }
 .quiz-group-button-v10[data-estado="COMPLETADO"] { opacity:.68;cursor:default;background:#f5f8f6; }
 .quiz-group-button-v10 small { grid-column:1/-1;color:#5b6e82;font-weight:800;font-size:12px; }
+
+/* V10.2 — Responsive seguro para celular/tablet/PC y paneles plegables tipo acordeón */
+html, body { width:100%; max-width:100%; overflow-x:hidden; }
+.wrap { width:calc(100% - clamp(12px, 3vw, 40px)); margin:clamp(8px, 2vw, 24px) auto; }
+main, section, .section, .card, .calendar-card, .calendar-layout, .hero, .hero-copy, .hero-right, .tareas-wrapper-v7, .tareas-details-content-v8, .tareas-controles-v7, .tarjetas-grid-v7, .tarjeta-tarea-v7, .quiz-modal, .quiz-modal-backdrop { min-width:0; max-width:100%; }
+img, video, iframe, canvas, svg { max-width:100%; }
+input, select, textarea, button { max-width:100%; }
+button, .btn-action, .quiz-group-button-v10, .tareas-summary-v8, .tarea-asignada-item-v10>summary, .calendar-topic-accordion-v10>summary { overflow-wrap:anywhere; }
+.tareas-details-v8, .tarea-asignada-item-v10, .calendar-topic-accordion-v10 { width:100%; }
+.tarea-asignada-item-v10>summary, .calendar-topic-accordion-v10>summary { flex-wrap:wrap; }
+@media (min-width: 761px) and (max-width: 1100px) {
+ .wrap { width:calc(100% - 24px); margin:12px auto; }
+ header { padding-left:clamp(16px, 3vw, 28px); padding-right:clamp(16px, 3vw, 28px); }
+ main { padding-left:clamp(14px, 2.5vw, 28px); padding-right:clamp(14px, 2.5vw, 28px); }
+}
+@media (max-width: 760px) {
+ .wrap { width:100%; margin:0; border-radius:0; border-left:0; border-right:0; }
+ header { padding:16px 12px 20px; }
+ main { padding:16px 12px 26px !important; }
+ .topbar, .brand, .top-actions, .hero-copy, .hero-right { min-width:0; width:100%; }
+ .top-actions .btn-action { white-space:normal; min-width:0; }
+ .hero { gap:14px !important; }
+ .calendar-layout, .calendar-card, .calendar-top, .cal-controls { min-width:0; width:100%; }
+ .cal-controls { flex-wrap:wrap; justify-content:center; gap:6px; }
+ .cal-controls strong { min-width:0; flex:1 1 120px; }
+ .tareas-wrapper-v7 { margin:14px 0 18px; padding:10px !important; border-radius:14px; }
+ .tareas-summary-v8 { gap:8px; align-items:flex-start; }
+ .tareas-summary-copy { overflow-wrap:anywhere; }
+ .tareas-summary-action-v8 { flex:0 1 auto; white-space:normal; }
+ .tareas-details-content-v8 { padding:8px !important; }
+ .tareas-controles-v7 { grid-template-columns:minmax(0,1fr) !important; }
+ .tarjeta-tarea-v7 { padding:10px !important; }
+ .quiz-modal-backdrop, .video-gallery-overlay-v10 { padding:6px !important; }
+ .quiz-modal, .video-gallery-modal-v10 { width:100% !important; max-width:100% !important; max-height:calc(100dvh - 12px) !important; overflow-y:auto; }
+ .calendar-topic-item { overflow-wrap:anywhere; }
+}
+@media (max-width: 420px) {
+ .brand { gap:8px; } .crest { flex:0 0 48px !important; width:48px !important; height:48px !important; }
+ .brand-text h2 { font-size:14px !important; } .brand-text small { font-size:8px !important; }
+ .hero-copy h1 { font-size:clamp(24px, 8vw, 31px) !important; }
+ .timer { grid-template-columns:repeat(3,minmax(0,1fr)); }
+ .timebox { min-width:0; padding:8px 4px; }
+ .timebox strong { font-size:clamp(20px,7vw,28px); }
+ .tareas-summary-copy strong { font-size:15px !important; }
+ .tareas-summary-action-v8 { padding:7px 9px; font-size:10px; }
+ .quiz-opcion-juego { padding:11px !important; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior:auto !important; transition:none !important; } }
+
 </style>
 </head>
 <body>
@@ -1439,7 +1499,7 @@ body { font-size: 16px; }
         <p>Sembrando fe, cultivando valores y construyendo amistad con Jesús.</p>
         <div class="top-actions">
         <button type="button" class="btn-action btn-actualizar" id="btnRefreshPortal">🔄 Actualizar</button>
-        <button type="button" class="btn-action mute-toggle" id="btnToggleVoice">🔊 Voz Activa</button>
+        <button type="button" class="btn-action mute-toggle mute-toggle-v103" id="btnToggleVoice" aria-pressed="true" title="Silenciar o activar los avisos por voz y la alarma">🔊 ALERTAS ACTIVAS</button>
         <a href="index.html" class="btn-action home">🏠 Inicio</a>
         <button type="button" class="btn-action btn-logout" id="btnLogout">🚪 Salir</button>
       </div>
@@ -1473,6 +1533,7 @@ body { font-size: 16px; }
         <p id="welcomeStudentMeta">Explora los 6 bloques oficiales y consulta tus temas, subtítulos, objetivos, valores y citas bíblicas desde tu hoja de catequesis.</p>
       </div>
     </div>
+    <div id="portalTareasAlertaV10" class="portal-tareas-alerta-v10" hidden aria-live="assertive" role="alert"></div>
 
     <section class="section">
       <div class="eyebrow">Itinerario Oficial</div>
@@ -1829,7 +1890,8 @@ let clasesSheet = [];
 let asistenciaPorAlumno = {};
 let tareasPorAlumno = {};
 let resumenPortalCatequizando = null;
-let vozActiva = true;
+let vozActiva = (() => { try { return localStorage.getItem('lds_cat_audio_alertas_v103') !== '0'; } catch(e) { return true; } })();
+let alarmaContextoV103 = null;
 const FECHA_HOY_CAL = new Date();
 let mesActualCal = FECHA_HOY_CAL.getMonth();
 let anioCal = FECHA_HOY_CAL.getFullYear();
@@ -1841,6 +1903,21 @@ function normalizarUrlFotoGitHub(url) {
     .replace('/blob/', '/');
 }
 
+function actualizarBotonAudioPortalV103() {
+  const boton = document.getElementById('btnToggleVoice');
+  if (!boton) return;
+  boton.textContent = vozActiva ? '🔊 ALERTAS ACTIVAS' : '🔇 ALERTAS SILENCIADAS';
+  boton.setAttribute('aria-pressed', vozActiva ? 'true' : 'false');
+  boton.title = vozActiva ? 'Pulsa para silenciar la alarma y los avisos por voz' : 'Pulsa para activar la alarma y los avisos por voz';
+}
+function detenerAudioAlertaPortalV103() {
+  try { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } catch(e) {}
+  try { if (typeof quizCancelarVozV6 === 'function') quizCancelarVozV6(false); } catch(e) {}
+  if (alarmaContextoV103) {
+    try { alarmaContextoV103.close(); } catch(e) {}
+    alarmaContextoV103 = null;
+  }
+}
 function hablarTexto(texto) {
   if (!vozActiva || !('speechSynthesis' in window)) return;
   try {
@@ -1957,7 +2034,11 @@ function desbloquearPortal(perfil) {
     const avatar = document.getElementById('welcomeStudentAvatar');
     avatar.src = normalizarUrlFotoGitHub(perfil.FOTO);
     avatar.onerror = function() { this.src = RUTAS_INSIGNIA[0]; };
-    hablarTexto(`¡Hola, ${perfil.NOMBRES || perfil.NOMBRE_COMPLETO}! Bienvenido al portal de catequizandos.`);
+    bienvenidaTerminadaTareasV103 = false;
+    hablarTextoConFinalTareasV103(`¡Hola, ${perfil.NOMBRES || perfil.NOMBRE_COMPLETO}! Bienvenido al portal de catequizandos.`, () => {
+      bienvenidaTerminadaTareasV103 = true;
+      intentarAvisoAutomaticoTareasV103();
+    });
   }
 
   renderizarTarjetasAlumnos(perfil ? perfil.ID_NINO : '');
@@ -2229,6 +2310,8 @@ async function cargarResumenSeguimientoPortal(perfil, opciones) {
   if (!data || !data.exito) throw new Error(data && data.mensaje ? data.mensaje : 'No se pudo leer tu seguimiento desde Google Sheets.');
   portalAplicarResumenV7(data, perfilLocal);
   if (idNino) portalGuardarCacheV7(portalClaveResumenV7(idNino), data);
+  datosTareasFrescosSheetsV103 = true;
+  intentarAvisoAutomaticoTareasV103();
   return data;
 }
 
@@ -2377,35 +2460,120 @@ function renderizarFechasTareaV7(fechaEntrega) {
 }
 
 let ultimoAvisoTareasPendientesV7 = 0;
+let bienvenidaTerminadaTareasV103 = false;
+let datosTareasFrescosSheetsV103 = false;
+let alertaTareasAutomaticaEmitidaV103 = false;
+function fechaTareaLocalV103(valor) {
+  if (!valor) return null;
+  if (valor instanceof Date && !isNaN(valor.getTime())) return new Date(valor.getFullYear(), valor.getMonth(), valor.getDate());
+  const texto = String(valor).trim();
+  let m = texto.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (m) return new Date(Number(m[1]), Number(m[2])-1, Number(m[3]));
+  m = texto.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})$/);
+  if (m) return new Date(Number(m[3]), Number(m[2])-1, Number(m[1]));
+  const d = new Date(texto);
+  if (isNaN(d.getTime())) return null;
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+}
+function obtenerResumenAlertaTareasV103() {
+  const tareas = Array.isArray(tareasCatequesisAlumnoV7) ? tareasCatequesisAlumnoV7 : [];
+  const entregadas = t => ['ENVIADA','REVISADA'].includes(String(t.ESTADO_ENTREGA || '').trim().toUpperCase());
+  const pendientes = tareas.filter(t => !entregadas(t));
+  const hoy = new Date(); hoy.setHours(0,0,0,0);
+  const manana = new Date(hoy); manana.setDate(manana.getDate()+1);
+  const fechaIgual = (a,b) => !!a && a.getTime() === b.getTime();
+  const vencidas = pendientes.filter(t => { const f=fechaTareaLocalV103(t.FECHA_ENTREGA); return f && f < hoy; });
+  const vencenManana = pendientes.filter(t => fechaIgual(fechaTareaLocalV103(t.FECHA_ENTREGA), manana));
+  const corregir = pendientes.filter(t => String(t.ESTADO_ENTREGA||'').trim().toUpperCase()==='CORREGIR');
+  return {total:tareas.length, pendientes:pendientes.length, entregadas:tareas.length-pendientes.length, vencidas:vencidas.length, manana:vencenManana.length, corregir:corregir.length};
+}
+function mostrarAlertaTareasPortalV103(resumen) {
+  const el=document.getElementById('portalTareasAlertaV10');
+  if(!el)return;
+  el.hidden=false;
+  el.classList.remove('alerta-ok');
+  if(resumen.total===0){
+    el.classList.add('alerta-ok');
+    el.innerHTML='<strong>📚 TODAVÍA NO TIENES TAREAS ASIGNADAS</strong><span>Cuando tu catequista publique una actividad, aparecerá aquí. Revisa tu portal más adelante.</span>';
+  } else if(resumen.pendientes===0){
+    el.classList.add('alerta-ok');
+    el.innerHTML='<strong>🎉 ¡FELICITACIONES! NO TIENES TAREAS PENDIENTES</strong><span>Has entregado todas tus actividades. ¡Sigue avanzando con responsabilidad y alegría!</span>';
+  } else {
+    let extra='';
+    if(resumen.vencidas)extra+=' ⚠️ '+resumen.vencidas+(resumen.vencidas===1?' tarea está vencida.':' tareas están vencidas.');
+    if(resumen.manana)extra+=' ⏰ '+resumen.manana+(resumen.manana===1?' tarea vence mañana.':' tareas vencen mañana.');
+    if(resumen.corregir)extra+=' ✏️ '+resumen.corregir+(resumen.corregir===1?' tarea necesita corrección.':' tareas necesitan corrección.');
+    el.innerHTML='<strong>🚨 ¡ATENCIÓN, ATENCIÓN! ¡PONTE LAS PILAS!</strong><span>Tienes '+resumen.pendientes+(resumen.pendientes===1?' tarea pendiente':' tareas pendientes')+'.'+extra+' Papá, mamá y familia: revisen las actividades y envíen las evidencias.</span>';
+  }
+}
+function sonidoAlertaTareasV103(callback) {
+  let terminado=false;
+  const cerrar=()=>{if(terminado)return;terminado=true;if(callback)callback();};
+  if(!vozActiva){cerrar();return;}
+  try{
+    const AudioCtx=window.AudioContext||window.webkitAudioContext;
+    if(!AudioCtx){setTimeout(cerrar,450);return;}
+    const ctx=new AudioCtx();
+    alarmaContextoV103=ctx;
+    if(ctx.state==='suspended'&&ctx.resume){try{ctx.resume();}catch(e){}}
+    const inicio=ctx.currentTime;
+    // Tres ráfagas fuertes tipo alarma de atención, sin depender de archivos externos.
+    [0,0.38,0.76,1.14].forEach((retardo,i)=>{
+      const osc=ctx.createOscillator(), gain=ctx.createGain();
+      osc.type='sawtooth';
+      osc.frequency.setValueAtTime(i%2?780:1120,inicio+retardo);
+      osc.frequency.linearRampToValueAtTime(i%2?1120:780,inicio+retardo+0.24);
+      gain.gain.setValueAtTime(0.0001,inicio+retardo);
+      gain.gain.exponentialRampToValueAtTime(0.23,inicio+retardo+0.025);
+      gain.gain.exponentialRampToValueAtTime(0.0001,inicio+retardo+0.27);
+      osc.connect(gain);gain.connect(ctx.destination);osc.start(inicio+retardo);osc.stop(inicio+retardo+0.29);
+    });
+    setTimeout(()=>{try{ctx.close();}catch(_){}if(alarmaContextoV103===ctx)alarmaContextoV103=null;cerrar();},1650);
+  }catch(e){console.warn('No se pudo reproducir la alarma sonora.',e);setTimeout(cerrar,350);}
+}
+function hablarTextoConFinalTareasV103(texto,callback) {
+  if(!vozActiva||!('speechSynthesis' in window)){if(callback)callback();return;}
+  let finalizado=false;
+  const terminar=()=>{if(finalizado)return;finalizado=true;if(callback)callback();};
+  try{
+    window.speechSynthesis.cancel();
+    const utter=new SpeechSynthesisUtterance(texto);
+    utter.lang='es-PE';utter.rate=0.94;utter.pitch=1.05;
+    utter.onend=terminar;utter.onerror=terminar;
+    window.speechSynthesis.speak(utter);
+    // Respaldo por si el navegador no dispara onend.
+    setTimeout(terminar,Math.max(7000, texto.length*95));
+  }catch(e){terminar();}
+}
+function reproducirMensajeTareasV103(resumen,forzar) {
+  if(!resumen)return;
+  const ahora=Date.now();
+  if(!forzar&&ahora-ultimoAvisoTareasPendientesV7<30000)return;
+  ultimoAvisoTareasPendientesV7=ahora;
+  if(resumen.total===0){
+    hablarTexto('Familia, todavía no hay tareas asignadas. Cuando la catequista publique una actividad, aparecerá en este portal.');
+  }else if(resumen.pendientes===0){
+    hablarTexto('¡Felicitaciones! No tienes tareas pendientes. Has entregado todas tus actividades. ¡Sigue así!');
+  }else{
+    let mensaje='¡Atención, atención! ¡Ponte las pilas! Tienes '+resumen.pendientes+(resumen.pendientes===1?' tarea pendiente.':' tareas pendientes.');
+    if(resumen.vencidas)mensaje+=' ¡Alerta! '+resumen.vencidas+(resumen.vencidas===1?' tarea está vencida.':' tareas están vencidas.');
+    if(resumen.manana)mensaje+=' ¡Atención! '+resumen.manana+(resumen.manana===1?' tarea vence mañana.':' tareas vencen mañana.');
+    if(resumen.corregir)mensaje+=' Debes corregir '+resumen.corregir+(resumen.corregir===1?' tarea.':' tareas.');
+    mensaje+=' Papá, mamá y familia, revisen las tareas y ayuden a enviar las evidencias. ¡No lo dejen para después!';
+    sonidoAlertaTareasV103(()=>hablarTexto(mensaje));
+  }
+}
+function intentarAvisoAutomaticoTareasV103() {
+  if(alertaTareasAutomaticaEmitidaV103||!bienvenidaTerminadaTareasV103||!datosTareasFrescosSheetsV103)return;
+  alertaTareasAutomaticaEmitidaV103=true;
+  const resumen=obtenerResumenAlertaTareasV103();
+  mostrarAlertaTareasPortalV103(resumen);
+  reproducirMensajeTareasV103(resumen,false);
+}
 function anunciarTareasPendientesV7(forzar) {
-  const pendientes = tareasCatequesisAlumnoV7.filter(t => !['ENVIADA','REVISADA'].includes(String(t.ESTADO_ENTREGA || '').toUpperCase())).length;
-  if (!pendientes) return;
-  const ahora = Date.now();
-  if (!forzar && ahora - ultimoAvisoTareasPendientesV7 < 30000) return;
-  ultimoAvisoTareasPendientesV7 = ahora;
-  try {
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if (AudioCtx) {
-      const ctx = new AudioCtx();
-      const inicio = ctx.currentTime;
-      [0, 0.32, 0.64].forEach((retardo, indice) => {
-        const tono = ctx.createOscillator();
-        const volumen = ctx.createGain();
-        const t = inicio + retardo;
-        tono.type = 'square';
-        tono.frequency.setValueAtTime(indice === 1 ? 740 : 920, t);
-        volumen.gain.setValueAtTime(0.0001, t);
-        volumen.gain.exponentialRampToValueAtTime(0.32, t + 0.025);
-        volumen.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
-        tono.connect(volumen);
-        volumen.connect(ctx.destination);
-        tono.start(t);
-        tono.stop(t + 0.23);
-      });
-      setTimeout(() => { try { ctx.close(); } catch (_) {} }, 1500);
-    }
-  } catch (e) { console.warn('El navegador no permitió reproducir el tono de aviso.', e); }
-  hablarTexto('¡Atención! Tienes ' + pendientes + (pendientes === 1 ? ' tarea pendiente.' : ' tareas pendientes.') + ' Recuerda realizar tu actividad y enviar la fotografía a tu catequista.');
+  const resumen=obtenerResumenAlertaTareasV103();
+  mostrarAlertaTareasPortalV103(resumen);
+  reproducirMensajeTareasV103(resumen,!!forzar);
 }
 
 function renderizarTareasAsignadasV10(lista) {
@@ -3237,11 +3405,16 @@ document.addEventListener('DOMContentLoaded', () => {
     renderizarCalendario();
   });
 
-  document.getElementById('btnToggleVoice').addEventListener('click', function() {
-    vozActiva = !vozActiva;
-    this.textContent = vozActiva ? '🔊 Voz Activa' : '🔇 Silenciado';
-    if (!vozActiva) quizCancelarVozV6(true);
-  });
+  const botonAudioPortalV103 = document.getElementById('btnToggleVoice');
+  if (botonAudioPortalV103) {
+    actualizarBotonAudioPortalV103();
+    botonAudioPortalV103.addEventListener('click', function() {
+      vozActiva = !vozActiva;
+      try { localStorage.setItem('lds_cat_audio_alertas_v103', vozActiva ? '1' : '0'); } catch(e) {}
+      actualizarBotonAudioPortalV103();
+      if (!vozActiva) detenerAudioAlertaPortalV103();
+    });
+  }
 
   document.getElementById('btnRefreshPortal').addEventListener('click', async () => {
     if (portalSincronizacionEnCursoV10) return;
@@ -3314,6 +3487,25 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 </script>
+
+<script>
+/* V10.2 — Acordeón: al abrir un panel, cierra los demás del mismo contenedor. */
+(function activarAcordeonesV102(){
+  if (window.__acordeonesV102Activos) return;
+  window.__acordeonesV102Activos = true;
+  document.addEventListener('toggle', function(event){
+    const abierto = event.target;
+    if (!(abierto instanceof HTMLDetailsElement) || !abierto.open) return;
+    const parent = abierto.parentElement;
+    if (!parent) return;
+    parent.querySelectorAll(':scope > details[open]').forEach(function(otro){
+      if (otro !== abierto) otro.open = false;
+    });
+  }, true);
+})();
+</script>
+
+<!-- V10.4: botón de silencio persistente para alarma y voz; sin cambios en GS/Sheets -->
 </body>
 </html>
 ```
