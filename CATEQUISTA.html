@@ -748,6 +748,22 @@ body{overflow-x:hidden}
     font:800 15px/1.2 Arial,sans-serif!important;
   }
 }
+
+/* Navegación organizada en tres áreas; se mantienen las vistas y acciones originales. */
+.menu-principal-catequistas{display:block!important;width:100%;}
+.menu-intro-catequistas{margin:4px 0 16px;padding:4px 2px;}
+.menu-intro-catequistas h2{margin:0 0 6px;color:#17365d;font-size:clamp(1.15rem,2.5vw,1.55rem);}
+.menu-intro-catequistas p,.menu-area-heading p{margin:0;color:#687b96;line-height:1.45;}
+.menu-areas-catequistas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0 18px;}
+.menu-area-btn{border:1px solid #dce4ef;background:#fff;border-radius:16px;padding:14px 12px;min-height:108px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;color:#17365d;cursor:pointer;box-shadow:0 3px 10px rgba(16,42,76,.04);}
+.menu-area-btn span{font-size:1.65rem;line-height:1;}.menu-area-btn strong{font-size:.86rem;letter-spacing:.02em;text-align:center;}.menu-area-btn small{font-size:.72rem;color:#687b96;text-align:center;line-height:1.35;}
+.menu-area-btn.active{border-color:#17365d;background:#eef4fb;box-shadow:0 0 0 2px #17365d18;}
+.menu-area-panel{display:block;}.menu-area-panel[hidden]{display:none!important;}
+.menu-area-heading{margin:0 0 12px;padding:12px 14px;background:#f4f7fb;border-left:4px solid #d8ad3c;border-radius:10px;}
+.menu-area-heading h3{margin:0 0 4px;color:#17365d;font-size:1.05rem;}
+.menu-area-panel .tools-grid{margin-top:0;}
+@media(max-width:760px){.menu-areas-catequistas{grid-template-columns:1fr;gap:9px}.menu-area-btn{min-height:74px;display:grid;grid-template-columns:42px 1fr;grid-template-rows:auto auto;text-align:left;justify-items:start;padding:12px 14px}.menu-area-btn span{grid-row:1/3;align-self:center}.menu-area-btn strong,.menu-area-btn small{text-align:left}.menu-area-panel .tools-grid{grid-template-columns:1fr!important;gap:11px!important}.menu-area-panel .tool-card{padding:15px!important}}
+@media(min-width:761px) and (max-width:1100px){.menu-area-panel .tools-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}}
 </style>
 
 </head>
@@ -810,66 +826,56 @@ body{overflow-x:hidden}
 
 
     <!-- MENÚ DE OPCIONES -->
-    <div class="tools-grid" id="menu-herramientas">
-      <div class="menu-step-title">PASO 1 · PLANIFICACIÓN Y PROGRAMACIÓN</div>
-<div class="tool-card">
+    <div class="menu-principal-catequistas" id="menu-herramientas">
+<div class="menu-intro-catequistas"><h2>Centro de gestión · Camino hacia Jesús 2026</h2><p>Selecciona el área que deseas administrar. Los datos se consultan y guardan en Google Sheets.</p></div>
+<div class="menu-areas-catequistas" role="navigation" aria-label="Áreas principales">
+<button class="menu-area-btn active" type="button" data-area="administracion" aria-pressed="true" onclick="seleccionarAreaCatequistas('administracion')"><span>⚙️</span><strong>ADMINISTRACIÓN</strong><small>Programa · gestores · configuración</small></button>
+<button class="menu-area-btn" type="button" data-area="catequizandos" aria-pressed="false" onclick="seleccionarAreaCatequistas('catequizandos')"><span>👧👦</span><strong>CATEQUIZANDOS</strong><small>Progreso · notas · asistencia · tareas</small></button>
+<button class="menu-area-btn" type="button" data-area="padres" aria-pressed="false" onclick="seleccionarAreaCatequistas('padres')"><span>👨‍👩‍👧</span><strong>PADRES Y FAMILIAS</strong><small>Pagos · documentos · comunicación</small></button>
+</div>
+<div class="menu-area-panel" id="area-administracion"><div class="menu-area-heading"><h3>⚙️ Administración del programa</h3><p>Planificación, supervisión y herramientas de gestión.</p></div><div class="tools-grid"><div class="tool-card">
         <div><div class="module-cartoon-icon" aria-hidden="true">📚✨</div><h4 id="titulo-total-sesiones">Programa de sesiones</h4><p>Programa completo y materiales organizados.</p></div>
         <button class="btn small primary" onclick="mostrarVista('vista-clases')">Abrir Sesiones</button>
-      </div>
-<div class="tool-card">
+      </div><div class="tool-card">
         <div><div class="module-cartoon-icon" aria-hidden="true">📆🌼🌈</div><h4>Calendario de catequesis</h4><p>Horarios oficiales: Martes y Jueves.</p></div>
         <button class="btn small" onclick="mostrarVista('vista-calendario')">Ver Calendario</button>
-      </div>
-<div class="tool-card module-link-card">
+      </div><div class="tool-card module-link-card">
         <div><div class="module-cartoon-icon" aria-hidden="true">📆🌼</div><h4>Programación</h4><p>Consulta de la programación general y calendario de catequesis.</p></div>
         <a class="btn small" href="./programacion.html">Abrir Programación</a>
-      </div>
-      <div class="tool-card admin-only" id="tarjeta-gestion-videos" hidden>
+      </div><div class="tool-card admin-only" id="tarjeta-gestion-videos" hidden>
         <div><div class="module-cartoon-icon" aria-hidden="true">🎬📚</div><h4>Biblioteca de videos por tema</h4><p>Registra hasta seis videos para cada tema. Solo las administradoras pueden gestionar estos recursos.</p></div>
         <button class="btn small primary" type="button" onclick="mostrarVista('vista-videos-temas')">Gestionar videos</button>
-      </div>
-      <div class="menu-step-title">PASO 2 · SEGUIMIENTO DE CATEQUIZANDOS</div>
-<div class="tool-card">
-        <div><div class="module-cartoon-icon" aria-hidden="true">📝🌟</div><h4>Asistencia Modular</h4><p>Control matricial ergonómico conectado a Google Sheet.</p></div>
-        <button class="btn small primary" onclick="mostrarVista('vista-asistencia')">Ver Asistencia</button>
-      </div>
-<div class="tool-card">
-        <div><div class="module-cartoon-icon" aria-hidden="true">📊⭐</div><h4>Dashboard</h4><p>Estadísticas generales de la parroquia.</p></div>
-        <button class="btn small" onclick="mostrarVista('vista-dashboard')">Ver Estadísticas</button>
-      </div>
-      <div class="tool-card">
-        <div><div class="module-cartoon-icon" aria-hidden="true">📷📝</div><h4>Revisión de evidencias</h4><p>Consulta las fotografías enviadas por los catequizandos y registra tu revisión.</p></div>
-        <button class="btn small primary" type="button" onclick="mostrarVista('vista-evidencias-tareas')">Revisar tareas</button>
-      </div>
-<div class="tool-card module-link-card admin-only" id="tarjeta-portal-catequizandos" hidden>
-        <div><div class="module-cartoon-icon" aria-hidden="true">🧒🎒</div><h4>Portal Catequizando</h4><p>Vista administrativa general de alumnos, fichas, tareas, asistencia y avances. No suplanta el ingreso individual del alumno.</p></div>
-        <a class="btn small primary" href="./catequizandos.html?modo=administradora" onclick="return abrirPortalCatequizandoDesdeCatequista(event)">Consultar Catequizandos</a>
-      </div>
-      <div class="menu-step-title">PASO 3 · ADMINISTRACIÓN Y ATENCIÓN A FAMILIAS</div>
-<div class="tool-card">
-        <div><div class="module-cartoon-icon" aria-hidden="true">💰🪙</div><h4>Control de Pagos</h4><p>Registro único de S/. 40.00 con vouchers.</p></div>
-        <button class="btn small gold" onclick="mostrarVista('vista-pagos')">Ver Pagos (S/ 40)</button>
-      </div>
-<div class="tool-card">
-        <div><div class="module-cartoon-icon" aria-hidden="true">👨‍👩‍👧💞‍👦💗</div><h4>Padres de Familia</h4><p>Directorio editable con DNI y teléfono.</p></div>
-        <button class="btn small gold" onclick="mostrarVista('vista-padres')">Ver Padres</button>
-      </div>
-<div class="tool-card module-link-card" id="tarjeta-portal-padres">
-        <div><div class="module-cartoon-icon" aria-hidden="true">👨‍👩‍👧💞</div><h4>Portal de Padres</h4><p>Acceso familiar a avisos, asistencia, avances y datos del catequizando.</p></div>
-        <a class="btn small gold" href="./padres.html" onclick="return abrirPortalPadresDesdeCatequista(event)">Abrir Portal de Padres</a>
-      </div>
-      <div class="menu-step-title">PASO 4 · COMUNICACIÓN Y NOTIFICACIONES</div>
-<div class="tool-card" id="tarjeta-mensajes">
-        <div><div class="module-cartoon-icon" aria-hidden="true">💌🔔</div><h4>Mensajes y notificaciones <span id="contador-mensajes-menu" class="badge-count">0</span></h4><p>Comunicados oficiales, mensajes recibidos de catequizandos y avisos de coordinación.</p></div>
-        <button class="btn small gold" type="button" onclick="mostrarVista('vista-mensajes')">Abrir mensajes</button>
-      </div>
-      <div class="menu-step-title">PASO 5 · COORDINACIÓN Y SUPERVISIÓN</div>
-<div class="tool-card module-link-card admin-only" id="tarjeta-portal-gestor" hidden>
+      </div><div class="tool-card module-link-card admin-only" id="tarjeta-portal-gestor" hidden>
         <div><div class="module-cartoon-icon" aria-hidden="true">⛪✨</div><h4>Supervisión Pastoral</h4><p>Consulta general de clases, catequizandos, padres, asistencia, calificaciones y documentación. Este módulo es de solo lectura.</p></div>
         <a class="btn small primary" href="./GestorPastoral.html?modo=administradora" onclick="return abrirGestorPastoralDesdeCatequista(event)">Abrir Supervisión</a>
-      </div>
-
-    </div>
+      </div><div class="tool-card admin-only" id="tarjeta-administracion-cuentas" hidden><div><div class="module-cartoon-icon" aria-hidden="true">🔐👩‍💼</div><h4>Administración de cuentas</h4><p>Gestiona accesos y cuentas de catequistas administradoras.</p></div><button class="btn small primary" type="button" onclick="abrirAdministradorCatequistas()">Administrar cuentas</button></div></div></div>
+<div class="menu-area-panel" id="area-catequizandos" hidden><div class="menu-area-heading"><h3>👧👦 Gestión de catequizandos</h3><p>Seguimiento del avance, evaluaciones, asistencia y evidencias.</p></div><div class="tools-grid"><div class="tool-card">
+        <div><div class="module-cartoon-icon" aria-hidden="true">📝🌟</div><h4>Asistencia Modular</h4><p>Control matricial ergonómico conectado a Google Sheet.</p></div>
+        <button class="btn small primary" onclick="mostrarVista('vista-asistencia')">Ver Asistencia</button>
+      </div><div class="tool-card">
+        <div><div class="module-cartoon-icon" aria-hidden="true">📊⭐</div><h4>Dashboard</h4><p>Estadísticas generales de la parroquia.</p></div>
+        <button class="btn small" onclick="mostrarVista('vista-dashboard')">Ver Estadísticas</button>
+      </div><div class="tool-card">
+        <div><div class="module-cartoon-icon" aria-hidden="true">📷📝</div><h4>Revisión de evidencias</h4><p>Consulta las fotografías enviadas por los catequizandos y registra tu revisión.</p></div>
+        <button class="btn small primary" type="button" onclick="mostrarVista('vista-evidencias-tareas')">Revisar tareas</button>
+      </div><div class="tool-card module-link-card admin-only" id="tarjeta-portal-catequizandos" hidden>
+        <div><div class="module-cartoon-icon" aria-hidden="true">🧒🎒</div><h4>Portal Catequizando</h4><p>Vista administrativa general de alumnos, fichas, tareas, asistencia y avances. No suplanta el ingreso individual del alumno.</p></div>
+        <a class="btn small primary" href="./catequizandos.html?modo=administradora" onclick="return abrirPortalCatequizandoDesdeCatequista(event)">Consultar Catequizandos</a>
+      </div></div></div>
+<div class="menu-area-panel" id="area-padres" hidden><div class="menu-area-heading"><h3>👨‍👩‍👧 Padres y familias</h3><p>Atención familiar, pagos, directorio y mensajes.</p></div><div class="tools-grid"><div class="tool-card">
+        <div><div class="module-cartoon-icon" aria-hidden="true">💰🪙</div><h4>Control de Pagos</h4><p>Registro único de S/. 40.00 con vouchers.</p></div>
+        <button class="btn small gold" onclick="mostrarVista('vista-pagos')">Ver Pagos (S/ 40)</button>
+      </div><div class="tool-card">
+        <div><div class="module-cartoon-icon" aria-hidden="true">👨‍👩‍👧💞‍👦💗</div><h4>Padres de Familia</h4><p>Directorio editable con DNI y teléfono.</p></div>
+        <button class="btn small gold" onclick="mostrarVista('vista-padres')">Ver Padres</button>
+      </div><div class="tool-card module-link-card" id="tarjeta-portal-padres">
+        <div><div class="module-cartoon-icon" aria-hidden="true">👨‍👩‍👧💞</div><h4>Portal de Padres</h4><p>Acceso familiar a avisos, asistencia, avances y datos del catequizando.</p></div>
+        <a class="btn small gold" href="./padres.html" onclick="return abrirPortalPadresDesdeCatequista(event)">Abrir Portal de Padres</a>
+      </div><div class="tool-card" id="tarjeta-mensajes">
+        <div><div class="module-cartoon-icon" aria-hidden="true">💌🔔</div><h4>Mensajes y notificaciones <span id="contador-mensajes-menu" class="badge-count">0</span></h4><p>Comunicados oficiales, mensajes recibidos de catequizandos y avisos de coordinación.</p></div>
+        <button class="btn small gold" type="button" onclick="mostrarVista('vista-mensajes')">Abrir mensajes</button>
+      </div></div></div>
+</div>
 
     <!-- VISTA MENSAJES Y NOTIFICACIONES -->
     <div id="vista-mensajes" style="display:none; margin-top:15px;">
@@ -3446,6 +3452,17 @@ async function sincronizarCalendario(mostrarAlerta) {
   }
 }
 
+
+function seleccionarAreaCatequistas(area){
+  const areas=['administracion','catequizandos','padres'];
+  if(!areas.includes(area)) return;
+  areas.forEach(a=>{
+    const panel=document.getElementById('area-'+a);
+    const btn=document.querySelector('.menu-area-btn[data-area="'+a+'"]');
+    if(panel) panel.hidden=(a!==area);
+    if(btn){btn.classList.toggle('active',a===area);btn.setAttribute('aria-pressed',a===area?'true':'false');}
+  });
+}
 function initPortalCatequistas() {
   document.addEventListener('click', activarAudioMensajes, { once:true });
   const botonSilencio = $('mute-toggle');
