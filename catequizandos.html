@@ -1,4 +1,3 @@
-```
 <!DOCTYPE html>
 <html lang="es" class="auth-required">
 <head>
@@ -2506,6 +2505,26 @@ function mostrarAlertaTareasPortalV103(resumen) {
     el.innerHTML='<strong>🚨 ¡ATENCIÓN, ATENCIÓN! ¡PONTE LAS PILAS!</strong><span>Tienes '+resumen.pendientes+(resumen.pendientes===1?' tarea pendiente':' tareas pendientes')+'.'+extra+' Papá, mamá y familia: revisen las actividades y envíen las evidencias.</span>';
   }
 }
+function prepararAudioPortalV103() {
+  if (!vozActiva) return;
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    if (!alarmaContextoV103 || alarmaContextoV103.state === 'closed') alarmaContextoV103 = new AudioCtx();
+    const ctx = alarmaContextoV103;
+    // Se ejecuta directamente desde el gesto de envío del login para desbloquear audio.
+    if (ctx.state === 'suspended' && ctx.resume) {
+      const promesa = ctx.resume();
+      if (promesa && typeof promesa.then === 'function') promesa.catch(() => {});
+    }
+    // Oscilador inaudible de activación, ligado al gesto del usuario.
+    const osc = ctx.createOscillator(), gain = ctx.createGain();
+    gain.gain.value = 0.00001;
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(); osc.stop(ctx.currentTime + 0.035);
+    osc.onended = () => { try { osc.disconnect(); gain.disconnect(); } catch(e) {} };
+  } catch(e) { console.warn('No se pudo preparar el audio del portal.', e); }
+}
 function sonidoAlertaTareasV103(callback) {
   let terminado=false;
   const cerrar=()=>{if(terminado)return;terminado=true;if(callback)callback();};
@@ -2513,24 +2532,31 @@ function sonidoAlertaTareasV103(callback) {
   try{
     const AudioCtx=window.AudioContext||window.webkitAudioContext;
     if(!AudioCtx){setTimeout(cerrar,450);return;}
-    const ctx=new AudioCtx();
-    alarmaContextoV103=ctx;
-    if(ctx.state==='suspended'&&ctx.resume){try{ctx.resume();}catch(e){}}
-    const inicio=ctx.currentTime;
-    // Tres ráfagas fuertes tipo alarma de atención, sin depender de archivos externos.
-    [0,0.38,0.76,1.14].forEach((retardo,i)=>{
-      const osc=ctx.createOscillator(), gain=ctx.createGain();
-      osc.type='sawtooth';
-      osc.frequency.setValueAtTime(i%2?780:1120,inicio+retardo);
-      osc.frequency.linearRampToValueAtTime(i%2?1120:780,inicio+retardo+0.24);
-      gain.gain.setValueAtTime(0.0001,inicio+retardo);
-      gain.gain.exponentialRampToValueAtTime(0.23,inicio+retardo+0.025);
-      gain.gain.exponentialRampToValueAtTime(0.0001,inicio+retardo+0.27);
-      osc.connect(gain);gain.connect(ctx.destination);osc.start(inicio+retardo);osc.stop(inicio+retardo+0.29);
-    });
-    setTimeout(()=>{try{ctx.close();}catch(_){}if(alarmaContextoV103===ctx)alarmaContextoV103=null;cerrar();},1650);
+    if(!alarmaContextoV103 || alarmaContextoV103.state==='closed') alarmaContextoV103=new AudioCtx();
+    const ctx=alarmaContextoV103;
+    const iniciar=()=>{
+      if(!vozActiva){cerrar();return;}
+      const inicio=ctx.currentTime+0.04;
+      // Cuatro ráfagas de alarma, utilizando el contexto activado durante el login.
+      [0,0.38,0.76,1.14].forEach((retardo,i)=>{
+        const osc=ctx.createOscillator(), gain=ctx.createGain();
+        osc.type='sawtooth';
+        osc.frequency.setValueAtTime(i%2?780:1120,inicio+retardo);
+        osc.frequency.linearRampToValueAtTime(i%2?1120:780,inicio+retardo+0.24);
+        gain.gain.setValueAtTime(0.0001,inicio+retardo);
+        gain.gain.exponentialRampToValueAtTime(0.18,inicio+retardo+0.025);
+        gain.gain.exponentialRampToValueAtTime(0.0001,inicio+retardo+0.27);
+        osc.connect(gain);gain.connect(ctx.destination);osc.start(inicio+retardo);osc.stop(inicio+retardo+0.29);
+        osc.onended=()=>{try{osc.disconnect();gain.disconnect();}catch(e){}};
+      });
+      setTimeout(cerrar,1650);
+    };
+    if(ctx.state==='suspended'&&ctx.resume){
+      ctx.resume().then(iniciar).catch(()=>{console.warn('El navegador bloqueó el audio automático.');cerrar();});
+    } else iniciar();
   }catch(e){console.warn('No se pudo reproducir la alarma sonora.',e);setTimeout(cerrar,350);}
 }
+
 function hablarTextoConFinalTareasV103(texto,callback) {
   if(!vozActiva||!('speechSynthesis' in window)){if(callback)callback();return;}
   let finalizado=false;
@@ -3002,8 +3028,8 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
     // No depende del CORS de fetch POST ni detiene el juego por una respuesta vacía.
     if (!quizVersionV5Verificada) {
       const versionData = await solicitarJSONP(`${API_URL}?action=verificarVersionCuestionarios`);
-      const versionEsperada = 'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V10.1-CUESTIONARIOS-10-REANUDABLE-TAREAS-UNIFICADAS-SIN-BUSCADOR';
-      if (!versionData || !versionData.exito || versionData.version !== versionEsperada) {
+      const versionEsperada = 'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V10-CUESTIONARIOS-10-REANUDABLE';
+      if (!versionData || versionData.version !== versionEsperada) {
         const detalle = versionData && (versionData.version || versionData.mensaje)
           ? String(versionData.version || versionData.mensaje)
           : 'El endpoint no devolvió una versión identificable.';
@@ -3377,11 +3403,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('loginFormDesktop').addEventListener('submit', e => {
     e.preventDefault();
+    prepararAudioPortalV103();
     procesarLogin('selectStudentDesktop', 'pinInputDesktop', 'loginErrorDesktop', 'btnSubmitDesktop');
   });
 
   document.getElementById('loginFormMobile').addEventListener('submit', e => {
     e.preventDefault();
+    prepararAudioPortalV103();
     procesarLogin('selectStudentMobile', 'pinInputMobile', 'loginErrorMobile', 'btnSubmitMobile');
   });
 
@@ -3413,6 +3441,7 @@ document.addEventListener('DOMContentLoaded', () => {
       try { localStorage.setItem('lds_cat_audio_alertas_v103', vozActiva ? '1' : '0'); } catch(e) {}
       actualizarBotonAudioPortalV103();
       if (!vozActiva) detenerAudioAlertaPortalV103();
+      else prepararAudioPortalV103();
     });
   }
 
@@ -3508,4 +3537,3 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- V10.4: botón de silencio persistente para alarma y voz; sin cambios en GS/Sheets -->
 </body>
 </html>
-```
