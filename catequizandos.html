@@ -1836,7 +1836,7 @@ function quizHablarV6(texto,alTerminar){
   const frase=String(texto||'').trim();quizCancelarVozV6(false);
   if(!frase||!vozActiva||!('speechSynthesis'in window)||typeof SpeechSynthesisUtterance==='undefined'){if(typeof alTerminar==='function')setTimeout(alTerminar,120);return;}
   const token=++quizVozTokenV6,utter=new SpeechSynthesisUtterance(frase);
-  utter.lang='es-PE';utter.rate=1.12;utter.pitch=1.03;utter.volume=1;
+  utter.lang='es-PE';utter.rate=1.20;utter.pitch=1.03;utter.volume=1;
   try{const voces=window.speechSynthesis.getVoices()||[];const esp=voces.find(v=>/^es-PE$/i.test(v.lang))||voces.find(v=>/^es-(MX|US|CO|AR|CL|ES)/i.test(v.lang))||voces.find(v=>/^es\\b/i.test(v.lang));if(esp)utter.voice=esp;}catch(e){}
   let done=false;
   const finish=()=>{if(done||token!==quizVozTokenV6)return;done=true;if(quizVozRespaldoV6){clearTimeout(quizVozRespaldoV6);quizVozRespaldoV6=null;}quizVozFinalizarV6=null;if(typeof alTerminar==='function')alTerminar();};
@@ -3026,28 +3026,40 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
   try {
     // Usa JSONP porque este portal ya consulta getSesiones por JSONP desde GitHub Pages.
     // No depende del CORS de fetch POST ni detiene el juego por una respuesta vacía.
+    // Inicia la consulta de la pregunta en paralelo con la verificación de versión,
+    // para no sumar dos esperas de red consecutivas al abrir el primer reto.
+    const dataPromiseV10 = preguntaPrecargada
+      ? Promise.resolve({ exito: true, pregunta: preguntaPrecargada, idSesion: idSesion, porcentajeBloque: progresoPrecargado, completadoTema: false, completadoBloque: false })
+      : quizModoBloqueV10
+        ? obtenerPreguntaGrupoActualV10().catch(error => ({ __fetchError: error }))
+        : fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ action: 'obtenerCuestionarioCatequizando', idSesion: idSesion, token: token })
+          }).then(r => r.json()).catch(error => ({ __fetchError: error }));
+
     if (!quizVersionV5Verificada) {
       const versionData = await solicitarJSONP(`${API_URL}?action=verificarVersionCuestionarios`);
       const versionEsperada = 'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V10-CUESTIONARIOS-10-REANUDABLE';
-      if (!versionData || versionData.version !== versionEsperada) {
-        const detalle = versionData && (versionData.version || versionData.mensaje)
-          ? String(versionData.version || versionData.mensaje)
+      const versionRecibidaRaw = versionData && versionData.version != null ? String(versionData.version) : '';
+      // Normaliza espacios y caracteres invisibles que pueden venir de Apps Script.
+      const normalizarVersionQuiz = valor => String(valor == null ? '' : valor)
+        .replace(/[\u200B-\u200D\uFEFF]/g, '')
+        .trim()
+        .replace(/\s+/g, '')
+        .toUpperCase();
+      if (!versionData || normalizarVersionQuiz(versionRecibidaRaw) !== normalizarVersionQuiz(versionEsperada)) {
+        const detalle = versionData && (versionRecibidaRaw || versionData.mensaje)
+          ? versionRecibidaRaw || String(versionData.mensaje)
           : 'El endpoint no devolvió una versión identificable.';
-        body.innerHTML = `<div style="padding:16px;border-radius:12px;background:#fff1f0;color:#922b21"><strong>⚠️ El servidor no corresponde a la versión rápida del juego.</strong><p>Respuesta: ${escapeQuizHtml(detalle)}</p></div>`;
+        body.innerHTML = `<div style="padding:16px;border-radius:12px;background:#fff1f0;color:#922b21"><strong>⚠️ El servidor no corresponde a la versión rápida del juego.</strong><p>Respuesta recibida: ${escapeQuizHtml(detalle)}</p><p>Versión esperada: ${escapeQuizHtml(versionEsperada)}</p><p>Longitud recibida: ${versionRecibidaRaw.length} · Longitud esperada: ${versionEsperada.length}</p></div>`;
         return;
       }
       quizVersionV5Verificada = true;
     }
 
-    const data = preguntaPrecargada
-      ? { exito: true, pregunta: preguntaPrecargada, idSesion: idSesion, porcentajeBloque: progresoPrecargado, completadoTema: false, completadoBloque: false }
-      : quizModoBloqueV10
-        ? await obtenerPreguntaGrupoActualV10()
-        : await fetch(API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-            body: JSON.stringify({ action: 'obtenerCuestionarioCatequizando', idSesion: idSesion, token: token })
-          }).then(r => r.json());
+    const data = await dataPromiseV10;
+    if (data && data.__fetchError) throw data.__fetchError;
     if (!data || !data.exito) throw new Error(data && data.mensaje ? data.mensaje : 'No se pudo cargar la pregunta.');
     if (quizModoBloqueV10 && data.completadoCuestionario) {
       mostrarCuestionarioGrupoCompletadoV10(data);
@@ -3144,6 +3156,10 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
           })
         }).then(r => r.json());
         if (!saved || !saved.exito) throw new Error(saved && saved.mensaje ? saved.mensaje : 'No se pudo guardar tu respuesta.');
+        // En retos por grupo, consulta la siguiente pregunta mientras se narra la retroalimentación.
+        const siguienteGrupoPrecargadoV10 = quizModoBloqueV10
+          ? obtenerPreguntaGrupoActualV10().catch(error => ({ __fetchError: error }))
+          : null;
 
         const nuevoProgreso = Math.max(0, Math.min(100, Number(saved.porcentajeBloque || 0)));
         if (resumenPortalCatequizando && Array.isArray(resumenPortalCatequizando.bloques)) {
@@ -3194,7 +3210,10 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
             quizTimerSiguienteV5 = setTimeout(async () => {
               if (quizTemaActivoV5 !== quizClaveActivoV10 || document.getElementById('quizModalBackdrop').hidden) return;
               try {
-                const siguiente = await obtenerPreguntaGrupoActualV10();
+                const siguiente = siguienteGrupoPrecargadoV10
+                  ? await siguienteGrupoPrecargadoV10
+                  : await obtenerPreguntaGrupoActualV10();
+                if (siguiente && siguiente.__fetchError) throw siguiente.__fetchError;
                 if (!siguiente || !siguiente.exito) throw new Error(siguiente && siguiente.mensaje ? siguiente.mensaje : 'No se pudo buscar la siguiente pregunta.');
                 if (siguiente.completadoCuestionario) {
                   mostrarCuestionarioGrupoCompletadoV10(siguiente);
