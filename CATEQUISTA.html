@@ -754,15 +754,18 @@ body{overflow-x:hidden}
 .menu-intro-catequistas{margin:4px 0 16px;padding:4px 2px;}
 .menu-intro-catequistas h2{margin:0 0 6px;color:#17365d;font-size:clamp(1.15rem,2.5vw,1.55rem);}
 .menu-intro-catequistas p,.menu-area-heading p{margin:0;color:#687b96;line-height:1.45;}
-.menu-areas-catequistas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0 18px;}
-.menu-area-btn{border:1px solid #dce4ef;background:#fff;border-radius:16px;padding:14px 12px;min-height:108px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;color:#17365d;cursor:pointer;box-shadow:0 3px 10px rgba(16,42,76,.04);}
-.menu-area-btn span{font-size:1.65rem;line-height:1;}.menu-area-btn strong{font-size:.86rem;letter-spacing:.02em;text-align:center;}.menu-area-btn small{font-size:.72rem;color:#687b96;text-align:center;line-height:1.35;}
+.menu-areas-catequistas{display:flex;flex-direction:column;gap:10px;margin:14px 0 18px;align-items:flex-start;}
+.menu-area-btn{border:1px solid #dce4ef;background:#fff;border-radius:14px;padding:11px 16px;min-height:0;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:9px;color:#17365d;cursor:pointer;box-shadow:0 3px 10px rgba(16,42,76,.04);width:auto;}
+.menu-area-btn span{font-size:1.3rem;line-height:1;}.menu-area-btn strong{font-size:.9rem;letter-spacing:.02em;text-align:center;}.menu-area-btn small{font-size:.75rem;color:#687b96;text-align:center;line-height:1.35;}
 .menu-area-btn.active{border-color:#17365d;background:#eef4fb;box-shadow:0 0 0 2px #17365d18;}
+.menu-area-btn[data-area="catequizandos"],.menu-area-btn[data-area="padres"],.menu-area-btn[data-area="gestores"]{display:none;}
+.menu-areas-catequistas.subareas-visible{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:100%;align-items:stretch;}
+.menu-areas-catequistas.subareas-visible .menu-area-btn[data-area="administracion"]{grid-column:1/-1;justify-self:start;}
 .menu-area-panel{display:block;}.menu-area-panel[hidden]{display:none!important;}
 .menu-area-heading{margin:0 0 12px;padding:12px 14px;background:#f4f7fb;border-left:4px solid #d8ad3c;border-radius:10px;}
 .menu-area-heading h3{margin:0 0 4px;color:#17365d;font-size:1.05rem;}
 .menu-area-panel .tools-grid{margin-top:0;}
-@media(max-width:760px){.menu-areas-catequistas{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.menu-area-btn{min-height:82px;padding:10px 7px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px}.menu-area-btn span{font-size:1.35rem}.menu-area-btn strong{font-size:.75rem;line-height:1.15}.menu-area-btn small{font-size:.65rem;line-height:1.2;text-align:center}.menu-area-panel .tools-grid{grid-template-columns:1fr!important;gap:11px!important}.menu-area-panel .tool-card{padding:15px!important}}
+@media(max-width:760px){.menu-areas-catequistas.subareas-visible{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.menu-area-btn{padding:9px 7px;gap:5px}.menu-area-btn span{font-size:1.15rem}.menu-area-btn strong{font-size:.72rem;line-height:1.15}.menu-area-btn small{display:none}.menu-area-panel .tools-grid{grid-template-columns:1fr!important;gap:11px!important}.menu-area-panel .tool-card{padding:15px!important}}
 @media(min-width:761px) and (max-width:1100px){.menu-area-panel .tools-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}}
 </style>
 
@@ -811,7 +814,7 @@ body{overflow-x:hidden}
       <nav class="portal-history-nav no-print" aria-label="Navegación del portal">
       <div class="portal-history-group portal-history-main">
         <button class="btn small" id="portal-nav-back" type="button" onclick="navegarPortalAtras()" disabled>← Atrás</button>
-        <button class="btn small" id="portal-nav-home" type="button" onclick="volverMenuPrincipal()">⌂ Menú principal</button>
+        <button class="btn small" id="portal-nav-home" type="button" onclick="volverMenuPrincipal()">⌂ Principal</button>
         <button class="btn small" id="portal-nav-forward" type="button" onclick="navegarPortalAdelante()" disabled>Adelante →</button>
       </div>
     </nav>
@@ -827,7 +830,7 @@ body{overflow-x:hidden}
 
     <!-- MENÚ DE OPCIONES -->
     <div class="menu-principal-catequistas" id="menu-herramientas">
-<div class="menu-intro-catequistas"><h2>Centro de gestión · Camino hacia Jesús 2026</h2><p>Selecciona el área que deseas administrar. Los datos se consultan y guardan en Google Sheets.</p></div>
+<div class="menu-intro-catequistas"><h2>Centro de gestión · Camino hacia Jesús 2026</h2><p>Ingresa a Administración para abrir las áreas de Catequizandos, Padres y Gestores. Los datos se consultan y guardan en Google Sheets.</p></div>
 <div class="menu-areas-catequistas" role="navigation" aria-label="Áreas principales">
 <button class="menu-area-btn" type="button" data-area="administracion" aria-pressed="false" onclick="seleccionarAreaCatequistas('administracion')"><span>⚙️</span><strong>ADMINISTRACIÓN</strong><small>Programa · gestores · configuración</small></button>
 <button class="menu-area-btn" type="button" data-area="catequizandos" aria-pressed="false" onclick="seleccionarAreaCatequistas('catequizandos')"><span>👧👦</span><strong>CATEQUIZANDOS</strong><small>Progreso · notas · asistencia · tareas</small></button>
@@ -1857,7 +1860,7 @@ function desplazarPortal(fraccion) {
   const alto = Math.max(360, Math.floor(window.innerHeight * Math.abs(Number(fraccion) || .7)));
   window.scrollBy({top: Number(fraccion) < 0 ? -alto : alto, behavior:'smooth'});
 }
-function volverMenuPrincipal() { mostrarVista('menu-herramientas'); }
+function volverMenuPrincipal() { cerrarAreasCatequistas(); mostrarVistaInternaPortal('menu-herramientas', true); }
 function openModal(id) { if ($(id)) $(id).classList.add('show'); }
 function hideModal(id) { if ($(id)) $(id).classList.remove(id === 'mise-modal' ? 'active' : 'show'); }
 document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => hideModal(b.closest('.modal-backdrop').id)));
@@ -3460,23 +3463,27 @@ async function sincronizarCalendario(mostrarAlerta) {
 function seleccionarAreaCatequistas(area){
   const areas=['administracion','catequizandos','padres','gestores'];
   if(!areas.includes(area)) return;
-  // No area is active on initial load. Only a deliberate click opens one.
+  const cont=document.querySelector('.menu-areas-catequistas');
+  if(cont) cont.classList.add('subareas-visible');
   areas.forEach(a=>{
     const panel=document.getElementById('area-'+a);
     const btn=document.querySelector('.menu-area-btn[data-area="'+a+'"]');
     if(panel) panel.hidden=(a!==area);
-    if(btn){btn.classList.toggle('active',a===area);btn.setAttribute('aria-pressed',a===area?'true':'false');}
+    if(btn){btn.style.display=(a==='administracion'||cont?.classList.contains('subareas-visible'))?'flex':'none';btn.classList.toggle('active',a===area);btn.setAttribute('aria-pressed',a===area?'true':'false');}
   });
 }
 function cerrarAreasCatequistas(){
+  const cont=document.querySelector('.menu-areas-catequistas');
+  if(cont) cont.classList.remove('subareas-visible');
   ['administracion','catequizandos','padres','gestores'].forEach(a=>{
     const panel=document.getElementById('area-'+a);
     const btn=document.querySelector('.menu-area-btn[data-area="'+a+'"]');
     if(panel) panel.hidden=true;
-    if(btn){btn.classList.remove('active');btn.setAttribute('aria-pressed','false');}
+    if(btn){btn.style.display=a==='administracion'?'flex':'none';btn.classList.remove('active');btn.setAttribute('aria-pressed','false');}
   });
 }
 function initPortalCatequistas() {
+  cerrarAreasCatequistas();
   document.addEventListener('click', activarAudioMensajes, { once:true });
   const botonSilencio = $('mute-toggle');
   if (botonSilencio) botonSilencio.addEventListener('click', function() {
