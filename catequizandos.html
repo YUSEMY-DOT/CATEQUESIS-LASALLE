@@ -1,3 +1,4 @@
+```
 <!DOCTYPE html>
 <html lang="es" class="auth-required">
 <head>
@@ -1320,6 +1321,39 @@ header{padding-top:14px;padding-bottom:12px}
  .btn-abrir-video-v10{margin-left:38px}
 }
 
+
+/* V10 — lectura y accesibilidad */
+body { font-size: 16px; }
+.hero-copy p, .welcome-text p { font-size: 16px; }
+.tema-card p, .tema-subtema { font-size: 14px; line-height: 1.55; }
+.tema-card h4 { font-size: 17px; line-height: 1.4; }
+.tema-meta { font-size: 12px; }
+.quiz-modal { padding: clamp(16px, 3vw, 28px); }
+.quiz-modal h2, .quiz-modal h3 { line-height: 1.35; }
+#quizPreguntaTexto { font-size: clamp(20px, 2.5vw, 23px) !important; line-height: 1.6 !important; }
+.quiz-opcion-juego { font-size: clamp(17px, 2vw, 19px) !important; line-height: 1.55 !important; padding: 16px 18px !important; }
+#quizResultadoJuego { font-size: 17px; line-height: 1.65; }
+#quizModalBody p { line-height: 1.65; }
+#btnRefreshPortal:disabled { opacity: .72; cursor: wait; transform: none; }
+#btnRefreshPortal.is-refreshing { filter: saturate(.75); }
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  main { padding: 22px 14px 32px; }
+  .quiz-modal { max-height: 94vh; border-radius: 18px; padding: 15px; }
+  .quiz-modal-backdrop { padding: 8px; }
+  .quiz-opcion-juego { padding: 14px !important; }
+}
+
+.quiz-list-v10 { display:grid; gap:10px; }
+.quiz-list-intro-v10 { background:#f3f8ff;border:1px solid #dce7f3;border-radius:12px;padding:12px;font-weight:800;color:#284762; }
+.quiz-group-button-v10 { display:grid;grid-template-columns:1fr auto;gap:5px 12px;align-items:center;text-align:left;width:100%;padding:14px;border:1px solid #d9e2ed;border-radius:13px;background:#fff;color:#17395e;cursor:pointer; }
+.quiz-group-button-v10:hover { border-color:#d5a72d;background:#fff9e8; }
+.quiz-group-number-v10 { font-weight:900;font-size:17px; }
+.quiz-group-status-v10 { font-weight:900;font-size:12px;color:#176b42; }
+.quiz-group-button-v10[data-estado="INCOMPLETO"] .quiz-group-status-v10 { color:#9a6500; }
+.quiz-group-button-v10[data-estado="PENDIENTE"] .quiz-group-status-v10 { color:#52677f; }
+.quiz-group-button-v10[data-estado="COMPLETADO"] { opacity:.68;cursor:default;background:#f5f8f6; }
+.quiz-group-button-v10 small { grid-column:1/-1;color:#5b6e82;font-weight:800;font-size:12px; }
 </style>
 </head>
 <body>
@@ -1643,6 +1677,12 @@ const API_URL = 'https://script.google.com/macros/s/AKfycbyiJHN-fMW4DbAumaziZzX7
 
 
 let quizVersionV5Verificada = false;
+let quizModoBloqueV10 = false;
+let quizBloqueNumeroV10 = 0;
+let quizNumeroGrupoV10 = 0;
+let quizNombreBloqueV10 = '';
+let quizClaveGrupoV10 = '';
+
 let quizAudioContextoV5 = null;
 let quizTemaActivoV5 = '';
 let quizTimerSiguienteV5 = null;
@@ -2085,53 +2125,88 @@ function fechaCalendarioDesdeISO(iso) {
   return `${m[3]}/${m[2]}/${m[1]}`;
 }
 
+let portalSincronizacionEnCursoV10 = false;
+
 async function cargarDatosPortal(opciones) {
-  const perfil = JSON.parse(localStorage.getItem('lds_cat_perfil') || '{}');
-  const idNino = String(perfil.ID_NINO || '').trim().toUpperCase();
-  const cachePrograma = portalLeerCacheV7(PORTAL_CACHE_PROGRAMACION_V7);
-  const cacheResumen = idNino ? portalLeerCacheV7(portalClaveResumenV7(idNino)) : null;
-  const tieneCachePrograma = !!(cachePrograma && cachePrograma.data && cachePrograma.data.exito);
-  const tieneCacheResumen = !!(cacheResumen && cacheResumen.data && cacheResumen.data.exito);
-
-  // Primero pinta las últimas lecturas. Esto no confirma ni reemplaza ningún guardado en Sheets.
-  if (tieneCachePrograma) {
-    portalAplicarProgramacionV7(cachePrograma.data);
-    renderizarCalendario();
-    portalEstadoV7('⚡ Programa listo · verificando cambios en Google Sheets...', 'pending');
-  } else {
-    portalEstadoV7('Conectando con Google Sheets para cargar el programa...', 'pending');
+  const opts = opciones || {};
+  if (portalSincronizacionEnCursoV10) return;
+  portalSincronizacionEnCursoV10 = true;
+  const botonActualizar = document.getElementById('btnRefreshPortal');
+  const textoBotonOriginal = botonActualizar ? botonActualizar.textContent : '';
+  if (botonActualizar) {
+    botonActualizar.disabled = true;
+    botonActualizar.classList.add('is-refreshing');
+    botonActualizar.textContent = opts.forzar ? '⏳ Actualizando…' : '⏳ Cargando…';
   }
-  if (tieneCacheResumen) {
-    portalAplicarResumenV7(cacheResumen.data, perfil);
-  } else {
-    renderizarTarjetasAlumnos(idNino);
-  }
+  try {
+    const perfil = JSON.parse(localStorage.getItem('lds_cat_perfil') || '{}');
+    const idNino = String(perfil.ID_NINO || '').trim().toUpperCase();
+    const cachePrograma = portalLeerCacheV7(PORTAL_CACHE_PROGRAMACION_V7);
+    const cacheResumen = idNino ? portalLeerCacheV7(portalClaveResumenV7(idNino)) : null;
+    const tieneCachePrograma = !!(cachePrograma && cachePrograma.data && cachePrograma.data.exito);
+    const tieneCacheResumen = !!(cacheResumen && cacheResumen.data && cacheResumen.data.exito);
 
-  const sincronizarPrograma = async () => {
-    const data = await solicitarJSONP(`${API_URL}?action=getSesiones`, 15000);
-    if (!data || !data.exito) throw new Error((data && data.mensaje) || 'Google Sheets no devolvió la programación.');
-    portalAplicarProgramacionV7(data);
-    portalGuardarCacheV7(PORTAL_CACHE_PROGRAMACION_V7, data);
-    renderizarCalendario();
-    return true;
-  };
-  const sincronizarResumen = async () => {
-    const data = await cargarResumenSeguimientoPortal(perfil, { conservarVista: true });
-    return !!data;
-  };
+    // Mostrar inmediatamente la última lectura local mientras se actualiza el servidor.
+    if (tieneCachePrograma) {
+      portalAplicarProgramacionV7(cachePrograma.data);
+      renderizarCalendario();
+      portalEstadoV7('⚡ Programa visible · verificando cambios en Google Sheets...', 'pending');
+    } else {
+      portalEstadoV7('Conectando con Google Sheets para cargar el programa...', 'pending');
+    }
+    if (tieneCacheResumen) {
+      portalAplicarResumenV7(cacheResumen.data, perfil);
+    } else {
+      renderizarTarjetasAlumnos(idNino);
+    }
 
-  const resultados = await Promise.allSettled([sincronizarPrograma(), sincronizarResumen()]);
-  const errores = resultados.filter(r => r.status === 'rejected').map(r => r.reason && r.reason.message ? r.reason.message : 'Error de sincronización');
-  if (errores.length === 0) {
-    portalEstadoV7('✓ Datos sincronizados con Google Sheets · asistencia, tareas, avisos y avance actualizados.', 'ok');
-  } else if (tieneCachePrograma || tieneCacheResumen) {
-    portalEstadoV7('⚠ Se muestran los últimos datos consultados. No se pudo completar la actualización: ' + errores.join(' · '), 'warning');
-    console.warn('Sincronización parcial del portal:', errores);
-  } else {
-    portalEstadoV7('⚠ No se pudo completar la conexión con Google Sheets. Comprueba tu conexión y pulsa Actualizar.', 'error');
-    console.error('Sincronización del portal fallida:', errores);
+    const sincronizarPrograma = async () => {
+      const extra = opts.forzar ? '&nocache=1&_ts=' + Date.now() : '';
+      const data = await solicitarJSONP(`${API_URL}?action=getSesiones${extra}`, 15000);
+      if (!data || !data.exito) throw new Error((data && data.mensaje) || 'Google Sheets no devolvió la programación.');
+      portalAplicarProgramacionV7(data);
+      portalGuardarCacheV7(PORTAL_CACHE_PROGRAMACION_V7, data);
+      renderizarCalendario();
+      return true;
+    };
+    const sincronizarResumen = async () => {
+      const data = await cargarResumenSeguimientoPortal(perfil, { conservarVista: true });
+      return !!data;
+    };
+    const sincronizarConfigTareas = async () => {
+      await cargarConfiguracionTareasPortalV7();
+      return true;
+    };
+
+    const resultados = await Promise.allSettled([
+      sincronizarPrograma(),
+      sincronizarResumen(),
+      sincronizarConfigTareas()
+    ]);
+    const errores = resultados.filter(r => r.status === 'rejected')
+      .map(r => r.reason && r.reason.message ? r.reason.message : 'Error de sincronización');
+    if (errores.length === 0) {
+      portalEstadoV7('✓ Actualizado desde Google Sheets · programa, asistencia, tareas, avisos y avance.', 'ok');
+    } else if (tieneCachePrograma || tieneCacheResumen) {
+      portalEstadoV7('⚠ Se muestran los últimos datos consultados. Actualización parcial: ' + errores.join(' · '), 'warning');
+      console.warn('Sincronización parcial del portal:', errores);
+    } else {
+      portalEstadoV7('⚠ No se pudo completar la conexión. Comprueba internet y pulsa Actualizar.', 'error');
+      console.error('Sincronización del portal fallida:', errores);
+    }
+    if (bloqueActualSeleccionado) {
+      try { await actualizarProgresoBloquePortal(bloqueActualSeleccionado); } catch (e) { console.warn('No se pudo refrescar el porcentaje del bloque.', e); }
+    }
+  } finally {
+    portalSincronizacionEnCursoV10 = false;
+    if (botonActualizar) {
+      botonActualizar.disabled = false;
+      botonActualizar.classList.remove('is-refreshing');
+      botonActualizar.textContent = textoBotonOriginal || '🔄 Actualizar';
+    }
   }
 }
+
 
 async function cargarResumenSeguimientoPortal(perfil, opciones) {
   const opts = opciones || {};
@@ -2613,7 +2688,7 @@ async function abrirBloque(numBloque) {
         </div>
         <div class="tema-card-acciones-v9">
           <button type="button" class="btn-video-tema-v9" onclick="abrirVideoTema('${idSesJs}')">🎬 Ver videos${(Array.isArray(s.VIDEOS) && s.VIDEOS.length) ? ' · ' + s.VIDEOS.length : ''}</button>
-          <button type="button" class="btn-quiz-tema" onclick="abrirCuestionarioTema('${idSesJs}', '${temaJs}')">🎮 Aprender jugando</button>
+          <button type="button" class="btn-quiz-tema" onclick="abrirCuestionariosBloqueV10(${numBloque}, '')">🎮 Cuestionarios del bloque</button>
         </div>
         <p class="tema-video-status-v9" id="estadoVideoTema_${idSes.replace(/[^a-zA-Z0-9_-]/g, '_') || idx}" role="status" aria-live="polite" hidden></p>
       </div>
@@ -2666,7 +2741,85 @@ function abrirVideoTema(idSesion) {
   modal.hidden=false;document.body.classList.add('video-gallery-open-v10');
 }
 
+async function abrirCuestionariosBloqueV10(numeroBloque, nombreTema) {
+  quizCancelarVozV6(false);
+  if (quizTimerSiguienteV5) clearTimeout(quizTimerSiguienteV5);
+  quizModoBloqueV10 = true;
+  quizBloqueNumeroV10 = Number(numeroBloque) || 0;
+  quizNumeroGrupoV10 = 0;
+  quizNombreBloqueV10 = String(nombreTema || ('BLOQUE ' + numeroBloque));
+  quizClaveGrupoV10 = 'BLOQUE-' + quizBloqueNumeroV10;
+  quizTemaActivoV5 = quizClaveGrupoV10;
+  const backdrop = document.getElementById('quizModalBackdrop');
+  backdrop.hidden = false;
+  document.getElementById('quizModalTitle').textContent = '🎮 ' + quizNombreBloqueV10 + ' · Cuestionarios';
+  await mostrarListaCuestionariosBloqueV10();
+}
+
+async function mostrarListaCuestionariosBloqueV10() {
+  const body = document.getElementById('quizModalBody');
+  const token = localStorage.getItem('lds_cat_token') || '';
+  body.innerHTML = '<p style="text-align:center;font-weight:800;padding:12px;">Consultando tus cuestionarios guardados…</p>';
+  try {
+    const data = await fetch(API_URL, {
+      method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'obtenerCuestionariosBloqueCatequizando', bloque: quizBloqueNumeroV10, token })
+    }).then(r => r.json());
+    if (!data || !data.exito) throw new Error(data && data.mensaje ? data.mensaje : 'No se pudieron consultar los cuestionarios.');
+    quizNombreBloqueV10 = data.bloque || quizNombreBloqueV10;
+    const grupos = Array.isArray(data.grupos) ? data.grupos : [];
+    const estadoTexto = estado => estado === 'COMPLETADO' ? 'COMPLETADO' : estado === 'INCOMPLETO' ? 'INCOMPLETO · CONTINUAR' : 'PENDIENTE';
+    body.innerHTML = '<div class="quiz-list-v10"><p class="quiz-list-intro-v10">Cada reto se guarda automáticamente. Si sales a mitad, vuelve a abrirlo para continuar desde la pregunta pendiente.</p>' +
+      grupos.map(g => '<button type="button" class="quiz-group-button-v10" data-grupo="' + Number(g.numero) + '" data-estado="' + escapeQuizHtml(g.estado) + '">' +
+        '<span class="quiz-group-number-v10">Reto ' + Number(g.numero) + '</span><span class="quiz-group-status-v10">' + estadoTexto(g.estado) + '</span>' +
+        (Number(g.total) !== 10 ? '<small>' + Number(g.total) + ' preguntas</small>' : '<small>10 preguntas</small>') + '</button>').join('') +
+      (grupos.length ? '' : '<p>No hay preguntas activas registradas para este bloque.</p>') + '</div>';
+    body.querySelectorAll('[data-grupo]').forEach(btn => btn.addEventListener('click', () => {
+      if (btn.dataset.estado === 'COMPLETADO') return;
+      iniciarCuestionarioGrupoV10(Number(btn.dataset.grupo));
+    }));
+  } catch (error) {
+    body.innerHTML = '<p style="color:#a52222;font-weight:800;">' + escapeQuizHtml(error.message || error) + '</p><button type="button" id="btnReintentarListaQuizV10" class="btn-docente-submit">Reintentar</button>';
+    const retry = document.getElementById('btnReintentarListaQuizV10');
+    if (retry) retry.onclick = mostrarListaCuestionariosBloqueV10;
+  }
+}
+
+async function iniciarCuestionarioGrupoV10(numeroGrupo) {
+  quizCancelarVozV6(false);
+  if (quizTimerSiguienteV5) clearTimeout(quizTimerSiguienteV5);
+  quizModoBloqueV10 = true;
+  quizNumeroGrupoV10 = Number(numeroGrupo) || 0;
+  quizClaveGrupoV10 = 'BLOQUE-' + quizBloqueNumeroV10 + '-RETO-' + quizNumeroGrupoV10;
+  quizTemaActivoV5 = quizClaveGrupoV10;
+  const title = document.getElementById('quizModalTitle');
+  title.textContent = quizNombreBloqueV10 + ' · Reto ' + quizNumeroGrupoV10;
+  await cargarPreguntaJuego('', quizNombreBloqueV10 + ' · Reto ' + quizNumeroGrupoV10);
+}
+
+async function obtenerPreguntaGrupoActualV10() {
+  const token = localStorage.getItem('lds_cat_token') || '';
+  return fetch(API_URL, {
+    method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({
+      action: 'obtenerPreguntaCuestionarioBloqueCatequizando',
+      bloque: quizBloqueNumeroV10, numeroCuestionario: quizNumeroGrupoV10, token
+    })
+  }).then(r => r.json());
+}
+
+function mostrarCuestionarioGrupoCompletadoV10(data) {
+  const body = document.getElementById('quizModalBody');
+  const porcentaje = Math.max(0, Math.min(100, Number(data && data.porcentajeBloque || 0)));
+  body.innerHTML = '<div style="text-align:center;padding:24px"><div style="font-size:46px">🏅</div><h2 style="color:#12345a">¡Reto completado!</h2><p>Terminaste todas las preguntas de este cuestionario.</p><p style="font-size:25px;font-weight:900;color:#168454">Avance del bloque: ' + porcentaje + '%</p><button type="button" id="btnVolverListaGrupoV10" class="btn-docente-submit">Volver a los cuestionarios</button></div>';
+  const volver = document.getElementById('btnVolverListaGrupoV10');
+  if (volver) volver.onclick = mostrarListaCuestionariosBloqueV10;
+  quizHablarV6('¡Felicitaciones! Terminaste este cuestionario. Puedes continuar con otro reto.');
+}
+
 async function abrirCuestionarioTema(idSesion, nombreTema) {
+  quizModoBloqueV10 = false;
+  quizClaveGrupoV10 = '';
   const backdrop = document.getElementById('quizModalBackdrop');
   const title = document.getElementById('quizModalTitle');
   title.textContent = `🎮 Aventura de aprendizaje: ${nombreTema}`;
@@ -2680,6 +2833,7 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
   const title = document.getElementById('quizModalTitle');
   const body = document.getElementById('quizModalBody');
   const token = localStorage.getItem('lds_cat_token') || '';
+  const quizClaveActivoV10 = quizModoBloqueV10 ? quizClaveGrupoV10 : String(idSesion);
   quizCancelarVozV6(false);
   body.innerHTML = preguntaPrecargada ? '' : '<p style="font-weight:700;text-align:center;padding:12px;">🌟 Preparando la primera pregunta...</p>';
   try {
@@ -2687,7 +2841,7 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
     // No depende del CORS de fetch POST ni detiene el juego por una respuesta vacía.
     if (!quizVersionV5Verificada) {
       const versionData = await solicitarJSONP(`${API_URL}?action=verificarVersionCuestionarios`);
-      const versionEsperada = 'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V8-VIDEOS-GESTION-MISES';
+      const versionEsperada = 'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V10-CUESTIONARIOS-10-REANUDABLE';
       if (!versionData || !versionData.exito || versionData.version !== versionEsperada) {
         const detalle = versionData && (versionData.version || versionData.mensaje)
           ? String(versionData.version || versionData.mensaje)
@@ -2699,13 +2853,20 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
     }
 
     const data = preguntaPrecargada
-      ? { exito: true, pregunta: preguntaPrecargada, porcentajeBloque: progresoPrecargado, completadoTema: false, completadoBloque: false }
-      : await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({ action: 'obtenerCuestionarioCatequizando', idSesion: idSesion, token: token })
-        }).then(r => r.json());
+      ? { exito: true, pregunta: preguntaPrecargada, idSesion: idSesion, porcentajeBloque: progresoPrecargado, completadoTema: false, completadoBloque: false }
+      : quizModoBloqueV10
+        ? await obtenerPreguntaGrupoActualV10()
+        : await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ action: 'obtenerCuestionarioCatequizando', idSesion: idSesion, token: token })
+          }).then(r => r.json());
     if (!data || !data.exito) throw new Error(data && data.mensaje ? data.mensaje : 'No se pudo cargar la pregunta.');
+    if (quizModoBloqueV10 && data.completadoCuestionario) {
+      mostrarCuestionarioGrupoCompletadoV10(data);
+      return;
+    }
+    if (data.idSesion) idSesion = String(data.idSesion);
 
     const progreso = Math.max(0, Math.min(100, Number(data.porcentajeBloque || 0)));
     if (bloqueActualSeleccionado && _quizBloqueNumeroUI(data.bloque) === bloqueActualSeleccionado) {
@@ -2841,10 +3002,30 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
           ? '¡Excelente! Respuesta correcta. Ganaste dos puntos. ' + String(saved.explicacion || '')
           : 'Buen intento. La respuesta correcta es ' + String(saved.textoRespuestaCorrecta || '') + '. ' + String(saved.explicacion || '');
         const avanzarAlTerminarVozV6 = () => {
-          if (quizTemaActivoV5 !== String(idSesion) || document.getElementById('quizModalBackdrop').hidden) return;
+          if (quizTemaActivoV5 !== quizClaveActivoV10 || document.getElementById('quizModalBackdrop').hidden) return;
+          if (quizModoBloqueV10) {
+            quizTimerSiguienteV5 = setTimeout(async () => {
+              if (quizTemaActivoV5 !== quizClaveActivoV10 || document.getElementById('quizModalBackdrop').hidden) return;
+              try {
+                const siguiente = await obtenerPreguntaGrupoActualV10();
+                if (!siguiente || !siguiente.exito) throw new Error(siguiente && siguiente.mensaje ? siguiente.mensaje : 'No se pudo buscar la siguiente pregunta.');
+                if (siguiente.completadoCuestionario) {
+                  mostrarCuestionarioGrupoCompletadoV10(siguiente);
+                  if (bloqueActualSeleccionado) actualizarProgresoBloquePortal(bloqueActualSeleccionado);
+                  return;
+                }
+                cargarPreguntaJuego(siguiente.idSesion, nombreTema, siguiente.pregunta, siguiente.porcentajeBloque);
+              } catch (error) {
+                document.getElementById('quizModalBody').insertAdjacentHTML('beforeend', '<p style="color:#a52222;font-weight:800;">' + escapeQuizHtml(error.message || error) + '</p><button type="button" id="btnReintentarSiguienteGrupoV10" class="btn-docente-submit">Continuar</button>');
+                const retry = document.getElementById('btnReintentarSiguienteGrupoV10');
+                if (retry) retry.onclick = () => cargarPreguntaJuego('', nombreTema);
+              }
+            }, 180);
+            return;
+          }
           if (saved.siguientePregunta && saved.siguientePregunta.idPregunta) {
             quizTimerSiguienteV5 = setTimeout(() => {
-              if (quizTemaActivoV5 !== String(idSesion) || document.getElementById('quizModalBackdrop').hidden) return;
+              if (quizTemaActivoV5 !== quizClaveActivoV10 || document.getElementById('quizModalBackdrop').hidden) return;
               cargarPreguntaJuego(idSesion,nombreTema,saved.siguientePregunta,nuevoProgreso);
             },180);
           } else if (saved.completadoTema) {
@@ -2858,7 +3039,7 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
               document.getElementById('btnVolverTemasV6').onclick=()=>{quizCancelarVozV6(false);document.getElementById('quizModalBackdrop').hidden=true;};
             }
           } else {
-            quizTimerSiguienteV5=setTimeout(()=>{if(quizTemaActivoV5===String(idSesion)&&!document.getElementById('quizModalBackdrop').hidden)cargarPreguntaJuego(idSesion,nombreTema);},180);
+            quizTimerSiguienteV5=setTimeout(()=>{if(quizTemaActivoV5===quizClaveActivoV10&&!document.getElementById('quizModalBackdrop').hidden)cargarPreguntaJuego(idSesion,nombreTema);},180);
           }
         };
         quizHablarV6(retroalimentacionV6,avanzarAlTerminarVozV6);
@@ -3069,9 +3250,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!vozActiva) quizCancelarVozV6(true);
   });
 
-  document.getElementById('btnRefreshPortal').addEventListener('click', () => {
-    portalEstadoV7('🔄 Actualizando desde Google Sheets...', 'pending');
-    cargarDatosPortal({ forzar: true });
+  document.getElementById('btnRefreshPortal').addEventListener('click', async () => {
+    if (portalSincronizacionEnCursoV10) return;
+    portalEstadoV7('🔄 Actualizando directamente desde Google Sheets...', 'pending');
+    await cargarDatosPortal({ forzar: true });
   });
 
   const videoModalV10 = document.getElementById('videoGalleryModalV10');
@@ -3108,7 +3290,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btnCloseQuizModal').addEventListener('click', () => {
     quizCancelarVozV6(false);
     if (quizTimerSiguienteV5) clearTimeout(quizTimerSiguienteV5);
+    quizModoBloqueV10 = false;
+    quizClaveGrupoV10 = '';
+    quizTemaActivoV5 = '';
     document.getElementById('quizModalBackdrop').hidden = true;
+    if (bloqueActualSeleccionado) actualizarProgresoBloquePortal(bloqueActualSeleccionado);
   });
 
   document.getElementById('studentMessageForm').addEventListener('submit',async e=>{
@@ -3143,3 +3329,4 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+```
