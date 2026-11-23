@@ -1185,6 +1185,11 @@ header{padding-top:14px;padding-bottom:12px}
 
 
 /* V7 — Tareas didácticas en familia. Interfaz ligera sin imágenes incrustadas. */
+/* V10 — Un solo panel para tareas asignadas y tareas didácticas en familia */
+.tareas-asignadas-integradas-v10{margin:0 0 16px;padding:0 0 14px;border-bottom:1px solid #e5eaf0}
+.tareas-asignadas-integradas-v10 h3{margin:0 0 7px;color:#17395e;font-size:16px;font-weight:900}
+.tareas-asignadas-integradas-v10 .tareas-list-intro-v10{margin:0 0 10px;font-size:13px;color:#52677f}
+
 .tareas-wrapper-v7{margin:22px 0 26px;padding:20px;background:#fffdf7;border:1px solid #e8d9bd;border-radius:20px;box-shadow:0 5px 17px rgba(18,52,90,.05)}
 .tareas-header-v7 h3{margin:2px 0 9px;color:#12345a;font:700 22px 'Fredoka',sans-serif}
 .regla-foto-v7{margin:0 0 15px;padding:12px 14px;border-left:5px solid #e1a32c;border-radius:11px;background:#fff5dc;color:#76500d;font-size:13px;line-height:1.48;font-weight:700}
@@ -1520,36 +1525,25 @@ body { font-size: 16px; }
     </section>
 
 
-    <section id="seccion-tareas-asignadas-v10" class="tareas-wrapper-v7" aria-labelledby="titulo-tareas-asignadas-v10">
-      <details id="panelTareasAsignadasV10" class="tareas-details-v8">
-        <summary class="tareas-summary-v8">
-          <span class="tareas-summary-copy">
-            <span class="eyebrow">Tu compromiso de aprendizaje</span>
-            <strong id="titulo-tareas-asignadas-v10">📝 Tareas asignadas</strong>
-            <small id="resumen-tareas-asignadas-v10">Consulta las actividades que tienes que realizar.</small>
-          </span>
-          <span class="tareas-summary-action-v8">Ver tareas <b>⌄</b></span>
-        </summary>
-        <div class="tareas-details-content-v8">
-          <p class="tareas-list-intro-v10">Abre cada actividad para leer las indicaciones y revisar su estado.</p>
-          <div id="lista-tareas-asignadas-v10" class="lista-tareas-asignadas-v10">
-            <div class="tareas-cargando-v7">Cargando tus tareas...</div>
-          </div>
-        </div>
-      </details>
-    </section>
-
 <section id="seccion-tareas-familia" class="tareas-wrapper-v7" aria-labelledby="titulo-tareas-familia">
         <details id="panelTareasFamiliaV7" class="tareas-details-v8">
           <summary class="tareas-summary-v8">
             <span class="tareas-summary-copy">
-              <span class="eyebrow">Aprendemos también en casa</span>
-              <strong id="titulo-tareas-familia">🏠 Tarea didáctica en familia</strong>
-              <small id="tareas-summary-count-v8">68 actividades disponibles · abre para elegir tu tema y enviar evidencias</small>
+              <span class="eyebrow">Tu compromiso de aprendizaje</span>
+              <strong id="titulo-tareas-familia">📚 Tareas didácticas en familia</strong>
+              <small id="tareas-summary-count-v8">Consulta tus tareas, realiza las actividades y envía tus evidencias.</small>
+            <span id="resumen-tareas-asignadas-v10" hidden>Consulta las actividades que tienes que realizar.</span>
             </span>
             <span class="tareas-summary-action-v8">Ver tareas <b>⌄</b></span>
           </summary>
           <div class="tareas-details-content-v8">
+            <div id="seccion-tareas-asignadas-v10" class="tareas-asignadas-integradas-v10" aria-labelledby="titulo-tareas-asignadas-v10">
+              <h3 id="titulo-tareas-asignadas-v10">📝 Tareas asignadas</h3>
+              <p class="tareas-list-intro-v10">Abre cada actividad para leer las indicaciones y revisar su estado.</p>
+              <div id="lista-tareas-asignadas-v10" class="lista-tareas-asignadas-v10">
+                <div class="tareas-cargando-v7">Cargando tus tareas...</div>
+              </div>
+            </div>
             <div class="tareas-header-v7">
               <p class="regla-foto-v7">📸 Realiza la actividad con tu familia y toma una fotografía que muestre la acción indicada. La evidencia se guardará en Google Drive y el envío se registrará en Google Sheets.</p>
               <button type="button" class="btn-alerta-tareas-pendientes-v7" id="btnAlertaTareasPendientesV7" hidden>🔊 Escuchar aviso de tareas pendientes</button>
@@ -2841,7 +2835,7 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
     // No depende del CORS de fetch POST ni detiene el juego por una respuesta vacía.
     if (!quizVersionV5Verificada) {
       const versionData = await solicitarJSONP(`${API_URL}?action=verificarVersionCuestionarios`);
-      const versionEsperada = 'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V10-CUESTIONARIOS-10-REANUDABLE';
+      const versionEsperada = 'LDS-CATEQUIZANDO-PORTAL-INTEGRADO-V10-CUESTIONARIOS-10-REANUDABLE-TAREAS-UNIFICADAS';
       if (!versionData || !versionData.exito || versionData.version !== versionEsperada) {
         const detalle = versionData && (versionData.version || versionData.mensaje)
           ? String(versionData.version || versionData.mensaje)
