@@ -1123,7 +1123,7 @@ body{overflow-x:hidden}
         <button class="menu-area-btn" type="button" data-area="gestores" aria-pressed="false" onclick="seleccionarAreaCatequistas('gestores')"><span>👥</span><strong>GESTORES</strong></button>
       </div>
       <div class="menu-area-panel" id="area-administracion" hidden>
-        <div class="menu-area-heading"><h3>Administración</h3></div>
+        
         <div class="tools-grid">
           <div class="tool-card admin-only" id="tarjeta-administracion-cuentas" hidden><div><div class="module-cartoon-icon" aria-hidden="true">🔐👩‍💼</div><h4>Administración de cuentas</h4><p>Gestiona accesos y cuentas de catequistas administradoras.</p></div><button class="btn small primary" type="button" onclick="abrirAdministradorCatequistas()">Administrar cuentas</button></div>
           <div class="tool-card admin-only" id="tarjeta-administracion-cuentas-gestores" hidden><div><div class="module-cartoon-icon" aria-hidden="true">🔐</div><h4>Gestión de accesos</h4><p>Administración de cuentas y permisos existentes.</p></div><button class="btn small primary" type="button" onclick="abrirAdministradorCatequistas()">Administrar accesos</button></div>
@@ -1273,10 +1273,6 @@ body{overflow-x:hidden}
 
     <!-- VISTA CONSULTA GENERAL DE AVANCES, SOLO PARA CATEQUISTAS AUTORIZADAS -->
     <div id="vista-avances-catequizandos" style="display:none;margin-top:15px;">
-      <section class="tool-card avances-header">
-        <div><h2>📈 Avance de catequizandos</h2><p class="sub">Consulta del avance por los 68 temas distribuidos en 46 clases. Cada tema conserva sus propios cuestionarios de hasta 10 preguntas. Datos de Google Sheets.</p></div>
-        <div class="avances-actions"><button class="btn small primary" type="button" onclick="cargarResumenAvancesCatequizandos(true)">🔄 Actualizar</button><span id="estado-avances-catequizandos" class="sub" aria-live="polite"></span></div>
-      </section>
       <div class="avances-layout">
         <section class="tool-card avances-listado"><label for="filtro-avances-alumno"><strong>Buscar catequizando</strong></label><input id="filtro-avances-alumno" type="search" placeholder="Escriba un nombre…" oninput="renderizarListaAvancesCatequizandos()"><div id="lista-avances-catequizandos" class="avances-lista"><p class="sub">Cargando alumnos…</p></div></section>
         <section class="tool-card avances-detalle" id="detalle-avance-catequizando"><p class="sub">Seleccione un catequizando para consultar sus avances.</p></section>
