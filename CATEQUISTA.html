@@ -1053,6 +1053,62 @@ body{overflow-x:hidden}
   .menu-area-btn small{display:none!important}
 }
 
+
+
+/* Ajuste visual solicitado: módulos compactos, legibles y ergonómicos.
+   Solo afecta las tarjetas del menú principal; conserva enlaces y funciones. */
+.portal-workspace #menu-herramientas{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  align-items:stretch;
+}
+.portal-workspace #menu-herramientas > .tool-card{
+  min-width:0;
+  min-height:0;
+  padding:12px 13px 11px 15px;
+  border-radius:12px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:7px;
+}
+.portal-workspace #menu-herramientas > .tool-card h4{
+  font-size:.91rem;
+  line-height:1.22;
+  margin:0 0 3px;
+}
+.portal-workspace #menu-herramientas > .tool-card p{
+  font-size:.73rem;
+  line-height:1.32;
+  margin:0 0 7px;
+}
+.portal-workspace #menu-herramientas > .tool-card .module-cartoon-icon{
+  min-height:30px;
+  height:30px;
+  margin:0 0 5px;
+  font-size:1.45rem;
+  letter-spacing:1px;
+}
+.portal-workspace #menu-herramientas > .tool-card .btn{
+  min-height:34px;
+  padding:7px 10px;
+  border-radius:8px;
+  font-size:.76rem;
+  line-height:1.15;
+}
+@media(max-width:1100px){
+  .portal-workspace #menu-herramientas{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+}
+@media(max-width:720px){
+  .portal-workspace #menu-herramientas{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .portal-workspace #menu-herramientas > .tool-card{padding:11px 11px 10px 13px}
+}
+@media(max-width:420px){
+  .portal-workspace #menu-herramientas{grid-template-columns:1fr}
+  .portal-workspace #menu-herramientas > .tool-card{padding:12px 13px}
+}
+
 </style>
 <title>Caminando hacia Jesús 2026 | Portal de Catequistas – Colegio La Salle del Sur</title>
 
@@ -1123,7 +1179,7 @@ body{overflow-x:hidden}
         <button class="menu-area-btn" type="button" data-area="gestores" aria-pressed="false" onclick="seleccionarAreaCatequistas('gestores')"><span>👥</span><strong>GESTORES</strong></button>
       </div>
       <div class="menu-area-panel" id="area-administracion" hidden>
-        <div class="menu-area-heading"><h3>Administración</h3><p>Configuración y control de accesos. La programación pedagógica se encuentra en Catequizandos.</p></div>
+        
         <div class="tools-grid">
           <div class="tool-card admin-only" id="tarjeta-administracion-cuentas" hidden><div><div class="module-cartoon-icon" aria-hidden="true">🔐👩‍💼</div><h4>Administración de cuentas</h4><p>Gestiona accesos y cuentas de catequistas administradoras.</p></div><button class="btn small primary" type="button" onclick="abrirAdministradorCatequistas()">Administrar cuentas</button></div>
           <div class="tool-card admin-only" id="tarjeta-administracion-cuentas-gestores" hidden><div><div class="module-cartoon-icon" aria-hidden="true">🔐</div><h4>Gestión de accesos</h4><p>Administración de cuentas y permisos existentes.</p></div><button class="btn small primary" type="button" onclick="abrirAdministradorCatequistas()">Administrar accesos</button></div>
