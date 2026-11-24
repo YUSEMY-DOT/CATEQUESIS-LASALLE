@@ -2,7 +2,812 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#173B68">
-<link rel="stylesheet" href="CATEQUISTAS_ADMINISTRACION_V7.css">
+<style>
+/* Estilos originales: base */
+:root{--navy:#12345b;--blue:#1b4a79;--blue-soft:#edf4fc;--gold:#f3c755;--gold-deep:#b17b10;--cream:#fff8e8;--red:#b83d43;--green:#23764c;--green-soft:#e8f6ed;--ink:#172b48;--muted:#62748c;--line:#dce5ef;--white:#fff;--shadow:0 10px 30px #173b6812}
+*{box-sizing:border-box}body{margin:0;background:#f4f7fa;color:var(--ink);font-family:Inter,"Segoe UI",Tahoma,sans-serif;line-height:1.5}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible{outline:3px solid #f3c75588;outline-offset:2px}a{color:inherit;text-decoration:none}
+.topbar{background:white;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:15;box-shadow:0 2px 12px #142b4810}
+.topbar-inner{max-width:1400px;margin:auto;padding:12px 22px;display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900;color:var(--navy);letter-spacing:.04em}
+.brand img.crest{width:52px;height:52px;object-fit:contain}
+.brand small{display:block;letter-spacing:0;font-weight:500;color:var(--muted);font-size:.78rem}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);border-radius:12px;padding:10px 16px;background:white;color:var(--navy);font-weight:800;font-size:.95rem;transition:all .2s}
+.btn:hover{filter:brightness(.97);transform:translateY(-1px)}
+.btn.primary{background:var(--navy);border-color:var(--navy);color:white}
+.btn.gold{background:linear-gradient(135deg,#ffe68c,#f5bd37);border-color:#efc34c;color:#152c4d}
+.btn.attendance-sync{background:linear-gradient(135deg,#214d7d,#12345b);border-color:#12345b;color:#fff}
+.btn.attendance-save{background:linear-gradient(135deg,#f2a24f,#dc762c);border-color:#cf6824;color:#fff}
+.btn.attendance-print{background:linear-gradient(135deg,#36a394,#197b70);border-color:#197b70;color:#fff}
+.btn.attendance-sync:hover,.btn.attendance-save:hover,.btn.attendance-print:hover{filter:brightness(1.06);box-shadow:0 4px 12px #173b6820}
+.btn.attendance-sync:disabled,.btn.attendance-save:disabled,.btn.attendance-print:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.btn.small{padding:8px 12px;font-size:.84rem}
+
+/* BOTONES DE RECURSOS */
+.btn-practicas { background: #fcf8ec; border-color: #f3e2b4; color: #8a6a11; }
+.btn-evaluaciones { background: #fcf2f2; border-color: #f0cbcc; color: #9c3338; }
+.btn-canciones { background: #f0f4fc; border-color: #cbdcf4; color: #204a82; }
+.btn-videos { background: #edf7f2; border-color: #c4e4d4; color: #1b5e3c; }
+
+/* PRESENTACIÓN INSTITUCIONAL ÚNICA: insignia, título y controles en una sola franja */
+.portal-intro{position:relative;padding-top:30px;padding-right:30px}
+.portal-intro-quick-actions{position:absolute;top:14px;right:16px;display:flex;align-items:center;gap:8px;z-index:3}
+.portal-quick-btn{width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.48);border-radius:50%;background:rgba(255,255,255,.13);color:#fff;font-size:1.12rem;font-weight:800;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.12);transition:background .18s ease,transform .18s ease}
+.portal-quick-btn:hover{background:rgba(255,255,255,.25);transform:translateY(-1px)}
+.portal-quick-btn:focus-visible{outline:3px solid #ffdf79;outline-offset:2px}
+.portal-quick-btn:disabled{opacity:.55;cursor:wait;transform:none}
+.portal-intro{
+  width:calc(100% - 44px);max-width:1400px;margin:22px auto 0;
+  padding:26px 30px;background:linear-gradient(115deg,#102b4f 0%,#1e4e7f 100%);
+  color:#fff;border:1px solid #d8b64d;border-radius:22px;
+  box-shadow:0 12px 30px #173b6818;display:flex;flex-direction:column;gap:22px;
+}
+.portal-intro-main{display:flex;align-items:center;gap:22px;min-width:0}
+.portal-intro-crest{
+  flex:0 0 auto;width:124px;height:124px;object-fit:contain;padding:0;
+  background:transparent;border:0;border-radius:0;
+  box-shadow:none;
+}
+.portal-intro-copy{min-width:0}
+.portal-intro .eyebrow{color:#ffe39a;font-size:.78rem;letter-spacing:.16em}
+.portal-intro h1{margin:5px 0 7px;color:#fff;font-size:clamp(1.8rem,3.4vw,2.65rem);line-height:1.08}
+.portal-intro p{margin:0;color:#f0f5fb;font-size:clamp(.95rem,1.5vw,1.12rem)}
+.portal-intro-school{margin-top:8px;color:#d8e5f4;font-size:.86rem;font-weight:600}
+.portal-intro-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap}
+.portal-user-return{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:4px;margin-left:8px}.portal-user-return .auth-user{display:block;color:#fff;font-size:1.18rem;font-weight:950;letter-spacing:.025em;line-height:1.15;text-align:right;margin:0}.portal-user-return .btn{white-space:nowrap}
+.portal-intro-actions .btn{min-height:42px}
+.portal-intro-actions .btn:not(.primary):not(.gold){background:#fff;color:#173b68;border-color:#dce5ef}
+@media(max-width:760px){
+  .portal-intro{width:calc(100% - 24px);margin:12px auto 0;padding:62px 17px 20px;border-radius:17px;gap:17px}
+  .portal-intro-quick-actions{top:12px;right:13px}
+  .portal-quick-btn{width:35px;height:35px}
+  .portal-intro-main{align-items:flex-start;gap:13px}
+  .portal-intro-crest{width:84px;height:84px;border-radius:0;padding:0}
+  .portal-intro .eyebrow{font-size:.64rem;letter-spacing:.1em}
+  .portal-intro h1{font-size:1.65rem}
+  .portal-intro p{font-size:.88rem;line-height:1.4}
+  .portal-intro-school{font-size:.75rem}
+  .portal-intro-actions{justify-content:flex-start}
+  .portal-user-return{align-items:flex-start;width:100%;margin:4px 0 0}.portal-user-return .auth-user{text-align:left;font-size:1.05rem}
+  .portal-intro-actions .btn{flex:1 1 auto;padding:9px 10px;font-size:.78rem}
+}
+@media(max-width:420px){
+  .portal-intro-main{flex-direction:column}
+  .portal-intro-crest{width:76px;height:76px}
+  .portal-intro-actions .btn{flex:1 1 calc(50% - 8px)}
+}
+.container{max-width:1400px;margin:auto;padding:22px}
+.hero{background:linear-gradient(115deg,#102b4f,#1e4e7f);color:white;border-radius:20px;padding:25px 30px;display:flex;justify-content:space-between;align-items:center;gap:25px;box-shadow:var(--shadow)}
+.eyebrow{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:#ffe39a;font-weight:900}
+.hero h1{margin:4px 0;font-size:clamp(1.7rem,2.8vw,2.3rem);line-height:1.1}
+.hero p{margin:6px 0 0;max-width:760px;color:#f0f5fb;font-size:.95rem}
+.panel{background:white;border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:var(--shadow);margin-bottom:16px}
+.panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;flex-wrap:wrap;margin-bottom:18px}
+.panel h2{margin:0;color:var(--navy);font-size:1.3rem}
+.sub{color:var(--muted);margin:4px 0 0;font-size:.92rem}
+.mises-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.mise-card{border:2px solid var(--line);border-radius:16px;padding:20px;background:#fff;display:flex;gap:18px;align-items:center;box-shadow:0 4px 16px #173b6808;cursor:pointer;transition:all .2s ease}
+.mise-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 8px 22px #173b6814}
+.mise-avatar{width:100px;height:100px;border-radius:50%;object-fit:cover;border:4px solid var(--gold);flex-shrink:0}
+.modal-backdrop{position:fixed;inset:0;background:#071a32b8;z-index:50;display:none;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(4px)}
+.modal-backdrop.show{display:flex}
+.modal{background:white;border-radius:20px;width:min(1350px,100%);max-height:92vh;overflow:auto;padding:28px;box-shadow:0 25px 60px #0005}
+.xbtn{border:0;background:#f0f3f7;color:var(--navy);width:36px;height:36px;border-radius:10px;font-weight:900;font-size:1rem;transition:background .2s}
+.xbtn:hover{background:#e2e8f0}
+.tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:16px}
+.tool-card{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;transition:all .2s}
+.tool-card:hover{border-color:var(--blue);background:#fff;box-shadow:0 4px 12px #173b680c}
+.admin-only[hidden]{display:none!important}
+.tool-card h4{margin:0 0 4px;color:var(--navy);font-size:1.02rem}
+.tool-card p{margin:0 0 12px;color:var(--muted);font-size:.84rem}
+
+.tema-box { background: #fdfefe; border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+.subtema-list { margin: 8px 0 14px 20px; padding: 0; color: var(--muted); font-size: 0.9rem; }
+.action-buttons { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+
+/* Calendario Estilizado */
+.cal-container { display: grid; grid-template-columns: 1.35fr 1fr; gap: 24px; align-items: start; }
+.cal-box { background: white; border: 1px solid var(--line); border-radius: 18px; padding: 22px; box-shadow: var(--shadow); }
+.cal-header-bar { display: flex; justify-content: space-between; align-items: center; background: #fffdf5; border: 1.5px solid #fae8b3; border-radius: 12px; padding: 10px 16px; margin-bottom: 16px; }
+.cal-nav-btn { background: #fff; border: 1px solid #e2c068; border-radius: 8px; width: 34px; height: 34px; font-weight: bold; color: var(--navy); display: flex; align-items: center; justify-content: center; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; }
+.cal-weekday { font-size: 0.8rem; font-weight: 800; color: var(--navy); padding-bottom: 6px; }
+.cal-day { aspect-ratio: 1; background: #fdfefe; border: 1px solid var(--line); border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 700; font-size: 0.92rem; color: var(--ink); position: relative; cursor: pointer; transition: all 0.15s; }
+.cal-day:hover { border-color: var(--navy); background: #f4f8fd; }
+.cal-day.has-class { background: #fffdf2; border-color: #f3c755; }
+.cal-day.selected { background: var(--navy) !important; color: white !important; border-color: var(--navy); }
+.cal-day.selected .cal-dot { background: #fff !important; }
+.cal-dot { width: 5px; height: 5px; background: var(--gold-deep); border-radius: 50%; margin-top: 3px; }
+.encounter-panel { background: white; border: 1px solid var(--line); border-radius: 18px; padding: 22px; box-shadow: var(--shadow); }
+.encounter-tag { background: #fef3d6; color: #8a6207; font-size: 0.7rem; font-weight: 900; padding: 4px 10px; border-radius: 6px; display: inline-block; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
+.encounter-card { border: 1px solid #fae8b3; background: #fffdf7; border-radius: 12px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
+.cal-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cal-sync-status{font-size:.82rem;color:var(--muted);font-weight:700}
+.cal-stats-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:0 0 18px}
+.cal-stat{background:#fff;border:1px solid var(--line);border-radius:13px;padding:12px 14px;box-shadow:0 3px 12px #173b6808}
+.cal-stat strong{display:block;font-size:1.28rem;line-height:1.2;color:var(--navy)}
+.cal-stat span{display:block;margin-top:4px;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:800}
+.cal-detail-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.cal-class-number{display:inline-flex;align-items:center;border-radius:8px;padding:5px 10px;background:#fff2cf;color:#805b08;font-size:.76rem;font-weight:900;letter-spacing:.04em}
+.cal-ficha-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:14px 0}
+.cal-meta-item{background:#f7f9fc;border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0}
+.cal-meta-item span{display:block;color:var(--muted);font-size:.68rem;font-weight:900;letter-spacing:.05em;text-transform:uppercase}
+.cal-meta-item strong{display:block;margin-top:3px;color:var(--navy);font-size:.9rem;overflow-wrap:anywhere}
+.cal-topics-list{display:grid;gap:9px;margin-top:12px}
+.cal-topic-row{border:1px solid #e5ebf2;border-left:4px solid var(--gold);background:#fff;border-radius:10px;padding:11px 12px}
+.cal-topic-row small{display:block;color:var(--gold-deep);font-weight:900;font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+.cal-topic-row strong{display:block;margin-top:3px;color:var(--navy);font-size:.92rem}
+.cal-topic-subtopics{margin:7px 0 8px 18px;padding:0;color:var(--muted);font-size:.82rem}
+.cal-topic-subtopics li{margin:3px 0}
+.cal-topic-extra{margin-top:8px;padding:8px 10px;background:#f8fafc;border-radius:8px;font-size:.82rem;color:var(--ink)}
+.cal-resource-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.cal-resource-link{display:inline-flex;align-items:center;padding:5px 9px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--blue);font-size:.74rem;font-weight:800}
+.cal-task-list{display:grid;gap:7px;margin-top:8px}
+.cal-task-item{padding:9px 10px;border:1px solid #dce8f2;border-radius:9px;background:#f7fbff;font-size:.8rem}
+.cal-task-item strong{display:block;color:var(--navy)}
+.cal-empty-note{font-size:.8rem;color:var(--muted);font-style:italic;margin-top:7px}
+.cal-programa-panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:20px;box-shadow:var(--shadow)}
+.cal-programa-panel h4{margin:0;color:var(--navy);font-size:1.05rem}
+.cal-programa-panel .sub{margin-bottom:12px}
+.cal-programa-wrap{display:grid;gap:11px;overflow:visible}
+.cal-class-card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 3px 12px #173b6808}
+.cal-class-card[open]{border-color:#e8bd46;box-shadow:0 7px 20px #173b6810}
+.cal-class-summary{list-style:none;display:grid;grid-template-columns:78px minmax(150px,1.15fr) minmax(105px,.7fr) minmax(130px,1fr) auto;gap:12px;align-items:center;padding:13px 15px;cursor:pointer;background:#fff}
+.cal-class-summary::-webkit-details-marker{display:none}
+.cal-class-summary:after{content:'＋';font-weight:900;color:var(--navy);font-size:1.05rem;justify-self:end}
+.cal-class-card[open]>.cal-class-summary:after{content:'−'}
+.cal-class-card[open]>.cal-class-summary{background:#fffdf6;border-bottom:1px solid #f1e2b8}
+.cal-class-chip{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:6px 9px;border-radius:9px;background:var(--navy);color:#fff;font-weight:900;font-size:.78rem;text-align:center}
+.cal-class-summary strong{display:block;color:var(--navy);font-size:.86rem;line-height:1.3}
+.cal-class-summary small{display:block;margin-top:3px;color:var(--muted);font-size:.72rem}
+.cal-class-topic-count{display:inline-flex;align-items:center;justify-content:center;padding:5px 8px;border-radius:8px;background:#fff2cf;color:#805b08;font-size:.72rem;font-weight:900;white-space:nowrap}
+.cal-class-detail{padding:15px 16px 17px}
+.cal-class-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-bottom:12px}
+.cal-class-meta-item{min-width:0;background:#f7f9fc;border:1px solid var(--line);border-radius:9px;padding:9px 10px}
+.cal-class-meta-item span{display:block;color:var(--muted);font-size:.65rem;font-weight:900;text-transform:uppercase;letter-spacing:.04em}
+.cal-class-meta-item strong{display:block;margin-top:3px;color:var(--navy);font-size:.82rem;overflow-wrap:anywhere}
+.cal-class-topic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:start}
+.cal-class-topic-grid .cal-topic-row{height:100%;margin:0}
+.cal-class-section-title{margin:15px 0 7px;color:var(--navy);font-size:.82rem;font-weight:900;text-transform:uppercase;letter-spacing:.04em}
+.cal-class-alert{margin:0 0 11px;padding:8px 10px;border:1px solid #f0d89a;border-radius:9px;background:#fff9e9;color:#79580c;font-size:.78rem}
+.cal-class-alert.ok{border-color:#cfe6d8;background:#f1faf4;color:#236442}
+.cal-class-footer{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;color:var(--muted);font-size:.76rem}
+.cal-estado-pendiente{display:inline-block;padding:4px 8px;border-radius:7px;background:#fff4dc;color:#8b650b;font-size:.72rem;font-weight:800}
+.cal-estado-asignado{display:inline-block;padding:4px 8px;border-radius:7px;background:var(--green-soft);color:var(--green);font-size:.72rem;font-weight:800}
+.cal-day.has-class{box-shadow:inset 0 0 0 1px #e8bd46}
+.cal-day .cal-numero-clase{display:block;font-size:.62rem;color:var(--gold-deep);font-weight:900;line-height:1.15;margin-top:2px}
+.cal-day .cal-temas-dia{display:block;font-size:.56rem;color:var(--muted);font-weight:800;line-height:1.1}
+.cal-dia-observacion{margin:8px 0;padding:8px 10px;border-radius:9px;font-size:.76rem;font-weight:700}
+.cal-dia-observacion.alerta{background:#fff8e7;border:1px solid #f0d89a;color:#805b08}
+.cal-dia-observacion.correcto{background:#f0f8f2;border:1px solid #cee5d6;color:#256341}
+@media(max-width:900px){.cal-stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cal-class-summary{grid-template-columns:68px 1fr 1fr;gap:8px}.cal-class-summary .cal-summary-teacher{grid-column:2/4}.cal-class-summary:after{grid-column:3;grid-row:1;align-self:start}.cal-class-meta{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.cal-container{grid-template-columns:1fr}.cal-class-summary{grid-template-columns:62px 1fr auto;padding:11px 10px}.cal-class-summary .cal-summary-time{grid-column:2}.cal-class-summary .cal-summary-teacher{grid-column:2/3}.cal-class-summary:after{grid-column:3;grid-row:1}.cal-class-topic-grid{grid-template-columns:1fr}.cal-class-meta{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.cal-ficha-meta{grid-template-columns:1fr}.cal-stats-grid{gap:7px}.cal-stat{padding:10px}.cal-stat strong{font-size:1.1rem}}
+
+
+/* NUEVA ASISTENCIA MATRICIAL ERGONÓMICA */
+.asist-layout { display: grid; grid-template-columns: 350px 1fr; gap: 24px; align-items: start; }
+.estudiantes-lista-asist { background: #f8fafc; border: 1px solid var(--line); border-radius: 16px; padding: 12px; max-height: 600px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+.est-item-btn { display: flex; align-items: center; gap: 14px; width: 100%; padding: 12px; background: white; border: 1.5px solid var(--line); border-radius: 14px; text-align: left; transition: all 0.2s; cursor: pointer; }
+.est-item-btn:hover, .est-item-btn.active { border-color: var(--navy); background: var(--blue-soft); box-shadow: 0 4px 12px #173b6810; }
+.est-item-btn img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); flex-shrink: 0; }
+.est-item-btn .info-n { font-size: 0.84rem; font-weight: 800; color: var(--navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.est-item-btn .info-sub { font-size: 0.74rem; color: var(--muted); display: flex; justify-content: space-between; margin-top: 3px; }
+
+/* Tabla Matriz Compacta para Asistencia */
+.asistencia-tabla-container { background: white; border: 1px solid var(--line); border-radius: 16px; padding: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.02); max-height: 600px; overflow-y: auto; }
+.matrix-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.matrix-table th, .matrix-table td { border: 1px solid var(--line); padding: 8px 12px; text-align: left; vertical-align: middle; }
+.matrix-table th { background: var(--blue-soft); color: var(--navy); font-weight: 800; text-align: center; position: sticky; top: 0; z-index: 5; }
+.matrix-table td:nth-child(1) { font-weight: bold; color: var(--navy); text-align: center; }
+.matrix-table td:nth-child(2) { font-weight: 700; color: var(--ink); }
+.matrix-table td:nth-child(3) { text-align: center; }
+
+.data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
+.data-table th, .data-table td { border: 1px solid var(--line); padding: 9px 12px; text-align: left; vertical-align: middle; white-space: nowrap; }
+.data-table th { background: var(--blue-soft); color: var(--navy); text-align: center; }
+
+@media(max-width:900px){.cal-container{grid-template-columns:1fr}.asist-layout{grid-template-columns:1fr}}
+@media print{body *{visibility:hidden}#vista-asistencia, #vista-asistencia * {visibility:visible}#vista-asistencia{position:absolute;left:0;top:0;width:100%}.no-print{display:none!important}}
+
+/* ACCESO PROTEGIDO: PORTADA INSTITUCIONAL ORIGINAL — OCUPA TODA LA VENTANA */
+html,body{width:100%;height:100%;min-height:100%;margin:0!important;padding:0!important}
+body{overflow-x:hidden}
+.auth-overlay{position:fixed!important;inset:0!important;z-index:1000;display:block;padding:0;margin:0!important;overflow:hidden;width:100vw!important;height:100vh!important;height:100dvh!important;min-width:100vw!important;min-height:100vh!important;box-sizing:border-box;background-color:#102b4f;background-image:url('./assets/Portal%20de%20CATEQUISTAS.png');background-position:center center;background-size:100% 100%;background-repeat:no-repeat}
+.auth-overlay[hidden]{display:none!important}
+.auth-overlay::after{content:"© 2026 Colegio Privado La Salle del Sur. Todos los derechos reservados.";position:absolute;left:0;right:0;bottom:8px;z-index:2;text-align:center;color:#fff;font-size:clamp(9px,.8vw,12px);font-weight:700;letter-spacing:.02em;text-shadow:0 1px 3px rgba(0,0,0,.6);pointer-events:none}
+.auth-card{position:absolute;left:50%;top:64.5%;transform:translateX(-50%);width:38%;height:28.5%;max-width:680px;padding:0;background:transparent;border:0;border-radius:0;box-shadow:none}
+.auth-card>.eyebrow,.auth-card h2,.auth-card .auth-sub,.auth-card>p.sub{display:none!important}
+#catequista-login-form{position:absolute;inset:0;margin:0}
+.auth-field{position:absolute;left:9%;width:82%;height:21%;display:block;margin:0}
+.auth-field:nth-of-type(1){top:9%}
+.auth-field:nth-of-type(2){top:35%}
+.auth-field>label{display:none!important}
+.auth-field input,.auth-field select{width:100%;height:100%;box-sizing:border-box;padding:0 22px;border:0!important;border-radius:40px;background:transparent!important;color:#102b4f;text-align:center;text-align-last:center;font-size:clamp(12px,1.45vw,23px);font-weight:700;outline:none;box-shadow:none!important;appearance:none;-webkit-appearance:none}
+.auth-field input::placeholder{color:#46505f;opacity:1}
+.auth-field select option{color:#102b4f;background:#fff}
+.auth-field input:focus,.auth-field select:focus{outline:2px solid transparent;box-shadow:none!important}
+#btn-login-catequista{position:absolute;left:14%;top:65%;width:72%;height:25%;margin:0!important;padding:0 12px;border:0!important;border-radius:40px;background:transparent!important;color:#fff;font-size:clamp(14px,1.8vw,27px);font-weight:900;box-shadow:none!important;cursor:pointer}
+#btn-login-catequista{font-size:0!important;color:transparent!important;text-shadow:none!important}
+#btn-login-catequista::before,#btn-login-catequista::after{content:none!important;display:none!important}
+#btn-login-catequista:hover{filter:brightness(1.08)}
+#btn-login-catequista:disabled{cursor:wait;opacity:.85}
+.auth-error{position:absolute;left:5%;right:5%;bottom:102%;display:none;padding:7px 12px;border-radius:10px;background:#fff0f0;border:1px solid #f0c4c4;color:#9d2f36;font-size:clamp(11px,1vw,15px);margin:0;text-align:center}
+.auth-user{font-size:.8rem;color:var(--muted);font-weight:800;margin-right:6px}
+@media(max-width:700px){.auth-overlay{background-size:100% 100%}.auth-card{top:64.5%;width:min(78vw,430px);height:28.5%}.auth-field input,.auth-field select{font-size:14px}#btn-login-catequista{font-size:16px}}
+@media(max-height:560px) and (min-width:701px){.auth-overlay{background-size:100% 100%}.auth-card{top:64.5%;width:min(38vh,680px);height:28.5%}}
+
+/* Navegación interna: atrás/adelante entre módulos y desplazamiento por secciones. */
+.portal-history-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 16px;padding:11px 13px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 3px 12px #173b6808}
+.portal-history-group{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.portal-history-nav .btn{border-radius:10px;padding:8px 13px}
+.portal-history-nav .btn:disabled{opacity:.42;cursor:not-allowed;transform:none}
+.portal-scroll-btn{background:#f7f9fc}
+.portal-nav-location{margin-left:auto;color:var(--muted);font-size:.78rem;font-weight:800}
+@media(max-width:650px){.portal-history-nav{align-items:stretch}.portal-history-group{width:100%;justify-content:space-between}.portal-history-group .btn{flex:1;padding:8px 7px;font-size:.78rem}.portal-nav-location{width:100%;margin:0;text-align:center}}
+
+/* Centro de mensajes: alertas, no leídos y acciones */
+.msg-unread-card{border:1px solid #e45b5b!important;border-left:6px solid #c62828!important;background:#fff7f7!important;box-shadow:0 5px 16px rgba(160,25,25,.10)!important}
+.msg-read-card{border:1px solid var(--line);border-left:5px solid #a8b4c3}
+.msg-new-pill{display:inline-flex;align-items:center;gap:5px;background:#b42318;color:#fff;border-radius:999px;padding:4px 9px;font-size:.70rem;font-weight:900;letter-spacing:.03em;margin:0 0 8px}
+.msg-actions{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
+.msg-read-btn{border:1px solid #cbd5e1;background:#f8fafc;color:#17365d;border-radius:8px;padding:6px 10px;font-weight:800;cursor:pointer}
+.msg-delete-btn{width:34px;height:34px;border:0;border-radius:50%;background:#b42318;color:#fff;font-size:20px;font-weight:900;line-height:1;cursor:pointer;box-shadow:0 2px 7px rgba(0,0,0,.16)}
+.msg-delete-btn:hover{background:#861a13;transform:scale(1.04)}
+.msg-alert-banner{display:flex;align-items:center;gap:10px;background:#fff1f1;border:1px solid #ef9a9a;border-left:6px solid #c62828;color:#7f1d1d;border-radius:12px;padding:11px 14px;margin:10px 0;font-weight:800}
+.msg-alert-banner .msg-count{min-width:30px;height:30px;display:inline-grid;place-items:center;background:#b42318;color:#fff;border-radius:50%;font-weight:900}
+.msg-toast{position:fixed;z-index:999999;right:18px;top:18px;width:min(520px,calc(100vw - 36px));padding:18px 18px 16px;background:linear-gradient(135deg,#fff 0%,#fff7f7 100%);border:2px solid #d83a3a;border-left:10px solid #b42318;border-radius:18px;box-shadow:0 18px 48px rgba(20,35,55,.32);display:none;color:#17365d}
+.msg-toast.show{display:block;animation:msgToastIn .28s ease-out,msgToastPulse 1.7s ease-in-out 2}
+.msg-toast-title{font-weight:950;color:#9f1d1d;font-size:1.18rem;margin:0 28px 8px 0;letter-spacing:.01em}
+.msg-toast-text{font-size:.98rem;font-weight:650;margin:0 0 14px;line-height:1.55;white-space:pre-line;overflow-wrap:anywhere}
+.msg-toast-actions{display:flex;justify-content:flex-end;gap:9px;flex-wrap:wrap}
+.msg-toast-actions button{border:0;border-radius:10px;padding:10px 14px;font-weight:900;cursor:pointer}
+.msg-toast-view{background:#17365d;color:white}.msg-toast-close{background:#eef2f7;color:#17365d}
+.msg-nav-alert{animation:msgNavPulse 1.15s ease-in-out infinite;box-shadow:0 0 0 3px rgba(180,35,24,.16)!important}
+.msg-nav-alert #badge-mensajes-catequista{background:#b42318!important;color:#fff!important}
+@keyframes msgToastIn{from{opacity:0;transform:translateY(-12px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes msgToastPulse{0%,100%{box-shadow:0 18px 48px rgba(20,35,55,.32)}50%{box-shadow:0 18px 48px rgba(180,35,24,.38)}}
+@keyframes msgNavPulse{0%,100%{filter:none}50%{filter:brightness(1.12)}}
+@media(max-width:600px){.msg-toast{right:10px;top:10px;width:calc(100vw - 20px);padding:15px}.msg-toast-title{font-size:1.05rem}.msg-actions{justify-content:space-between}}
+
+
+/* Navegación corregida: al iniciar solo se ve Administración; subáreas bajo clic */
+.menu-areas-catequistas{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin:14px 0 18px;width:100%;}
+.menu-areas-catequistas .menu-area-btn:not([data-area="administracion"]){display:none;}
+.menu-areas-catequistas.subareas-visible{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:100%;align-items:stretch;}
+.menu-areas-catequistas.area-selected{display:none!important}
+.menu-areas-catequistas.subareas-visible .menu-area-btn[data-area="administracion"]{grid-column:1/-1;justify-self:start;}
+.menu-area-btn.menu-admin-entry{max-width:360px;width:100%;}
+.menu-area-panel[hidden]{display:none!important;}
+@media(max-width:600px){.menu-areas-catequistas.subareas-visible{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.menu-area-btn{padding:9px 7px;gap:5px}.menu-area-btn span{font-size:1.15rem}.menu-area-btn strong{font-size:.72rem;line-height:1.15}.menu-area-btn small{display:none}}
+
+/* Navegación uniforme: un único botón volver al menú en todo el portal */
+#portal-nav-back,#portal-nav-forward{display:none!important}
+#portal-nav-home{min-width:150px;font-weight:850}
+.portal-history-nav{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);padding:7px 0;border-bottom:1px solid #e8edf4;margin:0 0 10px}
+.portal-history-main{width:100%;display:flex;justify-content:flex-start}
+.portal-history-nav #portal-nav-home{display:inline-flex!important}
+#mise-modal button[onclick="volverMenuPrincipal()"]{display:none!important}
+/* Colores pastel para biblioteca de videos */
+#vista-videos-temas .tool-card{background:#fffdfd;border-color:#f0d7e8;box-shadow:0 3px 12px rgba(89,63,120,.06)}
+#vista-videos-temas h2{color:#245b48}
+#vista-videos-temas form h3{background:#f0e8ff;color:#5b4789;padding:10px 12px;border-radius:10px;border:1px solid #dac8f5}
+#vista-videos-temas label{color:#365b79}
+#vista-videos-temas input,#vista-videos-temas select,#vista-videos-temas textarea{background:#f2faff;border:1px solid #b9dff5!important;color:#244765}
+#vista-videos-temas #descripcion-admin-video{background:#fff9ee!important;border-color:#f2dfb7!important;color:#735a31!important}
+#vista-videos-temas #url-admin-video{background:#e4f7ff!important;border-color:#71c5ec!important;font-weight:700;color:#145d86!important}
+#vista-videos-temas #titulo-admin-video{background:#f6efff!important;border-color:#d6b9f1!important;color:#5b4789!important}
+#vista-videos-temas #selector-admin-video-tema{background:#eaf8ed!important;border-color:#b9e2c4!important;color:#276345!important;font-weight:700}
+.avances-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#eef8f0;border-color:#c9e8d0}
+.avances-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.avances-layout{display:grid;grid-template-columns:minmax(250px,320px) minmax(0,1fr);gap:14px;margin-top:14px;align-items:start}
+.avances-listado{background:#fff8fc;border-color:#f0d5e5}
+.avances-lista{display:flex;flex-direction:column;gap:8px;max-height:70vh;overflow:auto;margin-top:10px}
+.avance-alumno-btn{display:flex;align-items:center;gap:10px;text-align:left;width:100%;border:1px solid #d9e5ef;background:#fff;border-radius:12px;padding:9px;cursor:pointer}
+.avance-alumno-btn.active{border:2px solid #78b8dc;background:#edf8ff}
+.avance-alumno-btn img{width:42px;height:42px;border-radius:50%;object-fit:cover;background:#f5f5f5}
+.avance-alumno-btn strong{font-size:.83rem;color:#254767}
+.avance-progress{height:9px;background:#e8edf2;border-radius:999px;overflow:hidden;margin:5px 0}
+.avance-progress>span{display:block;height:100%;background:#8bc9a0;border-radius:999px}
+.avance-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px}
+.avance-kpi{background:#f2faff;border:1px solid #c9e7f5;border-radius:12px;padding:10px;text-align:center}
+.avance-kpi strong{display:block;font-size:1.25rem;color:#2b6282}
+.avance-temas{max-height:560px;overflow:auto;border:1px solid #e2e8f0;border-radius:12px}
+.avance-tema-row{display:grid;grid-template-columns:minmax(170px,1fr) 130px minmax(130px,1fr);gap:10px;align-items:center;padding:9px 10px;border-bottom:1px solid #edf1f5;font-size:.82rem}
+.avance-tema-row:nth-child(even){background:#fbfdff}
+.avance-pill{display:inline-block;padding:3px 8px;border-radius:999px;font-size:.72rem;font-weight:800;background:#fff3d9;color:#8b6418}
+.avance-pill.done{background:#e7f6ec;color:#26724a}
+.avance-notas{width:100%;border-collapse:collapse;font-size:.8rem}
+.avance-notas th,.avance-notas td{padding:7px;border:1px solid #e4e9ef;text-align:left}
+.avance-notas th{background:#f2eaff;color:#5c4986}
+/* Asistencia grupal horizontal, fotos/nombres sticky */
+.asistencia-matriz-full-wrap{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.asistencia-matriz-hint{padding:10px 12px;background:#fff9e8;border-bottom:1px solid #f1dfb1;color:#795a17;font-size:.82rem}
+.asistencia-matriz-scroll{overflow:auto;max-height:72vh;max-width:100%}
+.asistencia-matriz-full{width:max-content;min-width:100%;border-collapse:separate;border-spacing:0;font-size:.75rem}
+.asistencia-matriz-full th,.asistencia-matriz-full td{padding:5px 7px;min-width:86px;white-space:nowrap;background:#fff}
+.asistencia-matriz-full th:first-child,.asistencia-matriz-full td:first-child{position:sticky;left:0;z-index:6;min-width:220px;width:220px;background:#f2f8ff;box-shadow:2px 0 4px #00000012}
+.asistencia-matriz-full th:first-child{z-index:8}
+.asistencia-matriz-full select{width:100%;min-width:65px;border-radius:7px;padding:5px 3px;font-weight:800;border:1px solid #cfdbe8}
+.asistencia-alumno-cell{display:flex;align-items:center;gap:8px;max-width:220px}
+.asistencia-alumno-cell img{width:32px;height:32px;object-fit:cover;border-radius:50%;flex:none}
+.asistencia-alumno-cell span{font-weight:800;white-space:normal;line-height:1.2}
+.asistencia-matriz-full th{position:sticky;top:0;z-index:5;background:#e8f4ff;color:#254967;text-align:center}
+.asistencia-matriz-full td{text-align:center}
+@media(max-width:700px){.avances-layout{grid-template-columns:1fr}.avances-lista{max-height:260px}.avance-tema-row{grid-template-columns:1fr 95px}.avance-tema-row .avance-progress{grid-column:1/-1}.asistencia-matriz-full th:first-child,.asistencia-matriz-full td:first-child{min-width:170px;width:170px}.asistencia-alumno-cell img{width:26px;height:26px}}
+
+/* Estilos originales: id="lds-copyright-standard" */
+.lds-copyright-footer,.lds-copyright-line{
+  display:block!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+  margin:12px 0 0!important;
+  padding:11px 16px!important;
+  text-align:center!important;
+  color:#fff!important;
+  background:linear-gradient(105deg,#0a1c39,#18395f)!important;
+  border-top:2px solid #d4ae55!important;
+  font-family:inherit!important;
+  font-size:12px!important;
+  font-weight:700!important;
+  line-height:1.5!important;
+  letter-spacing:.02em!important;
+}
+.lds-copyright-footer{margin-top:24px!important}
+
+/* Estilos originales: id="catequista-login-alignment-fix" */
+/* Corrección de superposición: no cambia la imagen ni mueve el formulario. */
+.auth-card .auth-field>label{display:none!important}
+.auth-card .auth-field::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  left:18%;
+  right:5%;
+  top:16%;
+  bottom:16%;
+  border-radius:999px;
+  background:rgba(255,255,255,.96);
+  box-shadow:inset 0 0 0 1px rgba(159,181,211,.13);
+  pointer-events:none;
+}
+.auth-card .auth-field:nth-of-type(2)::before{right:16%}
+.auth-card .auth-field input,
+.auth-card .auth-field select{
+  position:relative;
+  z-index:1;
+  background:transparent!important;
+  color:#102b4f!important;
+  text-align:center!important;
+  text-align-last:center!important;
+  font-size:clamp(11px,1.25vw,20px)!important;
+  font-weight:700!important;
+  line-height:1.2!important;
+  padding-left:17%!important;
+  padding-right:17%!important;
+}
+.auth-card #catequista-pin::placeholder{color:#52647b!important;opacity:1}
+.auth-card #catequista-id option{color:#102b4f;background:#fff}
+.auth-card .auth-eye-hitbox{
+  position:absolute!important;
+  z-index:5!important;
+  right:0!important;
+  top:0!important;
+  width:16%!important;
+  height:100%!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:50%!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  cursor:pointer!important;
+}
+.auth-card .auth-eye-hitbox:focus-visible{
+  outline:2px solid #d5ae52!important;
+  outline-offset:-4px;
+}
+/* El texto del botón lo trae la portada. El botón HTML solo recibe el clic. */
+.auth-card #btn-login-catequista{
+  top:79%!important;
+  left:14%!important;
+  width:72%!important;
+  height:25%!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  color:transparent!important;
+  font-size:0!important;
+  line-height:0!important;
+  text-shadow:none!important;
+  box-shadow:none!important;
+  opacity:1!important;
+}
+.auth-card #btn-login-catequista:disabled{opacity:1!important}
+@media(max-width:700px){
+  .auth-card{width:38vw!important}
+  .auth-card .auth-field input,
+  .auth-card .auth-field select{font-size:10px!important}
+}
+
+/* Estilos originales: id="catequista-login-pill-extension" */
+/* Cápsulas de acceso más largas: cubren el texto impreso en la imagen original. */
+.auth-card .auth-field::before{
+  left:7%!important;
+  right:5%!important;
+  top:12%!important;
+  bottom:12%!important;
+  background:rgba(255,255,255,.985)!important;
+  box-shadow:inset 0 0 0 1px rgba(159,181,211,.20),0 1px 2px rgba(12,38,72,.04)!important;
+}
+.auth-card .auth-field:nth-of-type(2)::before{
+  left:7%!important;
+  right:16%!important;
+}
+.auth-card .auth-field input,
+.auth-card .auth-field select{
+  padding-left:9%!important;
+  padding-right:9%!important;
+  font-size:clamp(10px,1.05vw,17px)!important;
+  letter-spacing:.01em!important;
+}
+@media(max-width:700px){
+  .auth-card .auth-field input,
+  .auth-card .auth-field select{
+    padding-left:9%!important;
+    padding-right:9%!important;
+    font-size:10.5px!important;
+  }
+}
+
+/* Estilos originales: id="catequista-select-left-shift" */
+/* Desplaza únicamente el selector superior 2 cm hacia la catequista sin lentes. */
+.auth-card .auth-field:nth-of-type(1){
+  transform:translateX(-2cm)!important;
+}
+
+/* Estilos originales: id="catequista-login-row-final-tune" */
+/* Ajuste final del cuadro: cubre el texto del fondo y deja libres los iconos. */
+.auth-card .auth-field:nth-of-type(1){
+  transform:none!important;
+}
+.auth-card .auth-field::before{
+  left:15%!important;
+  right:4%!important;
+  top:12%!important;
+  bottom:12%!important;
+  background:rgba(255,255,255,.995)!important;
+}
+.auth-card .auth-field:nth-of-type(2)::before{
+  left:15%!important;
+  right:16%!important;
+}
+.auth-card .auth-field input,
+.auth-card .auth-field select{
+  padding-left:0!important;
+  padding-right:0!important;
+  text-align:center!important;
+  text-align-last:center!important;
+}
+.auth-card .auth-field select{
+  transform:translateX(-.25cm);
+}
+@media(max-width:700px){
+  .auth-card .auth-field select{
+    transform:translateX(-.15cm);
+  }
+}
+
+/* Estilos originales: id="catequista-login-pill-left-extension" */
+/* Corrección de dirección: extender 1 cm hacia la catequista SIN lentes (lado izquierdo). */
+/* Se retira la ampliación anterior hacia la derecha. */
+.auth-card .auth-field::before{
+  left:calc(15% - 1cm)!important;
+  right:4%!important;
+}
+.auth-card .auth-field:nth-of-type(2)::before{
+  left:calc(15% - 1cm)!important;
+  right:16%!important;
+}
+
+/* Estilos originales: id="catequista-selector-shorter-half-cm" */
+/* Acortar únicamente el selector de nombres 0.5 cm por cada lado. */
+.auth-card .auth-field:nth-of-type(1)::before{
+  left:calc(15% - .5cm)!important;
+  right:calc(4% + .5cm)!important;
+}
+.auth-card .auth-field:nth-of-type(1) select{
+  width:calc(100% - 1cm)!important;
+  margin-left:.5cm!important;
+}
+
+/* Estilos originales: id="portal-workspace-layout-and-buttons" */
+.portal-workspace{display:none;margin:22px 0 0;width:100%;}
+.portal-workspace.active{display:block;}
+.portal-workspace-inner{width:100%;max-width:none;max-height:none;overflow:visible;padding:0;background:transparent;border-radius:0;box-shadow:none;}
+.portal-workspace .panel-head{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:18px!important;}
+.portal-workspace .tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;}
+#tarjeta-portal-padres[hidden]{display:none!important;}
+.portal-workspace #menu-herramientas > .menu-step-title{grid-column:1/-1;margin:12px 0 0;padding:8px 12px;border-left:4px solid #d8ad3c;border-radius:8px;background:#f4f7fb;color:#17365d;font-size:.83rem;font-weight:850;letter-spacing:.045em;}
+
+.portal-workspace .tool-card{min-width:0;background:#fff;border:1px solid #dce4ef;border-radius:18px;padding:20px;box-shadow:0 4px 14px rgba(16,42,76,.045);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;}
+.portal-workspace .tool-card:hover{transform:translateY(-2px);border-color:#b9c9df;box-shadow:0 9px 22px rgba(16,42,76,.09);}
+.portal-workspace .tool-card h4{color:#17365d;font-size:1.04rem;letter-spacing:.005em;margin:0 0 6px;}
+.portal-workspace .tool-card p{color:#687b96;line-height:1.45;margin:0 0 16px;}
+.portal-workspace .tool-card .btn{display:flex;align-items:center;justify-content:center;text-decoration:none;text-align:center;width:100%;min-height:44px;padding:11px 18px;border-radius:12px;font-weight:750;letter-spacing:.01em;box-shadow:none;transition:background .18s ease,border-color .18s ease,color .18s ease,transform .18s ease;}
+.portal-workspace .tool-card .btn:hover{transform:translateY(-1px);}
+.portal-workspace .tool-card .btn.primary{background:#17365d;border:1px solid #17365d;color:#fff;}
+.portal-workspace .tool-card .btn.primary:hover{background:#214a78;border-color:#214a78;}
+.portal-workspace .tool-card .btn.gold{background:#fff4cf;border:1px solid #e8c45a;color:#17365d;}
+.portal-workspace .tool-card .btn.gold:hover{background:#ffe9a6;border-color:#d9ad32;}
+.portal-workspace .tool-card .btn:not(.primary):not(.gold){background:#fff;border:1px solid #d6e0ed;color:#17365d;}
+.portal-workspace .tool-card .btn:not(.primary):not(.gold):hover{background:#f4f7fb;border-color:#b9c9df;}
+@media(max-width:900px){.portal-workspace .tools-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:600px){.portal-workspace .tools-grid{grid-template-columns:1fr;}.portal-workspace .tool-card{padding:17px;border-radius:15px;}}
+
+/* Estilos originales: base */
+.badge-count{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 6px;border-radius:99px;background:#fff0c2;color:#765000;font-size:.75rem;font-weight:900;vertical-align:middle}
+@media(max-width:700px){.messages-columns{grid-template-columns:1fr!important}}
+
+/* Estilos originales: id="portal-card-palette" */
+/* Paleta pastel institucional: cada módulo se distingue sin perder unidad visual. */
+.portal-workspace #menu-herramientas > .tool-card{position:relative;overflow:hidden;border-radius:16px;padding:19px 20px;background:var(--card-bg,#fff);border:1px solid var(--card-border,#dce5ef);box-shadow:0 3px 12px rgba(22,48,79,.055)}
+.portal-workspace #menu-herramientas > .tool-card::before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--card-accent,#456)}
+.portal-workspace #menu-herramientas > .tool-card:hover{transform:translateY(-3px);border-color:var(--card-accent);box-shadow:0 9px 20px rgba(22,48,79,.11)}
+.portal-workspace #menu-herramientas > .tool-card h4{color:var(--card-title,#17365d)}
+.portal-workspace #menu-herramientas > .tool-card p{color:#586b82}
+.portal-workspace #menu-herramientas > .tool-card .btn{background:var(--btn-bg,#fff);border:1px solid var(--btn-border,var(--card-accent));color:var(--btn-text,var(--card-title));border-radius:10px;min-height:40px;font-weight:800}
+.portal-workspace #menu-herramientas > .tool-card .btn:hover{background:var(--btn-hover,var(--card-bg));border-color:var(--card-accent);filter:none}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(1){--card-bg:#eef5ff;--card-border:#cbdcf5;--card-accent:#5684c5;--card-title:#244d80;--btn-bg:#dceaff;--btn-border:#a9c5eb;--btn-text:#244d80;--btn-hover:#cfe1fb}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(2){--card-bg:#edf8f2;--card-border:#c8e7d5;--card-accent:#4b9a70;--card-title:#286344;--btn-bg:#d9f0e2;--btn-border:#a9d7bb;--btn-text:#245c3e;--btn-hover:#c9e9d5}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(3){--card-bg:#fff7e8;--card-border:#f0dfb7;--card-accent:#d39a32;--card-title:#805819;--btn-bg:#ffedc7;--btn-border:#e9c77c;--btn-text:#765016;--btn-hover:#ffe5ae}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(4){--card-bg:#fff1ee;--card-border:#f1d1c9;--card-accent:#d47d68;--card-title:#8c493d;--btn-bg:#ffe1da;--btn-border:#eab4a8;--btn-text:#824337;--btn-hover:#ffd5cb}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(5){--card-bg:#f2f0ff;--card-border:#d9d3f5;--card-accent:#8274c6;--card-title:#51468a;--btn-bg:#e5e0ff;--btn-border:#c2b9ed;--btn-text:#51468a;--btn-hover:#dcd5ff}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(6){--card-bg:#edf7fb;--card-border:#cce5ef;--card-accent:#4d98b5;--card-title:#28647c;--btn-bg:#d9eff7;--btn-border:#acd6e5;--btn-text:#28647c;--btn-hover:#cce9f3}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(7){--card-bg:#fff1f6;--card-border:#f0d1df;--card-accent:#c56b91;--card-title:#85415f;--btn-bg:#fbe0eb;--btn-border:#e7b5cb;--btn-text:#85415f;--btn-hover:#f7d2e2}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(8){--card-bg:#f2f4ff;--card-border:#d5dcf5;--card-accent:#657fc1;--card-title:#354e88;--btn-bg:#e0e7ff;--btn-border:#b9c7ed;--btn-text:#354e88;--btn-hover:#d3ddff}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(9){--card-bg:#eef8f7;--card-border:#c9e6e2;--card-accent:#4a9b91;--card-title:#28665f;--btn-bg:#d9efec;--btn-border:#a9d7d1;--btn-text:#28665f;--btn-hover:#c9e8e3}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(10){--card-bg:#f2f7ed;--card-border:#d8e7c8;--card-accent:#7c9c55;--card-title:#4b6731;--btn-bg:#e4efd8;--btn-border:#c0d7a7;--btn-text:#4b6731;--btn-hover:#d9e9c9}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(11){--card-bg:#fff5ed;--card-border:#f1ddca;--card-accent:#cf8a51;--card-title:#86552e;--btn-bg:#fbe7d5;--btn-border:#e8c29f;--btn-text:#86552e;--btn-hover:#f7dcc3}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(12){--card-bg:#f5eff9;--card-border:#e1d2ed;--card-accent:#9270aa;--card-title:#5d4274;--btn-bg:#eadff2;--btn-border:#ceb8df;--btn-text:#5d4274;--btn-hover:#e2d3ed}
+.portal-workspace #menu-herramientas > .tool-card:nth-child(13){--card-bg:#f4f5f7;--card-border:#dfe3e8;--card-accent:#7c8795;--card-title:#465260;--btn-bg:#e8ebef;--btn-border:#cbd2da;--btn-text:#465260;--btn-hover:#dfe4e9}
+.portal-workspace #menu-herramientas > .tool-card .btn.primary,
+.portal-workspace #menu-herramientas > .tool-card .btn.gold{background:var(--btn-bg);border-color:var(--btn-border);color:var(--btn-text)}
+@media(max-width:600px){.portal-workspace #menu-herramientas > .tool-card{padding:16px 17px}}
+
+/* Estilos originales: id="logo-institucional-la-salle" */
+/* Presentación del escudo oficial: se conserva la imagen institucional existente. */
+.topbar-inner .brand{gap:14px;letter-spacing:.035em}
+.topbar-inner .brand img.crest{width:64px;height:64px;object-fit:contain;display:block;padding:4px;background:#fff;border:2px solid #e7c45c;border-radius:16px;box-shadow:0 3px 10px rgba(18,52,91,.14),0 0 0 3px rgba(231,196,92,.14);filter:drop-shadow(0 2px 2px rgba(18,52,91,.08))}
+.topbar-inner .brand>div{font-size:1.02rem;font-weight:900;color:#102f54;line-height:1.25}
+.topbar-inner .brand small{margin-top:4px;font-size:.78rem;color:#62748c;font-weight:600}
+@media(max-width:600px){.topbar-inner .brand img.crest{width:56px;height:56px;border-radius:14px}.topbar-inner .brand{gap:10px}}
+
+/* Estilos originales: id="portal-logo-name-cartoon-adjustments" */
+/* Insignia sin marco blanco: imagen limpia y ampliada. */
+.portal-intro-crest{width:124px!important;height:124px!important;padding:0!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;filter:none!important}
+/* Nombre de la catequista destacado encima del acceso de retorno. */
+.portal-user-return{display:flex;flex-direction:column;align-items:flex-end;gap:5px;margin-left:8px}
+.portal-user-return .auth-user{display:block;color:#fff;font-size:1.18rem;font-weight:950;letter-spacing:.025em;line-height:1.15;text-align:right;margin:0}
+.portal-user-return .btn{white-space:nowrap}
+/* Iconografía alegre, ilustrada y consistente para todas las tarjetas. */
+.module-cartoon-icon{display:flex;align-items:center;min-height:48px;margin:0 0 9px;font-size:2.15rem;line-height:1;letter-spacing:2px;filter:drop-shadow(0 3px 2px rgba(23,43,72,.12));transform-origin:left center;transition:transform .2s ease}
+.tool-card:hover .module-cartoon-icon{transform:translateY(-2px) rotate(-3deg) scale(1.06)}
+@media(max-width:760px){.portal-intro-crest{width:84px!important;height:84px!important}.portal-user-return{align-items:flex-start;width:100%;margin:5px 0 0}.portal-user-return .auth-user{text-align:left;font-size:1.05rem}.module-cartoon-icon{font-size:1.9rem;min-height:42px}}
+@media(max-width:420px){.portal-intro-crest{width:76px!important;height:76px!important}}
+
+/* Estilos originales: id="portal-intro-nav-inside-blue-refinement" */
+/* Navegación integrada dentro de la franja azul institucional */
+.portal-intro{position:relative;padding-bottom:18px;gap:18px}
+.portal-intro-actions{padding-top:28px}
+.portal-user-name-top{position:absolute;right:30px;top:54px;max-width:48%;text-align:right;z-index:2}
+.portal-user-name-top .auth-user{display:block;margin:0;color:#fff;font-size:clamp(1rem,1.35vw,1.3rem);font-weight:950;letter-spacing:.035em;line-height:1.2;text-align:right}
+.portal-history-nav{width:100%;margin:0!important;padding:10px 12px!important;background:rgba(255,255,255,.09)!important;border:1px solid rgba(255,255,255,.25)!important;border-radius:14px!important;box-shadow:none!important}
+.portal-history-nav .btn{min-height:40px;padding:9px 17px;border-radius:11px;background:rgba(255,255,255,.96);border:1px solid rgba(255,255,255,.75);color:#17365d;font-weight:850}
+.portal-history-nav .btn:hover:not(:disabled){background:#ffe49a;border-color:#f3c755;color:#17365d}
+.portal-history-nav .btn:disabled{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.18);color:rgba(255,255,255,.68);opacity:1}
+.portal-history-nav .portal-history-group{width:100%;justify-content:center;gap:12px}
+.portal-history-nav .portal-history-group .btn{min-width:150px}
+@media(max-width:760px){
+ .portal-intro{padding-top:62px;padding-bottom:14px;gap:15px}
+ .portal-user-name-top{top:15px;right:105px;max-width:calc(100% - 135px)}
+ .portal-user-name-top .auth-user{font-size:.9rem}
+ .portal-intro-actions{padding-top:0}
+ .portal-history-nav{padding:8px!important}
+ .portal-history-nav .portal-history-group{gap:6px}
+ .portal-history-nav .portal-history-group .btn{min-width:0;flex:1;padding:8px 6px;font-size:.76rem}
+}
+@media(max-width:420px){.portal-user-name-top{right:98px;max-width:calc(100% - 125px)}.portal-user-name-top .auth-user{font-size:.78rem}}
+
+/* Estilos originales: id="lds-mobile-login-layout" */
+/* En pantallas pequeñas el acceso se presenta como formulario real y legible,
+   sin estirar la portada horizontal original. La vista de escritorio se conserva. */
+@media (max-width:700px) {
+  html, body {
+    width:100%!important;
+    min-width:0!important;
+    height:100%!important;
+    min-height:100%!important;
+    overflow-x:hidden!important;
+  }
+  .auth-overlay {
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    width:100vw!important;
+    min-width:0!important;
+    height:100vh!important;
+    height:100dvh!important;
+    min-height:100vh!important;
+    min-height:100dvh!important;
+    padding:58px 16px calc(46px + env(safe-area-inset-bottom))!important;
+    background:linear-gradient(145deg,#102b4f 0%,#1b4772 62%,#d4b35f 150%)!important;
+    background-image:none!important;
+  }
+  .auth-overlay::before {
+    content:"PORTAL DE CATEQUISTAS";
+    position:absolute;
+    top:calc(18px + env(safe-area-inset-top));
+    left:12px;
+    right:12px;
+    color:#fff;
+    text-align:center;
+    font:900 12px/1.3 Arial,sans-serif;
+    letter-spacing:.12em;
+  }
+  .auth-overlay::after {
+    bottom:calc(8px + env(safe-area-inset-bottom))!important;
+    padding:0 10px;
+    font-size:9px!important;
+    line-height:1.3;
+  }
+  .auth-card {
+    position:relative!important;
+    top:auto!important;
+    left:auto!important;
+    transform:none!important;
+    width:min(100%,430px)!important;
+    max-width:430px!important;
+    min-width:0!important;
+    height:auto!important;
+    margin:18px auto!important;
+    padding:22px 18px 20px!important;
+    overflow:visible!important;
+    background:#fff!important;
+    border:1px solid #d9e2ee!important;
+    border-radius:22px!important;
+    box-shadow:0 18px 42px rgba(0,0,0,.25)!important;
+  }
+  .auth-card::before {
+    content:"Bienvenida al programa Camino hacia Jesús";
+    display:block;
+    margin:0 0 18px;
+    color:#17395f;
+    text-align:center;
+    font:800 18px/1.25 Arial,sans-serif;
+  }
+  .auth-card>.eyebrow,
+  .auth-card h2,
+  .auth-card .auth-sub,
+  .auth-card>p.sub { display:none!important; }
+  #catequista-login-form {
+    position:relative!important;
+    inset:auto!important;
+    display:grid!important;
+    gap:14px!important;
+    width:100%!important;
+    margin:0!important;
+  }
+  .auth-card .auth-field {
+    position:relative!important;
+    top:auto!important;
+    left:auto!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    margin:0!important;
+    padding:0!important;
+  }
+  .auth-card .auth-field::before,
+  .auth-card .auth-field::after { display:none!important; content:none!important; }
+  .auth-card .auth-field>label {
+    display:block!important;
+    position:static!important;
+    width:auto!important;
+    height:auto!important;
+    margin:0 0 6px!important;
+    color:#294765!important;
+    font:800 13px/1.3 Arial,sans-serif!important;
+    text-align:left!important;
+  }
+  .auth-card .auth-field input,
+  .auth-card .auth-field select {
+    display:block!important;
+    position:relative!important;
+    width:100%!important;
+    height:49px!important;
+    min-height:49px!important;
+    padding:0 14px!important;
+    border:1px solid #c8d5e4!important;
+    border-radius:12px!important;
+    background:#f8fafc!important;
+    color:#17395f!important;
+    text-align:left!important;
+    text-align-last:left!important;
+    font:600 16px/1.2 Arial,sans-serif!important;
+    box-shadow:none!important;
+  }
+  .auth-card .auth-field input { padding-right:58px!important; }
+  .auth-card .auth-eye-hitbox {
+    position:absolute!important;
+    z-index:6!important;
+    right:4px!important;
+    top:auto!important;
+    bottom:1px!important;
+    width:48px!important;
+    height:47px!important;
+    border:0!important;
+    border-radius:10px!important;
+    background:transparent!important;
+  }
+  .auth-card .auth-error {
+    position:static!important;
+    left:auto!important;
+    right:auto!important;
+    bottom:auto!important;
+    width:100%!important;
+    margin:0 0 10px!important;
+    padding:9px 10px!important;
+    font-size:12px!important;
+  }
+  .auth-card #btn-login-catequista {
+    position:relative!important;
+    top:auto!important;
+    left:auto!important;
+    width:100%!important;
+    height:49px!important;
+    min-height:49px!important;
+    margin:3px 0 0!important;
+    padding:0 12px!important;
+    border:0!important;
+    border-radius:13px!important;
+    background:linear-gradient(135deg,#173d67,#0b2442)!important;
+    color:#fff!important;
+    font-size:0!important;
+    line-height:0!important;
+    box-shadow:0 5px 13px rgba(17,54,91,.2)!important;
+  }
+  .auth-card #btn-login-catequista::before {
+    content:"Ingresar al portal"!important;
+    display:block!important;
+    color:#fff!important;
+    font:800 15px/1.2 Arial,sans-serif!important;
+  }
+}
+
+/* Navegación organizada en tres áreas; se mantienen las vistas y acciones originales. */
+.menu-principal-catequistas{display:block!important;width:100%;}
+.menu-intro-catequistas{margin:4px 0 16px;padding:4px 2px;}
+.menu-intro-catequistas h2{margin:0 0 6px;color:#17365d;font-size:clamp(1.15rem,2.5vw,1.55rem);}
+.menu-intro-catequistas p,.menu-area-heading p{margin:0;color:#687b96;line-height:1.45;}
+.menu-areas-catequistas{display:flex;flex-direction:column;gap:10px;margin:14px 0 18px;align-items:flex-start;}
+.menu-area-btn{border:1px solid #dce4ef;background:#fff;border-radius:14px;padding:11px 16px;min-height:0;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:9px;color:#17365d;cursor:pointer;box-shadow:0 3px 10px rgba(16,42,76,.04);width:auto;}
+.menu-area-btn span{font-size:1.3rem;line-height:1;}.menu-area-btn strong{font-size:.9rem;letter-spacing:.02em;text-align:center;}.menu-area-btn small{font-size:.75rem;color:#687b96;text-align:center;line-height:1.35;}
+.menu-area-btn.active{border-color:#17365d;background:#eef4fb;box-shadow:0 0 0 2px #17365d18;}
+.menu-area-btn[data-area="catequizandos"],.menu-area-btn[data-area="padres"],.menu-area-btn[data-area="gestores"]{display:none;}
+.menu-areas-catequistas.subareas-visible{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:100%;align-items:stretch;}
+.menu-areas-catequistas.area-selected{display:none!important}
+.menu-areas-catequistas.subareas-visible .menu-area-btn[data-area="administracion"]{grid-column:1/-1;justify-self:start;}
+.menu-area-panel{display:block;}.menu-area-panel[hidden]{display:none!important;}
+.menu-area-heading{margin:0 0 12px;padding:12px 14px;background:#f4f7fb;border-left:4px solid #d8ad3c;border-radius:10px;}
+.menu-area-heading h3{margin:0 0 4px;color:#17365d;font-size:1.05rem;}
+.menu-area-panel .tools-grid{margin-top:0;}
+@media(max-width:760px){.menu-areas-catequistas.subareas-visible{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.menu-area-btn{padding:9px 7px;gap:5px}.menu-area-btn span{font-size:1.15rem}.menu-area-btn strong{font-size:.72rem;line-height:1.15}.menu-area-btn small{display:none}.menu-area-panel .tools-grid{grid-template-columns:1fr!important;gap:11px!important}.menu-area-panel .tool-card{padding:15px!important}}
+@media(min-width:761px) and (max-width:1100px){.menu-area-panel .tools-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}}
+
+</style>
 <title>Caminando hacia Jesús 2026 | Portal de Catequistas – Colegio La Salle del Sur</title>
 
 </head>
