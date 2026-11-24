@@ -1790,27 +1790,40 @@ function _quizConfetiV5() {
   }
 }
 
+function _quizAplausoV5(ctx, inicio) {
+  // Aplauso breve generado localmente: no requiere descargar archivos de audio.
+  for (let i = 0; i < 15; i++) {
+    const dur = 0.055 + Math.random() * 0.035;
+    const buffer = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur), ctx.sampleRate);
+    const datos = buffer.getChannelData(0);
+    for (let j = 0; j < datos.length; j++) {
+      const envolvente = Math.pow(1 - j / datos.length, 2.2);
+      datos[j] = (Math.random() * 2 - 1) * envolvente;
+    }
+    const fuente = ctx.createBufferSource();
+    const filtro = ctx.createBiquadFilter();
+    const ganancia = ctx.createGain();
+    const momento = inicio + i * (0.055 + Math.random() * 0.025);
+    fuente.buffer = buffer;
+    filtro.type = 'bandpass';
+    filtro.frequency.value = 1750 + Math.random() * 1150;
+    filtro.Q.value = 0.75;
+    ganancia.gain.setValueAtTime(0.0001, momento);
+    ganancia.gain.exponentialRampToValueAtTime(0.16 + Math.random() * 0.08, momento + 0.006);
+    ganancia.gain.exponentialRampToValueAtTime(0.0001, momento + dur);
+    fuente.connect(filtro);
+    filtro.connect(ganancia);
+    ganancia.connect(ctx.destination);
+    fuente.start(momento);
+  }
+}
+
 function _quizEfectoRespuestaV5(correcta) {
   const ctx = _quizAudioV5();
   if (ctx) {
     const t = ctx.currentTime;
     if (correcta) {
-      [523, 659, 784, 988].forEach((hz, i) => _quizTonoV5(ctx, hz, t + i * 0.075, 0.28, 'triangle', 0.075));
-      for (let i = 0; i < 4; i++) {
-        const dur = 0.045;
-        const buffer = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur), ctx.sampleRate);
-        const arr = buffer.getChannelData(0);
-        for (let j = 0; j < arr.length; j++) arr[j] = (Math.random() * 2 - 1) * (1 - j / arr.length);
-        const src = ctx.createBufferSource();
-        const filter = ctx.createBiquadFilter();
-        const gain = ctx.createGain();
-        src.buffer = buffer; filter.type = 'highpass'; filter.frequency.value = 900;
-        gain.gain.setValueAtTime(0.0001, t + 0.14 + i * 0.09);
-        gain.gain.exponentialRampToValueAtTime(0.11, t + 0.155 + i * 0.09);
-        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.20 + i * 0.09);
-        src.connect(filter); filter.connect(gain); gain.connect(ctx.destination);
-        src.start(t + 0.14 + i * 0.09);
-      }
+      _quizAplausoV5(ctx, t);
       if (navigator.vibrate) navigator.vibrate([35, 25, 45]);
       _quizConfetiV5();
     } else {
@@ -3016,6 +3029,50 @@ async function abrirCuestionarioTema(idSesion, nombreTema) {
   await cargarPreguntaJuego(idSesion, nombreTema);
 }
 
+/** Reproduce un aplauso breve sin descargar archivos de audio externos. */
+function quizReproducirAplausoV6() {
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    const ctx = new AudioCtx();
+    const iniciar = () => {
+      const duracion = 0.075;
+      const golpes = [0, 0.09, 0.17, 0.26, 0.34, 0.43, 0.52, 0.61];
+      golpes.forEach((inicio, indice) => {
+        const cantidad = Math.floor(ctx.sampleRate * duracion);
+        const buffer = ctx.createBuffer(1, cantidad, ctx.sampleRate);
+        const datos = buffer.getChannelData(0);
+        for (let i = 0; i < cantidad; i++) {
+          datos[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / cantidad, 3);
+        }
+        const fuente = ctx.createBufferSource();
+        const filtro = ctx.createBiquadFilter();
+        const volumen = ctx.createGain();
+        fuente.buffer = buffer;
+        filtro.type = 'bandpass';
+        filtro.frequency.value = 950 + (indice % 3) * 350;
+        filtro.Q.value = 0.8;
+        volumen.gain.setValueAtTime(0.0001, ctx.currentTime + inicio);
+        volumen.gain.exponentialRampToValueAtTime(0.24, ctx.currentTime + inicio + 0.008);
+        volumen.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + inicio + duracion);
+        fuente.connect(filtro);
+        filtro.connect(volumen);
+        volumen.connect(ctx.destination);
+        fuente.start(ctx.currentTime + inicio);
+        fuente.stop(ctx.currentTime + inicio + duracion);
+      });
+      window.setTimeout(() => { try { ctx.close(); } catch (e) {} }, 1100);
+    };
+    if (ctx.state === 'suspended') {
+      ctx.resume().then(iniciar).catch(() => { try { ctx.close(); } catch (e) {} });
+    } else {
+      iniciar();
+    }
+  } catch (e) {
+    // Si el navegador bloquea el audio, el cuestionario continúa normalmente.
+  }
+}
+
 async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, progresoPrecargado) {
   const title = document.getElementById('quizModalTitle');
   const body = document.getElementById('quizModalBody');
@@ -3197,7 +3254,7 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
         const correctoHtml = saved.correcta
           ? '<h3 style="margin:0 0 6px;color:#168454;">🎉 ¡Muy bien! Respuesta correcta</h3><p style="margin:0 0 8px;">Ganaste <strong>2 puntos</strong> ⭐</p>'
           : `<h3 style="margin:0 0 6px;color:#a52222;">💛 ¡Buen intento! Vamos a aprender</h3><p style="margin:0 0 8px;">La respuesta correcta era: <strong>${escapeQuizHtml(saved.respuestaCorrecta)}) ${escapeQuizHtml(saved.textoRespuestaCorrecta || '')}</strong></p>`;
-        result.innerHTML = `<div class="quiz-feedback-v6" style="padding:15px;border-radius:14px;background:${saved.correcta ? "#effaf2" : "#fff2f0"};border:1px solid ${saved.correcta ? "#a8dfb5" : "#f2b9b2"};">${correctoHtml}${saved.explicacion ? `<p style="color:#25415d;margin:8px 0 0;">${escapeQuizHtml(saved.explicacion)}</p>` : ''}<p style="margin:10px 0 0;color:#52677f;font-weight:800;">Avance del bloque: ${nuevoProgreso.toFixed(1).replace(/\.0$/, '')}%</p></div>`;
+        result.innerHTML = `<div class="quiz-feedback-v6" style="padding:15px;border-radius:14px;background:${saved.correcta ? "#effaf2" : "#fff2f0"};border:1px solid ${saved.correcta ? "#a8dfb5" : "#f2b9b2"};">${correctoHtml}${!saved.correcta && saved.explicacion ? `<p style="color:#25415d;margin:8px 0 0;">${escapeQuizHtml(saved.explicacion)}</p>` : ''}<p style="margin:10px 0 0;color:#52677f;font-weight:800;">Avance del bloque: ${nuevoProgreso.toFixed(1).replace(/\.0$/, '')}%</p></div>`;
         // Los efectos sonoros sustituyen la narración para que la pregunta siguiente llegue sin demora.
 
         comprobar.style.display = 'none';
@@ -3248,7 +3305,14 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
             quizTimerSiguienteV5=setTimeout(()=>{if(quizTemaActivoV5===quizClaveActivoV10&&!document.getElementById('quizModalBackdrop').hidden)cargarPreguntaJuego(idSesion,nombreTema);},180);
           }
         };
-        quizHablarV6(retroalimentacionV6,avanzarAlTerminarVozV6);
+        // Si acierta, no se reproduce explicación ni felicitación: avanzar de inmediato.
+        // Si se equivoca, la explicación se muestra en pantalla y se escucha antes de continuar.
+        if (saved.correcta) {
+          quizReproducirAplausoV6();
+          avanzarAlTerminarVozV6();
+        } else {
+          quizHablarV6(retroalimentacionV6, avanzarAlTerminarVozV6);
+        }
       } catch (error) {
         const result = document.getElementById('quizResultadoJuego');
         result.innerHTML = `<p style="color:#a52222;font-weight:800;">${escapeQuizHtml(error.message || 'Error al guardar la respuesta.')}</p>`;
