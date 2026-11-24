@@ -3235,7 +3235,9 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
           mostrarProgresoBloqueUI(nuevoProgreso, saved.completadoBloque);
         }
 
-        _quizEfectoRespuestaV5(!!saved.correcta);
+        // En aciertos se usa un solo aplauso (V6); se evita duplicar audio,
+        // vibración y confeti, que consumían recursos antes de mostrar la siguiente pregunta.
+        if (!saved.correcta) _quizEfectoRespuestaV5(false);
         const claveCorrectaJuego = String(saved.respuestaCorrecta || '');
         Array.from(opcionesEl.children).forEach(el => {
           const valorOpcion = String(el.textContent || '').trim().charAt(0);
@@ -3283,14 +3285,14 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
                 const retry = document.getElementById('btnReintentarSiguienteGrupoV10');
                 if (retry) retry.onclick = () => cargarPreguntaJuego('', nombreTema);
               }
-            }, 180);
+            }, 0);
             return;
           }
           if (saved.siguientePregunta && saved.siguientePregunta.idPregunta) {
             quizTimerSiguienteV5 = setTimeout(() => {
               if (quizTemaActivoV5 !== quizClaveActivoV10 || document.getElementById('quizModalBackdrop').hidden) return;
               cargarPreguntaJuego(idSesion,nombreTema,saved.siguientePregunta,nuevoProgreso);
-            },180);
+            },0);
           } else if (saved.completadoTema) {
             if (saved.completadoBloque) {
               _quizEfectoRespuestaV5(true);
