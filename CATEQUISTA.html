@@ -808,6 +808,15 @@ body{overflow-x:hidden}
 @media(max-width:760px){.menu-areas-catequistas.subareas-visible{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.menu-area-btn{padding:9px 7px;gap:5px}.menu-area-btn span{font-size:1.15rem}.menu-area-btn strong{font-size:.72rem;line-height:1.15}.menu-area-btn small{display:none}.menu-area-panel .tools-grid{grid-template-columns:1fr!important;gap:11px!important}.menu-area-panel .tool-card{padding:15px!important}}
 @media(min-width:761px) and (max-width:1100px){.menu-area-panel .tools-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}}
 
+
+/* AJUSTE DE NAVEGACIÓN GLOBAL: los cuatro controles están disponibles en todas las vistas. */
+.portal-intro-actions{display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;padding-top:12px!important}
+.portal-intro-actions .btn{min-height:34px!important;padding:7px 10px!important;font-size:.76rem!important;line-height:1.15!important;border-radius:9px!important;flex:0 1 auto!important}
+.portal-intro-actions .nav-global{font-weight:850;white-space:nowrap}
+.portal-intro-actions .nav-global:disabled{opacity:.42;cursor:not-allowed;transform:none}
+.portal-history-nav{display:none!important}
+@media(max-width:760px){.portal-intro-actions{justify-content:center;gap:6px}.portal-intro-actions .btn{min-height:32px!important;padding:7px 8px!important;font-size:.72rem!important}}
+@media(max-width:430px){.portal-intro-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.portal-intro-actions .btn{width:100%;justify-content:center;text-align:center;min-width:0!important;padding:7px 5px!important;font-size:.69rem!important}}
 </style>
 <title>Caminando hacia Jesús 2026 | Portal de Catequistas – Colegio La Salle del Sur</title>
 
@@ -850,14 +859,12 @@ body{overflow-x:hidden}
     <button class="btn small gold" id="btnAdministracionCuentas" type="button" hidden onclick="abrirAdministradorCatequistas()" aria-label="Administrar cuentas de catequistas">⚙ Administrar cuentas</button>
     <button class="btn small gold" type="button" onclick="mostrarVista('vista-mensajes')" aria-label="Abrir mensajes y notificaciones">🔔 <span id="badge-mensajes-catequista">0</span> Mensajes</button>
     <button class="btn small" id="btnSalirCatequista" type="button" onclick="cerrarSesionCatequistaPortal()">Cerrar sesión</button>
-    <a class="btn small primary" href="./index.html">← Volver a portada</a>
+    <button class="btn small nav-global" id="portal-nav-back" type="button" onclick="navegarPortalAtras()" disabled>← Atrás</button>
+    <button class="btn small nav-global" id="portal-nav-forward" type="button" onclick="navegarPortalAdelante()" disabled>Adelante →</button>
+    <button class="btn small primary nav-global" id="portal-nav-home" type="button" onclick="volverMenuPrincipal()">⌂ Volver al menú</button>
+    <a class="btn small primary nav-global" href="./index.html">← Volver a portada</a>
   </div>
   <div class="portal-user-name-top"><span id="catequista-sesion-nombre" class="auth-user"></span></div>
-      <nav class="portal-history-nav no-print" aria-label="Navegación del portal">
-      <div class="portal-history-group portal-history-main">
-        <button class="btn small primary" id="portal-nav-home" type="button" onclick="volverMenuPrincipal()">⌂ Volver al menú</button>
-      </div>
-    </nav>
 </header>
 
 <!-- PANEL CENTRAL: se muestra directamente al iniciar sesión -->
