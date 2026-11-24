@@ -1,3 +1,4 @@
+````
 ```
 <!doctype html>
 <html lang="es">
@@ -1051,6 +1052,62 @@ body{overflow-x:hidden}
   .menu-areas-catequistas.subareas-visible .menu-area-btn[data-area="padres"] strong,
   .menu-areas-catequistas.subareas-visible .menu-area-btn[data-area="gestores"] strong{text-align:left!important;font-size:.85rem!important}
   .menu-area-btn small{display:none!important}
+}
+
+
+
+/* Ajuste visual solicitado: módulos compactos, legibles y ergonómicos.
+   Solo afecta las tarjetas del menú principal; conserva enlaces y funciones. */
+.portal-workspace #menu-herramientas{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  align-items:stretch;
+}
+.portal-workspace #menu-herramientas > .tool-card{
+  min-width:0;
+  min-height:0;
+  padding:12px 13px 11px 15px;
+  border-radius:12px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:7px;
+}
+.portal-workspace #menu-herramientas > .tool-card h4{
+  font-size:.91rem;
+  line-height:1.22;
+  margin:0 0 3px;
+}
+.portal-workspace #menu-herramientas > .tool-card p{
+  font-size:.73rem;
+  line-height:1.32;
+  margin:0 0 7px;
+}
+.portal-workspace #menu-herramientas > .tool-card .module-cartoon-icon{
+  min-height:30px;
+  height:30px;
+  margin:0 0 5px;
+  font-size:1.45rem;
+  letter-spacing:1px;
+}
+.portal-workspace #menu-herramientas > .tool-card .btn{
+  min-height:34px;
+  padding:7px 10px;
+  border-radius:8px;
+  font-size:.76rem;
+  line-height:1.15;
+}
+@media(max-width:1100px){
+  .portal-workspace #menu-herramientas{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+}
+@media(max-width:720px){
+  .portal-workspace #menu-herramientas{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .portal-workspace #menu-herramientas > .tool-card{padding:11px 11px 10px 13px}
+}
+@media(max-width:420px){
+  .portal-workspace #menu-herramientas{grid-template-columns:1fr}
+  .portal-workspace #menu-herramientas > .tool-card{padding:12px 13px}
 }
 
 </style>
@@ -3817,3 +3874,4 @@ document.addEventListener('DOMContentLoaded', initPortalCatequistas);
 </body>
 </html>
 ```
+````
