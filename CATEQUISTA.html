@@ -2503,22 +2503,87 @@ async function guardarMaterialSesion() {
 let resumenAvancesCatequizandosPortal = null;
 let alumnoAvanceSeleccionadoPortal = '';
 async function cargarResumenAvancesCatequizandos(forzar){
-  const estado=$('estado-avances-catequizandos');
-  const lista=$('lista-avances-catequizandos');
-  if(estado)estado.textContent='Consultando Google Sheets…';
-  if(lista)lista.innerHTML='<p class="sub">Cargando todos los catequizandos…</p>';
-  try{
-    const r=await apiGet('getResumenAvanceCatequizandos',forzar?{nocache:'1'}:{});
-    if(!r||r.exito===false)throw new Error(r&&r.mensaje?r.mensaje:'No se pudo obtener el avance general.');
-    resumenAvancesCatequizandosPortal=r.datos||[];
-    if(estado)estado.textContent='✓ Datos actualizados desde Google Sheets';
+  const estado = $('estado-avances-catequizandos');
+  const lista = $('lista-avances-catequizandos');
+  const detalle = $('detalle-avance-catequizando');
+  if (estado) estado.textContent = 'Consultando Google Sheets…';
+  if (lista) lista.innerHTML = '<p class="sub">Cargando catequizandos…</p>';
+  if (detalle) detalle.innerHTML = '<p class="sub">Seleccione un catequizando para consultar sus registros.</p>';
+
+  try {
+    const [rAlumnos, rTareas, rNotas] = await Promise.all([
+      apiGet('getCatequizandos', forzar ? {nocache:'1'} : {}),
+      apiGet('getEntregasTareasCatequista', forzar ? {nocache:'1'} : {}),
+      apiGet('getCalificaciones', forzar ? {nocache:'1'} : {})
+    ]);
+
+    if (!rAlumnos || rAlumnos.exito === false) {
+      throw new Error(rAlumnos && rAlumnos.mensaje ? rAlumnos.mensaje : 'No se pudo consultar la hoja CATEQUIZANDOS.');
+    }
+    if (rTareas && rTareas.exito === false) throw new Error(rTareas.mensaje || 'No se pudieron consultar las entregas.');
+    if (rNotas && rNotas.exito === false) throw new Error(rNotas.mensaje || 'No se pudieron consultar las calificaciones.');
+
+    const alumnos = Array.isArray(rAlumnos.datos) ? rAlumnos.datos : [];
+    const tareas = rTareas && Array.isArray(rTareas.datos) ? rTareas.datos : [];
+    const notas = rNotas && Array.isArray(rNotas.datos) ? rNotas.datos : [];
+
+    resumenAvancesCatequizandosPortal = alumnos.map(a => {
+      const id = String(a.ID_NINO || '').trim();
+      const propiasTareas = tareas.filter(t => String(t.ID_NINO || '').trim() === id);
+      const propiasNotas = notas.filter(n => String(n.ID_NINO || '').trim() === id);
+      const enviadas = propiasTareas.filter(t =>
+        ['ENVIADA','REVISADA','CORREGIR'].includes(String(t.ESTADO_REVISION || t.ESTADO || '').toUpperCase())
+      ).length;
+      const nombre = String(a.NOMBRE_COMPLETO || [a.NOMBRES, a.APELLIDOS].filter(Boolean).join(' ')).trim();
+      return {
+        id,
+        nombre,
+        foto: a.FOTO || '',
+        dni: a.DNI || '',
+        porcentajeGeneral: 0,
+        temas: [],
+        tareas: propiasTareas.map(t => ({
+          titulo: t.TEMA || t.TITULO || t.ID_TAREA || 'Tarea',
+          idTarea: t.ID_TAREA || '',
+          tema: t.TEMA || '',
+          fechaEntrega: t.FECHA_ENVIO || t.FECHA_ENTREGA || '',
+          estado: t.ESTADO_REVISION || t.ESTADO || 'ENVIADA',
+          observacion: t.OBSERVACIONES || t.RETROALIMENTACION || ''
+        })),
+        notas: propiasNotas.map(n => ({
+          tema: n.TEMA || n.ID_SESION || '',
+          tipo: n.TIPO_ACTIVIDAD || n.TIPO || n.DESCRIPCION || '',
+          nota: n.NOTA_NUMERICA == null ? (n.NOTA == null ? '' : n.NOTA) : n.NOTA_NUMERICA,
+          fecha: n.FECHA_REGISTRO || n.FECHA || '',
+          equivalencia: n.EQUIVALENCIA || '',
+          observacion: n.OBSERVACIONES || ''
+        })),
+        tareasEnviadas: enviadas,
+        totalTareas: propiasTareas.length
+      };
+    }).filter(a => a.id);
+
+    if (estado) estado.textContent = '✓ ' + resumenAvancesCatequizandosPortal.length + ' catequizandos consultados desde Google Sheets';
+    if (!resumenAvancesCatequizandosPortal.length) {
+      if (lista) lista.innerHTML = '<p class="sub">La hoja CATEQUIZANDOS no devolvió alumnos vigentes.</p>';
+      if (detalle) detalle.innerHTML = '<p class="sub">No hay catequizandos para mostrar.</p>';
+      return;
+    }
+
+    if (!alumnoAvanceSeleccionadoPortal ||
+        !resumenAvancesCatequizandosPortal.some(a => a.id === String(alumnoAvanceSeleccionadoPortal))) {
+      alumnoAvanceSeleccionadoPortal = resumenAvancesCatequizandosPortal[0].id;
+    }
     renderizarListaAvancesCatequizandos();
-    if(alumnoAvanceSeleccionadoPortal)renderizarDetalleAvanceCatequizando(alumnoAvanceSeleccionadoPortal);
-  }catch(e){
-    if(estado)estado.textContent='Error de consulta';
-    if(lista)lista.innerHTML='<p style="color:#a52828">'+escaparHTML(e.message||e)+'</p>';
+    renderizarDetalleAvanceCatequizando(alumnoAvanceSeleccionadoPortal);
+  } catch (e) {
+    console.error('Error al consultar avances de catequizandos:', e);
+    if (estado) estado.textContent = 'Error de consulta';
+    if (lista) lista.innerHTML = '<p style="color:#a52828">' + escaparHTML(e.message || e) + '</p>';
+    if (detalle) detalle.innerHTML = '<p class="sub">No se pudo cargar el detalle.</p>';
   }
 }
+
 function renderizarListaAvancesCatequizandos(){
   const cont=$('lista-avances-catequizandos');if(!cont)return;
   const filtro=String($('filtro-avances-alumno')?.value||'').toLowerCase().trim();
@@ -2540,7 +2605,7 @@ function renderizarDetalleAvanceCatequizando(id){
   const promedioNotas=notaNumerica.length?notaNumerica.reduce((s,n)=>s+n,0)/notaNumerica.length:null;
   cont.innerHTML=`<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><img src="${escaparHTML(a.foto||'./assets/insignia.png')}" onerror="this.onerror=null;this.src='./assets/insignia.png'" style="width:66px;height:66px;object-fit:cover;border-radius:50%;border:2px solid #d6e8f3"><div><h2 style="margin:0;color:#245b48">${escaparHTML(a.nombre)}</h2><div class="sub">ID: ${escaparHTML(a.id)} · ${escaparHTML(a.dni||'DNI no registrado')}</div></div></div>
   <div class="avance-kpis"><div class="avance-kpi"><strong>${Number(a.porcentajeGeneral||0).toFixed(1)}%</strong>Avance general</div><div class="avance-kpi"><strong>${Number(porcentajeQuiz).toFixed(1)}%</strong>Cuestionarios</div><div class="avance-kpi"><strong>${quizzesCompletos}/${temas.length}</strong>Cuestionarios completos</div><div class="avance-kpi"><strong>${tareasEnviadas}/${tareas.length} · ${pctTareas.toFixed(1)}%</strong>Tareas enviadas</div><div class="avance-kpi"><strong>${promedioNotas==null?'—':promedioNotas.toFixed(1)+'/20'}</strong>Promedio de notas (${notas.length})</div><div class="avance-kpi"><strong>${a.asistenciaPct==null?'—':Number(a.asistenciaPct).toFixed(1)+'%'}</strong>Asistencia</div></div>
-  <h3 style="margin:16px 0 8px;color:#5b4789">Cuestionarios por tema</h3><div class="avance-temas">${temas.map(t=>`<div class="avance-tema-row"><span><strong>${escaparHTML(t.tema||t.idSesion)}</strong><small class="sub" style="display:block">${escaparHTML(t.bloque||'')}</small></span><span class="avance-pill ${Number(t.porcentaje)>=100?'done':''}">${Number(t.respondidas||0)}/${Number(t.total||0)} · ${Number(t.porcentaje||0).toFixed(1)}% · ${Number(t.porcentaje)>=100?'COMPLETO':Number(t.respondidas)>0?'EN CURSO':'PENDIENTE'}</span><div class="avance-progress"><span style="width:${Math.max(0,Math.min(100,Number(t.porcentaje)||0))}%"></span></div></div>`).join('')||'<p class="sub">No hay datos de cuestionarios para mostrar.</p>'}</div>
+  <h3 style="margin:16px 0 8px;color:#5b4789">Cuestionarios por tema</h3><p class="sub">La versión actual del Código.gs no ofrece una ruta de consulta general de intentos de cuestionarios; no se muestran porcentajes no verificados.</p><div class="avance-temas">${temas.map(t=>`<div class="avance-tema-row"><span><strong>${escaparHTML(t.tema||t.idSesion)}</strong><small class="sub" style="display:block">${escaparHTML(t.bloque||'')}</small></span><span class="avance-pill ${Number(t.porcentaje)>=100?'done':''}">${Number(t.respondidas||0)}/${Number(t.total||0)} · ${Number(t.porcentaje||0).toFixed(1)}% · ${Number(t.porcentaje)>=100?'COMPLETO':Number(t.respondidas)>0?'EN CURSO':'PENDIENTE'}</span><div class="avance-progress"><span style="width:${Math.max(0,Math.min(100,Number(t.porcentaje)||0))}%"></span></div></div>`).join('')||'<p class="sub">No hay datos de cuestionarios para mostrar.</p>'}</div>
   <h3 style="margin:16px 0 8px;color:#5b4789">Tareas y entregas</h3><div class="avance-temas">${tareas.map(t=>`<div class="avance-tema-row"><span><strong>${escaparHTML(t.titulo||t.idTarea||'Tarea')}</strong><small class="sub" style="display:block">${escaparHTML(t.tema||'')} · entrega ${escaparHTML(t.fechaEntrega||'—')}</small></span><span class="avance-pill ${['ENVIADA','REVISADA'].includes(String(t.estado||'').toUpperCase())?'done':''}">${escaparHTML(t.estado||'PENDIENTE')}</span><span>${escaparHTML(t.observacion||'')}</span></div>`).join('')||'<p class="sub">No hay tareas asignadas registradas.</p>'}</div>
   <h3 style="margin:16px 0 8px;color:#5b4789">Notas y calificaciones</h3><div style="overflow:auto"><table class="avance-notas"><thead><tr><th>Tema</th><th>Actividad</th><th>Nota</th><th>Fecha</th><th>Observación</th></tr></thead><tbody>${notas.map(n=>`<tr><td>${escaparHTML(n.tema||'')}</td><td>${escaparHTML(n.tipo||n.descripcion||'')}</td><td><strong>${escaparHTML(n.nota==null?'—':n.nota+'/20')} ${escaparHTML(n.equivalencia||'')}</strong></td><td>${escaparHTML(n.fecha||'')}</td><td>${escaparHTML(n.observaciones||'')}</td></tr>`).join('')||'<tr><td colspan="5">No hay calificaciones registradas.</td></tr>'}</tbody></table></div>`;
 }
