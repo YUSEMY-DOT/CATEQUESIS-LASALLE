@@ -283,12 +283,10 @@ body{overflow-x:hidden}
 @media(max-width:600px){.menu-areas-catequistas.subareas-visible{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.menu-area-btn{padding:9px 7px;gap:5px}.menu-area-btn span{font-size:1.15rem}.menu-area-btn strong{font-size:.72rem;line-height:1.15}.menu-area-btn small{display:none}}
 
 /* Navegación uniforme: un único botón volver al menú en todo el portal */
-#portal-nav-back,#portal-nav-forward{display:none!important}
 #portal-nav-home{min-width:150px;font-weight:850}
 .portal-history-nav{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);padding:7px 0;border-bottom:1px solid #e8edf4;margin:0 0 10px}
 .portal-history-main{width:100%;display:flex;justify-content:flex-start}
 .portal-history-nav #portal-nav-home{display:inline-flex!important}
-#mise-modal button[onclick="volverMenuPrincipal()"]{display:none!important}
 /* Colores pastel para biblioteca de videos */
 #vista-videos-temas .tool-card{background:#fffdfd;border-color:#f0d7e8;box-shadow:0 3px 12px rgba(89,63,120,.06)}
 #vista-videos-temas h2{color:#245b48}
@@ -810,11 +808,10 @@ body{overflow-x:hidden}
 
 
 /* AJUSTE DE NAVEGACIÓN GLOBAL: los cuatro controles están disponibles en todas las vistas. */
-.portal-intro-actions{display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;padding-top:12px!important}
-.portal-intro-actions .btn{min-height:34px!important;padding:7px 10px!important;font-size:.76rem!important;line-height:1.15!important;border-radius:9px!important;flex:0 1 auto!important}
+.portal-intro-actions{display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;padding-top:12px!important;width:100%}
+.portal-intro-actions .btn{min-height:34px!important;padding:7px 9px!important;font-size:.74rem!important;line-height:1.15!important;border-radius:9px!important;flex:0 1 auto!important}
 .portal-intro-actions .nav-global{font-weight:850;white-space:nowrap}
 .portal-intro-actions .nav-global:disabled{opacity:.42;cursor:not-allowed;transform:none}
-.portal-history-nav{display:none!important}
 @media(max-width:760px){.portal-intro-actions{justify-content:center;gap:6px}.portal-intro-actions .btn{min-height:32px!important;padding:7px 8px!important;font-size:.72rem!important}}
 @media(max-width:430px){.portal-intro-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.portal-intro-actions .btn{width:100%;justify-content:center;text-align:center;min-width:0!important;padding:7px 5px!important;font-size:.69rem!important}}
 </style>
@@ -852,17 +849,18 @@ body{overflow-x:hidden}
     </div>
   </div>
   <div class="portal-intro-quick-actions" aria-label="Herramientas rápidas">
-    <button class="portal-quick-btn" id="btnActualizar" type="button" title="Sincronizar con Google Sheets" aria-label="Sincronizar con Google Sheets">⟳</button>
     <button class="portal-quick-btn" id="mute-toggle" type="button" title="Silenciar o activar audio" aria-label="Silenciar o activar audio">🔊</button>
   </div>
   <div class="portal-intro-actions">
     <button class="btn small gold" id="btnAdministracionCuentas" type="button" hidden onclick="abrirAdministradorCatequistas()" aria-label="Administrar cuentas de catequistas">⚙ Administrar cuentas</button>
     <button class="btn small gold" type="button" onclick="mostrarVista('vista-mensajes')" aria-label="Abrir mensajes y notificaciones">🔔 <span id="badge-mensajes-catequista">0</span> Mensajes</button>
     <button class="btn small" id="btnSalirCatequista" type="button" onclick="cerrarSesionCatequistaPortal()">Cerrar sesión</button>
+    <button class="btn small primary" id="btnActualizar" type="button" title="Actualizar y sincronizar esta información con Google Sheets" aria-label="Actualizar y sincronizar con Google Sheets" onclick="sincronizarConHoja(false)">⟳ Actualizar</button>
     <button class="btn small nav-global" id="portal-nav-back" type="button" onclick="navegarPortalAtras()" disabled>← Atrás</button>
     <button class="btn small nav-global" id="portal-nav-forward" type="button" onclick="navegarPortalAdelante()" disabled>Adelante →</button>
     <button class="btn small primary nav-global" id="portal-nav-home" type="button" onclick="volverMenuPrincipal()">⌂ Volver al menú</button>
-    <a class="btn small primary nav-global" href="./index.html">← Volver a portada</a>
+    <a class="btn small primary nav-global" href="./index.html">⌂ Volver al principal</a>
+    <span id="portal-nav-location" class="portal-nav-location" aria-live="polite">Menú principal</span>
   </div>
   <div class="portal-user-name-top"><span id="catequista-sesion-nombre" class="auth-user"></span></div>
 </header>
