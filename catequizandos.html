@@ -3183,8 +3183,9 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
         btn.style.borderColor = '#e0ad28';
         btn.style.background = '#fff7df';
         btn.style.boxShadow = '0 0 0 2px rgba(224,173,40,.14)';
-        document.getElementById('btnComprobarRespuesta').disabled = false;
-        document.getElementById('btnComprobarRespuesta').click();
+        // Un solo clic en la alternativa envía directamente la respuesta.
+        // Ya no se simula un segundo clic sobre el botón oculto.
+        enviarRespuesta();
       });
       opcionesEl.appendChild(btn);
     });
@@ -3195,7 +3196,7 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
     quizHablarV6(textoLecturaPreguntaV6);
 
     const comprobar = document.getElementById('btnComprobarRespuesta');
-    comprobar.addEventListener('click', async () => {
+    const enviarRespuesta = async () => {
       if (!opcionElegida) return;
       comprobar.disabled = true;
       // La respuesta se envía sin mostrar un mensaje de espera.
@@ -3322,7 +3323,7 @@ async function cargarPreguntaJuego(idSesion, nombreTema, preguntaPrecargada, pro
         comprobar.textContent = 'Intentar guardar de nuevo';
         Array.from(opcionesEl.children).forEach(el => { el.disabled = false; el.style.cursor = 'pointer'; });
       }
-    });
+    };
   } catch (error) {
     body.innerHTML = `<p style="font-weight:700;color:#a52222;padding:12px;">No se pudo cargar la pregunta: ${escapeQuizHtml(error && error.message ? error.message : error)}. Verifica la publicación del GS e inténtalo nuevamente.</p>`;
   }
