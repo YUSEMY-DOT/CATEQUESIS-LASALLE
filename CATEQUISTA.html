@@ -1,3 +1,4 @@
+```
 <!doctype html>
 <html lang="es">
 <head>
@@ -807,6 +808,166 @@ body{overflow-x:hidden}
 @media(max-width:760px){.menu-areas-catequistas.subareas-visible{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.menu-area-btn{padding:9px 7px;gap:5px}.menu-area-btn span{font-size:1.15rem}.menu-area-btn strong{font-size:.72rem;line-height:1.15}.menu-area-btn small{display:none}.menu-area-panel .tools-grid{grid-template-columns:1fr!important;gap:11px!important}.menu-area-panel .tool-card{padding:15px!important}}
 @media(min-width:761px) and (max-width:1100px){.menu-area-panel .tools-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}}
 
+
+/* AJUSTE ERGONÓMICO RESPONSIVE — PORTAL DE CATEQUISTAS
+   Solo presentación: no modifica funciones, rutas ni datos. */
+.portal-intro{
+  width:min(calc(100% - 32px),1560px)!important;
+  max-width:1560px!important;
+  margin:16px auto 0!important;
+  padding:20px 24px 14px!important;
+  gap:13px!important;
+  border-radius:18px!important;
+}
+.portal-intro-main{gap:16px!important;align-items:center!important}
+.portal-intro-crest{width:82px!important;height:82px!important}
+.portal-intro h1{font-size:clamp(1.25rem,2vw,1.85rem)!important;margin:3px 0 5px!important}
+.portal-intro p{font-size:clamp(.78rem,1vw,.96rem)!important}
+.portal-intro-school{font-size:.75rem!important}
+.portal-intro-actions{padding-top:0!important;gap:7px!important;justify-content:flex-end!important}
+.portal-intro-actions .btn{min-height:32px!important;padding:6px 11px!important;font-size:.78rem!important;border-radius:9px!important}
+.portal-user-name-top{top:22px!important;right:24px!important;max-width:40%!important}
+.portal-user-name-top .auth-user{font-size:clamp(.78rem,1vw,1rem)!important}
+.portal-history-nav{
+  position:static!important;
+  width:100%!important;
+  margin:0!important;
+  padding:7px 9px!important;
+  border-radius:11px!important;
+}
+.portal-history-nav .portal-history-group{
+  justify-content:flex-end!important;
+  gap:7px!important;
+}
+.portal-history-nav .portal-history-group .btn{
+  display:inline-flex!important;
+  flex:0 0 auto!important;
+  min-width:0!important;
+  min-height:31px!important;
+  padding:6px 10px!important;
+  font-size:.75rem!important;
+  border-radius:8px!important;
+}
+#portal-nav-back,#portal-nav-forward{display:inline-flex!important}
+#portal-nav-home{min-width:0!important}
+.container{
+  width:min(calc(100% - 32px),1560px)!important;
+  max-width:1560px!important;
+  margin:0 auto!important;
+  padding:16px 0 24px!important;
+}
+.menu-intro-catequistas{margin:0 0 10px!important}
+.menu-intro-catequistas h2{font-size:1.25rem!important}
+.menu-intro-catequistas p{font-size:.88rem!important}
+.menu-areas-catequistas{margin:10px 0 14px!important;gap:8px!important}
+.menu-area-btn{
+  min-height:40px!important;
+  padding:8px 13px!important;
+  border-radius:10px!important;
+  gap:8px!important;
+}
+.menu-area-btn span{font-size:1.12rem!important}
+.menu-area-btn strong{font-size:.82rem!important}
+.portal-workspace{margin-top:14px!important}
+.portal-workspace .panel-head{padding:15px 18px!important;margin-bottom:12px!important}
+.portal-workspace .tools-grid{gap:12px!important}
+.portal-workspace .tool-card{padding:15px!important;border-radius:13px!important}
+.portal-workspace .tool-card .btn{
+  width:auto!important;
+  min-height:34px!important;
+  padding:7px 12px!important;
+  font-size:.8rem!important;
+  border-radius:9px!important;
+}
+#vista-avances-catequizandos{margin-top:10px!important}
+.avances-header{
+  align-items:center!important;
+  padding:13px 16px!important;
+  gap:12px!important;
+  border-radius:13px!important;
+}
+.avances-header h2{font-size:1.08rem!important;margin:0!important}
+.avances-header .sub{font-size:.8rem!important;margin:3px 0 0!important;line-height:1.35!important}
+.avances-actions{gap:8px!important}
+.avances-actions .btn{min-height:32px!important;padding:6px 11px!important;font-size:.78rem!important}
+.avances-layout{
+  grid-template-columns:minmax(220px,270px) minmax(0,1fr)!important;
+  gap:12px!important;
+  margin-top:12px!important;
+}
+.avances-listado,.avances-detalle{padding:13px!important;min-width:0!important;border-radius:13px!important}
+.avances-listado label{font-size:.82rem!important}
+#filtro-avances-alumno{width:100%!important;min-height:34px!important;padding:6px 9px!important;border:1px solid #cbd7e5!important;border-radius:8px!important;font-size:.82rem!important}
+.avances-lista{max-height:62vh!important;gap:6px!important;margin-top:8px!important}
+.avance-alumno-btn{min-height:52px!important;padding:7px 8px!important;gap:8px!important;border-radius:9px!important}
+.avance-alumno-btn img{width:34px!important;height:34px!important}
+.avance-alumno-btn strong{font-size:.76rem!important;line-height:1.2!important}
+.avance-alumno-btn .sub{font-size:.68rem!important}
+.avances-detalle h3,.avances-detalle h2{font-size:1.05rem!important}
+.avance-kpis{grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:7px!important}
+.avance-kpi{padding:8px 6px!important;border-radius:9px!important;min-width:0!important}
+.avance-kpi strong{font-size:1rem!important}
+.avance-kpi span,.avance-kpi small{font-size:.68rem!important;line-height:1.25!important}
+.avance-temas{max-height:380px!important}
+.avance-tema-row{grid-template-columns:minmax(140px,1.2fr) minmax(90px,.65fr) minmax(110px,1fr)!important;gap:8px!important;padding:7px 9px!important;font-size:.76rem!important}
+.avance-notas{font-size:.74rem!important}
+.avance-notas th,.avance-notas td{padding:6px!important}
+@media(max-width:1050px){
+  .portal-intro{width:calc(100% - 24px)!important;padding:16px!important}
+  .container{width:calc(100% - 24px)!important}
+  .avances-layout{grid-template-columns:minmax(190px,230px) minmax(0,1fr)!important}
+  .avance-kpis{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .portal-history-nav .portal-history-group{justify-content:center!important}
+}
+@media(max-width:700px){
+  .portal-intro{width:calc(100% - 16px)!important;margin:8px auto 0!important;padding:52px 12px 11px!important;gap:10px!important}
+  .portal-intro-main{gap:10px!important;align-items:flex-start!important}
+  .portal-intro-crest{width:58px!important;height:58px!important}
+  .portal-intro h1{font-size:1.15rem!important}
+  .portal-intro p{font-size:.76rem!important}
+  .portal-intro-school{font-size:.68rem!important}
+  .portal-user-name-top{top:12px!important;right:58px!important;max-width:calc(100% - 105px)!important}
+  .portal-user-name-top .auth-user{font-size:.72rem!important}
+  .portal-intro-actions{justify-content:flex-start!important;gap:5px!important}
+  .portal-intro-actions .btn{flex:0 1 auto!important;min-height:30px!important;padding:5px 8px!important;font-size:.7rem!important}
+  .portal-history-nav{padding:6px!important}
+  .portal-history-nav .portal-history-group{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:5px!important}
+  .portal-history-nav .portal-history-group .btn{width:100%!important;min-height:32px!important;font-size:.7rem!important;padding:6px 5px!important}
+  .container{width:calc(100% - 16px)!important;padding:10px 0 18px!important}
+  .menu-areas-catequistas.subareas-visible{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .menu-area-btn{min-height:36px!important;padding:6px 4px!important}
+  .menu-area-btn strong{font-size:.68rem!important}
+  .avances-header{align-items:flex-start!important;padding:11px!important}
+  .avances-actions{width:100%!important;justify-content:flex-start!important}
+  .avances-layout{grid-template-columns:1fr!important}
+  .avances-lista{max-height:220px!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .avance-alumno-btn{min-width:0!important}
+  .avance-alumno-btn strong{font-size:.69rem!important}
+  .avance-kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .avance-tema-row{grid-template-columns:1fr 85px!important}
+  .avance-tema-row .avance-progress{grid-column:1/-1}
+}
+@media(max-width:390px){
+  .portal-intro-main{align-items:center!important}
+  .portal-intro-crest{width:48px!important;height:48px!important}
+  .portal-intro h1{font-size:1rem!important}
+  .portal-history-nav .portal-history-group{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .avances-lista{grid-template-columns:1fr!important}
+}
+
+
+/* Avance por tema y cuestionarios: agrupación fiel a SESIONES */
+.avance-tema-bloque{border:1px solid #d8e5f0;border-radius:10px;background:#fff;margin:7px 0;padding:9px 11px}
+.avance-tema-bloque>summary{display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;list-style:none}
+.avance-tema-bloque>summary::-webkit-details-marker{display:none}
+.avance-tema-titulo{display:flex;flex-direction:column;gap:3px;min-width:0}
+.avance-tema-titulo strong{color:#193b60;font-size:.82rem}
+.avance-tema-titulo small{color:#6d8198;font-size:.7rem}
+.avance-cuestionarios{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:9px}
+.avance-cuestionario-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 9px;background:#f6f9fc;border:1px solid #e1eaf2;border-radius:8px;min-width:0}
+.avance-cuestionario-item small{display:block;color:#6d8198;font-size:.68rem;margin-top:2px}
+@media(max-width:700px){.avance-tema-bloque>summary{align-items:flex-start;flex-direction:column}.avance-cuestionarios{grid-template-columns:1fr}}
+
 </style>
 <title>Caminando hacia Jesús 2026 | Portal de Catequistas – Colegio La Salle del Sur</title>
 
@@ -1028,7 +1189,7 @@ body{overflow-x:hidden}
     <!-- VISTA CONSULTA GENERAL DE AVANCES, SOLO PARA CATEQUISTAS AUTORIZADAS -->
     <div id="vista-avances-catequizandos" style="display:none;margin-top:15px;">
       <section class="tool-card avances-header">
-        <div><h2>📈 Avance de catequizandos</h2><p class="sub">Consulta de todos los alumnos sin PIN individual. Datos consultados desde Google Sheets. El avance general promedia cuestionarios y tareas enviadas.</p></div>
+        <div><h2>📈 Avance de catequizandos</h2><p class="sub">Consulta del avance por los 68 temas distribuidos en 46 clases. Cada tema conserva sus propios cuestionarios de hasta 10 preguntas. Datos de Google Sheets.</p></div>
         <div class="avances-actions"><button class="btn small primary" type="button" onclick="cargarResumenAvancesCatequizandos(true)">🔄 Actualizar</button><span id="estado-avances-catequizandos" class="sub" aria-live="polite"></span></div>
       </section>
       <div class="avances-layout">
@@ -2502,112 +2663,113 @@ async function guardarMaterialSesion() {
 
 let resumenAvancesCatequizandosPortal = null;
 let alumnoAvanceSeleccionadoPortal = '';
-async function cargarResumenAvancesCatequizandos(forzar){
+
+async function cargarResumenAvancesCatequizandos(forzar) {
   const estado = $('estado-avances-catequizandos');
   const lista = $('lista-avances-catequizandos');
-  const detalle = $('detalle-avance-catequizando');
   if (estado) estado.textContent = 'Consultando Google Sheets…';
-  if (lista) lista.innerHTML = '<p class="sub">Cargando catequizandos…</p>';
-  if (detalle) detalle.innerHTML = '<p class="sub">Seleccione un catequizando para consultar sus registros.</p>';
-
+  if (lista) lista.innerHTML = '<p class="sub">Cargando alumnos y avance por los 68 temas…</p>';
   try {
-    const [rAlumnos, rTareas, rNotas] = await Promise.all([
-      apiGet('getCatequizandos', forzar ? {nocache:'1'} : {}),
-      apiGet('getEntregasTareasCatequista', forzar ? {nocache:'1'} : {}),
-      apiGet('getCalificaciones', forzar ? {nocache:'1'} : {})
-    ]);
-
-    if (!rAlumnos || rAlumnos.exito === false) {
-      throw new Error(rAlumnos && rAlumnos.mensaje ? rAlumnos.mensaje : 'No se pudo consultar la hoja CATEQUIZANDOS.');
-    }
-    if (rTareas && rTareas.exito === false) throw new Error(rTareas.mensaje || 'No se pudieron consultar las entregas.');
-    if (rNotas && rNotas.exito === false) throw new Error(rNotas.mensaje || 'No se pudieron consultar las calificaciones.');
-
-    const alumnos = Array.isArray(rAlumnos.datos) ? rAlumnos.datos : [];
-    const tareas = rTareas && Array.isArray(rTareas.datos) ? rTareas.datos : [];
-    const notas = rNotas && Array.isArray(rNotas.datos) ? rNotas.datos : [];
-
-    resumenAvancesCatequizandosPortal = alumnos.map(a => {
-      const id = String(a.ID_NINO || '').trim();
-      const propiasTareas = tareas.filter(t => String(t.ID_NINO || '').trim() === id);
-      const propiasNotas = notas.filter(n => String(n.ID_NINO || '').trim() === id);
-      const enviadas = propiasTareas.filter(t =>
-        ['ENVIADA','REVISADA','CORREGIR'].includes(String(t.ESTADO_REVISION || t.ESTADO || '').toUpperCase())
-      ).length;
-      const nombre = String(a.NOMBRE_COMPLETO || [a.NOMBRES, a.APELLIDOS].filter(Boolean).join(' ')).trim();
-      return {
-        id,
-        nombre,
-        foto: a.FOTO || '',
-        dni: a.DNI || '',
-        porcentajeGeneral: 0,
-        temas: [],
-        tareas: propiasTareas.map(t => ({
-          titulo: t.TEMA || t.TITULO || t.ID_TAREA || 'Tarea',
-          idTarea: t.ID_TAREA || '',
-          tema: t.TEMA || '',
-          fechaEntrega: t.FECHA_ENVIO || t.FECHA_ENTREGA || '',
-          estado: t.ESTADO_REVISION || t.ESTADO || 'ENVIADA',
-          observacion: t.OBSERVACIONES || t.RETROALIMENTACION || ''
-        })),
-        notas: propiasNotas.map(n => ({
-          tema: n.TEMA || n.ID_SESION || '',
-          tipo: n.TIPO_ACTIVIDAD || n.TIPO || n.DESCRIPCION || '',
-          nota: n.NOTA_NUMERICA == null ? (n.NOTA == null ? '' : n.NOTA) : n.NOTA_NUMERICA,
-          fecha: n.FECHA_REGISTRO || n.FECHA || '',
-          equivalencia: n.EQUIVALENCIA || '',
-          observacion: n.OBSERVACIONES || ''
-        })),
-        tareasEnviadas: enviadas,
-        totalTareas: propiasTareas.length
-      };
-    }).filter(a => a.id);
-
-    if (estado) estado.textContent = '✓ ' + resumenAvancesCatequizandosPortal.length + ' catequizandos consultados desde Google Sheets';
-    if (!resumenAvancesCatequizandosPortal.length) {
-      if (lista) lista.innerHTML = '<p class="sub">La hoja CATEQUIZANDOS no devolvió alumnos vigentes.</p>';
-      if (detalle) detalle.innerHTML = '<p class="sub">No hay catequizandos para mostrar.</p>';
-      return;
-    }
-
-    if (!alumnoAvanceSeleccionadoPortal ||
-        !resumenAvancesCatequizandosPortal.some(a => a.id === String(alumnoAvanceSeleccionadoPortal))) {
-      alumnoAvanceSeleccionadoPortal = resumenAvancesCatequizandosPortal[0].id;
+    const r = await apiGet('getResumenAvanceCatequizandos', forzar ? { nocache: '1' } : {});
+    if (!r || r.exito === false) throw new Error(r && r.mensaje ? r.mensaje : 'No se pudo obtener el avance.');
+    resumenAvancesCatequizandosPortal = r.datos || [];
+    if (estado) estado.textContent = `✓ ${r.totalTemas || 0} temas · ${r.totalClases || 0} clases · ${r.preguntasAsignadas || 0} preguntas asignadas desde Google Sheets`;
+    if (!alumnoAvanceSeleccionadoPortal && resumenAvancesCatequizandosPortal.length) {
+      alumnoAvanceSeleccionadoPortal = String(resumenAvancesCatequizandosPortal[0].id);
     }
     renderizarListaAvancesCatequizandos();
-    renderizarDetalleAvanceCatequizando(alumnoAvanceSeleccionadoPortal);
+    if (alumnoAvanceSeleccionadoPortal) renderizarDetalleAvanceCatequizando(alumnoAvanceSeleccionadoPortal);
   } catch (e) {
-    console.error('Error al consultar avances de catequizandos:', e);
     if (estado) estado.textContent = 'Error de consulta';
-    if (lista) lista.innerHTML = '<p style="color:#a52828">' + escaparHTML(e.message || e) + '</p>';
-    if (detalle) detalle.innerHTML = '<p class="sub">No se pudo cargar el detalle.</p>';
+    if (lista) lista.innerHTML = `<p style="color:#a52828">${escaparHTML(e.message || e)}</p>`;
+    const detalle = $('detalle-avance-catequizando');
+    if (detalle) detalle.innerHTML = '<p class="sub">No se muestran resultados parciales para evitar cifras incorrectas.</p>';
   }
 }
 
-function renderizarListaAvancesCatequizandos(){
-  const cont=$('lista-avances-catequizandos');if(!cont)return;
-  const filtro=String($('filtro-avances-alumno')?.value||'').toLowerCase().trim();
-  const alumnos=(resumenAvancesCatequizandosPortal||[]).filter(a=>String(a.nombre||'').toLowerCase().includes(filtro));
-  if(!alumnos.length){cont.innerHTML='<p class="sub">No hay catequizandos coincidentes.</p>';return;}
-  cont.innerHTML=alumnos.map(a=>`<button type="button" class="avance-alumno-btn ${String(a.id)===String(alumnoAvanceSeleccionadoPortal)?'active':''}" data-id="${escaparHTML(a.id)}" onclick="seleccionarAlumnoAvancePortal(this.dataset.id)"><img src="${escaparHTML(a.foto||'./assets/insignia.png')}" onerror="this.onerror=null;this.src='./assets/insignia.png'" alt=""><span style="flex:1;min-width:0"><strong>${escaparHTML(a.nombre)}</strong><div class="avance-progress"><span style="width:${Math.max(0,Math.min(100,Number(a.porcentajeGeneral)||0))}%"></span></div><small>${Number(a.porcentajeGeneral||0).toFixed(1)}% general</small></span></button>`).join('');
+function renderizarListaAvancesCatequizandos() {
+  const cont = $('lista-avances-catequizandos');
+  if (!cont) return;
+  const filtro = String($('filtro-avances-alumno')?.value || '').toLowerCase().trim();
+  const alumnos = (resumenAvancesCatequizandosPortal || []).filter(a =>
+    String(a.nombre || '').toLowerCase().includes(filtro) || String(a.id || '').toLowerCase().includes(filtro)
+  );
+  if (!alumnos.length) {
+    cont.innerHTML = '<p class="sub">No hay catequizandos coincidentes.</p>';
+    return;
+  }
+  cont.innerHTML = alumnos.map(a => {
+    const pct = Number(a.porcentajeCuestionarios || 0);
+    return `<button type="button" class="avance-alumno-btn ${String(a.id) === String(alumnoAvanceSeleccionadoPortal) ? 'active' : ''}" data-id="${escaparHTML(a.id)}" onclick="seleccionarAlumnoAvancePortal(this.dataset.id)">
+      <img src="${escaparHTML(a.foto || './assets/insignia.png')}" onerror="this.onerror=null;this.src='./assets/insignia.png'" alt="">
+      <span style="flex:1;min-width:0"><strong>${escaparHTML(a.nombre)}</strong>
+      <div class="avance-progress"><span style="width:${Math.max(0,Math.min(100,pct))}%"></span></div>
+      <small>${Number(a.preguntasRespondidas || 0)}/${Number(a.totalPreguntas || 0)} preguntas · ${pct.toFixed(1)}%</small></span></button>`;
+  }).join('');
 }
-function seleccionarAlumnoAvancePortal(id){alumnoAvanceSeleccionadoPortal=String(id||'');renderizarListaAvancesCatequizandos();renderizarDetalleAvanceCatequizando(alumnoAvanceSeleccionadoPortal);}
-function renderizarDetalleAvanceCatequizando(id){
-  const cont=$('detalle-avance-catequizando');if(!cont)return;
-  const a=(resumenAvancesCatequizandosPortal||[]).find(x=>String(x.id)===String(id));
-  if(!a){cont.innerHTML='<p class="sub">Seleccione un catequizando.</p>';return;}
-  const temas=a.temas||[],tareas=a.tareas||[],notas=a.notas||[];
-  const tareasEnviadas=tareas.filter(t=>['ENVIADA','REVISADA','CORREGIR'].includes(String(t.estado||'').toUpperCase())).length;
-  const quizzesCompletos=temas.filter(t=>Number(t.porcentaje||0)>=100).length;
-  const porcentajeQuiz=temas.length?temas.reduce((sum,t)=>sum+Number(t.porcentaje||0),0)/temas.length:0;
-  const pctTareas=tareas.length?tareasEnviadas/tareas.length*100:0;
-  const notaNumerica=notas.map(n=>Number(n.nota)).filter(n=>Number.isFinite(n));
-  const promedioNotas=notaNumerica.length?notaNumerica.reduce((s,n)=>s+n,0)/notaNumerica.length:null;
-  cont.innerHTML=`<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><img src="${escaparHTML(a.foto||'./assets/insignia.png')}" onerror="this.onerror=null;this.src='./assets/insignia.png'" style="width:66px;height:66px;object-fit:cover;border-radius:50%;border:2px solid #d6e8f3"><div><h2 style="margin:0;color:#245b48">${escaparHTML(a.nombre)}</h2><div class="sub">ID: ${escaparHTML(a.id)} · ${escaparHTML(a.dni||'DNI no registrado')}</div></div></div>
-  <div class="avance-kpis"><div class="avance-kpi"><strong>${Number(a.porcentajeGeneral||0).toFixed(1)}%</strong>Avance general</div><div class="avance-kpi"><strong>${Number(porcentajeQuiz).toFixed(1)}%</strong>Cuestionarios</div><div class="avance-kpi"><strong>${quizzesCompletos}/${temas.length}</strong>Cuestionarios completos</div><div class="avance-kpi"><strong>${tareasEnviadas}/${tareas.length} · ${pctTareas.toFixed(1)}%</strong>Tareas enviadas</div><div class="avance-kpi"><strong>${promedioNotas==null?'—':promedioNotas.toFixed(1)+'/20'}</strong>Promedio de notas (${notas.length})</div><div class="avance-kpi"><strong>${a.asistenciaPct==null?'—':Number(a.asistenciaPct).toFixed(1)+'%'}</strong>Asistencia</div></div>
-  <h3 style="margin:16px 0 8px;color:#5b4789">Cuestionarios por tema</h3><p class="sub">La versión actual del Código.gs no ofrece una ruta de consulta general de intentos de cuestionarios; no se muestran porcentajes no verificados.</p><div class="avance-temas">${temas.map(t=>`<div class="avance-tema-row"><span><strong>${escaparHTML(t.tema||t.idSesion)}</strong><small class="sub" style="display:block">${escaparHTML(t.bloque||'')}</small></span><span class="avance-pill ${Number(t.porcentaje)>=100?'done':''}">${Number(t.respondidas||0)}/${Number(t.total||0)} · ${Number(t.porcentaje||0).toFixed(1)}% · ${Number(t.porcentaje)>=100?'COMPLETO':Number(t.respondidas)>0?'EN CURSO':'PENDIENTE'}</span><div class="avance-progress"><span style="width:${Math.max(0,Math.min(100,Number(t.porcentaje)||0))}%"></span></div></div>`).join('')||'<p class="sub">No hay datos de cuestionarios para mostrar.</p>'}</div>
-  <h3 style="margin:16px 0 8px;color:#5b4789">Tareas y entregas</h3><div class="avance-temas">${tareas.map(t=>`<div class="avance-tema-row"><span><strong>${escaparHTML(t.titulo||t.idTarea||'Tarea')}</strong><small class="sub" style="display:block">${escaparHTML(t.tema||'')} · entrega ${escaparHTML(t.fechaEntrega||'—')}</small></span><span class="avance-pill ${['ENVIADA','REVISADA'].includes(String(t.estado||'').toUpperCase())?'done':''}">${escaparHTML(t.estado||'PENDIENTE')}</span><span>${escaparHTML(t.observacion||'')}</span></div>`).join('')||'<p class="sub">No hay tareas asignadas registradas.</p>'}</div>
-  <h3 style="margin:16px 0 8px;color:#5b4789">Notas y calificaciones</h3><div style="overflow:auto"><table class="avance-notas"><thead><tr><th>Tema</th><th>Actividad</th><th>Nota</th><th>Fecha</th><th>Observación</th></tr></thead><tbody>${notas.map(n=>`<tr><td>${escaparHTML(n.tema||'')}</td><td>${escaparHTML(n.tipo||n.descripcion||'')}</td><td><strong>${escaparHTML(n.nota==null?'—':n.nota+'/20')} ${escaparHTML(n.equivalencia||'')}</strong></td><td>${escaparHTML(n.fecha||'')}</td><td>${escaparHTML(n.observaciones||'')}</td></tr>`).join('')||'<tr><td colspan="5">No hay calificaciones registradas.</td></tr>'}</tbody></table></div>`;
+
+function seleccionarAlumnoAvancePortal(id) {
+  alumnoAvanceSeleccionadoPortal = String(id || '');
+  renderizarListaAvancesCatequizandos();
+  renderizarDetalleAvanceCatequizando(alumnoAvanceSeleccionadoPortal);
+}
+
+function renderizarDetalleAvanceCatequizando(id) {
+  const cont = $('detalle-avance-catequizando');
+  if (!cont) return;
+  const a = (resumenAvancesCatequizandosPortal || []).find(x => String(x.id) === String(id));
+  if (!a) {
+    cont.innerHTML = '<p class="sub">Seleccione un catequizando.</p>';
+    return;
+  }
+
+  const temas = a.temas || [];
+  const tareas = a.tareas || [];
+  const notas = a.notas || [];
+  const tareasEnviadas = Number(a.tareasEnviadas || 0);
+  const pctTareas = Number(a.porcentajeTareas || 0);
+  const notasQuiz = notas.filter(n => /CUESTIONARIO/i.test(String(n.tipo || '')))
+    .map(n => Number(n.nota)).filter(n => Number.isFinite(n) && n >= 0 && n <= 20);
+  const promedioNotas = notasQuiz.length ? notasQuiz.reduce((s,n) => s+n,0)/notasQuiz.length : null;
+  const quizzesTotales = temas.reduce((n,t) => n + Number(t.totalCuestionarios || 0), 0);
+  const quizzesCompletos = temas.reduce((n,t) => n + Number(t.cuestionariosCompletos || 0), 0);
+  const asistencia = a.asistenciaPct == null || !Number.isFinite(Number(a.asistenciaPct))
+    ? '—' : Number(a.asistenciaPct).toFixed(1) + '%';
+
+  const temasHtml = temas.map(t => {
+    const cuestionarios = t.cuestionarios || [];
+    return `<details class="avance-tema-bloque">
+      <summary>
+        <span class="avance-tema-titulo"><strong>${escaparHTML(t.numeroSesion ? 'Tema ' + t.numeroSesion + ' · ' : '')}${escaparHTML(t.tema || t.idSesion)}</strong>
+        <small>${escaparHTML(t.bloque || '')} · ${escaparHTML(t.idSesion || '')} · Clase ${escaparHTML(t.clase || 'sin asignar')} · ${Number(t.total || 0)} preguntas</small></span>
+        <span class="avance-pill ${t.estado === 'COMPLETO' ? 'done' : ''}">${Number(t.respondidas || 0)}/${Number(t.total || 0)} · ${Number(t.porcentaje || 0).toFixed(1)}% · ${escaparHTML(t.estado || 'PENDIENTE')}</span>
+      </summary>
+      <div class="avance-progress"><span style="width:${Math.max(0,Math.min(100,Number(t.porcentaje)||0))}%"></span></div>
+      <div class="avance-cuestionarios">${cuestionarios.map(q =>
+        `<div class="avance-cuestionario-item"><span><strong>Cuestionario ${q.numero}</strong><small>${q.respondidas}/${q.total} preguntas respondidas · ${q.pendientes} pendientes</small></span><span class="avance-pill ${q.estado === 'COMPLETADO' ? 'done' : ''}">${escaparHTML(q.estado)}</span></div>`
+      ).join('') || '<p class="sub">Este tema no tiene preguntas activas asignadas.</p>'}</div>
+    </details>`;
+  }).join('');
+
+  cont.innerHTML = `<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+    <img src="${escaparHTML(a.foto || './assets/insignia.png')}" onerror="this.onerror=null;this.src='./assets/insignia.png'" style="width:62px;height:62px;object-fit:cover;border-radius:50%;border:2px solid #d6e8f3">
+    <div><h2 style="margin:0;color:#245b48">${escaparHTML(a.nombre)}</h2><div class="sub">ID: ${escaparHTML(a.id)} · ${escaparHTML(a.dni || 'DNI no registrado')}</div></div>
+  </div>
+  <div class="avance-kpis">
+    <div class="avance-kpi"><strong>${Number(a.preguntasRespondidas || 0)}/${Number(a.totalPreguntas || 0)}</strong>Preguntas respondidas · ${Number(a.porcentajeCuestionarios || 0).toFixed(1)}%</div>
+    <div class="avance-kpi"><strong>${quizzesCompletos}/${quizzesTotales}</strong>Cuestionarios completos</div>
+    <div class="avance-kpi"><strong>${temas.filter(t => t.estado === 'COMPLETO').length}/68</strong>Temas completados</div>
+    <div class="avance-kpi"><strong>${tareasEnviadas}/${Number(a.tareasAsignadas || 0)}</strong>Tareas enviadas · ${pctTareas.toFixed(1)}%</div>
+    <div class="avance-kpi"><strong>${promedioNotas == null ? '—' : promedioNotas.toFixed(2) + '/20'}</strong>Promedio de notas de cuestionarios (${notasQuiz.length})</div>
+    <div class="avance-kpi"><strong>${asistencia}</strong>Asistencia registrada</div>
+  </div>
+  <p class="sub" style="margin:10px 0 5px">La organización respeta las 46 clases y los 68 temas. Cada cuestionario pertenece a un solo tema y contiene hasta 10 preguntas. Las tareas y las notas se muestran por separado.</p>
+  <h3 style="margin:16px 0 8px;color:#5b4789">Avance de cuestionarios por los 68 temas</h3>
+  <div class="avance-temas">${temasHtml || '<p class="sub">No hay temas para mostrar.</p>'}</div>
+  <h3 style="margin:16px 0 8px;color:#5b4789">Tareas y entregas</h3>
+  <div class="avance-temas">${tareas.map(t => `<div class="avance-tema-row"><span><strong>${escaparHTML(t.titulo || t.idTarea || 'Tarea')}</strong><small class="sub" style="display:block">${escaparHTML(t.tema || '')} · entrega ${escaparHTML(t.fechaEntrega || '—')}</small></span><span class="avance-pill ${['ENVIADA','REVISADA'].includes(String(t.estado || '').toUpperCase()) ? 'done' : ''}">${escaparHTML(t.estado || 'PENDIENTE')}</span><span>${escaparHTML(t.observacion || '')}</span></div>`).join('') || '<p class="sub">No hay tareas asignadas registradas.</p>'}</div>
+  <h3 style="margin:16px 0 8px;color:#5b4789">Notas y calificaciones</h3>
+  <div style="overflow:auto"><table class="avance-notas"><thead><tr><th>Tema</th><th>Actividad</th><th>Nota</th><th>Fecha</th><th>Observación</th></tr></thead><tbody>${notas.map(n => `<tr><td>${escaparHTML(n.tema || '')}</td><td>${escaparHTML(n.tipo || n.descripcion || '')}</td><td><strong>${escaparHTML(n.nota == null ? '—' : n.nota + '/20')} ${escaparHTML(n.equivalencia || '')}</strong></td><td>${escaparHTML(n.fecha || '')}</td><td>${escaparHTML(n.observaciones || '')}</td></tr>`).join('') || '<tr><td colspan="5">No hay calificaciones registradas.</td></tr>'}</tbody></table></div>`;
 }
 
 function inicializarAsistenciaModular() {
@@ -3573,3 +3735,4 @@ document.addEventListener('DOMContentLoaded', initPortalCatequistas);
 </script>
 </body>
 </html>
+```
