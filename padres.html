@@ -756,6 +756,28 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
 .lds-block-toggle small{line-height:1.2}
 .diagnostic-action{cursor:pointer;text-align:left;border:1px solid #d9e7f6;background:#f8fbff;border-radius:12px}
 .diagnostic-action:hover{background:#eaf4ff;border-color:#8db8e9;transform:translateY(-1px)}
+
+/* PORTADA DEL PORTAL DE PADRES: imagen original ubicada en assets */
+#portadaPadres {
+  width: 100%;
+  margin: 0 auto 22px;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #173765;
+  box-shadow: 0 8px 24px rgba(0,0,0,.13);
+}
+#portadaPadres img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 430px;
+  object-fit: contain;
+  object-position: center;
+}
+@media (max-width: 600px) {
+  #portadaPadres { border-radius: 12px; margin-bottom: 15px; }
+  #portadaPadres img { max-height: 260px; }
+}
 </style>
 
 </head>
@@ -807,6 +829,10 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
     </header>
 
     <main id="inicioPortal" class="container mb-5">
+      <!-- Portada institucional del Portal de Padres -->
+      <section id="portadaPadres" aria-label="Portada del Portal de Padres">
+        <img src="assets/portal%20padres.png" alt="Portada del Portal de Padres de Familia" loading="eager" decoding="async">
+      </section>
       
       <section id="ldsFamiliaHero"><div id="ldsPerfilFamilia" class="hero-art"><div class="hero-sun">☀️</div><div class="hero-family">👨‍👩‍👧‍👦</div><div class="hero-book">📖</div><div class="hero-heart">💗</div></div><div class="hero-copy"><span class="hero-kicker">CAMINO HACIA JESÚS · ESPACIO FAMILIAR</span><h2 id="ldsSaludoFamilia">¡Hola, familia! <span>Qué alegría caminar juntos.</span></h2><p id="ldsTextoFamilia">Este espacio es para acompañar a tu hijo en su preparación. Revisa qué viene esta semana, sus actividades y cómo pueden vivir la fe juntos en casa.</p><div class="hero-pills"><span>🌱 Aprender</span><span>🙏 Vivir la fe</span><span>💞 Acompañar</span></div></div></section>
 <section id="ldsRetoFamilia" class="lds-family-challenge lds-mission-strip">
