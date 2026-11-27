@@ -434,7 +434,36 @@ main.container{max-width:1240px!important}
  outline-offset:2px;background:transparent!important;color:#102c62!important;
  box-shadow:none!important;font-size:clamp(10px,.95vw,15px);line-height:1;
 }
-#portadaInicialPadres #selectorPadre{top:52.7%;appearance:auto;-webkit-appearance:menulist}
+#portadaInicialPadres #selectorPadre{top:52.7%;opacity:0!important;pointer-events:none!important;appearance:none;-webkit-appearance:none}
+#portadaInicialPadres .selector-familia-custom{
+ position:absolute;left:74.3%;top:52.7%;width:22.4%;height:7.1%;z-index:15;
+ font-family:inherit;
+}
+#portadaInicialPadres .selector-familia-trigger{
+ display:flex;align-items:center;justify-content:space-between;gap:5px;
+ width:100%;height:100%;padding:0 8% 0 13%;border:0;border-radius:7px;
+ background:transparent;color:#102c62;text-align:left;
+ font-size:clamp(10px,.95vw,15px);font-weight:400;cursor:pointer;
+ touch-action:manipulation;
+}
+#portadaInicialPadres .selector-familia-trigger:focus-visible{outline:2px solid #1d4e9b;background:rgba(255,255,255,.25)}
+#portadaInicialPadres .selector-familia-flecha{font-size:clamp(13px,1.2vw,19px);line-height:1}
+#portadaInicialPadres .selector-familia-opciones{
+ display:none;position:absolute;left:0;top:calc(100% + 5px);width:100%;
+ max-height:min(30vh,250px);overflow-y:auto;overscroll-behavior:contain;
+ border:1px solid #173765;border-radius:9px;background:#fff;
+ box-shadow:0 8px 22px rgba(0,0,0,.25);z-index:30;padding:4px;
+}
+#portadaInicialPadres .selector-familia-opciones.abierto{display:block}
+#portadaInicialPadres .selector-familia-opcion{
+ display:block;width:100%;min-height:34px;padding:7px 9px;border:0;
+ border-radius:5px;background:#fff;color:#173765;text-align:left;
+ font-size:clamp(10px,.88vw,14px);line-height:1.25;cursor:pointer;
+}
+#portadaInicialPadres .selector-familia-opcion:hover,
+#portadaInicialPadres .selector-familia-opcion:focus{background:#e8f0ff;outline:none}
+#portadaInicialPadres .selector-familia-opcion.seleccionada{background:#dce9ff;font-weight:700}
+
 #portadaInicialPadres #clavePadre{top:61.9%;padding-right:13%}
 #portadaInicialPadres #selectorPadre:focus,#portadaInicialPadres #clavePadre:focus{outline:2px solid #1d4e9b;background:rgba(255,255,255,.18)!important}
 #portadaInicialPadres #loginView form>button[type="submit"]{
@@ -811,6 +840,12 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
         <div class="mb-3">
           <label class="form-label small fw-bold text-muted">Seleccione su nombre</label>
           <select id="selectorPadre" class="form-select" required><option value="">Cargando lista de familias…</option></select>
+          <div id="selectorPadreCustom" class="selector-familia-custom">
+            <button type="button" id="selectorPadreAbrir" class="selector-familia-trigger" aria-haspopup="listbox" aria-expanded="false">
+              <span id="selectorPadreTexto">Seleccione su nombre…</span><span class="selector-familia-flecha">▾</span>
+            </button>
+            <div id="selectorPadreOpciones" class="selector-familia-opciones" role="listbox" aria-label="Lista de padres"></div>
+          </div>
           <button type="button" id="btnActualizarFamilias" class="btn btn-outline-secondary btn-sm w-100 mt-2" onclick="cargarOpcionesLoginPadres(true)">↻ Actualizar lista</button>
         </div>
         <div class="mb-3">
@@ -825,30 +860,6 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
 </div>
   </section>
 
-
-  <!-- Vista de Login por Código y Clave -->
-  <div id="loginView" class="container d-none">
-    <div class="login-container">
-      <div class="text-center mb-4">
-        <span class="badge bg-success text-white mb-2">MÓDULO FAMILIAR</span>
-        <h4 class="fw-bold text-primary">Camino hacia Jesús 2026</h4>
-        <small class="text-muted">Colegio La Salle del Sur & Parroquia San Pedro de Lurín</small>
-      </div>
-      <div id="loginError" class="alert alert-danger d-none small py-2" role="alert"></div>
-      <form onsubmit="realizarLogin(event)" autocomplete="off">
-        <div class="mb-3">
-          <label class="form-label small fw-bold text-muted">Seleccione su nombre</label>
-          <select id="selectorPadre" class="form-select" required><option value="">Cargando lista de familias…</option></select>
-          <button type="button" id="btnActualizarFamilias" class="btn btn-outline-secondary btn-sm w-100 mt-2" onclick="cargarOpcionesLoginPadres(true)">↻ Actualizar lista</button>
-        </div>
-        <div class="mb-3">
-          <label class="form-label small fw-bold text-muted">PIN Familiar</label>
-          <input type="password" id="clavePadre" class="form-control" placeholder="Ingrese el PIN de la columna PIN FAMILIAR" value="" inputmode="numeric" autocomplete="current-password" required>
-        </div>
-        <button type="submit" class="btn btn-primary w-100 fw-bold py-2 rounded-pill shadow-sm">Ingresar al Portal</button>
-      </form>
-    </div>
-  </div>
 
   <!-- Vista Principal del Portal (Oculta hasta iniciar sesión) -->
   <div id="portalView">
@@ -1088,14 +1099,59 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
         if(!data.exito) throw new Error(data.mensaje||'No se pudo cargar la lista.');
         const lista=Array.isArray(data.datos)?data.datos:[];
         sel.innerHTML='<option value="">Seleccione su nombre…</option>'+lista.map(x=>'<option value="'+escapeHtml(x.selector)+'">'+escapeHtml(x.nombre)+'</option>').join('');
+        actualizarSelectorFamiliaPersonalizado();
         if(elegido && lista.some(x=>x.selector===elegido)) sel.value=elegido;
         selectorPadres=sel.value||'';
         if(forzarAviso && !lista.length) mostrarErrorLogin('No hay familias disponibles.');
       } catch(e) {
         sel.innerHTML='<option value="">No se pudo cargar la lista. Actualice. </option>';
+        actualizarSelectorFamiliaPersonalizado();
         if(forzarAviso) mostrarErrorLogin(e.message||'No se pudo actualizar la lista.');
       } finally {sel.disabled=false;if(btn)btn.disabled=false;}
     }
+    function actualizarSelectorFamiliaPersonalizado() {
+      const sel=document.getElementById('selectorPadre');
+      const texto=document.getElementById('selectorPadreTexto');
+      const lista=document.getElementById('selectorPadreOpciones');
+      if(!sel||!texto||!lista) return;
+      texto.textContent=sel.selectedOptions && sel.selectedOptions[0]
+        ? sel.selectedOptions[0].textContent : 'Seleccione su nombre…';
+      lista.innerHTML='';
+      Array.from(sel.options).forEach((opcion)=>{
+        if(!opcion.value) return;
+        const item=document.createElement('button');
+        item.type='button';
+        item.className='selector-familia-opcion'+(opcion.selected?' seleccionada':'');
+        item.textContent=opcion.textContent;
+        item.setAttribute('role','option');
+        item.setAttribute('aria-selected',opcion.selected?'true':'false');
+        item.addEventListener('click',()=>{
+          sel.value=opcion.value;
+          selectorPadres=sel.value;
+          sel.dispatchEvent(new Event('change',{bubbles:true}));
+          texto.textContent=opcion.textContent;
+          lista.classList.remove('abierto');
+          const abrir=document.getElementById('selectorPadreAbrir');
+          if(abrir) abrir.setAttribute('aria-expanded','false');
+        });
+        lista.appendChild(item);
+      });
+    }
+    (function configurarSelectorFamiliaPersonalizado(){
+      document.addEventListener('click',(ev)=>{
+        const cont=document.getElementById('selectorPadreCustom');
+        const lista=document.getElementById('selectorPadreOpciones');
+        const abrir=document.getElementById('selectorPadreAbrir');
+        if(!cont||!lista||!abrir) return;
+        if(abrir.contains(ev.target)){
+          const abierto=lista.classList.toggle('abierto');
+          abrir.setAttribute('aria-expanded',abierto?'true':'false');
+        }else if(!cont.contains(ev.target)){
+          lista.classList.remove('abierto');
+          abrir.setAttribute('aria-expanded','false');
+        }
+      });
+    })();
     function mostrarErrorLogin(mensaje) {
       const e=document.getElementById('loginError');
       if(e){e.textContent=mensaje;e.classList.remove('d-none');}
