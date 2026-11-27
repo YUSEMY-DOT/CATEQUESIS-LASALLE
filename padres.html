@@ -416,78 +416,23 @@ main.container{max-width:1240px!important}
 #ldsFamiliaHero .hero-child-pill{display:inline-block;margin:7px 5px 0 0;padding:5px 10px;border-radius:999px;background:#ffffff24;border:1px solid #ffffff50;color:#fff;font-weight:700;font-size:.82rem}
 @media(max-width:600px){#ldsPerfilFamilia{width:84px;height:84px;flex-basis:84px}#ldsFamiliaHero{gap:12px!important;padding:17px!important}}
 
-/* PORTADA DE INGRESO DEL MODULO PADRES: se conserva el formulario original debajo */
-#portadaInicialPadres {
-  position: fixed;
-  inset: 0;
-  z-index: 100000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background: #061a38;
-}
-#portadaInicialPadres .marco-portada-padres {
-  position: relative;
-  width: min(100vw, 177.577vh);
-  width: min(100vw, 177.577dvh);
-  aspect-ratio: 1671 / 941;
-  flex: 0 0 auto;
-}
-#portadaInicialPadres .imagen-portada-padres {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-/* Zona táctil ampliada: toda la portada abre el formulario.
-   El enlace Inicio permanece por encima y conserva su función. */
-#portadaInicialPadres .accion-ingresar-portada {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  display: block;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  border-radius: 0;
-  padding: 0;
-  background: transparent;
-  cursor: pointer;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-}
-#portadaInicialPadres .accion-ingresar-portada:focus-visible {
-  outline: 4px solid #fff;
-  outline-offset: -8px;
-}
-#portadaInicialPadres .volver-inicio-portada { z-index: 10; }
-#portadaInicialPadres .volver-inicio-portada {
-  position: fixed;
-  z-index: 2;
-  left: 12px;
-  top: 12px;
-  padding: 8px 13px;
-  border: 1px solid rgba(255,255,255,.85);
-  border-radius: 999px;
-  color: #fff;
-  background: rgba(5,24,52,.78);
-  font-size: 12px;
-  font-weight: 700;
-  text-decoration: none;
-}
-@media(max-width:600px) {
-  #portadaInicialPadres .volver-inicio-portada {
-    left: 8px;
-    top: 8px;
-    padding: 7px 10px;
-    font-size: 11px;
-  }
-  #portadaInicialPadres .accion-ingresar-portada:focus-visible {
-    outline-width: 3px;
-  }
-}
-
+/* PORTADA OFICIAL CON SELECTOR Y PIN INTERACTIVOS SOBRE LA IMAGEN */
+#portadaInicialPadres{position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#061a38}
+#portadaInicialPadres .marco-portada-padres{position:relative;width:min(100vw,177.577vh);width:min(100vw,177.577dvh);aspect-ratio:1671/941;flex:0 0 auto}
+#portadaInicialPadres .imagen-portada-padres{display:block;width:100%;height:100%;object-fit:contain}
+#portadaInicialPadres .volver-inicio-portada{position:fixed;z-index:20;left:12px;top:12px;padding:8px 13px;border:1px solid rgba(255,255,255,.85);border-radius:999px;color:#fff;background:rgba(5,24,52,.78);font-size:12px;font-weight:700;text-decoration:none}
+#portadaInicialPadres #loginView{position:absolute;inset:0;z-index:5;width:100%;max-width:none;height:100%;margin:0;padding:0}
+#portadaInicialPadres #loginView .login-container{position:relative;width:100%;max-width:none;height:100%;margin:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none}
+#portadaInicialPadres #loginView .text-center,#portadaInicialPadres #loginView label,#portadaInicialPadres #btnActualizarFamilias{display:none!important}
+#portadaInicialPadres #loginView form{position:absolute;inset:0;margin:0;padding:0}
+#portadaInicialPadres #loginError{position:absolute;left:74%;top:44%;width:22.5%;z-index:8;margin:0;padding:4px 7px;font-size:clamp(9px,.8vw,13px)}
+#portadaInicialPadres #selectorPadre,#portadaInicialPadres #clavePadre{position:absolute;left:74.3%;width:22.4%;height:7.1%;min-height:0;margin:0;padding:0 8% 0 13%;border:0!important;border-radius:0;outline-offset:2px;background:transparent!important;color:#102c62!important;box-shadow:none!important;font-size:clamp(9px,.95vw,15px);line-height:1}
+#portadaInicialPadres #selectorPadre{top:52.7%;appearance:auto;-webkit-appearance:menulist}
+#portadaInicialPadres #clavePadre{top:61.9%;padding-right:13%}
+#portadaInicialPadres #selectorPadre:focus,#portadaInicialPadres #clavePadre:focus{outline:2px solid #1d4e9b;background:rgba(255,255,255,.12)!important}
+#portadaInicialPadres #loginView form>button[type="submit"]{position:absolute;left:74.3%;top:72.2%;width:22.4%;height:7.2%;min-height:0;margin:0;padding:0;border:0;border-radius:999px;background:transparent!important;color:transparent!important;box-shadow:none!important;font-size:0;cursor:pointer;touch-action:manipulation}
+#portadaInicialPadres #loginView form>button[type="submit"]:disabled{opacity:.65}
+@media(max-width:600px){#portadaInicialPadres .volver-inicio-portada{left:7px;top:7px;padding:6px 9px;font-size:10px}#portadaInicialPadres #loginError{font-size:8px;padding:2px 4px}}
 </style>
 
 <style id="lds-copyright-standard">
@@ -837,17 +782,35 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
 
   <!-- Portada oficial: al tocar INGRESAR se descubre el formulario familiar original -->
   <section id="portadaInicialPadres" aria-label="Portada del Portal de Padres">
-    <a class="volver-inicio-portada" href="./index.html">← Inicio</a>
     <div class="marco-portada-padres">
       <img class="imagen-portada-padres"
            src="./assets/portal%20padres.png"
            alt="Portada oficial del Portal de Padres de La Salle del Sur"
            fetchpriority="high">
-      <button class="accion-ingresar-portada" type="button"
-              aria-label="Ingresar al Portal de Padres"
-              title="Tocar para ingresar al Portal de Padres"
-              onclick="(function(){var portada=document.getElementById('portadaInicialPadres');var login=document.getElementById('loginView');var portal=document.getElementById('portalView');if(login)login.classList.remove('d-none');if(portal)portal.classList.add('d-none');if(portada)portada.remove();var selector=document.getElementById('selectorPadre');if(selector)selector.focus();})()"></button>
+      <div id="loginView" class="container">
+    <div class="login-container">
+      <div class="text-center mb-4">
+        <span class="badge bg-success text-white mb-2">MÓDULO FAMILIAR</span>
+        <h4 class="fw-bold text-primary">Camino hacia Jesús 2026</h4>
+        <small class="text-muted">Colegio La Salle del Sur & Parroquia San Pedro de Lurín</small>
+      </div>
+      <div id="loginError" class="alert alert-danger d-none small py-2" role="alert"></div>
+      <form onsubmit="realizarLogin(event)" autocomplete="off">
+        <div class="mb-3">
+          <label class="form-label small fw-bold text-muted">Seleccione su nombre</label>
+          <select id="selectorPadre" class="form-select" required><option value="">Cargando lista de familias…</option></select>
+          <button type="button" id="btnActualizarFamilias" class="btn btn-outline-secondary btn-sm w-100 mt-2" onclick="cargarOpcionesLoginPadres(true)">↻ Actualizar lista</button>
+        </div>
+        <div class="mb-3">
+          <label class="form-label small fw-bold text-muted">PIN Familiar</label>
+          <input type="password" id="clavePadre" class="form-control" placeholder="Ingrese el PIN de la columna PIN FAMILIAR" value="" inputmode="numeric" autocomplete="current-password" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 fw-bold py-2 rounded-pill shadow-sm">Ingresar al Portal</button>
+      </form>
     </div>
+  </div>
+
+</div>
   </section>
 
 
@@ -1054,6 +1017,7 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
       if (tokenPadres) {
         document.getElementById('loginView').classList.add('d-none');
         document.getElementById('portalView').classList.remove('d-none');
+        const portadaIngreso=document.getElementById('portadaInicialPadres'); if(portadaIngreso) portadaIngreso.remove();
         actualizarPerfilFamilia();
         await cargarDatosCompletosCalendario();
         await cargarBloquesFamilia();
