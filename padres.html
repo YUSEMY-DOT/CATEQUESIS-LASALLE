@@ -426,11 +426,22 @@ main.container{max-width:1240px!important}
 #portadaInicialPadres #loginView .text-center,#portadaInicialPadres #loginView label,#portadaInicialPadres #btnActualizarFamilias{display:none!important}
 #portadaInicialPadres #loginView form{position:absolute;inset:0;margin:0;padding:0}
 #portadaInicialPadres #loginError{position:absolute;left:74%;top:44%;width:22.5%;z-index:8;margin:0;padding:4px 7px;font-size:clamp(9px,.8vw,13px)}
-#portadaInicialPadres #selectorPadre,#portadaInicialPadres #clavePadre{position:absolute;left:74.3%;width:22.4%;height:7.1%;min-height:0;margin:0;padding:0 8% 0 13%;border:0!important;border-radius:0;outline-offset:2px;background:transparent!important;color:#102c62!important;box-shadow:none!important;font-size:clamp(9px,.95vw,15px);line-height:1}
-#portadaInicialPadres #selectorPadre{top:52.7%;appearance:auto;-webkit-appearance:menulist}
-#portadaInicialPadres #clavePadre{top:61.9%;padding-right:13%}
-#portadaInicialPadres #selectorPadre:focus,#portadaInicialPadres #clavePadre:focus{outline:2px solid #1d4e9b;background:rgba(255,255,255,.12)!important}
-#portadaInicialPadres #loginView form>button[type="submit"]{position:absolute;left:74.3%;top:72.2%;width:22.4%;height:7.2%;min-height:0;margin:0;padding:0;border:0;border-radius:999px;background:transparent!important;color:transparent!important;box-shadow:none!important;font-size:0;cursor:pointer;touch-action:manipulation}
+/* Coordenadas alineadas con los dos recuadros blancos y el botón de la portada */
+#portadaInicialPadres #selectorPadre,#portadaInicialPadres #clavePadre{
+ position:absolute;left:42.8%;width:44.5%;height:9.0%;min-height:0;
+ margin:0;padding:0 8% 0 13%;border:0!important;border-radius:0;
+ outline-offset:2px;background:transparent!important;color:#102c62!important;
+ box-shadow:none!important;font-size:clamp(11px,1.05vw,17px);line-height:1;
+}
+#portadaInicialPadres #selectorPadre{top:40.5%;appearance:auto;-webkit-appearance:menulist}
+#portadaInicialPadres #clavePadre{top:52.3%;padding-right:13%}
+#portadaInicialPadres #selectorPadre:focus,#portadaInicialPadres #clavePadre:focus{outline:2px solid #1d4e9b;background:rgba(255,255,255,.18)!important}
+#portadaInicialPadres #loginView form>button[type="submit"]{
+ position:absolute;left:42.8%;top:65.8%;width:44.5%;height:9.2%;
+ min-height:0;margin:0;padding:0;border:0;border-radius:999px;
+ background:transparent!important;color:transparent!important;
+ box-shadow:none!important;font-size:0;cursor:pointer;touch-action:manipulation
+}
 #portadaInicialPadres #loginView form>button[type="submit"]:disabled{opacity:.65}
 @media(max-width:600px){#portadaInicialPadres .volver-inicio-portada{left:7px;top:7px;padding:6px 9px;font-size:10px}#portadaInicialPadres #loginError{font-size:8px;padding:2px 4px}}
 </style>
