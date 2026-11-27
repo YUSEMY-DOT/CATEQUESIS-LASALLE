@@ -3,58 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#071b38">
+  <meta name="theme-color" content="#061a38">
   <title>Portal de Padres | Camino hacia Jesús 2026</title>
   <style>
     * { box-sizing: border-box; }
-    html, body { width:100%; min-height:100%; margin:0; }
+    html, body {
+      width:100%; height:100%; margin:0;
+    }
     body {
-      min-height:100vh; min-height:100dvh; position:relative;
+      min-height:100vh; min-height:100dvh;
       display:flex; align-items:center; justify-content:center;
       overflow:hidden; background:#061a38;
       font-family:Arial, Helvetica, sans-serif;
     }
-    .portada-padres {
-      width:100%; height:100vh; height:100dvh;
-      display:flex; align-items:center; justify-content:center;
-      background:#061a38;
+    .escenario {
+      position:relative;
+      width:min(100vw, 177.577vh);
+      width:min(100vw, 177.577dvh);
+      aspect-ratio:1671 / 941;
+      flex:0 0 auto;
     }
-    .portada-padres img {
+    .escenario img {
       display:block; width:100%; height:100%;
-      object-fit:contain; object-position:center;
+      object-fit:contain;
     }
-    .acciones {
-      position:absolute; left:0; right:0;
-      bottom:max(24px, env(safe-area-inset-bottom));
-      display:flex; justify-content:center; align-items:center;
-      gap:12px; padding:0 16px;
+    /* Zona transparente sobre el botón INGRESAR que ya aparece en la imagen.
+       La imagen original se conserva intacta; esta zona abre el acceso real. */
+    .ingresar {
+      position:absolute;
+      left:75.8%; top:72.1%;
+      width:19.0%; height:8.0%;
+      display:block;
+      border-radius:999px;
+      text-decoration:none;
+      cursor:pointer;
+      -webkit-tap-highlight-color:transparent;
     }
-    .accion {
-      display:inline-flex; justify-content:center; align-items:center;
-      min-height:48px; padding:12px 24px;
-      border:2px solid #f2d477; border-radius:999px;
-      color:#071b38; background:linear-gradient(135deg,#fff0b8,#f2d477);
-      box-shadow:0 5px 18px rgba(0,0,0,.38);
-      font-size:15px; font-weight:800; text-decoration:none; text-align:center;
+    .ingresar:focus-visible {
+      outline:4px solid #fff;
+      outline-offset:3px;
+      box-shadow:0 0 0 7px rgba(5,35,105,.75);
     }
-    .accion-volver {
-      color:#fff; background:rgba(5,24,52,.88);
-      border-color:rgba(255,255,255,.8);
+    .volver {
+      position:fixed; left:12px; top:12px; z-index:5;
+      padding:8px 13px; border:1px solid rgba(255,255,255,.8);
+      border-radius:999px; color:#fff;
+      background:rgba(5,24,52,.72);
+      font-size:12px; font-weight:700;
+      text-decoration:none;
     }
-    .accion:focus-visible { outline:3px solid #fff; outline-offset:4px; }
     @media(max-width:600px) {
-      .acciones { bottom:max(14px, env(safe-area-inset-bottom)); gap:8px; flex-wrap:wrap; }
-      .accion { min-height:44px; padding:10px 17px; font-size:13px; }
+      .volver { left:8px; top:8px; padding:7px 10px; font-size:11px; }
+      .ingresar:focus-visible { outline-width:3px; }
     }
   </style>
 </head>
 <body>
-  <main class="portada-padres" aria-label="Portada del Portal de Padres de Familia">
-    <img src="./assets/portal%20padres.png" alt="Portal de Padres de Familia — Camino hacia Jesús 2026" fetchpriority="high">
+  <a class="volver" href="./index.html">← Inicio</a>
+  <main class="escenario" aria-label="Portada original del Portal de Padres">
+    <img src="./assets/portal%20padres.png"
+         alt="Portal de Padres de La Salle del Sur con el equipo institucional y el acceso de familias"
+         fetchpriority="high">
+    <a class="ingresar" href="./padres.html"
+       aria-label="Ingresar al Portal de Padres"
+       title="Ingresar al Portal de Padres"></a>
   </main>
-  <nav class="acciones" aria-label="Acciones del Portal de Padres">
-    <a class="accion accion-volver" href="./index.html">Volver al inicio</a>
-    <a class="accion" href="./padres.html">INGRESAR AL PORTAL</a>
-  </nav>
 </body>
 </html>
