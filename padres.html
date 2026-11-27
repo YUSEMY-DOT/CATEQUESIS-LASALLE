@@ -757,10 +757,88 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
 .diagnostic-action{cursor:pointer;text-align:left;border:1px solid #d9e7f6;background:#f8fbff;border-radius:12px}
 .diagnostic-action:hover{background:#eaf4ff;border-color:#8db8e9;transform:translateY(-1px)}
 
+
+/* PORTADA INICIAL DEL MODULO PADRES: imagen original, sin modificar */
+#portadaInicialPadres {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #061a38;
+}
+#portadaInicialPadres .portada-padres-marco {
+  position: relative;
+  width: min(100vw, 177.577vh);
+  width: min(100vw, 177.577dvh);
+  aspect-ratio: 1671 / 941;
+  flex: 0 0 auto;
+}
+#portadaInicialPadres img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+#portadaInicialPadres .portada-padres-ingresar {
+  position: absolute;
+  left: 75.8%;
+  top: 72.1%;
+  width: 19%;
+  height: 8%;
+  display: block;
+  border: 0;
+  border-radius: 999px;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+#portadaInicialPadres .portada-padres-ingresar:focus-visible {
+  outline: 4px solid #fff;
+  outline-offset: 3px;
+}
+#portadaInicialPadres .portada-padres-inicio {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  padding: 8px 13px;
+  border: 1px solid rgba(255,255,255,.85);
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(5,24,52,.78);
+  font-weight: 700;
+  text-decoration: none;
+}
+@media(max-width:600px) {
+  #portadaInicialPadres .portada-padres-inicio {
+    top: 8px; left: 8px; padding: 7px 10px; font-size: 11px;
+  }
+  #portadaInicialPadres .portada-padres-ingresar:focus-visible { outline-width: 3px; }
+}
+
 </style>
 
 </head>
 <body>
+
+  <!-- Portada original que se muestra antes del formulario y del portal -->
+  <section id="portadaInicialPadres" aria-label="Portada del Portal de Padres">
+    <a class="portada-padres-inicio" href="./index.html">← Inicio</a>
+    <div class="portada-padres-marco">
+      <img src="./assets/portal%20padres.png"
+           alt="Portada original del Portal de Padres de La Salle del Sur"
+           fetchpriority="high">
+      <button class="portada-padres-ingresar" type="button"
+              aria-label="Ingresar al Portal de Padres"
+              title="Ingresar al Portal de Padres"
+              onclick="document.getElementById('portadaInicialPadres').remove()"></button>
+    </div>
+  </section>
+
 
   <!-- Vista de Login por Código y Clave -->
   <div id="loginView" class="container d-none">
