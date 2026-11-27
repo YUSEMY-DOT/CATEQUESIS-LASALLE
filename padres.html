@@ -440,14 +440,17 @@ main.container{max-width:1240px!important}
   height: 100%;
   object-fit: contain;
 }
+/* Zona táctil ampliada: toda la portada abre el formulario.
+   El enlace Inicio permanece por encima y conserva su función. */
 #portadaInicialPadres .accion-ingresar-portada {
   position: absolute;
-  left: 74.5%;
-  top: 69.5%;
-  width: 22%;
-  height: 12%;
+  inset: 0;
+  z-index: 5;
+  display: block;
+  width: 100%;
+  height: 100%;
   border: 0;
-  border-radius: 999px;
+  border-radius: 0;
   padding: 0;
   background: transparent;
   cursor: pointer;
@@ -456,8 +459,9 @@ main.container{max-width:1240px!important}
 }
 #portadaInicialPadres .accion-ingresar-portada:focus-visible {
   outline: 4px solid #fff;
-  outline-offset: 3px;
+  outline-offset: -8px;
 }
+#portadaInicialPadres .volver-inicio-portada { z-index: 10; }
 #portadaInicialPadres .volver-inicio-portada {
   position: fixed;
   z-index: 2;
@@ -841,8 +845,8 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
            fetchpriority="high">
       <button class="accion-ingresar-portada" type="button"
               aria-label="Ingresar al Portal de Padres"
-              title="Ingresar al Portal de Padres"
-              onclick="document.getElementById('portadaInicialPadres').remove()"></button>
+              title="Tocar para ingresar al Portal de Padres"
+              onclick="(function(){var portada=document.getElementById('portadaInicialPadres');var login=document.getElementById('loginView');var portal=document.getElementById('portalView');if(login)login.classList.remove('d-none');if(portal)portal.classList.add('d-none');if(portada)portada.remove();var selector=document.getElementById('selectorPadre');if(selector)selector.focus();})()"></button>
     </div>
   </section>
 
