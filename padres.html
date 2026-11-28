@@ -888,6 +888,22 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
   #portadaInicialPadres .lds-padre-select-option{font-size:12px!important;padding:8px!important}
 }
 
+
+/* PIN: entrada de texto numérica para evitar el popup de contraseñas de Chrome.
+   Se conserva la misma casilla, el mismo ID y el mismo valor que recibe GS. */
+#portadaInicialPadres #clavePadre{
+  -webkit-text-security:disc!important;
+  text-security:disc!important;
+  font-variant-numeric:tabular-nums!important;
+}
+#portadaInicialPadres #clavePadre:-webkit-autofill,
+#portadaInicialPadres #clavePadre:-webkit-autofill:hover,
+#portadaInicialPadres #clavePadre:-webkit-autofill:focus{
+  -webkit-box-shadow:0 0 0 1000px transparent inset!important;
+  transition:background-color 999999s ease-out 0s!important;
+}
+#portadaInicialPadres #selectorPadreBoton:disabled{opacity:.75!important;cursor:wait!important}
+
 </style>
 
 </head>
@@ -923,7 +939,7 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
         </div>
         <div class="mb-3">
           <label class="form-label small fw-bold text-muted">PIN Familiar</label>
-          <input type="password" id="clavePadre" class="form-control" placeholder="Ingrese el PIN de la columna PIN FAMILIAR" value="" inputmode="numeric" autocomplete="new-password" autocapitalize="off" spellcheck="false" required>
+          <input type="text" id="clavePadre" class="form-control" placeholder="Ingrese el PIN de la columna PIN FAMILIAR" value="" inputmode="numeric" name="pin-familiar-codigo" autocomplete="off" autocapitalize="off" spellcheck="false" required>
         </div>
         <button type="submit" class="btn btn-primary w-100 fw-bold py-2 rounded-pill shadow-sm">Ingresar al Portal</button>
       </form>
@@ -1215,6 +1231,8 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
       if(!sel) return;
       const elegido=selectorPadres||sel.value||'';
       sel.disabled=true;
+      const selectorVisual=document.getElementById('selectorPadreBoton');
+      if(selectorVisual){selectorVisual.disabled=true;selectorVisual.textContent='Cargando lista de familias…';}
       if(btn) btn.disabled=true;
       sel.innerHTML='<option value="">Cargando familias…</option>';
       try {
@@ -1230,7 +1248,7 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
         sel.innerHTML='<option value="">No se pudo cargar la lista. Actualice. </option>';
         actualizarSelectorPadreVisual();
         if(forzarAviso) mostrarErrorLogin(e.message||'No se pudo actualizar la lista.');
-      } finally {sel.disabled=false;if(btn)btn.disabled=false;}
+      } finally {sel.disabled=false;if(btn)btn.disabled=false;if(selectorVisual)selectorVisual.disabled=false;actualizarSelectorPadreVisual();}
     }
     function mostrarErrorLogin(mensaje) {
       const e=document.getElementById('loginError');
