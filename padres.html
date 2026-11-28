@@ -1183,7 +1183,31 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
 #portalView .header-padres{display:block!important}
 #portalView #ldsFamiliaHero{display:flex!important}
 #portalView #ldsPerfilFamilia img{object-fit:cover}
-</style>\n</head>
+</style>\n<style id="lds-ajuste-rapidez-y-acceso">
+/* Ajuste solicitado: selector de familia y PIN, 1 cm hacia la izquierda */
+#portadaInicialPadres #loginView form>.mb-3:nth-of-type(1),
+#portadaInicialPadres #loginView form>.mb-3:nth-of-type(2){
+  transform:translateX(1cm)!important;
+}
+/* El botón transparente coincide con el botón INGRESAR dibujado y recibe el clic. */
+#portadaInicialPadres #loginView form>button[type="submit"]{
+  position:absolute!important;
+  left:76.9%!important;top:73.3%!important;
+  width:19%!important;height:7.2%!important;
+  opacity:0!important;
+  z-index:100!important;
+  display:block!important;
+  pointer-events:auto!important;
+  cursor:pointer!important;
+}
+#portadaInicialPadres #loginView form{
+  pointer-events:none!important;
+}
+#portadaInicialPadres #loginView form>button[type="submit"]{
+  pointer-events:auto!important;
+}
+</style>
+</head>
 <body>
 
   <!-- Portada oficial: al tocar INGRESAR se descubre el formulario familiar original -->
@@ -1575,16 +1599,14 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
       if(!cont) return;
       cont.innerHTML='<div class="weekly-loading">✨ Consultando el avance de tus catequizandos…</div>';
       try {
-        const [data,seguimiento,diagnostico]=await Promise.all([apiGet('getTareas'),apiGet('getAsistenciaNotas').catch(()=>null),obtenerDiagnosticoPadresCompartido().catch(()=>null)]);
+        const [data,seguimiento]=await Promise.all([apiGet('getTareas'),apiGet('getAsistenciaNotas').catch(()=>null)]);
         if(!data||!data.exito) throw new Error(data.mensaje||'Consulta no disponible');
         const rows=Array.isArray(data.datos)?data.datos:[];
         const alumnos={};
         if(seguimiento&&seguimiento.exito&&Array.isArray(seguimiento.datos))seguimiento.datos.forEach(a=>{alumnos[String(a.ID_NINO||'')]=a.NOMBRE_COMPLETO||[a.NOMBRES,a.APELLIDOS].filter(Boolean).join(' ');});
         if(!rows.length){
-          const nTareas=Number(diagnostico&&diagnostico.exito&&diagnostico.resumen?diagnostico.resumen.tareas:0);
-          const nCatequizandos=Number(diagnostico&&diagnostico.exito&&diagnostico.resumen?diagnostico.resumen.catequizandos:0);
           const ninos=Object.values(alumnos).filter(Boolean);
-          cont.innerHTML='<div class="weekly-empty"><strong>📚 No se encontraron tareas vinculadas a esta familia en la consulta.</strong><p class="mb-1 mt-1">Se está consultando el avance de '+(ninos.length?ninos.map(escapeHtml).join(', '):nCatequizandos+' catequizando(s)')+'.</p>'+(nTareas>0?'<div class="alert alert-warning small mt-2 mb-0">El diagnóstico registra '+nTareas+' tarea(s), pero el listado no las devuelve. Hay una diferencia entre consultas; no se ocultan ni se inventan actividades.</div>':'<p class="small mb-0">Si las actividades ya fueron asignadas, revisar la asociación del catequizando con su familia y la consulta de tareas.</p>')+'</div>';
+          cont.innerHTML='<div class="weekly-empty"><strong>📚 No se encontraron tareas vinculadas a esta familia en la consulta.</strong><p class="mb-1 mt-1">Se está consultando el avance de '+(ninos.length?ninos.map(escapeHtml).join(', '):'los catequizandos vinculados a esta familia')+'.</p><p class="small mb-0">Si las actividades ya fueron asignadas, revisar la asociación del catequizando con su familia y la consulta de tareas.</p></div>';
           return;
         }
         const entregadas=rows.filter(r=>/ENTREG|REVIS|APROB|COMPLET/i.test(String(r.ESTADO_ENTREGA||''))||!!r.EVIDENCIA_URL_ALUMNO).length;
@@ -1752,7 +1774,7 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
       const diag=document.getElementById('diagnosticoPortal');
       diag.innerHTML='<div class="d-flex align-items-center gap-2"><span class="spinner-border spinner-border-sm text-primary"></span><strong>Actualizando la información del programa…</strong></div>';
       try {
-        const [cal,avisos,cumples,diagnostico] = await Promise.all([apiGet('getCalendarioPadres'),apiGet('getAvisos'),apiGet('getCumpleanosPadres'),obtenerDiagnosticoPadresCompartido().catch(error=>({exito:false,mensaje:error.message}))]);
+        const [cal,avisos,cumples] = await Promise.all([apiGet('getCalendarioPadres'),apiGet('getAvisos'),apiGet('getCumpleanosPadres')]);
         if (!cal.exito) throw new Error(cal.mensaje || 'No se pudo leer CLASES.');
         if (!avisos.exito) throw new Error(avisos.mensaje || 'No se pudo leer AVISOS.');
         if (!cumples.exito) throw new Error(cumples.mensaje || 'No se pudieron leer los cumpleaños.');
@@ -1760,7 +1782,7 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
         eventosSesiones = Array.isArray(cal.datos) ? cal.datos : [];
         eventosAvisos = Array.isArray(avisos.datos) ? avisos.datos : [];
         generarCalendarioVisual();
-        renderDiagnostico(diagnostico);
+        mostrarDiagnosticoDiferido();
         seleccionarFechaInicial();
       } catch(e) {
         if (/Ingrese con su código familiar|sesión venció|no está autorizada/i.test(String(e.message||''))) {
@@ -1771,6 +1793,24 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
         }
         diag.innerHTML=`<div class="alert alert-danger mb-0"><strong>No se pudo actualizar la información.</strong><br>${escapeHtml(e.message || 'Error de conexión.')}</div>`;
         generarCalendarioVisual();
+      }
+    }
+
+    function mostrarDiagnosticoDiferido() {
+      const el=document.getElementById('diagnosticoPortal');
+      if(!el) return;
+      el.innerHTML='<button type="button" class="btn btn-sm btn-outline-primary" onclick="cargarDiagnosticoDiferido()">Consultar diagnóstico de hojas</button><span class="small text-muted ms-2">Se consulta solo cuando se solicita.</span>';
+    }
+    async function cargarDiagnosticoDiferido() {
+      const el=document.getElementById('diagnosticoPortal');
+      if(!el) return;
+      el.innerHTML='<span class="small text-muted">Consultando diagnóstico…</span>';
+      try {
+        const resp=await obtenerDiagnosticoPadresCompartido();
+        renderDiagnostico(resp);
+      } catch(e) {
+        el.innerHTML='<span class="small text-danger">No se pudo consultar el diagnóstico. Intente nuevamente.</span>';
+        diagnosticoPadresEnCurso=null;
       }
     }
 
