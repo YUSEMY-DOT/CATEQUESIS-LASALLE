@@ -962,6 +962,65 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
   }
 }
 
+
+/* CORRECCIÓN DE POSICIÓN: los controles se alinean dentro de sus casillas padre.
+   Las dos filas .mb-3 ya están ubicadas sobre la imagen; los controles internos
+   deben ocuparlas completas, no volver a aplicar porcentajes desde otro origen. */
+#portadaInicialPadres #loginView form>.mb-3:nth-of-type(1),
+#portadaInicialPadres #loginView form>.mb-3:nth-of-type(2){
+  position:absolute!important;
+  left:72.4%!important;
+  width:21.2%!important;
+  margin:0!important;
+  padding:0!important;
+  pointer-events:auto!important;
+  box-sizing:border-box!important;
+}
+#portadaInicialPadres #loginView form>.mb-3:nth-of-type(1){
+  top:48.7%!important;
+  height:6.4%!important;
+}
+#portadaInicialPadres #loginView form>.mb-3:nth-of-type(2){
+  top:57.2%!important;
+  height:6.3%!important;
+}
+#portadaInicialPadres #selectorPadreVisual{
+  position:absolute!important;
+  left:0!important;top:0!important;right:0!important;bottom:0!important;
+  width:100%!important;height:100%!important;
+  inset:0!important;z-index:45!important;
+  pointer-events:auto!important;
+}
+#portadaInicialPadres .lds-padre-select-trigger{
+  position:absolute!important;
+  left:0!important;top:0!important;right:0!important;bottom:0!important;
+  width:100%!important;height:100%!important;inset:0!important;
+  padding:0 8% 0 16%!important;
+  border:0!important;border-radius:14px!important;
+  background:transparent!important;
+  color:#102b59!important;text-align:left!important;
+  font:500 clamp(10px,1.05vw,16px)/1.2 "Segoe UI",Arial,sans-serif!important;
+  white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;
+}
+#portadaInicialPadres #clavePadre{
+  position:absolute!important;
+  left:0!important;top:0!important;right:0!important;bottom:0!important;
+  width:100%!important;height:100%!important;inset:0!important;
+  margin:0!important;padding:0 16% 0 18%!important;
+  border:0!important;border-radius:14px!important;
+  background:transparent!important;box-shadow:none!important;
+  box-sizing:border-box!important;
+  color:#102b59!important;-webkit-text-fill-color:#102b59!important;
+  caret-color:#102b59!important;
+  font:600 clamp(13px,1.15vw,18px)/1.2 "Segoe UI",Arial,sans-serif!important;
+  letter-spacing:3px!important;outline:none!important;
+  pointer-events:auto!important;cursor:text!important;
+}
+#portadaInicialPadres #loginView form>button[type="submit"]{
+  position:absolute!important;left:73.7%!important;top:66.7%!important;
+  width:19.7%!important;height:6.7%!important;
+}
+
 </style>
 
 </head>
