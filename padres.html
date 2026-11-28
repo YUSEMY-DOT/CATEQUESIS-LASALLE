@@ -1383,8 +1383,7 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
       if (!('speechSynthesis' in window)) { const b=document.getElementById('audioToggle'); b.disabled=true; b.title='Audio no disponible en este navegador'; }
       if (tokenPadres) {
         const portada=document.getElementById('portadaInicialPadres');
-        if(portada) portada.remove();
-        document.getElementById('loginView').classList.add('d-none');
+        if(portada) portada.style.setProperty('display','none','important');
         document.getElementById('portalView').classList.remove('d-none');
         actualizarPerfilFamilia();
         await cargarDatosCompletosCalendario();
@@ -1392,6 +1391,8 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
         await cargarResumenTareasFamilia();
       } else {
         document.getElementById('portalView').classList.add('d-none');
+        const portada=document.getElementById('portadaInicialPadres');
+        if(portada) portada.style.removeProperty('display');
         document.getElementById('loginView').classList.remove('d-none');
         await cargarOpcionesLoginPadres(false);
       }
@@ -1627,8 +1628,7 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
         sessionStorage.setItem(CLAVE_SESION_PADRES,tokenPadres);
         sessionStorage.setItem(CLAVE_SELECTOR_PADRES,selectorPadres);
         const portada=document.getElementById('portadaInicialPadres');
-        if(portada) portada.remove();
-        document.getElementById('loginView').classList.add('d-none');
+        if(portada) portada.style.setProperty('display','none','important');
         document.getElementById('portalView').classList.remove('d-none');
         document.getElementById('clavePadre').value='';
         await cargarDatosCompletosCalendario();
@@ -1644,6 +1644,8 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
       tokenPadres=''; perfilPadres=null; selectorPadres=''; sessionStorage.removeItem(CLAVE_SESION_PADRES); sessionStorage.removeItem(CLAVE_SELECTOR_PADRES); sessionStorage.removeItem('caminoJesusPadresPerfil');
       eventosSesiones=[]; eventosCumple=[]; eventosAvisos=[];
       document.getElementById('portalView').classList.add('d-none');
+      const portada=document.getElementById('portadaInicialPadres');
+      if(portada) portada.style.removeProperty('display');
       document.getElementById('loginView').classList.remove('d-none');
       volverInicio();
     }
