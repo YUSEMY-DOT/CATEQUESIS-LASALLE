@@ -425,10 +425,9 @@ main.container{max-width:1240px!important}
 #portadaInicialPadres #loginView .login-container{position:relative;width:100%;max-width:none;height:100%;margin:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none}
 #portadaInicialPadres #loginView .text-center,#portadaInicialPadres #loginView label,#portadaInicialPadres #btnActualizarFamilias{display:none!important}
 #portadaInicialPadres #loginView form{position:absolute;inset:0;margin:0;padding:0}
-#portadaInicialPadres #loginError{position:absolute;left:74%;top:44%;width:22.5%;z-index:8;margin:0;padding:4px 7px;font-size:clamp(9px,.8vw,13px)}
-/* Coordenadas alineadas con los dos recuadros blancos y el botón de la portada */
-/* Coordenadas relativas a la imagen completa: recuadro superior, PIN y botón */
-#portadaInicialPadres #selectorPadre,#portadaInicialPadres #clavePadre{
+#portadaInicialPadres #loginError{position:absolute;left:74%;top:44%;width:22.5%;z-index:8;margin:0;padding:4px 7px;font-size:clamp(9px,.8vw,13px)}/* Coordenadas alineadas con los dos recuadros blancos y el botón de la portada */
+/* Coordenadas relativas a la imagen completa: recuadro superior,PIN y botón */
+#portadaInicialPadres #selectorPadre{
  position:absolute;left:74.3%;width:22.4%;height:7.1%;min-height:0;
  margin:0;padding:0 8% 0 13%;border:0!important;border-radius:0;
  outline-offset:2px;background:transparent!important;color:#102c62!important;
@@ -463,10 +462,7 @@ main.container{max-width:1240px!important}
 }
 #portadaInicialPadres .selector-familia-opcion:hover,
 #portadaInicialPadres .selector-familia-opcion:focus{background:#e8f0ff;outline:none}
-#portadaInicialPadres .selector-familia-opcion.seleccionada{background:#dce9ff;font-weight:700}
-
-#portadaInicialPadres #clavePadre{top:61.9%;padding-right:13%}
-#portadaInicialPadres #selectorPadre:focus,#portadaInicialPadres #clavePadre:focus{outline:2px solid #1d4e9b;background:rgba(255,255,255,.18)!important}
+#portadaInicialPadres .selector-familia-opcion.seleccionada{background:#dce9ff;font-weight:700}#portadaInicialPadres #selectorPadre:focus{outline:2px solid #1d4e9b;background:rgba(255,255,255,.18)!important}
 #portadaInicialPadres #loginView form>button[type="submit"]{
  position:absolute;left:74.3%;top:72.2%;width:22.4%;height:7.2%;
  min-height:0;margin:0;padding:0;border:0;border-radius:999px;
@@ -829,35 +825,18 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
 
 
 
-<style id="lds-pin-capasy-posicion-final">
-/* La portada es el marco de referencia. Los controles quedan delante de la imagen. */
-#portadaInicialPadres {
-  position: fixed !important;
-  isolation: isolate !important;
-}
-#portadaInicialPadres .marco-portada-padres {
-  position: relative !important;
-}
-#portadaInicialPadres #loginView {
-  position: absolute !important;
-  inset: 0 !important;
-  z-index: 50 !important;
-  width: 100% !important;
-  height: 100% !important;
-  pointer-events: auto !important;
-}
+
+
+
+<style id="lds-pin-unico-reconstruido">
+/* Único campo PIN reconstruido. Se mantiene el mismo id que usa la validación original. */
+#portadaInicialPadres #loginView,
 #portadaInicialPadres #loginView .login-container,
 #portadaInicialPadres #loginView form {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  pointer-events: auto !important;
-}
-#portadaInicialPadres #loginView form > * {
   pointer-events: auto !important;
 }
 #portadaInicialPadres #clavePadre {
+  /* Área exacta del recuadro blanco del PIN en la portada */
   position: absolute !important;
   left: 74.3% !important;
   top: 61.9% !important;
@@ -868,45 +847,35 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
-  z-index: 120 !important;
+  z-index: 9999 !important;
   pointer-events: auto !important;
   box-sizing: border-box !important;
   margin: 0 !important;
-  padding: 0 13% !important;
+  /* Deja libre el candado a la izquierda y el ojo a la derecha */
+  padding: 0 16% 0 19% !important;
+  border: 0 !important;
+  border-radius: 15px !important;
+  background: transparent !important;
   color: #102c62 !important;
   -webkit-text-fill-color: #102c62 !important;
   caret-color: #102c62 !important;
-  font-size: clamp(14px, 1.15vw, 19px) !important;
-  line-height: 1.2 !important;
+  font: 18px/1.2 Arial, sans-serif !important;
+  letter-spacing: 2px !important;
   text-align: left !important;
-  background: rgba(255,255,255,.06) !important;
-  border: 1px solid transparent !important;
-  border-radius: 14px !important;
-  outline: none !important;
-  box-shadow: none !important;
   cursor: text !important;
   user-select: text !important;
   -webkit-user-select: text !important;
   touch-action: manipulation !important;
 }
 #portadaInicialPadres #clavePadre:focus {
-  outline: 2px solid #1d4e9b !important;
-  outline-offset: 1px !important;
-  background: rgba(255,255,255,.16) !important;
+  outline: 2px solid rgba(23,74,155,.55) !important;
+  outline-offset: -2px !important;
+  background: rgba(255,255,255,.10) !important;
 }
 #portadaInicialPadres #loginView form > button[type="submit"] {
-  z-index: 121 !important;
+  z-index: 201 !important;
   pointer-events: auto !important;
   cursor: pointer !important;
-}
-#portadaInicialPadres #selectorPadreCustom,
-#portadaInicialPadres #selectorPadreAbrir,
-#portadaInicialPadres #selectorPadreOpciones {
-  pointer-events: auto !important;
-}
-#portadaInicialPadres #loginError {
-  z-index: 130 !important;
-  pointer-events: none !important;
 }
 </style>
 
