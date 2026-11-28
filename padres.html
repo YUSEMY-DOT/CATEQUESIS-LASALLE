@@ -904,6 +904,64 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
 }
 #portadaInicialPadres #selectorPadreBoton:disabled{opacity:.75!important;cursor:wait!important}
 
+
+/* AJUSTE FINAL DE PORTADA: mostrar la imagen completa y alinear controles */
+#portadaInicialPadres{
+  position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;
+  height:100dvh!important;display:flex!important;align-items:center!important;
+  justify-content:center!important;overflow:hidden!important;background:#061a38!important;
+}
+#portadaInicialPadres .marco-portada-padres{
+  position:relative!important;
+  width:min(100vw,177.577dvh)!important;
+  height:auto!important;
+  max-width:100vw!important;
+  max-height:100dvh!important;
+  aspect-ratio:1671 / 941!important;
+  flex:0 1 auto!important;
+}
+#portadaInicialPadres .imagen-portada-padres{
+  display:block!important;width:100%!important;height:100%!important;
+  max-width:100%!important;max-height:100%!important;object-fit:contain!important;
+}
+/* El selector visible ocupa solamente la primera casilla dibujada en la portada */
+#portadaInicialPadres #selectorPadreVisual{
+  position:absolute!important;left:72.4%!important;top:48.7%!important;
+  width:21.2%!important;height:6.4%!important;inset:auto!important;
+  z-index:45!important;pointer-events:auto!important;
+}
+#portadaInicialPadres .lds-padre-select-trigger{
+  position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+  padding:0 8% 0 16%!important;border:0!important;border-radius:14px!important;
+  background:transparent!important;color:#102b59!important;text-align:left!important;
+  font:500 clamp(10px,1.05vw,16px)/1.2 "Segoe UI",Arial,sans-serif!important;
+  white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;
+}
+#portadaInicialPadres .lds-padre-select-list{
+  position:absolute!important;left:0!important;right:0!important;top:calc(100% + 5px)!important;
+  max-height:min(180px,28vh)!important;overflow-y:auto!important;z-index:100!important;
+}
+#portadaInicialPadres #clavePadre{
+  position:absolute!important;left:72.4%!important;top:57.2%!important;
+  width:21.2%!important;height:6.3%!important;
+  margin:0!important;padding:0 16% 0 18%!important;
+  border:0!important;border-radius:14px!important;background:transparent!important;
+  box-shadow:none!important;box-sizing:border-box!important;
+}
+#portadaInicialPadres #loginView form>button[type="submit"]{
+  position:absolute!important;left:73.7%!important;top:66.7%!important;
+  width:19.7%!important;height:6.7%!important;
+}
+#portadaInicialPadres #loginView form .mb-3{margin:0!important;padding:0!important}
+#portadaInicialPadres #loginView form label{display:none!important}
+#portadaInicialPadres #btnActualizarFamilias{display:none!important}
+@media(max-aspect-ratio: 1/1){
+  #portadaInicialPadres .marco-portada-padres{
+    width:min(100vw,177.577dvh)!important;
+    max-width:100vw!important;
+  }
+}
+
 </style>
 
 </head>
