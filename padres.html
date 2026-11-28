@@ -1177,7 +1177,13 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
   visibility:visible!important;
 }
 </style>
-</head>
+<style id="lds-portal-unico">
+/* PORTAL UNICO: una sola portada familiar completa */
+#portalView{width:100%;min-height:100vh;position:relative}
+#portalView .header-padres{display:block!important}
+#portalView #ldsFamiliaHero{display:flex!important}
+#portalView #ldsPerfilFamilia img{object-fit:cover}
+</style>\n</head>
 <body>
 
   <!-- Portada oficial: al tocar INGRESAR se descubre el formulario familiar original -->
@@ -1391,6 +1397,7 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
     let tokenPadres = sessionStorage.getItem(CLAVE_SESION_PADRES) || '';
     let selectorPadres = sessionStorage.getItem(CLAVE_SELECTOR_PADRES) || '';
     let perfilPadres = JSON.parse(sessionStorage.getItem('caminoJesusPadresPerfil')||'null');
+    let nombrePadreSesion = sessionStorage.getItem('caminoJesusPadresNombre') || '';
     let fechaActualVista = new Date();
     let eventosSesiones = [], eventosCumple = [], eventosAvisos = [];
 
@@ -1614,7 +1621,7 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
     ];
     function normalizarNombreFamilia(v){return String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().replace(/[^A-Z0-9 ]/g,' ').replace(/\s+/g,' ').trim();}
     function actualizarPerfilFamilia(){
-      const perfil=perfilPadres||{}; const nombre=String(perfil.nombre||perfil.NOMBRE||perfil.NOMBRE_COMPLETO||perfil.NOMBRES||'').trim();
+      const perfil=perfilPadres||{}; const nombre=String(perfil.nombre||perfil.NOMBRE||perfil.NOMBRE_COMPLETO||perfil.NOMBRES||nombrePadreSesion||'').trim();
       const normal=normalizarNombreFamilia(nombre);
       const encontrado=FAMILIAS_PADRES.find(p=>p.alias.some(a=>{const na=normalizarNombreFamilia(a);return (' '+normal+' ').includes(' '+na+' '); }));
       const cont=document.getElementById('ldsPerfilFamilia'); const saludo=document.getElementById('ldsSaludoFamilia'); const texto=document.getElementById('ldsTextoFamilia');
@@ -1637,12 +1644,16 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
       error.classList.add('d-none');
       if (boton) { boton.disabled=true; boton.textContent='Verificando…'; }
       try {
-        const selector=document.getElementById('selectorPadre').value.trim();
+        const selectorEl=document.getElementById('selectorPadre');
+        const selector=selectorEl.value.trim();
+        const nombreSeleccionado=selectorEl.options[selectorEl.selectedIndex]?.textContent?.trim()||'';
         const clave=document.getElementById('clavePadre').value.trim();
         if(!selector) throw new Error('Seleccione su nombre de la lista.');
         const data=await solicitarJsonp({action:'validarLoginPadreSeleccion',selector:selector,clave:clave});
         if (!data.exito || !data.token) throw new Error(data.mensaje || 'No se pudo validar el acceso.');
         tokenPadres=data.token; perfilPadres=data.perfil || null; selectorPadres=selector;
+        nombrePadreSesion=String((perfilPadres&&(perfilPadres.nombre||perfilPadres.NOMBRE||perfilPadres.NOMBRE_COMPLETO||perfilPadres.NOMBRES))||nombreSeleccionado||'').trim();
+        sessionStorage.setItem('caminoJesusPadresNombre',nombrePadreSesion);
         sessionStorage.setItem('caminoJesusPadresPerfil',JSON.stringify(perfilPadres));
         sessionStorage.setItem(CLAVE_SESION_PADRES,tokenPadres);
         sessionStorage.setItem(CLAVE_SELECTOR_PADRES,selectorPadres);
@@ -1663,7 +1674,7 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
     }
 
     function cerrarSesionPadres() {
-      tokenPadres=''; perfilPadres=null; selectorPadres=''; sessionStorage.removeItem(CLAVE_SESION_PADRES); sessionStorage.removeItem(CLAVE_SELECTOR_PADRES); sessionStorage.removeItem('caminoJesusPadresPerfil');
+      tokenPadres=''; perfilPadres=null; selectorPadres=''; nombrePadreSesion=''; sessionStorage.removeItem(CLAVE_SESION_PADRES); sessionStorage.removeItem(CLAVE_SELECTOR_PADRES); sessionStorage.removeItem('caminoJesusPadresPerfil'); sessionStorage.removeItem('caminoJesusPadresNombre');
       eventosSesiones=[]; eventosCumple=[]; eventosAvisos=[];
       document.getElementById('portalView').classList.add('d-none');
       const portada=document.getElementById('portadaInicialPadres');
