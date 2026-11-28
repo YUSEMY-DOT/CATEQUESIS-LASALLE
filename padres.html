@@ -851,6 +851,43 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
 #portadaInicialPadres #loginView form>button[type="submit"]:focus-visible{outline:3px solid #fff!important;outline-offset:2px!important}
 #portadaInicialPadres #loginError:not(.d-none){display:block!important;position:absolute!important;left:72.4%!important;top:40.5%!important;width:21.2%!important;max-height:7.5%!important;overflow:auto!important;margin:0!important;padding:6px 9px!important;border-radius:10px!important;font-size:clamp(9px,.75vw,12px)!important;line-height:1.25!important;z-index:30!important;pointer-events:none!important}
 @media(max-width:600px){#portadaInicialPadres #selectorPadre{font-size:10px!important}#portadaInicialPadres #clavePadre{font-size:13px!important}}
+
+/* Corrección: lista familiar contenida y sin popup nativo del navegador */
+#portadaInicialPadres #selectorPadre{
+  position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;
+  pointer-events:none!important;left:-9999px!important;top:auto!important
+}
+#portadaInicialPadres #selectorPadreVisual{
+  position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+  z-index:40!important;pointer-events:auto!important;font-family:"Segoe UI",Arial,sans-serif!important
+}
+#portadaInicialPadres .lds-padre-select-trigger{
+  display:block!important;width:100%!important;height:100%!important;padding:0 9% 0 16%!important;
+  border:0!important;border-radius:14px!important;background:transparent!important;
+  color:#102b59!important;text-align:left!important;font:500 clamp(10px,1.05vw,16px)/1.2 "Segoe UI",Arial,sans-serif!important;
+  cursor:pointer!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important
+}
+#portadaInicialPadres .lds-padre-select-list{
+  position:absolute!important;left:0!important;right:0!important;top:calc(100% + 5px)!important;
+  max-height:min(180px,28vh)!important;overflow-y:auto!important;overscroll-behavior:contain!important;
+  background:#fff!important;border:1px solid #b9c8dc!important;border-radius:10px!important;
+  box-shadow:0 8px 22px rgba(0,25,70,.22)!important;z-index:100!important;padding:4px!important
+}
+#portadaInicialPadres .lds-padre-select-list[hidden]{display:none!important}
+#portadaInicialPadres .lds-padre-select-option{
+  display:block!important;width:100%!important;padding:9px 10px!important;border:0!important;
+  border-radius:6px!important;background:#fff!important;color:#102b59!important;
+  text-align:left!important;font:500 13px/1.25 "Segoe UI",Arial,sans-serif!important;cursor:pointer!important
+}
+#portadaInicialPadres .lds-padre-select-option:hover,
+#portadaInicialPadres .lds-padre-select-option[aria-selected="true"]{
+  background:#e7f0ff!important;color:#073b86!important
+}
+#portadaInicialPadres #clavePadre{autocomplete: new-password!important}
+@media(max-width:600px){
+  #portadaInicialPadres .lds-padre-select-option{font-size:12px!important;padding:8px!important}
+}
+
 </style>
 
 </head>
@@ -874,15 +911,19 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
         <small class="text-muted">Colegio La Salle del Sur & Parroquia San Pedro de Lurín</small>
       </div>
       <div id="loginError" class="alert alert-danger d-none small py-2" role="alert"></div>
-      <form onsubmit="realizarLogin(event)" autocomplete="off">
+      <form onsubmit="realizarLogin(event)" autocomplete="off" name="acceso-familiar">
         <div class="mb-3">
           <label class="form-label small fw-bold text-muted">Seleccione su nombre</label>
-          <select id="selectorPadre" class="form-select" required><option value="">Cargando lista de familias…</option></select>
+          <select id="selectorPadre" class="form-select" required aria-hidden="true" tabindex="-1"><option value="">Cargando lista de familias…</option></select>
+          <div id="selectorPadreVisual" class="lds-padre-select" aria-label="Seleccione su nombre">
+            <button type="button" id="selectorPadreBoton" class="lds-padre-select-trigger" aria-expanded="false">Cargando lista de familias…</button>
+            <div id="selectorPadreLista" class="lds-padre-select-list" hidden></div>
+          </div>
           <button type="button" id="btnActualizarFamilias" class="btn btn-outline-secondary btn-sm w-100 mt-2" onclick="cargarOpcionesLoginPadres(true)">↻ Actualizar lista</button>
         </div>
         <div class="mb-3">
           <label class="form-label small fw-bold text-muted">PIN Familiar</label>
-          <input type="password" id="clavePadre" class="form-control" placeholder="Ingrese el PIN de la columna PIN FAMILIAR" value="" inputmode="numeric" autocomplete="current-password" required>
+          <input type="password" id="clavePadre" class="form-control" placeholder="Ingrese el PIN de la columna PIN FAMILIAR" value="" inputmode="numeric" autocomplete="new-password" autocapitalize="off" spellcheck="false" required>
         </div>
         <button type="submit" class="btn btn-primary w-100 fw-bold py-2 rounded-pill shadow-sm">Ingresar al Portal</button>
       </form>
@@ -1119,6 +1160,55 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
       return await solicitarJsonp(params);
     }
 
+
+    function actualizarSelectorPadreVisual() {
+      const sel=document.getElementById('selectorPadre');
+      const trigger=document.getElementById('selectorPadreBoton');
+      const lista=document.getElementById('selectorPadreLista');
+      if(!sel || !trigger || !lista) return;
+      const actual=sel.options[sel.selectedIndex];
+      trigger.textContent=actual ? actual.textContent : 'Seleccione su nombre…';
+      lista.innerHTML='';
+      Array.from(sel.options).forEach((opcion, indice)=>{
+        const item=document.createElement('button');
+        item.type='button';
+        item.className='lds-padre-select-option';
+        item.textContent=opcion.textContent;
+        item.disabled=opcion.disabled || !opcion.value;
+        item.setAttribute('aria-selected', String(sel.selectedIndex===indice));
+        item.addEventListener('click', ()=>{
+          sel.selectedIndex=indice;
+          sel.dispatchEvent(new Event('change',{bubbles:true}));
+          selectorPadres=sel.value||'';
+          actualizarSelectorPadreVisual();
+          lista.hidden=true;
+          trigger.setAttribute('aria-expanded','false');
+        });
+        lista.appendChild(item);
+      });
+    }
+    document.addEventListener('click',(ev)=>{
+      const visual=document.getElementById('selectorPadreVisual');
+      const lista=document.getElementById('selectorPadreLista');
+      const trigger=document.getElementById('selectorPadreBoton');
+      if(!visual || !lista || !trigger || visual.contains(ev.target)) return;
+      lista.hidden=true;
+      trigger.setAttribute('aria-expanded','false');
+    });
+    document.addEventListener('DOMContentLoaded',()=>{
+      const trigger=document.getElementById('selectorPadreBoton');
+      const lista=document.getElementById('selectorPadreLista');
+      if(trigger && lista){
+        trigger.addEventListener('click',()=>{
+          const abrir=lista.hidden;
+          lista.hidden=!abrir;
+          trigger.setAttribute('aria-expanded',String(abrir));
+          if(abrir) actualizarSelectorPadreVisual();
+        });
+      }
+      actualizarSelectorPadreVisual();
+    });
+
     async function cargarOpcionesLoginPadres(forzarAviso=false) {
       const sel=document.getElementById('selectorPadre');
       const btn=document.getElementById('btnActualizarFamilias');
@@ -1134,9 +1224,11 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
         sel.innerHTML='<option value="">Seleccione su nombre…</option>'+lista.map(x=>'<option value="'+escapeHtml(x.selector)+'">'+escapeHtml(x.nombre)+'</option>').join('');
         if(elegido && lista.some(x=>x.selector===elegido)) sel.value=elegido;
         selectorPadres=sel.value||'';
+        actualizarSelectorPadreVisual();
         if(forzarAviso && !lista.length) mostrarErrorLogin('No hay familias disponibles.');
       } catch(e) {
         sel.innerHTML='<option value="">No se pudo cargar la lista. Actualice. </option>';
+        actualizarSelectorPadreVisual();
         if(forzarAviso) mostrarErrorLogin(e.message||'No se pudo actualizar la lista.');
       } finally {sel.disabled=false;if(btn)btn.disabled=false;}
     }
