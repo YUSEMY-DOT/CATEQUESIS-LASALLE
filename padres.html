@@ -1161,6 +1161,22 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
 
 </style>
 
+<style id="lds-fix-portal-visible">
+/* FIX DE PANTALLA EN BLANCO: el contenedor del portal no puede quedar oculto */
+#portalView,
+#portalView.d-none{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  min-height:100vh!important;
+  width:100%!important;
+}
+#portalView>header,
+#portalView>main{
+  display:block!important;
+  visibility:visible!important;
+}
+</style>
 </head>
 <body>
 
@@ -1383,8 +1399,9 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
       if (!('speechSynthesis' in window)) { const b=document.getElementById('audioToggle'); b.disabled=true; b.title='Audio no disponible en este navegador'; }
       if (tokenPadres) {
         const portada=document.getElementById('portadaInicialPadres');
+        const portal=document.getElementById('portalView');
+        if(portal){portal.classList.remove('d-none');portal.style.setProperty('display','block','important');portal.style.setProperty('visibility','visible','important');}
         if(portada) portada.style.setProperty('display','none','important');
-        document.getElementById('portalView').classList.remove('d-none');
         actualizarPerfilFamilia();
         await cargarDatosCompletosCalendario();
         await cargarBloquesFamilia();
@@ -1628,8 +1645,9 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
         sessionStorage.setItem(CLAVE_SESION_PADRES,tokenPadres);
         sessionStorage.setItem(CLAVE_SELECTOR_PADRES,selectorPadres);
         const portada=document.getElementById('portadaInicialPadres');
+        const portal=document.getElementById('portalView');
+        if(portal){portal.classList.remove('d-none');portal.style.setProperty('display','block','important');portal.style.setProperty('visibility','visible','important');}
         if(portada) portada.style.setProperty('display','none','important');
-        document.getElementById('portalView').classList.remove('d-none');
         document.getElementById('clavePadre').value='';
         await cargarDatosCompletosCalendario();
         await cargarBloquesFamilia();
