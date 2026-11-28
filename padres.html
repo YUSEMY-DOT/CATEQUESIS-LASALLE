@@ -1105,6 +1105,60 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
   pointer-events:auto!important;
 }
 
+
+/* LIMPIEZA VISUAL Y ESCRITURA DEL PIN */
+#portadaInicialPadres #loginView form>.mb-3:nth-of-type(1){
+  z-index:2!important;
+}
+#portadaInicialPadres #loginView form>.mb-3:nth-of-type(2){
+  z-index:3!important;
+}
+#portadaInicialPadres #selectorPadreVisual,
+#portadaInicialPadres .lds-padre-select-trigger,
+#portadaInicialPadres #clavePadre,
+#portadaInicialPadres #loginView form>.mb-3{
+  outline:0!important;
+  box-shadow:none!important;
+}
+#portadaInicialPadres .lds-padre-select-trigger:focus,
+#portadaInicialPadres .lds-padre-select-trigger:focus-visible,
+#portadaInicialPadres #clavePadre:focus,
+#portadaInicialPadres #clavePadre:focus-visible{
+  outline:0!important;
+  box-shadow:none!important;
+  border:0!important;
+}
+#portadaInicialPadres #clavePadre{
+  -webkit-text-security:none!important;
+  text-security:none!important;
+  color:#102b59!important;
+  -webkit-text-fill-color:#102b59!important;
+  caret-color:#102b59!important;
+  letter-spacing:2px!important;
+  font-size:16px!important;
+  font-weight:600!important;
+  background:transparent!important;
+  border:0!important;
+  opacity:1!important;
+  visibility:visible!important;
+  pointer-events:auto!important;
+  user-select:text!important;
+  -webkit-user-select:text!important;
+}
+#portadaInicialPadres #clavePadre::placeholder{
+  color:transparent!important;
+  -webkit-text-fill-color:transparent!important;
+}
+#portadaInicialPadres #selectorPadreVisual{
+  z-index:1!important;
+  border:0!important;
+  background:transparent!important;
+}
+#portadaInicialPadres .lds-padre-select-trigger{
+  border:0!important;
+  background:transparent!important;
+}
+
 </style>
 
 </head>
