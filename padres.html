@@ -1394,7 +1394,7 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
     let fechaActualVista = new Date();
     let eventosSesiones = [], eventosCumple = [], eventosAvisos = [];
 
-    window.addEventListener('load', async function() {
+    document.addEventListener('DOMContentLoaded', async function() {
       actualizarBotonAudio();
       if (!('speechSynthesis' in window)) { const b=document.getElementById('audioToggle'); b.disabled=true; b.title='Audio no disponible en este navegador'; }
       if (tokenPadres) {
@@ -1403,9 +1403,11 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
         if(portal){portal.classList.remove('d-none');portal.style.setProperty('display','block','important');portal.style.setProperty('visibility','visible','important');}
         if(portada) portada.style.setProperty('display','none','important');
         actualizarPerfilFamilia();
-        await cargarDatosCompletosCalendario();
-        await cargarBloquesFamilia();
-        await cargarResumenTareasFamilia();
+        await Promise.allSettled([
+          cargarDatosCompletosCalendario(),
+          cargarBloquesFamilia(),
+          cargarResumenTareasFamilia()
+        ]);
       } else {
         document.getElementById('portalView').classList.add('d-none');
         const portada=document.getElementById('portadaInicialPadres');
@@ -1566,7 +1568,7 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
       if(!cont) return;
       cont.innerHTML='<div class="weekly-loading">✨ Consultando el avance de tus catequizandos…</div>';
       try {
-        const [data,seguimiento,diagnostico]=await Promise.all([apiGet('getTareas'),apiGet('getAsistenciaNotas').catch(()=>null),apiGet('getDiagnosticoPadres').catch(()=>null)]);
+        const [data,seguimiento,diagnostico]=await Promise.all([apiGet('getTareas'),apiGet('getAsistenciaNotas').catch(()=>null),obtenerDiagnosticoPadresCompartido().catch(()=>null)]);
         if(!data||!data.exito) throw new Error(data.mensaje||'Consulta no disponible');
         const rows=Array.isArray(data.datos)?data.datos:[];
         const alumnos={};
@@ -1649,9 +1651,11 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
         if(portal){portal.classList.remove('d-none');portal.style.setProperty('display','block','important');portal.style.setProperty('visibility','visible','important');}
         if(portada) portada.style.setProperty('display','none','important');
         document.getElementById('clavePadre').value='';
-        await cargarDatosCompletosCalendario();
-        await cargarBloquesFamilia();
-        await cargarResumenTareasFamilia();
+        await Promise.allSettled([
+          cargarDatosCompletosCalendario(),
+          cargarBloquesFamilia(),
+          cargarResumenTareasFamilia()
+        ]);
       } catch(e) {
         error.textContent=e.message || 'Código familiar o PIN incorrecto.';
         error.classList.remove('d-none');
@@ -1722,11 +1726,22 @@ body{background:linear-gradient(180deg,#f1f7ff 0,#ffffff 55%,#f5f7ff 100%)!impor
       if(el) el.innerHTML=`<div class="alert alert-danger mb-0">${escapeHtml(message)}</div>`;
     }
 
+    let diagnosticoPadresEnCurso = null;
+    function obtenerDiagnosticoPadresCompartido() {
+      if (!diagnosticoPadresEnCurso) {
+        diagnosticoPadresEnCurso = apiGet('getDiagnosticoPadres').catch(error => {
+          diagnosticoPadresEnCurso = null;
+          throw error;
+        });
+      }
+      return diagnosticoPadresEnCurso;
+    }
+
     async function cargarDatosCompletosCalendario() {
       const diag=document.getElementById('diagnosticoPortal');
       diag.innerHTML='<div class="d-flex align-items-center gap-2"><span class="spinner-border spinner-border-sm text-primary"></span><strong>Actualizando la información del programa…</strong></div>';
       try {
-        const [cal,avisos,cumples,diagnostico] = await Promise.all([apiGet('getCalendarioPadres'),apiGet('getAvisos'),apiGet('getCumpleanosPadres'),apiGet('getDiagnosticoPadres').catch(error=>({exito:false,mensaje:error.message}))]);
+        const [cal,avisos,cumples,diagnostico] = await Promise.all([apiGet('getCalendarioPadres'),apiGet('getAvisos'),apiGet('getCumpleanosPadres'),obtenerDiagnosticoPadresCompartido().catch(error=>({exito:false,mensaje:error.message}))]);
         if (!cal.exito) throw new Error(cal.mensaje || 'No se pudo leer CLASES.');
         if (!avisos.exito) throw new Error(avisos.mensaje || 'No se pudo leer AVISOS.');
         if (!cumples.exito) throw new Error(cumples.mensaje || 'No se pudieron leer los cumpleaños.');
